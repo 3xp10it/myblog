@@ -1,0 +1,34 @@
+# Site settings
+title: "quanyechavshuo"
+email: root@exp10it.cc
+description: "A blog about programming and network security"
+baseurl: ""
+url: https://3xp10it.cc
+enforce_ssl: 3xp10it.cc
+title_description: "A guy want to be a strong man <br><a href='mailto:root@3xp10it.cc'><font color='green'>contact<font></a> <font color='#ffffff'> or <font><a href='mailto:root@3xp10it.cc'> <font color='#ff0000'>contribute<font></a>"
+title_image: "https://raw.githubusercontent.com/3xp10it/pic/master/1.png"
+#google_analytics: "UA-20365477-4"
+#
+#disqus_account: quanyechavshuo
+duoshuo_account: 3xp10it
+github_repository: https://github.com/3xp10it/3xp10it.github.io
+#addthis_id: ra-513c6fa83da6ec67
+post_limit: 99999
+
+# Social usernames/URLs
+twitter_username: quanyechavshuo
+github_username:  3xp10it
+
+# Footer
+# Build settings
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+permalink: pretty
+exclude: [vendor]
+
+gems: [jekyll-paginate]
+

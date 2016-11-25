@@ -1,0 +1,27 @@
+---
+layout: default
+make-smaller-titles: true
+---
+
+
+<div class="container-fluid index">
+  <div class="row index all-posts">
+
+    <h1 class="header author-header">{{ site.author_name }}</h1>
+    <h2 class="header" itemprop="headline">All posts</h2>
+    <br>
+    <br>
+    <br>
+
+	<ul id="linklist">
+    {% for cat in site.categories %}
+    {{ cat[0] }} ---------->{{ cat[1].size }}<br>
+    {% for post in cat[1] %}
+	<a href="{{ post.url | prepend: site.baseurl }}" style="background-color: rgb(25, 25, 25);">{{post.date | date:"%Y-%m-%d" }} {{ post.title }}</a><br>
+    {% endfor %} {% endfor %} 
+	</ul>
+	<!-- <script src="{{ site.baseurl }}/js/navi.js" type="text/javascript"></script> -->
+  </div>
+
+</div>
+

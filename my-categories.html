@@ -1,0 +1,76 @@
+---
+layout: default
+make-smaller-titles: true
+---
+
+
+<!--下面用于展开收缩-->
+<script type="text/javascript" src="{{ site.baseurl }}/js/jquery-2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/base.css" />
+
+<link href="{{ site.baseurl }}/css/cat-style.css" rel="stylesheet" type="text/css" media="all">
+
+<div class="container-fluid index">
+  <div class="row index all-posts">
+
+    <h1 class="header author-header">{{ site.author_name }}</h1>
+    <h2 class="header" itemprop="headline">categories</h2>
+    <br>
+    <br>
+    <br>
+
+	<div class="accordion">					
+			{% for cat in site.categories %}
+			<div class="accordion-section">
+					<a class="accordion-section-title" href="#accordion-{{ forloop.index }}">{{ cat[0] }}
+							<font color=#000><small>{{ cat[1].size }}</small></font><br><div class="clearfix"></div></a>
+					<div id="accordion-{{ forloop.index }}" class="accordion-section-content" style="display: none;">
+						<ul id="linklist">
+							{% for post in cat[1] %}
+							<li><a href="{{ post.url | prepend:site.baseurl }}" ><font color=#C08040><small>{{
+															post.date | date:"%Y-%m-%d" }}</small></font> 
+											<font color=#C04040>{{ post.title }}</font></a></li>
+							{% endfor %} 
+						</ul>
+					</div>
+			</div>
+			{% endfor %} 
+	</div>
+
+
+				<!--下面用于展开收缩-->
+				<script>
+							jQuery(document).ready(function() {
+								function close_accordion_section() {
+									jQuery('.accordion .accordion-section-title').removeClass('active');
+									jQuery('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+								}
+
+								jQuery('.accordion-section-title').click(function(e) {
+									// Grab current anchor value
+									var currentAttrValue = jQuery(this).attr('href');
+
+									if(jQuery(e.target).is('.active')) {
+										close_accordion_section();
+									}else {
+										close_accordion_section();
+
+										// Add active class to section title
+										jQuery(this).addClass('active');
+										// Open up the hidden content panel
+										jQuery('.accordion ' + currentAttrValue).slideDown(300).addClass('open'); 
+									}
+
+									e.preventDefault();
+								});
+							});
+				</script>
+
+
+
+
+  </div>
+
+</div>
+

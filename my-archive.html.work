@@ -1,0 +1,149 @@
+---
+layout: default
+make-smaller-titles: true
+---
+
+
+<!--下面用于展开收缩-->
+<script type="text/javascript" src="{{ site.baseurl }}/js/jquery-2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/base.css" />
+
+<link href="{{ site.baseurl }}/css/cat-style.css" rel="stylesheet" type="text/css" media="all">
+
+<div class="container-fluid index">
+		<div class="row index all-posts">
+
+				<h1 class="header author-header">{{ site.author_name }}</h1>
+				<h2 class="header" itemprop="headline">archive</h2>
+				<br>
+				<br>
+				<br>
+
+				<div class="accordion">
+
+
+						{% assign year_index = 0 %}
+
+						{% for post in site.posts %} {% capture y %}{{post.date | date:"%Y"}}{% endcapture %}
+						{% if year != y %}
+						{% if year_index != 0 %}
+
+						<script type="text/javascript">
+document.getElementById("my_month_article_num_Span{{ month_index }}").innerHTML = "{{ month_article_num }}";
+						</script>
+
+
+						<script type="text/javascript">
+document.getElementById("my_year_article_num_Span{{ year_index }}").innerHTML = "{{ year_article_num }}";
+						</script>
+
+
+
+						</ul>
+				</div>
+		</div>
+
+		{% assign month = 0 %}
+
+		{% endif %}
+		{% assign year = y %}
+		<div class="accordion-section">
+				{% assign year_index = year_index | plus:1 %}
+
+
+				<a class="accordion-section-title" href="#accordion-{{ year_index }}">{{ y }} <span
+									   id="my_year_article_num_Span{{ year_index }}">{{ year_article_num }}</span>
+						<div class="clearfix"></div></a>
+				<div id="accordion-{{ year_index }}" class="accordion-section-content" style="display: none;">
+						<ul id="linklist">
+
+								{% assign year_article_num = 0 %}
+
+								{% endif %}
+
+
+								{% capture m %}{{ post.date | date:"%m" }}{% endcapture %}
+								{% if month != m %}
+
+								{% assign month_index = month_index | plus:1 %}
+								{% assign month = m %}
+
+								{% if month_index > 1 %}
+								<script type="text/javascript">
+document.getElementById("my_month_article_num_Span{{ month_index | minus:1 }}").innerHTML = "{{ month_article_num }}";
+								</script>
+								{% endif %}
+
+								{% assign month_article_num = 0 %}
+
+								<li>{{ month }} <span id="my_month_article_num_Span{{ month_index }}">{{
+												month_article_num }}</span></li>
+								{% endif %}
+
+
+								<li><a href="{{ post.url | prepend:site.baseurl }}" ><font color=#C08040><small>{{
+																post.date | date:"%Y-%m-%d" }}</small></font>
+												<font color=#C04040>{{ post.title }}</font></a></li>
+								{% assign month_article_num = month_article_num | plus:1 %}
+								{% assign year_article_num = year_article_num | plus:1 %}
+
+
+								{% endfor %}
+						</ul>
+				</div>
+		</div>
+
+
+
+
+		<script type="text/javascript">
+document.getElementById("my_month_article_num_Span{{ month_index }}").innerHTML = "{{ month_article_num }}";
+		</script>
+
+
+
+		<script type="text/javascript">
+document.getElementById("my_year_article_num_Span{{ year_index }}").innerHTML = "{{ year_article_num }}";
+		</script>
+
+
+
+</div>
+
+
+<!--下面用于展开收缩-->
+<script>
+jQuery(document).ready(function() {
+		function close_accordion_section() {
+				jQuery('.accordion .accordion-section-title').removeClass('active');
+				jQuery('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+		}
+
+		jQuery('.accordion-section-title').click(function(e) {
+				// Grab current anchor value
+				var currentAttrValue = jQuery(this).attr('href');
+
+				if(jQuery(e.target).is('.active')) {
+						close_accordion_section();
+				}else {
+						close_accordion_section();
+
+						// Add active class to section title
+						jQuery(this).addClass('active');
+						// Open up the hidden content panel
+						jQuery('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+				}
+
+				e.preventDefault();
+		});
+});
+</script>
+
+
+
+
+</div>
+
+</div>
+
