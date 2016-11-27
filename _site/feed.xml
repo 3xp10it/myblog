@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>https://3xp10it.cc/</link>
     <atom:link href="https://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 26 Nov 2016 21:50:38 +0800</pubDate>
-    <lastBuildDate>Sat, 26 Nov 2016 21:50:38 +0800</lastBuildDate>
+    <pubDate>Sun, 27 Nov 2016 18:07:47 +0800</pubDate>
+    <lastBuildDate>Sun, 27 Nov 2016 18:07:47 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -3228,6 +3228,9 @@ MyThread类中的函数时,只有一个参数时要用&lt;span class=&quot;err&q
 &lt;span class=&quot;p&quot;&gt;
 265.&lt;/span&gt;pip install xxxx -U 提示是最新版本而无法升级时:
 	pip install xxx -U --no-cache-dir即可解决
+&lt;span class=&quot;p&quot;&gt;
+266.&lt;/span&gt;gitignore文件
+	https://github.com/github/gitignore
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
