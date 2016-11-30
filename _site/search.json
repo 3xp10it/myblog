@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "xss好用姿势",
+    "category" : "",
+    "tags"     : "xss, web",
+    "url"      : "/web/2016/11/29/xss%E5%A5%BD%E7%94%A8%E5%A7%BF%E5%8A%BF/",
+    "date"     : "2016-11-29 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "一句话webshell客户端脱库",
     "category" : "",
     "tags"     : "webshell, dump, sql",

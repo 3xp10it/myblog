@@ -533,15 +533,15 @@ try:
 except:
     from distutils.core import setup
 """
-打包的用的setup必须引入，
+打包的用的setup必须引入,
 """
  
 def read(fname):
     """
-    定义一个read方法，用来读取目录下的长描述
-    我们一般是将README文件中的内容读取出来作为长描述，这个会在PyPI中你这个包的页面上展现出来，
-    你也可以不用这个方法，自己手动写内容即可，
-    PyPI上支持.rst格式的文件。暂不支持.md格式的文件，&lt;BR&gt;.rst文件PyPI会自动把它转为HTML形式显示在你包的信息页面上。
+    定义一个read方法,用来读取目录下的长描述
+    我们一般是将README文件中的内容读取出来作为长描述,这个会在PyPI中你这个包的页面上展现出来,
+    你也可以不用这个方法,自己手动写内容即可,
+    PyPI上支持.rst格式的文件.暂不支持.md格式的文件,&lt;BR&gt;.rst文件PyPI会自动把它转为HTML形式显示在你包的信息页面上.
     """
     return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
  
@@ -605,7 +605,9 @@ python setup.py sdist upload
 
 2&gt;本地下载安装已上传到pypi中的最新模块:
 	pip3 install exp10it -U
-	pip install 无法安装最新python包的时候试试把当前terminal关掉然后新开terminal再pip install
+	pip install 无法安装最新python包的时候:pip3 install exp10it -U --no-cache-dir
+3&gt;换了一台机器重新上传模块到pypi时会由于没有用户名密码而错误,解决方法:
+	https://my.oschina.net/letiantian/blog/788056
 </code></pre>
 </div>
 </span>

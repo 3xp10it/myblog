@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          4 minute read
+          5 minute read
         </small>
       </div>
 
@@ -177,6 +177,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'flazz/vim-colorschemes'
 "下面这个插件用来快速切换配色&lt;f8&gt;
 Plugin 'felixhummel/setcolors.vim'
+"下面这个插件用来强制改变jjjjjjjjjjkkkkkkkkkkkllllllll的坏习惯
+Plugin 'takac/vim-hardtime'
+"下面这个插件利用vim8的时钟特性自动保存文件,默认第5分钟保存
+Plugin 'chrisbra/vim-autosave'
+"下面这个插件用来安装一个css配色方案插件,后来觉得没有什么作用,不如直接用evening配色方案
+"Plugin 'ap/vim-css-color'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
 
@@ -193,7 +199,8 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-
+"下面这个插件用来markdown实时预览
+Plugin 'iamcco/markdown-preview.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -225,13 +232,14 @@ set autoindent"自动缩进
 set tabstop=4"tab键占4个字符
 
 "快速切换到正常模式
-imap fj &lt;esc&gt;
-imap jf &lt;esc&gt;
-cmap fj &lt;esc&gt;
-cmap jf &lt;esc&gt;
-vmap fj &lt;esc&gt;
-vmap jf &lt;esc&gt;
-
+"下面暂时将fj的esc方式禁用,用caps键当esc和ctrl用
+"imap fj &lt;esc&gt;
+"imap jf &lt;esc&gt;
+"cmap fj &lt;esc&gt;
+"cmap jf &lt;esc&gt;
+"vmap fj &lt;esc&gt;
+"vmap jf &lt;esc&gt;
+"
 "方便操作
 map ; :
 map &lt;s-;&gt; ;
@@ -265,11 +273,6 @@ set textwidth=111
 "textwidth用于中文换行
 set formatoptions+=mM
 
-"每行超过111字符长度后用不同颜色显示
-augroup vimrc_autocmds
-  autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-  autocmd BufEnter * match OverLength /\%112v.*/
-augroup END
 
 "设置,w为保存
 nmap &lt;leader&gt;w :w&lt;CR&gt;
@@ -371,6 +374,7 @@ noremap &lt;silent&gt;&lt;expr&gt; &lt;Space&gt;/ incsearch#go(&lt;SID&gt;config
 """"""""""""""""""start of easymotion""""""""""""""""""
 "下面这句暂时不确定用意
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
+ 
 "三键到任意地方
 nmap s &lt;Plug&gt;(easymotion-overwin-f)
 "四键到任意地方
@@ -411,9 +415,11 @@ noremap &lt;silent&gt;&lt;expr&gt; g/ incsearch#go(&lt;SID&gt;incsearch_config({
 "代码对齐插件相关设置
 noremap &lt;F3&gt; :Autoformat&lt;CR&gt;
 
+
 """""""""start of YCM""""""""""
 "YouCompleteMe相关设置
 set runtimepath+=~/.vim/bundle/YouCompleteMe
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif	"离开插入模式后自动关闭预览窗口"
 let g:ycm_collect_identifiers_from_tags_files = 1           " 开启 YCM 基于标签引擎
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释与字符串中的内容也用于补全
 let g:syntastic_ignore_files=[".*\.py$"]
@@ -431,14 +437,49 @@ inoremap &lt;expr&gt; &lt;CR&gt; pumvisible() ? "\&lt;C-y&gt;" : "\&lt;CR&gt;" |
 nnoremap &lt;c-j&gt; :YcmCompleter GoToDefinitionElseDeclaration&lt;CR&gt;|     " 跳转到定义处
 "let g:ycm_min_num_of_chars_for_completion=2                 " 从第2个键入字符就开始罗列匹配项
 """""""""end of YCM""""""""""
-
 "vim-colorschemes插件配色
-colorscheme molokai 
+colorscheme evening 
 "setcolors插件设置自动换配色,vim-colorschemes插件相当于配色库,setcolor插件用于变换其他配色,如果不安装
 "vim-colorschemes插件只安装setcolor插件则没有好的效果
-autocmd CursorHold * call NextColor(1)
+"考虑到对眼睛不好,暂时关闭下面的自动换色
+"autocmd CursorHold * call NextColor(1)
 "在setcolors.vim中将最开始的设置改成如下值
 "let s:mycolors = ['Benokai','molokai','evening', 'feral', 'flatlandia', 'flattown', 'murphy', 'flatui', 'freya', 'fu','genericdc','1989','256-grayvim','256-jungle','CandyPaper','Chasing_Logic','ChocolateLiquor','ChocolatePapaya','openbsd','BlackSea','black_angus','0x7A69-dark']  " colorscheme names that we use to set color
+
+"下面开启打开文件时自动跳转到上次编辑的地方,vim在/etc/vim/vimrc文件中默认设置关闭
+if has("autocmd")
+  au BufReadPost * if line("'\"") &gt; 1 &amp;&amp; line("'\"") &lt;= line("$") | exe "normal! g'\"" | endif
+endif
+
+"vim-hardtime插件的设置
+let g:hardtime_default_on = 1
+let g:hardtime_maxcount = 3
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_insert_keys = []
+
+"下面是插入模式的3个字符内移动的快捷键,结合vim-hardtime在vim-hardtime中设置去除Left,Down,Up,Right的禁用
+"超过当前光标所在位置的移动用f+j+s+字符+hint,或者f+j+w|b的方法移动(f+j为esc的map)
+inoremap &lt;A-h&gt; &lt;Left&gt;
+inoremap &lt;A-j&gt; &lt;Down&gt;
+inoremap &lt;A-k&gt; &lt;Up&gt;
+inoremap &lt;A-l&gt; &lt;Right&gt;
+
+"每行超过111字符长度后用不同颜色显示
+augroup vimrc_autocmds
+  autocmd CursorHold * highlight OverLength ctermbg=darkgrey guibg=#592929
+  autocmd CursorHold * match OverLength /\%112v.*/
+augroup END
+
+"vim-autosave插件的设置
+:let g:autosave_timer= 1
+
+"下面是markdown预览插件的相关设置
+"如果f5失效则先按f6再按f5
+nmap &lt;silent&gt; &lt;F5&gt; &lt;Plug&gt;MarkdownPreview        " 普通模式
+imap &lt;silent&gt; &lt;F5&gt; &lt;Plug&gt;MarkdownPreview        " 插入模式
+nmap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 普通模式
+imap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 插入模式
 
 </code></pre>
 </div>

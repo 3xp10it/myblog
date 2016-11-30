@@ -185,6 +185,7 @@
 	&lt;c-u&gt;删除光标前所有
 	&lt;c-f&gt;打开命令行窗口
 
+
 7&gt;多行操作
 	多行移动
 	a)ma+target_line_num+G+3(缩进数)+&lt;+'+a
@@ -206,9 +207,11 @@
 	http://askubuntu.com/questions/177824/remapping-caps-lock-to-control-and-escape-not-the-usual-way
 	detail:
 	first way:
+		[!要先安装xcape]
 		vim ~/.zshrc and + below command
 		setxkbmap -option 'caps:ctrl_modifier' &amp;&amp; xcape -e 'Caps_Lock=Escape' &amp;
 	another way:
+		[!要先安装xcape]
 		1)caps lock as control from gnome-tweak-tool
 		2)xcape -e 'Control_L=Escape'
 </code></pre>

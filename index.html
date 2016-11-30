@@ -1,11 +1,61 @@
-<html>
-<script type="text/javascript">
-	var host = "3xp10it.cc";
-	if ((host == window.location.host) && (window.location.protocol != "https:"))
-		window.location.protocol = "https";
-</script>
-   <frameset rows="100%,*">
-	<frame src="index2.html"></frame>
-	<frame src="bgmusic.html"></frame>
-   </frameset>
-</html>
+---
+layout: default
+make-smaller-titles: true
+---
+
+<div class="container-fluid index">
+    
+    <div class="row">
+
+        <div class="col-md-12 main content-panel">
+
+            <div class="gravatar">
+			<pre><strong>
+
+ _   _  ___  _           _____ 
+| |_(_)/ _ \/ |_ ____  _|___ / 
+| __| | | | | | '_ \ \/ / |_ \ 
+| |_| | |_| | | |_) >  < ___) |
+ \__|_|\___/|_| .__/_/\_\____/ 
+              |_|              
+
+			</strong></pre>
+<!--                <img src="{{ site.title_image }}" class="img-circle about-image" height="150" width="150"
+																								  alt="{{
+																								  site.title
+}}" /> -->
+            </div>
+
+            <h1 class="header author-header" itemprop="headline">{{ site.title }}</h1>
+
+            <div class="author-text">
+                {{ site.title_description }}
+            </div>
+
+            {% include social_links.html %}
+          </div>
+          <div class="col-md-12 main content-panel">
+
+            <div class="articles">
+
+              <h2>Latest Articles</h2>
+
+              <ul>
+                  {% for post in site.posts | limit: site.post_limit %}
+
+                      <li>
+                          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title}}</a>
+                          <small class="hidden-xs">{{ post.date | date: "%B %-d, %Y" }}</small>
+                      </li>
+
+                  {% endfor %}
+              </ul>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
