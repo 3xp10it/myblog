@@ -9,6 +9,14 @@
     } ,
     
   {
+    "title"    : "assert免杀一句话",
+    "category" : "",
+    "tags"     : "webshell, assert, eval",
+    "url"      : "/web/2016/11/25/assert%E5%85%8D%E6%9D%80%E4%B8%80%E5%8F%A5%E8%AF%9D/",
+    "date"     : "2016-11-25 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "一句话webshell客户端脱库",
     "category" : "",
     "tags"     : "webshell, dump, sql",

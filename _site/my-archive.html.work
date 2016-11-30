@@ -169,6 +169,20 @@
 								
 
 
+								<li><a href="/web/2016/11/25/assert%E5%85%8D%E6%9D%80%E4%B8%80%E5%8F%A5%E8%AF%9D/" ><font color=#C08040><small>2016-11-25</small></font>
+												<font color=#C04040>assert免杀一句话</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/web/2016/11/25/%E4%B8%80%E5%8F%A5%E8%AF%9Dwebshell%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%B1%E5%BA%93/" ><font color=#C08040><small>2016-11-25</small></font>
 												<font color=#C04040>一句话webshell客户端脱库</font></a></li>
 								
@@ -285,7 +299,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "9";
+document.getElementById("my_month_article_num_Span1").innerHTML = "10";
 								</script>
 								
 
@@ -1039,7 +1053,7 @@ document.getElementById("my_month_article_num_Span9").innerHTML = "2";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "55";
+document.getElementById("my_year_article_num_Span1").innerHTML = "56";
 						</script>
 
 
@@ -1057,7 +1071,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "55";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2015 <span
-									   id="my_year_article_num_Span2">55</span>
+									   id="my_year_article_num_Span2">56</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
