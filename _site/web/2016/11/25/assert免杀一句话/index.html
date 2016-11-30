@@ -136,8 +136,8 @@ http://www.php.net/manual/zh/function.eval.php
 http://php.net/manual/zh/functions.variable-functions.php
 
 1)assert是函数,eval不是函数,是语言构造器
-2)eval($a)中$a只能是字符串,assert($a)中$a可以是php代码,也可以是php代码的字符串,assert($a)的$a如果是字符串形式不能有2个以上的
-分号,如果有2个以上的分号只执行到第一个,使用assert来执行多条php语句可借助eval来实现.
+2)eval($a)中$a只能是字符串,assert($a)中$a可以是php代码,也可以是php代码的字符串,assert($a)的$a如果是字符串形式不
+能有2个以上的分号,如果有2个以上的分号只执行到第一个,使用assert来执行多条php语句可借助eval来实现.
 
 eg.assert(eval("echo 1;echo 2;"));
 [注意上面这句如果是assert(eval("echo 1;echo 2"));这样写是不会执行echo 1也不会执行echo 2的,因为eval使用的字符串
@@ -296,7 +296,7 @@ c)利用方式不是很方便
 </code></pre>
 </div>
 
-<p>首发于360播报,版权归360播报所有</p>
+<p>Attention:首发于360播报,版权归360播报所有</p>
 </span>
 
         

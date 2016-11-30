@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Nov 2016 22:04:22 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Nov 2016 22:04:22 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Nov 2016 22:22:27 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Nov 2016 22:22:27 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -43,8 +43,8 @@ http://www.php.net/manual/zh/function.eval.php
 http://php.net/manual/zh/functions.variable-functions.php
 
 1)assert是函数,eval不是函数,是语言构造器
-2)eval($a)中$a只能是字符串,assert($a)中$a可以是php代码,也可以是php代码的字符串,assert($a)的$a如果是字符串形式不能有2个以上的
-分号,如果有2个以上的分号只执行到第一个,使用assert来执行多条php语句可借助eval来实现.
+2)eval($a)中$a只能是字符串,assert($a)中$a可以是php代码,也可以是php代码的字符串,assert($a)的$a如果是字符串形式不
+能有2个以上的分号,如果有2个以上的分号只执行到第一个,使用assert来执行多条php语句可借助eval来实现.
 
 eg.assert(eval(&quot;echo 1;echo 2;&quot;));
 [注意上面这句如果是assert(eval(&quot;echo 1;echo 2&quot;));这样写是不会执行echo 1也不会执行echo 2的,因为eval使用的字符串
@@ -203,7 +203,7 @@ c)利用方式不是很方便
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;首发于360播报,版权归360播报所有&lt;/p&gt;
+&lt;p&gt;Attention:首发于360播报,版权归360播报所有&lt;/p&gt;
 </description>
         <pubDate>Fri, 25 Nov 2016 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/web/2016/11/25/assert%E5%85%8D%E6%9D%80%E4%B8%80%E5%8F%A5%E8%AF%9D/</link>
