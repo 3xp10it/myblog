@@ -133,19 +133,19 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="x01-base">0x01 Base</h3>
+        <span itemprop="articleBody"><h3 id="0x01-base">0x01 Base</h3>
 
-<h4 id="website-has-phpmyadmin">1&gt;website has phpmyadmin</h4>
+<h4 id="1website-has-phpmyadmin">1&gt;website has phpmyadmin</h4>
 
-<h4 id="phpmyadmin-can-be-logined-by-anyone-without-password">2&gt;phpmyadmin can be logined by anyone without password</h4>
+<h4 id="2phpmyadmin-can-be-logined-by-anyone-without-password">2&gt;phpmyadmin can be logined by anyone without password</h4>
 
-<h4 id="the-strongtblsqlphpstrong-has-been-deleted-by-website-manager-or-someone-else">3&gt;the <strong>tbl_sql.php</strong> has been deleted by website manager or someone else</h4>
+<h4 id="3the-tbl_sqlphp-has-been-deleted-by-website-manager-or-someone-else">3&gt;the <strong>tbl_sql.php</strong> has been deleted by website manager or someone else</h4>
 
-<h3 id="x02-about">0x02 About</h3>
+<h3 id="0x02-about">0x02 About</h3>
 
 <h4 id="the-web-server-runs-phpmyadminbut-with-wrong-setupmakes-it-possible-for-anyone-to-logined-in-phpmyadmin-without-passwordand-able-to-read-the-root-password">The web server runs phpmyadmin,but with wrong setup,makes it possible for anyone to logined in phpmyadmin without password,and able to read the root password.</h4>
 
-<h4 id="there-are-two-filesstrong-tblsqlphpsqlphpstrong-generallytblsqlphp-has-execute-sqlquery-function-like-below-picture-at-arrow-1sqlphp-has-view-sql-database-function-like-below-picture-at-arrow-2">There are two files:<strong> tbl_sql.php,sql.php</strong>. Generally,tbl_sql.php has execute sqlquery function like below picture at arrow 1,sql.php has view sql database function like below picture at arrow 2.</h4>
+<h4 id="there-are-two-files-tbl_sqlphpsqlphp-generallytbl_sqlphp-has-execute-sqlquery-function-like-below-picture-at-arrow-1sqlphp-has-view-sql-database-function-like-below-picture-at-arrow-2">There are two files:<strong> tbl_sql.php,sql.php</strong>. Generally,tbl_sql.php has execute sqlquery function like below picture at arrow 1,sql.php has view sql database function like below picture at arrow 2.</h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413.png" /><br /></p>
 
 <h4 id="generallywhen-we-want-to-execute-sql-query-like">generally,when we want to execute sql query like</h4>
@@ -156,32 +156,32 @@
 </code></pre>
 </div>
 
-<h4 id="we-will-find-this-does-not-work-here-coz-tblsqlphp-was-deletedit-works-out-like-below-404-error-when-i-try-to-execute-above-query">we will find this does not work here coz tbl_sql.php was deleted.It works out like below 404 error when I try to execute above query:</h4>
+<h4 id="we-will-find-this-does-not-work-here-coz-tbl_sqlphp-was-deletedit-works-out-like-below-404-error-when-i-try-to-execute-above-query">we will find this does not work here coz tbl_sql.php was deleted.It works out like below 404 error when I try to execute above query:</h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413_2.png" /></p>
 
-<h3 id="x03-exploit">0x03 Exploit</h3>
+<h3 id="0x03-exploit">0x03 Exploit</h3>
 
-<h4 id="use-strongsqlphpstrong-to-execute-sqlquery">&gt; use <strong>sql.php</strong> to execute sqlquery</h4>
+<h4 id="-use-sqlphp-to-execute-sqlquery">&gt; use <strong>sql.php</strong> to execute sqlquery</h4>
 
-<h4 id="usage">&gt; usage:</h4>
+<h4 id="-usage">&gt; usage:</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>https://xx.xx.xx/phpmyadmin/sql.php?xxx=xxx...&amp;sql_query=[sqli]
 </code></pre>
 </div>
 
-<h4 id="sqli-is-sqlquery-sentence-been-urlencoded">&gt; [sqli] is sqlquery sentence been urlencoded.</h4>
+<h4 id="-sqli-is-sqlquery-sentence-been-urlencoded">&gt; [sqli] is sqlquery sentence been urlencoded.</h4>
 
-<h4 id="egsqlqueryselect20version">&gt; eg.sql_query=select%20@@version</h4>
+<h4 id="-egsql_queryselect20version">&gt; eg.sql_query=select%20@@version</h4>
 
 <p><em>detail</em>:</p>
 
-<h4 id="use-burpsuite-listening-browsers-postget-request-parameters-when-clicking-any-table-name-like-below">1&gt;use burpsuite listening browser’s post|get request parameters when clicking any table name like below:</h4>
+<h4 id="1use-burpsuite-listening-browsers-postget-request-parameters-when-clicking-any-table-name-like-below">1&gt;use burpsuite listening browser’s post|get request parameters when clicking any table name like below:</h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413_3.png" /></p>
 
-<h4 id="add-add-get-request-parameter-sqlqueryselect20version">2&gt;add add get request parameter <em>sql_query=select%20@@version</em></h4>
+<h4 id="2add-add-get-request-parameter-sql_queryselect20version">2&gt;add add get request parameter <em>sql_query=select%20@@version</em></h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413_4.png" /></p>
 
-<h4 id="find-sqli-has-been-execute">3&gt;find sqli has been execute</h4>
+<h4 id="3find-sqli-has-been-execute">3&gt;find sqli has been execute</h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413_5.png" /></p>
 
 </span>

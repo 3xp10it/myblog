@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Nov 2016 09:09:44 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Nov 2016 09:09:44 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Nov 2016 09:40:17 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Nov 2016 09:40:17 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -379,7 +379,7 @@ Developers assume no liability and are not responsible for any misuse or damage 
     
       <item>
         <title>自动识别验证码暴力破解</title>
-        <description>&lt;h3 id=&quot;x00-&quot;&gt;0x00 环境准备&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-环境准备&quot;&gt;0x00 环境准备&lt;/h3&gt;
 
 &lt;p&gt;admin.php,yanzhengma.php,check_login.php&lt;/p&gt;
 
@@ -509,7 +509,7 @@ $_SESSION[&quot;verification&quot;] = $str;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x01-xadminpy&quot;&gt;0x01 xadmin.py&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-xadminpy&quot;&gt;0x01 xadmin.py&lt;/h3&gt;
 
 &lt;p&gt;usage:
 	python3 xadmin.py http://localhost/admin.php&lt;/p&gt;
@@ -739,7 +739,7 @@ $_SESSION[&quot;verification&quot;] = $str;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x02-about&quot;&gt;0x02 About&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-about&quot;&gt;0x02 About&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.关于验证码
 
@@ -799,7 +799,7 @@ http://stackoverflow.com/questions/12737740/python-requests-and-persistent-sessi
     
       <item>
         <title>正则表达式</title>
-        <description>&lt;h3 id=&quot;x01-notes&quot;&gt;0x01 notes&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-notes&quot;&gt;0x01 notes&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.匹配换行符
 	re.search(&quot;\n&quot;),不可写成r&quot;\n&quot;,这样匹配的是\n字符串,不是换行符,r前缀表示后面出现的转义全部不再转义,只作原生
@@ -854,7 +854,7 @@ http://stackoverflow.com/questions/12737740/python-requests-and-persistent-sessi
     
       <item>
         <title>python3编码相关</title>
-        <description>&lt;h3 id=&quot;x01-byte-string--character-string&quot;&gt;0x01 byte string 和 character string&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-byte-string-和-character-string&quot;&gt;0x01 byte string 和 character string&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;byte string是如01010110110010的序列,计算机可读,人不可读
 2&amp;gt;character string是如&quot;您好,world&quot;的序列,计算机不可读,人可读
@@ -901,7 +901,7 @@ string,只是为了要让人更明白这个byte string代表的是什么才这�
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x01-python3&quot;&gt;0x01 python3正则匹配中文&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-python3正则匹配中文&quot;&gt;0x01 python3正则匹配中文&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import re
 string=&quot;Hello,World! 你好世界&quot;
@@ -912,7 +912,7 @@ else:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x02-knowledge&quot;&gt;0x02 knowledge&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-knowledge&quot;&gt;0x02 knowledge&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.文件编码识别
 	pip3 install chardet
@@ -937,7 +937,7 @@ else:
     
       <item>
         <title>尝试获取cdn背后的真实ip</title>
-        <description>&lt;h3 id=&quot;x01-requirement&quot;&gt;0x01 requirement&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-requirement&quot;&gt;0x01 requirement&lt;/h3&gt;
 
 &lt;p&gt;1.use masscan but not nmap,code will install it if doesn’t exist&lt;br /&gt;
 2.linux,ubuntu best,flushdns func test on ubuntu only&lt;br /&gt;
@@ -949,7 +949,7 @@ else:
 
 &lt;p&gt;4.need vpn on[some domain will be blocked by GFW,and this will make the result wrong]&lt;/p&gt;
 
-&lt;h3 id=&quot;x02-pycode&quot;&gt;0x02 pycode&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-pycode&quot;&gt;0x02 pycode&lt;/h3&gt;
 
 &lt;p&gt;download:&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/xcdn.py&quot;&gt;xcdn.py&lt;/a&gt;&lt;/p&gt;
 
@@ -1253,7 +1253,7 @@ else:
     
       <item>
         <title>一键删除所有系统补丁</title>
-        <description>&lt;h3 id=&quot;x01-python&quot;&gt;0x01 python&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-python&quot;&gt;0x01 python&lt;/h3&gt;
 
 &lt;p&gt;file:
 	&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/remove_all_updates.py&quot;&gt;remove_all_updates.py&lt;/a&gt;&lt;/p&gt;
@@ -1359,7 +1359,7 @@ os.system(&quot;del Remove-Update.ps1&quot;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x02-pyinstaller&quot;&gt;0x02 pyinstaller&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-pyinstaller&quot;&gt;0x02 pyinstaller&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;windows:
 	pip install pyinstaller
@@ -1400,7 +1400,7 @@ os.system(&quot;del Remove-Update.ps1&quot;)
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/bypass_waf/blob/master/xwaf.py&quot;&gt;xwaf&lt;/a&gt;是一个python写的waf自动绕过工具,上一个版本是&lt;a href=&quot;https://github.com/3xp10it/bypass_waf/blob/master/bypass_waf.py&quot;&gt;bypass_waf&lt;/a&gt;,xwaf相比bypass_waf更智能,可无人干预,自动暴破waf&lt;/p&gt;
 
-&lt;h4 id=&quot;section&quot;&gt;代码流程图:&lt;/h4&gt;
+&lt;h4 id=&quot;代码流程图&quot;&gt;代码流程图:&lt;/h4&gt;
 
 &lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;以&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;127.0.0.1/1.php?id=1为例&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
@@ -1482,7 +1482,7 @@ eval(get_key_value_from_config_file(self.log_config_file,'default','db_type'))
     
       <item>
         <title>社工</title>
-        <description>&lt;h3 id=&quot;x00-&quot;&gt;0x00 信息收集&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-信息收集&quot;&gt;0x00 信息收集&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;查找注册过哪些网站:
 http://www.zhaohuini.com
@@ -1493,7 +1493,7 @@ http://s.70sec.com/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;x01-&quot;&gt;0x01 钓鱼&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-钓鱼&quot;&gt;0x01 钓鱼&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.freebuf.com/news/117464.html
 &lt;/code&gt;&lt;/pre&gt;

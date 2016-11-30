@@ -133,7 +133,7 @@
 
         
 
-        <span itemprop="articleBody"><h1 id="x01-useful-links-to-learn">0x01 useful links to learn</h1>
+        <span itemprop="articleBody"><h1 id="0x01-useful-links-to-learn">0x01 useful links to learn</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>https://www.zhihu.com/question/20223939
 https://github.com/jacobtomlinson/carte-noire
@@ -154,37 +154,37 @@ https://platinhom.github.io/2015/06/06/Markdown-note/    kramdown-note
 
 <p>From those links,I learned those steps(assume with jekyll installed):</p>
 
-<h1 id="x02-steps">0x02 Steps</h1>
+<h1 id="0x02-steps">0x02 Steps</h1>
 
-<h4 id="gem-install-github-pagesvery-important">1&gt;gem install github-pages(very important)</h4>
+<h4 id="1gem-install-github-pagesvery-important">1&gt;gem install github-pages(very important)</h4>
 
-<h4 id="jekyll-new-myblog">2&gt;jekyll new myblog</h4>
+<h4 id="2jekyll-new-myblog">2&gt;jekyll new myblog</h4>
 
-<h4 id="git-clone-httpsgithubcomjacobtomlinsoncarte-noiregit">3&gt;git clone https://github.com/jacobtomlinson/carte-noire.git</h4>
+<h4 id="3git-clone-httpsgithubcomjacobtomlinsoncarte-noiregit">3&gt;git clone https://github.com/jacobtomlinson/carte-noire.git</h4>
 
-<h4 id="cp-carte-noire-myblog">4&gt;cp carte-noire/*/ myblog</h4>
+<h4 id="4cp-carte-noire-myblog">4&gt;cp carte-noire/*/ myblog</h4>
 
-<h4 id="vim-myblogcssstylescssmy-modified-stylescss-file-in-the-below">5&gt;vim myblog/css/style.scss(my modified style.scss file in the below)</h4>
+<h4 id="5vim-myblogcssstylescssmy-modified-stylescss-file-in-the-below">5&gt;vim myblog/css/style.scss(my modified style.scss file in the below)</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>https://raw.githubusercontent.com/3xp10it/blog_backup/master/css/style.scss
 &gt;however,I do not know how to change highlight code block's font,I tried to make it by modifying css file,it did not work,till now the font of code block looks ugly.  
 </code></pre>
 </div>
 
-<h4 id="vim-myblogposts2016-04-09-github-jekyll-blogmd">6&gt;vim myblog/_posts/2016-04-09-github-jekyll-blog.md</h4>
+<h4 id="6vim-myblog_posts2016-04-09-github-jekyll-blogmd">6&gt;vim myblog/_posts/2016-04-09-github-jekyll-blog.md</h4>
 
-<h4 id="jekyll-serve---watchthis-command-will-build-a-site-folder">7&gt;jekyll serve –watch(this command will build a _site folder)</h4>
+<h4 id="7jekyll-serve-watchthis-command-will-build-a-_site-folder">7&gt;jekyll serve –watch(this command will build a _site folder)</h4>
 
-<h4 id="create-a-new-repository-in-github3xp10itgithubio">8&gt;create a new repository in github:3xp10it.github.io</h4>
+<h4 id="8create-a-new-repository-in-github3xp10itgithubio">8&gt;create a new repository in github:3xp10it.github.io</h4>
 
-<h4 id="cd-myblogsites--git-init--git-add---git-commit--a--m-my-blog-v1">9&gt;cd myblog/_sites &amp;&amp; git init &amp;&amp; git add . &amp;&amp; git commit -a -m “my blog v1”</h4>
+<h4 id="9cd-myblog_sites--git-init--git-add---git-commit--a--m-my-blog-v1">9&gt;cd myblog/_sites &amp;&amp; git init &amp;&amp; git add . &amp;&amp; git commit -a -m “my blog v1”</h4>
 
-<h4 id="git-remote-add-origin-httpsgithubcom3xp10it3xp10itgithubiogit">10&gt;git remote add origin https://github.com/3xp10it/3xp10it.github.io.git</h4>
+<h4 id="10git-remote-add-origin-httpsgithubcom3xp10it3xp10itgithubiogit">10&gt;git remote add origin https://github.com/3xp10it/3xp10it.github.io.git</h4>
 
-<h4 id="push--u-origin-master">11&gt;push -u origin master</h4>
+<h4 id="11push--u-origin-master">11&gt;push -u origin master</h4>
 
-<h4 id="succeed--https3xp10itgithubio">12&gt;succeed–&gt;https://3xp10it.github.io</h4>
+<h4 id="12succeedhttps3xp10itgithubio">12&gt;succeed–&gt;https://3xp10it.github.io</h4>
 
-<h1 id="x03-update-articles">0x03 Update articles</h1>
+<h1 id="0x03-update-articles">0x03 Update articles</h1>
 
 <p><em>Notice</em>,we need not to checkout --orphan gh-pages like some blogs telled us to ,a master branch is enough to do it.There is a .gitignore file in myblog/.gitignore (copied from carte-noire) which ignores _sites folder when git myblog/ to github as a blog_backup
 (https://github.com/3xp10it/blog_backup).From then on,when I update new articles,I could only update 3xp10it.github.io repository,and take blog_badkup repository as a backup on github.So,later if I need add new article to 3xp10it.github.io,I will do:</p>
@@ -207,7 +207,7 @@ rm -r ../tmp
 </code></pre>
 </div>
 
-<h1 id="x04-update">0x04 Update</h1>
+<h1 id="0x04-update">0x04 Update</h1>
 <h2>16-04-13</h2>
 <h4>&gt;&gt;&gt;finally I find how to change the font-family in the code block to make code block looks beautiful,not ugly any longer. 1,2,3 arrows in below pic show the process to find how to change the code block font.Firstly,move mouse's arrow to any code block like arrow 1 in below pic,and right click mouse to chose "use firebug to view elements".Secondly,left click mouse on the words like arrow 2 in below pic,and move mouse on "font-family",then I find it's "monospace",and the source css file is from "\_includes\head.html",the value is href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bbbbootstrap.min.css",download it to local css directory and rename it my_code.css,change \_includes\head.html to set the value to "../../../../../css/my_code.css".Finally,change monospace to "文泉驿等宽正黑" where needed in my_code.css </h4>
 <p><img src="../../../../../pic/jekyll/code_block_font.png" />

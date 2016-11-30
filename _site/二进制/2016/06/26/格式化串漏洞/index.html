@@ -129,7 +129,7 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="x01-">0x01 结论知识</h3>
+        <span itemprop="articleBody"><h3 id="0x01-结论知识">0x01 结论知识</h3>
 
 <p>1&gt;printf(“%x”)</p>
 
@@ -156,15 +156,15 @@
 </code></pre>
 </div>
 
-<h3 id="x02-">0x02 原理理解</h3>
+<h3 id="0x02-原理理解">0x02 原理理解</h3>
 
-<h4 id="refer">1&gt;refer</h4>
+<h4 id="1refer">1&gt;refer</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>https://drops.wooyun.org/binary/7714
 https://drops.wooyun.org/papers/9426
 </code></pre>
 </div>
 
-<h4 id="c">2&gt;c代码</h4>
+<h4 id="2c代码">2&gt;c代码</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>假设文件名为md.c
 ------------md.c----------------
@@ -188,7 +188,7 @@ int main(void)
 </code></pre>
 </div>
 
-<h4 id="section">3&gt;栈空间</h4>
+<h4 id="3栈空间">3&gt;栈空间</h4>
 
 <p><a href="https://www.cplusplus.com/reference/cstdio/printf/">printf函数</a><br />
 int printf ( const char * format, …  )</p>
@@ -374,7 +374,7 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
 </code></pre>
 </div>
 
-<h3 id="x03-">0x03 提炼方法</h3>
+<h3 id="0x03-提炼方法">0x03 提炼方法</h3>
 
 <p>环境:</p>
 
@@ -382,7 +382,7 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
 </code></pre>
 </div>
 
-<h4 id="x123456780x40404040">方法1&gt;精确打击:在0x12345678地址中写入0x40404040</h4>
+<h4 id="方法1精确打击在0x12345678地址中写入0x40404040">方法1&gt;精确打击:在0x12345678地址中写入0x40404040</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>(适用aslr关闭)
 1&gt;输入python -c "print 'AAAABBBB'+'%8x'*20"
@@ -414,7 +414,7 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
 </code></pre>
 </div>
 
-<h4 id="x12345680x40404040">方法2&gt;动态打击:在0x1234568中写入0x40404040</h4>
+<h4 id="方法2动态打击在0x1234568中写入0x40404040">方法2&gt;动态打击:在0x1234568中写入0x40404040</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>(适用于可找到某一栈单元内容为0x12345678的情况,找不到的情况用方法1,该方法可用于aslr开启下)
 
@@ -445,7 +445,7 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
 </code></pre>
 </div>
 
-<h3 id="x04-">0x04 小试牛刀</h3>
+<h3 id="0x04-小试牛刀">0x04 小试牛刀</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>target:
 https://exploit-exercises.com/protostar/format1/

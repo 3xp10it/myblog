@@ -129,7 +129,7 @@
 
         
 
-        <span itemprop="articleBody"><h2 id="section">1.本工具包括6个模块:</h2>
+        <span itemprop="articleBody"><h2 id="1本工具包括6个模块">1.本工具包括6个模块:</h2>
 <div class="highlighter-rouge"><pre class="highlight"><code>  easy_search.py,
   my_bing_domains_v1_alone.py,
   my_GoogleScraper_bing_domain.py,
@@ -139,21 +139,21 @@
 </code></pre>
 </div>
 
-<h2 id="section-1">2.各模块介绍:</h2>
+<h2 id="2各模块介绍">2.各模块介绍:</h2>
 
-<h3 id="easysearchpy">1&gt;easy_search.py:</h3>
+<h3 id="1easy_searchpy">1&gt;easy_search.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>google关键字搜索相关网页结果,并对结果通过sqlmap注入,类似啊D里的搜索注入功能,但比啊D里强大,因为这里用sqlmap检测注入并注入,其中google搜索的功能采用完全模仿浏览器方式,可得到所有通过浏览器Google搜索的结果,通过GoogleScraper模块实现,其中GoogleScraper利用 Selenium模块模拟 浏览器人工访问功能.
 </code></pre>
 </div>
 
-<h3 id="mybingdomainsv1alonepy">2&gt;my_bing_domains_v1_alone.py:</h3>
+<h3 id="2my_bing_domains_v1_alonepy">2&gt;my_bing_domains_v1_alone.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>通过bing的api接口原理实现,需要注册bing的api_key,每个月免费5000次.
 </code></pre>
 </div>
 
-<h3 id="mygooglescraperbingdomainpy">3&gt;my_GoogleScraper_bing_domain.py:</h3>
+<h3 id="3my_googlescraper_bing_domainpy">3&gt;my_GoogleScraper_bing_domain.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>通过GoogleScraper的浏览器模拟人工访问bing,关键字ip:111.111.111.111,获取所有
 结果,当只有一页结果 时,GoogleScraper不能得到该查询结果,调用上面的my_bing_dom
@@ -161,13 +161,13 @@ ains_v1_alone.py模块继续查询.
 </code></pre>
 </div>
 
-<h3 id="mysqlmappy">4&gt;mysqlmap.py:</h3>
+<h3 id="4mysqlmappy">4&gt;mysqlmap.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sqlmap自动化sqli模块,详情见代码.
 </code></pre>
 </div>
 
-<h3 id="mytoolkitpy">5&gt;MyToolKit.py:</h3>
+<h3 id="5mytoolkitpy">5&gt;MyToolKit.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>综合入口模块,选择不同需求,实现不同功能.共包括8个功能,分别为:
 --exp:
@@ -196,28 +196,28 @@ ains_v1_alone.py模块继续查询.
 </code></pre>
 </div>
 
-<h3 id="mailpy">6&gt;mail.py:</h3>
+<h3 id="6mailpy">6&gt;mail.py:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>自动发送邮件,内嵌在MytoolKit.py中.
 </code></pre>
 </div>
 
-<h2 id="section-2">3.环境要求:</h2>
+<h2 id="3环境要求">3.环境要求:</h2>
 <div class="highlighter-rouge"><pre class="highlight"><code>安装GoogleScraper(python3下),并修改部分GoogleScraper中第三方模块selenium中代码(绕过验证码)可参考以前一篇写的关于google search api for python的文章90sec
 链接:https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=9024 百度网盘链接
 https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 </code></pre>
 </div>
 
-<h3 id="section-3">2016.1.26部分代码更新</h3>
+<h3 id="2016126部分代码更新">2016.1.26部分代码更新</h3>
 
-<h3 id="section-4">2016.1.28部分代码更新</h3>
+<h3 id="2016128部分代码更新">2016.1.28部分代码更新</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.添加tor匿名功能,可自由选择tor或不用tor
 </code></pre>
 </div>
 
-<h3 id="section-5">2016.1.28部分代码更新,增加功能:</h3>
+<h3 id="2016128部分代码更新增加功能">2016.1.28部分代码更新,增加功能:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.绕过"多次错误访问后屏蔽所有请求"
 2.请求延时
@@ -226,14 +226,14 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 </code></pre>
 </div>
 
-<h3 id="section-6">2016.1.29部分代码更新,增加功能:</h3>
+<h3 id="2016129部分代码更新增加功能">2016.1.29部分代码更新,增加功能:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.定位旁站的sqli所在主站
 2.发送邮件通知功能,将可用sqli的url发送邮件通知(smtp用163)
 </code></pre>
 </div>
 
-<h3 id="section-7">2016.3.2部分代码更新:</h3>
+<h3 id="201632部分代码更新">2016.3.2部分代码更新:</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.easy_search.py line:116 添加自动结束冗余firefox进程功能 
 2.修改mysqlmap.py中line:131-161的逻辑错误 
@@ -247,7 +247,7 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 </code></pre>
 </div>
 
-<h2 id="section-8">4.相应代码:</h2>
+<h2 id="4相应代码">4.相应代码:</h2>
 
 <p>1&gt;easy_search.py</p>
 

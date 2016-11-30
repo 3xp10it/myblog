@@ -129,13 +129,13 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="x01-">0x01 栈基础知识</h3>
+        <span itemprop="articleBody"><h3 id="0x01-栈基础知识">0x01 栈基础知识</h3>
 
-<h4 id="httpsblogchinaunixnetuid-1848701-id-2825699html">1&gt;https://blog.chinaunix.net/uid-1848701-id-2825699.html</h4>
+<h4 id="1httpsblogchinaunixnetuid-1848701-id-2825699html">1&gt;https://blog.chinaunix.net/uid-1848701-id-2825699.html</h4>
 
-<h4 id="eip">2&gt;eip是当前帧中还没开始执行,下一步要执行的汇编指令的地址</h4>
+<h4 id="2eip是当前帧中还没开始执行下一步要执行的汇编指令的地址">2&gt;eip是当前帧中还没开始执行,下一步要执行的汇编指令的地址</h4>
 
-<h4 id="section">3&gt;32位系统中,一个栈单元为32位</h4>
+<h4 id="332位系统中一个栈单元为32位">3&gt;32位系统中,一个栈单元为32位</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>esp+0x4代表下一个栈单元
 esp+0x1c代表esp下面第[16+12=28(/4=7)] 7个栈单元
@@ -145,7 +145,7 @@ eg.
 </code></pre>
 </div>
 
-<h4 id="call-addrpush-eip--jmp-addr">4&gt;call addr===&gt;push eip + jmp addr</h4>
+<h4 id="4call-addrpush-eip--jmp-addr">4&gt;call addr===&gt;push eip + jmp addr</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>执行call addr时,由于call addr已经执行,所以call addr=push eip+jmp addr中的eip为call addr汇编指令当前所在帧中的下一条指令的地址,这里说的当前所在帧是如下图frame所示在当前图片看到的一片汇编指令代码,如执行0xff77b8d02处的call 0xf77bc2e0时,eip为当前帧的下一条指令的地址为f77b8d07
 </code></pre>
@@ -154,9 +154,9 @@ eg.
 <p>图frame
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/eip.png" /></p>
 
-<h4 id="leavemov-espebp--pop-ebp">5&gt;leave===&gt;mov esp,ebp + pop ebp</h4>
+<h4 id="5leavemov-espebp--pop-ebp">5&gt;leave===&gt;mov esp,ebp + pop ebp</h4>
 
-<h4 id="retnpop-eip--jmp-eip----eipespespesp4">6&gt;retn===&gt;pop eip + jmp eip    (eip=[esp],esp=esp+4)</h4>
+<h4 id="6retnpop-eip--jmp-eip----eipespespesp4">6&gt;retn===&gt;pop eip + jmp eip    (eip=[esp],esp=esp+4)</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>分析ret汇编语句时,最好不要把ret分开当作两句汇编指令,这样容易因为人脑习惯逐句解析两句,会和计算机的解析一句汇编指令错乱
 特别是影响esp,eip的寄存器的分析时,要按照计算机的解析模式--&gt;ret只是一句指令,执行完ret指令后,eip=[esp],esp=esp+4
@@ -164,9 +164,9 @@ eg.
 </code></pre>
 </div>
 
-<h4 id="retn-0xnretn--espesp0xneipesp--espesp40xn">7&gt;retn 0xn===&gt;retn &amp;&amp; esp=esp+0xn===&gt;eip=[esp] &amp;&amp; esp=esp+4+0xn</h4>
+<h4 id="7retn-0xnretn--espesp0xneipesp--espesp40xn">7&gt;retn 0xn===&gt;retn &amp;&amp; esp=esp+0xn===&gt;eip=[esp] &amp;&amp; esp=esp+4+0xn</h4>
 
-<h4 id="call-esp">8&gt;call esp:</h4>
+<h4 id="8call-esp">8&gt;call esp:</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>jmp esp
 call esp
@@ -188,7 +188,7 @@ push esp+ret
 </code></pre>
 </div>
 
-<h4 id="pop-pop-retjmp-esp16pop-pop-ret">9&gt;pop pop ret=jmp <a href="条件:pop pop ret的地址在栈中且马上要执行">esp+16</a></h4>
+<h4 id="9pop-pop-retjmp-esp16">9&gt;pop pop ret=jmp <a href="条件:pop pop ret的地址在栈中且马上要执行">esp+16</a></h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>栈段:                          代码段:
 
@@ -207,15 +207,15 @@ push esp+ret
 </code></pre>
 </div>
 
-<h3 id="x02-gdb">0x02 gdb动态调试</h3>
+<h3 id="0x02-gdb动态调试">0x02 gdb动态调试</h3>
 
-<h4 id="gdb">1&gt;gdb常用调试命令</h4>
+<h4 id="1gdb常用调试命令">1&gt;gdb常用调试命令</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>https://wenku.baidu.com/link?url=W1u-DTrFwMreJsYavwKcI_yDzJsJglUJ4yfcXXXxWOkGTlJSSqXm-4zohcUYxGciOIeFRcSY0gr2qn-K5pnqGRU6nGbgQvW6XVfaRMCdmKq
 </code></pre>
 </div>
 
-<h4 id="section-1">2&gt;提炼命令:</h4>
+<h4 id="2提炼命令">2&gt;提炼命令:</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>   --------terminal-----------
    gdb
@@ -258,7 +258,7 @@ push esp+ret
 </code></pre>
 </div>
 
-<h3 id="x03-">0x03 实例分析</h3>
+<h3 id="0x03-实例分析">0x03 实例分析</h3>
 
 <h4 id="linkhttpsexploit-exercisescomprotostarstack0">link:https://exploit-exercises.com/protostar/stack0/</h4>
 
