@@ -1783,8 +1783,14 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">245.</span>php脱库用1337.php,aspx脱库用spyaspx
 <span class="p">246.</span>nishang用法
 	http://resources.infosecinstitute.com/nishang-a-post-exploitation-framework/
-	Powershell.exe –exec bypass –Command "&amp; {Import-Module 'C:<span class="se">\U</span>sers<span class="se">\U</span>ser<span class="se">\D</span>esktop<span class="se">\t</span>emp<span class="se">\C</span>heck-VM.ps1'; Check-VM}"
-<span class="p">247.</span>reGeorg无法连接时,net stop + taskkill /F /IM 把可疑进程结束掉就可以连接了
+	Powershell.exe –exec bypass –Command "&amp; {Import-Module 'C:<span class="se">\U</span>sers<span class="se">\U</span>ser<span class="se">\D</span>esktop<span class="se">\t</span>emp<span class="se">\C</span>heck-VM.ps1'; Check-VM}"<span class="sb">
+
+	detail:
+	eg.portscan:
+	Set-ExecutionPolicy remotesigned[开启ps可执行]
+	import-module .\Invoke-PortScan.ps1
+	Invoke-PortScan -StartAddress 192.168.3.1 -EndAddress 192.168.3.254 -ResolveHost -ScanPort -Port 80
+</span><span class="p">247.</span>reGeorg无法连接时,net stop + taskkill /F /IM 把可疑进程结束掉就可以连接了
 <span class="p">248.</span>ps1无法执行时,解决方法:
 	administrator-&gt;powershell-&gt;执行Set-ExecutionPolicy RemoteSigned
 <span class="p">249.</span>特殊字符的echo
