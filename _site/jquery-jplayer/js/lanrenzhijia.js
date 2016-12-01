@@ -17,7 +17,8 @@ $(document).ready(function(){
     },{
       title:"巴赫旧约",
       artist:"汪苏泷",
-      mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%B7%B4%E8%B5%AB%E6%97%A7%E7%BA%A6.mp3",
+      //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%B7%B4%E8%B5%AB%E6%97%A7%E7%BA%A6.mp3",
+      mp3:"http://hz-ctfs.ftn.qq.com/ftn_handler/7870e8d2da238d20f5e018ee4e6b2d24e1103b674dab1f1eb5e2b0cc54b626797052b0b27a9f92a20fc3cfd688054531e133263a49ad155021caae4add1ca673/?fname=%E6%B1%AA%E8%8B%8F%E6%B3%B7%20-%20%E5%B7%B4%E8%B5%AB%E6%97%A7%E7%BA%A6(320).mp3&k=7c663465990c439ec24dc5c01238044e5005575100090f071e045256501502515751195c500f044c01545600000c005957070253342236acc7ade186c5181b4183ab8eb08af1e2dd1b5506551d165b11006609&fr=00&&txf_fid=abcf852325e2c6323583e16d2ba407e6be5290fb&xffz=9096019",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
