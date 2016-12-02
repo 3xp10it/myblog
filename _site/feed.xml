@@ -5,9 +5,96 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 02 Dec 2016 08:43:20 +0800</pubDate>
-    <lastBuildDate>Fri, 02 Dec 2016 08:43:20 +0800</lastBuildDate>
+    <pubDate>Fri, 02 Dec 2016 09:00:09 +0800</pubDate>
+    <lastBuildDate>Fri, 02 Dec 2016 09:00:09 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>windbg命令</title>
+        <description>&lt;h3 id=&quot;0x01-windbg知识&quot;&gt;0x01 windbg知识&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    http://www.yiiyee.cn/Blog/windbg/
+    http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
+
+    db esi:查看esi地址中的内容
+        db 400000:查看0x400000处的内容,db按字节大小查看,dd按DWORD类型查看
+        dd poi(addr)
+            poi(addr)相当于[addr],也即addr中存放的值,dd poi(addr)也即相当于dd addr1,其中addr1=[addr]
+    !address edi:显示edi地址处的内存状态,信息
+    lmm mso v:匹配mso模块,并显示详细信息
+    bp eax:在eax处下断点,支持第几次经过后中断,支持中断后执行命令
+    g:让被调试的程序继续运行(f5)
+        gh:把异常标识为已处理并断续执行程序
+        go:对异常不进行任何处理并继续执行程序
+    kb:显示传递给堆栈回溯中的每个函数的前三个参数
+        kp:显示传递给堆栈回溯中的每个函数的所有参数
+    ub mso!Ordinal1273+0x2581:反汇编mso!Ordinal1273+0x2581地址之前的代码
+        uf test!main:反汇编test!main函数
+    p:单步步入step over
+    t:单步步过trace into
+    gu:执行到上一层函数,也即把当前函数帧执行到retn,并执行这个retn
+    ? ebp-edi:显示表达式ebp-edi的值
+        ?? expression:显示c++表达式的值
+    .cls:清屏
+    获取进程环境块_PEB:
+        a&amp;gt;.process 获得_PEB地址设为addr
+          dt _PEB 0xaddr可得到_PEB结构的数据
+        b&amp;gt;也可通过dt _PEB @$peb直接获取_PEB结构的数据
+    查看堆的信息:
+        !heap -h 查看所有堆的地址
+        dt _HEAP 0xaddr 查看一个堆的信息
+        dt _LIST_ENTRY 0xaddr 查看addr地址中存放的堆块索引信息,得到的结果为Flink和Blink的值
+    bp addr 在addr处设置断点
+    bl 查看所有有已经设置的断点
+    bc 清除所有断点
+        bc * 清除所有断点
+    bu 对某个符号下断点,eg. bu MyApp!SomeFunction
+        在代码被修改之后,该断点会随着函数地址改变而自动更新到最新位置,而且bu断点会保存在WinDbg工作空间中,下
+        次启动WinDbg时该断点会自动设置
+    bd 禁用断点
+    be 启用被bd命令禁用的断点
+    ba e|r|w(执行|读|写) 1|2|4|8(单位字节) addr
+        eg.对内存0x11111111进行写操作的时候下断点命令为:ba w4 0x11111111
+    sxe ld:ModuleName 在首次加载ModuleName对应的模块时中断
+        sx{e|d|i|n} [-c &quot;Cmd1&quot;] [-c2 &quot;Cmd2&quot;] [-h] {Exception|Event|*} 
+            http://blog.csdn.net/hgy413/article/details/7598236
+    !heap -h 查看所有的堆的情况,也可通过!heap直接查看
+    !heap -a addr addr要求是一个堆的起始地址,该命令显示这个堆的信息
+    !heap -p -a addr 查看一个地址在哪个堆块中,并显示这个堆块的信息
+
+    其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
+    前eip所在的函数的函数返回地址,Args to Child为当前函数的参数,最后一列的地址是当前排的上一排中的RetAddr的值
+
+    要注意的是,并不是kb下面的所有的ChildEBP对应的一列都是函数调用,只有第一排的ChildEBP,RetAddr,Args to
+    Child的数据值是当前的函数调用的相关参数,从第二排开始的只是栈中高地址的数据内容从ebp到retn到参数相当于地址从
+
+    一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
+
+                    ...
+                    ...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在)
+        new ebp --&amp;gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值)
+                    retn   (retn为当前函数的返回地址)
+                    arg1   (arg1为当前函数的第一个参数)
+                    arg2   (arg2为当前函数的第二个参数)
+                    ...
+
+    也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 02 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/02/windbg%E5%91%BD%E4%BB%A4/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/02/windbg%E5%91%BD%E4%BB%A4/</guid>
+        
+        <category>windbg</category>
+        
+        <category>bin</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>xss好用姿势</title>
@@ -1568,99 +1655,6 @@ os.system(&quot;del Remove-Update.ps1&quot;)
         <category>pyinstaller</category>
         
         <category>nishang</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>xwaf--waf自动暴破</title>
-        <description>&lt;pre&gt;
-&lt;strong&gt;
-				   _  ___      _____   ____
-				  | |/_/ | /| / / _ | / __/
-				 _&amp;gt;  &amp;lt; | |/ |/ / __ |/ _/  
-				/_/|_| |__/|__/_/ |_/_/ 
-&lt;/strong&gt;
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/bypass_waf/blob/master/xwaf.py&quot;&gt;xwaf&lt;/a&gt;是一个python写的waf自动绕过工具,上一个版本是&lt;a href=&quot;https://github.com/3xp10it/bypass_waf/blob/master/bypass_waf.py&quot;&gt;bypass_waf&lt;/a&gt;,xwaf相比bypass_waf更智能,可无人干预,自动暴破waf&lt;/p&gt;
-
-&lt;h4 id=&quot;代码流程图&quot;&gt;代码流程图:&lt;/h4&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;以&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;127.0.0.1/1.php?id=1为例&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-1&amp;gt;start
-2&amp;gt;检测系统/root/.sqlmap/output/127.0.0.1/log文件是否存在
-3&amp;gt;获取log文件:
-	如果不存在log文件则调用get_log_file_need_tamper函数,执行完这个函数后获得log文件,也即成功检测出目标
-	url有sqli注入漏洞,如果执行完get_log_file_need_tamper函数没有获得log文件则认为该url没有sqli漏洞
-4&amp;gt;获取db_type&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;数据库类型&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	调用get_db_type_need_tamper函数,用于后面的tamper排列组合时,只将目标url对应的数据库类型的tamper用于
-	该目标在sql注入时tamper的选择后的组合
-5&amp;gt;获取sqli_type&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;注入方法&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	调用get_good_sqli_type_need_tamper函数,sql注入方法中一共有U|S|E+B|Q|T 6种注入方法,后3种查询效率低,
-	首先在log文件中查找是否有U|S|E这3种高效方法中的任意一种,如果有略过这一步,否则执行
-	get_good_sqli_type_need_tamper函数,执行该函数将尝试获得一种以上的高效注入方法
-6&amp;gt;获取current-db&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;当前数据库名&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	如果上面获得了高效注入方法,则先用高效注入方法获得current-db,如果没有则用B|Q|T方法尝试获得
-	current-db,用来尝试获得current-db的函数是get_db_name_need_tamper
-7&amp;gt;获取table&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;当前数据库的表名&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	如果上面获得了高效注入方法,则先用高效注入方法获得table,如果没有则用B|Q|T方法尝试获得table,尝试获得
-	table的函数是get_table_name_need_tamper
-8&amp;gt;获取column&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;当前数据库的第一个表的所有列名&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	如果上面获得了高效注入方法,则先用高效注入方法获得column,如果没有则用B|Q|T方法获得column,尝试获得
-	column的函数是get_column_name_need_tamper
-9&amp;gt;获取entries&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;column对应的真实数据&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	调用get_entries_need_tamper函数,执行完get_entries_need_tamper函数后,waf成功绕过,从上面的步骤一直到
-	这个步骤,逐步获得最佳绕过waf的脚本组合
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;about&quot;&gt;About&lt;/h4&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;xwaf支持记忆,运行中断后下次继续运行时会在中断时的最后一个命令附近继续跑,不会重新经历上面的所有函数的处理
-
-2&amp;gt;各个get_xxx_need_tamper函数的处理采用针对当前url的数据库类型(eg.MySQL)的所有过waf的脚本
-(在sqlmap的tamper目录中)的排列组合的结果与--hex或--no-cast选项进行暴力破解如果--hex起作用了则不再使用
---no-cast尝试,--no-cast起作用了也不再用--hex尝试
-
-3&amp;gt;need py3.5
-
-4&amp;gt;usage:
-	python3 xwaf.py &quot;http://127.0.0.1/1.php?id=1&quot;
-	过程中如果被中断了,接着再运行相同命令即可从断点附近接着暴
-
-5&amp;gt;xwaf运行完后将在/root/.sqlmap/output/127.0.0.1目录下的ini文件中看到相关信息,bypassed_command是成功暴破
-  waf的sqlmap语句
-
-6&amp;gt;在tamper组合中,先用到的tamper会加入到上面的ini文件中,在以后的每个tamper组合中,综合已经得到的有用的
-  tamper再组合,在上面的ini文件中的tamper_list即为不断完善的tamper组合
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;changelog&quot;&gt;Changelog&lt;/h4&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;2016-11-02&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-增加access数据库特殊性的处理
-
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;2016-11-01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  
-get_db_type_need_tamper之后的数据库类型获取由之前的get_db_type_from_log_file改成
-eval(get_key_value_from_config_file(self.log_config_file,'default','db_type'))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Wed, 02 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/web/2016/11/02/xwaf-waf%E8%87%AA%E5%8A%A8%E6%9A%B4%E7%A0%B4/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2016/11/02/xwaf-waf%E8%87%AA%E5%8A%A8%E6%9A%B4%E7%A0%B4/</guid>
-        
-        <category>waf</category>
-        
-        <category>python</category>
-        
-        <category>sqlmap</category>
         
         
         <category>web</category>

