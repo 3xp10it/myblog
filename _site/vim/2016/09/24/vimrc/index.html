@@ -179,8 +179,9 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'felixhummel/setcolors.vim'
 "下面这个插件用来强制改变jjjjjjjjjjkkkkkkkkkkkllllllll的坏习惯
 Plugin 'takac/vim-hardtime'
-"下面这个插件利用vim8的时钟特性自动保存文件,默认第5分钟保存
-Plugin 'chrisbra/vim-autosave'
+"下面这个插件利用vim8的时钟特性自动保存文件,默认第5分钟保存,后来发现这个插件是备份文件,不保存正在编辑的文件,于
+"是弃用 
+"Plugin 'chrisbra/vim-autosave'
 "下面这个插件用来安装一个css配色方案插件,后来觉得没有什么作用,不如直接用evening配色方案
 "Plugin 'ap/vim-css-color'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -239,13 +240,15 @@ set tabstop=4"tab键占4个字符
 "cmap jf &lt;esc&gt;
 "vmap fj &lt;esc&gt;
 "vmap jf &lt;esc&gt;
-"
+
 "方便操作
 map ; :
 map &lt;s-;&gt; ;
 map mm ZZ
 map sy "+y
 map sp "+p
+
+
 
 "md文件中文符号换成英文
 au BufRead *.md call Biaodian() &lt;CR&gt;
@@ -266,6 +269,9 @@ function Biaodian()
     %s/‘/'/g
     %s/！/!/g
     endfunction
+
+"设置缩进的空格数
+set shiftwidth=4
 
 "111字符长度换行用来适配博客md编写
 set textwidth=111
@@ -472,7 +478,10 @@ augroup vimrc_autocmds
 augroup END
 
 "vim-autosave插件的设置
-:let g:autosave_timer= 1
+":let g:autosave_timer= 1
+"弃用上面的插件,用下面的自动保存命令
+set updatetime=200
+au CursorHold * silent! update
 
 "下面是markdown预览插件的相关设置
 "如果f5失效则先按f6再按f5
