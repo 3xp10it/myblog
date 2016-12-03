@@ -146,8 +146,15 @@
         go:对异常不进行任何处理并继续执行程序
     kb:显示传递给堆栈回溯中的每个函数的前三个参数
         kp:显示传递给堆栈回溯中的每个函数的所有参数
+
+	u .:反汇编当前eip处的8条指令
+	uf .:反汇编当前eip处的整个函数
+	ub .:反汇编当前eip之前的8条指令
+	u eip eip+a:反汇编eip到eip+10(a是16进制对应10进制的10)之间的指令
+		eg.u eip-30 eip+30
     ub mso!Ordinal1273+0x2581:反汇编mso!Ordinal1273+0x2581地址之前的代码
         uf test!main:反汇编test!main函数
+
     p:单步步入step over
     t:单步步过trace into
     gu:执行到上一层函数,也即把当前函数帧执行到retn,并执行这个retn
