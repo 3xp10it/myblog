@@ -1,3 +1,5 @@
+Below setting should be set on cloudflare pannel if turning https mode:
+
 A
 	3xp10it.cc	points to 151.101.100.133	Automatic	
 	
