@@ -207,6 +207,15 @@
 </code></pre>
 </div>
 
+<h3 id="0x02-windbg技巧">0x02 windbg技巧</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;用windbg附加要调试的程序时,在调试之前用gflag.exe开启了+hpa,但是在调试时,程序崩溃了而windbg没有断下来,这种情况
+主要原因是被调试的程序衍生出子进程,而windbg默认情况下是不支持子进程调试的,可以使用如下命令开启子进程调试:
+	.childdbg 1
+
+
+</code></pre>
+</div>
 </span>
 
         
