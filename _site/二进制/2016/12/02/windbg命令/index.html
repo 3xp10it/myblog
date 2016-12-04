@@ -131,79 +131,94 @@
 
         <span itemprop="articleBody"><h3 id="0x01-windbg知识">0x01 windbg知识</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    http://www.yiiyee.cn/Blog/windbg/
-    http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
+<div class="highlighter-rouge"><pre class="highlight"><code>http://www.yiiyee.cn/Blog/windbg/
+http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 
-    db esi:查看esi地址中的内容
-        db 400000:查看0x400000处的内容,db按字节大小查看,dd按DWORD类型查看
-        dd poi(addr)
-            poi(addr)相当于[addr],也即addr中存放的值,dd poi(addr)也即相当于dd addr1,其中addr1=[addr]
-    !address edi:显示edi地址处的内存状态,信息
-    lmm mso v:匹配mso模块,并显示详细信息
-    bp eax:在eax处下断点,支持第几次经过后中断,支持中断后执行命令
-    g:让被调试的程序继续运行(f5)
-        gh:把异常标识为已处理并断续执行程序
-        go:对异常不进行任何处理并继续执行程序
-    kb:显示传递给堆栈回溯中的每个函数的前三个参数
-        kp:显示传递给堆栈回溯中的每个函数的所有参数
+1&gt;db esi:查看esi地址中的内容
+	db 400000:查看0x400000处的内容,db按字节大小查看,dd按DWORD类型查看
+	dd poi(addr)
+		poi(addr)相当于[addr],也即addr中存放的值,dd poi(addr)也即相当于dd addr1,其中addr1=[addr]
 
-	u .:反汇编当前eip处的8条指令
-	uf .:反汇编当前eip处的整个函数
-	ub .:反汇编当前eip之前的8条指令
-	u eip eip+a:反汇编eip到eip+10(a是16进制对应10进制的10)之间的指令
+2&gt;!address edi:显示edi地址处的内存状态,信息
+
+3&gt;lmm mso v:匹配mso模块,并显示详细信息
+  ln addr:查找附近的符号
+  x something:查找模块在内存中的地址
+  	eg.x *!:查看所有模块在内存中的地址范围
+	eg.x sufilter!:查看sufilter所有的代码符号(全局变量,函数)的加载地址
+	eg.x sufilter!sufilterreadwritemt:查看模块中的函数的地址
+
+4&gt;bp eax:在eax处下断点,支持第几次经过后中断,支持中断后执行命令
+  bp addr 在addr处设置断点
+  bl 查看所有有已经设置的断点
+  bc 清除所有断点
+	  bc * 清除所有断点
+  bu 对某个符号下断点,eg. bu MyApp!SomeFunction
+	  在代码被修改之后,该断点会随着函数地址改变而自动更新到最新位置,而且bu断点会保存在WinDbg工作空间中,下
+	  次启动WinDbg时该断点会自动设置
+  bd 禁用断点
+  be 启用被bd命令禁用的断点
+  ba e|r|w(执行|读|写) 1|2|4|8(单位字节) addr
+	  eg.对内存0x11111111进行写操作的时候下断点命令为:ba w4 0x11111111
+
+5&gt;g:让被调试的程序继续运行(f5)
+  gh:把异常标识为已处理并断续执行程序
+  go:对异常不进行任何处理并继续执行程序
+
+6&gt;kb:显示传递给堆栈回溯中的每个函数的前三个参数
+  kp:显示传递给堆栈回溯中的每个函数的所有参数
+
+7&gt;u .:反汇编当前eip处的8条指令
+  uf .:反汇编当前eip处的整个函数
+  ub .:反汇编当前eip之前的8条指令
+  u eip eip+a:反汇编eip到eip+10(a是16进制对应10进制的10)之间的指令
 		eg.u eip-30 eip+30
-    ub mso!Ordinal1273+0x2581:反汇编mso!Ordinal1273+0x2581地址之前的代码
-        uf test!main:反汇编test!main函数
+  ub mso!Ordinal1273+0x2581:反汇编mso!Ordinal1273+0x2581地址之前的代码
+	  uf test!main:反汇编test!main函数
 
-    p:单步步入step over
-    t:单步步过trace into
-    gu:执行到上一层函数,也即把当前函数帧执行到retn,并执行这个retn
-    ? ebp-edi:显示表达式ebp-edi的值
-        ?? expression:显示c++表达式的值
-    .cls:清屏
-    获取进程环境块_PEB:
-        a&gt;.process 获得_PEB地址设为addr
-          dt _PEB 0xaddr可得到_PEB结构的数据
-        b&gt;也可通过dt _PEB @$peb直接获取_PEB结构的数据
-    查看堆的信息:
-        !heap -h 查看所有堆的地址
-        dt _HEAP 0xaddr 查看一个堆的信息
-        dt _LIST_ENTRY 0xaddr 查看addr地址中存放的堆块索引信息,得到的结果为Flink和Blink的值
-    bp addr 在addr处设置断点
-    bl 查看所有有已经设置的断点
-    bc 清除所有断点
-        bc * 清除所有断点
-    bu 对某个符号下断点,eg. bu MyApp!SomeFunction
-        在代码被修改之后,该断点会随着函数地址改变而自动更新到最新位置,而且bu断点会保存在WinDbg工作空间中,下
-        次启动WinDbg时该断点会自动设置
-    bd 禁用断点
-    be 启用被bd命令禁用的断点
-    ba e|r|w(执行|读|写) 1|2|4|8(单位字节) addr
-        eg.对内存0x11111111进行写操作的时候下断点命令为:ba w4 0x11111111
-    sxe ld:ModuleName 在首次加载ModuleName对应的模块时中断
-        sx{e|d|i|n} [-c "Cmd1"] [-c2 "Cmd2"] [-h] {Exception|Event|*} 
-            http://blog.csdn.net/hgy413/article/details/7598236
-    !heap -h 查看所有的堆的情况,也可通过!heap直接查看
-    !heap -a addr addr要求是一个堆的起始地址,该命令显示这个堆的信息
-    !heap -p -a addr 查看一个地址在哪个堆块中,并显示这个堆块的信息
+8&gt;p:单步步入step over
+  t:单步步过trace into
+  gu:执行到上一层函数,也即把当前函数帧执行到retn,并执行这个retn
 
-    其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
-    前eip所在的函数的函数返回地址,Args to Child为当前函数的参数,最后一列的地址是当前排的上一排中的RetAddr的值
+9&gt;? ebp-edi:显示表达式ebp-edi的值
+	?? expression:显示c++表达式的值
+10&gt;.cls:清屏
 
-    要注意的是,并不是kb下面的所有的ChildEBP对应的一列都是函数调用,只有第一排的ChildEBP,RetAddr,Args to
-    Child的数据值是当前的函数调用的相关参数,从第二排开始的只是栈中高地址的数据内容从ebp到retn到参数相当于地址从
+11&gt;获取进程环境块_PEB:
+	a&gt;.process 获得_PEB地址设为addr
+	  dt _PEB 0xaddr可得到_PEB结构的数据
+	b&gt;也可通过dt _PEB @$peb直接获取_PEB结构的数据
 
-    一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
+12&gt;查看堆的信息:
+	!heap -h 查看所有堆的地址
+	dt _HEAP 0xaddr 查看一个堆的信息
+	dt _LIST_ENTRY 0xaddr 查看addr地址中存放的堆块索引信息,得到的结果为Flink和Blink的值
 
-                    ...
-                    ...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在)
-        new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值)
-                    retn   (retn为当前函数的返回地址)
-                    arg1   (arg1为当前函数的第一个参数)
-                    arg2   (arg2为当前函数的第二个参数)
-                    ...
+	!heap -h 查看所有的堆的情况,也可通过!heap直接查看
+	!heap -a addr addr要求是一个堆的起始地址,该命令显示这个堆的信息
+	!heap -p -a addr 查看一个地址在哪个堆块中,并显示这个堆块的信息
 
-    也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
+13&gt;sxe ld:ModuleName 在首次加载ModuleName对应的模块时中断
+	sx{e|d|i|n} [-c "Cmd1"] [-c2 "Cmd2"] [-h] {Exception|Event|*} 
+		http://blog.csdn.net/hgy413/article/details/7598236
+
+14&gt;其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
+   前eip所在的函数的函数返回地址,Args to Child为当前函数的参数,最后一列的地址是当前排的上一排中的RetAddr的值
+
+   要注意的是,并不是kb下面的所有的ChildEBP对应的一列都是函数调用,只有第一排的ChildEBP,RetAddr,Args to
+   Child的数据值是当前的函数调用的相关参数,从第二排开始的只是栈中高地址的数据内容从ebp到retn到参数相当于地址从
+
+   一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
+
+				...
+				...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在)
+	new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值)
+				retn   (retn为当前函数的返回地址)
+				arg1   (arg1为当前函数的第一个参数)
+				arg2   (arg2为当前函数的第二个参数)
+				...
+
+   也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
 </code></pre>
 </div>
 
