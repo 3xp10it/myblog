@@ -5,9 +5,26 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 21 Dec 2016 16:21:46 +0800</pubDate>
-    <lastBuildDate>Wed, 21 Dec 2016 16:21:46 +0800</lastBuildDate>
+    <pubDate>Wed, 21 Dec 2016 16:40:01 +0800</pubDate>
+    <lastBuildDate>Wed, 21 Dec 2016 16:40:01 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>免杀</title>
+        <description>&lt;p&gt;https://green-m.github.io/2016/11/15/meterpreter-bypass-av/&lt;/p&gt;
+</description>
+        <pubDate>Wed, 21 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/web/2016/12/21/%E5%85%8D%E6%9D%80/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2016/12/21/%E5%85%8D%E6%9D%80/</guid>
+        
+        <category>免杀</category>
+        
+        <category>bypass</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>代理msf进内网</title>
@@ -2002,61 +2019,6 @@ http://stackoverflow.com/questions/12737740/python-requests-and-persistent-sessi
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>正则表达式</title>
-        <description>&lt;h3 id=&quot;0x01-notes&quot;&gt;0x01 notes&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.匹配换行符
-	re.search(&quot;\n&quot;),不可写成r&quot;\n&quot;,这样匹配的是\n字符串,不是换行符,r前缀表示后面出现的转义全部不再转义,只作原生
-	字符,r=raw[原生]
-
-2.good knowledge
-   http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
-
-3.在线测试:
-	http://tool.chinaz.com/regex/
-
-4.python一般默认贪婪模式,变成非贪婪方法:
-	*?      使*变成非贪婪模式
-	+?      使+变成非贪婪模式
-	??      使?变成非贪婪模式
-	{m,n}?  使{m,n}变成非贪婪模式
-
-5.正则表达式 - 运算符优先级
-	http://www.jb51.net/article/52491.htm
-
-6.匹配不包含
-	http://www.jb51.net/article/52491.htm
-
-7.前向界定|后向界定|前向非界定|后向非界定
-	http://blog.csdn.net/smilelance/article/details/6529950
-
-8.匹配除\n以外的所有空白字符
- 	[^\S\n]
-	原来想这样:[\s[^\n]]
- 	还有这样:[\s(?&amp;lt;!\n)]
- 	结果都不可以,正则的存在需要多多口味,存在\s\S,\w\W,\d\D的现象不是随便就存在的,
-	简单的逻辑组合就可成为强大的匹配利器
-
-9.linux中grep正则用法
-	找出8000端口的pid
-	netstat -ntlp | grep 8000 | grep -oP '\d{1,4}(?=\/)'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Tue, 08 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/regexp/2016/11/08/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
-        <guid isPermaLink="true">http://localhost:4000/regexp/2016/11/08/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
-        
-        <category>regexp</category>
-        
-        <category>python</category>
-        
-        
-        <category>regexp</category>
         
       </item>
     
