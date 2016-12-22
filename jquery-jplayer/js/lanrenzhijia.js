@@ -20,7 +20,7 @@ $(document).ready(function(){
       title:"巴赫旧约",
       artist:"汪苏泷",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%B7%B4%E8%B5%AB%E6%97%A7%E7%BA%A6.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/7112781.mp3?vkey=F3659413AD5E1A16BEB81151753C794B006029288735F2E4FA5B9D529263704DB6C414E31E626DF2DE40903EE85DDAF0AE1021DA5F739C90&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/7112781.mp3?vkey=D7BEFAB1DC0CEDA331C07512A44835B7D355CE2AE26508B3519DA741F86D35D8AC2774B69F4AA93D81F0E94A288B6AFB66E3C42CD050BD6B&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
@@ -33,35 +33,35 @@ $(document).ready(function(){
       title:"三国杀",
       artist:"汪苏泷",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E4%B8%89%E5%9B%BD%E6%9D%80.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/837839.mp3?vkey=0E023503BCC3C41CDD25A0AB32432FB8C284F44720771A269E373B2DD43535BA2A708B717918EF7F0A57F80134ED4B4EE96440870B769430&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/837839.mp3?vkey=69E915A17D2962FEE5C0F208F611B9C6B0A0B64FF05CEE5386860BC11D3417953DB02FE6123E8328855AB97A72A50646F33C03BDFFD6E792&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"every heart",
       artist:"犬夜叉",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/every%20heart.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/103571634.mp3?vkey=5D5573B8929B0965AA8C10CC1C2FCF3FC04F031A364C1CA09BF82845678689B2D0AC387902D21237DBF5B08CF40BF5FF626C360F27FF5A70&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/102655319.mp3?vkey=26E11F59AA61EE95247474C34F9D1C085F866EB3B519745632C8EB07453CFDFD76A5D2348887EC2A9395E566C05606EC557B408C1D588EDD&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"不分手的恋爱",
       artist:"汪苏泷",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E4%B8%8D%E5%88%86%E6%89%8B%E7%9A%84%E6%81%8B%E7%88%B1.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/7112782.mp3?vkey=C11169D8362484738C84F316A1C988E51FE8197FEAD811F9D61E9392EF97C87C788862E5FB45C69D4F257FAA0A4A9DB0B4B2DC41A6629C82&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/7112782.mp3?vkey=12E8DFFB725D59FF6233BD90E9533CE22AD3D723A07BEC2FFD8F8270269F97B02F8A78E216FC144491B4A190A5DE3F3E8965FED0EDDB948F&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"桃花扇",
       artist:"汪苏泷",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E6%A1%83%E8%8A%B1%E6%89%87.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/7112754.mp3?vkey=72234C59F0A25B2FBD35E68207C59F6BB3D70068B3A63DAC64A565158BB192A1D5E3A992E94F33E1DFADC1E9D9E7523183D1EC869F7657D1&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/7112754.mp3?vkey=B4E14CC04BC1E63C30A9A36524C0F4E539D670F3FE938918EF1604AFD3E35C3EAD3C4617A35E47152E7FC0B8E3814030E38F9E50C6DB86EE&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"风度",
       artist:"汪苏泷",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E9%A3%8E%E5%BA%A6.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/7112755.mp3?vkey=F5D510264537570CC1190F1123C79A0EF451CA0FE12BD251747ECAA35BBBABCE29419682D46F5A9D95069C731217227A87592BC427283745&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/7112755.mp3?vkey=55C15E3A55EBDC494A22DE0A25EADB87B2ABDA052AB9D47E9454F36A46A826164A649C2B2CBD293B6668FED41F4C90F1482F5FFA91533BF3&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
@@ -73,118 +73,124 @@ $(document).ready(function(){
       title:"美丽的神话",
       artist:"成龙金喜善",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E6%88%90%E9%BE%99%E3%80%81%E9%87%91%E5%96%9C%E5%96%84%20-%20%E7%BE%8E%E4%B8%BD%E7%9A%84%E7%A5%9E%E8%AF%9D.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/213062.mp3?vkey=AB133EACF2904EB6555E6B269022D606E86CFBB017A96AAEAD12B9B83B14B9C0C104846EF0DC00219C9B46ABC0092EEA4D653E70F5C07E99&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/1091878.mp3?vkey=497B79D2FB5F9553A412D16F5FBC11C4073D0D9C53E8CF2120832A8CAB9FABC25BA3B0B01B8A27730135828F5783EC58B1FB9C5FCB85F79D&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"风云永远永远",
       artist:"",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E9%A3%8E%E4%BA%91%20-%20%E9%9B%84%E9%9C%B8%E5%A4%A9%E4%B8%8B%20-%20%E6%B0%B8%E8%BF%9C%E6%B0%B8%E8%BF%9C.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/135679.mp3?vkey=D0E6BCCB3845EC23B918833B381825534641F0F44F8D30FB1FE35AA5FCA54EF9499DDD17DE5B5C1EB3DC3A079FDE2F240372FAA866F37978&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/135679.mp3?vkey=F0A261EE2309CEDC889800E6CD154A1A625F4247319B0A500F0635D8CC680E65C9FBE2B34ECAAB1F8F01E4A2775E97258E4AE2B4DEA0D06A&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"神雕侠侣 归去来兮",
       artist:"胡兵&希莉娜依",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%8F%A4%E5%A4%A9%E4%B9%90%20-%20%E7%A5%9E%E9%9B%95%E4%BE%A0%E4%BE%A3%E4%B8%BB%E9%A2%98%E6%9B%B2.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/102222052.mp3?vkey=1073F4F816F51698AFF97E9350CA02D8D4E203BAF3A5CCA211B4F4F4987022AC46607942AB1FF12EAA8AE80D5FF3A5869F505A5C46435E8F&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/102222052.mp3?vkey=363D468D73B6D8E801C3FEA69515FD76341532222CCEAF2F12280C8AF7792EF16903FE36D5F49930175743C82DE0C37B62FE9284857A06D1&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"月光 - 日本",
       artist:"",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E9%AC%BC%E6%9D%9F%E5%8D%83%E5%AF%BB%20-%20%E6%9C%88%E5%85%89%20-%20%E6%97%A5%E6%9C%AC%E7%BB%8F%E5%85%B8%E7%88%B1%E6%83%85%E7%94%B5%E8%A7%86%E5%89%A7%E4%B8%BB%E9%A2%98%E6%9B%B2.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/32694352.mp3?vkey=7C0F479F4DD301ACE93DDB851A4638A4AD7E8157905DBAD11F2D0A4FB62DF51576EE07DD7003640EFE5F904F162E37754F3177FD6D9943EC&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/195764.mp3?vkey=8E798AAA98F9457347C27BF53A3096F5CD3A8CF97164B20123FD6E651CB9D2B7943449339EFDDB8D4E1C48CF325A3A7A5AB41ADCB478EFF1&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"假如爱有天意",
       artist:"",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%81%87%E5%A6%82%E7%88%B1%E6%9C%89%E5%A4%A9%E6%84%8F%20More%20Than%20Love.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/759351.mp3?vkey=3BD71566B931C01BBB44F60718EC5BB15C9506E459280F4E9B18F5C205946A34D897DFAF273358D0D07563BE33FEE52A06431C4CE8FA1F32&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/759351.mp3?vkey=A195F8CD2EDCF155B0D752FA4BD9F9684098D50AD2C16B8983EA50233FC8D747596BB78617B835E3BE74AA00ACF8804946B9C74E25CA15E9&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"星月神话",
       artist:"金莎",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E9%87%91%E8%8E%8E%20-%20%E6%98%9F%E6%9C%88%E7%A5%9E%E8%AF%9D.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/727869.mp3?vkey=CA25A8FFC13386BE12ED5729AC3C8576EF6A0751382C9FFB8225FA39982811CDB28AEED8BEE689C1864D993C4F3055B4BDED0E2BED9B8E64&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/727869.mp3?vkey=DE0AAD1AC1FF053B43E9D5DFD46BB39A21DF3EF7FC9A114C542451B32784A4478888E0CFDA4DDDA660AD7B37C5AA7C472CCBC4A5785AE818&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"爱死了昨天",
       artist:"李慧珍",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E6%9D%8E%E6%85%A7%E7%8F%8D%20-%20%E7%88%B1%E6%AD%BB%E4%BA%86%E6%98%A8%E5%A4%A9.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/393889.mp3?vkey=30046E99B35AB65B28BDB9297A0A0A39861A6FAF771246205139B628E768AA31D37E2D78B980C7C47CDB894BB42534D367AFD6CDA4372C0D&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/393889.mp3?vkey=9A09795D6BC197638134C1D50E3E3B762D580EF051F3C9514C3E10C6F91D25BBC9243A97573F3D7DD26E1E2AFA0E5A711A65545729DB402C&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"我欲成仙",
       artist:"刘欢",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%88%98%E6%AC%A2%20-%20%E6%88%91%E6%AC%B2%E6%88%90%E4%BB%99.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/4838529.mp3?vkey=F9CF9BF50E4808F952087D069A3E09737D16303A4D435149F4D3C74EA7DF65E9BEC6E9D5E3497AB9B083BDD2F0C73ED0D4068B4D4A4AC1A2&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/4838529.mp3?vkey=0C1752CA94EBBF716E76762BA1FB1599E8B8416C89442929BF09CBF46666380099B2E53529F1D1CE85DB17D1CDC4C361DD480A5284EF765D&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"相思",
       artist:"毛阿敏",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E6%AF%9B%E9%98%BF%E6%95%8F%20-%20%E7%9B%B8%E6%80%9D.mp3",
-      mp3:"dl.stream.qqmusic.qq.com/106329564.mp3?vkey=5677C4D07575E3C88FAFFE685920D13BE9FF40052EE56DEC01399846D0DE7D36B91A66D87997F4EE956DE1C804A36637BC44728F20593637&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/106329564.mp3?vkey=81EDC5FD141F7994A92D4235E8FE438B9935F43A1EC09FF8F45BDD731F4CB8E13B57595B9CC018ED77F96C88EC33E8DFF6F985C19965287C&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"此生不换",
       artist:"青鸟飞鱼",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E9%9D%92%E9%B8%9F%E9%A3%9E%E9%B1%BC-%E6%AD%A4%E7%94%9F%E4%B8%8D%E6%8D%A2.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/102350740.mp3?vkey=8CCE79B398E71B7684434E9DF274C13DC5092CD3FD98FDB20A80CAB61467C37012465EE6393592D2F63291EBD8448F6E3E35DCBA6D79ACD7&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/102350740.mp3?vkey=D35CFA79BDF9A2A777040C2B18693C9C110B17F82326D1CD658E2474079FAC16A45471C60E04E8883F20948E09DD2755AB538D7499FBA3B6&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"转弯",
       artist:"吴奇隆",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%90%B4%E5%A5%87%E9%9A%86%20-%20%E8%BD%AC%E5%BC%AF.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/102332761.mp3?vkey=1A31106B522B0922F8DFF802FD2F740BB6D001079D07FFCDB53907FA0CE75F7C4DBFB20E3AAEA5F888D49B4D1D38B10DF5080F13B727919D&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/102332761.mp3?vkey=016F54D1E21BA4EE40854CAA2404F38B24835E2BA1F43FD452C93B8E758D9DF1C3E3B603E011F693807BEC50874BF48776AE39516911EB25&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"生生世世爱",
       artist:"吴雨霏",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%90%B4%E9%9B%A8%E9%9C%8F%20-%20%E7%94%9F%E7%94%9F%E4%B8%96%E4%B8%96%E7%88%B1.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/102350739.mp3?vkey=3540FF464A559802E2C3D9248CCB60C6E79627A6C1F9F2D6A9100D2A7B490A816374B78339D5F88248C0E643BD46DEBA0B07F565AC1B0F9D&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/102350739.mp3?vkey=5B7FFBB4EFB89DB2F13AE43825C074A3DEAD9D3EB64B00267EA83F5E0A8D06AB15802F12237DE36825CBA74C618FA6E24A441D6ADF914AD9&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"月光",
       artist:"胡彦斌",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E6%9C%88%E5%85%89.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/433224.mp3?vkey=1F5515B18C76AA82AFCFCA202E4ACC801E9924E0D60005D54D1194C3349485BD52D582BB571B3CD22B67BE00799AE733EA2E6DAF3E237A1E&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/433224.mp3?vkey=CF3CB63E108CCAEBA67FD0B163EEB0DB25D2BBC31D005842DFF43B891524CBB36BCC647FA27E70245CDF73E2B0B14A1508994447EA0D78D6&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"绝世",
       artist:"张克帆",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%BC%A0%E5%85%8B%E5%B8%86%20-%20%E7%BB%9D%E4%B8%96.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/34934559.mp3?vkey=F963C971A7842B8094A3C30FF871582D08E9D59FDDECBF859AE6C1B37D6EDC96B46265F744D20A4BC79EE298E062084D4E49D036A440C2E8&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/4934559.mp3?vkey=C5F99C8F794DCF96CFB108CEDDEFEB917341FB2A7F5BF5B784684070936891C8586E1602309874272C54E4F01380593170A64A57AF821D99&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"美丽的神话",
       artist:"孙楠韩红",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E5%AD%99%E6%A5%A0%E9%9F%A9%E7%BA%A2%E7%BE%8E%E4%B8%BD%E7%9A%84%E7%A5%9E%E8%AF%9D.mp3",
-      mp3:"dl.stream.qqmusic.qq.com/97162.mp3?vkey=6076F6876F040FAEB392CAC6C40AB65796228ADAED7B0DA834909D1884DFCE3CA9FF4565DED568E4F13D5CB33CFBE6DE1DE49876302A55F5&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/97162.mp3?vkey=49FBAEDC733A9A84F370FCF8C4FF177496A75BBAE8BEC76E459CA2943CF54E6DC093E1E500D275697B4E8E6EA81776A62B6E675BE09BBBF8&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"爱的灵魂",
       artist:"范朋飞",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/%E8%8C%83%E6%9C%8B%E9%A3%9E%20-%20%E7%88%B1%E7%9A%84%E7%81%B5%E9%AD%82.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/5072680.mp3?vkey=2DCEB45159CD2C97F4A18C2A1F3D8F3529C0C756F45D69D71EE67995DDA2C3FFE165EBEA697BD632737E0836FEB02EB7F367D03CA52106DC&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/4808617.mp3?vkey=55EC8C85D468C62D805BADB17256AE95E83B89DBF5B846E7ABC80F6183AB66FFC28FE2510AAC271E0780F1E60E48A04DB5831AC23E18D486&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"偷功",
       artist:"胡伟立",
-      mp3:"http://dl.stream.qqmusic.qq.com/31727255.mp3?vkey=DC82BB215E265C4370B6EEBE44EEABC15E03629953E9684D0EDDB40FEE52DB1992D1B4366319D81ADB17EB2A49AAC338ABBE0DF75B938953&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/1727255.mp3?vkey=9F5456282F0CABF1700FC07CE9B466488BEFA891E673541EE5878731BD99C8C17C012F1FC8D4C3F61844A9DF4988ED895A2CF948DE240D5F&guid=4082350140&fromtag=30",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"天空之城3D",
+      artist:"张也变",
+      mp3:"http://fs.pc.kugou.com/201612222108/1a6490425f81357fbee98c2b4e1c3055/G062/M03/0D/1D/3oYBAFcyZG6AW5ApADalUXgTgQU351.mp3",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     }];
