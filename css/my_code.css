@@ -523,7 +523,7 @@ address {
     margin-bottom: 20px;
 }
 code, kbd, pre, samp {
-    font-family: monospace;
+    font-family: "WenQuanYi_Zen_H7c946b1e616dce" !important;
 }
 code {
     background-color: #f9f2f4;
