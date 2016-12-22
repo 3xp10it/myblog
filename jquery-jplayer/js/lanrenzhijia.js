@@ -6,14 +6,14 @@ $(document).ready(function(){
 	 title:"My love",
 	 artist:"westlife",
 	 //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/my%20love.mp3",
-	 mp3:"http://dl.stream.qqmusic.qq.com/1032758.mp3?vkey=D07F85187C6F701B86945DD935E7AFEF0FD85DC8040A3AD8EE4B9BBAAEFCAF77F8B89EACE4DB9E5979BE0F5678026AC562EABC6A506FA93E&guid=4082350140&fromtag=30",
+	 mp3:"http://dl.stream.qqmusic.qq.com/1032758.mp3?vkey=95CDDBF3D98BC18E3B1E389822FF91FE077CA8966E50B7905D584B097EC61C3B3B7D1A0839BBE9F79099FB7920CE70053E6AEB34C9C09DB0&guid=4082350140&fromtag=30",
 	 poster: "https://33.media.tumblr.com/0b35eb42176eedbf4a96e52efa760875/tumblr_mxp7a0v3fr1rqx86wo1_500.png"
 
     },{
 	  title:"My will",
       artist:"犬夜叉",
       //mp3:"https://raw.githubusercontent.com/3xp10it/music/master/my%20will.mp3",
-      mp3:"http://dl.stream.qqmusic.qq.com/7248255.mp3?vkey=CAF21BD2A7276A242FC2C8024E98FADEFE8F31E76EF0E05007578DFFD17E3D7855D542086D62834D2CEC9E6A84485C4136000D25747A1D5A&guid=4082350140&fromtag=30",
+      mp3:"http://dl.stream.qqmusic.qq.com/7248255.mp3?vkey=526558DD24F1D0334131D8AB27B3373D77C295FF02EFAA7BB09DB846FB5F2D72691A50023007D19A9894EA0CB3277BC471556A9D5620CB33&guid=4082350140&fromtag=30",
       //oga:"https://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg",
       poster: "https://33.media.tumblr.com/0b35eb42176eedbf4a96e52efa760875/tumblr_mxp7a0v3fr1rqx86wo1_500.png"
     },{
