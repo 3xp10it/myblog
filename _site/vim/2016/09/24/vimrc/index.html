@@ -232,18 +232,9 @@ syntax on"自动语法高亮,语法检验
 set autoindent"自动缩进
 set tabstop=4"tab键占4个字符
 
-"快速切换到正常模式
-"下面暂时将fj的esc方式禁用,用caps键当esc和ctrl用
-"imap fj &lt;esc&gt;
-"imap jf &lt;esc&gt;
-"cmap fj &lt;esc&gt;
-"cmap jf &lt;esc&gt;
-"vmap fj &lt;esc&gt;
-"vmap jf &lt;esc&gt;
 
 "方便操作
 map ; :
-map &lt;s-;&gt; ;
 map mm ZZ
 map sy "+y
 map sp "+p
@@ -272,6 +263,10 @@ function Biaodian()
 
 "设置缩进的空格数
 set shiftwidth=4
+
+"设置tab键为4个空格
+set ts=4
+set expandtab 
 
 "111字符长度换行用来适配博客md编写
 set textwidth=111
