@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 23 Dec 2016 09:11:27 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Dec 2016 09:11:27 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Dec 2016 17:47:02 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Dec 2016 17:47:02 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -1058,6 +1058,7 @@ new ebp --&amp;gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代�
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.http://www.backlion.org/?p=6218
 2.https://www.leavesongs.com/PENETRATION/xss-collect.html
 3.文件上传XSS:http://www.55118885.com/w/529184.html
+4.https://xianzhi.aliyun.com/forum/read/536.html
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;

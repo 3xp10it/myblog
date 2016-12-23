@@ -1965,10 +1965,21 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
     重新用文泉驿等宽正黑draw,也即下面的code标签的设置
 	$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body",
 		"354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
-	$youziku.draw(); <span class="sb">
+	$youziku.draw(); 
+<span class="p">
+283.</span>微软新防护手段:
+    emet:
+        EMET是微软推出的一款漏洞防护软件,专门针对应用程序的未知漏洞进行防护,能够使大多数漏洞攻击手段失效
+    隔离堆和延迟释放:
+        从2014年6月起,微软在IE浏览器中引入了两项新的安全机制:隔离堆和延迟释放,这两项机制使得能够在IE浏览器上
+        成功运行的UAF漏洞(释放后重 用)变得非常稀有,而此前在IE浏览器上很容易挖掘到可以利用的UAF漏洞.在国内外
+        各大安全会议上,目前还没有人提出完美攻破上述安全机制的技术思路.
+    cfg:
+        CFG(执行流保护),微软在Win 8.1 Update 3以及Win 10中启用了一种抵御内存泄露攻击的新机制,
+        即Control Flow Guard(CFG)——控制流防护.这项技术是为了弥补此前不完美的保护机制,例如地址空间布局随机化
+        (ASLR)导致了堆喷射的发展,而数据执行保护(DEP)造成了漏洞利用代码中返回导向编程(ROP)技术的发展.
 
-
-</span></code></pre>
+</code></pre>
 </div>
 
 </span>
