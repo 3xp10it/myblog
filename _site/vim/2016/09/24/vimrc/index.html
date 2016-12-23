@@ -245,20 +245,20 @@ map sp "+p
 au BufRead *.md call Biaodian() &lt;CR&gt;
 map &lt;F2&gt; :call Biaodian() &lt;CR&gt;
 function Biaodian()
-    %s/“/"/g
-    %s/”/"/g
-    %s/，/,/g
-    %s/。/./g
-    %s/？/?/g
-    %s/〈/&lt;/g
-    %s/〉/&gt;/g
-    %s/（/(/g
-    %s/）/)/g
-    %s/：/:/g
-    %s/；/;/g
-    %s/‘/'/g
-    %s/‘/'/g
-    %s/！/!/g
+    %s/"/"/g
+    %s/"/"/g
+    %s/,/,/g
+    %s/././g
+    %s/?/?/g
+    %s/&lt;/&lt;/g
+    %s/&gt;/&gt;/g
+    %s/(/(/g
+    %s/)/)/g
+    %s/:/:/g
+    %s/;/;/g
+    %s/'/'/g
+    %s/'/'/g
+    %s/!/!/g
     endfunction
 
 "设置缩进的空格数
@@ -485,6 +485,12 @@ imap &lt;silent&gt; &lt;F5&gt; &lt;Plug&gt;MarkdownPreview        " 插入模式
 nmap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 普通模式
 imap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 插入模式
 
+</code></pre>
+</div>
+
+<h4 id="install">Install</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>https://github.com/3xp10it/.vimrc
 </code></pre>
 </div>
 </span>
