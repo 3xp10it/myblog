@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 23 Dec 2016 08:49:20 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Dec 2016 08:49:20 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Dec 2016 08:54:44 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Dec 2016 08:54:44 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -1016,19 +1016,15 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 
    一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;			...
-			...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在) 
+            ...
+            ...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在) 
 new ebp --&amp;gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值) 
-			retn   (retn为当前函数的返回地址)
-			arg1   (arg1为当前函数的第一个参数)
-			arg2   (arg2为当前函数的第二个参数)
-			...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+            retn   (retn为当前函数的返回地址)
+            arg1   (arg1为当前函数的第一个参数)
+            arg2   (arg2为当前函数的第二个参数)
+            ...
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
+   也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
