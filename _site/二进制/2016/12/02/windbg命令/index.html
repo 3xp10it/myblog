@@ -210,15 +210,19 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 
    一般情况下,栈空间中的低地址向高地址的排列,函数调用时,栈中的数据如下:
 
-			...
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>			...
 			...    (new ebp为当前函数帧中的新的ebp,此处的new ebp代表当前函数帧的ebp的位置所在) 
 new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new ebp位置中的内容值) 
 			retn   (retn为当前函数的返回地址)
 			arg1   (arg1为当前函数的第一个参数)
 			arg2   (arg2为当前函数的第二个参数)
 			...
+</code></pre>
+</div>
 
-   也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
+<div class="highlighter-rouge"><pre class="highlight"><code>   也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
 </code></pre>
 </div>
 
