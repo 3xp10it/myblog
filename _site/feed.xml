@@ -5,9 +5,62 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 23 Dec 2016 20:59:43 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Dec 2016 20:59:43 +0800</lastBuildDate>
+    <pubDate>Sat, 24 Dec 2016 19:12:49 +0800</pubDate>
+    <lastBuildDate>Sat, 24 Dec 2016 19:12:49 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>漏洞战争-cve-2011-0027</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;p&gt;漏洞情况:
+    MDAC是一套用于在windows上提供数据库连接的组件,由于MDAC没有正确验证内部数据结构的内存分配,当RecordSet中用于
+    指定缓冲区大小的CacheSize属性过大时会导致整数溢出,造成实际分配的内存空间小于原来指定的内存空间.
+    荷兰黑客Peter Vreugdenhil在Pwn2Own 2010中利用cve-2011-0027 Microsoft Data Access Components(MDAC)的堆溢出漏
+    洞攻破了Windows7上的IE8,利用信息泄露和rop绕过aslr和dep的保护,赢得高额奖金. 微软于2011年1月补丁日修复这个漏
+    洞,对应微软信息安全公告MS11-002&lt;/p&gt;
+
+&lt;p&gt;准备:
+    在msf中search ms11-002或search cve-2011-0027都没有结果,这个漏洞要结合一个uaf漏洞来达到控制代码执行的目的
+    ,msf中没有相关exp,google[site:exploit-db.com cve-2011-0027]或者在书中配套资料中可找到exp文件,该exp是个html
+    文件,对应exploit-db链接为:https://www.exploit-db.com/exploits/15984/&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;运行exploit-db中的exp,在win7x32+ie8和winXp(x32)+ie6下运行都失败,不能成功利用(代码中是弹出calc.exe),作者博客
+中:
+    http://vreugdenhilresearch.nl/ms11-002-pwn2own-heap-overflow/
+提到:
+    &quot;另外:我只使用堆溢出的信息披露,但有足够的选项,将它变成RCE,至少对于WinXP,也可能为Windows 7.但对于实
+    际的RCE我使用一个后免费的bug 几个月前补丁:
+    http://www.microsoft.com/technet/security/bulletin/MS10-035.mspx
+
+    我有几个版本的exp在我的硬盘,我不知道哪个是实际工作的最终版本,所以我只是把一个在这里.
+    另外:我使用的DEP逃避是基于在pwn2opwn时与W7一起提供的msado.dll版本,基本上做了一个VirtualProtect调用我
+    的Aligned堆喷雾,并把它可执行.
+
+    记住,这是原始代码,它是在我很忙的时候写的,所以它是丑陋的,低效的,可能充满了奇怪的变量名. 此外,它需
+    要Alex Sotirovs heapLib.js来运行.&quot;
+
+很遗憾作者没有把有用的exp放出来,这里只学习其中的相关技术点
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-key&quot;&gt;0x01 Key&lt;/h3&gt;
+
+</description>
+        <pubDate>Sat, 24 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/24/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2011-0027/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/24/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2011-0027/</guid>
+        
+        <category>整数溢出</category>
+        
+        <category>漏洞战争</category>
+        
+        <category>漏洞分析</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>3xp10it自动化渗透测试框架1.0</title>
@@ -1793,31 +1846,6 @@ Developers assume no liability and are not responsible for any misuse or damage 
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>获取代理</title>
-        <description>&lt;h3 id=&quot;pycode&quot;&gt;pycode&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pip3 install exp10it -U&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;exp10it&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_one_useful_proxy&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_one_useful_proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Wed, 16 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/python/2016/11/16/%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%90%86/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2016/11/16/%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%90%86/</guid>
-        
-        <category>proxy</category>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
         
       </item>
     
