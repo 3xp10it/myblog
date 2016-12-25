@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 25 Dec 2016 21:16:44 +0800</pubDate>
-    <lastBuildDate>Sun, 25 Dec 2016 21:16:44 +0800</lastBuildDate>
+    <pubDate>Sun, 25 Dec 2016 21:32:51 +0800</pubDate>
+    <lastBuildDate>Sun, 25 Dec 2016 21:32:51 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -271,7 +271,8 @@ ctrl+g:6dd96957,按照上面的5个设置条件记录断点之后便可得到书
 
 &lt;h3 id=&quot;0x02-od技巧&quot;&gt;0x02 OD技巧&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;如果有aslr,要调试某个exe,漏洞函数在某个dll中,可以先加载dll,然后在dll中的漏洞函数下断点,然后再加载要调试的exe
+主程序,这样或许可以避开aslr对dll模块基址改变带来的问题从而更好地下断点,未实践.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>

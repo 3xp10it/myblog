@@ -142,7 +142,8 @@
 
 <h3 id="0x02-od技巧">0x02 OD技巧</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;如果有aslr,要调试某个exe,漏洞函数在某个dll中,可以先加载dll,然后在dll中的漏洞函数下断点,然后再加载要调试的exe
+主程序,这样或许可以避开aslr对dll模块基址改变带来的问题从而更好地下断点,未实践.
 </code></pre>
 </div>
 </span>
