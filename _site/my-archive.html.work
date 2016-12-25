@@ -155,6 +155,20 @@
 								
 
 
+								<li><a href="/crack/2016/12/25/od%E5%91%BD%E4%BB%A4/" ><font color=#C08040><small>2016-12-25</small></font>
+												<font color=#C04040>od命令</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/24/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2011-0027/" ><font color=#C08040><small>2016-12-24</small></font>
 												<font color=#C04040>漏洞战争-cve-2011-0027</font></a></li>
 								
@@ -257,7 +271,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "7";
+document.getElementById("my_month_article_num_Span1").innerHTML = "8";
 								</script>
 								
 
@@ -1151,7 +1165,7 @@ document.getElementById("my_month_article_num_Span10").innerHTML = "2";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "62";
+document.getElementById("my_year_article_num_Span1").innerHTML = "63";
 						</script>
 
 
@@ -1169,7 +1183,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "62";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2015 <span
-									   id="my_year_article_num_Span2">62</span>
+									   id="my_year_article_num_Span2">63</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
