@@ -5,9 +5,160 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 25 Dec 2016 23:29:05 +0800</pubDate>
-    <lastBuildDate>Sun, 25 Dec 2016 23:29:05 +0800</lastBuildDate>
+    <pubDate>Mon, 26 Dec 2016 14:40:33 +0800</pubDate>
+    <lastBuildDate>Mon, 26 Dec 2016 14:40:33 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>漏洞战争-cve-2013-0750</title>
+        <description>&lt;h3 id=&quot;0x00-prepare&quot;&gt;0x00 Prepare&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.firefox17.0下载链接
+ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/17.0/win32/zh-CN/Firefox%20Setup%2017.0.exe
+2.firefox 17.0源码下载链接
+http://releases.mozilla.org/pub/mozilla.org/firefox/releases/17.0/source/firefox-17.0.source.tar.bz2
+3.firefox官方符号表服务器地址(在windbg中添加File|Symbol File Path)
+SRV*c:\symbollocal\*http://symbols.mozilla.org/firefox
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-分析&quot;&gt;0x01 分析&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;windbg|File|Symbol File Path|在最后添加;SRV*d:\symbollocal\*http://symbols.mozilla.org/firefox
+windbg|File|添加资源文件路径C:\Users\klionsec7\Desktop\mozilla-release
+打开firefox17.0
+f6附加firefox.exe
+g
+firefox打开poc.html
+    (ae4.131c): Access violation - code c0000005 (first chance)
+    First chance exceptions are reported before any exception handling.
+    This exception may be expected and handled.
+    eax=14405418 ebx=002dbbd8 ecx=002e1000 edx=14600000 esi=002dbb80 edi=072b0031
+    eip=693c2aa3 esp=002dba68 ebp=002dbaa0 iopl=0         nv up ei ng nz na pe cy
+    cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010287
+    *** WARNING: Unable to verify checksum for C:\Program Files (x86)\Mozilla Firefox\mozjs.dll
+    *** ERROR: Symbol file could not be found.  Defaulted to export symbols for C:\Program Files (x86)\Mozilla 
+    Firefox\mozjs.dll - 
+    mozjs!js::NewProxyObject+0x1043:
+    693c2aa3 668939          mov     word ptr [ecx],di        ds:002b:002e1000=????     
+    这里得到的中断下来的信息与书中不一致,这里得到的符号表对应的结果为mozjs!js::NewProxyObject+0x1043,书中得到的
+    结果为mozjs!ReplaceRegExpCallback+0x183,对应的汇编指令都是:mov word ptr [ecx],di
+    上面显示没有找到符号文件,查看当前符号路径,使用如下命令
+
+.sympath
+    0:000&amp;gt; .sympath
+    Symbol search path is: srv*c:symbols*http://msdl.microsoft.com/download/symbols   
+    结果中没有开始设置的firefox的符号表服务器地址,不知什么原因,调试器默认采用延迟模式加载符号,重新打开windbg,使
+    用如下命令添加firefox的符号表路径
+
+f6附加firefox.exe
+.sympath+ SRV*c:\symbollocal\*http://symbols.mozilla.org/firefox
+.sympath    
+    Symbol search path is: srv*c:symbols*http://msdl.microsoft.com/download/symbols;
+    SRV*c:\symbollocal\*http://symbols.mozilla.org/firefox
+.reload
+    这里如果不.reload依然会找不到符号表,可参考如下链接
+    http://www.cnblogs.com/kissdodog/p/3729396.html
+g
+firefox打开poc.html
+    (984.a00): Access violation - code c0000005 (first chance)
+    First chance exceptions are reported before any exception handling.
+    This exception may be expected and handled.
+    eax=0d4040d8 ebx=0045bf18 ecx=00460000 edx=0d600000 esi=0045bec0 edi=02200031
+    eip=6d752aa3 esp=0045bda8 ebp=0045bde0 iopl=0         nv up ei ng nz na pe cy
+    cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010287
+    *** WARNING: Unable to verify checksum for C:\Program Files (x86)\Mozilla Firefox\mozjs.dll
+    mozjs!ReplaceRegExpCallback+0x183:
+    6d752aa3 668939          mov     word ptr [ecx],di        ds:002b:00460000=0000
+kv
+    ChildEBP RetAddr  Args to Child              
+    0045bde0 6d799af8 05115710 0804d200 00000000 mozjs!ReplaceRegExpCallback+0x183 (FPO: [Non-Fpo]) 
+    [e:\builds\moz2_slave\rel-m-rel-w32-bld\build\js\src\jsstr.cpp @ 2099]
+    0045be10 6d79a333 00000001 0845f8e0 6d752920 mozjs!DoMatch+0xc8 (FPO: [Non-Fpo]) 
+    [e:\builds\moz2_slave\rel-m-rel-w32-bld\build\js\src\jsstr.cpp @ 1694]
+    0045be4c 6d7451e1 0045bec0 05410078 00000002 mozjs!str_replace_regexp+0x83 (FPO: [Non-Fpo]) 
+    [e:\builds\moz2_slave\rel-m-rel-w32-bld\build\js\src\jsstr.cpp @ 2278]
+    *** WARNING: Unable to verify checksum for C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+    0045bf6c 00310031 00310031 00310031 00310031 mozjs!js::str_replace+0x261 (FPO: [Non-Fpo]) 
+    [e:\builds\moz2_slave\rel-m-rel-w32-bld\build\js\src\jsstr.cpp @ 2464]
+    0045bf7c 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf80 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf84 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf88 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf8c 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf90 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf94 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf98 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bf9c 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfa0 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfa4 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfa8 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfac 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfb0 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfb4 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    0045bfb8 00310031 00310031 00310031 00310031 firefox!__dyn_tls_init_callback &amp;lt;PERF&amp;gt; (firefox+0xb0031)
+    kv命令的结果中可以看到源码文件是jsstr.cpp,这里的kv的结果中的jsstr.cpp的路径并不是实际系统中的路径,可能是
+    windbg的bug,在本地磁盘中全局搜索jsstr.cpp文件,找到后用windbg打开[文件|打开源文件|]这时可以看到windbg中新出
+    现了一个源代码的面板,如果不手动打开,windbg不能自己找到,源代码面板中定位到如下位置:
+        
+    static bool
+    ReplaceRegExpCallback(JSContext *cx, RegExpStatics *res, size_t count, void *p)
+    {
+        ReplaceData &amp;amp;rdata = *static_cast&amp;lt;ReplaceData *&amp;gt;(p);
+
+        rdata.calledBack = true;
+        size_t leftoff = rdata.leftIndex;
+        size_t leftlen = res-&amp;gt;matchStart() - leftoff;
+        rdata.leftIndex = res-&amp;gt;matchLimit();
+
+        size_t replen = 0;  /* silence 'unused' warning */
+        if (!FindReplaceLength(cx, res, rdata, &amp;amp;replen))
+            return false;
+
+        size_t growth = leftlen + replen;
+        if (!rdata.sb.reserve(rdata.sb.length() + growth))
+            return false;
+
+        JSLinearString &amp;amp;str = rdata.str-&amp;gt;asLinear();  /* flattened for regexp */
+        const jschar *left = str.chars() + leftoff;
+
+        rdata.sb.infallibleAppend(left, leftlen); /* skipped-over portion of the search value */
+        DoReplace(cx, res, rdata);定位到的位置
+        return true;
+    }
+    windbg的源代码面板定位到上面的DoReplace语句处,但是由于缺乏相应版本的符号表,在源码调试中无法直接定位到异常指
+    令对应的是DoReplace的哪一句代码.从windbg上设置的符号表服务器地址上对应的符号表一般都是最新的firefox版本的符
+    号表,这里调试的firefox的版本是17.0,并不是当前最新版本,所以找不到DoReplace中具体代码位置,为了解决这个问题需
+    要自动编译firefox17.0的源码.
+    编译需要用到:http://ftp.mozilla.org/pub/mozilla/libraries/win32/中的mozillabuildsetup1.7,eg.将
+    mozillabuildsetup1.7安装到C:\mozilla-build\,然后将firefox源码中的xulrunner\config目录复制到
+    c:\mozilla-build下,在c:\mozilla-build\config\mozconfig文件中设置如下:
+
+    ac_add_options --enable-application=browser
+    ac_add_options --enable-debug
+    ac_add_options --enable-tests
+    ac_add_options -trace-malloc
+    ac_add_options --disable-webgl
+    打开mozzillabuildsetup安装目录下的start-msvc10.bat来启动vs2010后,进入mozilla源码目录,执行make -f client.mk
+    build.
+    系统需要安装vs2010,这里不再继续,分析至此.
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 26 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/26/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2013-0750/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/26/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2013-0750/</guid>
+        
+        <category>漏洞分析</category>
+        
+        <category>源码调试</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>漏洞战争-cve-2012-0774</title>
@@ -1561,9 +1712,11 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 5&amp;gt;g:让被调试的程序继续运行(f5)
   gh:把异常标识为已处理并断续执行程序
   go:对异常不进行任何处理并继续执行程序
+  gc:条件断点之后恢复运行
 
 6&amp;gt;kb:显示传递给堆栈回溯中的每个函数的前三个参数
   kp:显示传递给堆栈回溯中的每个函数的所有参数
+  kv:在kb的基础上增加了函数调用约定等信息,所以推荐用kv命令察看堆栈.
 
 7&amp;gt;u .:反汇编当前eip处的8条指令
   uf .:反汇编当前eip处的整个函数
@@ -1624,8 +1777,11 @@ new ebp --&amp;gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代�
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;用windbg附加要调试的程序时,在调试之前用gflag.exe开启了+hpa,但是在调试时,程序崩溃了而windbg没有断下来,这种情况
 主要原因是被调试的程序衍生出子进程,而windbg默认情况下是不支持子进程调试的,可以使用如下命令开启子进程调试:
 	.childdbg 1
-
-
+2&amp;gt;windbg找不到符号表时可用命令行添加符号表路径,eg:
+    .sympath+ SRV*c:\symbollocal\*http://symbols.mozilla.org/firefox
+    .reload
+3&amp;gt;windbg设置条件记录断点,eg.
+    bu 55ea6514 &quot;.if(1){.echo 'replen = ';dd ebx l1;gc}&quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
@@ -1639,32 +1795,6 @@ new ebp --&amp;gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代�
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>xss好用姿势</title>
-        <description>&lt;p&gt;xss库&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.http://www.backlion.org/?p=6218
-2.https://www.leavesongs.com/PENETRATION/xss-collect.html
-3.文件上传XSS:http://www.55118885.com/w/529184.html
-4.https://xianzhi.aliyun.com/forum/read/536.html
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Tue, 29 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2016/11/29/xss%E5%A5%BD%E7%94%A8%E5%A7%BF%E5%8A%BF/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2016/11/29/xss%E5%A5%BD%E7%94%A8%E5%A7%BF%E5%8A%BF/</guid>
-        
-        <category>xss</category>
-        
-        <category>web</category>
-        
-        
-        <category>web</category>
         
       </item>
     

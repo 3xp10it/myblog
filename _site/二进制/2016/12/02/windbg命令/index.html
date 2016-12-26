@@ -164,9 +164,11 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 5&gt;g:让被调试的程序继续运行(f5)
   gh:把异常标识为已处理并断续执行程序
   go:对异常不进行任何处理并继续执行程序
+  gc:条件断点之后恢复运行
 
 6&gt;kb:显示传递给堆栈回溯中的每个函数的前三个参数
   kp:显示传递给堆栈回溯中的每个函数的所有参数
+  kv:在kb的基础上增加了函数调用约定等信息,所以推荐用kv命令察看堆栈.
 
 7&gt;u .:反汇编当前eip处的8条指令
   uf .:反汇编当前eip处的整个函数
@@ -227,8 +229,11 @@ new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new
 <div class="highlighter-rouge"><pre class="highlight"><code>1&gt;用windbg附加要调试的程序时,在调试之前用gflag.exe开启了+hpa,但是在调试时,程序崩溃了而windbg没有断下来,这种情况
 主要原因是被调试的程序衍生出子进程,而windbg默认情况下是不支持子进程调试的,可以使用如下命令开启子进程调试:
 	.childdbg 1
-
-
+2&gt;windbg找不到符号表时可用命令行添加符号表路径,eg:
+    .sympath+ SRV*c:\symbollocal\*http://symbols.mozilla.org/firefox
+    .reload
+3&gt;windbg设置条件记录断点,eg.
+    bu 55ea6514 ".if(1){.echo 'replen = ';dd ebx l1;gc}"
 </code></pre>
 </div>
 </span>
