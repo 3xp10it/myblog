@@ -1977,9 +1977,33 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
         成功运行的UAF漏洞(释放后重 用)变得非常稀有,而此前在IE浏览器上很容易挖掘到可以利用的UAF漏洞.在国内外
         各大安全会议上,目前还没有人提出完美攻破上述安全机制的技术思路.
     cfg:
+        http://www.powerofcommunity.net/poc2014/mj0011.pdf
+        http://blog.trendmicro.com/trendlabs-security-intelligence/exploring-control-flow-guard-in-windows-10/
+        下面的链接中是一个cfg绕过
+        https://www.coresecurity.com/blog/exploiting-cve-2015-0311-part-ii-bypassing-control-flow-guard-on-windows-8-1-update-3
         CFG(执行流保护),微软在Win 8.1 Update 3以及Win 10中启用了一种抵御内存泄露攻击的新机制,
         即Control Flow Guard(CFG)——控制流防护.这项技术是为了弥补此前不完美的保护机制,例如地址空间布局随机化
         (ASLR)导致了堆喷射的发展,而数据执行保护(DEP)造成了漏洞利用代码中返回导向编程(ROP)技术的发展.
+<span class="p">
+284.</span>windows安装openvpn
+    1&gt;不要将安装文件命名为openvpn.exe,否则会无法继续安装,会提示有一个实例正在运行
+    win2003安装openvpn:
+    http://www.he11oworld.com/system/2314.html
+    attention:
+    a)上面链接中说的服务器端上的ip写内网ip,实际上操作时发现0.0.0.0或者vps的公网ip才可以
+    b)udp-&gt;tcp更好
+    c)客户端改变配置文件后不起作用时,要在open vpn gui运行后右键修改配置文件,并从这里修改才有效
+    d)如果发现配置文件还是没有修改后的效果,要重启客户端,再重新连接
+    e)最好在ubuntu上安装openvpn服务,win03上暂时没成功
+<span class="p">285.</span>ubuntu安装openvpn
+    https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-14-04
+    attention:
+    客户端是ubuntu时,默认的本机dns(/etc/resolv.conf)是127.0.1.0,要改,eg.8.8.8.8+8.8.4.4,原因猜想:虽然在vps上的
+    openvpn服务端配置文件中设置了dns,但是有可能客户端只用本机系统的dns,不用openvpn服务端上设置的dns
+    最后的记录是在windowns 2003上搭建openvpn服务器失败,在ubuntu上成功
+    要想让多个客户端使用同一个客户端配置文件,要在server上的配置文件中的duplicate-cn取消注释,client-to-client最
+    好也取消注释
+    在服务器上重启openvpn命令:service openvpn restart
 
 </code></pre>
 </div>
