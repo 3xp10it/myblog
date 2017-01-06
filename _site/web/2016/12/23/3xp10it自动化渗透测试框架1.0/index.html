@@ -195,15 +195,18 @@ kali linux2安装pip3可参考如下步骤:
   <li>robots/sitemap自动收集</li>
   <li>cms识别与cms漏洞扫描模块</li>
   <li>自动识别管理员页面并爆破[支持自动识别简单验证码]</li>
-  <li>webshell自动查找与爆破,支持asp,php,aspx,jsp,支持chopper一句话webshell和大马类型webshell
-    <div class="highlighter-rouge"><pre class="highlight"><code>a)apache,iis,nginx,lighttpd在phpstudy中测试默认可接收1000个post参数  
+  <li>webshell自动查找与爆破,支持asp,php,aspx,jsp,支持chopper一句话webshell和大马类型webshell</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a)apache,iis,nginx,lighttpd在phpstudy中测试默认可接收1000个post参数  
 b)一句话类型webshell根据上面的特点可以正常情况下(单线程)的1000倍速度来爆破,可用大字典爆破,但是不能用多线程,
-可能是因为用多线程会太快而让web server觉得每次的参数不止1000个  
+  可能是因为用多线程会太快而让web server觉得每次的参数不止1000个  
 c)其他类型web server未测试,暂用多线程1倍速爆破,用最常用的webshell较小字典,17659个左右  
 d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆破,于是也用和c)中一样的小字典多线程1倍速爆破  
 </code></pre>
-    </div>
-  </li>
+</div>
+
+<ul>
   <li>whois信息收集</li>
   <li>资源文件收集</li>
   <li>自动尝试获取cdn后的真实Ip</li>
