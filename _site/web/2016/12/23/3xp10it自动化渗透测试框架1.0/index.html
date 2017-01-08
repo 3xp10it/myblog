@@ -187,6 +187,9 @@ kali linux2安装pip3可参考如下步骤:
 <p>b)支持功能列表</p>
 
 <ul>
+  <li>cdn真实ip查找模块</li>
+  <li>旁站获取[如果在cdn模块中发现有cdn但是没有获取到真实ip则不进行旁站获取]</li>
+  <li>子站获取</li>
   <li>高危漏洞扫描模块</li>
   <li>爬虫模块</li>
   <li>目标网站脚本类型检测</li>
@@ -207,11 +210,9 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
 </div>
 
 <ul>
-  <li>whois信息收集</li>
   <li>资源文件收集</li>
-  <li>自动尝试获取cdn后的真实Ip</li>
-  <li>旁站获取[获取真实Ip后再获取旁站,如果有cdn但是没有获取到真实ip则不进行旁站获取]</li>
-  <li>子站获取</li>
+  <li>端口扫描模块</li>
+  <li>whois信息收集</li>
 </ul>
 
 <p>c)可选工作模式</p>
@@ -264,7 +265,7 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
           </tbody>
         </table>
       </li>
-      <li>xcdn:尝试识别cdn背后的真实ip[3xp10it中没有这个功能]</li>
+      <li>xcdn:尝试识别cdn背后的真实ip</li>
       <li>高危漏扫:高危漏洞扫描模块</li>
       <li>sqli:sql注入模块</li>
       <li>扫目录:目录扫描模块</li>
@@ -296,16 +297,16 @@ c)重新运行python3 web.py
 .
 ├── 3xp10it.py
 ├── pannel
-│   ├── ghostdriver.log
-│   ├── manage.py
-│   ├── models.py[web后台没有用django的模型]
-│   ├── pages[web页面的html文件,相当于django的template]
-│   └── pannel[django相关文件]
-│       ├── __init__.py
-│       ├── settings.py
-│       ├── urls.py[django配置的访问与响应规则]
-│       ├── views.py[django配置的关键函数]
-│       └── wsgi.py
+│   ├── ghostdriver.log
+│   ├── manage.py
+│   ├── models.py[web后台没有用django的模型]
+│   ├── pages[web页面的html文件,相当于django的template]
+│   └── pannel[django相关文件]
+│       ├── __init__.py
+│       ├── settings.py
+│       ├── urls.py[django配置的访问与响应规则]
+│       ├── views.py[django配置的关键函数]
+│       └── wsgi.py
 ├── readme.md
 ├── uninstall.py
 └── web.py
@@ -336,8 +337,7 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
 
 <h3 id="todo">Todo</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>增加端口扫描模块(unfinished)
-</code></pre>
+<div class="highlighter-rouge"><pre class="highlight"><code></code></pre>
 </div>
 
 <h3 id="changelog">Changelog</h3>
@@ -350,7 +350,9 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
 [+] 2017-01-06 添加支持如http://127.0.0.1/administrator页面的爆破,实际上http://127.0.0.1/administrator并不是
     直接的管理员页面,在浏览器中输入http://127.0.0.1/administrator后会跳转到"http://127.0.0.1/administrator/",
     这才是有效的待爆破的管理员页面
-
+[+] 2017-01-08 whois信息收集模块完善
+[+] 2017-01-08 添加端口扫描模块
+[+] 2017-01-08 cdn模块调整
 </code></pre>
 </div>
 </span>

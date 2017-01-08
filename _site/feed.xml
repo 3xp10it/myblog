@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 07 Jan 2017 10:40:34 +0800</pubDate>
-    <lastBuildDate>Sat, 07 Jan 2017 10:40:34 +0800</lastBuildDate>
+    <pubDate>Sun, 08 Jan 2017 20:58:29 +0800</pubDate>
+    <lastBuildDate>Sun, 08 Jan 2017 20:58:29 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -650,6 +650,9 @@ kali linux2安装pip3可参考如下步骤:
 &lt;p&gt;b)支持功能列表&lt;/p&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;cdn真实ip查找模块&lt;/li&gt;
+  &lt;li&gt;旁站获取[如果在cdn模块中发现有cdn但是没有获取到真实ip则不进行旁站获取]&lt;/li&gt;
+  &lt;li&gt;子站获取&lt;/li&gt;
   &lt;li&gt;高危漏洞扫描模块&lt;/li&gt;
   &lt;li&gt;爬虫模块&lt;/li&gt;
   &lt;li&gt;目标网站脚本类型检测&lt;/li&gt;
@@ -670,11 +673,9 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
 &lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;whois信息收集&lt;/li&gt;
   &lt;li&gt;资源文件收集&lt;/li&gt;
-  &lt;li&gt;自动尝试获取cdn后的真实Ip&lt;/li&gt;
-  &lt;li&gt;旁站获取[获取真实Ip后再获取旁站,如果有cdn但是没有获取到真实ip则不进行旁站获取]&lt;/li&gt;
-  &lt;li&gt;子站获取&lt;/li&gt;
+  &lt;li&gt;端口扫描模块&lt;/li&gt;
+  &lt;li&gt;whois信息收集&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;c)可选工作模式&lt;/p&gt;
@@ -727,7 +728,7 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
           &lt;/tbody&gt;
         &lt;/table&gt;
       &lt;/li&gt;
-      &lt;li&gt;xcdn:尝试识别cdn背后的真实ip[3xp10it中没有这个功能]&lt;/li&gt;
+      &lt;li&gt;xcdn:尝试识别cdn背后的真实ip&lt;/li&gt;
       &lt;li&gt;高危漏扫:高危漏洞扫描模块&lt;/li&gt;
       &lt;li&gt;sqli:sql注入模块&lt;/li&gt;
       &lt;li&gt;扫目录:目录扫描模块&lt;/li&gt;
@@ -759,16 +760,16 @@ c)重新运行python3 web.py
 .
 ├── 3xp10it.py
 ├── pannel
-│   ├── ghostdriver.log
-│   ├── manage.py
-│   ├── models.py[web后台没有用django的模型]
-│   ├── pages[web页面的html文件,相当于django的template]
-│   └── pannel[django相关文件]
-│       ├── __init__.py
-│       ├── settings.py
-│       ├── urls.py[django配置的访问与响应规则]
-│       ├── views.py[django配置的关键函数]
-│       └── wsgi.py
+│   ├── ghostdriver.log
+│   ├── manage.py
+│   ├── models.py[web后台没有用django的模型]
+│   ├── pages[web页面的html文件,相当于django的template]
+│   └── pannel[django相关文件]
+│       ├── __init__.py
+│       ├── settings.py
+│       ├── urls.py[django配置的访问与响应规则]
+│       ├── views.py[django配置的关键函数]
+│       └── wsgi.py
 ├── readme.md
 ├── uninstall.py
 └── web.py
@@ -799,8 +800,7 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
 
 &lt;h3 id=&quot;todo&quot;&gt;Todo&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;增加端口扫描模块(unfinished)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&quot;changelog&quot;&gt;Changelog&lt;/h3&gt;
@@ -813,7 +813,9 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
 [+] 2017-01-06 添加支持如http://127.0.0.1/administrator页面的爆破,实际上http://127.0.0.1/administrator并不是
     直接的管理员页面,在浏览器中输入http://127.0.0.1/administrator后会跳转到&quot;http://127.0.0.1/administrator/&quot;,
     这才是有效的待爆破的管理员页面
-
+[+] 2017-01-08 whois信息收集模块完善
+[+] 2017-01-08 添加端口扫描模块
+[+] 2017-01-08 cdn模块调整
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
