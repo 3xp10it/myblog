@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 08 Jan 2017 21:07:18 +0800</pubDate>
-    <lastBuildDate>Sun, 08 Jan 2017 21:07:18 +0800</lastBuildDate>
+    <pubDate>Sun, 08 Jan 2017 21:13:15 +0800</pubDate>
+    <lastBuildDate>Sun, 08 Jan 2017 21:13:15 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -718,16 +718,7 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
   &lt;li&gt;web后台中支持工具列表
     &lt;ul&gt;
       &lt;li&gt;targets:查看扫描目标,新增/删除扫描目标&lt;/li&gt;
-      &lt;li&gt;
-        &lt;table&gt;
-          &lt;tbody&gt;
-            &lt;tr&gt;
-              &lt;td&gt;获取旁&lt;/td&gt;
-              &lt;td&gt;子站:获取旁站或子站模块&lt;/td&gt;
-            &lt;/tr&gt;
-          &lt;/tbody&gt;
-        &lt;/table&gt;
-      &lt;/li&gt;
+      &lt;li&gt;获取旁[子]站:获取旁站或子站模块&lt;/li&gt;
       &lt;li&gt;xcdn:尝试识别cdn背后的真实ip&lt;/li&gt;
       &lt;li&gt;高危漏扫:高危漏洞扫描模块&lt;/li&gt;
       &lt;li&gt;sqli:sql注入模块&lt;/li&gt;
