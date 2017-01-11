@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 10 Jan 2017 19:23:08 +0800</pubDate>
-    <lastBuildDate>Tue, 10 Jan 2017 19:23:08 +0800</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2017 20:15:05 +0800</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2017 20:15:05 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -21,10 +21,82 @@ http://fanrong1992.github.io/2016/05/26/freenote-x64%E5%A0%86%E6%BC%8F%E6%B4%9Ed
 http://www.freebuf.com/articles/network/27118.html
 4.上面3中内含的Corelan ROPdb[基于单个dll收集通用rop链]
 https://www.corelan.be/index.php/security/corelan-ropdb/    
+5.目前认为:
+    alloc(HeapAlloc,malloc)对应unlink
+    free对应link
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;0x01&quot;&gt;0x01&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-free对应link&quot;&gt;0x01 free对应link&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/shellphish/how2heap/blob/master/fastbin_dup.c&quot;&gt;一个doble free的例子&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-----------------start of fastbin_dup.c-----------------
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+int main()
+{
+	printf(&quot;This file demonstrates a simple double-free attack with fastbins.\n&quot;);
+
+	printf(&quot;Allocating 3 buffers.\n&quot;);
+	int *a = malloc(8);
+	int *b = malloc(8);
+	int *c = malloc(8);
+
+	printf(&quot;1st malloc(8): %p\n&quot;, a);
+	printf(&quot;2nd malloc(8): %p\n&quot;, b);
+	printf(&quot;3rd malloc(8): %p\n&quot;, c);
+
+	printf(&quot;Freeing the first one...\n&quot;);
+	free(a);
+
+	printf(&quot;If we free %p again, things will crash because %p is at the top of the free list.\n&quot;, a, a);
+	// free(a);
+
+	printf(&quot;So, instead, we'll free %p.\n&quot;, b);
+	free(b);
+
+	printf(&quot;Now, we can free %p again, since it's not the head of the free list.\n&quot;, a);
+	free(a);
+
+	printf(&quot;Now the free list has [ %p, %p, %p ]. If we malloc 3 times, we'll get %p twice!\n&quot;, a, b, a, a);
+	printf(&quot;1st malloc(8): %p\n&quot;, malloc(8));
+	printf(&quot;2nd malloc(8): %p\n&quot;, malloc(8));
+	printf(&quot;3rd malloc(8): %p\n&quot;, malloc(8));
+}
+-------------------end of fastbin_dup.c-----------------
+
+gcc -o 1 fastbin_dup.c
+./1
+----------------output---------------
+This file demonstrates a simple double-free attack with fastbins.
+Allocating 3 buffers.
+1st malloc(8): 0x2209420
+2nd malloc(8): 0x2209440
+3rd malloc(8): 0x2209460
+Freeing the first one...
+If we free 0x2209420 again, things will crash because 0x2209420 is at the top of the free list.
+So, instead, we'll free 0x2209440.
+Now, we can free 0x2209420 again, since it's not the head of the free list.
+Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times, we'll get 0x2209420 twice!
+1st malloc(8): 0x2209420
+2nd malloc(8): 0x2209440
+3rd malloc(8): 0x2209420
+-------------end of output-----------
+
+由结果分析如下:
+
+1.如果连续free(a),也即对应上面注释掉的变成不注释,这样会出错,因为在执行free函数时,free对应空闲堆块的link,也即对
+  应空闲堆块链入空表,在第2次free动作时,检测到空表中的相邻空闲堆块是自己(同一个空闲堆块),于是系统报错
+  (double free error)
+2.按照上面的代码中的再次free动作[free对应link,将空闲堆块链入空表],第2次free(a)完成后空表如下:
+  freelist[0]=========a=======b======a
+     |_______________________________|
+  在第2次free(a)的时候系统看了下最近的在空表上的空闲堆块不是自己,所以情况正常,不会是Double Free,所以第2次
+  free(a)正常没有出错
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Mon, 09 Jan 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/01/09/Double-Free%E6%BC%8F%E6%B4%9E/</link>
