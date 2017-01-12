@@ -60,6 +60,6 @@ tags:
         https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/
     4>上传图片被resize等修改时,绕过方法: 
         https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
-        用法:x.php?0=system post data:1=whoami
+        用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
 
 <a href="https://www.idontplaydarts.com/images/phppng.png">phppayload</a>
