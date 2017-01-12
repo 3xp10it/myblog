@@ -186,7 +186,10 @@ http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf &lt;=2
   更多细节:
     https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/
 4&gt;上传图片被resize等修改时,绕过方法: 
-    https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
+    a)利用上传前和上传后的文件对比找出没有变化的字符串,将其写payload
+        http://www.freebuf.com/articles/web/54086.html
+    b)老外的方法,比a)中的要好
+        https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
     用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
 </code></pre>
 </div>
