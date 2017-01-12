@@ -198,9 +198,9 @@ If we free 0x2209420 again, things will crash because 0x2209420 is at the top of
 So, instead, we'll free 0x2209440.
 Now, we can free 0x2209420 again, since it's not the head of the free list.
 Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times, we'll get 0x2209420 twice!
-1st malloc(8): 0x2209420
-2nd malloc(8): 0x2209440
-3rd malloc(8): 0x2209420
+1st malloc(8): 0x2209420    (markA)
+2nd malloc(8): 0x2209440    (markB)
+3rd malloc(8): 0x2209420    (markC)
 -------------end of output-----------
 
 由结果分析如下:
@@ -209,10 +209,39 @@ Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times,
   应空闲堆块链入空表,在第2次free动作时,检测到空表中的相邻空闲堆块是自己(同一个空闲堆块),于是系统报错
   (double free error)
 2.按照上面的代码中的再次free动作[free对应link,将空闲堆块链入空表],第2次free(a)完成后空表如下:
-  freelist[0]=========a=======b======a
-     |_______________________________|
+  [freelist是头进尾出]
+  freelist[2]=========a[第2次free(a),markC]=========b[markB]========a[第1次free(a),markA]
+     |______________________________________________________________|
   在第2次free(a)的时候系统看了下最近的在空表上的空闲堆块不是自己,所以情况正常,不会是Double Free,所以第2次
   free(a)正常没有出错
+</code></pre>
+</div>
+
+<p>上面这个例子放在这里是要说明野指针的用处,malloc后再free,而free之后没有置Null的指针是野指针,详情可见下面链接,这里
+的代码并没有直观的看出Double Free是如何被利用在控制代码执行流程的
+<a href="https://zhidao.baidu.com/question/6536098.html">野指针</a></p>
+
+<p>下面分析wooyun文章中的Double Free浅析,这才是Double Free用以控制代码执行的一种直观的利用方法
+<a href="http://php.ph/wydrops/drops/Double%20Free浅析.pdf">Double Free栈析</a></p>
+
+<h3 id="0x02-double-free漏洞的利用方法">0x02 Double Free漏洞的利用方法</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.malloc(504)分配第1个堆块,实际分配504+8=512B大小的堆块,在下面标记为504堆块
+2.p=malloc(512)分配第2个堆块,实际分配1024B大小的堆块(512+8=520,512&lt;520&lt;2014),在下面标记为512堆块
+    |xxxxxxxx504xxxxxxxx|xxxxx(p)xxxxxx512xxxxxxxxxxx|
+    第2个堆块的引用指针为p,p在距离第1个堆块块首504+8=512=0x200偏移位置处
+3.free504大小的堆块
+    freelist[8]=============504堆块
+4.free512大小的堆块,也即free(p)
+    freelist[8]=============504堆块
+
+    freelist[9]=============512堆块
+        
+    此时p指针被释放,p指针成为野指针
+5.malloc(768),768+8=776&lt;1024
+    0x300=768
+    此时freelist[9]中指向的512堆块被分配
+    
 </code></pre>
 </div>
 </span>

@@ -2031,8 +2031,36 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
     PosgresSQL 0A 0D 0C 09 20 
     Oracle 11g 00 0A 0D 0C 09 20 
     MSSQL 01,02,03,04,05,06,07,08,09,0A,0B,0C,0D,0E,0F,10,11,12,13,14,15,16,17,18,19,1A,1B,1C,1D,1E,1F,20
+<span class="p">
+294.</span>ubuntu查看本机glibc版本:
+    a)ldd --version
+    b)/lib/x86_64-linux-gnu/libc.so.6<span class="sb">
 
-</code></pre>
+    glibc是什么?
+
+    glibc是GNU发布的libc库,即c运行库.glibc是linux系统中最底层的api,几乎其它任何运行库都会依赖于glibc.glibc除了
+    封装linux操作系统所提供的系统服务外,它本身也提供了许多其它一些必要功能服务的实现.由于 glibc 囊括了几乎所有
+    的 UNIX 通行的标准,可以想见其内容包罗万象.而就像其他的 UNIX 系统一样,其内含的档案群分散于系统的树状目录结构
+    中,像一个支架一般撑起整个操作系统.在 GNU/Linux 系统中,其C函式库发展史点出了GNU/Linux 演进的几个重要里程碑,
+    用glibc 作为系统的C函式库,是GNU/Linux演进的一个重要里程碑.
+
+    glibc除了封装linux操作系统所提供的系统服务外，它本身也提供了许多其它一些必要功能服务的实现，主要的如下：
+    （1）string，字符串处理
+    （2）signal，信号处理
+    （3）dlfcn，管理共享库的动态加载
+    （4）direct，文件目录操作
+    （5）elf，共享库的动态加载器，也即interpreter
+    （6）iconv，不同字符集的编码转换
+    （7）inet，socket接口的实现
+    （8）intl，国际化，也即gettext的实现
+    （9）io
+    （10）linuxthreads
+    （11）locale，本地化
+    （12）login，虚拟终端设备的管理，及系统的安全访问
+    （13）malloc，动态内存的分配与管理
+    （14）nis
+    （15）stdlib，其它基本功能
+</span></code></pre>
 </div>
 
 </span>
