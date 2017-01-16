@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404</title>
+<title>删除github项目历史版本中的敏感文件</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -101,51 +101,135 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">删除github项目历史版本中的敏感文件</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">January 16, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="steps">Steps</h3>
+
+<p>eg.删除https://www.github.com/3xp10it/MyToolKit项目历史版本中敏感文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.cd /tmp &amp;&amp; git clone https://github.com/dxa4481/truffleHog.git &amp;&amp; cd truffleHog
+2.pip3 install -r requirements.txt
+3.python3 truffleHog.py https://www.github.com/3xp10it/MyToolKit
+    or
+  python3 truffleHog.py https://github.com/3xp10it/MyToolKit.git
+  此时找到了有敏感密码的文件my_bing_domains_v1_alone.py
+4.cd /tmp &amp;&amp; git clone https://github.com/3xp10it/MyToolKit.git &amp;&amp; cd MyToolKit
+5.cp my_bing_domains_v1_alone.py /tmp/
+  这里是为了备份这个有敏感密码的文件
+6.git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch my_bing_domains_v1_alone.py' --prune-empty --tag-name-filter cat -- --all
+  这里是为了删除所有commit中的my_bing_domains_v1_alone.py文件
+7.git push origin --force --all
+8.git push origin --force --tags
+9.git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
+10.git reflog expire --expire=now --all
+11.git gc --prune=now
+12.python3 /tmp/truffleHog/truffleHog.py https://www.github.com/3xp10it/MyToolKit
+  这里是为了验证是否成功清除历史版本中的敏感文件
+13.如果有需要,将备份的my_bing_domains_v1_alone.py有关密码的部分代码修改成没有明文密码后上传到github 
+    cp /tmp/my_bing_domains_v1_alone.py /tmp/MyToolKit/
+    cd /tmp/MyToolKit
+    git add .
+    git commit -a -m "clean passwords"
+    git push -u origin master
+    如果没有必要将my_bing_domains_v1_alone.py文件上传则这一步不需要,例如my_bing_domains_v1_alone.py文件是一个纯
+    配置文件而没有关键代码的时候,这时直接将所有历史版本中的该文件删除即可
+14.done
+</code></pre>
+</div>
+
+<h3 id="reffer">Reffer</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>https://help.github.com/articles/removing-sensitive-data-from-a-repository/
+</code></pre>
+</div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            git, github, truffleHog
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+
+      
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/auxilary/2017/01/16/删除github项目历史版本中的敏感文件" data-title="" data-url="https://3xp10it.github.io//auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"3xp10it"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- 个人增加织网背景效果 -->
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/">删除github项目历史版本中的敏感文件</a>
-      </div>
-      <div class="excerpt">
-         
-          删除github项目历史版本中的敏感文件
-         
-        <a href="/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

@@ -430,6 +430,14 @@
   git commit -a -m "xxx"
   git remote add origin tar_url
   git push -u origin master                                               
+
+  删除所有历史版本中的敏感文件
+  cd /tmp
+  mkdir 3xp10it
+  cd 3xp10it
+  git init 
+  git pull https://github.com/3xp10it/3xp10it.git
+  git filter-branch --tree-filter 'rm -f config.ini'
 <span class="p">
 35.</span>生活学习:1&gt;(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
              2&gt;(曾国藩修身12条)http://www.201980.com/lizhi/chenggong/8007.html
@@ -2077,7 +2085,10 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
     (13)malloc,动态内存的分配与管理
     (14)nis
     (15)stdlib,其它基本功能
-</span></code></pre>
+
+</span><span class="p">295.</span>猜密码网站
+    http://www.caimima.net/
+</code></pre>
 </div>
 
 </span>
