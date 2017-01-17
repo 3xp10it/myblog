@@ -457,14 +457,6 @@
     } ,
     
   {
-    "title"    : "idea",
-    "category" : "",
-    "tags"     : "web, idea, thoughts",
-    "url"      : "/idea/2016/04/21/idea/",
-    "date"     : "2016-04-21 00:00:00 +0800"
-    } ,
-    
-  {
     "title"    : "backup files",
     "category" : "",
     "tags"     : "firefox, backup, vim, sublime",
