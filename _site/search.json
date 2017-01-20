@@ -1,14 +1,6 @@
 [
   
   {
-    "title"    : "《棋魂》",
-    "category" : "",
-    "tags"     : "围棋, 感动, 励志",
-    "url"      : "/%E5%BD%B1%E8%A7%86/2017/01/20/%E6%A3%8B%E9%AD%82/",
-    "date"     : "2017-01-20 00:00:00 +0800"
-    } ,
-    
-  {
     "title"    : "删除github项目历史版本中的敏感文件",
     "category" : "",
     "tags"     : "git, github, truffleHog",

