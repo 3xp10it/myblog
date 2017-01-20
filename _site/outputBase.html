@@ -16,7 +16,7 @@
     margin-top: 0px;
     margin-left: -22%; 
     border: 3px solid #c04040;
-	display:none;
+	display:block;
 	padding:10px;
     background-color: #000;
 	color:#ffc080;
@@ -65,55 +65,6 @@
 
 
 
-<script type="text/javascript">
-function xadmin(){
-
-var xadminTarget=document.getElementById("INPUT_2")
-var xadminTargetValue=xadminTarget.value
-if(xadminTargetValue.length==0){
-alert("单击xadmin按钮时目标不能为空!")
-xadminTarget.focus();
-return false;
-}
-
-if(xadminTargetValue.substring(0,4)!="http" || xadminTargetValue.length<5){
-alert("格式为http://www.baidu.com/admin/login.php");
-xadminTarget.focus();
-return false;
-}
-
-
-var xmlhttp;
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-document.getElementById("myinput").style.display="none"
-document.getElementById("button1").style.display="none"
-document.getElementById("myoutput").style.display="block"
-document.getElementById("myoutput").innerHTML="processing...wait a moment:D..."
-
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    document.getElementById("myoutput").innerHTML=xmlhttp.responseText;
-    }
-  }
-
-xmlhttp.open("GET","/xadmin/?action=xadmin&targetValue="+xadminTargetValue,true);
-xmlhttp.send();
-
-}
-
-
-</script>
-
 
 </head>
 <body>
@@ -123,37 +74,12 @@ xmlhttp.send();
 
 
 
-<a href="/logout/" style="color:#333">Log out</a>
 
 
-<div class="top">
-<div class="head">
-<pre><big><strong>
-
- _   _  ___  _           _____ 
-| |_(_)/ _ \/ |_ ____  _|___ / 
-| __| | | | | | '_ \ \/ / |_ \ 
-| |_| | |_| | | |_) >  < ___) |
- \__|_|\___/|_| .__/_/\_\____/ 
-              |_|              
-
-</strong></big></pre>
-</div>
-</div>
 
 <div id="myoutput">
 </div>
 
-
-
-
-<div class="mid" id="myinput">
-	<input type="text" id="INPUT_2" placeholder="Admin login page crack..." name="targetValue"/>
-</div>
-
-<button id=button1 style="margin:0
-		auto;display:block;color:white;background:black;border:none;width:90px;height:45px;margin-top:40px"
-		onclick="xadmin()">xadmin</button>
 
 
 
