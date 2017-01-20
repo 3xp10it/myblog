@@ -64,6 +64,8 @@ tags:
         b)老外的方法,比a)中的要好
             https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
         用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
+        c)上面b中的条件限制为png且大小为32x32,jpg绕过方法
+            http://www.blogs8.cn/posts/WiA3bxU
 
 <a href="https://www.idontplaydarts.com/images/phppng.png">phppayload</a>
 <a href="https://raw.githubusercontent.com/3xp10it/pic/master/phppng.png">phppayload_bak_link</a>
@@ -118,3 +120,9 @@ tags:
             image/gif
             image/jpeg
             image/pjpeg
+
+    6.上传.user.ini文件来解析图片或隐藏webshell[除.htaccess外的方法]
+        https://ha.cker.in/1097.seo
+    
+    8.上传绕过waf
+        https://github.com/3xp10it/sectec/blob/master/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87waf.pdf
