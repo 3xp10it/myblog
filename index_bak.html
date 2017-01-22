@@ -28,13 +28,10 @@ make-smaller-titles: true
 
             <h1 class="header author-header" itemprop="headline">{{ site.title }}</h1>
 
-            <div class="author-text">
+            <div class="author-text" id="author-text">
                 {{ site.title_description }}
             </div>
-            <script>
-            document.getElementsByClassName('author-text').innerHTML="nihao";
-            alert(555);
-            </script>
+            <script>getElementById("author-text").innerHTML="nihaoma";</script>
 
             {% include social_links.html %}
           </div>
