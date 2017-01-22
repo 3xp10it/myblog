@@ -58,7 +58,6 @@ var oAudio = document.getElementById('myaudio');
 oAudio.src = currentFile;
 oAudio.play();
 oAudio.onended = function() {
-currentFile=list[parseInt(Math.random()*28)];
 oAudio.src = currentFile;
 oAudio.play();
 }
