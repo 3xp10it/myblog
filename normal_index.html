@@ -3,6 +3,7 @@ layout: default
 make-smaller-titles: true
 ---
 
+<script>alert(2);</script>
 <div class="container-fluid index">
     
     <div class="row">
@@ -23,10 +24,9 @@ make-smaller-titles: true
 
             <h1 class="header author-header" itemprop="headline">{{ site.title }}</h1>
 
-            <div class="author-text">
+            <div class="author-text" id="title_description">
                 {{ site.title_description }}
             </div>
-                <script>alert(1);</script>
 
             {% include social_links.html %}
           </div>
