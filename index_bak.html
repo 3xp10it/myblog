@@ -32,7 +32,8 @@ make-smaller-titles: true
                 {{ site.title_description }}
             </div>
             <script>
-            document.getElementsByClassName('author-text').text="nihao";
+            document.getElementsByClassName('author-text').innerHTML="nihao";
+            alert(555);
             </script>
 
             {% include social_links.html %}
