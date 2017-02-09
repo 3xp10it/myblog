@@ -168,7 +168,11 @@
 	找出8000端口的pid
 	netstat -ntlp | grep 8000 | grep -oP '\d{1,4}(?=\/)'
 
-10.python正则表达式思维导图
+10.re中flags用法
+    re.compile(r"nihao",flags=re.I)==re.compile(r"nihao",re.I)
+    re.search(r"nihao","Nihao lalala",flags=re.I)==re.search(r"nihao","Nihao lalala",re.I)
+
+11.python正则表达式思维导图
 </code></pre>
 </div>
 

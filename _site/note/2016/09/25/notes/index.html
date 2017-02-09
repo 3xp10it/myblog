@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          32 minute read
+          33 minute read
         </small>
       </div>
 
@@ -1230,6 +1230,8 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     http://pan.baidu.com/s/1c1Y6kVY
 <span class="p">130.</span>linux中批量替换目录文件中的字符串:
     sed -i "s/xinghuacai/3xp10it/g" <span class="sb">`grep xinghuacai -rl .`</span>
+    or:
+    sed -i "s#https://3xp10it.cc#http://3xp10it.cc#g" <span class="sb">`grep xinghuacai -rl .`</span>
     -i是直接修改,而不在屏幕输出的选项
 <span class="p">131.</span>github在push时免输入用户名密码:
     http://www.cnblogs.com/ballwql/p/3462104.html
@@ -2109,7 +2111,58 @@ windows:
 <span class="p">
 299.</span>已经失效的网页链接要查处内容方法:
     https://archive.org/
-</code></pre>
+<span class="p">
+300.</span>伪造ip:
+    HTTP_CLIENT_IP
+    HTTP_X_FORWARDED_FOR
+    REMOTE_ADDR
+<span class="p">
+301.</span>绕过安全模式
+    https://www.youtube.com/watch?v=Ja9Z-jG3qLA
+        http://pastebin.com/08awe0zc
+        content:<span class="sb">
+
+        php.ini:
+            
+        safe_mode = OFF
+        Safe_mode_gid = OFF
+        disable_functions = NONE
+        disable_classes = NONE
+        open_basedir = OFF
+        suhosin.executor.func.blacklist = NONE
+
+        .htaccess:
+
+        &lt;IfModule mod_security.c&gt;
+        SecFilterEngine Off
+        SecFilterScanPOST Off
+        SecFilterCheckURLEncoding Off
+        SecFilterCheckCookieFormat Off
+        SecFilterCheckUnicodeEncoding Off
+        SecFilterNormalizeCookies Off
+        &lt;/IfModule&gt;
+        &lt;Limit GET POST&gt;
+        order deny,allow
+        deny from all
+        allow from all
+        &lt;/Limit&gt;
+        &lt;Limit PUT DELETE&gt;
+        order deny,allow
+        deny from all
+        &lt;/Limit&gt;
+        SetEnv PHPRC 这里要设置相应目录/php.ini
+
+</span><span class="p">302.</span>ubuntu下好用的下载工具
+    http://os.51cto.com/art/201508/489638_all.htm
+<span class="p">
+303.</span>在线免登录流程图绘制
+    https://www.draw.io/
+<span class="p">
+304.</span>匿名邮箱
+    https://www.zhihu.com/question/23418181<span class="sb">
+
+
+</span></code></pre>
 </div>
 
 </span>

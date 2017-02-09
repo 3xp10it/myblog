@@ -26,6 +26,15 @@ line1> 不断探索目标全面情报------> 找出漏洞
     f.找同一web程序的其他站点,拿下后找公共代码中漏洞
     g.社工
         1>发信
+            1)说挂广告
+                https://forum.90sec.org/forum.php?mod=viewthread&tid=10262#lastpost
+            2)发马
+        2>域名劫持
+            1)域名劫持渗透实例
+                https://www.secpulse.com/archives/50971.html
+            2)搭建高仿真钓鱼站
+                https://forum.90sec.org/forum.php?mod=viewthread&tid=10251
+            
 line2> 不断提升自己核心单点打击力------> 如针对一个应用挖洞,让它成为自己的武器
     a.强挖web应用如cms(wordpress)0day等
     b.强挖web应用之外的(如hackteam中嵌入式设备)0day
