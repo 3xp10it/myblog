@@ -2182,6 +2182,36 @@ windows:
 
     python3 3.py 1 2 3 5 
     output:2
+
+</span><span class="p">307.</span>用.htaccess和.htpasswd给目录加密码保护:
+    .htpasswd放在要保护访问的目录(eg./admin)下,内容如:
+    admin:$apr1$kvlL12qf$qIJF05NVkACwYYa728udA/
+    <span class="p">[</span><span class="nv">上面密码为123456</span><span class="p">]</span>,可在这里生成:http://www.htaccesstools.com/htpasswd-generator/<span class="sb">
+
+    .htaccess添加如下内容:
+    AuthType Basic
+    AuthName "My Protected Area"
+    AuthUserFile /path/to/.htpasswd
+    Require valid-user
+
+    建议将密码文件命名为.htpasswd是因为apache对.ht*文件有访问保护,一般用户没有权限访问它的内容
+    .htpasswd中密码的加密方式在win下一般为md5,在linux下一般为一个系统函数调用crypt(),上面生成的是在
+    http://www.htaccesstools.com/htpasswd-generator/这里说的用md5算法生成的密码,适用于win和linux,看起来不是直
+    接的md5,kali下的hash-identifier识别结果为:
+    Possible Hashs:
+    [+]  MD5(APR)
+    www.cmd5.com无法识别,不能爆破,john可如下爆破:
+    john -wordlist=wordlist.txt hash.txt
+    其中hash.txt存放内容为$apr1$kvlL12qf$qIJF05NVkACwYYa728udA/
+    hashcat的破解命令暂时没找到
+
+    bypass目录限制访问方法:
+    https://www.youtube.com/watch?v=CZXt_Q7BjxQ
+    https://www.youtube.com/watch?v=yZ-WxIZIoQw
+
+    如果在.htaccess中只配置成307中的结合.htaccess和.htpasswd的方法来限制目录访问应该不能绕过,如果在.htaccess中
+    还配置了其他如&lt;limit&gt;设置内容有可能可以绕过,如上面的youtube中的视频所示
+
 </span></code></pre>
 </div>
 
