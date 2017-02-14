@@ -129,16 +129,14 @@
 
         
 
-        <span itemprop="articleBody"><p align="center">
-<pre>
+        <span itemprop="articleBody"><pre>
 <strong>
-                                           _  ___      _____   ____
-                                          | |/_/ | /| / / _ | / __/
-                                         _.  &lt; | |/ |/ / __ |/ _/  
-                                        /_/|_| |__/|__/_/ |_/_/ 
+										   _  ___      _____   ____
+										  | |/_/ | /| / / _ | / __/
+										 _.  &lt; | |/ |/ / __ |/ _/  
+										/_/|_| |__/|__/_/ |_/_/ 
 </strong>
 </pre>
-</p>
 
 <h1 id="xwaf">xwaf</h1>
 
@@ -149,6 +147,33 @@
 <div class="highlighter-rouge"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
 illegal.It is the end user's responsibility to obey all applicable local, state and federal laws.Developers
 assume no liability and are not responsible for any misuse or damage caused by this program.
+</code></pre>
+</div>
+
+<h3 id="requirement">Requirement</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python3
+pip3
+works on linux(test on ubuntu and kali2.0,others not test)
+
+python3安装可参考如下步骤:
+    apt-get install python3
+    或:
+    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz
+    tar xJf Python-3.5.2.tar.xz
+    cd Python-3.5.2
+    ./configure --prefix=/opt/python3
+    make &amp;&amp; make install
+    ln -s /opt/python3/bin/python3.5 /usr/local/bin/python3
+
+pip3安装:
+apt-get install -y python3-pip
+
+kali linux2安装pip3可参考如下步骤:
+    echo "deb-src http://http.kali.org/kali kali main non-free contrib" &gt;&gt; /etc/apt/sources.list
+    echo "deb-src http://security.kali.org/kali-security kali/updates main contrib non-free" &gt;&gt; /etc/apt/sources.list
+    apt-get update
+    apt-get install python3-pip
 </code></pre>
 </div>
 
@@ -245,7 +270,7 @@ fix line128处的db_name未定义错误
 
 [2016-11-15]
 修复一处ACCESS数据库考虑不周全判断和几处good_print函数调用错误
-增加支持代理自动切换功能,自选,默认不用代理[用代理速度较慢]
+增加支持代理自动切换功能,自选，默认不用代理[用代理速度较慢]
 
 [2016-11-02]
 增加access数据库特殊性的处理
