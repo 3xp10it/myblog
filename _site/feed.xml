@@ -5,9 +5,55 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Feb 2017 09:50:20 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2017 09:50:20 +0800</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 13:37:43 +0800</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 13:37:43 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>内网渗透流程</title>
+        <description>&lt;p&gt;假设已有webshell,无本地管理员权限&lt;/p&gt;
+
+&lt;h3 id=&quot;step0-获取本地管理员权限&quot;&gt;Step0 获取本地管理员权限&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;各种exp尝试,如果失败免杀再试
+2&amp;gt;本机配置文件,敏感文件查找
+    a)数据库等配置文件
+        https://github.com/3xp10it/bat/tree/master/get_web_config_bat
+    b)psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]
+      cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]
+      mimikatz.exe[找mimikatz.txt]
+3&amp;gt;内网机器扫描开放端口情况,弱口令爆破
+    (webshell下或reGeorg代理后用扫描器扫)
+    eg.扫到一台1433 sa空口令,可用:
+    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面2种
+    b)sqltools在proxyfier+reGeorg下执行命令
+        http://www.moonsec.com/post-322.html
+    c)navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;step-1-获取域控管理员权限&quot;&gt;Step 1 获取域控管理员权限&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;找域控
+2&amp;gt;找域控登录过的机器
+3&amp;gt;抓密码
+4&amp;gt;嗅探口令
+5&amp;gt;dns+arp欺骗布置网马
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</guid>
+        
+        <category>域渗透</category>
+        
+        <category>内网渗透</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>cain口令整理脚本</title>
@@ -963,31 +1009,6 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
         <category>scan</category>
         
         <category>framework</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>免杀</title>
-        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.https://green-m.github.io/2016/11/15/meterpreter-bypass-av/
-
-2.http://down.52pojie.cn/Tools/Packers/中WinLicense_x32_x64_v2.3.9.0_Repacked.7z加壳后可成功bypass av,其他壳目
-前未测试,应该有几个也可以,如果一个壳不行则加多个壳
-
-3.需要使用lcx的时候可用plink代替lcx,plink不杀
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Wed, 21 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2016/12/21/%E5%85%8D%E6%9D%80/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2016/12/21/%E5%85%8D%E6%9D%80/</guid>
-        
-        <category>免杀</category>
-        
-        <category>bypass</category>
         
         
         <category>web</category>

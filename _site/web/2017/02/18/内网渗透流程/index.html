@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404</title>
+<title>内网渗透流程</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -101,51 +101,126 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">内网渗透流程</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">February 18, 2017</span>
+           under web
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><p>假设已有webshell,无本地管理员权限</p>
+
+<h3 id="step0-获取本地管理员权限">Step0 获取本地管理员权限</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;各种exp尝试,如果失败免杀再试
+2&gt;本机配置文件,敏感文件查找
+    a)数据库等配置文件
+        https://github.com/3xp10it/bat/tree/master/get_web_config_bat
+    b)psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]
+      cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]
+      mimikatz.exe[找mimikatz.txt]
+3&gt;内网机器扫描开放端口情况,弱口令爆破
+    (webshell下或reGeorg代理后用扫描器扫)
+    eg.扫到一台1433 sa空口令,可用:
+    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面2种
+    b)sqltools在proxyfier+reGeorg下执行命令
+        http://www.moonsec.com/post-322.html
+    c)navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令
+</code></pre>
+</div>
+
+<h3 id="step-1-获取域控管理员权限">Step 1 获取域控管理员权限</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;找域控
+2&gt;找域控登录过的机器
+3&gt;抓密码
+4&gt;嗅探口令
+5&gt;dns+arp欺骗布置网马
+</code></pre>
+</div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            域渗透, 内网渗透
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+
+      
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/web/2017/02/18/内网渗透流程" data-title="" data-url="https://3xp10it.github.io//web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"3xp10it"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- 个人增加织网背景效果 -->
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/">内网渗透流程</a>
-      </div>
-      <div class="excerpt">
-         
-          内网渗透流程
-         
-        <a href="/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
