@@ -140,13 +140,17 @@
     b)psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]
       cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]
       mimikatz.exe[找mimikatz.txt]
+      (win下找文件可参考http://3xp10it.cc/web/2016/05/20/%E6%96%87%E4%BB%B6%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85/)
 3&gt;内网机器扫描开放端口情况,弱口令爆破
-    (webshell下或reGeorg代理后用扫描器扫)
+    (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan)
     eg.扫到一台1433 sa空口令,可用:
-    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面2种
+    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面3种
     b)sqltools在proxyfier+reGeorg下执行命令
         http://www.moonsec.com/post-322.html
     c)navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令
+    d)ssh反向代理[需要有一台公网ip机器开ssh服务,可在目标机器不能使用reGeorg等socket转发脚本时使用]
+        https://github.com/louchaooo/louchaooo.github.io/issues/44
+        [win开ssh服务:http://www.cnblogs.com/xred/archive/2012/04/21/2461627.html]
 </code></pre>
 </div>
 
