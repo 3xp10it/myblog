@@ -180,6 +180,19 @@ for eachLine in allLines:
 <h3 id="link">Link</h3>
 
 <p><a href="https://raw.githubusercontent.com/3xp10it/mytools/master/getCainKey.py">getCainKey</a></p>
+
+<h3 id="attention">Attention</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>使用cain过一段时间后如果要重新sniffe+arp需要在arp选项卡下重新扫描网络,重新设置arp欺骗时伪造的ip,然后再打开arp欺
+骗开关,否则如果有机器重启后ip发生变化则不能欺骗到变化了ip的机器.另外实施arp欺骗时如果设置伪造ip为路由器所在
+ip[eg.192.168.1.1]容易造成网络堵塞,造成内网无法访问互联网,也难以嗅探到密码,一般可将伪造ip设置为内网的非路由器的
+如mysql,mssql,imap,pop3,smtp等服务器的ip
+
+一般在访问一个https网站时经常出现说这个网站出错了,需要将url添加到信任才可访问,这种情况很有可能就是由于目标服务
+器所在网络被sniffe+arp欺骗了,由cain在中间提供并非官方的cert证书,浏览器检测到cert异常才会提示网站访问出错,需要添
+加信任才可访问.
+</code></pre>
+</div>
 </span>
 
         
