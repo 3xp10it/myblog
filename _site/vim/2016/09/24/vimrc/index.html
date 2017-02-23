@@ -138,7 +138,8 @@ b)不利于掌握vim
 
 <h4 id="2vimrc">2&gt;.vimrc</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"下面这段是vundle要求的,加到vimrc的开头
+<div class="highlighter-rouge"><pre class="highlight"><code>
+"下面这段是vundle要求的,加到vimrc的开头
 """"""""""""""for vundle""""""""""""""""
 set nocompatible              " be iMproved, required 
 filetype off                  " required
@@ -239,26 +240,29 @@ map mm ZZ
 map sy "+y
 map sp "+p
 
+"在光标处换行,不用再切换到insert模式再enter
+nnoremap &lt;enter&gt; i&lt;enter&gt;&lt;esc&gt;
+
 
 
 "md文件中文符号换成英文
-au BufRead *.md call Biaodian() &lt;CR&gt;
+au BufRead *.md call Biaodian()
 map &lt;F2&gt; :call Biaodian() &lt;CR&gt;
 function Biaodian()
-    %s/"/"/g
-    %s/"/"/g
-    %s/,/,/g
-    %s/././g
-    %s/?/?/g
-    %s/&lt;/&lt;/g
-    %s/&gt;/&gt;/g
-    %s/(/(/g
-    %s/)/)/g
-    %s/:/:/g
-    %s/;/;/g
-    %s/'/'/g
-    %s/'/'/g
-    %s/!/!/g
+    silent! %s/“/"/g
+    silent! %s/”/"/g
+    silent! %s/，/,/g
+    silent! %s/。/./g
+    silent! %s/？/?/g
+    silent! %s/〈/&lt;/g
+    silent! %s/〉/&gt;/g
+    silent! %s/（/(/g
+    silent! %s/）/)/g
+    silent! %s/：/:/g
+    silent! %s/；/;/g
+    silent! %s/‘/'/g
+    silent! %s/‘/'/g
+    silent! %s/！/!/g
     endfunction
 
 "设置缩进的空格数
@@ -276,7 +280,7 @@ set formatoptions+=mM
 
 
 "设置,w为保存
-nmap &lt;leader&gt;w :w&lt;CR&gt;
+"nmap &lt;leader&gt;w :w&lt;CR&gt;
 
 
 "下面4个插件最后浓缩成的两个典型使用方法:

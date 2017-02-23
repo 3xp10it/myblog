@@ -5,9 +5,35 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 21 Feb 2017 16:11:52 +0800</pubDate>
-    <lastBuildDate>Tue, 21 Feb 2017 16:11:52 +0800</lastBuildDate>
+    <pubDate>Thu, 23 Feb 2017 11:26:41 +0800</pubDate>
+    <lastBuildDate>Thu, 23 Feb 2017 11:26:41 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>多重转发渗透隐藏内网</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;内网机器如下:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://pentest.blog/wp-content/uploads/final.png&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/</guid>
+        
+        <category>pivoting</category>
+        
+        <category>pentest</category>
+        
+        <category>msf</category>
+        
+        <category>ssh</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>内网渗透流程</title>
@@ -858,105 +884,6 @@ ctrl+g:6dd96957,按照上面的5个设置条件记录断点之后便可得到书
         
         
         <category>crack</category>
-        
-      </item>
-    
-      <item>
-        <title>漏洞战争-cve-2011-0027</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;p&gt;漏洞情况:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;MDAC是一套用于在windows上提供数据库连接的组件,由于MDAC没有正确验证内部数据结构的内存分配,当RecordSet中用于
-指定缓冲区大小的CacheSize属性过大时会导致整数溢出,造成实际分配的内存空间小于原来指定的内存空间.
-荷兰黑客Peter Vreugdenhil在Pwn2Own 2010中利用cve-2011-0027 Microsoft Data Access Components(MDAC)的堆溢出漏
-洞攻破了Windows7上的IE8,利用信息泄露和rop绕过aslr和dep的保护,赢得高额奖金. 微软于2011年1月补丁日修复这个漏
-洞,对应微软信息安全公告MS11-002
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;准备:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在msf中search ms11-002或search cve-2011-0027都没有结果,这个漏洞要结合一个uaf漏洞来达到控制代码执行的目的,
-msf中没有相关exp,google[site:exploit-db.com cve-2011-0027]或者在书中配套资料中可找到exp文件,该exp是个html
-文件,对应exploit-db链接为:https://www.exploit-db.com/exploits/15984/
-
-运行exploit-db中的exp,在win7x32+ie8和winXp(x32)+ie6下运行都失败,不能成功利用(代码中是弹出calc.exe),作者博客
-中:
-    http://vreugdenhilresearch.nl/ms11-002-pwn2own-heap-overflow/
-提到:
-    &quot;这当然需要你按照正确的顺序布局堆:[cachebuffer] [string] [objects]我设法做到这一点,它是工作和稳定的,
-    当我在pwn2own机器上运行它,但它可能是只适用于特定的一个确切的IE8和Windows 7补丁版本
-
-    另外:我只使用堆溢出的信息披露,但有足够的选项,将它变成RCE,至少对于WinXP,也可能为Windows 7.但对于实
-    际的RCE我使用一个后免费的bug 几个月前补丁:
-    http://www.microsoft.com/technet/security/bulletin/MS10-035.mspx
-
-    我有几个版本的exp在我的硬盘,我不知道哪个是实际工作的最终版本,所以我只是把一个在这里.
-    另外:我使用的DEP逃避是基于在pwn2opwn时与W7一起提供的msado.dll版本,基本上做了一个VirtualProtect调用我
-    的Aligned堆喷雾,并把它可执行.
-
-    记住,这是原始代码,它是在我很忙的时候写的,所以它是丑陋的,低效的,可能充满了奇怪的变量名. 此外,它需
-    要Alex Sotirovs heapLib.js来运行.&quot;
-
-很遗憾作者没有把通用的exp写出来或放出来,这里只学习其中的相关技术点
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-技术点&quot;&gt;0x01 技术点&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[+] 作者用的漏洞利用方法是通过在js中修改\00\00字符串终止符来越界访问对象的虚表指针的值来计算出模块基址然后构造
-rop绕过dep,这里的技术点与下面链接中的第三个技术点相同,可参考下面链接
-http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/05/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2012-1876/
-
-[+] 书中泉哥的分析漏洞的方法为经典的+hpa添加页堆的方法来分析,流程为:
-a)+hpa
-b)在windbg中得到中断位置为6887746f,具体如下:
-6887746f 8906       mov     dword ptr [esi],eax ds:0023:088c8000=????????
-c)此时要敏感地看看出错的内存位置是不是堆块中
-!heap -p -a 88c8000分析发现出错的内存位置果然在堆块中,在该命令的结果中有关于这个堆块的栈信息,这应该是在这个堆块
-在分配时的栈空间中esp附近的信息(被windbg保存了),通过查看!heap -p -a addr命令得到的与该堆块相关的栈中信息可以看
-到函数调用过程,书中对应栈中数据大致为:
-730d975d MSDART!MpHeapAlloc+0x00000029
-6e5406e7 msado15!CRecordGroup::AllocateHRowRange+0x00000085
-6e540650 msado15!CRecordset::PrepareForFetch+0x000000e2
-...
-这样的栈中数据可以判断出这个堆块在分配时依次调用过PrepareForFetch-&amp;gt;AllocateHRowRange-&amp;gt;MpHeapAlloc,因为在栈中的
-数据为这三个函数的某个偏移(分别为+0x000000e2,+0x00000085,+0x00000029),说明在730d975d,6e5406e7,6e540650处的各个
-对应的函数帧中的上一句汇编指令为call xxx格式的指令,这样才将call xxx指令的下一句指令的内存地址压栈,也即说明在堆
-块分配时经历过这些函数
-
-[+] UAF漏洞为&quot;释放后引用&quot;漏洞,发生在堆中,在free一块内存后,接着申请大小相同的一块内存,操作系统会将刚刚free掉的
-内存再次分配给新申请的的动作,释放(free)的动作是为了再分配时可以预测新分配动作将得到的分配地址的情况,这样可以利
-用js代码或其他方法将这个预测到的内存地址附近的内容修改为构造的内容,如果后面可以再引用(访问)释放的内存,这样就会
-引用到被修改的内容,达到控制代码执行的目的.
-
-[+] 汇编常见比较跳转指令小结如下:[AB无符号,GL有符号]
-有符号指令    无符号指令    描述
-JG            JA            大于则跳转
-JNG           JNA           不大于则跳转
-JGE           JAE           大于等于则跳转
-JNGE          JNAE          不大于等于则跳转
-JL            JB            小于则跳转
-JNL           JNB           不小于则跳转
-JLE           JBE           小于等于则跳转
-JNLE          JNBE          不小于等于则跳转
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sat, 24 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/24/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2011-0027/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/24/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2011-0027/</guid>
-        
-        <category>整数溢出</category>
-        
-        <category>漏洞战争</category>
-        
-        <category>漏洞分析</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     
