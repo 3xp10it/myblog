@@ -129,18 +129,24 @@
 
         
 
-        <span itemprop="articleBody"><p>条件:
-正身代理和反向代理都满足:
+        <span itemprop="articleBody"><p>条件:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>正身代理和反向代理都满足:
 A能访问B,B能访问C,A不能访问C
-假设A想访问C的80端口</p>
+假设A想访问C的80端口
+</code></pre>
+</div>
 
-<p>正向代理:
-A有B的ssh口令和密码,A利用B的ssh口令和密码来控制B给A做流量代理,A将要访问C的80端口的需求发给B,由B代理访问
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/正向代理.png" /></p>
+<p>正向代理:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>A有B的ssh口令和密码,A利用B的ssh口令和密码来控制B给A做流量代理,A将要访问C的80端口的需求发给B,由B代理访问
+</code></pre>
+</div>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/正向代理.png" /></p>
 
-<p>反向代理:
-C有B的ssh口令和密码,C利用B的ssh口令和密码来控制将C的80端口绑定到B的8000[或其他]端口,这样A访问B的8000端口
-就相当于访问C的80端口</p>
+<p>反向代理:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>C有B的ssh口令和密码,C利用B的ssh口令和密码来控制将C的80端口绑定到B的8000[或其他]端口,这样A访问B的8000端口
+就相当于访问C的80端口
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/反向代理.png" /></p>
 </span>
