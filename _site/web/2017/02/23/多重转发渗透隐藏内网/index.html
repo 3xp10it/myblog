@@ -186,6 +186,9 @@ IPv4 Address : 7.7.7.11
 IPv4 Netmask : 255.255.255.0
 </code></pre>
 </div>
+
+<h3 id="step2">Step2</h3>
+
 <p>发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由,操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
 [*] Adding a route to 7.7.7.0/255.255.255.0...
@@ -211,8 +214,9 @@ meterpreter &gt;
 meterpreter &gt;
 </code></pre>
 </div>
-<p>arp_scanner不太够用,不能扫到端口信息,于是用Attacker本机的nmap来扫,首先在RD上开sockets4代理,然后用proxychains设
-置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
+<p>arp_scanner不太够用,不能扫到端口信息[此时也可用msf自带的其他可以扫描端口的模块如auxiliary/scanner/portscan/tcp
+来扫描,因为前面添加了路由],于是用Attacker本机的nmap来扫[可以更完全的扫描,nmap应该比msf中的扫描模块强大],首先在
+RD上开sockets4代理,然后用proxychains设置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
 [*] Backgrounding session 2...
 msf &gt; use auxiliary/server/socks4a 
@@ -288,6 +292,15 @@ Host script results:
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 12.51 seconds
 root@kali:~#
+</code></pre>
+</div>
+<p>现在发现了7.7.7.20(JC)这台机器端口开放比较多,尝试找出JC的漏洞,操作如下:
+首先看看JC的80端口运行了什么cms,但是Attacker的浏览器直接访问http://172.16.0.20会无法访问,因为Attacker的网段与JC
+不在同一网段,此处有个要注意的内容:
+attention:
+可以选择使用proxychains设置Attacker的浏览器的代理为RD在Attacker的1080端口上开启的代理入口,也可通过
+在RD上</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
 </code></pre>
 </div>
 
