@@ -5,26 +5,30 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 24 Feb 2017 16:54:13 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Feb 2017 16:54:13 +0800</lastBuildDate>
+    <pubDate>Fri, 24 Feb 2017 17:12:13 +0800</pubDate>
+    <lastBuildDate>Fri, 24 Feb 2017 17:12:13 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>ssh正向反向代理理解</title>
-        <description>&lt;p&gt;条件:&lt;/p&gt;
+        <description>&lt;h3 id=&quot;条件&quot;&gt;条件:&lt;/h3&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;正身代理和反向代理都满足:
 A能访问B,B能访问C,A不能访问C
 假设A想访问C的80端口
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;正向代理:&lt;/p&gt;
+&lt;h3 id=&quot;正向代理&quot;&gt;正向代理:&lt;/h3&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A有B的ssh口令和密码,A利用B的ssh口令和密码来控制B给A做流量代理,A将要访问C的80端口的需求发给B,由B代理访问
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/正向代理.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;反向代理:&lt;/p&gt;
+&lt;h3 id=&quot;反向代理&quot;&gt;反向代理:&lt;/h3&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C有B的ssh口令和密码,C利用B的ssh口令和密码来控制将C的80端口绑定到B的8000[或其他]端口,这样A访问B的8000端口
 就相当于访问C的80端口
 &lt;/code&gt;&lt;/pre&gt;
