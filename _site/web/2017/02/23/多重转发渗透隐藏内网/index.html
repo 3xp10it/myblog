@@ -304,8 +304,19 @@ auxiliary/server/socks4a模块类似于ssh反向代理],也可通过在RD的mete
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
 [*] Local TCP relay created: 172.16.0.20:2323 &lt;-&gt; 7.7.7.20:80
 meterpreter &gt;
+
+meterpreter &gt; portfwd list
+Active Port Forwards
+====================
+   Index  Local             Remote       Direction
+   -----  -----             ------       ---------
+   1      172.16.0.20:2323  7.7.7.20:80  Forward
+1 total active port forwards.
+meterpreter &gt;
 </code></pre>
 </div>
+<p>通过访问Attacker的2323端口访问JC的80端口,结果如下:
+<img src="https://pentest.blog/wp-content/uploads/5.png" /></p>
 
 <pre>
 这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命
