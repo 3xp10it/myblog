@@ -307,16 +307,19 @@ meterpreter &gt;
 </code></pre>
 </div>
 
-<p>这里的portfwd模块不只名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命令,ssh正向反
-向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
+<p>
+这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综
+合命令,ssh正向反向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
+
 笔者认为portfwd命令之后Attacker可以通过访问Attacker本身ip的2323端口进而访问到JC的80端口期间发生了3件事
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/dot/portfwd.png" /></p>
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/dot/portfwd.png" />
 
-<p>1.RD访问JC的80端口,这里相当于半个ssh正向代理
+1.RD访问JC的80端口,这里相当于半个ssh正向代理
 2.RD绑定已经访问到的JC的80端口的数据到Attacker的2323端口,这里相当于一个ssh反向代理
-3.攻击者的浏览器访问攻击者自己的172.16.0.20:2323</p>
+3.攻击者的浏览器访问攻击者自己的172.16.0.20:2323
 
-<p>portfwd的用法如下:</p>
+portfwd的用法如下:
+</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd -h
 Usage: portfwd [-h] [add | delete | list | flush] [args]
 OPTIONS:
