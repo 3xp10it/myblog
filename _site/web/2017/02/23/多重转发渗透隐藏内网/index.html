@@ -319,7 +319,7 @@ meterpreter &gt;
 <p>通过访问Attacker的2323端口访问JC的80端口,结果如下:
 <img src="https://pentest.blog/wp-content/uploads/5.png" /></p>
 
-<pre color="green">
+<p color="green">
 这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命
 令,ssh正向反向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
 
@@ -331,7 +331,7 @@ meterpreter &gt;
 3.攻击者的浏览器访问攻击者自己的172.16.0.20:2323
 
 portfwd的用法如下:
-</pre>
+</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd -h
 Usage: portfwd [-h] [add | delete | list | flush] [args]
 OPTIONS:
