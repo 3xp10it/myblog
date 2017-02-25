@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 25 Feb 2017 17:04:17 +0800</pubDate>
-    <lastBuildDate>Sat, 25 Feb 2017 17:04:17 +0800</lastBuildDate>
+    <pubDate>Sat, 25 Feb 2017 17:06:14 +0800</pubDate>
+    <lastBuildDate>Sat, 25 Feb 2017 17:06:14 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -51,7 +51,7 @@ A能访问B,B能访问C,A不能访问C
     
       <item>
         <title>多重转发渗透隐藏内网</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;内网机器如下:
 &lt;/code&gt;&lt;/pre&gt;
@@ -67,7 +67,7 @@ A能访问B,B能访问C,A不能访问C
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;step1&quot;&gt;Step1&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-step1&quot;&gt;0x01 Step1&lt;/h3&gt;
 
 &lt;p&gt;Attacker在RD上通过webshell运行了一个reverse类型的后门,然后操作如下:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf &amp;gt; use exploit/multi/handler 
@@ -109,7 +109,7 @@ IPv4 Netmask : 255.255.255.0
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;step2&quot;&gt;Step2&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-step2&quot;&gt;0x02 Step2&lt;/h3&gt;
 
 &lt;font color=&quot;#33ccff&quot;&gt;
 发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由[不添加路由也可以直接用meterpreter shell中的模块访问
@@ -485,7 +485,7 @@ meterpreter &amp;gt;
 &lt;/div&gt;
 &lt;p&gt;发现又出现一个8.8.8.x的网段,于是将这个网段添加路由,以便msf中的模块可以访问到8.8.8.x网段&lt;/p&gt;
 
-&lt;h3 id=&quot;step3&quot;&gt;Step3&lt;/h3&gt;
+&lt;h3 id=&quot;0x03-step3&quot;&gt;0x03 Step3&lt;/h3&gt;
 
 &lt;p&gt;先直接用新的meterpreter shell看看8.8.8.x这个网段有什么机器&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
