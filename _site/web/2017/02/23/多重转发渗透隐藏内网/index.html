@@ -300,10 +300,9 @@ root@kali:~#
 <font color="red">Attention:</font>
 <font color="green">
 可以选择使用proxychains设置Attacker的浏览器的代理为RD在Attacker的1080端口上绑定[开启]的socks4代理入口[认为msf中的
-auxiliary/server/socks4a模块类似于ssh反向代理],也可通过在RD的meterpreter会话中运行portfwd模块命令,portfwd命令如
-下:
-```
-meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
+auxiliary/server/socks4a模块类似于ssh反向代理],也可通过在RD的meterpreter会话中运行portfwd模块命令,portfwd命令如下:
+</font>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
 [*] Local TCP relay created: 172.16.0.20:2323 &lt;-&gt; 7.7.7.20:80
 meterpreter &gt;
 
@@ -315,11 +314,12 @@ Active Port Forwards
    1      172.16.0.20:2323  7.7.7.20:80  Forward
 1 total active port forwards.
 meterpreter &gt;
-```
-通过访问Attacker的2323端口访问JC的80端口,结果如下:
-<img src="https://pentest.blog/wp-content/uploads/5.png" />
+</code></pre>
+</div>
+<p>通过访问Attacker的2323端口访问JC的80端口,结果如下:
+<img src="https://pentest.blog/wp-content/uploads/5.png" /></p>
 
-<pre>
+<pre color="green">
 这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命
 令,ssh正向反向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
 
@@ -332,8 +332,7 @@ meterpreter &gt;
 
 portfwd的用法如下:
 </pre>
-```
-meterpreter &gt; portfwd -h
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd -h
 Usage: portfwd [-h] [add | delete | list | flush] [args]
 OPTIONS:
      -L &gt;opt&gt;  The local host to listen on (optional).
@@ -342,7 +341,9 @@ OPTIONS:
      -p &gt;opt&gt;  The remote port to connect on.
      -r &gt;opt&gt;  The remote host to connect on.
 meterpreter &gt;
-```
+</code></pre>
+</div>
+<font color="green">
 其中-L只能设置为攻击者的ip,不能设置为肉鸡的ip,-L设置的ip可以是攻击者的内网ip,-r也可以是目标的内网ip,两个内网之
 间通过meterpreter会话的"隧道"来连通,如果-L后设置的ip是攻击者的内网ip,-r后设置的是目标机器的内网ip,portfwd通过
 meterpreter会话连通两台,-l是指攻击者的监听端口,运行完上面的portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
