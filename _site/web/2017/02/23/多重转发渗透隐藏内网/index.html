@@ -215,8 +215,8 @@ meterpreter &gt;
 </code></pre>
 </div>
 <p>arp_scanner不太够用,不能扫到端口信息[此时也可用msf自带的其他可以扫描端口的模块如auxiliary/scanner/portscan/tcp
-来扫描,因为前面添加了路由],于是用Attacker本机的nmap来扫[可以更完全的扫描,nmap应该比msf中的扫描模块强大],首先在
-RD上开sockets4代理,然后用proxychains设置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
+来扫描,因为前面添加了路由],于是用Attacker本机的nmap来扫[可以更完全的扫描,nmap应该比msf中的扫描模块强大],首先在RD
+上开sockets4代理,然后用proxychains设置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
 [*] Backgrounding session 2...
 msf &gt; use auxiliary/server/socks4a 
