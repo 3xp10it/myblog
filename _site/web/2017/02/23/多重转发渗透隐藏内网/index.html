@@ -296,12 +296,12 @@ root@kali:~#
 </div>
 <p>现在发现了7.7.7.20(JC)这台机器端口开放比较多,尝试找出JC的漏洞,操作如下:
 首先看看JC的80端口运行了什么cms,但是Attacker的浏览器直接访问http://172.16.0.20会无法访问,因为Attacker的网段与JC
-不在同一网段,此处有个要注意的内容:
-attention:
-可以选择使用proxychains设置Attacker的浏览器的代理为RD在Attacker的1080端口上绑定[开启]的socks4代理入口[认为msf中的
+不在同一网段,此处有个要注意的内容:</p>
+<p color="red">attention:</p>
+<p>可以选择使用proxychains设置Attacker的浏览器的代理为RD在Attacker的1080端口上绑定[开启]的socks4代理入口[认为msf中的
 auxiliary/server/socks4a模块类似于ssh反向代理],也可通过在RD的meterpreter会话中运行portfwd模块命令,这里的portfwd
-模块不只名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命令,ssh正向
-反向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a></p>
+模块不只名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命令,ssh正向反
+向代理可参考这里的理解 <a href="http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/">ssh正向反向代理理解</a></p>
 <div class="highlighter-rouge"><pre class="highlight"><code>
 </code></pre>
 </div>
