@@ -1,0 +1,143 @@
+---
+layout:     post
+title:      安装macOS sierra要做的事
+date:       2017-03-11
+summary:    安装macOS sierra要做的事
+categories: linux
+tags:
+- macOS
+- sierra
+---
+
+### 0x00 About
+
+```
+实际操作系统:
+    macOS sierra 10.12.3
+
+关于本文:
+    记录新安装macOS sierra配置合适工作环境所遇到的坑与解决办法
+```
+
+### 0x01 Detail
+
+```
+1.apple store下载安装xcode
+
+2.安装howebrew,https://brew.sh/,如果无法安装,尝试连VPN后再安装,更多homebrew安装失败的问题可参考https://www.zhihu.com/question/35928898
+
+3.设置root用户可登录,https://support.apple.com/zh-cn/HT204012,以后用root登录(但是brew安装工具不让用root安装),需要用brew安装工具时su - 普通用户 再安装
+
+4.用root用户登录进行操作后发现root用户登录下mac app store无法打开(siri和ibooks也无法打开,这应该是macos的bug),如果要安装常用的mac app store下的软件,可注销root用户,用普通用户登录后使用mac app store安装相关软件(eg.wechat)
+
+5.mac apple store下载star vpn
+
+6.安装清源五笔输入法
+
+7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
+在Automator中新建一个服务,在文件夹上可以右键打开终端,关于终端的两个选项都可勾选上
+
+8.tmux+zsh+MacVim
+1)安装zsh
+注意,安装zsh不能用brew安装,因为brew安装工具现在不支持用root用户来安装,如果要用brew来安装zsh,这样安装好的zsh一般位于/usr/local/bin/zsh,这样的zsh的tab在root用户登录系统后无法补全,因为zsh是非root用户安装的,
+用非root用户登录时tab才有补全的功能,但是习惯用root用户登录,这样tab没有补全功能,于是不用brew安装zsh,用系统自带的/bin/zsh就好了
+chsh -s /bin/zsh
+https://github.com/robbyrussell/oh-my-zsh安装oh-my-zsh
+https://github.com/3xp10it/.zshrc安装我的配置
+将~/.zshrc中的setxkbmap一行删除,macos sierria中没有setxkbmap,也没找到安装方法
+将~/.zshrc中的/usr/bin/zsh换成`which zsh`
+将~/.zshrc中的ifconfig找出ip的命令换成echo "ifconfig" | `which zsh` | grep -oe 'inet.*netmask.*broadcast' | awk '{print $2}',因为macos下的grep -oP要写成grep -oe,P->e表示正则pattern
+
+
+2)安装tmux
+https://github.com/tmux/tmux/releases下载最新release版本后安装,安装方法一般为:
+./configure
+make
+make install
+rm -r ~/tmux
+https://github.com/3xp10it/.tmux安装我的配置
+
+
+3)安装MacVim
+安装MacVim是因为在macOS上安装vim有无法使用系统剪切板的问题
+a)https://github.com/macvim-dev/macvim/releases/下载最新release版
+b)在~/.zshrc中加入:
+alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vim='mvim'
+c)解决MacVim无法使用系统剪切板的问题
+http://stackoverflow.com/questions/39645253/clipboard-failure-in-tmux-vim-after-upgrading-to-macos-sierra
+Attention:
+vim8下不用加set clipboard=unnamed
+在.tmux.conf更新后要执行tmux kill-server,否则就算重启也没用
+也即,要解决这个问题要做下面三步:
+第一步:brew install reattach-to-user-namespace
+第二步:在.tmux.conf中加入:
+set -g default-shell $SHELL 
+set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+第三步:tmux kill-server
+d)https://github.com/3xp10it/.vimrc安装我的配置
+e)让配置生效
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+:PlugInstall(!)[other cmds are like:PluginUpdate,PlugeinClean,PluginList]
+f)安装YouCompleteMe
+g)macOS caps键处理,将caps映射为按一下为esc,按住为ctrl,具体如下:
+http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierra.html
+
+
+9.brew install wget
+
+10.安装firefox,在firefox中:
+1)恢复书签https://github.com/3xp10it/firefoxBookmarks
+2)安装vimperator,并安装我的配置文件
+3)安装插件:
+s3 google translator
+hackbar
+...
+
+11.让finder标题显示当前路径
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES 
+killall Finder
+
+12.其他文件的恢复,git密码配置文件,pypi配置文件,jekyll博客环境等
+
+13.macOS分屏
+https://sspai.com/post/36983
+
+14.设置快捷键
+keyboard maestro设置:
+打开finder快捷键为command+e
+打开快速搜索快捷键为ctrl+i
+
+15.关闭macOS的SIP
+https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
+也即在恢复模式下终端运行:csrutil disable,然后重启
+
+16.git命令error: RPC failed; curl 56 SSLRead() return error错误的解决办法:
+--------------来自网上的可靠解决方法-----------
+http://stackoverflow.com/questions/30385939/git-clone-fails-with-sslread-error-on-os-x-yosemite
+也即:
+brew remove git
+brew remove curl
+brew install openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+
+error: RPC failed; curl 56 SSL read: error:00000000:lib(0):func(0):reason(0), errno54错误解决方法:
+http://www.jianshu.com/p/4edd496229d5
+也即:
+1)在新mac系统上配置新ssh key
+2)git config --global http.postBuffer 524288000
+----------------end-----------------
+试了上面的方法,遇到障碍,要解决升级openssl的问题,由于macOS默认的openssl在/usr/bin/openssl下,macOS系统中其他工具依赖的openssl的路径为系统默认的/usr/bin/openssl,而brew安装的新版本的openssl的路径为/usr/local/bin/openssl[实际路径为/usr/local/Cellar/openssl/1.0.2k/bin/openssl],于是执行以下操作:
+-----------------my final solution:---------------
+brew remove git
+brew remove curl
+brew install openssl[如果失败则--force]
+mv /usr/bin/openssl /usr/bin/openssl_old[备份原来的openssl]
+ln -s /usr/local/Cellar/openssl/1.0.2k/bin/openssl[这个实际路径有可能会随着时间变化] /usr/bin/openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
+--------------------end-----------------------
+
+```

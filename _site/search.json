@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "安装macOS sierra要做的事",
+    "category" : "",
+    "tags"     : "macOS, sierra",
+    "url"      : "/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/",
+    "date"     : "2017-03-11 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "ssh正向反向代理理解",
     "category" : "",
     "tags"     : "ssh, 代理",

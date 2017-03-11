@@ -5,9 +5,157 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 11 Mar 2017 17:55:49 +0800</pubDate>
-    <lastBuildDate>Sat, 11 Mar 2017 17:55:49 +0800</lastBuildDate>
+    <pubDate>Sat, 11 Mar 2017 20:45:22 +0800</pubDate>
+    <lastBuildDate>Sat, 11 Mar 2017 20:45:22 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>安装macOS sierra要做的事</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;实际操作系统:
+    macOS sierra 10.12.3
+
+关于本文:
+    记录新安装macOS sierra配置合适工作环境所遇到的坑与解决办法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.apple store下载安装xcode
+
+2.安装howebrew,https://brew.sh/,如果无法安装,尝试连VPN后再安装,更多homebrew安装失败的问题可参考https://www.zhihu.com/question/35928898
+
+3.设置root用户可登录,https://support.apple.com/zh-cn/HT204012,以后用root登录(但是brew安装工具不让用root安装),需要用brew安装工具时su - 普通用户 再安装
+
+4.用root用户登录进行操作后发现root用户登录下mac app store无法打开(siri和ibooks也无法打开,这应该是macos的bug),如果要安装常用的mac app store下的软件,可注销root用户,用普通用户登录后使用mac app store安装相关软件(eg.wechat)
+
+5.mac apple store下载star vpn
+
+6.安装清源五笔输入法
+
+7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
+在Automator中新建一个服务,在文件夹上可以右键打开终端,关于终端的两个选项都可勾选上
+
+8.tmux+zsh+MacVim
+1)安装zsh
+注意,安装zsh不能用brew安装,因为brew安装工具现在不支持用root用户来安装,如果要用brew来安装zsh,这样安装好的zsh一般位于/usr/local/bin/zsh,这样的zsh的tab在root用户登录系统后无法补全,因为zsh是非root用户安装的,
+用非root用户登录时tab才有补全的功能,但是习惯用root用户登录,这样tab没有补全功能,于是不用brew安装zsh,用系统自带的/bin/zsh就好了
+chsh -s /bin/zsh
+https://github.com/robbyrussell/oh-my-zsh安装oh-my-zsh
+https://github.com/3xp10it/.zshrc安装我的配置
+将~/.zshrc中的setxkbmap一行删除,macos sierria中没有setxkbmap,也没找到安装方法
+将~/.zshrc中的/usr/bin/zsh换成`which zsh`
+将~/.zshrc中的ifconfig找出ip的命令换成echo &quot;ifconfig&quot; | `which zsh` | grep -oe 'inet.*netmask.*broadcast' | awk '{print $2}',因为macos下的grep -oP要写成grep -oe,P-&amp;gt;e表示正则pattern
+
+
+2)安装tmux
+https://github.com/tmux/tmux/releases下载最新release版本后安装,安装方法一般为:
+./configure
+make
+make install
+rm -r ~/tmux
+https://github.com/3xp10it/.tmux安装我的配置
+
+
+3)安装MacVim
+安装MacVim是因为在macOS上安装vim有无法使用系统剪切板的问题
+a)https://github.com/macvim-dev/macvim/releases/下载最新release版
+b)在~/.zshrc中加入:
+alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vim='mvim'
+c)解决MacVim无法使用系统剪切板的问题
+http://stackoverflow.com/questions/39645253/clipboard-failure-in-tmux-vim-after-upgrading-to-macos-sierra
+Attention:
+vim8下不用加set clipboard=unnamed
+在.tmux.conf更新后要执行tmux kill-server,否则就算重启也没用
+也即,要解决这个问题要做下面三步:
+第一步:brew install reattach-to-user-namespace
+第二步:在.tmux.conf中加入:
+set -g default-shell $SHELL 
+set -g default-command &quot;reattach-to-user-namespace -l ${SHELL}&quot;
+第三步:tmux kill-server
+d)https://github.com/3xp10it/.vimrc安装我的配置
+e)让配置生效
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+:PlugInstall(!)[other cmds are like:PluginUpdate,PlugeinClean,PluginList]
+f)安装YouCompleteMe
+g)macOS caps键处理,将caps映射为按一下为esc,按住为ctrl,具体如下:
+http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierra.html
+
+
+9.brew install wget
+
+10.安装firefox,在firefox中:
+1)恢复书签https://github.com/3xp10it/firefoxBookmarks
+2)安装vimperator,并安装我的配置文件
+3)安装插件:
+s3 google translator
+hackbar
+...
+
+11.让finder标题显示当前路径
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES 
+killall Finder
+
+12.其他文件的恢复,git密码配置文件,pypi配置文件,jekyll博客环境等
+
+13.macOS分屏
+https://sspai.com/post/36983
+
+14.设置快捷键
+keyboard maestro设置:
+打开finder快捷键为command+e
+打开快速搜索快捷键为ctrl+i
+
+15.关闭macOS的SIP
+https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
+也即在恢复模式下终端运行:csrutil disable,然后重启
+
+16.git命令error: RPC failed; curl 56 SSLRead() return error错误的解决办法:
+--------------来自网上的可靠解决方法-----------
+http://stackoverflow.com/questions/30385939/git-clone-fails-with-sslread-error-on-os-x-yosemite
+也即:
+brew remove git
+brew remove curl
+brew install openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+
+error: RPC failed; curl 56 SSL read: error:00000000:lib(0):func(0):reason(0), errno54错误解决方法:
+http://www.jianshu.com/p/4edd496229d5
+也即:
+1)在新mac系统上配置新ssh key
+2)git config --global http.postBuffer 524288000
+----------------end-----------------
+试了上面的方法,遇到障碍,要解决升级openssl的问题,由于macOS默认的openssl在/usr/bin/openssl下,macOS系统中其他工具依赖的openssl的路径为系统默认的/usr/bin/openssl,而brew安装的新版本的openssl的路径为/usr/local/bin/openssl[实际路径为/usr/local/Cellar/openssl/1.0.2k/bin/openssl],于是执行以下操作:
+-----------------my final solution:---------------
+brew remove git
+brew remove curl
+brew install openssl[如果失败则--force]
+mv /usr/bin/openssl /usr/bin/openssl_old[备份原来的openssl]
+ln -s /usr/local/Cellar/openssl/1.0.2k/bin/openssl[这个实际路径有可能会随着时间变化] /usr/bin/openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
+--------------------end-----------------------
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 11 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/</guid>
+        
+        <category>macOS</category>
+        
+        <category>sierra</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
     
       <item>
         <title>ssh正向反向代理理解</title>
@@ -1224,253 +1372,6 @@ kv
         <category>漏洞分析</category>
         
         <category>源码调试</category>
-        
-        
-        <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>漏洞战争-cve-2012-0774</title>
-        <description>&lt;h3 id=&quot;0x00-prepare&quot;&gt;0x00 Prepare&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.adobe reader 9.4.0
-2.immunity debugger
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-分析&quot;&gt;0x01 分析&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;打开adobe reader,od附加
-f9
-adobe reader中打开poc.pdf
-    adobe reader崩溃,但是od无法捕获异常,换成immunity debugger可捕获异常位置
-
-重新打开reader,immunity debugger附加
-f9
-reader打开poc.pdf,异常捕获,中断如下:
-    6DD979C9   8D71 04          LEA ESI,DWORD PTR DS:[ECX+4]
-    6DD979CC   8B1E             MOV EBX,DWORD PTR DS:[ESI]
-    6DD979CE   8919             MOV DWORD PTR DS:[ECX],EBX
-    6DD979D0   8BCE             MOV ECX,ESI
-    6DD979D2  ^75 F4            JNZ SHORT CoolType.6DD979C8
-    6DD979D4   83E8 04          SUB EAX,4
-    中断位置为6dd979ce处的MOV DWORD PTR DS:[ECX],EBX,immunity debugger中下面状态栏中显示:access violation when
-    wring to 6dfcf000,也即[ecx]所在内存空间不可写,因此导致崩溃，从当前堆栈窗口中找出最上面的return to的地址,右
-    键在反汇编窗口跟随,得到当前的6dd979ce处的指令在如下call 调用的函数帧空间中:
-
-    6DD96956   50               PUSH EAX
-    6DD96957   FF148D D0BEFA6D  CALL DWORD PTR DS:[ECX*4+6DFABED0]       ; vulfunc
-    6DD9695E   59               POP ECX
-    将6dd96957处的调用标记为vulfunc,现在要在6dd96957处下断点并查看这个调用过程,但是有aslr机制,重新下断时这里不
-    再会是6dd96957,需算出6dd96957与当前dll的偏移再根据偏移在重新运行reader后下断点,alt+e:
-    
-    Executable modules, item 22
-    Base=6DD90000
-    Size=0025F000 (2486272.)
-    Entry=6DDD866B CoolType.&amp;lt;ModuleEntryPoint&amp;gt;
-    Name=CoolType
-    File version=5.05.73.1
-    Path=C:\Program Files (x86)\Adobe\Reader 9.0\Reader\CoolType.dll
-    在alt+e窗口中得到vulfunc在CoolType.dll中,且vulfunc在CoolType.dll中的内存偏移为:6dd96957-6dd90000=6957
-
-重新打开reader并用immu附加,f9,alt+e,发现cooltype.dll的基址不变,仍然是6dd90000,那么前面一步的计算偏移就是多余的
-了,看来泉哥在这里的想法不完全正确,这里不用算偏移,应该是操作系统没有为cooltype.dll开aslr.可直接在6dd96957处下断.
-后来发现是自己错了,重新运行reader并用immu附加后cooltype.dll的地址会是6dd90000或是69360000,eg.第一次运行reader并
-用immu附加后cooltype.dll的基址为6dd90000,关闭reader和immu后,第二次运行reader并用immu附加后cooltype.dll的基址为
-69360000,第三次又变回6dd90000,第四次则为69360000,...以此交替.说明cooltype.dll还是开了aslr的.继续用偏移的方法下
-断点,重新打开reader,immu附加,第一次cooltype.dll的基址为6dd90000,第二次为69360000,此时在69360000+6957=69366957处
-下断
-
-ctrl+g:69366957
-f2
-    69366955   51               PUSH ECX
-    69366956   50               PUSH EAX
-    69366957   FF148D D0BE5769  CALL DWORD PTR DS:[ECX*4+6957BED0]
-    6936695E   59               POP ECX
-    6936695F   59               POP ECX
-
-在69366957处shift+f4下条件记录断点,记录ecx(ecx是虚拟指令索引号),设置为不中断,explanation设成:&quot;index ecx&quot;,
-expression设成:&quot;ecx&quot;
-
-f9
-reader打开poc.pdf
-    再次崩溃,由immu捕获崩溃,与上次崩溃信息相同,得到log面板中日志如下:
-
-    ...
-    ...
-    ...
-    ...
-    69366957   COND: index ecx = 00000041
-    69366957   COND: index ecx = 00000063
-    69366957   COND: index ecx = 00000060
-    69366957   COND: index ecx = 00000041
-    69366957   COND: index ecx = 00000043
-    69366957   COND: index ecx = 000000B0
-    69366957   COND: index ecx = 00000061
-    69366957   COND: index ecx = 00000042
-    69366957   COND: index ecx = 00000043
-    69366957   COND: index ecx = 00000078
-    69366957   COND: index ecx = 00000041
-    69366957   COND: index ecx = 00000063
-    69366957   COND: index ecx = 00000060
-    69366957   COND: index ecx = 00000041
-    69366957   COND: index ecx = 00000043
-    69366957   COND: index ecx = 000000B0
-    69366957   COND: index ecx = 00000061
-    69366957   COND: index ecx = 00000042
-    69366957   COND: index ecx = 00000043
-    69366957   COND: index ecx = 00000078
-    69366957   COND: index ecx = 00000041
-    69366957   COND: index ecx = 00000060
-    69366957   COND: index ecx = 00000060
-    69366957   COND: index ecx = 00000026
-    693679CE   [18:15:48] Access violation when writing to [6959F000]
-    说明是索引号为26的call调用造成了access violation,设置条件断点:当ecx为26时中断
-
-重新打开reader并用immu附加,这次cooltype.dll基址为6dd90000,6dd90000+6957=6dd96957,ctrl+g:6dd96957
-    6DD96955   51               PUSH ECX
-    6DD96956   50               PUSH EAX
-    6DD96957   FF148D D0BEFA6D  CALL DWORD PTR DS:[ECX*4+6DFABED0]       ; vulfunc
-    6DD9695E   59               POP ECX
-    6DD9695F   59               POP ECX
-    6DD96960   3BC6             CMP EAX,ESI
-
-在6dd96957上设置条件断点,shift+f2,设置断点条件为ecx==26
-f9
-reader打开poc.pdf
-    成功中断到6dd96957处,且ecx=26,f7跟进call,汇编指令如下:
-
-    6DD9798B   A1 E023FC6D      MOV EAX,DWORD PTR DS:[6DFC23E0]
-    6DD97990   8B0D EC23FC6D    MOV ECX,DWORD PTR DS:[6DFC23EC]
-    6DD97996   53               PUSH EBX
-    6DD97997   56               PUSH ESI
-    6DD97998   8B31             MOV ESI,DWORD PTR DS:[ECX]
-    6DD9799A   8D50 FC          LEA EDX,DWORD PTR DS:[EAX-4]
-    6DD9799D   3BD6             CMP EDX,ESI
-    6DD9799F   57               PUSH EDI
-    6DD979A0   72 45            JB SHORT CoolType.6DD979E7
-    6DD979A2   8BB9 54010000    MOV EDI,DWORD PTR DS:[ECX+154]
-    6DD979A8   3BD7             CMP EDX,EDI
-    6DD979AA   73 3B            JNB SHORT CoolType.6DD979E7
-    6DD979AC   83C0 FC          ADD EAX,-4
-    6DD979AF   8B10             MOV EDX,DWORD PTR DS:[EAX]
-    6DD979B1   8BDA             MOV EBX,EDX
-    6DD979B3   C1E3 02          SHL EBX,2
-    6DD979B6   8BC8             MOV ECX,EAX
-    6DD979B8   2BCB             SUB ECX,EBX
-    6DD979BA   3BCE             CMP ECX,ESI
-    6DD979BC   72 29            JB SHORT CoolType.6DD979E7
-    6DD979BE   3BCF             CMP ECX,EDI
-    6DD979C0   73 25            JNB SHORT CoolType.6DD979E7
-    6DD979C2   85D2             TEST EDX,EDX
-    6DD979C4   8B39             MOV EDI,DWORD PTR DS:[ECX]
-    6DD979C6   7E 0F            JLE SHORT CoolType.6DD979D7
-    6DD979C8   4A               DEC EDX
-    6DD979C9   8D71 04          LEA ESI,DWORD PTR DS:[ECX+4]
-    6DD979CC   8B1E             MOV EBX,DWORD PTR DS:[ESI]
-    6DD979CE   8919             MOV DWORD PTR DS:[ECX],EBX
-    6DD979D0   8BCE             MOV ECX,ESI
-    6DD979D2  ^75 F4            JNZ SHORT CoolType.6DD979C8
-    6DD979D4   83E8 04          SUB EAX,4
-    6DD979D7   8938             MOV DWORD PTR DS:[EAX],EDI
-    6DD979D9   83C0 04          ADD EAX,4
-    6DD979DC   A3 E023FC6D      MOV DWORD PTR DS:[6DFC23E0],EAX
-    6DD979E1   8B4424 10        MOV EAX,DWORD PTR SS:[ESP+10]
-    6DD979E5   EB 0F            JMP SHORT CoolType.6DD979F6
-    6DD979E7   A1 3824FC6D      MOV EAX,DWORD PTR DS:[6DFC2438]
-    6DD979EC   C705 3424FC6D 10&amp;gt;MOV DWORD PTR DS:[6DFC2434],1110
-    6DD979F6   5F               POP EDI
-    6DD979F7   5E               POP ESI
-    6DD979F8   5B               POP EBX
-    6DD979F9   C3               RETN
-    此时eip=6dd9768b,单步跟踪
-
-f8
-f8
-...
-eip=6dd979b3
-    此时汇编指令为shl ebx,2,寄存器值如下:
-
-    EAX 6DFC622C CoolType.6DFC622C
-    ECX 0577E4E4
-    EDX 40000001
-    EBX 40000001
-    ESP 0014CA20
-    EBP 0014CAB4
-    ESI 6DFC6220 ASCII &quot;AA&quot;
-    EDI 6DFC6344 ASCII &quot;tnfs&quot;
-    EIP 6DD979B3 CoolType.6DD979B3
-    这里的ebx为0x40000001,shl ebx,2之后得到ebx=0x40000001*4=0x100000004=0x00000004,导致整数溢出,再继续单步跟踪
-    到6DD979CE处的MOV DWORD PTR DS:[ECX],EBX应该会出现前面一样的access violation,reader崩溃.
-
-f8
-...
-eip=6dd979ce
-    此时并没有崩溃,因为在6dd979c8到6dd979d2为一个循环,会在这个循环中的某一次中出现access violation使得reader崩
-    溃,0x40000001是溢出的关键,它完全是由虚拟指令操作实现的.为了看清0x40000001是怎么出现的,需要知道每个虚拟指令
-    索引号对应的call中的汇编指令效果,于是对溢出前的每个虚拟指令索引号对应的CALL DWORD PTR DS:[ECX*4+6DFABED0]
-    设置条件记录断点,记录call前与call后虚拟栈顶vm_esp的值及虚拟指令.这里的虚拟栈顶vm_esp并不是指esp中的数据,这
-    里的虚拟指令类似于java的虚拟机指令,是&quot;虚拟的&quot;,并不是真实栈中的数据,而是对虚拟指令而言的&quot;虚拟栈&quot;,如B0 01虚拟
-    指令对应将1压栈的动作,这里的压栈是对虚拟指令而言的栈,并不是真实的esp中的栈,要想得到&quot;虚拟栈&quot;中的数据,需要得到
-    &quot;虚拟栈&quot;对应的真实内存地址,跟踪B0 01虚拟指令的CALL DWORD PTR DS:[ECX*4+6DFABED0]的处理情况,进行如下操作
-
-重新打开read并用immu附加,这次cooltype.dll的基址为69360000,ctrl+g:69366957,在69366957处下条件断点,设置条件为
-ecx=0xB0
-
-f9
-reader打开poc.pdf
-    成功中断在ecx=b0情况下,对应call的函数帧中指令如下:
-            
-    69368B05   A1 E0235969      MOV EAX,DWORD PTR DS:[695923E0]
-    69368B0A   8B15 EC235969    MOV EDX,DWORD PTR DS:[695923EC]
-    69368B10   8D48 04          LEA ECX,DWORD PTR DS:[EAX+4]
-    69368B13   3B8A 54010000    CMP ECX,DWORD PTR DS:[EDX+154]
-    69368B19   77 18            JA SHORT CoolType.69368B33
-    69368B1B   3B0A             CMP ECX,DWORD PTR DS:[EDX]
-    69368B1D   76 14            JBE SHORT CoolType.69368B33
-    69368B1F   8B4C24 04        MOV ECX,DWORD PTR SS:[ESP+4]
-    69368B23   0FB611           MOVZX EDX,BYTE PTR DS:[ECX]
-    69368B26   8910             MOV DWORD PTR DS:[EAX],EDX
-    69368B28   8305 E0235969 04 ADD DWORD PTR DS:[695923E0],4
-    69368B2F   8D41 01          LEA EAX,DWORD PTR DS:[ECX+1]
-    69368B32   C3               RETN
-    由于B0 01虚拟指令对应的虚拟动作是将1压栈,现在要找到1所在的真实内存位置,f8单步
-
-f8
-...
-...
-f8
-eip=69368b26时,edx=1,[eax]=1,对应&quot;虚拟栈顶&quot;vm_esp中的数据
-f8
-eip=69368b28时,此时已经将1赋值给[eax],此时可以看到[695923e0]=69596240=eax
-f8
-    eip=69368b2f,此时已经执行完ADD DWORD PTR DS:[695923E0],4,后面再f8再次就执行完call了,执行完call之后要想得到
-    &quot;虚拟栈顶&quot;vm_esp中的数据的方法为:查看真实内存中的值[[695923e0]-4],所以要想得到溢出前每个索引对应的call在
-    call执行前与call执行后虚拟栈顶的值及虚拟指令,则需要设置条件记录断点,并设置expression为:&quot;[[695923e0]-4]&quot;,为
-    了观察更多,也记录vm_esp-4中的数据,并在call调用前和调用后分别记录,也即最后这样设置:
-    在call的上一句指令处设置条件记录断点,并设置explanation为:&quot;执行前[vm_esp]&quot;,设置expression为:&quot;[[695923e0]-4]&quot;
-    在call的上一句指令处设置条件记录断点,并设置explanation为:&quot;执行前[vm_esp-4],设置expression为&quot;[[695923e0]-8]&quot;
-    在call指令处设置条件记录断点,并设置explanation为:&quot;虚拟指令索引号&quot;,设置expression为&quot;ecx&quot;
-    在call的下一句指令处设置条件记录断点,并设置explanation为:&quot;执行后[vm_esp]&quot;,设置expression为:&quot;[[695923e0]-4]&quot;
-    在call的下一句指令处设置条件记录断点,并设置explanation为:&quot;执行后[vm_esp-4],设置expression为&quot;[[695923e0]-8]&quot;
-    上面5个设置中都设置不中断且记录expression的值
-
-重新打开read并用immu附加,此时cooltype.dll基址为6dd90000,关键call调用的地址为6dd96957   
-ctrl+g:6dd96957,按照上面的5个设置条件记录断点之后便可得到书中对应log记录,再通过分析log得到0x40000001的来源过程.
-需注意要在32位系统上调试,如果在64位系统上调试应该设置explanation为vm_esp和vm_esp-8,expression对应为
-[[695923e0]-4]和[[695923e0]-0xc].
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sun, 25 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/25/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2012-0774/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/25/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cve-2012-0774/</guid>
-        
-        <category>漏洞分析</category>
-        
-        <category>整数溢出</category>
         
         
         <category>二进制</category>
