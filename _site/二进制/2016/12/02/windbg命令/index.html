@@ -147,6 +147,8 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
   	eg.x *!:查看所有模块在内存中的地址范围
 	eg.x sufilter!:查看sufilter所有的代码符号(全局变量,函数)的加载地址
 	eg.x sufilter!sufilterreadwritemt:查看模块中的函数的地址
+    eg.x moduleName!*funName*:模糊查找出模块中的有关键字的函数
+    eg.x moduleName!*className*funcName*:模糊查找出模块中的有关键字的类中的有关键字的函数
 
 4&gt;bp eax:在eax处下断点,支持第几次经过后中断,支持中断后执行命令
   bp addr 在addr处设置断点
@@ -204,7 +206,12 @@ http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 	sx{e|d|i|n} [-c "Cmd1"] [-c2 "Cmd2"] [-h] {Exception|Event|*} 
 		http://blog.csdn.net/hgy413/article/details/7598236
 
-14&gt;其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
+14&gt;d*s,显示给定范围内存的内容,它们是把内存区域转储出来，并把内存中每个元素都视为一个符号对其进行解析
+    dds是四字节视为一个符号
+    dqs是每8字节视为一个符号
+    dps是根据当前处理器架构来选择最合适的长度
+
+15&gt;其中windbg中的kb命令相当于od中的查看调用堆栈(alt+k),如下图中的ChildEBP列为当前eip对应的ebp的值,RetAddr为当
    前eip所在的函数的函数返回地址,Args to Child为当前函数的参数,最后一列的地址是当前排的上一排中的RetAddr的值
 
    要注意的是,并不是kb下面的所有的ChildEBP对应的一列都是函数调用,只有第一排的ChildEBP,RetAddr,Args to
