@@ -214,6 +214,11 @@ http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierr
 10.安装firefox,在firefox中:
 1)恢复书签https://github.com/3xp10it/firefoxBookmarks
 2)安装vimperator,并安装我的配置文件
+  要将https://raw.githubusercontent.com/macvim-dev/macvim/master/src/MacVim/mvim文件存放到本地/usr/shrae/mvim,
+  chmod +x /usr/share/mvim[如果不能放则要关闭macOS sierra的SIP]
+  这样.vimperatorrc中的设置vimperator的编辑器为/usr/share/mvim才有效(这里的mvim与~/.zshrc中的mvim效果不同
+  ,~/.zshrc中的mvim是为了在终端下用macvim,这里的/usr/share/mvim是为了在vimperator中ctrl+i时用MacVim作为Editor以
+  gui形式出现)
 3)安装插件:
 s3 google translator
 hackbar
