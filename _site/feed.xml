@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 14 Mar 2017 19:15:42 +0800</pubDate>
-    <lastBuildDate>Tue, 14 Mar 2017 19:15:42 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Mar 2017 10:51:12 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Mar 2017 10:51:12 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -129,6 +129,15 @@ ctrl+command+enter:整屏
 keyboard maestro设置:
 打开finder快捷键为command+e
 打开快速搜索快捷键为ctrl+s
+打开终端iterm2为command+r
+跳转到桌面设置为command+d
+设置command+shift+h为command+up,可在finder中跳转到上一级目录
+设置command+shitf+l为command+down,可在finder中跳转到下一级目录(这里不设置成command+l为command+down是因为
+command+l是firefox中的跳转到url定位栏快捷键)
+设置command+j为down,设置command+k为up,因为down和up键不好按,小而远
+设置magnet的快捷键:
+ctrl+command+ikjl分别为上下左右,左上左下右上右下暂不设置,用得少
+设置alfred的呼出键为double command
 
 15.关闭macOS的SIP
 https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
@@ -164,7 +173,7 @@ brew install --with-brewed-curl --with-brewed-openssl git
 到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
 --------------------end-----------------------
 
-17.安装Alfred,Go2Shell,1Password
+17.安装Alfred,Go2Shell,1Password,cd to
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
