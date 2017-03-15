@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 15 Mar 2017 10:51:12 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Mar 2017 10:51:12 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Mar 2017 11:22:57 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Mar 2017 11:22:57 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -138,6 +138,7 @@ command+l是firefox中的跳转到url定位栏快捷键)
 设置magnet的快捷键:
 ctrl+command+ikjl分别为上下左右,左上左下右上右下暂不设置,用得少
 设置alfred的呼出键为double command
+设置vimperator中ctrl+hljk为up,down,left,right,在是在url状态栏中无效(用ctrl+i编辑器编辑),其他输入框有效
 
 15.关闭macOS的SIP
 https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
