@@ -102,10 +102,10 @@ when feel puzzled,read these to find what you are and where you want to go:
  1.https://drops.wooyun.org/pentesting/15117
  2.https://www.zhihu.com/question/31905047
  3.https://pan.baidu.com/s/1kUUmxWN
- 4.https://www.freebuf.com/news/special/105758.html
- 5.https://devco.re/blog/2016/04/21/how-I-hacked-facebook-and-found-someones-backdoor-script/
+ 4.http://www.freebuf.com/news/special/105758.html
+ 5.http://devco.re/blog/2016/04/21/how-I-hacked-facebook-and-found-someones-backdoor-script/
  6.https://www.2cto.com/Article/201204/127836.html
- 7.https://www.freebuf.com/vuls/110110.html
+ 7.http://www.freebuf.com/vuls/110110.html
  8.http://www.freebuf.com/articles/web/111139.html
  9.https://www.quora.com/How-do-I-become-a-successful-Bug-bounty-hunter
  10.http://www.freebuf.com/articles/neopoints/116064.html
