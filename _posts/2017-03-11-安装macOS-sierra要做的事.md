@@ -174,4 +174,45 @@ brew install --with-brewed-curl --with-brewed-openssl git
 --------------------end-----------------------
 
 17.安装Alfred,Go2Shell,1Password,cd to
+
+18.设置一个备份计划任务,macOS用launchctl实现:
+    cd /Library/LaunchDaemons
+    vi macosbak.plist:
+    ----------macosbak.plist---------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>Label</key>
+      <string>macosbak.plist</string>
+      <key>ProgramArguments</key>
+      <array>
+          <string>/usr/share/mytools/macosbak.sh</string>
+      </array>
+      <key>StartCalendarInterval</key>
+      <dict>
+            <key>Minute</key>
+            <integer>15</integer>
+            <key>Hour</key>
+            <integer>22</integer>
+      </dict>
+      <key>StandardOutPath</key>
+    <string>~/Documents/AutoMakeLog.log</string>
+    <key>StandardErrorPath</key>
+    <string>~/Documents/AutoMakeLog.err</string>
+    </dict>
+    </plist>
+    -------------end---------------
+    launchctl load macosbak.plist
+
+    表示每天22:15备份系统文件,有两个要注意的地方:
+    1.运行脚本的地方不能直接写命令,不能写/bin/bash/usr/share/mytools/macosbak.sh,
+    要写文件路径(也即/usr/shrae/mytools/macosbak.sh)
+    2.这个文件事先要:
+    chmod +x /usr/share/mytools/macosbak.sh
+    3.更多细节可参考:
+    http://honglu.me/2014/09/20/OSX系统添加定时任务/
+
+    macosbak.sh可见:
+    https://raw.githubusercontent.com/3xp10it/mytools/master/macosbak.sh
 ```

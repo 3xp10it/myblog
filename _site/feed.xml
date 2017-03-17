@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Mar 2017 13:32:55 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Mar 2017 13:32:55 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Mar 2017 17:24:05 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Mar 2017 17:24:05 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -325,6 +325,47 @@ brew install --with-brewed-curl --with-brewed-openssl git
 --------------------end-----------------------
 
 17.安装Alfred,Go2Shell,1Password,cd to
+
+18.设置一个备份计划任务,macOS用launchctl实现:
+    cd /Library/LaunchDaemons
+    vi macosbak.plist:
+    ----------macosbak.plist---------
+    &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+    &amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;
+    &amp;lt;plist version=&quot;1.0&quot;&amp;gt;
+    &amp;lt;dict&amp;gt;
+      &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+      &amp;lt;string&amp;gt;macosbak.plist&amp;lt;/string&amp;gt;
+      &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+      &amp;lt;array&amp;gt;
+          &amp;lt;string&amp;gt;/usr/share/mytools/macosbak.sh&amp;lt;/string&amp;gt;
+      &amp;lt;/array&amp;gt;
+      &amp;lt;key&amp;gt;StartCalendarInterval&amp;lt;/key&amp;gt;
+      &amp;lt;dict&amp;gt;
+            &amp;lt;key&amp;gt;Minute&amp;lt;/key&amp;gt;
+            &amp;lt;integer&amp;gt;15&amp;lt;/integer&amp;gt;
+            &amp;lt;key&amp;gt;Hour&amp;lt;/key&amp;gt;
+            &amp;lt;integer&amp;gt;22&amp;lt;/integer&amp;gt;
+      &amp;lt;/dict&amp;gt;
+      &amp;lt;key&amp;gt;StandardOutPath&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;~/Documents/AutoMakeLog.log&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;~/Documents/AutoMakeLog.err&amp;lt;/string&amp;gt;
+    &amp;lt;/dict&amp;gt;
+    &amp;lt;/plist&amp;gt;
+    -------------end---------------
+    launchctl load macosbak.plist
+
+    表示每天22:15备份系统文件,有两个要注意的地方:
+    1.运行脚本的地方不能直接写命令,不能写/bin/bash/usr/share/mytools/macosbak.sh,
+    要写文件路径(也即/usr/shrae/mytools/macosbak.sh)
+    2.这个文件事先要:
+    chmod +x /usr/share/mytools/macosbak.sh
+    3.更多细节可参考:
+    http://honglu.me/2014/09/20/OSX系统添加定时任务/
+
+    macosbak.sh可见:
+    https://raw.githubusercontent.com/3xp10it/mytools/master/macosbak.sh
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
