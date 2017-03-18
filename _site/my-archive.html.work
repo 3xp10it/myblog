@@ -721,7 +721,7 @@ document.getElementById("my_month_article_num_Span6").innerHTML = "1";
 								
 
 
-								<li><a href="/note/2016/09/25/notes/" ><font color=#C08040><small>2016-09-25</small></font>
+								<li><a href="/auxilary/2016/09/25/notes/" ><font color=#C08040><small>2016-09-25</small></font>
 												<font color=#C04040>notes</font></a></li>
 								
 								
