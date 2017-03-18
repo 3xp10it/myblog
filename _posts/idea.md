@@ -110,6 +110,7 @@ when feel puzzled,read these to find what you are and where you want to go:
  9.https://www.quora.com/How-do-I-become-a-successful-Bug-bounty-hunter
  10.http://www.freebuf.com/articles/neopoints/116064.html
  11.http://mp.weixin.qq.com/s?__biz=MzA4ODUxNjIwMg==&mid=2654323681&idx=1&sn=c888ec542a219acb5165ff816339894f
+ 12.http://bobao.360.cn/activity/detail/392.html
 ```
 
 

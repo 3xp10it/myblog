@@ -197,9 +197,9 @@ brew install --with-brewed-curl --with-brewed-openssl git
             <integer>22</integer>
       </dict>
       <key>StandardOutPath</key>
-    <string>~/Documents/AutoMakeLog.log</string>
+    <string>/private/var/root/Documents/AutoMakeLog.log</string>
     <key>StandardErrorPath</key>
-    <string>~/Documents/AutoMakeLog.err</string>
+    <string>/private/var/root//Documents/AutoMakeLog.err</string>
     </dict>
     </plist>
     -------------end---------------
