@@ -50,11 +50,6 @@ Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键�
 chsh -s /bin/zsh
 https://github.com/robbyrussell/oh-my-zsh安装oh-my-zsh
 https://github.com/3xp10it/.zshrc安装我的配置
-将~/.zshrc中的setxkbmap一行删除,macos sierria中没有setxkbmap,也没找到安装方法
-将~/.zshrc中的/usr/bin/zsh换成`which zsh`
-将~/.zshrc中的ifconfig找出ip的命令换成:
-echo "ifconfig" | `which zsh` | grep -oe 'inet.*netmask.*broadcast' | awk '{print $2}',因为macos下的grep -oP要写成
-grep -oe,P->e表示正则pattern
 
 2)安装tmux
 https://github.com/tmux/tmux/releases下载最新release版本后安装,安装方法一般为:
