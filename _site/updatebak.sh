@@ -1,1 +1,0 @@
-mkdir ../tmp && cd ../tmp && git init && git pull https://github.com/3xp10it/blog_backup.git && cp -r ../myblog/* . && git status && git add . && git status && git commit -a -m "update blog_backup" && git remote add origin https://github.com/3xp10it/blog_backup.git && git push -u origin master && rm -r ../tmp && echo congratulations! commands execute ok to here!
