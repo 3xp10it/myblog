@@ -3,7 +3,7 @@ layout:     post
 title:      quick start sulley
 date:       2016-07-28
 summary:    快速开始学习sulley
-categories: 漏洞挖掘
+categories: 二进制
 tags:
  - sulley
 ---
