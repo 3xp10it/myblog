@@ -6,6 +6,7 @@ summary:    快速开始学习sulley
 categories: 二进制
 tags:
  - sulley
+ - 漏洞挖掘
 ---
 
 ```markdown
