@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "vim技巧",
+    "category" : "",
+    "tags"     : "vim, editor",
+    "url"      : "/web/2017/03/22/vim%E6%8A%80%E5%B7%A7/",
+    "date"     : "2017-03-22 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "python tips",
     "category" : "",
     "tags"     : "tips, python",

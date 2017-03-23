@@ -619,6 +619,8 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    3&gt;1中的tor和2中的tor功能完全一样,proxychains firefox等程序时对应的proxychains.conf里面的端口为9050,启动tor-browser浏览器后可用也可将proxychains.conf中端口改为9150,但tor-browser关闭后proxychains这样的代理设置会失效.
 <span class="p">50.</span>Python Unicode与中文处理:http://my.oschina.net/u/201886/blog/64692
 <span class="p">51.</span>shadow copy神器,可以复制使用中的文件,可拷贝数据库
+   pwdump也可以:
+   http://www.2cto.com/article/201008/55565.html
 <span class="p">52.</span>php中的header()函数 http://www.cnblogs.com/fengzheng126/archive/2012/04/21/2461475.html
 <span class="p">53.</span>php中{}的功能 http://zhidao.baidu.com/link?url=KTLBf6o36tO9J0elyLbbVpdL9F-uD_Js4X2hwQq5EzinT2L3ba_Xq-esopPYkTiszNpXR2HposrabwqCx3VXRq
 <span class="p">54.</span>php上传中%00截断的理解:
@@ -920,7 +922,12 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
           windows gvim配置:
             http://www.oschina.net/code/snippet_561596_17292
    python操作vim
-          http://top.jobbole.com/15078/
+      http://top.jobbole.com/15078/
+   python编写vim插件
+       http://note.axiaoxin.com/contents/write-vim-plugin-by-python.html
+       http://ningning.today/2017/01/26/python/use-python-write-vim-plugin/
+       http://www.webtag123.com/python/44462.html
+       https://www.oschina.net/translate/how-to-write-vim-plugins-with-python
    vim中F5编译运行py文件:
    1&gt;http://zhidao.baidu.com/link?url=VwJYAbWPaVimFP0uC26hdOV8EFTTcWFIi2xvexA9z-K7dcFIpD-1TnN9893937bxdEGcrlx2qR-cEsK-UVzoma
                            把function添加在_vimrc的前边,不要放在最后:
@@ -2331,7 +2338,43 @@ windows:
 324.</span>清除运行过的命令列表:
     powershell "Remove-ItemProperty -Path 'HKCU:<span class="se">\S</span>oftware<span class="se">\M</span>icrosoft<span class="se">\W</span>indows<span class="se">\C</span>urrentVersion<span class="se">\E</span>xplorer<span class="se">\R</span>unMRU'
     -Name '<span class="err">*</span>' -ErrorAction SilentlyContinue"
-</code></pre>
+<span class="p">
+325.</span>macOS下的pfctl功能类似于linux下的iptables
+<span class="p">
+326.</span>~/.shici.md,~/.jiangcheng.md,~/.plan.md
+<span class="p">
+327.</span>浏览器开源fuzz框架:
+    Grinder
+    Fileja
+    funfzz
+    morph
+    nduja
+    浏览器漏洞挖掘学习:
+    一个最简单的Fuzz框架,一行代码,启动调试器打开样本生成器网页:
+    windbg -c "!py chrome_dbg_test.py" -o "C:<span class="se">\P</span>rogram Files<span class="se">\G</span>oogle<span class="se">\C</span>hrome<span class="se">\A</span>pplication<span class="se">\c</span>hrome.exe --js-flags="--expose-gc" --no-sandbox --disable-seccomp-sandbox --allow-file-access-from-files --force-renderer-accessibility http://127.0.0.1/fuzzer.php
+    解释上面的命令:
+    使用windbg调试启动chrome打开样本生成器http://127.0.0.1/fuzzer.php
+    http://127.0.0.1/fuzzer.php生成测试样本并切换样本.
+    一个最简单调试器,十几行代码,pydbg 是 windbg 的一个插件,使用它可以编程控制 windbg.
+    比如用这段代码,监控调试进程产生的调试事件:
+    while True:
+    exc = e(".lastevent")
+    print exc
+    if exc.find("Exit process") &gt; 0:
+    os.system("taskkill /F /IM windbg.exe")
+    观察windbg收到的调试事件,如果是退出进程事件,那么把windbg退出(同时chrome进程也退出了).同理,如果windbg收到的调试事件是读写内存异常,那就是一个有效崩溃.
+    这时候你只需要执行windbg命令r,k,把结果传回服务器就完成了一个崩溃信息的收集了.
+    要想挖掘浏览器漏洞,推荐大家去分析以往浏览器的漏洞,收集一些POC,这样能更好地理解浏览器漏洞形成的原因以及调试分析方法.
+    所以我们的目标是怎样去生成有效的、复杂的、测试用例,让浏览器崩溃.
+    我们需要去构建 fuzz 生成算法用的字典,通常可以写爬虫到 MSDN、MDN、W3C 去抓取,还有可以用 IDA 分析 mshtml 找隐藏的属性键值,还可以看浏览器源码的头文件.我们需要去构建全面的字典,去覆盖浏览器的各个特性<span class="sb">
+
+    moreDetail:
+    http://www.2cto.com/article/201612/580534.html
+
+
+
+
+</span></code></pre>
 </div>
 </span>
 
