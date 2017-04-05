@@ -95,6 +95,8 @@ http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierr
   这样.vimperatorrc中的设置vimperator的编辑器为/usr/share/mvim才有效(这里的mvim与~/.zshrc中的mvim效果不同
   ,~/.zshrc中的mvim是为了在终端下用macvim,这里的/usr/share/mvim是为了在vimperator中ctrl+i时用MacVim作为Editor以
   gui形式出现)
+  macvim因为macOS的原因,要在macvim的偏好设置中设置关闭最后一个macvim窗口时关闭macvim这个app,这样才能让
+  vimperator在macvim编辑完firefox中的文本后回到firefox
 3)安装插件:
 s3 google translator
 hackbar

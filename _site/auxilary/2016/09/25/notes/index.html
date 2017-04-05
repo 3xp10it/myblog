@@ -1598,9 +1598,12 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     提前60天,早上7点到7:30,中午12点,晚上10-11点,发车前1-2天,买区间票先上车
 <span class="p">216.</span>install/uninstall vim8
     http://tipsonubuntu.com/2016/09/13/vim-8-0-released-install-ubuntu-16-04/
-<span class="p">217.</span>python代码格式化工具,autopep8
+<span class="p">217.</span>python代码格式化工具,autopep8,pycodestyle用来检查代码是否有不规范的格式
     usage:https://pypi.python.org/pypi/autopep8
     autopep8 --in-place --aggressive --aggressive file
+    autopep8 -i -a -a file
+    autopep8 -i -a -a --range 10 20 file
+    
     maybe better from google:
         https://github.com/google/yapf
         pip install yapf
@@ -2374,6 +2377,16 @@ windows:
 </span><span class="p">328.</span>域名后缀大全
     http://www.iana.org/domains/root/db
     https://www.v2ex.com/t/119239
+<span class="p">
+329.</span>dmz是针对wlan网口而言的.eg:
+    一个路由器有wlan和lan口,其中wlan口是上网的外接口,lan口是内网的接口,此路由器wlan口的ip为192.168.1.111(对应网
+    关ip是192.168.1.1),lan口的ip为192.168.0.1,lan口没有对应网关,lan口自己所在ip就是对应内网的网关,那么在该路由器
+    上设置dmz为192.168.0.120后,所有对192.168.1.111的端口的访问将被转移到对192.168.0.120对应的相同端口的访问,
+    eg.ssh 192.168.1.111其实是连接192.168.0.120的ssh的效果,不管192.168.1.111有没有开ssh服务,只要
+<span class="p">    192.</span>168.0.120开了ssh服务就能成功开始ssh对话,如果帐号口令正确就会成功登录到192.168.0.120的ssh服务.如果尝试
+    ssh 192.168.0.1这样是无法开始ssh对话的,因为dmz是对wlan口而言的,ssh 192.168.0.1将访问路由器的ssh服务端口,如
+    果路由器的lan口(192.168.0.1)没有开ssh服务则不能连接成功.路由器的wlan口和lan口是两块网卡对应的两个不同ip,每个
+    ip对应的开放的端口没有对应关系,是各自独立的.
 </code></pre>
 </div>
 </span>

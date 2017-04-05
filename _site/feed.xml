@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 23 Mar 2017 18:58:08 +0800</pubDate>
-    <lastBuildDate>Thu, 23 Mar 2017 18:58:08 +0800</lastBuildDate>
+    <pubDate>Wed, 05 Apr 2017 09:25:24 +0800</pubDate>
+    <lastBuildDate>Wed, 05 Apr 2017 09:25:24 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -267,6 +267,8 @@ http://longhua.io/how-to-map-caps-lock-to-both-control-and-escape-in-macos-sierr
   这样.vimperatorrc中的设置vimperator的编辑器为/usr/share/mvim才有效(这里的mvim与~/.zshrc中的mvim效果不同
   ,~/.zshrc中的mvim是为了在终端下用macvim,这里的/usr/share/mvim是为了在vimperator中ctrl+i时用MacVim作为Editor以
   gui形式出现)
+  macvim因为macOS的原因,要在macvim的偏好设置中设置关闭最后一个macvim窗口时关闭macvim这个app,这样才能让
+  vimperator在macvim编辑完firefox中的文本后回到firefox
 3)安装插件:
 s3 google translator
 hackbar
