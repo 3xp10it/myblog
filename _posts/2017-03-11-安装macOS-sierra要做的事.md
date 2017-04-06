@@ -40,6 +40,7 @@ https://www.zhihu.com/question/35928898
 7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 
 Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
 在Automator中新建一个服务,在文件夹上可以右键打开终端,关于终端的两个选项都可勾选上
+keyboard maestro序列号http://www.orsoon.com/Mac/78329.html
 
 8.tmux+zsh+MacVim
 1)安装zsh
