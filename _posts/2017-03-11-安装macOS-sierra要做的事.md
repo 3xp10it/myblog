@@ -171,7 +171,10 @@ brew install --with-brewed-curl --with-brewed-openssl git
 到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
 --------------------end-----------------------
 
-17.安装Alfred,Go2Shell,1Password,cd to
+17.安装Alfred,Go2Shell,1Password,cd to,appzapper
+其中appzapper序列号如下:
+Name: apple-go
+Serial: APZP-103-97-215-111
 
 18.设置一个备份计划任务,macOS用launchctl实现:
     cd /Library/LaunchDaemons
