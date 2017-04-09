@@ -35,7 +35,7 @@ https://www.zhihu.com/question/35928898
 
 5.mac apple store下载star vpn
 
-6.安装清歌五笔输入法
+6.安装百度五笔输入法
 
 7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 
 Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
