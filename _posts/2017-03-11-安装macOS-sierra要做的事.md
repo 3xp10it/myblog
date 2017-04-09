@@ -216,4 +216,11 @@ Serial: APZP-103-97-215-111
 
     macosbak.sh可见:
     https://raw.githubusercontent.com/3xp10it/mytools/master/macosbak.sh
+
+19.设置iterm2为终端,在iterm2的偏好设置中设置添加按键映射:
+    command+<-为:send esc + [1;5D   实现左移一个单词功能
+    command+->为:send esc + [1;5C   实现右移一个单词功能
+    可参考:
+    http://apple.stackexchange.com/questions/154292/iterm-going-one-word-backwards-and-forwards
+
 ```
