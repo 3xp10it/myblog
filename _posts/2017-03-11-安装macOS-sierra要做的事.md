@@ -224,3 +224,19 @@ Serial: APZP-103-97-215-111
     http://apple.stackexchange.com/questions/154292/iterm-going-one-word-backwards-and-forwards
 
 ```
+
+### 0x02 快捷键
+
+```
+上面的配置得到可用的快捷键汇总如下：
+
+终端下:
+command+<-:左移一个单词
+command+->:右移一个单词
+caps+a:移到行首
+caps+e:移到行尾
+caps+d:del光标后的一个字符 
+
+find中:
+
+```
