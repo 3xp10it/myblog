@@ -32,8 +32,7 @@ class foo{
     public $data="text";
         function __destruct()
         {
-                eval($this->data);
-                    
+            eval($this->data);
         }
 
 }
@@ -49,7 +48,7 @@ unserialize($file_name);
 
 class foo{
     #public $data="phpinfo();";
-        public $data="system('ls');";
+    public $data="system('ls');";
 
 }
 $a=new foo;
