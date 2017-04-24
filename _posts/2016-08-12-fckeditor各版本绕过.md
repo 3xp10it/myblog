@@ -39,6 +39,9 @@ tags:
     3>将后缀改成.lnk
 
 ### 0x04 其它上传技巧
+    
+    0>其他关于上传技巧的汇总
+        https://www.lshack.cn/?p=152
 
     1>上传时,延迟一下再上传,有时能bypass admin,用到firefox tamper插件
         https://www.youtube.com/watch?v=ndeYnMoFPx8
