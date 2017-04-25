@@ -1,0 +1,104 @@
+---
+layout:     post
+title:      2017-04-25-c++中的&的用法
+date:       2017-04-25
+summary:    2017-04-25-c++中的&的用法
+categories: auxilary
+tags:
+ - c/c++
+---
+
+### Link
+
+```
+http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
+```
+
+### 
+
+```
+1.c里面&只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
+2.&作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
+3.eg.
+int a=1
+int &b=a;引用    
+c=&a;取地址
+d=&b;取地址
+在第2句中=左边的&符号是引用,第3|4句中的&是取地址,最后的结果是c与d相等
+4.&和类型在一起的是引用,和变量在一起的是取地址
+eg.
+int func(int &a)
+{};引用
+5.引用的好处
+void swap(int &a,int &b)
+{
+int c=a;a=b;b=c;
+}
+在swap函数被调用时如果两个参数是指针而不是引用,那么在形参转成实参的过程将申请新的内存,如果两个参数是引用则不用
+新申请内存来存放两个实参
+eg.
+int main()
+{
+cin>>former>>latter;
+swap(former,latter);
+cout<<former<<latter;
+}
+这里main函数调用swap函数时如果输入的是2,3,main函数中调用swqp(2,3)时对应swap函数中:
+swap函数中认为2的别名是former,3的别名是latter,swap函数认为a即是former,b即是latter,也即在swap函数调用时运行如下:
+int c=former;former=latter;latter=c;
+这样就可直接操作main函数空间中的former和latter变量,从而不用再在swap函数中新申请内存并操作
+实例:
+------1.cpp-----
+#include <iostream>
+using namespace std;
+void swap(int &a,int &b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin>>former>>latter;
+    swap(former,latter);
+    cout<<former<<latter;
+    return 0;
+
+}
+-------end------
+g++ 1.cpp -o 1
+./1
+输入
+1111
+2222
+输出
+22221111
+
+------2.cpp------
+#include <iostream>
+using namespace std;
+void swap(int a,int b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin>>former>>latter;
+    swap(former,latter);
+    cout<<former<<latter;
+    return 0;
+
+}
+-------end-------
+g++ 2.cpp -o 2
+./2
+输入
+1111
+2222
+输出
+11112222
+```
