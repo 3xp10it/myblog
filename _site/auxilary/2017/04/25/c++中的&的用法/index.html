@@ -153,7 +153,9 @@ eg.
 int func(int &amp;a)
 {};引用
 
-5.引用的好处
+5.不能建立引用的数组,因为数组是由元素组成,不能由"别名"组成,可以建立数组的引用(引用即别名)
+
+6.引用的好处
 void swap(int &amp;a,int &amp;b)
 {
 int c=a;a=b;b=c;
@@ -169,7 +171,11 @@ cout&lt;&lt;former&lt;&lt;latter;
 }
 这里main函数调用swap函数时如果输入的是2,3,main函数中调用swqp(2,3)时对应swap函数中:
 swap函数中认为2的别名是former,3的别名是latter,swap函数认为a即是former,b即是latter,也即在swap函数调用时运行如下:
-int c=former;former=latter;latter=c;
+int &amp;a=former;
+int &amp;b=latter;
+int c=a;
+a=b;
+b=c;
 这样就可直接操作main函数空间中的former和latter变量,从而不用再在swap函数中新申请内存并操作
 实例:
 ------1.cpp-----
