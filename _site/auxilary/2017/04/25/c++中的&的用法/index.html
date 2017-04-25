@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404</title>
+<title>c++中的&的用法</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -101,51 +101,190 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">c++中的&的用法</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">April 25, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="link">Link</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
+</code></pre>
+</div>
+
+<p>###</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.c里面&amp;只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
+2.&amp;作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
+3.eg.
+int a=1
+int &amp;b=a;引用    
+c=&amp;a;取地址
+d=&amp;b;取地址
+在第2句中=左边的&amp;符号是引用,第3|4句中的&amp;是取地址,最后的结果是c与d相等
+4.&amp;和类型在一起的是引用,和变量在一起的是取地址
+eg.
+int func(int &amp;a)
+{};引用
+5.引用的好处
+void swap(int &amp;a,int &amp;b)
+{
+int c=a;a=b;b=c;
+}
+在swap函数被调用时如果两个参数是指针而不是引用,那么在形参转成实参的过程将申请新的内存,如果两个参数是引用则不用
+新申请内存来存放两个实参
+eg.
+int main()
+{
+cin&gt;&gt;former&gt;&gt;latter;
+swap(former,latter);
+cout&lt;&lt;former&lt;&lt;latter;
+}
+这里main函数调用swap函数时如果输入的是2,3,main函数中调用swqp(2,3)时对应swap函数中:
+swap函数中认为2的别名是former,3的别名是latter,swap函数认为a即是former,b即是latter,也即在swap函数调用时运行如下:
+int c=former;former=latter;latter=c;
+这样就可直接操作main函数空间中的former和latter变量,从而不用再在swap函数中新申请内存并操作
+实例:
+------1.cpp-----
+#include &lt;iostream&gt;
+using namespace std;
+void swap(int &amp;a,int &amp;b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin&gt;&gt;former&gt;&gt;latter;
+    swap(former,latter);
+    cout&lt;&lt;former&lt;&lt;latter;
+    return 0;
+
+}
+-------end------
+g++ 1.cpp -o 1
+./1
+输入
+1111
+2222
+输出
+22221111
+
+------2.cpp------
+#include &lt;iostream&gt;
+using namespace std;
+void swap(int a,int b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin&gt;&gt;former&gt;&gt;latter;
+    swap(former,latter);
+    cout&lt;&lt;former&lt;&lt;latter;
+    return 0;
+
+}
+-------end-------
+g++ 2.cpp -o 2
+./2
+输入
+1111
+2222
+输出
+11112222
+</code></pre>
+</div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            c/c++
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+
+      
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/auxilary/2017/04/25/c++中的&的用法" data-title="" data-url="https://3xp10it.github.io//auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"3xp10it"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- 个人增加织网背景效果 -->
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/">c++中的&的用法</a>
-      </div>
-      <div class="excerpt">
-         
-          c++中的&的用法
-         
-        <a href="/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

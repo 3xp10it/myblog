@@ -5,9 +5,117 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 25 Apr 2017 08:14:19 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Apr 2017 08:14:19 +0800</lastBuildDate>
+    <pubDate>Tue, 25 Apr 2017 08:17:04 +0800</pubDate>
+    <lastBuildDate>Tue, 25 Apr 2017 08:17:04 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>c++中的&amp;的用法</title>
+        <description>&lt;h3 id=&quot;link&quot;&gt;Link&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;###&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.c里面&amp;amp;只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
+2.&amp;amp;作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
+3.eg.
+int a=1
+int &amp;amp;b=a;引用    
+c=&amp;amp;a;取地址
+d=&amp;amp;b;取地址
+在第2句中=左边的&amp;amp;符号是引用,第3|4句中的&amp;amp;是取地址,最后的结果是c与d相等
+4.&amp;amp;和类型在一起的是引用,和变量在一起的是取地址
+eg.
+int func(int &amp;amp;a)
+{};引用
+5.引用的好处
+void swap(int &amp;amp;a,int &amp;amp;b)
+{
+int c=a;a=b;b=c;
+}
+在swap函数被调用时如果两个参数是指针而不是引用,那么在形参转成实参的过程将申请新的内存,如果两个参数是引用则不用
+新申请内存来存放两个实参
+eg.
+int main()
+{
+cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
+swap(former,latter);
+cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
+}
+这里main函数调用swap函数时如果输入的是2,3,main函数中调用swqp(2,3)时对应swap函数中:
+swap函数中认为2的别名是former,3的别名是latter,swap函数认为a即是former,b即是latter,也即在swap函数调用时运行如下:
+int c=former;former=latter;latter=c;
+这样就可直接操作main函数空间中的former和latter变量,从而不用再在swap函数中新申请内存并操作
+实例:
+------1.cpp-----
+#include &amp;lt;iostream&amp;gt;
+using namespace std;
+void swap(int &amp;amp;a,int &amp;amp;b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
+    swap(former,latter);
+    cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
+    return 0;
+
+}
+-------end------
+g++ 1.cpp -o 1
+./1
+输入
+1111
+2222
+输出
+22221111
+
+------2.cpp------
+#include &amp;lt;iostream&amp;gt;
+using namespace std;
+void swap(int a,int b)
+{
+    int c=a;
+    a=b;
+    b=c;
+}
+int main()
+{
+    int former,latter;
+    cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
+    swap(former,latter);
+    cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
+    return 0;
+
+}
+-------end-------
+g++ 2.cpp -o 2
+./2
+输入
+1111
+2222
+输出
+11112222
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
+        
+        <category>c/c++</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>gdb命令</title>
@@ -1466,57 +1574,6 @@ lo        Link encap:Local Loopback
         
         
         <category>msf</category>
-        
-      </item>
-    
-      <item>
-        <title>内网渗透流程</title>
-        <description>&lt;p&gt;假设已有webshell,无本地管理员权限&lt;/p&gt;
-
-&lt;h3 id=&quot;step0-获取本地管理员权限&quot;&gt;Step0 获取本地管理员权限&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;各种exp尝试,如果失败免杀再试
-2&amp;gt;本机配置文件,敏感文件查找
-    a)数据库等配置文件
-        https://github.com/3xp10it/bat/tree/master/get_web_config_bat
-    b)psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]
-      cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]
-      mimikatz.exe[找mimikatz.txt]
-      (win下找文件可参考http://3xp10it.cc/web/2016/05/20/%E6%96%87%E4%BB%B6%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85/)
-3&amp;gt;内网机器扫描开放端口情况,弱口令爆破
-    (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan,
-    或者用scanline,或者用superscan命令行,优选scanline)
-    eg.扫到一台1433 sa空口令,可用:
-    a)菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面3种
-    b)sqltools在proxyfier+reGeorg下执行命令
-        http://www.moonsec.com/post-322.html[用前要谨慎,或许有毒]
-    c)navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令
-    d)ssh反向代理[需要有一台公网ip机器开ssh服务,可在目标机器不能使用reGeorg等socket转发脚本时使用]
-        https://github.com/louchaooo/louchaooo.github.io/issues/44
-        [win开ssh服务:http://www.cnblogs.com/xred/archive/2012/04/21/2461627.html]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;step-1-获取域控管理员权限&quot;&gt;Step 1 获取域控管理员权限&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;找域控
-2&amp;gt;找域控登录过的机器
-3&amp;gt;抓密码
-4&amp;gt;嗅探口令
-5&amp;gt;dns+arp欺骗布置网马
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/02/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B/</guid>
-        
-        <category>域渗透</category>
-        
-        <category>内网渗透</category>
-        
-        
-        <category>web</category>
         
       </item>
     
