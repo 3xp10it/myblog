@@ -5,32 +5,36 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 25 Apr 2017 08:17:04 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Apr 2017 08:17:04 +0800</lastBuildDate>
+    <pubDate>Tue, 25 Apr 2017 08:20:04 +0800</pubDate>
+    <lastBuildDate>Tue, 25 Apr 2017 08:20:04 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>c++中的&amp;的用法</title>
-        <description>&lt;h3 id=&quot;link&quot;&gt;Link&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-link&quot;&gt;0x00 Link&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###&lt;/p&gt;
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.c里面&amp;amp;只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
+
 2.&amp;amp;作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
+
 3.eg.
 int a=1
 int &amp;amp;b=a;引用    
 c=&amp;amp;a;取地址
 d=&amp;amp;b;取地址
 在第2句中=左边的&amp;amp;符号是引用,第3|4句中的&amp;amp;是取地址,最后的结果是c与d相等
+
 4.&amp;amp;和类型在一起的是引用,和变量在一起的是取地址
 eg.
 int func(int &amp;amp;a)
 {};引用
+
 5.引用的好处
 void swap(int &amp;amp;a,int &amp;amp;b)
 {

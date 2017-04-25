@@ -129,26 +129,30 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="link">Link</h3>
+        <span itemprop="articleBody"><h3 id="0x00-link">0x00 Link</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
 </code></pre>
 </div>
 
-<p>###</p>
+<h3 id="0x01-detail">0x01 Detail</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.c里面&amp;只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
+
 2.&amp;作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
+
 3.eg.
 int a=1
 int &amp;b=a;引用    
 c=&amp;a;取地址
 d=&amp;b;取地址
 在第2句中=左边的&amp;符号是引用,第3|4句中的&amp;是取地址,最后的结果是c与d相等
+
 4.&amp;和类型在一起的是引用,和变量在一起的是取地址
 eg.
 int func(int &amp;a)
 {};引用
+
 5.引用的好处
 void swap(int &amp;a,int &amp;b)
 {
