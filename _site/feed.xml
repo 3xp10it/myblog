@@ -5,9 +5,36 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 27 Apr 2017 14:12:44 +0800</pubDate>
-    <lastBuildDate>Thu, 27 Apr 2017 14:12:44 +0800</lastBuildDate>
+    <pubDate>Thu, 27 Apr 2017 21:20:59 +0800</pubDate>
+    <lastBuildDate>Thu, 27 Apr 2017 21:20:59 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>tricks</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;记录奇技
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.phpinfo页面+lfi漏洞可getshell
+2.sqli可load_file时可利用smb重放反弹shell[未验证]
+3.php代码审计时全文搜索unserilize函数的调用,分析这个unserilize有没有漏洞
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 27 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/04/27/tricks/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/04/27/tricks/</guid>
+        
+        <category>tricks</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>php中&amp;引用免杀webshell</title>
@@ -292,6 +319,7 @@ link:http://cb.drops.wiki/drops/papers-4864.html
 
 看懂此文所需知识
 http://www.cnblogs.com/LittleHann/p/4242535.html
+http://www.freebuf.com/vuls/122938.html
 
 更多关于PHP内存破坏的学习
 [php7中的unserialize漏洞利用]
@@ -1041,46 +1069,6 @@ find中:
         
         
         <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>ssh正向反向代理理解</title>
-        <description>&lt;h3 id=&quot;条件&quot;&gt;条件:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;正身代理和反向代理都满足:
-A能访问B,B能访问C,A不能访问C
-假设A想访问C的80端口
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;正向代理&quot;&gt;正向代理:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A有B的ssh口令和密码,A利用B的ssh口令和密码来控制B给A做流量代理,A将要访问C的80端口的需求发给B,由B代理访问
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/正向代理.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;反向代理&quot;&gt;反向代理:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C有B的ssh口令和密码,C利用B的ssh口令和密码来控制将C的80端口绑定到B的8000[或其他]端口,这样A访问B的8000端口
-就相当于访问C的80端口
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/反向代理.png&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 24 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/02/24/ssh%E6%AD%A3%E5%90%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%90%86%E8%A7%A3/</guid>
-        
-        <category>ssh</category>
-        
-        <category>代理</category>
-        
-        
-        <category>web</category>
         
       </item>
     
