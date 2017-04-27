@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 25 Apr 2017 22:50:43 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Apr 2017 22:50:43 +0800</lastBuildDate>
+    <pubDate>Thu, 27 Apr 2017 14:12:44 +0800</pubDate>
+    <lastBuildDate>Thu, 27 Apr 2017 14:12:44 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -292,6 +292,12 @@ link:http://cb.drops.wiki/drops/papers-4864.html
 
 看懂此文所需知识
 http://www.cnblogs.com/LittleHann/p/4242535.html
+
+更多关于PHP内存破坏的学习
+[php7中的unserialize漏洞利用]
+    https://blog.checkpoint.com/wp-content/uploads/2016/08/Exploiting-PHP-7-unserialize-Report-160829.pdf
+[fuzz unserialize]
+    https://www.evonide.com/fuzzing-unserialize/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
