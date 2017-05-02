@@ -190,12 +190,26 @@
 	&lt;c-o&gt;D:删除当前行光标位置之后的所有字符
 	&lt;c-t&gt;:缩进当前行
 	&lt;c-d&gt;:删除当前行缩进
-	
-	"下面是插入模式的3个字符内移动的快捷键,如果安装了vim-hardtime插件则要结合vim-hardtime在vim-hardtime中设置去除Left,Down,Up,Right的禁用
-	inoremap &lt;A-h&gt; &lt;Left&gt;
-	inoremap &lt;A-j&gt; &lt;Down&gt;
-	inoremap &lt;A-k&gt; &lt;Up&gt;
-	inoremap &lt;A-l&gt; &lt;Right&gt;
+
+    下面是插入模式的3个字符内移动的快捷键,结合vim-hardtime在vim-hardtime中设置去除Left,Down,Up,Right的禁用
+    超过当前光标所在位置的移动用f+j+s+字符+hint,或者f+j+w|b的方法移动(f+j为esc的map)
+    需要先查看是否有插件与&lt;c-h&gt;冲突,检查方法为:verbose imap &lt;c-h&gt;,发现auto-pairs插件有关于&lt;c-h&gt;的设置,注释掉就可以
+    默认情况下插入模式下&lt;c-h&gt;是backspace功能,参考解决方法:
+    http://www.skywind.me/blog/archives/1857
+
+    noremap &lt;c-h&gt; &lt;left&gt;
+    noremap &lt;c-j&gt; &lt;down&gt;
+    noremap &lt;c-k&gt; &lt;up&gt;
+    noremap &lt;c-l&gt; &lt;right&gt;
+    inoremap &lt;c-h&gt; &lt;left&gt;
+    inoremap &lt;c-j&gt; &lt;down&gt;
+    inoremap &lt;c-k&gt; &lt;up&gt;
+    inoremap &lt;c-l&gt; &lt;right&gt;
+    cnoremap &lt;c-h&gt; &lt;left&gt;
+    cnoremap &lt;c-j&gt; &lt;down&gt;
+    cnoremap &lt;c-k&gt; &lt;up&gt;
+    cnoremap &lt;c-l&gt; &lt;right&gt;
+
 
 6&gt;命令模式下的快捷键
 	&lt;c-b&gt;跳转到最前面
