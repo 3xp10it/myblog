@@ -223,12 +223,18 @@ Serial: APZP-103-97-215-111
     可参考:
     http://apple.stackexchange.com/questions/154292/iterm-going-one-word-backwards-and-forwards
 
+20.添加快速切换用户方法为(ctrl+shift+l)
+    https://apple.stackexchange.com/questions/38390/is-there-a-shortcut-which-invokes-the-login-window-fast-user-switching-comm
+    最后用的是:
+    在keyboard maestro中添加一个快捷键(ctrl+shift+l)触发一个shell脚本,内容如下:
+    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+
 ```
 
 ### 0x02 快捷键
 
 ```
-上面的配置得到可用的快捷键汇总如下：
+上面的配置得到可用的快捷键汇总如下:
 
 终端下:
 command+<-:左移一个单词

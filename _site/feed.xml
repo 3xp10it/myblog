@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 03 May 2017 07:18:14 +0800</pubDate>
-    <lastBuildDate>Wed, 03 May 2017 07:18:14 +0800</lastBuildDate>
+    <pubDate>Thu, 04 May 2017 07:18:22 +0800</pubDate>
+    <lastBuildDate>Thu, 04 May 2017 07:18:22 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -318,6 +318,7 @@ Ctrl + L:刷新窗口
 link:http://cb.drops.wiki/drops/papers-4864.html
 
 看懂此文所需知识
+http://blog.csdn.net/ohmygirl/article/details/41542445
 http://www.cnblogs.com/LittleHann/p/4242535.html
 https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf
 
@@ -1042,12 +1043,18 @@ Serial: APZP-103-97-215-111
     可参考:
     http://apple.stackexchange.com/questions/154292/iterm-going-one-word-backwards-and-forwards
 
+20.添加快速切换用户方法为(ctrl+shift+l)
+    https://apple.stackexchange.com/questions/38390/is-there-a-shortcut-which-invokes-the-login-window-fast-user-switching-comm
+    最后用的是:
+    在keyboard maestro中添加一个快捷键(ctrl+shift+l)触发一个shell脚本,内容如下:
+    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&quot;0x02-快捷键&quot;&gt;0x02 快捷键&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面的配置得到可用的快捷键汇总如下：
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面的配置得到可用的快捷键汇总如下:
 
 终端下:
 command+&amp;lt;-:左移一个单词
