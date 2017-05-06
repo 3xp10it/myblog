@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 05 May 2017 17:26:57 +0800</pubDate>
-    <lastBuildDate>Fri, 05 May 2017 17:26:57 +0800</lastBuildDate>
+    <pubDate>Sat, 06 May 2017 12:24:18 +0800</pubDate>
+    <lastBuildDate>Sat, 06 May 2017 12:24:18 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -373,32 +373,33 @@ http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
 
 本文两个难理解的问题
 1.为什么unserialize后会free内存,具体原理是什么?
-    freebuf:
+    freebuf:(http://www.freebuf.com/vuls/122938.html)
         [在PHP5.3以后的新垃圾回收机制算法以颜色标记的方法来判断垃圾]
-        将所有数组和对象zval节点放入gc_root_buffer并标记为紫色潜在垃圾已放入缓冲区。当节点缓冲区被塞满默认为
-        10000或调用gc_collect_cycles()时开始进行垃圾回收。
-        以深度优先对zval及其子节点所包含的zval进行refcount减1操作并标记为灰色已减一。
-        再次以深度优先判断每一个节点包含的zval的值如果zval的refcount等于0那么将其标记成白色垃圾。如果zval的
-        refcount大于0那么将对此zval以及其子节点进行refcount加1还原同时将这些zval的颜色变成黑色正常。
-        遍历zval节点将C中标记成白色的节点zval释放掉。
+        将所有数组和对象zval节点放入gc_root_buffer并标记为紫色潜在垃圾已放入缓冲区.当节点缓冲区被塞满默认为
+        10000或调用gc_collect_cycles()时开始进行垃圾回收.
+        以深度优先对zval及其子节点所包含的zval进行refcount减1操作并标记为灰色已减一.
+        再次以深度优先判断每一个节点包含的zval的值如果zval的refcount等于0那么将其标记成白色垃圾.如果zval的
+        refcount大于0那么将对此zval以及其子节点进行refcount加1还原同时将这些zval的颜色变成黑色正常.
+        遍历zval节点将C中标记成白色的节点zval释放掉.
 
-        漏洞环境一般不会手工调用gc_collect_cycles()，所以就需要在单一unserialize()调用的情况下完成垃圾回收。
-        在PHP中默认的gc_root_buffer缓冲区大小是100000，所以只要构造一个超过这个数量元素的数组就可以自动触发
-        gc_collect_cycles()。
+        漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
+        在PHP中默认的gc_root_buffer缓冲区大小是100000,所以只要构造一个超过这个数量元素的数组就可以自动触发
+        gc_collect_cycles().
         #define GC_ROOT_BUFFER_MAX_ENTRIES 10000
-        下面代码可以自动触发垃圾回收，无需手工调用gc_collect_cycles()
+        下面代码可以自动触发垃圾回收,无需手工调用gc_collect_cycles()
         define(&quot;GC_ROOT_BUFFER_MAX_ENTRIES&quot;, 10000);
         define(&quot;NUM_TRIGGER_GC_ELEMENTS&quot;, GC_ROOT_BUFFER_MAX_ENTRIES+5);
         $overflow_gc_buffer = str_repeat('i:0;a:0:{}', NUM_TRIGGER_GC_ELEMENTS);
         $trigger_gc_serialized_string = 'a:'.(NUM_TRIGGER_GC_ELEMENTS).':{'.$overflow_gc_buffer.'}';
         unserialize($trigger_gc_serialized_string);
 2.利用zval结构为何可泄露任意内存?
-    nsfocus:
-        同一个 zval 结构容器，当一个普通 int 类型的 zval 被解释成了 string 类型的 zval 后，这个 zval 的前四个字
-        节会被当成字符指针，而紧接着的四个字节，将会被当成是字符串的长度。 这时如果有一个 Use After Free 的漏洞
-        配合，使用一个 string 类型的 zval 去覆盖一个 int 类型的 zval, 然后使用一个引用去引用之前的zval以重用,这
-        时再使用 var_dump 等方式重新查看这个 zval 时,就会输出那个指针所指向的内存的内容，从而达到了任意地址信息
-        泄露的效果
+    nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
+        同一个 zval 结构容器,当一个普通 int 类型的 zval 被解释成了 string 类型的 zval 后,这个 zval 的前四个字
+        节会被当成字符指针,而紧接着的四个字节,将会被当成是字符串的长度. 这时如果有一个 Use After Free 的漏洞
+        配合,使用一个 string 类型的 zval 去覆盖一个 int 类型的 zval, 然后使用一个引用去引用之前的zval以重用,这
+        时再使用 var_dump 等方式重新查看这个 zval 时,就会输出那个指针所指向的内存的内容,从而达到了任意地址信息
+        泄露的效果(这里笔者认为这里说错了,应该这样说:使用一个int类型的zval去覆盖一个string类型的zval,然后使用一个
+        引用去引用之前的zval以重用)
 
 更多关于PHP内存破坏的学习
 [php7中的unserialize漏洞利用]

@@ -228,20 +228,7 @@ killall Finder
 
 12.其他文件的恢复,git密码配置文件,pypi配置文件,jekyll博客环境等
 
-13.macOS分屏
-https://sspai.com/post/36983
-下载magnet破解版,设置快捷键如下:
-ctrl+command+i:上半屏
-ctrl+command+k:下半屏
-ctrl+command+h:左半屏
-ctrl+command+l:右半屏
-shift+command+u:左上屏
-shift+command+i:右上屏
-shift+command+j:左下屏
-shift+command+k:右下屏
-ctrl+command+enter:整屏
-
-14.设置快捷键
+13.设置快捷键
 keyboard maestro设置:
 打开finder快捷键为command+e
 打开快速搜索快捷键为ctrl+s
@@ -250,17 +237,17 @@ keyboard maestro设置:
 设置command+shift+h为command+up,可在finder中跳转到上一级目录
 设置command+shitf+l为command+down,可在finder中跳转到下一级目录(这里不设置成command+l为command+down是因为
 command+l是firefox中的跳转到url定位栏快捷键)
-设置command+j为down,设置command+k为up,因为down和up键不好按,小而远
+设置command+control+j为down,设置command+control+k为up,设置command+control+h为left,设置command+control+l为right
 设置magnet的快捷键:
-ctrl+command+ikjl分别为上下左右,左上左下右上右下暂不设置,用得少
+https://sspai.com/post/36983
+shift+control+ikjl分别为上下左右,左上左下右上右下暂不设置,用得少
 设置alfred的呼出键为double command
-设置vimperator中ctrl+hljk为up,down,left,right,在是在url状态栏中无效(用ctrl+i编辑器编辑),其他输入框有效
 
-15.关闭macOS的SIP
+14.关闭macOS的SIP
 https://www.igeeksblog.com/how-to-disable-system-integrity-protection-on-mac/
 也即在恢复模式下终端运行:csrutil disable,然后重启
 
-16.git命令error: RPC failed; curl 56 SSLRead() return error错误的解决办法:
+15.git命令error: RPC failed; curl 56 SSLRead() return error错误的解决办法:
 --------------来自网上的可靠解决方法-----------
 http://stackoverflow.com/questions/30385939/git-clone-fails-with-sslread-error-on-os-x-yosemite
 也即:
@@ -290,12 +277,12 @@ brew install --with-brewed-curl --with-brewed-openssl git
 到这里应该会发现git clone没有出现RPC failed,curl...的错误了,如果还有错误,则继续完成这里的操作http://www.jianshu.com/p/4edd496229d5
 --------------------end-----------------------
 
-17.安装Alfred,Go2Shell,1Password,cd to,appzapper
+16.安装Alfred,Go2Shell,1Password,cd to,appzapper
 其中appzapper序列号如下:
 Name: apple-go
 Serial: APZP-103-97-215-111
 
-18.设置一个备份计划任务,macOS用launchctl实现:
+17.设置一个备份计划任务,macOS用launchctl实现:
     cd /Library/LaunchDaemons
     vi macosbak.plist:
     ----------macosbak.plist---------
@@ -336,17 +323,20 @@ Serial: APZP-103-97-215-111
     macosbak.sh可见:
     https://raw.githubusercontent.com/3xp10it/mytools/master/macosbak.sh
 
-19.设置iterm2为终端,在iterm2的偏好设置中设置添加按键映射:
-    command+&lt;-为:send esc + [1;5D   实现左移一个单词功能
-    command+-&gt;为:send esc + [1;5C   实现右移一个单词功能
+18.设置iterm2为终端,在iterm2的偏好设置中设置添加按键映射:
+    command+shift+control+h为:send esc + [1;5D   实现左移一个单词功能
+    command+shift+control+l为:send esc + [1;5C   实现右移一个单词功能
     可参考:
     http://apple.stackexchange.com/questions/154292/iterm-going-one-word-backwards-and-forwards
 
-20.添加快速切换用户方法为(ctrl+shift+l)
+19.添加快速切换用户方法为(option+l)
     https://apple.stackexchange.com/questions/38390/is-there-a-shortcut-which-invokes-the-login-window-fast-user-switching-comm
     最后用的是:
     在keyboard maestro中添加一个快捷键(ctrl+shift+l)触发一个shell脚本,内容如下:
     /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+
+20.添加burpsuite到dock栏
+    https://www.mattandreko.com/2014/08/01/burp-icon-in-osx/ 
 
 </code></pre>
 </div>
@@ -355,15 +345,43 @@ Serial: APZP-103-97-215-111
 
 <div class="highlighter-rouge"><pre class="highlight"><code>上面的配置得到可用的快捷键汇总如下:
 
+常规:
+command+r:打开终端
+command+e:打开finder
+command+s:快速打开搜索
+option+l:打开登录窗口
+command+control+h/j/k/l:分别对应左下上右键
+
+
 终端下:
-command+&lt;-:左移一个单词
-command+-&gt;:右移一个单词
-caps+a:移到行首
-caps+e:移到行尾
-caps+d:del光标后的一个字符 
+command+shift+control+h:左移一个单词
+command+shift+control+l:右移一个单词
+control+a:移到行首
+control+e:移到行尾
+control+d:del光标后的一个字符 
+control+w:剪切光标前一个单词
+control+u:剪切光标前的内容
+control+k:剪切光标后的内容
+
 
 find中:
+command+shift+h:上一层目录
+command+shift+l:下一层目录
+command+control+hjkl:箭头键
 
+magnet:
+shift+control+hjkl:屏幕放置
+
+alfred:
+呼出:double command
+
+firefox:
+J:打开左边的标签窗口
+K:打开右边的标签窗口
+ctrl+h:后退网页
+ctrl+l:前进网页
+mm:保存当前打开的页面并关闭firefox
+ctrl+i:在文本框中打开vim编辑
 </code></pre>
 </div>
 </span>
