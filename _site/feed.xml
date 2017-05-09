@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 07 May 2017 23:54:34 +0800</pubDate>
-    <lastBuildDate>Sun, 07 May 2017 23:54:34 +0800</lastBuildDate>
+    <pubDate>Tue, 09 May 2017 08:16:21 +0800</pubDate>
+    <lastBuildDate>Tue, 09 May 2017 08:16:21 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -365,15 +365,27 @@ Ctrl + L:刷新窗口
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;学习乌云中的&amp;lt;&amp;lt;PHP中的内存破坏漏洞利用&amp;gt;&amp;gt;
 link:http://cb.drops.wiki/drops/papers-4864.html
 
-看懂此文所需知识
+a)看懂此文所需知识
 http://blog.csdn.net/ohmygirl/article/details/41542445
 http://www.cnblogs.com/LittleHann/p/4242535.html
 https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf
 http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
 
-本文两个难理解的问题
-1.为什么unserialize后会free内存,具体原理是什么?
-    freebuf:(http://www.freebuf.com/vuls/122938.html)
+b)理解unserialize
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize1.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize2.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize3.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize4.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize5.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize6.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize7.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize8.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize9.png&quot;&amp;gt;
+&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize10.png&quot;&amp;gt;
+
+c)本文两个难理解的问题
+    1.为什么unserialize后会free内存,具体原理是什么?
+        freebuf:(http://www.freebuf.com/vuls/122938.html)
         [在PHP5.3以后的新垃圾回收机制算法以颜色标记的方法来判断垃圾]
         将所有数组和对象zval节点放入gc_root_buffer并标记为紫色潜在垃圾已放入缓冲区.当节点缓冲区被塞满默认为
         10000或调用gc_collect_cycles()时开始进行垃圾回收.
@@ -392,8 +404,13 @@ http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
         $overflow_gc_buffer = str_repeat('i:0;a:0:{}', NUM_TRIGGER_GC_ELEMENTS);
         $trigger_gc_serialized_string = 'a:'.(NUM_TRIGGER_GC_ELEMENTS).':{'.$overflow_gc_buffer.'}';
         unserialize($trigger_gc_serialized_string);
-2.利用zval结构为何可泄露任意内存?
-    nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
+
+        个人理解:
+        unserialize函数执行完后内存中会增加对应的字符串变成的zval结构,而这些新的zval结构将被加入到
+        gc_root_buffer,这时由于gc_root_buffer缓冲区到达到了最大
+        值
+    2.利用zval结构为何可泄露任意内存?
+        nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
         同一个 zval 结构容器,当一个普通 int 类型的 zval 被解释成了 string 类型的 zval 后,这个 zval 的前四个字
         节会被当成字符指针,而紧接着的四个字节,将会被当成是字符串的长度. 这时如果有一个 Use After Free 的漏洞
         配合,使用一个 string 类型的 zval 去覆盖一个 int 类型的 zval, 然后使用一个引用去引用之前的zval以重用,这
@@ -401,13 +418,13 @@ http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
         泄露的效果(这里笔者认为这里说错了,应该这样说:使用一个int类型的zval去覆盖一个string类型的zval,然后使用一个
         引用去引用之前的zval以重用)
 
-更多关于PHP内存破坏的学习
-[php7中的unserialize漏洞利用]
+d)更多关于PHP内存破坏的学习
+    [php7中的unserialize漏洞利用]
     https://blog.checkpoint.com/wp-content/uploads/2016/08/Exploiting-PHP-7-unserialize-Report-160829.pdf
-[fuzz unserialize]
+    [fuzz unserialize]
     https://www.evonide.com/fuzzing-unserialize/
-[一个很详细的关于php垃圾回收与uaf的漏洞分析]
-http://www.freebuf.com/vuls/122938.html
+    [一个很详细的关于php垃圾回收与uaf的漏洞分析]
+    http://www.freebuf.com/vuls/122938.html
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
