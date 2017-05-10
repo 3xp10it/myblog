@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 09 May 2017 08:16:21 +0800</pubDate>
-    <lastBuildDate>Tue, 09 May 2017 08:16:21 +0800</lastBuildDate>
+    <pubDate>Wed, 10 May 2017 08:15:20 +0800</pubDate>
+    <lastBuildDate>Wed, 10 May 2017 08:15:20 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -366,6 +366,11 @@ Ctrl + L:刷新窗口
 link:http://cb.drops.wiki/drops/papers-4864.html
 
 a)看懂此文所需知识
+
+[php垃圾回收理解]
+http://www.cnblogs.com/orlion/p/5350844.html
+http://blog.100dos.com/2017/04/07/php-garbage-collection-collect-cycles/
+
 http://blog.csdn.net/ohmygirl/article/details/41542445
 http://www.cnblogs.com/LittleHann/p/4242535.html
 https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf
