@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 10 May 2017 08:15:20 +0800</pubDate>
-    <lastBuildDate>Wed, 10 May 2017 08:15:20 +0800</lastBuildDate>
+    <pubDate>Wed, 10 May 2017 08:17:22 +0800</pubDate>
+    <lastBuildDate>Wed, 10 May 2017 08:17:22 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -377,18 +377,20 @@ https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Progra
 http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
 
 b)理解unserialize
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize1.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize2.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize3.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize4.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize5.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize6.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize7.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize8.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize9.png&quot;&amp;gt;
-&amp;lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize10.png&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize1.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize2.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize3.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize4.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize5.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize6.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize7.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize8.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize9.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/unserialize10.png&quot; /&gt;&lt;/p&gt;
 
-c)本文两个难理解的问题
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c)本文两个难理解的问题
     1.为什么unserialize后会free内存,具体原理是什么?
         freebuf:(http://www.freebuf.com/vuls/122938.html)
         [在PHP5.3以后的新垃圾回收机制算法以颜色标记的方法来判断垃圾]
