@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 11 May 2017 16:29:34 +0800</pubDate>
-    <lastBuildDate>Thu, 11 May 2017 16:29:34 +0800</lastBuildDate>
+    <pubDate>Thu, 11 May 2017 22:00:09 +0800</pubDate>
+    <lastBuildDate>Thu, 11 May 2017 22:00:09 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -646,7 +646,15 @@ gdb
     (gdb) print *(var_entries*)var_hash-&amp;gt;first
     $1 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &amp;lt;repeats 1016 times&amp;gt;}, used_slots = 8, next = 0x0}
     可看出data变量是个数组,数组里面的内容是地址,这些地址指向unserialize函数解析的变量值,关注第5个0xb5c6f1c0(php
-    代码中用的是R:5).查看这个地址中的内容:
+    代码中用的是R:5).
+    unserialize函数解析的变量值分别为下面的各个zval的内存地址:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zval.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    上图中蓝色是符号,红色是zval的属性,绿色是zval的值
+    查看这个地址中的内容:
 
     [printzv 0xb5c6f1c0]
     (gdb) printzv 0xb5c6f1c0
@@ -662,6 +670,8 @@ gdb
     342                     zval_dtor(key);
     (gdb) printzv 0xb5c6f1c0
     [0xb5c6f1c0] (refcount=0) string(39): &quot;\35\0\0\0-\0\0\0\0\37777777761\37777777706\37777777665\0\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0-\0\0\0\35\0\0\0D\37777777761\37777777706&quot;
+    笔者认为:
+    这里步过zend_hash_update之后将导致[&quot;aaa&quot;]变量由array(5)[1,2,&quot;AAA..A&quot;,4,5]变成int(1)
 
     还要确认下该地址是不是还在var_hash表中,然后继续运行
     (gdb) print *(var_entries*)var_hash-&amp;gt;first
