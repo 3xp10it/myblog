@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 11 May 2017 22:00:09 +0800</pubDate>
-    <lastBuildDate>Thu, 11 May 2017 22:00:09 +0800</lastBuildDate>
+    <pubDate>Fri, 12 May 2017 00:01:15 +0800</pubDate>
+    <lastBuildDate>Fri, 12 May 2017 00:01:15 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -408,15 +408,27 @@ b)理解unserialize
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c)本文两个难理解的问题
     1.为什么unserialize后会free内存,具体原理是什么?
         [http://www.cnblogs.com/orlion/p/5350844.html]
-        A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断，此算法会先把所有前面准则3情况下的zval节点放入一个节点(root)缓冲区(root buffer)，并且将这些zval节点标记成紫色，同时算法必须确保每一个zval节点在缓冲区中之出现一次。当缓冲区被节点塞满的时候，GC才开始开始对缓冲区中的zval节点进行垃圾判断。
-        B:当缓冲区满了之后，算法以深度优先对每一个节点所包含的zval进行减1操作，为了确保不会对同一个zval的refcount重复执行减1操作，一旦zval的refcount减1之后会将zval标记成灰色。需要强调的是，这个步骤中，起初节点zval本身不做减1操作，但是如果节点zval中包含的zval又指向了节点zval（环形引用），那么这个时候需要对节点zval进行减1操作。
-        C:算法再次以深度优先判断每一个节点包含的zval的值，如果zval的refcount等于0，那么将其标记成白色(代表垃圾)，如果zval的refcount大于0，那么将对此zval以及其包含的zval进行refcount加1操作，这个是对非垃圾的还原操作，同时将这些zval的颜色变成黑色（zval的默认颜色属性）
-        D:遍历zval节点，将C中标记成白色的节点zval释放掉。
-        比如还是前面那个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset， zval_a的refcount为2,分别由$a和$a中的索引1指向这个zval。  用算法对这个数组中的所有元素（索引0和索引1）的zval的refcount进行减1操作，由于索引1对应的就是zval_a，所以这个时候zval_a的refcount应该变成了1，这样zval_a就不是一个垃圾。如果执行了unset操作，zval_a的refcount就是1，由zval_a中的索引1指向zval_a,用算法对数组中的所有元素（索引0和索引1）的zval的refcount进行减1操作，这样zval_a的refcount就会变成0，于是就发现zval_a是一个垃圾了。 算法就这样发现了顽固的垃圾数据。
-        举了这个例子，读者大概应该能够知道其中的端倪：
-        对于一个包含环形引用的数组，对数组中包含的每个元素的zval进行减1操作，之后如果发现数组自身的zval的refcount变成了0，那么可以判断这个数组是一个垃圾。
-        这个道理其实很简单，假设数组a的refcount等于m, a中有n个元素又指向a,如果m等于n,那么算法的结果是m减n，m-n=0，那么a就是垃圾，如果m&amp;gt;n,那么算法的结果m-n&amp;gt;0,所以a就不是垃圾了
-        m=n代表什么？  代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它，代表用户代码空间中无法再访问到a所对应的zval，代表a是泄漏的内存，因此GC将a这个垃圾回收了。
+        A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节
+        点放入一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲
+        区中之出现一次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
+        B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重
+        复执行减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1
+        操作,但是如果节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
+        C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如
+        果zval的refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这
+        些zval的颜色变成黑色(zval的默认颜色属性)
+        D:遍历zval节点,将C中标记成白色的节点zval释放掉.
+        比如还是前面那个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
+        和$a中的索引1指向这个zval.  用算法对这个数组中的所有元素(索引0和索引1)的zval的refcount进行减1操作,由于索
+        引1对应的就是zval_a,所以这个时候zval_a的refcount应该变成了1,这样zval_a就不是一个垃圾.如果执行了unset操作,
+        zval_a的refcount就是1,由zval_a中的索引1指向zval_a,用算法对数组中的所有元素(索引0和索引1)的zval的refcount进
+        行减1操作,这样zval_a的refcount就会变成0,于是就发现zval_a是一个垃圾了. 算法就这样发现了顽固的垃圾数据.
+        举了这个例子,读者大概应该能够知道其中的端倪:
+        对于一个包含环形引用的数组,对数组中包含的每个元素的zval进行减1操作,之后如果发现数组自身的zval的refcount变
+        成了0,那么可以判断这个数组是一个垃圾.这个道理其实很简单,假设数组a的refcount等于m, a中有n个元素又指向a,如
+        果m等于n,那么算法的结果是m减n,m-n=0,那么a就是垃圾,如果m&amp;gt;n,那么算法的结果m-n&amp;gt;0,所以a就不是垃圾了m=n代表什么?
+        代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它,代表用户代码空间中无法再访问到a所
+        对应的zval,代表a是泄漏的内存,因此GC将a这个垃圾回收了.
 
         [http://www.freebuf.com/vuls/122938.html]
         漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
@@ -430,7 +442,9 @@ b)理解unserialize
         $trigger_gc_serialized_string = 'a:'.(NUM_TRIGGER_GC_ELEMENTS).':{'.$overflow_gc_buffer.'}';
         unserialize($trigger_gc_serialized_string);
 
-        垃圾分析算法是当发现缓冲区满的时候就立即触发，垃圾分析跟代码执行流是同步过程，也就是只有垃圾分析结束之后，代码才会继续执行。所以在我们的PHP代码中，如果某个unset正好使GC的节点缓冲区满，触发了垃圾分析流程，那么这个unset耗费的时间将比一般的unset多很多。
+        垃圾分析算法是当发现缓冲区满的时候就立即触发,垃圾分析跟代码执行流是同步过程,也就是只有垃圾分析结束之后,代
+        码才会继续执行.所以在我们的PHP代码中,如果某个unset正好使GC的节点缓冲区满,触发了垃圾分析流程,那么这个unset
+        耗费的时间将比一般的unset多很多.
         个人理解:
         unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息存入到一
         个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
@@ -671,14 +685,23 @@ gdb
     (gdb) printzv 0xb5c6f1c0
     [0xb5c6f1c0] (refcount=0) string(39): &quot;\35\0\0\0-\0\0\0\0\37777777761\37777777706\37777777665\0\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0-\0\0\0\35\0\0\0D\37777777761\37777777706&quot;
     笔者认为:
-    这里步过zend_hash_update之后将导致[&quot;aaa&quot;]变量由array(5)[1,2,&quot;AAA..A&quot;,4,5]变成int(1)
+    这里步过zend_hash_update之后将导致[&quot;aaa&quot;]变量由array(5)[1,2,&quot;AAA..A&quot;,4,5]变成int(1),这样的话相当于一个
+    unset([&quot;aaa&quot;])操作,[1,2,&quot;AAA..A&quot;,4,5]这个zval由于原来的[&quot;aaa&quot;]符号被unset了,导致原来的[&quot;aaa&quot;]符号对应的
+    [1,2,&quot;AAA..A&quot;,4,5]这个zval的refcount变成0,使得[1,2,&quot;AAA..A&quot;,4,5]这个zval被释放,这个被释放的zval的内存的位置
+    将被用来存储新的变量的内容,所以这里看到的printzv 0xb5c6f1c0的结果不再是string(39): &quot;AAAAA...A&quot;了,(暂时不理解
+    为什么是上面显示的杂乱的数据)
 
     还要确认下该地址是不是还在var_hash表中,然后继续运行
     (gdb) print *(var_entries*)var_hash-&amp;gt;first
     $3 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &amp;lt;repeats 1016 times&amp;gt;}, used_slots = 8, next = 0x0}
     发现还在
 
-    继续运行
+    (gdb) c
+    Continuing.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa &quot;&quot;, var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=0, objprops=1, rval=0xbfffbc64)
+        at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
     (gdb) c
     Continuing.
     object(stdClass)#1 (2) {
@@ -687,7 +710,21 @@ gdb
       [&quot;ccc&quot;]=&amp;gt;
       &amp;amp;string(39) &quot;--D&quot;
     }
-    [Inferior 1 (process 2416) exited normally]
+    [Inferior 1 (process 1725) exited normally]
+    这里不知为何[&quot;ccc&quot;]对应的zval的值变成--D了
+    (gdb)quit
+
+    现在尝试通过一个int类型的zval覆盖[&quot;ccc&quot;]符号对应的原来占据的string类型的zval值的空间,也即占据上面图中的
+    AAA..AA(39xA)这个zval所在的内存的位置
+    运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
+
+    output:
+    $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
+    0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0
+    000000f
+    [1]    2195 segmentation fault  /usr/bin/ndphp/bin/php PHPLeak.php |
+           2197 done                hexdump -c
+    这里说明可成功泄露指定地址指定长度的内存内容
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
