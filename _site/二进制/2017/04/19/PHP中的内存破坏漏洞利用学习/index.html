@@ -133,6 +133,18 @@
 
 <div class="highlighter-rouge"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
 link:http://cb.drops.wiki/drops/papers-4864.html
+cvelink:
+    CVE-2014-8142
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-8142
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.36之前,
+    5.5.20之前的5.5.x和5.5.4之前的5.6.x]允许远程攻击者通过一个使用非串行化调用,利用对对象的序列化属性中的重复
+    键的不当处理,这与CVE-2004-1019不同.
+
+    CVE-2015-0231
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0231
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.37之前,
+    5.5.21之前是5.5.x,5.5.5之前是5.6.x,5.6.5之前]允许远程攻击者通过一个制造的非序列化调用,利用对象序列化属性
+    中重复数字键的不当处理. 注意:由于CVE-2014-8142的修复程序不完整,因此存在此漏洞.
 
 a)看懂此文所需知识
 
@@ -165,14 +177,23 @@ b)理解unserialize
         A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节
         点放入一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲
         区中之出现一次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
+
         B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重
         复执行减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1
         操作,但是如果节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
+
         C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如
         果zval的refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这
         些zval的颜色变成黑色(zval的默认颜色属性)
+
         D:遍历zval节点,将C中标记成白色的节点zval释放掉.
-        比如还是前面那个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
+
+        &lt;?php
+        $a = array('one');
+        $a[] = &amp;$a;
+        unset($a);
+        ?&gt;
+        比如上面这个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
         和$a中的索引1指向这个zval.  用算法对这个数组中的所有元素(索引0和索引1)的zval的refcount进行减1操作,由于索
         引1对应的就是zval_a,所以这个时候zval_a的refcount应该变成了1,这样zval_a就不是一个垃圾.如果执行了unset操作,
         zval_a的refcount就是1,由zval_a中的索引1指向zval_a,用算法对数组中的所有元素(索引0和索引1)的zval的refcount进
@@ -183,6 +204,25 @@ b)理解unserialize
         果m等于n,那么算法的结果是m减n,m-n=0,那么a就是垃圾,如果m&gt;n,那么算法的结果m-n&gt;0,所以a就不是垃圾了m=n代表什么?
         代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它,代表用户代码空间中无法再访问到a所
         对应的zval,代表a是泄漏的内存,因此GC将a这个垃圾回收了.
+
+        这里加上笔者的理解:
+        相关link为:http://www.freebuf.com/vuls/122938.html
+        有如下的变量:
+        $serialized_string = 'a:1:{i:1;C:11:"ArrayObject":37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
+        unserialize($serialized_string)之后理应产生如下的结果:
+
+        array(1) { // outer_array
+          [1]=&gt;
+          object(ArrayObject)#1 (1) {
+            ["storage":"ArrayObject":private]=&gt;
+            array(2) { // inner_array
+              [1]=&gt;
+              // Reference to inner_array
+              [2]=&gt;
+              // Reference to outer_array
+            }
+          }
+        }
 
         [http://www.freebuf.com/vuls/122938.html]
         漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
@@ -202,6 +242,11 @@ b)理解unserialize
         个人理解:
         unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息存入到一
         个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
+
+        !!!然而本文当中并没有利用到unserialize的关于上面的100000大小相关的自动调用gc_collect_cycles()的特点,本
+        文中的unserialize之所以能触发漏洞是因为unserialize后有个重新赋值给["aaa"]的动作,而这个动作相当于
+        unset(["aaa"]),这样会使得["aaa"]所在的zval的refcount=0而导致["aaa"]所在内存被释放.本文中并不是因为发生
+        了gc_root_buffer的个数超过100000而自动的gc_collect_cycles()而产生的uaf的漏洞.
 
     2.利用zval结构为何可泄露任意内存?
         nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)

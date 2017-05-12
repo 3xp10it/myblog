@@ -5,9 +5,165 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 12 May 2017 07:50:26 +0800</pubDate>
-    <lastBuildDate>Fri, 12 May 2017 07:50:26 +0800</lastBuildDate>
+    <pubDate>Fri, 12 May 2017 22:23:10 +0800</pubDate>
+    <lastBuildDate>Fri, 12 May 2017 22:23:10 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>php对可能是垃圾的zval的回收过程的理解</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1&amp;gt;本文记录对php的对可能是垃圾的zval的回收过程的理解
+2&amp;gt;必读link:
+    http://www.freebuf.com/vuls/122938.html
+3&amp;gt;测试环境:php5.4.34(php5.3之后的垃圾回收机制)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;h4 id=&quot;0x01-不同的说法&quot;&gt;0x01 不同的说法&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;认为上面link中的以下说法不对:
+------------refer-----------
+首先用zval_mark_grey把外部数组标记为灰色.
+对外部数组的子节点即ArrayObject对象标记为灰色refcount减一,此时ArrayObject的refcount为0.
+对ArrayObject的子节点即内部数组的两个成员分别指向外部数组和内部数组,分别调用zval_mark_grey,实际又会对外部数组和内
+部数组进行操作.因为外部数组已经被标记过灰色所以直接返回.而内部数组被标记为灰色.两个数组分别refcount减一此时两个数
+组refcount都是1.然后又会对内部数组成员分别指向外部数组和内部数组调用zval_mark_grey.这时会再次把外部数组和内部数组
+的refcount减一,此时外部数组和内部数组的refcount都已经是0了.
+------------refer-----------
+认为上面的:
+&quot;首先用zval_mark_grey把外部数组标记为灰色.&quot;是错的,认为没有这个操作.
+&quot;因为外部数组已经被标记过灰色所以直接返回.&quot;是错的,因为外部数组不是灰色,认为外部数组不会被处理(认为不会被标记成灰色
+也不会将外部数据的refcount减1)
+
+认为下面的refer中的说法是对的:
+http://www.cnblogs.com/orlion/p/5350844.html
+------------refer-------------
+A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节点放入
+一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲区中之出现一
+次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
+
+B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重复执行
+减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1操作,但是如果
+节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
+
+C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如果zval的
+refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这些zval的颜色变成
+黑色(zval的默认颜色属性)
+
+D:遍历zval节点,将C中标记成白色的节点zval释放掉.
+------------refer-------------
+
+这里的讲的深度优先的理解如下:
+(refer:http://baike.baidu.com/link?url=2hjd4UB9VHErMLvWRQ1aJU6vRajinVYZHDre1kWEPAVxsagDQUgBwcIqVv7NKgJLsPJmUfke74aihNXFjh8JvmJMm9OjwMPKmLXvx7geXkAERoRU_kORCBdiLhpvhwJX1UAwIsIAaWG98zgfbUDwq_)
+度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) .
+在一个HTML文件中,当一个超链被选择后,被链接的HTML文件将执行深度优先搜索,即在搜索其余的超链结果之前必须先完整地搜索
+单独的一条链.深度优先搜索沿着HTML文件上的超链走到不能再深入为止,然后返回到某一个HTML文件,再继续选择该HTML文件中的
+其他超链.当不再有其他超链可选择时,说明搜索已经结束.
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0x02-处理过程&quot;&gt;0x02 处理过程&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面link(http://www.freebuf.com/vuls/122938.html)中的代码如下:
+
+&amp;lt;?php
+$serialized_string = 'a:1:{i:1;C:11:&quot;ArrayObject&quot;:37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
+$outer_array = unserialize($serialized_string);
+gc_collect_cycles();
+$filler1 = &quot;aaaa&quot;;
+$filler2 = &quot;bbbb&quot;;
+var_dump($outer_array);
+?&amp;gt;
+
+预期的结果应该是:
+
+array(1) { // outer_array,refcount=2,is_ref=0
+  [1]=&amp;gt;
+  object(ArrayObject)#1 (1) { // refcount=1,is_ref=0
+    [&quot;storage&quot;:&quot;ArrayObject&quot;:private]=&amp;gt;
+    array(2) { // inner_array,refcount=2,is_ref=1
+      [1]=&amp;gt;
+      // Reference to inner_array,refcount=2,is_ref=1
+      [2]=&amp;gt;
+      // Reference to outer_array,refcount=2,is_ref=0
+    }
+  }
+}
+
+最后的结果是:
+
+string(4) &quot;bbbb&quot;
+
+之所以会产生这样的结果是因为有个处理不当的漏洞,也即对ArrayObject的refcount的减1处理不当(实际对ArrayObject的子
+zval也即array(2)[即inner_array]对应的zval的多做了一次对array(2)的子zval(两个reference)的refcount减1的操作)
+
+实际上按照php5.3之后的回收机制应该要做的是这样的流程:
+
+a)由于gc_root_buffer的个数超过了设定的100000,于是进入gc_collect_cycles()函数进行相关处理.
+
+b)首先判断array(1)[也即outer_array]是不是可能是一个垃圾zval,判断依据为:
+
+1:如果一个zval的refcount增加,那么此zval还在使用,不属于垃圾
+2:如果一个zval的refcount减少到0, 那么zval可以被释放掉,不属于垃圾
+3:如果一个zval的refcount减少之后大于0,那么此zval还不能被释放,此zval可能成为一个垃圾
+(refer:http://www.cnblogs.com/orlion/p/5350844.html)
+array(1)的refcount为2,满足上面第3点,也即array(1)[也即outer_array]可能是一个垃圾zval,由于gc_collect_cycles()函数只
+对可能是垃圾的zval进行处理,同样判断出array(2)[也即inner_array]对应的zval可能是一个垃圾zval,这样的话调用
+gc_collect_cycles()函数后会对array(1)和array(2)对应的2个zval进行如下处理过程
+
+c)首先将array(1)[也即outer_array]对应的zval的子zval也即object(ArrayObject)对应的zval的refcount减1,此时相关变化如下:
+    object(ArrayObject)#1 (1) { // refcount=0,is_ref=0
+然后对object(ArrayObject)对应的zval的子zval也即array(2)[也即inner_array]对应的zval的refcount减1,此时相关变化如下:
+    array(2) { // inner_array,refcount=1,is_ref=1
+然后对array(2)[也即inner_array]对应的zval的子zval也即array(2)的两个元素[1]和[2]对应的zval的refcount各减1,此时相关
+变化如下:
+    array(1) { // outer_array,refcount=1,is_ref=0
+      [1]=&amp;gt;
+      // Reference to inner_array,refcount=1,is_ref=1
+      [2]=&amp;gt;
+      // Reference to outer_array,refcount=1,is_ref=0
+
+到这里各个zval的refcount结果如下:
+
+    array(1) { // outer_array,refcount=1,is_ref=0
+      [1]=&amp;gt;
+      object(ArrayObject)#1 (1) { // refcount=0,is_ref=0
+        [&quot;storage&quot;:&quot;ArrayObject&quot;:private]=&amp;gt;
+        array(2) { // inner_array,refcount=1,is_ref=1
+          [1]=&amp;gt;
+          // Reference to inner_array,refcount=1,is_ref=1
+          [2]=&amp;gt;
+          // Reference to outer_array,refcount=1,is_ref=0
+        }
+      }
+    }
+现在对array(1)[也即outer_array]对应的zval的&quot;深度优先对包含的子zval的refcount减1操作&quot;完成,发现array(1)对应的zval
+的refcount没有变成0,然后判定array(1)对应的zval(这个原来认为可能是垃圾zval的zval)不是垃圾zval,然后将刚才的
+refcount减1过的zval的refcount进行+1复原.然后进入判断下一个zval是否是垃圾zval的流程,也即判断
+array(2)[也即inner_array]对应的zval是不是一个垃圾zval的流程,易知这个流程结束后会发现它并
+不是一个垃圾zval,然后复原相关zval的refcount,到此结束对这2个zval的gc_collect_cycles()的处理
+
+本文讲的主要是gc_collect_cycles()的意图流程,http://www.freebuf.com/vuls/122938.html中的漏洞成因是因为相关php版本的
+实际处理细节与这里讲的意图流程不同导致.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 12 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/05/12/php%E5%AF%B9%E5%8F%AF%E8%83%BD%E6%98%AF%E5%9E%83%E5%9C%BE%E7%9A%84zval%E7%9A%84%E5%9B%9E%E6%94%B6%E8%BF%87%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/05/12/php%E5%AF%B9%E5%8F%AF%E8%83%BD%E6%98%AF%E5%9E%83%E5%9C%BE%E7%9A%84zval%E7%9A%84%E5%9B%9E%E6%94%B6%E8%BF%87%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+        
+        <category>php</category>
+        
+        <category>垃圾回收</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>ms17-010备忘录</title>
@@ -79,6 +235,7 @@ https://www.t00ls.net/thread-39703-1-1.html
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.phpinfo页面+lfi漏洞可getshell
 2.sqli可load_file时可利用smb重放反弹shell[未验证]
 3.php代码审计时全文搜索unserilize函数的调用,分析这个unserilize有没有漏洞
+    如果有unserialize客户端输入则危害很大,可远程代码执行(cve-2014-8142,cve-2015-0231等)
 4.phpmyadmin的root用户没有写权限时可将general log设置为on,并把日志文件设置为php文件(t00ls)
     https://www.t00ls.net/articles-38892.html
 5.smb叠加利用提权(利用ms17-010)
@@ -379,6 +536,18 @@ Ctrl + L:刷新窗口
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;学习乌云中的&amp;lt;&amp;lt;PHP中的内存破坏漏洞利用&amp;gt;&amp;gt;
 link:http://cb.drops.wiki/drops/papers-4864.html
+cvelink:
+    CVE-2014-8142
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-8142
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.36之前,
+    5.5.20之前的5.5.x和5.5.4之前的5.6.x]允许远程攻击者通过一个使用非串行化调用,利用对对象的序列化属性中的重复
+    键的不当处理,这与CVE-2004-1019不同.
+
+    CVE-2015-0231
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0231
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.37之前,
+    5.5.21之前是5.5.x,5.5.5之前是5.6.x,5.6.5之前]允许远程攻击者通过一个制造的非序列化调用,利用对象序列化属性
+    中重复数字键的不当处理. 注意:由于CVE-2014-8142的修复程序不完整,因此存在此漏洞.
 
 a)看懂此文所需知识
 
@@ -411,14 +580,23 @@ b)理解unserialize
         A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节
         点放入一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲
         区中之出现一次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
+
         B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重
         复执行减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1
         操作,但是如果节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
+
         C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如
         果zval的refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这
         些zval的颜色变成黑色(zval的默认颜色属性)
+
         D:遍历zval节点,将C中标记成白色的节点zval释放掉.
-        比如还是前面那个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
+
+        &amp;lt;?php
+        $a = array('one');
+        $a[] = &amp;amp;$a;
+        unset($a);
+        ?&amp;gt;
+        比如上面这个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
         和$a中的索引1指向这个zval.  用算法对这个数组中的所有元素(索引0和索引1)的zval的refcount进行减1操作,由于索
         引1对应的就是zval_a,所以这个时候zval_a的refcount应该变成了1,这样zval_a就不是一个垃圾.如果执行了unset操作,
         zval_a的refcount就是1,由zval_a中的索引1指向zval_a,用算法对数组中的所有元素(索引0和索引1)的zval的refcount进
@@ -429,6 +607,25 @@ b)理解unserialize
         果m等于n,那么算法的结果是m减n,m-n=0,那么a就是垃圾,如果m&amp;gt;n,那么算法的结果m-n&amp;gt;0,所以a就不是垃圾了m=n代表什么?
         代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它,代表用户代码空间中无法再访问到a所
         对应的zval,代表a是泄漏的内存,因此GC将a这个垃圾回收了.
+
+        这里加上笔者的理解:
+        相关link为:http://www.freebuf.com/vuls/122938.html
+        有如下的变量:
+        $serialized_string = 'a:1:{i:1;C:11:&quot;ArrayObject&quot;:37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
+        unserialize($serialized_string)之后理应产生如下的结果:
+
+        array(1) { // outer_array
+          [1]=&amp;gt;
+          object(ArrayObject)#1 (1) {
+            [&quot;storage&quot;:&quot;ArrayObject&quot;:private]=&amp;gt;
+            array(2) { // inner_array
+              [1]=&amp;gt;
+              // Reference to inner_array
+              [2]=&amp;gt;
+              // Reference to outer_array
+            }
+          }
+        }
 
         [http://www.freebuf.com/vuls/122938.html]
         漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
@@ -448,6 +645,11 @@ b)理解unserialize
         个人理解:
         unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息存入到一
         个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
+
+        !!!然而本文当中并没有利用到unserialize的关于上面的100000大小相关的自动调用gc_collect_cycles()的特点,本
+        文中的unserialize之所以能触发漏洞是因为unserialize后有个重新赋值给[&quot;aaa&quot;]的动作,而这个动作相当于
+        unset([&quot;aaa&quot;]),这样会使得[&quot;aaa&quot;]所在的zval的refcount=0而导致[&quot;aaa&quot;]所在内存被释放.本文中并不是因为发生
+        了gc_root_buffer的个数超过100000而自动的gc_collect_cycles()而产生的uaf的漏洞.
 
     2.利用zval结构为何可泄露任意内存?
         nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
@@ -905,122 +1107,6 @@ http://stackoverflow.com/questions/14639936/how-to-read-from-file-opened-in-a-mo
         
         
         <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>https劫持理解</title>
-        <description>&lt;h3 id=&quot;0x00-link&quot;&gt;0x00 Link&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.https://www.zhihu.com/question/22795329
-2.http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-https与ssl&quot;&gt;0x01 https与ssl&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssl:secure socket layer安全套接层,https,ftps等都是建立在ssl基础上
-https协议:建立在ssl协议之上的http协议[http over ssl](http协议建立在tcp协议之上)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-ssltls协议握手过程&quot;&gt;0x02 ssl/tls协议握手过程&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1)公钥私钥证书
-
-一般来讲:
-证书文件后缀:.crt,.pem
-私钥文件后缀:.key
-(这篇文章里说的&quot;嘗試對 SSL Private Key 下手&quot;应该是错的,那应该是SSL Public Key,
-http://devco.re/blog/2016/04/21/how-I-hacked-facebook-and-found-someones-backdoor-script/)
-证书请求文件:.csr
-公钥加密的数据只有私钥能解开,同样,私钥加密的数据用公钥可以解开
-
-公钥存放在证书文件中,证书相当于锁开着的箱子,私钥相当于箱子的锁的钥匙,ssl通信中的一方A利用证书中的公钥和某种协商
-好的加密算法将要发送到另一方B的数据加密,这个动作相当于把东西放进箱子并将锁关闭,B收到被锁的箱子后用私钥打开锁就看
-到明文了,实现了加密通信.
-
-更详细情况可见:
-http://www.fzb.me/2015-1-15-openssl-rsa.html
-https://www.zhihu.com/question/29620953
-
-2)ssl/tls协议握手过程
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/dot/ssl/sslfinal.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x03-几种https会话劫持工具&quot;&gt;0x03 几种https会话劫持工具&lt;/h3&gt;
-
-&lt;h4 id=&quot;0xa-sslstrip&quot;&gt;0xa sslstrip&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;详情:https://software.intel.com/zh-cn/blogs/2011/10/11/ssl
-
-用户输入www.baidu.com,通过arp欺骗使得browser不会访问到真正的http://www.baidu.com,而http://www.baidu.com的内容是
-跳转到https://www.baidu.com,也即通过arp欺骗将browser的会话由https劫持成http,并由中间人与www.baidu.com服务器正常
-https通信
-
-缺点:使用有局限,要求用户输入url的时候没有输入https[一般用户不输入http或https,而是直接输入www.baidu.com]
-优点:受害用户在访问www.baidu.com的时候browser不会提示证书不可信
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;0xb-sslsplit&quot;&gt;0xb sslsplit&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sslsplit与cain几乎相同,只是sslsplit的证书是攻击者通过如下命令手动创建的
-openssl genrsa -out ca.key 4096
-openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
-
-而cain的证书是中间人向真实服务器主动获取并修改的
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;0xc-cain&quot;&gt;0xc cain&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;中间人与browser和www.baidu.com服务器都进行正常ssl握手,中间人通过arp欺骗将自己伪装成www.baidu.com服务器,劫持受害
-机器的browser的https://www.baidu.com/login.php的请求,中间人向www.baidu.com服务器请求证书,获取证书后将证书中的公
-钥修改成中间人自己设置的公钥(中间人一般无法得到www.baidu.com服务器的私钥,私钥保存在www.baidu.com服务器上),并将
-修改后的证书发给browser,browser看到证书可疑,提示用户证书可疑,用户不懂,选择将目标https://www.baidu.com添加到可信
-任列表,之后browser正常请求https://www.baidu.com/login.php,与中间人进行ssl握手,此时的browser发给中间人的加密的数
-据是用中间人修改过的公钥加密的,中间人有这个公钥的私钥[因为这个这个公钥私钥对是中间人伪造生成的],于是中间人用私
-钥解密browser发过来的数据,再与www.baidu.com服务器走正常的ssl流程,也即将这解密后的数据重新加密发给www.baidu.com
-服务器.而中间人在得到www.baidu.com返回的数据后将它解密后再加密发给browser,browser再正常地用与中间人ssl握手要用
-的密钥来解密这个加密后的数据.
-
-也即整个过程中,www.baidu.com服务器并不知道有中间人的存在,一直把中间人当作正常的browser,而中间人能和
-www.baidu.com服务器进行正常的ssl握手(https通信)是因为中间人从browser那里得到解密后的数据,知道自己要访问什么内容
-,于是正常走https协议访问.而browser与中间人的通信也一直是正常的ssl握手,只是对browser来讲,对方&quot;服务器&quot;(中间人)的
-证书有问题,因为对方的公钥好像被修改过,无法被受害机器的browser验证为可信证书.
-
-缺点:欺骗过程中browser会提示受害用户证书不可信
-优点:一般用户会选择将要访问的网站加入到可信任列表,使得https劫持成功
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x04-私钥文件的用途&quot;&gt;0x04 私钥文件的用途&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;私钥的用途1:
-如果中间人通过web等手段进入了www.baidu.com服务器,取出www.baidu.com的私钥,然后再进行https劫持,这样brower在访问
-www.baidu.com的时候就不会发现证书有问题了,这样中间人也不用伪造证书,直接用www.baidu.com的证书,将证书发给
-browser,再与browser进行正常ssl握手即可,所有加密的数据都可以由中间人解密,因为中间人有www.baidu.com的公钥和私钥.
-其中,公钥在证书中,公钥用来加密发出的数据,私钥在中间人机器上,私钥用来解密browser发过来的数据.
-
-私钥的用途2:结合wireshark利用得到的私钥解密ssl/tls流量
-https://support.citrix.com/article/CTX135121
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Thu, 16 Mar 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/03/16/https%E5%8A%AB%E6%8C%81%E7%90%86%E8%A7%A3/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/03/16/https%E5%8A%AB%E6%8C%81%E7%90%86%E8%A7%A3/</guid>
-        
-        <category>https</category>
-        
-        <category>ssl</category>
-        
-        <category>mitm</category>
-        
-        
-        <category>web</category>
         
       </item>
     
