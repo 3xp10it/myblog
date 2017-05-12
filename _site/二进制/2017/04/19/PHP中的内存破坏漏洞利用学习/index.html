@@ -205,24 +205,9 @@ b)理解unserialize
         代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它,代表用户代码空间中无法再访问到a所
         对应的zval,代表a是泄漏的内存,因此GC将a这个垃圾回收了.
 
-        这里加上笔者的理解:
-        相关link为:http://www.freebuf.com/vuls/122938.html
-        有如下的变量:
-        $serialized_string = 'a:1:{i:1;C:11:"ArrayObject":37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
-        unserialize($serialized_string)之后理应产生如下的结果:
+        更多理解可参考笔者另一篇专门讲解对gc_collect_cycle()的流程的理解的文章:
+        http://3xp10it.cc/web/2017/05/12/php对可能是垃圾的zval的回收过程的理解/
 
-        array(1) { // outer_array
-          [1]=&gt;
-          object(ArrayObject)#1 (1) {
-            ["storage":"ArrayObject":private]=&gt;
-            array(2) { // inner_array
-              [1]=&gt;
-              // Reference to inner_array
-              [2]=&gt;
-              // Reference to outer_array
-            }
-          }
-        }
 
         [http://www.freebuf.com/vuls/122938.html]
         漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
@@ -246,7 +231,7 @@ b)理解unserialize
         !!!然而本文当中并没有利用到unserialize的关于上面的100000大小相关的自动调用gc_collect_cycles()的特点,本
         文中的unserialize之所以能触发漏洞是因为unserialize后有个重新赋值给["aaa"]的动作,而这个动作相当于
         unset(["aaa"]),这样会使得["aaa"]所在的zval的refcount=0而导致["aaa"]所在内存被释放.本文中并不是因为发生
-        了gc_root_buffer的个数超过100000而自动的gc_collect_cycles()而产生的uaf的漏洞.
+        了gc_root_buffer的个数超过100000而自动的运行gc_collect_cycles()而产生的uaf的漏洞.
 
     2.利用zval结构为何可泄露任意内存?
         nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
