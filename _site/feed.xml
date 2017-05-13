@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 12 May 2017 22:31:17 +0800</pubDate>
-    <lastBuildDate>Fri, 12 May 2017 22:31:17 +0800</lastBuildDate>
+    <pubDate>Sat, 13 May 2017 11:11:31 +0800</pubDate>
+    <lastBuildDate>Sat, 13 May 2017 11:11:31 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -58,7 +58,7 @@ D:遍历zval节点,将C中标记成白色的节点zval释放掉.
 
 这里的讲的深度优先的理解如下:
 (refer:http://baike.baidu.com/link?url=2hjd4UB9VHErMLvWRQ1aJU6vRajinVYZHDre1kWEPAVxsagDQUgBwcIqVv7NKgJLsPJmUfke74aihNXFjh8JvmJMm9OjwMPKmLXvx7geXkAERoRU_kORCBdiLhpvhwJX1UAwIsIAaWG98zgfbUDwq_)
-度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) .
+深度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件).
 在一个HTML文件中,当一个超链被选择后,被链接的HTML文件将执行深度优先搜索,即在搜索其余的超链结果之前必须先完整地搜索
 单独的一条链.深度优先搜索沿着HTML文件上的超链走到不能再深入为止,然后返回到某一个HTML文件,再继续选择该HTML文件中的
 其他超链.当不再有其他超链可选择时,说明搜索已经结束.
@@ -627,14 +627,16 @@ b)理解unserialize
         垃圾分析算法是当发现缓冲区满的时候就立即触发,垃圾分析跟代码执行流是同步过程,也就是只有垃圾分析结束之后,代
         码才会继续执行.所以在我们的PHP代码中,如果某个unset正好使GC的节点缓冲区满,触发了垃圾分析流程,那么这个unset
         耗费的时间将比一般的unset多很多.
+
         个人理解:
-        unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息存入到一
-        个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
+        一般来说,unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息
+        存入到一个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
 
         !!!然而本文当中并没有利用到unserialize的关于上面的100000大小相关的自动调用gc_collect_cycles()的特点,本
         文中的unserialize之所以能触发漏洞是因为unserialize后有个重新赋值给[&quot;aaa&quot;]的动作,而这个动作相当于
         unset([&quot;aaa&quot;]),这样会使得[&quot;aaa&quot;]所在的zval的refcount=0而导致[&quot;aaa&quot;]所在内存被释放.本文中并不是因为发生
-        了gc_root_buffer的个数超过100000而自动的运行gc_collect_cycles()而产生的uaf的漏洞.
+        了gc_root_buffer的个数超过100000而自动的运行gc_collect_cycles()而产生的uaf的漏洞.也即本文与php5.3之后的
+        新的垃圾回收机制无关.
 
     2.利用zval结构为何可泄露任意内存?
         nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
@@ -852,7 +854,7 @@ gdb
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zval.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zval1.png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    上图中蓝色是符号,红色是zval的属性,绿色是zval的值
     查看这个地址中的内容:
@@ -901,8 +903,8 @@ gdb
     这里不知为何[&quot;ccc&quot;]对应的zval的值变成--D了
     (gdb)quit
 
-    现在尝试通过一个int类型的zval覆盖[&quot;ccc&quot;]符号对应的原来占据的string类型的zval值的空间,也即占据上面图中的
-    AAA..AA(39xA)这个zval所在的内存的位置
+    现在尝试通过一个int类型的zval覆盖[&quot;ccc&quot;]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
+    array(1):1 这个zval所在的内存的位置
     运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
 
     ---------PHPLeak.php------------
@@ -926,6 +928,13 @@ gdb
     ?&amp;gt;
     ---------PHPLeak.php------------
 
+    对应zval图如下:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zval2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
     output:
     $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
     0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0

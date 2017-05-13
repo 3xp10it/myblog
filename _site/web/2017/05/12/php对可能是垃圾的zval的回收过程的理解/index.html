@@ -176,7 +176,7 @@ D:遍历zval节点,将C中标记成白色的节点zval释放掉.
 
 这里的讲的深度优先的理解如下:
 (refer:http://baike.baidu.com/link?url=2hjd4UB9VHErMLvWRQ1aJU6vRajinVYZHDre1kWEPAVxsagDQUgBwcIqVv7NKgJLsPJmUfke74aihNXFjh8JvmJMm9OjwMPKmLXvx7geXkAERoRU_kORCBdiLhpvhwJX1UAwIsIAaWG98zgfbUDwq_)
-度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) .
+深度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件).
 在一个HTML文件中,当一个超链被选择后,被链接的HTML文件将执行深度优先搜索,即在搜索其余的超链结果之前必须先完整地搜索
 单独的一条链.深度优先搜索沿着HTML文件上的超链走到不能再深入为止,然后返回到某一个HTML文件,再继续选择该HTML文件中的
 其他超链.当不再有其他超链可选择时,说明搜索已经结束.
