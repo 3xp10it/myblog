@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 14 May 2017 10:46:35 +0800</pubDate>
-    <lastBuildDate>Sun, 14 May 2017 10:46:35 +0800</lastBuildDate>
+    <pubDate>Sun, 14 May 2017 15:12:53 +0800</pubDate>
+    <lastBuildDate>Sun, 14 May 2017 15:12:53 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -25,6 +25,8 @@ vim8
 &lt;/div&gt;
 
 &lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;h4 id=&quot;0xa-方法一&quot;&gt;0xa 方法一&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法,如下图
 &lt;/code&gt;&lt;/pre&gt;
@@ -51,6 +53,17 @@ function AutoWB()
 endfunction
 inoremap &amp;lt;s&amp;gt; : call AutoWB() &amp;lt;CR&amp;gt;
 ------------add------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xb-方法二&quot;&gt;0xb 方法二&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法
+2.设置百度五笔输入法中使用shift作为中英切换键
+3.安装AutoIM插件
+    在~/.vimrc中加入Plugin '3xp10it/AutoIM'
+    vim
+    :BundleInstall
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 

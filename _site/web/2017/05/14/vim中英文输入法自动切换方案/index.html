@@ -144,6 +144,8 @@ vim8
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
+<h4 id="0xa-方法一">0xa 方法一</h4>
+
 <div class="highlighter-rouge"><pre class="highlight"><code>1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法,如下图
 </code></pre>
 </div>
@@ -169,6 +171,17 @@ function AutoWB()
 endfunction
 inoremap &lt;s&gt; : call AutoWB() &lt;CR&gt;
 ------------add------------
+</code></pre>
+</div>
+
+<h4 id="0xb-方法二">0xb 方法二</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法
+2.设置百度五笔输入法中使用shift作为中英切换键
+3.安装AutoIM插件
+    在~/.vimrc中加入Plugin '3xp10it/AutoIM'
+    vim
+    :BundleInstall
 </code></pre>
 </div>
 
