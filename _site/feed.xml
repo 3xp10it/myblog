@@ -5,9 +5,76 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 13 May 2017 11:11:31 +0800</pubDate>
-    <lastBuildDate>Sat, 13 May 2017 11:11:31 +0800</lastBuildDate>
+    <pubDate>Sun, 14 May 2017 10:33:29 +0800</pubDate>
+    <lastBuildDate>Sun, 14 May 2017 10:33:29 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>vim中英文输入法自动切换方案</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)关于vim中中英文自动切换方案,实现:
+1.正常模式时自动切换成英文
+2.输入模式中自动切换成上一次输入模式中的输入方法
+
+b)测试环境
+macOS sierra
+vim8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.安装百度五笔输入法,在系统中设置只使用两种输入法,如下图
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/inputMethod.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2.设置百度五笔输入法中使用shift作为中英切换键,如下图
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/baiduWuBi.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3.安装https://github.com/vovkasm/input-source-switcher
+
+4.在~/.vimrc中添加如下
+------------add------------
+autocmd InsertLeave * call AutoEN()
+autocmd InsertEnter * call AutoWB()
+function AutoEN()
+    silent !issw com.apple.keylayout.ABC &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+endfunction
+
+function AutoWB()
+     silent !issw com.baidu.inputmethod.BaiduIM.wubi &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+endfunction
+inoremap &amp;lt;s&amp;gt; : call AutoWB() &amp;lt;CR&amp;gt;
+------------add------------
+
+### 0x02 Result
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;实现效果如下:
+1.从插入模式进入正常模式后自动切换成macOS自带的英文输入法
+2.从正常模式进入插入模式后自动切换成安装的百度五笔输入法
+3.在百度五笔输入法中有两种输入方式,一种是输入中文,一种是输入英文,通过shift键可切换
+3.切换到百度五笔输入法后会默认使用上次百度五笔输入法的最终输入方式(英文或中文)&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+</description>
+        <pubDate>Sun, 14 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/</guid>
+        
+        <category>输入法</category>
+        
+        <category>vimrc</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>php对可能是垃圾的zval的回收过程的理解</title>
@@ -903,8 +970,8 @@ gdb
     这里不知为何[&quot;ccc&quot;]对应的zval的值变成--D了
     (gdb)quit
 
-    现在尝试通过一个int类型的zval覆盖[&quot;ccc&quot;]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
-    array(1):1 这个zval所在的内存的位置
+    现在尝试通过一个int类型的zval覆盖[&quot;aaa&quot;]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
+    array(5)[1,2,array(1),4,5] 这个zval所在的内存的空间
     运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
 
     ---------PHPLeak.php------------
@@ -1067,40 +1134,6 @@ http://www.cnblogs.com/LittleHann/p/3522990.html
         
         
         <category>vim</category>
-        
-      </item>
-    
-      <item>
-        <title>python tips</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;About python tips on &quot;bugs&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.python2/3在os.path.exists(&quot;~/...&quot;)时,无法自动识别当前系统的~目录,eg.macOS下的~为/var/root,ubuntu下的~为
-/root,os.path.exists(&quot;~/1.txt&quot;)不认识~.
-
-后来发现这不是bug,os.path.expanduser(&quot;~&quot;)可以认识~,http://www.cnblogs.com/xupeizhi/archive/2013/02/20/2918243.html
-
-2.python以&quot;a+&quot;模式读文件读出的内容为空,要将文件指针移到开关再读,f=open(&quot;..&quot;,&quot;a+&quot;) &amp;amp;&amp;amp; f.seek(0) &amp;amp;&amp;amp; f.read()
-http://stackoverflow.com/questions/14639936/how-to-read-from-file-opened-in-a-mode
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/python/2017/03/17/python-tips/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2017/03/17/python-tips/</guid>
-        
-        <category>tips</category>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
         
       </item>
     

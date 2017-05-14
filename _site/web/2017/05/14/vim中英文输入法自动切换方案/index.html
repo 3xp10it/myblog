@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404</title>
+<title>vim中英文输入法自动切换方案</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -101,51 +101,147 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">vim中英文输入法自动切换方案</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">May 14, 2017</span>
+           under web
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a)关于vim中中英文自动切换方案,实现:
+1.正常模式时自动切换成英文
+2.输入模式中自动切换成上一次输入模式中的输入方法
+
+b)测试环境
+macOS sierra
+vim8
+</code></pre>
+</div>
+
+<h3 id="0x01-detail">0x01 Detail</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.安装百度五笔输入法,在系统中设置只使用两种输入法,如下图
+</code></pre>
+</div>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/inputMethod.png" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2.设置百度五笔输入法中使用shift作为中英切换键,如下图
+</code></pre>
+</div>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/baiduWuBi.png" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>3.安装https://github.com/vovkasm/input-source-switcher
+
+4.在~/.vimrc中添加如下
+------------add------------
+autocmd InsertLeave * call AutoEN()
+autocmd InsertEnter * call AutoWB()
+function AutoEN()
+    silent !issw com.apple.keylayout.ABC &gt; /dev/null 2&gt;&amp;1
+endfunction
+
+function AutoWB()
+     silent !issw com.baidu.inputmethod.BaiduIM.wubi &gt; /dev/null 2&gt;&amp;1
+endfunction
+inoremap &lt;s&gt; : call AutoWB() &lt;CR&gt;
+------------add------------
+
+### 0x02 Result
+
+</code></pre>
+</div>
+<p>实现效果如下:
+1.从插入模式进入正常模式后自动切换成macOS自带的英文输入法
+2.从正常模式进入插入模式后自动切换成安装的百度五笔输入法
+3.在百度五笔输入法中有两种输入方式,一种是输入中文,一种是输入英文,通过shift键可切换
+3.切换到百度五笔输入法后会默认使用上次百度五笔输入法的最终输入方式(英文或中文)</p>
+
+<p>```</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            输入法, vimrc
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+
+      
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/web/2017/05/14/vim中英文输入法自动切换方案" data-title="" data-url="https://3xp10it.github.io//web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"3xp10it"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- 个人增加织网背景效果 -->
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">vim中英文输入法自动切换方案</a>
-      </div>
-      <div class="excerpt">
-         
-          vim中英文输入法自动切换方案
-         
-        <a href="/web/2017/05/14/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
