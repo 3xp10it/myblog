@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 14 May 2017 15:12:53 +0800</pubDate>
-    <lastBuildDate>Sun, 14 May 2017 15:12:53 +0800</lastBuildDate>
+    <pubDate>Sun, 14 May 2017 15:33:52 +0800</pubDate>
+    <lastBuildDate>Sun, 14 May 2017 15:33:52 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -26,8 +26,6 @@ vim8
 
 &lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
 
-&lt;h4 id=&quot;0xa-方法一&quot;&gt;0xa 方法一&lt;/h4&gt;
-
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法,如下图
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -38,32 +36,17 @@ vim8
 &lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/baiduWuBi.png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3.安装https://github.com/vovkasm/input-source-switcher
-
-4.在~/.vimrc中添加如下
-------------add------------
-autocmd InsertLeave * call AutoEN()
-autocmd InsertEnter * call AutoWB()
-function AutoEN()
-    silent !issw com.apple.keylayout.ABC &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
-endfunction
-
-function AutoWB()
-    silent !issw com.baidu.inputmethod.BaiduIM.wubi &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
-endfunction
-inoremap &amp;lt;s&amp;gt; : call AutoWB() &amp;lt;CR&amp;gt;
-------------add------------
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;0xb-方法二&quot;&gt;0xb 方法二&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.安装百度五笔输入法,在系统中设置只使用系统自带的英文输入法和百度五笔两种输入法
-2.设置百度五笔输入法中使用shift作为中英切换键
-3.安装AutoIM插件
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3.安装AutoIM插件
     在~/.vimrc中加入Plugin '3xp10it/AutoIM'
     vim
     :BundleInstall
+
+4.在~/.vimrc文件中添加:
+    let g:AutoIM_enim_id=&quot;com.apple.keylayout.ABC&quot;
+    let g:AutoIM_zhim_id='com.baidu.inputmethod.BaiduIM.wubi'
+    其中上面两个id分别是英文输入法和百度五笔输入法,如果安装的是其他输入法,需自行设置,查看输入法方法为:
+    安装3xp10it/AutoIM插件后退出vim并在终端运行issw -l
+    或者手动安装https://github.com/vovkasm/input-source-switcher后运行issw -l
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -74,6 +57,14 @@ inoremap &amp;lt;s&amp;gt; : call AutoWB() &amp;lt;CR&amp;gt;
 2.从正常模式进入插入模式后自动切换成安装的百度五笔输入法
 3.在百度五笔输入法中有两种输入方式,一种是输入中文,一种是输入英文,通过shift键可切换
 3.切换到百度五笔输入法后会默认使用上次百度五笔输入法的最终输入方式(英文或中文)(这是百度五笔输入法自带的功能)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.如果出现不灵情况,按系统切换输入法快捷键(如command+space)重新切换到百度五笔输入法即可
+2.从输入模式到正常模式(esc)后不要按键过快,大概要等0.5s,看到屏幕闪一下代表完成输入法自动完成切换
+3.如果有时候在百度五笔输入法中按shift无法使用英文输入方式,则要在百度五笔输入法设置中重新设置shift为中英切换键
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
