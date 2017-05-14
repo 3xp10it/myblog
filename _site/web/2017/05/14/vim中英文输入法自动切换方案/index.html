@@ -133,7 +133,7 @@
 
 <div class="highlighter-rouge"><pre class="highlight"><code>a)关于vim中中英文自动切换方案,实现:
 1.正常模式时自动切换成英文
-2.输入模式中自动切换成上一次输入模式中的输入方法
+2.输入模式中自动切换成上一次输入模式中的输入方式
 
 b)测试环境
 macOS sierra
@@ -168,18 +168,19 @@ function AutoWB()
 endfunction
 inoremap &lt;s&gt; : call AutoWB() &lt;CR&gt;
 ------------add------------
-
-### 0x02 Result
-
 </code></pre>
 </div>
-<p>实现效果如下:
+
+<h3 id="0x02-result">0x02 Result</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>实现效果如下:
 1.从插入模式进入正常模式后自动切换成macOS自带的英文输入法
 2.从正常模式进入插入模式后自动切换成安装的百度五笔输入法
 3.在百度五笔输入法中有两种输入方式,一种是输入中文,一种是输入英文,通过shift键可切换
-3.切换到百度五笔输入法后会默认使用上次百度五笔输入法的最终输入方式(英文或中文)(这里百度五笔输入法自带的功能)</p>
+3.切换到百度五笔输入法后会默认使用上次百度五笔输入法的最终输入方式(英文或中文)(这里百度五笔输入法自带的功能)
 
-<p>```</p>
+</code></pre>
+</div>
 </span>
 
         
