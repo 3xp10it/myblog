@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 20 May 2017 02:01:13 +0800</pubDate>
-    <lastBuildDate>Sat, 20 May 2017 02:01:13 +0800</lastBuildDate>
+    <pubDate>Sat, 20 May 2017 03:19:10 +0800</pubDate>
+    <lastBuildDate>Sat, 20 May 2017 03:19:10 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -35,10 +35,19 @@ keyboard:HHKB BT(无刻版)
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.背面的6个开关设置2,3为打开,其余全部关闭
 
-2.
+2.HHKB BT此处不用安装键盘驱动,官网如下说法:
+    &quot;HHKB Mac-only driver installation on the Professional BT does not need.&quot;
 
+3.设置control键按下为control键,只按下一次为esc键(利于vim),原来的修饰键不变,在keyboard maestro中设置如下图即可(
+与imac自带的键盘的设置有一点不同,imac自带键盘的设置还需将caps设置为ctrl,具体可见
+http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/hhkb-ctr2esc.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.快捷键
+to be continue…&lt;/p&gt;
 </description>
         <pubDate>Sat, 20 May 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/05/20/HHKB-BT%E9%94%AE%E7%9B%98%E8%AE%BE%E7%BD%AE/</link>
