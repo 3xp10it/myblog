@@ -35,7 +35,7 @@ https://www.zhihu.com/question/35928898
 
 5.mac apple store下载star vpn
 
-6.安装百度五笔输入法
+6.安装须鼠管输入法(可完美解决vim的中英文自动切换的问题)
 
 7.下载keyboard maestro,设置打开terminal.app快捷键为command+r,要注意的是安装了keyboard maestro之后不要安装 
 Karabiner-Elements,否则Karabiner-Elements会影响系统按键导致系统键盘修饰设置无效与keyboard maestro设置失效.
@@ -219,6 +219,9 @@ Serial: APZP-103-97-215-111
 20.添加burpsuite到dock栏
     https://www.mattandreko.com/2014/08/01/burp-icon-in-osx/ 
 
+21.安装https://github.com/ghawkgu/isHUD/blob/master/README_chs.md
+
+22.https://github.com/3xp10it/AutoIM 解决在vim中英文输入法自动切换的问题
 ```
 
 ### 0x02 快捷键
