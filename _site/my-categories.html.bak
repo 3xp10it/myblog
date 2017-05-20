@@ -158,11 +158,9 @@
     
 	<a href="/python/2016/03/07/%E5%AD%A6%E4%B9%A0urllib2+BeautifulSoup-%E7%88%AC%E4%B9%8C%E4%BA%91%E6%89%80%E6%9C%89%E5%8E%82%E5%95%86url%E5%88%97%E8%A1%A8/" style="background-color: rgb(25, 25, 25);">2016-03-07 学习urllib2+BeautifulSoup:爬乌云所有厂商url列表</a><br>
      
-    web ---------->33<br>
+    web ---------->32<br>
     
 	<a href="/web/2017/05/20/HHKB-BT%E9%94%AE%E7%9B%98%E8%AE%BE%E7%BD%AE/" style="background-color: rgb(25, 25, 25);">2017-05-20 HHKB BT键盘设置</a><br>
-    
-	<a href="/web/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/" style="background-color: rgb(25, 25, 25);">2017-05-19 vim中英文输入法自动切换完美方案</a><br>
     
 	<a href="/web/2017/05/16/%E5%86%85%E7%BD%91%E4%B8%AD%E9%97%B4%E4%BA%BA%E7%8E%A9%E6%B3%95%E5%A4%87%E5%BF%98%E5%BD%95/" style="background-color: rgb(25, 25, 25);">2017-05-16 内网中间人玩法备忘录</a><br>
     
@@ -246,7 +244,7 @@
     
 	<a href="/linux/2016/05/19/nebula/" style="background-color: rgb(25, 25, 25);">2016-05-19 nebula系统学习</a><br>
      
-    auxilary ---------->5<br>
+    auxilary ---------->6<br>
     
 	<a href="/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/" style="background-color: rgb(25, 25, 25);">2017-04-25 c++中的&的用法</a><br>
     
@@ -255,6 +253,8 @@
 	<a href="/auxilary/2016/09/25/notes/" style="background-color: rgb(25, 25, 25);">2016-09-25 notes</a><br>
     
 	<a href="/auxilary/2016/08/02/%E4%BE%BF%E6%8D%B7%E5%86%99%E5%8D%9A%E5%AE%A2%E8%84%9A%E6%9C%AC/" style="background-color: rgb(25, 25, 25);">2016-08-02 便捷写博客脚本</a><br>
+    
+	<a href="/auxilary/2016/07/27/tmux%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80/" style="background-color: rgb(25, 25, 25);">2016-07-27 tmux自动布局</a><br>
     
 	<a href="/auxilary/2016/05/24/rime%E4%BA%94%E7%AC%94%E8%AF%8D%E5%BA%93%E5%90%88%E5%B9%B6/" style="background-color: rgb(25, 25, 25);">2016-05-24 rime五笔词库合并</a><br>
      
@@ -304,7 +304,9 @@
     
 	<a href="/crack/2016/06/22/hashcat/" style="background-color: rgb(25, 25, 25);">2016-06-22 hashcat&john</a><br>
      
-    vim ---------->4<br>
+    vim ---------->5<br>
+    
+	<a href="/vim/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/" style="background-color: rgb(25, 25, 25);">2017-05-19 vim中英文输入法自动切换完美方案</a><br>
     
 	<a href="/vim/2017/03/22/vim%E6%8A%80%E5%B7%A7/" style="background-color: rgb(25, 25, 25);">2017-03-22 vim技巧</a><br>
     
@@ -313,10 +315,6 @@
 	<a href="/vim/2016/08/07/vim%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="background-color: rgb(25, 25, 25);">2016-08-07 vim快捷键</a><br>
     
 	<a href="/vim/2016/06/23/vim%E8%87%AA%E5%8A%A8%E6%8D%A2%E6%A0%87%E7%82%B9/" style="background-color: rgb(25, 25, 25);">2016-06-23 vim自动换标点</a><br>
-     
-    tmux ---------->1<br>
-    
-	<a href="/tmux/2016/07/27/tmux%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80/" style="background-color: rgb(25, 25, 25);">2016-07-27 tmux自动布局</a><br>
      
     regexp ---------->1<br>
     
