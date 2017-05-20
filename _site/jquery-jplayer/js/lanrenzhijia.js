@@ -193,6 +193,12 @@ $(document).ready(function(){
       mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E3D.mp3",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"焚情",
+      artist:"张信哲",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E7%84%9A%E6%83%85.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     }];
 
   var cssSelector = {
@@ -204,6 +210,8 @@ $(document).ready(function(){
     swfPath: "https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.6.4/jquery.jplayer/Jplayer.swf",
     supplied: "ogv, m4v, oga, mp3, wma"
   };
+    
+
 
   var myPlaylist = new jPlayerPlaylist(cssSelector, playlist, options);
 
