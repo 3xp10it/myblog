@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 20 May 2017 16:45:10 +0800</pubDate>
-    <lastBuildDate>Sat, 20 May 2017 16:45:10 +0800</lastBuildDate>
+    <pubDate>Sun, 21 May 2017 11:07:16 +0800</pubDate>
+    <lastBuildDate>Sun, 21 May 2017 11:07:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -33,9 +33,9 @@ keyboard:HHKB BT(无刻版)
 
 &lt;h4 id=&quot;0xb-detail&quot;&gt;0xb Detail&lt;/h4&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.背面的6个开关设置2,3为打开,其余全部关闭
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.背面的6个开关设置2,3,6为打开,其余全部关闭
 
-2.HHKB BT此处不用安装键盘驱动,官网如下说法:
+2.HHKB BT不用安装键盘驱动,官网如下说法:
     &quot;HHKB Mac-only driver installation on the Professional BT does not need.&quot;
 
 3.设置control键按下为control键,只按下一次为esc键(利于vim),原来的修饰键不变,在keyboard maestro中设置如下图即可(
@@ -47,7 +47,35 @@ http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/)
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/hhkb-ctr2esc.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;4.快捷键
-to be continue…&lt;/p&gt;
+    ctrl+a:到开头
+    ctrl+e:到结尾
+    ctrl+p:到开头
+    ctrl+n:到结尾
+    ctrl+b:左
+    ctrl+f:右
+    ctrl+w:向前删除一个单词
+    ctrl+h:向前删除一个字符
+    ctrl+d:向后删除一个字符
+    ctrl+u:向前删除所有
+    ctrl+k:向后删除所有&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;没有上下方向的快捷键，用keyboard maestro中设置的ctrl+command+j/k
+    参考http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/
+    方向用上面链接中的快捷键:
+    command+control+hjkl
+
+以下只在终端有效
+ctrl+&amp;amp;:恢复被上面删除的内容
+ctrl+r:向前搜索运行过的命令
+ctrl+s:向后搜索运行过的命令
+ctrl+y:粘贴上面删除的内容
+ctrl+p:上一个命令
+ctrl+n:下一个命令
+
+最后系统下的所有快捷键更全版本见如下链接,本文只记录与hhkb相关的快捷键
+    http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Sat, 20 May 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/05/20/HHKB-BT%E9%94%AE%E7%9B%98%E8%AE%BE%E7%BD%AE/</link>
