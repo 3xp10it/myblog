@@ -183,11 +183,7 @@ windows及linux下由于没有keyboard maestro软件所以需要找到替代的�
 
 <h3 id="0x03-快速通道macos-only">0x03 快速通道(macOS only)</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.安装squirrel后使用https://github.com/neolee/SCU设置好并重新部署(eg.设置终端和MacVim下不只为ascii)
-2.wget https://gist.githubusercontent.com/3xp10it/9f51ba895e47cdd5ed1b04f765298df9/raw/8d25bbcc5483e9f77ba24a3a5e84d28cc937fd9a/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
-3.重新部署使生效
-
-普通非root用户
+<div class="highlighter-rouge"><pre class="highlight"><code>普通非root用户
 登录进操作系统后运行(图形界面登录)
 wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;&amp; python3 /tmp/autoSquirrel.py
 
@@ -195,16 +191,16 @@ hint:这里原来可以少写一些字符如下的:
 wget -O - https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py | python3
 但是实际发现由于autoSquirrel.py文件中有与用户交互的函数(input),这样运行会报错
 
-root用户则需如下步骤：
+root用户则需如下步骤:
 a)以非root用户登录进操作系统后运行(图形界面登录):
 wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;&amp; python3 /tmp/autoSquirrel.py
 
-b)用https://github.com/neolee/SCU设置好并重新部署(eg.设置终端和MacVim下不只为ascii)
+b)再切换成root用户登录进操作系统后(图形界面登录):
+添加须管鼠输入法到系统输入法中,重新部署squirrel,再用https://github.com/neolee/SCU设置好并重新部署(eg.设置终端和MacVim下不只为ascii)
+然后运行：
+wget https://raw.githubusercontent.com/3xp10it/AutoIM/master/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
 
-c)再切换成root用户登录进操作系统后运行(图形界面登录):
-wget https://gist.githubusercontent.com/3xp10it/9f51ba895e47cdd5ed1b04f765298df9/raw/8d25bbcc5483e9f77ba24a3a5e84d28cc937fd9a/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
-
-d)重新部署squirrel
+c)重新部署squirrel
 </code></pre>
 </div>
 </span>
