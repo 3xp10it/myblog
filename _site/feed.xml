@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 24 May 2017 23:38:57 +0800</pubDate>
-    <lastBuildDate>Wed, 24 May 2017 23:38:57 +0800</lastBuildDate>
+    <pubDate>Wed, 24 May 2017 23:48:06 +0800</pubDate>
+    <lastBuildDate>Wed, 24 May 2017 23:48:06 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -143,14 +143,14 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js5.png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮，点了10几下突然出现local变量
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮,点了10几下突然出现local变量
     a:&quot;123456&quot;,这个正是在密码输入框输入的密码,这时js执行到function(a){return $.securityEncode(...)}这里,如下图:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js6.png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量，如下图
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量,如下图
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -256,6 +256,18 @@
                 print(each)
                 break
     ----------------crack.py----------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)这里有2个js转python的关键地方:
+1.js中的charCodeAt转成python为ord函数,eg:
+    b.charCodeAt(p)转成python为ord(b[p])
+2.js中的charAt转成python为数组取下标,eg:
+    c.charAt((l ^ n) % k)转成c[(l ^ n) % k]
+
+b)也可直接由python执行js,可参考:google.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
