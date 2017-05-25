@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>gdb命令</title>
+<title>PHP中的内存破坏漏洞利用学习(2nd)</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -109,13 +109,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">gdb命令</h1>
+      <h1 class="header" itemprop="name">PHP中的内存破坏漏洞利用学习(2nd)</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">April 20, 2017</span>
-           under web
+          on <span itemprop="datePublished" content="2014-08-28">May 15, 2017</span>
+           under 二进制
         </i></small>
       </div>
 
@@ -129,45 +129,11 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="0x01-gdb常用命令">0x01 gdb常用命令</h3>
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>gdb
-help
-help data
-help stack
-help status
+<div class="highlighter-rouge"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
+link:http://cb.drops.wiki/drops/tips-4988.html
 
-gdb stack0           #===&gt;gdb + file stack0
-l(list)              #show source
-b 7(break 7)         #add break on line7
-b 8(break 8)         #add break on line8
-b 11
-b 13
-b 15
-info b(info break)
-info registers       #show registers
-r(run)               #第一次运行或重新开始运行程序
-start                #开始运行程序
-continue             #继续运行
-disas /m
-            /r      #show hex(显示汇编指令对应十六进制值)
-            /m      #show source if available(如果有源码,显示对应行源码)
-set disassembly-flavor att/intel     #设置att或intel格式
-set disassemble-next-line            #设置下一步是否显示汇编码
-si或s(setpi)                            #==&gt; step into,like f7 in od
-ni或n(nexti)                            #==&gt; like f8 in od
-leave                #立即中断当前函数运行并返回,当前函数的剩余语句将不被执行
-finish               #执行到当前函数返回之后停止,当前函数的剩余语句将正常运行
-bt(backtrace)        #查看所有栈帧信息
-f num(frame num)     #选择并打印第num个栈帧信息
-info f(info frame)   #查看当前栈帧信息
-
-layout:用于分割窗口,可以一边查看代码,一边测试:
-layout src:显示源代码窗口
-layout asm:显示反汇编窗口
-layout regs:显示源代码/反汇编和CPU寄存器窗口
-layout split:显示源代码和反汇编窗口
-Ctrl + L:刷新窗口
 </code></pre>
 </div>
 </span>
@@ -179,7 +145,7 @@ Ctrl + L:刷新窗口
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            gdb, commands, linux
+            php, 内存破坏
           </small>
         </div>
         

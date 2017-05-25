@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>php对可能是垃圾的zval的回收过程的理解</title>
+<title>gdb命令</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -109,13 +109,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">php对可能是垃圾的zval的回收过程的理解</h1>
+      <h1 class="header" itemprop="name">gdb命令</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">May 12, 2017</span>
-           under web
+          on <span itemprop="datePublished" content="2014-08-28">April 20, 2017</span>
+           under 二进制
         </i></small>
       </div>
 
@@ -129,144 +129,45 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="about">About</h3>
+        <span itemprop="articleBody"><h3 id="0x01-gdb常用命令">0x01 gdb常用命令</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;本文记录对php的对可能是垃圾的zval的回收过程的理解
-2&gt;必读link:
-    http://www.freebuf.com/vuls/122938.html
-3&gt;测试环境:php5.4.34(php5.3之后的垃圾回收机制)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>gdb
+help
+help data
+help stack
+help status
 
-<h3 id="detail">Detail</h3>
+gdb stack0           #===&gt;gdb + file stack0
+l(list)              #show source
+b 7(break 7)         #add break on line7
+b 8(break 8)         #add break on line8
+b 11
+b 13
+b 15
+info b(info break)
+info registers       #show registers
+r(run)               #第一次运行或重新开始运行程序
+start                #开始运行程序
+continue             #继续运行
+disas /m
+            /r      #show hex(显示汇编指令对应十六进制值)
+            /m      #show source if available(如果有源码,显示对应行源码)
+set disassembly-flavor att/intel     #设置att或intel格式
+set disassemble-next-line            #设置下一步是否显示汇编码
+si或s(setpi)                            #==&gt; step into,like f7 in od
+ni或n(nexti)                            #==&gt; like f8 in od
+leave                #立即中断当前函数运行并返回,当前函数的剩余语句将不被执行
+finish               #执行到当前函数返回之后停止,当前函数的剩余语句将正常运行
+bt(backtrace)        #查看所有栈帧信息
+f num(frame num)     #选择并打印第num个栈帧信息
+info f(info frame)   #查看当前栈帧信息
 
-<h4 id="0x01-不同的说法">0x01 不同的说法</h4>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>认为上面link中的以下说法不对:
-------------refer-----------
-首先用zval_mark_grey把外部数组标记为灰色.
-对外部数组的子节点即ArrayObject对象标记为灰色refcount减一,此时ArrayObject的refcount为0.
-对ArrayObject的子节点即内部数组的两个成员分别指向外部数组和内部数组,分别调用zval_mark_grey,实际又会对外部数组和内
-部数组进行操作.因为外部数组已经被标记过灰色所以直接返回.而内部数组被标记为灰色.两个数组分别refcount减一此时两个数
-组refcount都是1.然后又会对内部数组成员分别指向外部数组和内部数组调用zval_mark_grey.这时会再次把外部数组和内部数组
-的refcount减一,此时外部数组和内部数组的refcount都已经是0了.
-------------refer-----------
-认为上面的:
-"首先用zval_mark_grey把外部数组标记为灰色."是错的,认为没有这个操作.
-"因为外部数组已经被标记过灰色所以直接返回."是错的,因为外部数组不是灰色,认为外部数组不会被处理(认为不会被标记成灰色
-也不会将外部数据的refcount减1)
-
-认为下面的refer中的说法是对的:
-http://www.cnblogs.com/orlion/p/5350844.html
-------------refer-------------
-A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节点放入
-一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲区中之出现一
-次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
-
-B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重复执行
-减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1操作,但是如果
-节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
-
-C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如果zval的
-refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这些zval的颜色变成
-黑色(zval的默认颜色属性)
-
-D:遍历zval节点,将C中标记成白色的节点zval释放掉.
-------------refer-------------
-
-这里的讲的深度优先的理解如下:
-(refer:http://baike.baidu.com/link?url=2hjd4UB9VHErMLvWRQ1aJU6vRajinVYZHDre1kWEPAVxsagDQUgBwcIqVv7NKgJLsPJmUfke74aihNXFjh8JvmJMm9OjwMPKmLXvx7geXkAERoRU_kORCBdiLhpvhwJX1UAwIsIAaWG98zgfbUDwq_)
-深度优先搜索是一种在开发爬虫早期使用较多的方法.它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件).
-在一个HTML文件中,当一个超链被选择后,被链接的HTML文件将执行深度优先搜索,即在搜索其余的超链结果之前必须先完整地搜索
-单独的一条链.深度优先搜索沿着HTML文件上的超链走到不能再深入为止,然后返回到某一个HTML文件,再继续选择该HTML文件中的
-其他超链.当不再有其他超链可选择时,说明搜索已经结束.
-
-</code></pre>
-</div>
-
-<h4 id="0x02-处理过程">0x02 处理过程</h4>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>上面link(http://www.freebuf.com/vuls/122938.html)中的代码如下:
-
-&lt;?php
-$serialized_string = 'a:1:{i:1;C:11:"ArrayObject":37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
-$outer_array = unserialize($serialized_string);
-gc_collect_cycles();
-$filler1 = "aaaa";
-$filler2 = "bbbb";
-var_dump($outer_array);
-?&gt;
-
-预期的结果应该是:
-
-array(1) { // outer_array,refcount=2,is_ref=0
-  [1]=&gt;
-  object(ArrayObject)#1 (1) { // refcount=1,is_ref=0
-    ["storage":"ArrayObject":private]=&gt;
-    array(2) { // inner_array,refcount=2,is_ref=1
-      [1]=&gt;
-      // Reference to inner_array,refcount=2,is_ref=1
-      [2]=&gt;
-      // Reference to outer_array,refcount=2,is_ref=0
-    }
-  }
-}
-
-最后的结果是:
-
-string(4) "bbbb"
-
-之所以会产生这样的结果是因为有个处理不当的漏洞,也即对ArrayObject的refcount的减1处理不当(实际对ArrayObject的子
-zval也即array(2)[即inner_array]对应的zval的多做了一次对array(2)的子zval(两个reference)的refcount减1的操作)
-
-实际上按照php5.3之后的回收机制应该要做的是这样的流程:
-
-a)由于gc_root_buffer的个数超过了设定的100000,于是进入gc_collect_cycles()函数进行相关处理.
-
-b)首先判断array(1)[也即outer_array]是不是可能是一个垃圾zval,判断依据为:
-
-1:如果一个zval的refcount增加,那么此zval还在使用,不属于垃圾
-2:如果一个zval的refcount减少到0, 那么zval可以被释放掉,不属于垃圾
-3:如果一个zval的refcount减少之后大于0,那么此zval还不能被释放,此zval可能成为一个垃圾
-(refer:http://www.cnblogs.com/orlion/p/5350844.html)
-array(1)的refcount为2,满足上面第3点,也即array(1)[也即outer_array]可能是一个垃圾zval,由于gc_collect_cycles()函数只
-对可能是垃圾的zval进行处理,同样判断出array(2)[也即inner_array]对应的zval可能是一个垃圾zval,这样的话调用
-gc_collect_cycles()函数后会对array(1)和array(2)对应的2个zval进行如下处理过程
-
-c)首先将array(1)[也即outer_array]对应的zval的子zval也即object(ArrayObject)对应的zval的refcount减1,此时相关变化如下:
-    object(ArrayObject)#1 (1) { // refcount=0,is_ref=0
-然后对object(ArrayObject)对应的zval的子zval也即array(2)[也即inner_array]对应的zval的refcount减1,此时相关变化如下:
-    array(2) { // inner_array,refcount=1,is_ref=1
-然后对array(2)[也即inner_array]对应的zval的子zval也即array(2)的两个元素[1]和[2]对应的zval的refcount各减1,此时相关
-变化如下:
-    array(1) { // outer_array,refcount=1,is_ref=0
-      [1]=&gt;
-      // Reference to inner_array,refcount=1,is_ref=1
-      [2]=&gt;
-      // Reference to outer_array,refcount=1,is_ref=0
-
-到这里各个zval的refcount结果如下:
-
-    array(1) { // outer_array,refcount=1,is_ref=0
-      [1]=&gt;
-      object(ArrayObject)#1 (1) { // refcount=0,is_ref=0
-        ["storage":"ArrayObject":private]=&gt;
-        array(2) { // inner_array,refcount=1,is_ref=1
-          [1]=&gt;
-          // Reference to inner_array,refcount=1,is_ref=1
-          [2]=&gt;
-          // Reference to outer_array,refcount=1,is_ref=0
-        }
-      }
-    }
-现在对array(1)[也即outer_array]对应的zval的"深度优先对包含的子zval的refcount减1操作"完成,发现array(1)对应的zval
-的refcount没有变成0,然后判定array(1)对应的zval(这个原来认为可能是垃圾zval的zval)不是垃圾zval,然后将刚才的
-refcount减1过的zval的refcount进行+1复原.然后进入判断下一个zval是否是垃圾zval的流程,也即判断
-array(2)[也即inner_array]对应的zval是不是一个垃圾zval的流程,易知这个流程结束后会发现它并
-不是一个垃圾zval,然后复原相关zval的refcount,到此结束对这2个zval的gc_collect_cycles()的处理
-
-本文讲的主要是gc_collect_cycles()的意图流程,http://www.freebuf.com/vuls/122938.html中的漏洞成因是因为相关php版本的
-实际处理细节与这里讲的意图流程不同导致.
+layout:用于分割窗口,可以一边查看代码,一边测试:
+layout src:显示源代码窗口
+layout asm:显示反汇编窗口
+layout regs:显示源代码/反汇编和CPU寄存器窗口
+layout split:显示源代码和反汇编窗口
+Ctrl + L:刷新窗口
 </code></pre>
 </div>
 </span>
@@ -278,7 +179,7 @@ array(2)[也即inner_array]对应的zval是不是一个垃圾zval的流程,易�
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            php, 垃圾回收
+            gdb, commands, linux
           </small>
         </div>
         
