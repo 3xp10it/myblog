@@ -1,11 +1,11 @@
 # Site settings
 title: "quanyechavshuo"
-email: root@exp10it.cc
+email: quanyechavshuo@gmail.com
 description: "A blog about programming and network security"
 baseurl: ""
 url: https://3xp10it.cc
 enforce_ssl: 3xp10it.cc
-title_description: "A guy want to be a strong man <br><a href='mailto:root@3xp10it.cc'><font color='green'>contact<font></a> <font color='#ffffff'> or <font><a href='mailto:root@3xp10it.cc'> <font color='#ff0000'>contribute<font></a>"
+title_description: "A guy want to be a strong man <br><a href='mailto:quanyechavshuo@gmail.com'><font color='green'>contact<font></a> <font color='#ffffff'> or <font><a href='mailto:quanyechavshuo@gmail.com'> <font color='#ff0000'>contribute<font></a>"
 title_image: "https://raw.githubusercontent.com/3xp10it/pic/master/1.png"
 #google_analytics: "UA-20365477-4"
 #
