@@ -5,9 +5,126 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 May 2017 23:23:05 +0800</pubDate>
-    <lastBuildDate>Sat, 27 May 2017 23:23:05 +0800</lastBuildDate>
+    <pubDate>Thu, 01 Jun 2017 10:45:09 +0800</pubDate>
+    <lastBuildDate>Thu, 01 Jun 2017 10:45:09 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>firefox addons--复制cookie附加组件开发</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;目的:制作一个火狐附加组件
+用途:用于在跑sqlmap或其他场景中时方便地提供cookie
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-refer&quot;&gt;0x01 Refer&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.入门
+https://developer.mozilla.org/zh-CN/Add-onso
+2.api
+https://developer.mozilla.org/zh-CN/Add-ons/WebExtensions
+3.示例
+https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Examples
+4.发布
+https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Publishing_your_WebExtension
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.最后代码如下:
+https://github.com/3xp10it/copyCookie
+
+2.关键代码如下,用于获取当前标签页面中的所有cookie
+
+--------------cookie.js----------------
+function showCookiesForTab(tabs) {
+  //get the first tab object in the array
+  tab = tabs.pop();
+
+  //get all cookies in the domain
+  var gettingAllCookies = browser.cookies.getAll({url: tab.url});
+  gettingAllCookies.then((cookies) =&amp;gt; {
+    if (cookies.length &amp;gt; 0) {
+      var returnCookie=&quot;&quot;;
+      for (cookie of cookies) {
+        var content = cookie.name + &quot;=&quot;+ cookie.value+&quot;;&quot;;
+        returnCookie=returnCookie+content;
+      }
+      returnCookie=returnCookie.substr(0,returnCookie.length-1);
+       //alert(returnCookie);
+        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+
+        function copy1(){
+        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+        //console.log(copyText.value);
+        var res=document.execCommand(&quot;copy&quot;);
+        //console.log(res);
+        //alert(&quot;copyed to clipboard&quot;);
+        }        
+
+        function copy2(){
+        document.getElementById(&quot;output&quot;).innerHTML=&quot;--cookie='&quot;+returnCookie+&quot;'&quot;;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+        //console.log(copyText.value);
+        var res=document.execCommand(&quot;copy&quot;);
+        //console.log(res);
+        //alert(&quot;copyed to clipboard&quot;);
+        }        
+
+        document.querySelector(&quot;#pureCookie&quot;).addEventListener(&quot;click&quot;,copy1);
+        document.querySelector(&quot;#sqlmapCookie&quot;).addEventListener(&quot;click&quot;,copy2);
+    } else {
+      var p = document.createElement(&quot;p&quot;);
+      var content = document.createTextNode(&quot;No cookies in this tab.&quot;);
+      var parent = cookieList.parentNode;
+
+      p.appendChild(content);
+      parent.appendChild(p);
+    }
+  });
+};
+
+//get active tab to run an callback function.
+//it sends to our callback an array of tab objects
+function getActiveTab() {
+  return browser.tabs.query({currentWindow: true, active: true});
+}
+getActiveTab().then(showCookiesForTab);
+--------------cookie.js----------------
+
+3.可用于复制cookie和sqlmap中要用到的cooie参数形式的cookie
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.上面的用于复制数据到系统剪切板的代码如果没有通过人工点击事件触发则无法成功复制数据到剪切板
+2.专门用于操作剪切板的强大js,上面代码中暂时没有用到.
+    https://github.com/zenorocha/clipboard.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 01 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
+        
+        <category>addons</category>
+        
+        <category>firefox</category>
+        
+        <category>cookie</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>记一次js加密后的http暴破</title>
@@ -1012,124 +1129,6 @@ $a($aa-&amp;gt;data);
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>c++中的&amp;的用法</title>
-        <description>&lt;h3 id=&quot;0x00-link&quot;&gt;0x00 Link&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.cnblogs.com/Mr-xu/archive/2012/08/07/2626973.html
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.c里面&amp;amp;只用作`取地址`的功能,c++中不但有此功能还新增了`引用`的功能
-
-2.&amp;amp;作为c++中的引用功能时,在声明一个引用时不分配新内存,是被引用变量的别名,引用在声明时必须赋值
-
-3.eg.
-int a=1
-int &amp;amp;b=a;引用    
-c=&amp;amp;a;取地址
-d=&amp;amp;b;取地址
-在第2句中=左边的&amp;amp;符号是引用,第3|4句中的&amp;amp;是取地址,最后的结果是c与d相等
-
-4.&amp;amp;和类型在一起的是引用,和变量在一起的是取地址
-eg.
-int func(int &amp;amp;a)
-{};引用
-
-5.不能建立引用的数组,因为数组是由元素组成,不能由&quot;别名&quot;组成,可以建立数组的引用(引用即别名)
-
-6.引用的好处
-void swap(int &amp;amp;a,int &amp;amp;b)
-{
-int c=a;a=b;b=c;
-}
-在swap函数被调用时如果两个参数是指针而不是引用,那么在形参转成实参的过程将申请新的内存,如果两个参数是引用则不用
-新申请内存来存放两个实参
-eg.
-int main()
-{
-cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
-swap(former,latter);
-cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
-}
-这里main函数调用swap函数时如果输入的是2,3,main函数中调用swqp(2,3)时对应swap函数中:
-swap函数中认为2的别名是former,3的别名是latter,swap函数认为a即是former,b即是latter,也即在swap函数调用时运行如下:
-int &amp;amp;a=former;
-int &amp;amp;b=latter;
-int c=a;
-a=b;
-b=c;
-这样就可直接操作main函数空间中的former和latter变量,从而不用再在swap函数中新申请内存并操作
-实例:
-------1.cpp-----
-#include &amp;lt;iostream&amp;gt;
-using namespace std;
-void swap(int &amp;amp;a,int &amp;amp;b)
-{
-    int c=a;
-    a=b;
-    b=c;
-}
-int main()
-{
-    int former,latter;
-    cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
-    swap(former,latter);
-    cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
-    return 0;
-
-}
--------end------
-g++ 1.cpp -o 1
-./1
-输入
-1111
-2222
-输出
-22221111
-
-------2.cpp------
-#include &amp;lt;iostream&amp;gt;
-using namespace std;
-void swap(int a,int b)
-{
-    int c=a;
-    a=b;
-    b=c;
-}
-int main()
-{
-    int former,latter;
-    cin&amp;gt;&amp;gt;former&amp;gt;&amp;gt;latter;
-    swap(former,latter);
-    cout&amp;lt;&amp;lt;former&amp;lt;&amp;lt;latter;
-    return 0;
-
-}
--------end-------
-g++ 2.cpp -o 2
-./2
-输入
-1111
-2222
-输出
-11112222
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/04/25/c++%E4%B8%AD%E7%9A%84&%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
-        
-        <category>c/c++</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     

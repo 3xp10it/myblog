@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "firefox addons--复制cookie附加组件开发",
+    "category" : "",
+    "tags"     : "addons, firefox, cookie",
+    "url"      : "/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/",
+    "date"     : "2017-06-01 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "记一次js加密后的http暴破",
     "category" : "",
     "tags"     : "js, crack",
