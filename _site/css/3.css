@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Anonymous Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Anonymous Pro'), local('AnonymousPro'), url(https://fonts.gstatic.com/s/anonymouspro/v8/Zhfjj_gat3waL4JSju74Eyepy_bK1QysdtOeR9F4Ffs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Anonymous Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Anonymous Pro Bold'), local('AnonymousPro-Bold'), url(https://fonts.gstatic.com/s/anonymouspro/v8/WDf5lZYgdmmKhO8E1AQud_PUlNJBs1LjT_hi6_KOI-I.ttf) format('truetype');
+}
