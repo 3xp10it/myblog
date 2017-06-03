@@ -100,6 +100,9 @@ getActiveTab().then(showCookiesForTab);
 --------------cookie.js----------------
 
 3.可用于复制cookie和sqlmap中要用到的cooie参数形式的cookie
+
+4.安装本附加组件方法
+    在firefox的附加组件搜索copy cookie to clipboard,安装即可
 ```
 
 ### 0x03 Attention
