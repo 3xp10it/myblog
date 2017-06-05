@@ -18,7 +18,7 @@ https://www.aircrack-ng.org/install.html
 https://apple.stackexchange.com/questions/117843/equivalent-of-airodump-ng-for-max-os-x
 ```
 
-### 0x00 airport
+### 0x01 airport
 
 ```
 find / -name "airport"
@@ -38,7 +38,7 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
     或者将cap文件转成hashcat支持的格式再用hashcat破解
 ```
 
-### 0x01 Attention
+### 0x02 Attention
 
 ```
 1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持

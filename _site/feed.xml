@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 07:47:54 +0800</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 07:47:54 +0800</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 07:49:16 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 07:49:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -19,7 +19,7 @@ https://apple.stackexchange.com/questions/117843/equivalent-of-airodump-ng-for-m
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;0x00-airport&quot;&gt;0x00 airport&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-airport&quot;&gt;0x01 airport&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find / -name &quot;airport&quot;
 airport -s
@@ -39,7 +39,7 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;0x01-attention&quot;&gt;0x01 Attention&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持
     airodump-ng可以看到已经建立的wifi连接
