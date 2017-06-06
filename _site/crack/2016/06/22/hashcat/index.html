@@ -218,6 +218,11 @@ hashcat掩码字符所代表的含义及掩码具体的使用方法:
 	# hashcat -a 3 -m 1000  /root/Desktop/ntlm.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/ntlmres.txt
 	
 破解wpa/wpa2:
+    破解wifi时由于aircrac-ng得到的包是.cap文件,要转成.hccap文件才可以给hashcat使用,转换工具如下:
+    1)https://hashcat.net/cap2hccap/
+    2)https://github.com/hashcat/hashcat-utils/releases    这个里面的cap2hccapx.bin(macOS下运行不成功)或
+    cap2hccapx.exe(win32下不能运行,可能是64位的exe)
+    3)https://github.com/wpatoolkit/Cap-Converter.git
 	
 破解wordpress:
 	# hashcat -a 3 -m 400  /root/Desktop/wordpress4.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/wordpressres.txt
