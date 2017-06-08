@@ -127,5 +127,8 @@ tags:
     6.上传.user.ini文件来解析图片或隐藏webshell[除.htaccess外的方法]
         https://ha.cker.in/1097.seo
     
-    8.上传绕过waf
+    7.上传绕过waf
         https://github.com/3xp10it/sectec/blob/master/%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87waf.pdf
+
+    8.对图片长宽有要求的尝试突破上传方法
+        https://forum.90sec.org/forum.php?mod=viewthread&tid=10503&extra=page%3D1
