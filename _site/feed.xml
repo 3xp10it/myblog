@@ -5,9 +5,81 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 08 Jun 2017 22:42:41 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Jun 2017 22:42:41 +0800</lastBuildDate>
+    <pubDate>Fri, 09 Jun 2017 08:03:08 +0800</pubDate>
+    <lastBuildDate>Fri, 09 Jun 2017 08:03:08 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>python子函数使用主函数变量</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python中子函数使用主函数变量方法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;子函数对主函数中的tmpvalue相当于复制，不是引用,下面子函数中只能读到主函数中的tmpvalue,不能修复主函数的tmpvalue
+
+def mainfunc(folder, ext_list):
+    tmpvalue=2 
+    tmpvalueList = [&quot;3&quot;]
+
+    def subfunc():
+        print(tmpvalue)
+        tmpvalue+=1
+        print(tmpvalue)
+        print(tmpvalueList)
+        tmpvalueList[0]=(&quot;4&quot;)
+        print(tmpvalueList)
+    subfunc()
+mainfunc(1,2)
+
+------output------
+Traceback (most recent call last):
+  File &quot;3.py&quot;, line 13, in &amp;lt;module&amp;gt;
+    mainfunc(1,2)
+  File &quot;3.py&quot;, line 12, in mainfunc
+    subfunc()
+  File &quot;3.py&quot;, line 6, in subfunc
+    print(tmpvalue)
+UnboundLocalError: local variable 'tmpvalue' referenced before assignment
+------output------
+
+但是子函数中可以对主函数中的数组写,比变量功能强大,子函数可以改变主函数中的tmpvalueList
+
+def mainfunc(folder, ext_list):
+    tmpvalue=2 
+    tmpvalueList = [&quot;3&quot;]
+
+    def subfunc():
+        print(tmpvalue)
+        #tmpvalue+=1
+        #print(tmpvalue)
+        print(tmpvalueList)
+        tmpvalueList[0]=(&quot;4&quot;)
+        print(tmpvalueList)
+    subfunc()
+mainfunc(1,2)
+
+-------output-------
+2
+['3']
+['4']
+-------output-------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 09 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/06/09/python%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/06/09/python%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F/</guid>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
     
       <item>
         <title>wifi crack in macOS</title>
@@ -1064,40 +1136,6 @@ https://www.t00ls.net/thread-39703-1-1.html
         <category>ms17-010</category>
         
         <category>web</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>tricks</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;记录奇技
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.phpinfo页面+lfi漏洞可getshell
-2.sqli可load_file时可利用smb重放反弹shell[未验证]
-3.php代码审计时全文搜索unserilize函数的调用,分析这个unserilize有没有漏洞
-    如果有unserialize客户端输入则危害很大,可远程代码执行(cve-2014-8142,cve-2015-0231等)
-4.phpmyadmin的root用户没有写权限时可将general log设置为on,并把日志文件设置为php文件(t00ls)
-    https://www.t00ls.net/articles-38892.html
-5.smb叠加利用提权(利用ms17-010)
-    https://www.t00ls.net/thread-39703-1-1.html
-6.获取网站隐藏后台地址
-    https://www.t00ls.net/viewthread.php?tid=34239&amp;amp;extra=page=1&amp;amp;amp;filter=type&amp;amp;amp;typeid=39
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Thu, 27 Apr 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/04/27/tricks/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/04/27/tricks/</guid>
-        
-        <category>tricks</category>
         
         
         <category>web</category>
