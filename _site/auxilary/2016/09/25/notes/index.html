@@ -2571,6 +2571,9 @@ windows:
 264.</span>macOS启动与关闭ssh服务
     launchctl load -w /System/Library/LaunchDaemons/ssh.plist
     launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+    
+    macOS允许root以ssh登录方法:
+    将/etc/ssh/sshd_config中的PermitRootLogin prohibit-password改成PermitRootLogin yes,并按上面2个命令重启ssh服务
 
 </code></pre>
 </div>
