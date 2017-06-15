@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 13 Jun 2017 14:11:45 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Jun 2017 14:11:45 +0800</lastBuildDate>
+    <pubDate>Thu, 15 Jun 2017 11:23:53 +0800</pubDate>
+    <lastBuildDate>Thu, 15 Jun 2017 11:23:53 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -19,7 +19,7 @@
 
 &lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;子函数对主函数中的tmpvalue相当于复制，不是引用,下面子函数中只能读到主函数中的tmpvalue,不能修复主函数的tmpvalue
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;子函数对主函数中的tmpvalue相当于复制,不是引用,下面子函数中只能读到主函数中的tmpvalue,不能修改主函数的tmpvalue
 
 def mainfunc(folder, ext_list):
     tmpvalue=2 
