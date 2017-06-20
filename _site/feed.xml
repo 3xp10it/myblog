@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 17 Jun 2017 09:45:28 +0800</pubDate>
-    <lastBuildDate>Sat, 17 Jun 2017 09:45:28 +0800</lastBuildDate>
+    <pubDate>Tue, 20 Jun 2017 23:48:58 +0800</pubDate>
+    <lastBuildDate>Tue, 20 Jun 2017 23:48:58 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -124,13 +124,19 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
 
      If you have an intel Mac check out the VMware Fusion option which is mentioned lower on this page.&quot; 
 
-     也即，目前macOS sierra下只好较被动的用airport sniff命令较长时间以保证期间有handshake,不可主动攻击
+     也即,目前macOS sierra下只好较被动的用airport sniff命令较长时间以保证期间有handshake,不可主动攻击
 
 2.KisMac2不支持macOS sierra,目前新版本的macOS只能用上面的airport的被动方法crack wifi,除非找到了airodump-ng和
 aireplay-ng的替代品
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;0x03-xwifi&quot;&gt;0x03 xwifi&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;以上自动化脚本成xwifi如下
+https://github.com/3xp10it/xwifi/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Tue, 06 Jun 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/06/06/wifi-crack-in-macOS/</link>
