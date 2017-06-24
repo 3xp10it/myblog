@@ -380,14 +380,6 @@
     "title"    : "xwaf--waf自动暴破",
     "category" : "",
     "tags"     : "waf, python, sqlmap",
-    "url"      : "/web/2016/11/02/lalala/",
-    "date"     : "2016-11-02 00:00:00 +0800"
-    } ,
-    
-  {
-    "title"    : "xwaf--waf自动暴破",
-    "category" : "",
-    "tags"     : "waf, python, sqlmap",
     "url"      : "/web/2016/11/02/xwaf-waf%E8%87%AA%E5%8A%A8%E6%9A%B4%E7%A0%B4/",
     "date"     : "2016-11-02 00:00:00 +0800"
     } ,
