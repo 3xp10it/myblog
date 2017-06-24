@@ -420,8 +420,8 @@ ul {
         margin-left: 15%; } }
     @media (min-width: 1200px) {
       .single .article {
-        width: 50%;
-        margin-left: 25%; } }
+        /*width: 50%;
+        margin-left: 25%;*/ } }
     .single .article .thumb {
       margin-top: 20px;
       margin-bottom: 0px;
