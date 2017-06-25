@@ -514,8 +514,10 @@ ul {
         box-sizing: content-box; }
         @media (min-width: 768px) {
           .single .article .content figure.highlight, .single .article .content div.highlighter-rouge {
-            margin-left: -30px;
-            padding-right: 60px; } }
+            /*取消这2行*/
+            /*margin-left: -30px;
+            padding-right: 60px;*/
+            /*取消这2行*/ } }
         .single .article .content figure.highlight pre, .single .article .content div.highlighter-rouge pre {
           width: 100%;
           font-family: '文泉驿等宽正黑';
