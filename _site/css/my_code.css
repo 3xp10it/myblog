@@ -562,10 +562,11 @@ pre code {
     background-color: transparent;
     border-radius: 0;
     color: inherit;
-    font-size: inherit;
+    /*font-size: inherit;*/
+    font-size: 16px;
     /*padding: 0;*/
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 35px;
+    padding-right: 35px;
     white-space: pre-wrap;
 }
 .pre-scrollable {
