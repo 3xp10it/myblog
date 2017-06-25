@@ -451,8 +451,8 @@ ul {
     .single .article .content {
       font-size: 18px;
       line-height: 170%;
-      padding-left: 15px;
-      padding-right: 15px;
+      /*padding-left: 15px;*/
+      /*padding-right: 15px;*/
       padding-top: 10px;
       padding-bottom: 10px; }
       @media (min-width: 768px) {
