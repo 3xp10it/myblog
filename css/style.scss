@@ -250,6 +250,11 @@ ul {
 }
 
 .content-panel {
+    /*新增3行*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 980px;
+    /*新增3行*/
 	background-color: $darker;
 	padding-top: 20px;
 	padding-bottom: 20px;
