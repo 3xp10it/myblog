@@ -535,8 +535,10 @@ ul {
           margin-top: 10px; }
           @media (min-width: 768px) {
             .single .article .content figure.highlight pre, .single .article .content div.highlighter-rouge pre {
-              padding-left: 50px;
-              padding-right: 10px;
+              /*取消2行*/
+              /*padding-left: 50px;
+              padding-right: 10px;*/
+              /*取消2行*/
               margin-bottom: 15px;
               font-size: 15px; } }
       .single .article .content p code, .single .article .content ul code, .single .article .content ol code {
