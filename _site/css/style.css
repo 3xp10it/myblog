@@ -458,8 +458,8 @@ ul {
       @media (min-width: 768px) {
         .single .article .content {
           font-size: 15px;
-          padding-left: 30px;
-          padding-right: 30px;
+          /*padding-left: 30px;
+          padding-right: 30px;*/
           padding-top: 40px;
           padding-bottom: 20px; } }
       .single .article .content .series {
