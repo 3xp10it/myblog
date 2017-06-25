@@ -525,10 +525,10 @@ ul {
           color: #FFFFFF;
           font-size: 12px;
           border: none;
-          padding-left: 15px;
+          /*padding-left: 15px;*/
+          /*padding-right: 15px;*/
           padding-top: 20px;
           padding-bottom: 20px;
-          padding-right: 15px;
           box-sizing: content-box;
           border-radius: 0;
           margin-bottom: 10px;
