@@ -265,9 +265,8 @@ refcount减1过的zval的refcount进行+1复原.然后进入判断下一个zval�
 array(2)[也即inner_array]对应的zval是不是一个垃圾zval的流程,易知这个流程结束后会发现它并
 不是一个垃圾zval,然后复原相关zval的refcount,到此结束对这2个zval的gc_collect_cycles()的处理
 
-本文讲的主要是gc_collect_cycles()的意图流程,http://www.freebuf.com/vuls/122938.html中的漏洞成因是因为相关php版本的
-实际处理细节与这里讲的意图流程不同导致.
-实际处理细节与这里讲的意图流程不同导致.实际处理细节与这里讲的意图流程不同导致.实际处理细节与这里讲的意图流程不同12345678923.实际处理细节与这里讲的意图流程不同导致.
+本文讲的主要是gc_collect_cycles()的意图流程,http://www.freebuf.com/vuls/122938.html中的漏洞成因是因为相关php版本
+的实际处理细节与这里讲的意图流程不同导致.
 </code></pre>
 </div>
 </span>
