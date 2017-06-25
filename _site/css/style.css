@@ -509,8 +509,8 @@ ul {
         margin: 5px auto 5px auto; }
       .single .article .content figure.highlight, .single .article .content div.highlighter-rouge {
         width: 100%;
-        margin-left: -15px;
-        padding-right: 10px;
+        /*margin-left: -15px;*/
+        /*padding-right: 10px;*/
         box-sizing: content-box; }
         @media (min-width: 768px) {
           .single .article .content figure.highlight, .single .article .content div.highlighter-rouge {
