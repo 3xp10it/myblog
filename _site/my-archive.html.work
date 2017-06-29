@@ -155,6 +155,20 @@
 								
 
 
+								<li><a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/06/29/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/" ><font color=#C08040><small>2017-06-29</small></font>
+												<font color=#C04040>汇编指令备忘录</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/python/2017/06/09/python%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F/" ><font color=#C08040><small>2017-06-09</small></font>
 												<font color=#C04040>python子函数使用主函数变量</font></a></li>
 								
@@ -201,7 +215,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "3";
+document.getElementById("my_month_article_num_Span1").innerHTML = "4";
 								</script>
 								
 
@@ -605,7 +619,7 @@ document.getElementById("my_month_article_num_Span6").innerHTML = "3";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "27";
+document.getElementById("my_year_article_num_Span1").innerHTML = "28";
 						</script>
 
 
@@ -623,7 +637,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "27";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2016 <span
-									   id="my_year_article_num_Span2">27</span>
+									   id="my_year_article_num_Span2">28</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
