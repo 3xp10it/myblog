@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 01 Jul 2017 08:05:34 +0800</pubDate>
-    <lastBuildDate>Sat, 01 Jul 2017 08:05:34 +0800</lastBuildDate>
+    <pubDate>Sat, 01 Jul 2017 08:10:06 +0800</pubDate>
+    <lastBuildDate>Sat, 01 Jul 2017 08:10:06 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -25,15 +25,15 @@
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/xlearn/master/yuange.png&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 01 Jul 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/07/01/xlearn/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/07/01/xlearn/</guid>
+        <link>http://3xp10it.cc/auxilary/2017/07/01/xlearn/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/07/01/xlearn/</guid>
         
         <category>经验</category>
         
         <category>大牛经验</category>
         
         
-        <category>web</category>
+        <category>auxilary</category>
         
       </item>
     
