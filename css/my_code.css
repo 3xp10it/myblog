@@ -929,7 +929,7 @@ pre code {
     float: left;
 }
 .col-md-12 {
-    width: 980px;
+    width: 100%;
     font-size: 13px;
 }
 .col-md-11 {
