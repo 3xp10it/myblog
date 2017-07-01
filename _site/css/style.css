@@ -179,6 +179,9 @@ ul {
       top: 20px;
       left: 20px; } }
 
+.main {
+  width: 100%; }
+
 .content-panel {
   /*新增3行*/
   margin-left: auto;
