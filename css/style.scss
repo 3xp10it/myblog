@@ -710,11 +710,7 @@ ul {
 			}
 
 			img {
-			/*max-width: 100%;*/
-            @media (min-width: $screen-md-min) {
-                width: 980px;
-            }
-
+			max-width: 100%;
 			padding-top: 10px;
             padding-left: 0px;
             padding-right: 0px;

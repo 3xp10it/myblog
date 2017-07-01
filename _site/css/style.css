@@ -469,14 +469,11 @@ ul {
       .single .article .content .series {
         margin-bottom: 50px; }
       .single .article .content img {
-        /*max-width: 100%;*/
+        max-width: 100%;
         padding-top: 10px;
         padding-left: 0px;
         padding-right: 0px;
         display: block; }
-        @media (min-width: 992px) {
-          .single .article .content img {
-            width: 980px; } }
       .single .article .content ul {
         list-style-type: disc; }
       .single .article .content ol {
