@@ -267,7 +267,9 @@ ul {
         width: 980px;
     }
 
-    @media(min-device-width:375px) and(max-device-width:667px) and(-webkit-min-device-pixel-ratio:2){
+    @media(min-device-width: 375px) 
+    and(max-device-width: 667px) 
+    and(-webkit-min-device-pixel-ratio: 2){
 　　/*iphone6*/
     width: 100%;
 　　}
