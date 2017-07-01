@@ -179,10 +179,6 @@ ul {
       top: 20px;
       left: 20px; } }
 
-@media (min-width: 768px) {
-  .main {
-    width: 100%; } }
-
 .content-panel {
   /*新增3行*/
   margin-left: auto;
@@ -200,6 +196,9 @@ ul {
   @media (min-width: 768px) {
     .content-panel {
       width: 980px; } }
+
+.main {
+  width: 100%; }
 
 #my-menu p {
   margin-bottom: 5px; }
