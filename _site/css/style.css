@@ -420,8 +420,9 @@ ul {
     padding: 0px; }
     @media (min-width: 768px) {
       .single .article {
-        width: 90%;
-        margin-left: 5%; } }
+        width: 100%;
+        /*width: 90%;*/
+        /*margin-left: 2%;*/ } }
     @media (min-width: 992px) {
       .single .article {
         width: 70%;

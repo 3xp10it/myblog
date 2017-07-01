@@ -645,8 +645,9 @@ ul {
 		padding: 0px;
 
 		@media (min-width: $screen-sm-min) {
-			width: 90%;
-			margin-left: 5%;
+			width: 100%;
+			/*width: 90%;*/
+			/*margin-left: 2%;*/
 		}
 
 		@media (min-width: $screen-md-min) {
