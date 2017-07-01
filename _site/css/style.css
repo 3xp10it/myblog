@@ -459,7 +459,7 @@ ul {
       /*padding-right: 15px;*/
       padding-top: 10px;
       padding-bottom: 10px;
-      width: 980px; }
+      /*width: 980px;*/ }
       @media (min-width: 768px) {
         .single .article .content {
           font-size: 15px;
