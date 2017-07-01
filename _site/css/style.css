@@ -195,8 +195,7 @@ ul {
   border-bottom: 5px solid #3CA2A2; }
   @media (min-width: 768px) {
     .content-panel {
-      /*width: 980px;*/
-      width: 100%; } }
+      width: 980px; } }
 
 .main {
   width: 100%; }
