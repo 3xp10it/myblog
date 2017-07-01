@@ -250,7 +250,9 @@ ul {
 }
 
 .main {
-    width: 100%;
+    @media (min-width: $screen-sm-min) {
+        width: 100%;
+    }
 }
 
 .content-panel {
