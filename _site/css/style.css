@@ -645,7 +645,8 @@ ul {
   @media (min-width: 1200px) {
     .footer {
       width: 70%;
-      margin-left: 15%; } }
+      /*margin-left: 15%;*/
+      margin-left: auto; } }
   .footer div {
     color: #969696;
     text-align: center;

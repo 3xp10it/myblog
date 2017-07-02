@@ -984,7 +984,8 @@ ul {
 
 	@media (min-width: $screen-lg-min) {
 		width: 70%;
-		margin-left: 15%;
+		/*margin-left: 15%;*/
+		margin-left: auto;
 	}
 
 	div {
