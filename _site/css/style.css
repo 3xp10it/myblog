@@ -646,7 +646,8 @@ ul {
     .footer {
       width: 70%;
       /*margin-left: 15%;*/
-      margin-left: auto; } }
+      margin-left: auto;
+      margin-right: auto; } }
   .footer div {
     color: #969696;
     text-align: center;
