@@ -484,7 +484,7 @@ gdb
     这里不知为何["ccc"]对应的zval的值变成--D了
     (gdb)quit
 
-    现在尝试通过一个int类型的zval覆盖["aaa"]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
+    现在尝试通过一个string类型的zval覆盖["aaa"]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
     array(5)[1,2,array(1),4,5] 这个zval所在的内存的空间
     运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
 
