@@ -115,9 +115,13 @@
 
         <span itemprop="articleBody"><h3 id="0x01-notes">0x01 notes</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.匹配换行符
-	re.search("\n"),不可写成r"\n",这样匹配的是\n字符串,不是换行符,r前缀表示后面出现的转义全部不再转义,只作原生
-	字符,r=raw[原生]
+<div class="highlighter-rouge"><pre class="highlight"><code>1.匹配\n换行符
+	re.search("\n",string)
+    re.search("\\n",string)
+    re.search("\\\n",string)
+    re.search(r"\n",string)
+    上面这四种都可成功匹配
+    r=raw[原生]
 
 2.good knowledge
    http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
