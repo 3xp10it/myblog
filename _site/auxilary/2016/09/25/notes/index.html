@@ -2063,6 +2063,8 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
 <span class="p">
 244.</span>docker
 	http://kb.cnblogs.com/page/536115/
+    docker加速:
+        https://www.daocloud.io/mirror#accelerator-doc
 <span class="p">
 245.</span>php脱库用1337.php,aspx脱库用spyaspx
 <span class="p">
@@ -2811,6 +2813,13 @@ windows:
 272.</span>查看php的zval信息
     安装xdebug,用xdebug_debug_zval打印zval信息
         http://www.cnblogs.com/ohmygirl/p/internal-variable-1.html
+<span class="p">
+273.</span>cookie,session失效时间
+    http://jun1986.iteye.com/blog/1216974
+    session在下列情况下被删除
+        a.程序调用HttpSession.invalidate();或
+        b.距离上一次收到客户端发送的session id时间间隔超过了session的超时设置;或
+        c.服务器进程被停止(非持久session) 
 </code></pre>
 </div>
 
