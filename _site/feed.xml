@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 Aug 2017 21:48:04 +0800</pubDate>
-    <lastBuildDate>Thu, 03 Aug 2017 21:48:04 +0800</lastBuildDate>
+    <pubDate>Thu, 03 Aug 2017 21:49:16 +0800</pubDate>
+    <lastBuildDate>Thu, 03 Aug 2017 21:49:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -33,6 +33,8 @@ REG ADD “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Executio
 &lt;p&gt;’’’
 REG DELETE “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe”
 ‘’’&lt;/p&gt;
+
+&lt;p&gt;以上理论上适用于win vistar以上系统,只在win7上测试过.&lt;/p&gt;
 </description>
         <pubDate>Thu, 03 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/</link>
