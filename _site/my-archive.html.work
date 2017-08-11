@@ -139,6 +139,20 @@
 								
 
 
+								<li><a href="/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2017-08-11</small></font>
+												<font color=#C04040>深入理解计算机系统第2章笔记</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" ><font color=#C08040><small>2017-08-03</small></font>
 												<font color=#C04040>win7粘滞键后门</font></a></li>
 								
@@ -157,7 +171,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "1";
+document.getElementById("my_month_article_num_Span1").innerHTML = "2";
 								</script>
 								
 
@@ -659,7 +673,7 @@ document.getElementById("my_month_article_num_Span8").innerHTML = "3";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "30";
+document.getElementById("my_year_article_num_Span1").innerHTML = "31";
 						</script>
 
 
@@ -677,7 +691,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "30";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2016 <span
-									   id="my_year_article_num_Span2">30</span>
+									   id="my_year_article_num_Span2">31</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
