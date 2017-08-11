@@ -5,14 +5,24 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Aug 2017 21:23:55 +0800</pubDate>
-    <lastBuildDate>Fri, 11 Aug 2017 21:23:55 +0800</lastBuildDate>
+    <pubDate>Fri, 11 Aug 2017 23:00:03 +0800</pubDate>
+    <lastBuildDate>Fri, 11 Aug 2017 23:00:03 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>深入理解计算机系统第2章笔记</title>
         <description>&lt;p&gt;1.不同数据类型在不同位数的操作系统下的内存长度
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.大端和小端
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-2.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-3.png&quot; /&gt;
+大端(big endian)以高位数值存到内存地址的低位(以大数结尾)
+小端(little endian)以低位数值存到内存地址的高位(以小数结尾)
+网络上的字节序为大端,而计算机上的字节序一般为小端,于是在发送到网络上之前需要转换一次,否则数据发送到目的地会被对方
+理解错了,什么转换方法好呢?如果转换成char类型当然好,因为char类型的数据只占一个字节,没有大端和小端的区别,eg:
+将int(127)发到网络上去,127需要(2**xx7=128)7bits也即1B的数据量传输,转成char类型为”127”需要(1,2,7分别作为char)需要
+3B的传输量,这样的话需要传输3倍的数据量,效率太低了,于是不用这种方法,采用base64将本地数据编码后传输到网络上去&lt;/p&gt;
 </description>
         <pubDate>Fri, 11 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
