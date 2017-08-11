@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Aug 2017 23:00:03 +0800</pubDate>
-    <lastBuildDate>Fri, 11 Aug 2017 23:00:03 +0800</lastBuildDate>
+    <pubDate>Fri, 11 Aug 2017 23:02:17 +0800</pubDate>
+    <lastBuildDate>Fri, 11 Aug 2017 23:02:17 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -16,9 +16,10 @@
 
 &lt;p&gt;2.大端和小端
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-2.png&quot; /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-3.png&quot; /&gt;
-大端(big endian)以高位数值存到内存地址的低位(以大数结尾)
-小端(little endian)以低位数值存到内存地址的高位(以小数结尾)
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;大端(big endian)以高位数值存到内存地址的低位(以大数结尾)&lt;br /&gt;
+小端(little endian)以低位数值存到内存地址的高位(以小数结尾)&lt;br /&gt;
 网络上的字节序为大端,而计算机上的字节序一般为小端,于是在发送到网络上之前需要转换一次,否则数据发送到目的地会被对方
 理解错了,什么转换方法好呢?如果转换成char类型当然好,因为char类型的数据只占一个字节,没有大端和小端的区别,eg:
 将int(127)发到网络上去,127需要(2**xx7=128)7bits也即1B的数据量传输,转成char类型为”127”需要(1,2,7分别作为char)需要
