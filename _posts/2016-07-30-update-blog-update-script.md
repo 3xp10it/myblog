@@ -18,7 +18,7 @@ tags:
 
 本文针对"Use github and jekyll start github pages"文中的更新脚本作最终修改,原文链接如下
 ```
-<a href="https://3xp10it.github.io/jekyll/2016/04/09/github-jekyll-blog/">原文链接</a>
+<a href="http://3xp10it.github.io/jekyll/2016/04/09/github-jekyll-blog/">原文链接</a>
 
 ### 0x01 更新最终博客更新脚本指令如下
 
@@ -78,7 +78,7 @@ cd /root/myblog && pkill jekyll;sleep 3 && cp index.html tmp.html && cp index_ba
 
 2>本地远程博客对应关系
 本地/root/myblog对应github远程的myblog,本地的127.0.0.1:4000对应的是本地/root/myblog目录由本地执行jekyll --serve产生的网页效果
-本地/root/3xp10it.github.io对应github远程的3xp10it.github.io,https://3xp10it.github.io对应的是github远程3xp10it.github.io由github服务器jekyll --serve产生的网页效果
+本地/root/3xp10it.github.io对应github远程的3xp10it.github.io,http://3xp10it.github.io对应的是github远程3xp10it.github.io由github服务器jekyll --serve产生的网页效果
 
 
 3>快捷方式

@@ -58,7 +58,7 @@ https://raw.githubusercontent.com/3xp10it/blog_backup/master/css/style.scss
 
 #### 11>push -u origin master
 
-#### 12>succeed-->https://3xp10it.github.io
+#### 12>succeed-->http://3xp10it.github.io
 
 # 0x03 Update articles
 
@@ -90,7 +90,7 @@ rm -r ../tmp
 <img src='../../../../../pic/jekyll/code_block_font.png'>
 <br>
 <h2>16-04-13</h2>
-<h4>>>>when I finished till this moment,I try to use my cell phone to visit https://3xp10it.github.io,find my cell phone without vpn can not open https://3xp10it.github.io.Later,I search the blog file to figure out the wrong source,get style.scss has three "@import url(https://googleapi....)",then I download the three css file from https://googleapi... ,rename them and change it to "@import url("1.css")",then I tried to visit https://3xp10it.github.io again with my cell phone,the result was fantastic! Very fast to browse it without vpn!</h4>
+<h4>>>>when I finished till this moment,I try to use my cell phone to visit http://3xp10it.github.io,find my cell phone without vpn can not open http://3xp10it.github.io.Later,I search the blog file to figure out the wrong source,get style.scss has three "@import url(https://googleapi....)",then I download the three css file from https://googleapi... ,rename them and change it to "@import url("1.css")",then I tried to visit http://3xp10it.github.io again with my cell phone,the result was fantastic! Very fast to browse it without vpn!</h4>
 <h2>16-04-15</h2>
 <h4>>>>finally I find how to change the html's templet to make the htmls be my own style,analyse the templet like below pic:</h4>
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/jekyll/default.png">
@@ -316,5 +316,5 @@ mkdir ../tmp && cd ../tmp && git init && git pull https://github.com/3xp10it/blo
 ```
 最新更新方法见下面文章链接
 ```
-<a href="https://3xp10it.github.io/jekyll/2016/07/30/update-blog-update-script/">文章链接</a>
+<a href="http://3xp10it.github.io/jekyll/2016/07/30/update-blog-update-script/">文章链接</a>
 
