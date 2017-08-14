@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Aug 2017 10:41:36 +0800</pubDate>
-    <lastBuildDate>Mon, 14 Aug 2017 10:41:36 +0800</lastBuildDate>
+    <pubDate>Mon, 14 Aug 2017 10:44:59 +0800</pubDate>
+    <lastBuildDate>Mon, 14 Aug 2017 10:44:59 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -33,7 +33,7 @@
 
 &lt;p&gt;4.负数的计算为:-1x最高位(1)x2x2..2[位数-1]+除最高位以外的其他位的正数值&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum{i=0}^{w-2} x_i \cdot 2^i
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum_{i=0}^{w-2} x_i \cdot 2^i
 eg,1100这个负数的值计算方法为:-1x1x2x2x2+1x2x2+0x2+0=-8+4=-4
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
