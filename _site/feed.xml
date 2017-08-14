@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Aug 2017 10:47:56 +0800</pubDate>
-    <lastBuildDate>Mon, 14 Aug 2017 10:47:56 +0800</lastBuildDate>
+    <pubDate>Mon, 14 Aug 2017 10:52:22 +0800</pubDate>
+    <lastBuildDate>Mon, 14 Aug 2017 10:52:22 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -33,8 +33,11 @@
 
 &lt;p&gt;4.负数的计算为:-1x最高位(1)x2x2..2[位数-1]+除最高位以外的其他位的正数值&lt;/p&gt;
 
-&lt;p&gt;B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum_{i=0}^{w-2} x_i \cdot 2^i
-    eg,1100这个负数的值计算方法为:-1x1x2x2x2+1x2x2+0x2+0=-8+4=-4&lt;/p&gt;
+&lt;p&gt;B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum_{i=0}^{w-2} x_i \cdot 2^i&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg,1100这个负数的值计算方法为:-1x1x2x2x2+1x2x2+0x2+0=-8+4=-4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Fri, 11 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
