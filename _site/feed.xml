@@ -5,9 +5,24 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Aug 2017 11:00:35 +0800</pubDate>
-    <lastBuildDate>Mon, 14 Aug 2017 11:00:35 +0800</lastBuildDate>
+    <pubDate>Wed, 16 Aug 2017 07:34:13 +0800</pubDate>
+    <lastBuildDate>Wed, 16 Aug 2017 07:34:13 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>深入理解计算机系统第3章笔记</title>
+        <description>&lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;gcc -O1 -S code.c&lt;/code&gt;中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码&lt;/p&gt;
+</description>
+        <pubDate>Wed, 16 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/08/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/08/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>csapp</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>深入理解计算机系统第2章笔记</title>
@@ -38,6 +53,8 @@
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg,1100这个负数的值计算方法为:-1x1x2x2x2+1x2x2+0x2+0=-8+4=-4
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;5.如果一个表达式中包含有符号数和无符号数则会默认将有符号数转换成无符号数&lt;/p&gt;
 </description>
         <pubDate>Fri, 11 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
@@ -764,96 +781,6 @@ http://3xp10it.cc/linux/2017/03/11/安装macOS-sierra要做的事/)
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>vim中英文输入法自动切换完美方案</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;about:
-    解决vim下的中英文输入法切换的问题
-
-测试环境:
-    系统:macOS sierra(win和linux没有测试,理论上也支持)
-    应用:MacVim(同样适用于vim)
-    键盘:HHKB PRO BT(同样适用于普通键盘)
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-使用squirrel输入法(笔者使用输入法轨迹:squirrel-&amp;gt;百度五笔-&amp;gt;squirrel)
-    在squirrel的配置文件(~/Library/Rime/default.custom.yaml)中设置一个按键绑定为按了esc后使用英文输入:
-    {accept: Escape, toggle: ascii_mode, when: always}
-
-tip:例如笔者的~/Library/Rime/default.custom.yaml文件内容如下设置:
-
-    patch:
-      schema_list:
-        - schema: wubi_pinyin
-      ascii_composer:
-        good_old_caps_lock: true
-        switch_key:
-          Shift_L: commit_code
-      key_binder:
-        bindings:
-          - {accept: Escape, toggle: ascii_mode, when: always}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-tips&quot;&gt;0x02 Tips&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---&amp;gt;建议将control键设置为按一下为esc,按住为control&amp;lt;---
-
-hint:这样设置的好处太多,macOS下设置方法为使用keyboard maestro设置,如果不会可参考
-http://3xp10it.cc/web/2017/05/20/HHKB-BT键盘设置/
-
-windows及linux下由于没有keyboard maestro软件所以需要找到替代的可以设置按键设置的工具
-
-按照建议设置后效果:
-1.在insert模式下按一下control键可直接从insert模式转成normal模式,此外还会自动将输入法转成squirrel
-的英文输入模式
-2.control的组合键不受影响
-3.这里的建议也可不参考,不影响自动切换中英文输入法的效果
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x03-快速通道macos-only&quot;&gt;0x03 快速通道(macOS only)&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;普通非root用户
-登录进操作系统后运行(图形界面登录)
-wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;amp;&amp;amp; python3 /tmp/autoSquirrel.py
-
-hint:这里原来可以少写一些字符如下的:
-wget -O - https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py | python3
-但是实际发现由于autoSquirrel.py文件中有与用户交互的函数(input),这样运行会报错
-
-root用户则需如下步骤:
-a)以非root用户登录进操作系统后运行(图形界面登录):
-wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;amp;&amp;amp; python3 /tmp/autoSquirrel.py
-
-b)再切换成root用户登录进操作系统后(图形界面登录):
-添加须管鼠输入法到系统输入法中,重新部署squirrel,再用https://github.com/neolee/SCU设置好并重新部署(eg.设置终端和MacVim下不只为ascii)
-然后运行：
-wget https://raw.githubusercontent.com/3xp10it/AutoIM/master/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
-
-c)重新部署squirrel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Fri, 19 May 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/vim/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/</link>
-        <guid isPermaLink="true">http://localhost:4000/vim/2017/05/19/vim%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E5%AE%8C%E7%BE%8E%E6%96%B9%E6%A1%88/</guid>
-        
-        <category>vim</category>
-        
-        <category>输入法自动切换</category>
-        
-        
-        <category>vim</category>
         
       </item>
     
