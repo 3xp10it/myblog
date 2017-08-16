@@ -557,6 +557,8 @@ ul {
         background-color: #92C7A3;
         color: #212120;
         padding: 0.18em;
+        padding-top: 0px;
+        padding-bottom: 0px;
         vertical-align: middle; }
       .single .article .content .tags {
         margin-top: 10px;
