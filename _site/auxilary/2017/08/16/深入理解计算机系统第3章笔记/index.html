@@ -117,9 +117,16 @@
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-1.png" /></p>
 
-<p>a.<code class="highlighter-rouge">gcc -O1 -S hello.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码,结果为hello.s
+<p>a.<code class="highlighter-rouge">gcc -O1 -S hello.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码,结果为hello.s[汇编]
 b.<code class="highlighter-rouge">gcc -O1 -c hello.c</code>:gcc会编译并汇编,得到hello.o,hello.o是二进制格式,可用<code class="highlighter-rouge">objdump -d hello.o</code>查看汇编格式内容
-c.<code class="highlighter-rouge">gcc -O1 -o hello hello.o main.c</code>:可由gcc产生可执行文件hello,可用<code class="highlighter-rouge">objdump -d hello</code>反汇编hello这个可执行文件</p>
+c.<code class="highlighter-rouge">gcc -O1 -o hello hello.o main.c</code>:可由gcc产生可执行文件hello,可用<code class="highlighter-rouge">objdump -d hello</code>反汇编hello这个可执行文件[反
+汇编]
+d.上面a中的汇编过程默认得到的为ATT格式的汇编代码,要得到intel格式的指令为:<code class="highlighter-rouge">gcc -O1 -S -masm=intel hello.c</code></p>
+
+<p>2.gcc生成的汇编指令都有一个字符后缀,表明操作数的大小,movb表示传送字节(eg,对应al/ah),movw表示传送字(eg,对应ax/bx),
+movl表示传送双字(eg,对应eax/ebx)</p>
+
+<p>3.mov指令有个限制,传送指令的两个操作数不能都指向存储器位置.eg,mov [0x1000],[0x2000]是不允许的,需要mov eax,[0x1000]先,再mov [0x2000],eax</p>
 </span>
 
         
