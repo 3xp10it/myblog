@@ -113,7 +113,13 @@
 
         
 
-        <span itemprop="articleBody"><p>1.<code class="highlighter-rouge">gcc -O1 -S code.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码</p>
+        <span itemprop="articleBody"><p>1.编译器驱动程序将源文件翻译成可执行目标文件可分为4个阶段完成</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-1.png" /></p>
+
+<p>a.<code class="highlighter-rouge">gcc -O1 -S code.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码,结果为code.s
+b.<code class="highlighter-rouge">gcc -O1 -c code.c</code>:gcc会编译并汇编,得到code.o,code.o是二进制格式,可用<code class="highlighter-rouge">objdump -d code.o</code>查看汇编格式内容
+c.<code class="highlighter-rouge">gcc -O1 -o code code.o main.c</code>:可由gcc产生可执行文件code,可用<code class="highlighter-rouge">objdump -d code</code>反汇编code这个可执行文件</p>
 </span>
 
         
