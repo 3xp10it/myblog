@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 16 Aug 2017 11:02:32 +0800</pubDate>
-    <lastBuildDate>Wed, 16 Aug 2017 11:02:32 +0800</lastBuildDate>
+    <pubDate>Thu, 17 Aug 2017 22:33:46 +0800</pubDate>
+    <lastBuildDate>Thu, 17 Aug 2017 22:33:46 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -32,6 +32,16 @@ movl表示传送双字(eg,对应eax/ebx)&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;movb %dh,%al        %al=%dh=CD,%eax=987654CD
 movsbl %dh,%eax     sbl:%dh-&amp;gt;FFFFCD,%eax=FFFFCD
 movzbl %dh,%eax     zbl:%dh-&amp;gt;0000CD,%eax=0000CD
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;6.左移右移汇编指令&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sal:算术左移
+shl:逻辑左移
+sar:算术右移
+shr:逻辑右移
+sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>

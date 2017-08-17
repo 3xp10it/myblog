@@ -136,6 +136,16 @@ movsbl %dh,%eax     sbl:%dh-&gt;FFFFCD,%eax=FFFFCD
 movzbl %dh,%eax     zbl:%dh-&gt;0000CD,%eax=0000CD
 </code></pre>
 </div>
+
+<p>6.左移右移汇编指令</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sal:算术左移
+shl:逻辑左移
+sar:算术右移
+shr:逻辑右移
+sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0
+</code></pre>
+</div>
 </span>
 
         
