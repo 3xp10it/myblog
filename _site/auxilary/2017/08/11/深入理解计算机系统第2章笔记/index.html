@@ -130,7 +130,7 @@
 将int(127)发到网络上去,127需要(2**xx7=128)7bits也即1B的数据量传输,转成char类型为”127”需要(1,2,7分别作为char)需要
 3B的传输量,这样的话需要传输3倍的数据量,效率太低了,于是不用这种方法,采用base64将本地数据编码后传输到网络上去</p>
 
-<p>3.负数用补码表示,可由对应正数取反加1得到,eg:-4的表示形式</p>
+<p>3.数据的表现形式有两种:<code class="highlighter-rouge">无符号</code>类型和<code class="highlighter-rouge">补码</code>类型,负数用补码表示,可由对应正数取反加1得到,eg:-4的表示形式</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>4的二进制表示形式是0100,取反加1为:1011+1=1100
 </code></pre>

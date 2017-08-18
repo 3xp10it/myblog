@@ -143,7 +143,8 @@ movzbl %dh,%eax     zbl:%dh-&gt;0000CD,%eax=0000CD
 shl:逻辑左移
 sar:算术右移
 shr:逻辑右移
-sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0
+sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0,这个特性使得补码运算
+成为实现有符号整数运算的一种比较好的方法
 </code></pre>
 </div>
 </span>

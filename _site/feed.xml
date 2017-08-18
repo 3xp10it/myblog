@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 17 Aug 2017 22:33:46 +0800</pubDate>
-    <lastBuildDate>Thu, 17 Aug 2017 22:33:46 +0800</lastBuildDate>
+    <pubDate>Fri, 18 Aug 2017 08:16:31 +0800</pubDate>
+    <lastBuildDate>Fri, 18 Aug 2017 08:16:31 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -41,7 +41,8 @@ movzbl %dh,%eax     zbl:%dh-&amp;gt;0000CD,%eax=0000CD
 shl:逻辑左移
 sar:算术右移
 shr:逻辑右移
-sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0
+sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0,这个特性使得补码运算
+成为实现有符号整数运算的一种比较好的方法
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
@@ -72,7 +73,7 @@ sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,
 将int(127)发到网络上去,127需要(2**xx7=128)7bits也即1B的数据量传输,转成char类型为”127”需要(1,2,7分别作为char)需要
 3B的传输量,这样的话需要传输3倍的数据量,效率太低了,于是不用这种方法,采用base64将本地数据编码后传输到网络上去&lt;/p&gt;
 
-&lt;p&gt;3.负数用补码表示,可由对应正数取反加1得到,eg:-4的表示形式&lt;/p&gt;
+&lt;p&gt;3.数据的表现形式有两种:&lt;code class=&quot;highlighter-rouge&quot;&gt;无符号&lt;/code&gt;类型和&lt;code class=&quot;highlighter-rouge&quot;&gt;补码&lt;/code&gt;类型,负数用补码表示,可由对应正数取反加1得到,eg:-4的表示形式&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4的二进制表示形式是0100,取反加1为:1011+1=1100
 &lt;/code&gt;&lt;/pre&gt;
@@ -182,7 +183,38 @@ sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,
 &lt;p&gt;1.&lt;a href=&quot;http://www.fx115.net/qa-220-122690.aspx&quot;&gt;movsz/movsx&lt;/a&gt;&lt;br /&gt;
 2.&lt;a href=&quot;http://baike.baidu.com/link?url=LW99HgDBFHx3Ao2Ep1JshAbaQT5O3QqsLqZYhi_a1mJ1tFPXc-S1Y9-JRmYKJQjXn0hR7vO6tIDDzXicIDLnrq&quot;&gt;lodsb/lodsw[stosb/stosw]&lt;/a&gt;&lt;br /&gt;
 3.&lt;a href=&quot;http://bbs.bccn.net/thread-327979-1-1.html&quot;&gt;cdq&lt;/a&gt; &lt;a href=&quot;https://zhidao.baidu.com/question/576311402.html&quot;&gt;cdq-more&lt;/a&gt;&lt;br /&gt;
-4.&lt;a href=&quot;http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_&quot;&gt;neg&lt;/a&gt;&lt;/p&gt;
+4.&lt;a href=&quot;http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_&quot;&gt;neg&lt;/a&gt;
+5.sal/shl,sar/shr&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sal:算术左移
+shl:逻辑左移
+sar:算术右移[这四个当中唯一一个要考虑符号位的]
+shr:逻辑右移 6.imul S/mul S,cdq/cltd,idiv S/div S
+
+imul S&amp;lt;==&amp;gt;{R[edx]:R[eax]&amp;lt;-SxR[eax]}&amp;lt;==&amp;gt;有符号全64位乘法
+mul S&amp;lt;==&amp;gt;{R[edx]:R[eax]&amp;lt;-SxR[eax]}&amp;lt;==&amp;gt;无符号全64位乘法
+cdq/cltd&amp;lt;==&amp;gt;{R[edx]:R[eax]&amp;lt;-SignExtend(R[eax])}&amp;lt;==&amp;gt;转为四字(cdq是intel格式,cltd是att格式)
+idiv S&amp;lt;==&amp;gt;{R[edx]&amp;lt;-R[edx]:R[eax] mod S;R[eax]&amp;lt;-R[edx]:R[eax] / S}&amp;lt;==&amp;gt;有符号除法
+div S&amp;lt;==&amp;gt;{R[edx]&amp;lt;-R[edx]:R[eax] mod S;R[eax]&amp;lt;-R[edx]:R[eax] / S}&amp;lt;==&amp;gt;无符号除法
+
+上面的:代表32位和低32位的分界符号
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;7.标志寄存器&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CF(carry flag):进位标志.最近的操作使最高位产生了进位.可用来检查无符号操作数的溢出
+ZF(zero flag):零标志.最近的操作得出的结果为0
+SF(sign flag):符号标志.最近的操作得到的结果为负数
+OF(overflow flag):溢出标志.最近的操作导致一个补码溢出--正溢出或负溢出
+
+cmp与sub指令在设置标志寄存器的标志位的行为一样
+test与and指令在设置标志寄存器的标志位的行为一样
+cmp和test改变标志寄存器,不改变操作数
+sub和and改变标志寄存器,也改变操作数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 </description>
         <pubDate>Thu, 29 Jun 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/06/29/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</link>

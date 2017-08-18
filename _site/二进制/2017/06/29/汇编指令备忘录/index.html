@@ -124,7 +124,38 @@
 <p>1.<a href="http://www.fx115.net/qa-220-122690.aspx">movsz/movsx</a><br />
 2.<a href="http://baike.baidu.com/link?url=LW99HgDBFHx3Ao2Ep1JshAbaQT5O3QqsLqZYhi_a1mJ1tFPXc-S1Y9-JRmYKJQjXn0hR7vO6tIDDzXicIDLnrq">lodsb/lodsw[stosb/stosw]</a><br />
 3.<a href="http://bbs.bccn.net/thread-327979-1-1.html">cdq</a> <a href="https://zhidao.baidu.com/question/576311402.html">cdq-more</a><br />
-4.<a href="http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_">neg</a></p>
+4.<a href="http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_">neg</a>
+5.sal/shl,sar/shr</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sal:算术左移
+shl:逻辑左移
+sar:算术右移[这四个当中唯一一个要考虑符号位的]
+shr:逻辑右移 6.imul S/mul S,cdq/cltd,idiv S/div S
+
+imul S&lt;==&gt;{R[edx]:R[eax]&lt;-SxR[eax]}&lt;==&gt;有符号全64位乘法
+mul S&lt;==&gt;{R[edx]:R[eax]&lt;-SxR[eax]}&lt;==&gt;无符号全64位乘法
+cdq/cltd&lt;==&gt;{R[edx]:R[eax]&lt;-SignExtend(R[eax])}&lt;==&gt;转为四字(cdq是intel格式,cltd是att格式)
+idiv S&lt;==&gt;{R[edx]&lt;-R[edx]:R[eax] mod S;R[eax]&lt;-R[edx]:R[eax] / S}&lt;==&gt;有符号除法
+div S&lt;==&gt;{R[edx]&lt;-R[edx]:R[eax] mod S;R[eax]&lt;-R[edx]:R[eax] / S}&lt;==&gt;无符号除法
+
+上面的:代表32位和低32位的分界符号
+</code></pre>
+</div>
+
+<p>7.标志寄存器</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CF(carry flag):进位标志.最近的操作使最高位产生了进位.可用来检查无符号操作数的溢出
+ZF(zero flag):零标志.最近的操作得出的结果为0
+SF(sign flag):符号标志.最近的操作得到的结果为负数
+OF(overflow flag):溢出标志.最近的操作导致一个补码溢出--正溢出或负溢出
+
+cmp与sub指令在设置标志寄存器的标志位的行为一样
+test与and指令在设置标志寄存器的标志位的行为一样
+cmp和test改变标志寄存器,不改变操作数
+sub和and改变标志寄存器,也改变操作数
+</code></pre>
+</div>
+
 </span>
 
         
