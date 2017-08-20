@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Aug 2017 15:02:26 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Aug 2017 15:02:26 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Aug 2017 16:46:30 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Aug 2017 16:46:30 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -155,6 +155,9 @@ back-end DBMS: MySQL &amp;gt;= 5.0.12
 [*] shutting down at 14:49:06
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;已提交pull request到sqlmap,&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/pull/2663/files&quot;&gt;follow&lt;/a&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Sun, 20 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/08/20/sqlmap%E5%AF%B9%E7%8A%B6%E6%80%81%E7%A0%81404%E5%A4%84%E7%90%86%E7%9A%84bug/</link>
