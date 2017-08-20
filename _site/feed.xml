@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Aug 2017 14:55:49 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Aug 2017 14:55:49 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Aug 2017 14:59:51 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Aug 2017 14:59:51 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -34,11 +34,11 @@ ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中�
 
 &lt;p&gt;这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&quot; --forms -v 3 --cookie='...'
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='...'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:&lt;/p&gt;
+&lt;p&gt;由于这里的id参数的值通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#
 &lt;/code&gt;&lt;/pre&gt;
@@ -53,8 +53,8 @@ ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中�
 &lt;p&gt;其实如果用selenium+phantomjs得到了url&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&lt;/code&gt;后
 如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
 类型url的注入点的,但是要设置–risk=3,默认的sqlmap的risk值为1,为1时sqlmap不会测试&lt;code class=&quot;highlighter-rouge&quot;&gt;' or [sqli] and '1'='1&lt;/code&gt;(要测出不
-带参数值的参数的注入点则要通过or来测试),也即要发挥sqlmap的功能最好设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch --risk=3 --forms&lt;/code&gt;.试试直接用这种方
-法测试上面的注入点(在dvwa中对应的页面为&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&lt;/code&gt;):&lt;/p&gt;
+带参数值的参数的注入点则要通过&lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;来测试),也即要发挥sqlmap的功能最好设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch --risk=3 --forms&lt;/code&gt;.试试直接用这种
+方法测试上面的注入点(在dvwa中对应的页面为&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&lt;/code&gt;):&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/tmp/sqlmap [master] » python2 sqlmap.py -u &quot;192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
         ___

@@ -136,11 +136,11 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 
 <p>这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#" --forms -v 3 --cookie='...'
+<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='...'
 </code></pre>
 </div>
 
-<p>由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:</p>
+<p>由于这里的id参数的值通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#
 </code></pre>
@@ -155,8 +155,8 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 <p>其实如果用selenium+phantomjs得到了url<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#</code>后
 如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
 类型url的注入点的,但是要设置–risk=3,默认的sqlmap的risk值为1,为1时sqlmap不会测试<code class="highlighter-rouge">' or [sqli] and '1'='1</code>(要测出不
-带参数值的参数的注入点则要通过or来测试),也即要发挥sqlmap的功能最好设置<code class="highlighter-rouge">--batch --risk=3 --forms</code>.试试直接用这种方
-法测试上面的注入点(在dvwa中对应的页面为<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/</code>):</p>
+带参数值的参数的注入点则要通过<code class="highlighter-rouge">or</code>来测试),也即要发挥sqlmap的功能最好设置<code class="highlighter-rouge">--batch --risk=3 --forms</code>.试试直接用这种
+方法测试上面的注入点(在dvwa中对应的页面为<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/</code>):</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>/tmp/sqlmap [master] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
         ___
