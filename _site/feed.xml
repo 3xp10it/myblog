@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Aug 2017 14:59:51 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Aug 2017 14:59:51 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Aug 2017 15:02:26 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Aug 2017 15:02:26 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -45,15 +45,15 @@ ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中�
 &lt;/div&gt;
 
 &lt;p&gt;上图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Submit&lt;/code&gt;按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs
-来获得上面的url(或者使用sqlmap中的–forms参数来捕获这样的表单),而就算得到了url,由于这个url中的&lt;code class=&quot;highlighter-rouge&quot;&gt;id=&lt;/code&gt;,也即id值为空,
-这种情况下,sqlmap的–batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的
+来获得上面的url(或者使用sqlmap中的&lt;code class=&quot;highlighter-rouge&quot;&gt;--forms&lt;/code&gt;参数来捕获这样的表单),而就算得到了url,由于这个url中的&lt;code class=&quot;highlighter-rouge&quot;&gt;id=&lt;/code&gt;,也即id值为空,
+这种情况下,sqlmap的&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的
 处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到
-404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的–batch参数测出这个sql注入点&lt;/p&gt;
+404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数测出这个sql注入点&lt;/p&gt;
 
 &lt;p&gt;其实如果用selenium+phantomjs得到了url&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&lt;/code&gt;后
 如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
-类型url的注入点的,但是要设置–risk=3,默认的sqlmap的risk值为1,为1时sqlmap不会测试&lt;code class=&quot;highlighter-rouge&quot;&gt;' or [sqli] and '1'='1&lt;/code&gt;(要测出不
-带参数值的参数的注入点则要通过&lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;来测试),也即要发挥sqlmap的功能最好设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch --risk=3 --forms&lt;/code&gt;.试试直接用这种
+类型url的注入点的,但是要设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--risk=3&lt;/code&gt;,默认的sqlmap的risk值为1,为1时sqlmap不会测试&lt;code class=&quot;highlighter-rouge&quot;&gt;' or [sqli] and '1'='1&lt;/code&gt;(要测出
+不带参数值的参数的注入点则要通过&lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;来测试),也即要发挥sqlmap的功能最好设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch --risk=3 --forms&lt;/code&gt;.试试直接用这种
 方法测试上面的注入点(在dvwa中对应的页面为&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&lt;/code&gt;):&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/tmp/sqlmap [master] » python2 sqlmap.py -u &quot;192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
