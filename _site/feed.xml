@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Aug 2017 14:53:07 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Aug 2017 14:53:07 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Aug 2017 14:55:49 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Aug 2017 14:55:49 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -14,7 +14,7 @@
         <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
 
 &lt;p&gt;sqlmap对页面遇到404响应码后直接抛出一个异常并退出sqlmap不再进行后续的paylaod测试,在用sqlmap测试sql注入点的时候,一
-般用到–batch参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug&lt;/p&gt;
+般用到&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug&lt;/p&gt;
 
 &lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
 
@@ -28,13 +28,27 @@ ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中�
 
 &lt;p&gt;尝试用sqlmap跑出这个注入点,语句如下:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;amp;Submit=Submit#&quot; --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' 这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:
-
-sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&quot; --forms -v 3 --cookie='...' 由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:
-
-http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit# 上图中的`Submit`按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs 来获得上面的url(或者使用sqlmap中的--forms参数来捕获这样的表单),而就算得到了url,由于这个url中的`id=`,也即id值为空, 这种情况下,sqlmap的--batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的 处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到 404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的--batch参数测出这个sql注入点
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;amp;Submit=Submit#&quot; --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&quot; --forms -v 3 --cookie='...'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Submit&lt;/code&gt;按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs
+来获得上面的url(或者使用sqlmap中的–forms参数来捕获这样的表单),而就算得到了url,由于这个url中的&lt;code class=&quot;highlighter-rouge&quot;&gt;id=&lt;/code&gt;,也即id值为空,
+这种情况下,sqlmap的–batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的
+处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到
+404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的–batch参数测出这个sql注入点&lt;/p&gt;
 
 &lt;p&gt;其实如果用selenium+phantomjs得到了url&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&lt;/code&gt;后
 如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数

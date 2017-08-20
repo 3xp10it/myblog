@@ -116,7 +116,7 @@
         <span itemprop="articleBody"><h3 id="about">About</h3>
 
 <p>sqlmap对页面遇到404响应码后直接抛出一个异常并退出sqlmap不再进行后续的paylaod测试,在用sqlmap测试sql注入点的时候,一
-般用到–batch参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug</p>
+般用到<code class="highlighter-rouge">--batch</code>参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug</p>
 
 <h3 id="detail">Detail</h3>
 
@@ -130,13 +130,27 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 
 <p>尝试用sqlmap跑出这个注入点,语句如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#" --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' 这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:
-
-sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#" --forms -v 3 --cookie='...' 由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:
-
-http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit# 上图中的`Submit`按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs 来获得上面的url(或者使用sqlmap中的--forms参数来捕获这样的表单),而就算得到了url,由于这个url中的`id=`,也即id值为空, 这种情况下,sqlmap的--batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的 处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到 404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的--batch参数测出这个sql注入点
+<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#" --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low'
 </code></pre>
 </div>
+
+<p>这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#" --forms -v 3 --cookie='...'
+</code></pre>
+</div>
+
+<p>由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#
+</code></pre>
+</div>
+
+<p>上图中的<code class="highlighter-rouge">Submit</code>按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs
+来获得上面的url(或者使用sqlmap中的–forms参数来捕获这样的表单),而就算得到了url,由于这个url中的<code class="highlighter-rouge">id=</code>,也即id值为空,
+这种情况下,sqlmap的–batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的
+处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到
+404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的–batch参数测出这个sql注入点</p>
 
 <p>其实如果用selenium+phantomjs得到了url<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#</code>后
 如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
