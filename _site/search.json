@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "sqlmap对状态码404处理的bug",
+    "category" : "",
+    "tags"     : "sqlmap, python",
+    "url"      : "/web/2017/08/20/sqlmap%E5%AF%B9%E7%8A%B6%E6%80%81%E7%A0%81404%E5%A4%84%E7%90%86%E7%9A%84bug/",
+    "date"     : "2017-08-20 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "深入理解计算机系统第3章笔记",
     "category" : "",
     "tags"     : "csapp",
