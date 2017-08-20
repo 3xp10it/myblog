@@ -136,7 +136,7 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 
 <p>这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='...'
+<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms --batch -v 3 --cookie='...'
 </code></pre>
 </div>
 

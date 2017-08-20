@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Aug 2017 16:48:44 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Aug 2017 16:48:44 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Aug 2017 17:06:19 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Aug 2017 17:06:19 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -34,7 +34,7 @@ ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中�
 
 &lt;p&gt;这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='...'
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms --batch -v 3 --cookie='...'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
