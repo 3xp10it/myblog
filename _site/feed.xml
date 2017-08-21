@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 21 Aug 2017 22:41:02 +0800</pubDate>
-    <lastBuildDate>Mon, 21 Aug 2017 22:41:02 +0800</lastBuildDate>
+    <pubDate>Tue, 22 Aug 2017 07:53:46 +0800</pubDate>
+    <lastBuildDate>Tue, 22 Aug 2017 07:53:46 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -254,6 +254,38 @@ sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;条件数据传送,eg:
 cmp %edx,%ecx
 cmovl %ebx,%eax(此处的l代表less,不是att中的movl中的long)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;8.leave+ret恢复栈的状态到调用函数前&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;leave=mov esp,ebp+pop ebp[执行pop ebp后此时esp指向的是old_eip]
+retn n==pop eip+mov esp,esp+4*n+jmp eip
+
+(栈中大地址)
+参数n
+...
+参数1
+old_eip     &amp;lt;--对应--&amp;gt;      push old_eip
+old_ebp     &amp;lt;--对应--&amp;gt;      push ebp+mov ebp
+被保存的寄存器,本地变量和临时变量
+(栈中小地地)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;9.寄存器使用惯例&lt;/p&gt;
+
+&lt;p&gt;+eax,edx,ecx被划分为&lt;code class=&quot;highlighter-rouge&quot;&gt;调用者保存&lt;/code&gt;寄存器&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
+也即调用者在调用其它函数前会自行保存这些寄存器在调用者的栈桢中,调用完成后会恢复(pop)这些保存过的寄存器
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;+ebx,esi,edi被划分为&lt;code class=&quot;highlighter-rouge&quot;&gt;被调用者保存&lt;/code&gt;寄存器&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
+也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
