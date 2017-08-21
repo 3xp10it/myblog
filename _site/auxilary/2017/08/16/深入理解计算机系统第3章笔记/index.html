@@ -174,14 +174,14 @@ old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
 
 <p>9.寄存器使用惯例</p>
 
-<p>+eax,edx,ecx被划分为<code class="highlighter-rouge">调用者保存</code>寄存器</p>
+<p>a)eax,edx,ecx被划分为<code class="highlighter-rouge">调用者保存</code>寄存器</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
 也即调用者在调用其它函数前会自行保存这些寄存器在调用者的栈桢中,调用完成后会恢复(pop)这些保存过的寄存器
 </code></pre>
 </div>
 
-<p>+ebx,esi,edi被划分为<code class="highlighter-rouge">被调用者保存</code>寄存器</p>
+<p>b)ebx,esi,edi被划分为<code class="highlighter-rouge">被调用者保存</code>寄存器</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
 也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
