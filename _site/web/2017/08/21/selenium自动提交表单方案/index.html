@@ -113,27 +113,27 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="refer">Refer</h3>
+        <span itemprop="articleBody"><h3 id="0x00-refer">0x00 Refer</h3>
 
-<p><a href="http://blog.csdn.net/wang02011/article/details/6299517">常见的提交表单的方法</a></p>
+<p><a href="http://blog.csdn.net/wang02011/article/details/6299517">1.常见的提交表单的方法</a></p>
 
-<p><a href="http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html">表单提交规则</a></p>
+<p><a href="http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html">2.表单提交规则</a></p>
 
-<p><a href="https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button">selenium提交表单</a></p>
+<p><a href="https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button">3.selenium提交表单</a></p>
 
-<p><a href="https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click">selenium中click()和submit()的区别</a></p>
+<p><a href="https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click">4.selenium中click()和submit()的区别</a></p>
 
-<h3 id="about">About</h3>
+<h3 id="0x01-about">0x01 About</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
 数
 </code></pre>
 </div>
 
-<h3 id="detail">Detail</h3>
+<h3 id="0x02-detail">0x02 Detail</h3>
 
-<p>1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性
-2.如果1失败再找&lt;input.<em>type=(‘|”)?submit(‘|”)?.</em>&gt;的提交按钮,找到后用selenium的click()来提交
+<p>1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性<br />
+2.如果1失败再找<code class="highlighter-rouge">&lt;input.*type=('|")?submit('|")?.*&gt;</code>的提交按钮,找到后用selenium的click()来提交<br />
 3.目前这样做无法处理用图片提交的表单,后期视情况增加或不加</p>
 </span>
 

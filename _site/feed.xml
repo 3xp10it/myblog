@@ -5,33 +5,33 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 21 Aug 2017 16:10:33 +0800</pubDate>
-    <lastBuildDate>Mon, 21 Aug 2017 16:10:33 +0800</lastBuildDate>
+    <pubDate>Mon, 21 Aug 2017 16:12:58 +0800</pubDate>
+    <lastBuildDate>Mon, 21 Aug 2017 16:12:58 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>selenium自动提交表单方案</title>
-        <description>&lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-refer&quot;&gt;0x00 Refer&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/wang02011/article/details/6299517&quot;&gt;常见的提交表单的方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/wang02011/article/details/6299517&quot;&gt;1.常见的提交表单的方法&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html&quot;&gt;表单提交规则&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html&quot;&gt;2.表单提交规则&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button&quot;&gt;selenium提交表单&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button&quot;&gt;3.selenium提交表单&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click&quot;&gt;selenium中click()和submit()的区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click&quot;&gt;4.selenium中click()和submit()的区别&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-about&quot;&gt;0x01 About&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
 数
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
 
-&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性
-2.如果1失败再找&amp;lt;input.&lt;em&gt;type=(‘|”)?submit(‘|”)?.&lt;/em&gt;&amp;gt;的提交按钮,找到后用selenium的click()来提交
+&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性&lt;br /&gt;
+2.如果1失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?submit('|&quot;)?.*&amp;gt;&lt;/code&gt;的提交按钮,找到后用selenium的click()来提交&lt;br /&gt;
 3.目前这样做无法处理用图片提交的表单,后期视情况增加或不加&lt;/p&gt;
 </description>
         <pubDate>Mon, 21 Aug 2017 00:00:00 +0800</pubDate>
