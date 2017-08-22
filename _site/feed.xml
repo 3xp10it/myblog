@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 Aug 2017 16:34:29 +0800</pubDate>
-    <lastBuildDate>Tue, 22 Aug 2017 16:34:29 +0800</lastBuildDate>
+    <pubDate>Wed, 23 Aug 2017 06:52:39 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Aug 2017 06:52:39 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -291,6 +291,81 @@ old_ebp     &amp;lt;--对应--&amp;gt;      push ebp+mov ebp
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
 也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;10.被调用的函数的参数在被调用的函数当前栈桢中的位置如下,其中ebp是被调用函数当前栈桢中的ebp,old_eip是在调用被调用
+函数的调用函数中的call xxx(xxx表示被调用函数的名称)所在汇编语句的下一句汇编语句的内存地址&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;old_eip:ebp+0x4
+第1个参数:ebp+0x8
+第2个参数:ebp+0xc
+第n个参数:ebp+0x4(n+1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
+数据的指针,p的值为&lt;script type=&quot;math/tex&quot;&gt;x{i}&lt;/script&gt;,那么表达式p+i的值为&lt;script type=&quot;math/tex&quot;&gt;x{p}+L\ast i&lt;/script&gt;,这里L是数据类型T的大小&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main(){
+
+    int iV=3;
+    void* a=&amp;amp;iV;
+    printf(&quot;a:%p&quot;,a);
+    void *b=a+1;
+    void *c=a-1;
+    printf(&quot;\n&quot;);
+    printf(&quot;b=a+1:%p&quot;,b);
+    printf(&quot;\n&quot;);
+    printf(&quot;c=a-1:%p&quot;,c);
+    printf(&quot;\n&quot;);
+    printf(&quot;b-a:%p&quot;,b-a);
+
+    return 0;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面运行结果为&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff506d25c8
+b=a+1:0x7fff506d25c9
+c=a-1:0x7fff506d25c7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;将其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;void *&lt;/code&gt;换成&lt;code class=&quot;highlighter-rouge&quot;&gt;int *&lt;/code&gt;后代码如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main(){
+
+    int iV=3;
+    int* a=&amp;amp;iV;
+    printf(&quot;a:%p&quot;,a);
+    int *b=a+1;
+    int *c=a-1;
+    printf(&quot;\n&quot;);
+    printf(&quot;b=a+1:%p&quot;,b);
+    printf(&quot;\n&quot;);
+    printf(&quot;c=a-1:%p&quot;,c);
+    printf(&quot;\n&quot;);
+    printf(&quot;b-a:%p&quot;,b-a);
+
+    return 0;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;运行结果变成如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff573525c8
+b=a+1:0x7fff573525cc
+c=a-1:0x7fff573525c4
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>

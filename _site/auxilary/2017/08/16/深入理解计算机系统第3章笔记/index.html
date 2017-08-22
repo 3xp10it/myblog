@@ -47,6 +47,9 @@
 
 
 
+<!-- MathJax for LaTeX -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </head>
 
@@ -185,6 +188,81 @@ old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
 
 <div class="highlighter-rouge"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
 也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
+</code></pre>
+</div>
+
+<p>10.被调用的函数的参数在被调用的函数当前栈桢中的位置如下,其中ebp是被调用函数当前栈桢中的ebp,old_eip是在调用被调用
+函数的调用函数中的call xxx(xxx表示被调用函数的名称)所在汇编语句的下一句汇编语句的内存地址</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>old_eip:ebp+0x4
+第1个参数:ebp+0x8
+第2个参数:ebp+0xc
+第n个参数:ebp+0x4(n+1)
+</code></pre>
+</div>
+
+<p>11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
+数据的指针,p的值为<script type="math/tex">x{i}</script>,那么表达式p+i的值为<script type="math/tex">x{p}+L\ast i</script>,这里L是数据类型T的大小</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+
+int main(){
+
+    int iV=3;
+    void* a=&amp;iV;
+    printf("a:%p",a);
+    void *b=a+1;
+    void *c=a-1;
+    printf("\n");
+    printf("b=a+1:%p",b);
+    printf("\n");
+    printf("c=a-1:%p",c);
+    printf("\n");
+    printf("b-a:%p",b-a);
+
+    return 0;
+
+}
+</code></pre>
+</div>
+
+<p>上面运行结果为</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff506d25c8
+b=a+1:0x7fff506d25c9
+c=a-1:0x7fff506d25c7
+</code></pre>
+</div>
+
+<p>将其中的<code class="highlighter-rouge">void *</code>换成<code class="highlighter-rouge">int *</code>后代码如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+
+int main(){
+
+    int iV=3;
+    int* a=&amp;iV;
+    printf("a:%p",a);
+    int *b=a+1;
+    int *c=a-1;
+    printf("\n");
+    printf("b=a+1:%p",b);
+    printf("\n");
+    printf("c=a-1:%p",c);
+    printf("\n");
+    printf("b-a:%p",b-a);
+
+    return 0;
+
+}
+</code></pre>
+</div>
+
+<p>运行结果变成如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff573525c8
+b=a+1:0x7fff573525cc
+c=a-1:0x7fff573525c4
 </code></pre>
 </div>
 </span>
