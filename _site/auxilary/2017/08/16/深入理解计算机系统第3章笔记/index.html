@@ -202,7 +202,7 @@ old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
 </div>
 
 <p>11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
-数据的指针,p的值为<script type="math/tex">x{i}</script>,那么表达式p+i的值为<script type="math/tex">x{p}+L\ast i</script>,这里L是数据类型T的大小</p>
+数据的指针,p的值为<script type="math/tex">X{i}</script>,那么表达式p+i的值为<script type="math/tex">X{p}+l\ast i</script>,这里l是数据类型t的大小</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
 
@@ -228,9 +228,10 @@ int main(){
 
 <p>上面运行结果为</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff506d25c8
-b=a+1:0x7fff506d25c9
-c=a-1:0x7fff506d25c7
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff508f85c8
+b=a+1:0x7fff508f85c9
+c=a-1:0x7fff508f85c7
+b-a:0x1#
 </code></pre>
 </div>
 
@@ -260,9 +261,10 @@ int main(){
 
 <p>运行结果变成如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff573525c8
-b=a+1:0x7fff573525cc
-c=a-1:0x7fff573525c4
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff506ab5c8
+b=a+1:0x7fff506ab5cc
+c=a-1:0x7fff506ab5c4
+b-a:0x1#
 </code></pre>
 </div>
 </span>

@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 23 Aug 2017 06:52:39 +0800</pubDate>
-    <lastBuildDate>Wed, 23 Aug 2017 06:52:39 +0800</lastBuildDate>
+    <pubDate>Wed, 23 Aug 2017 07:25:05 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Aug 2017 07:25:05 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -305,7 +305,7 @@ old_ebp     &amp;lt;--对应--&amp;gt;      push ebp+mov ebp
 &lt;/div&gt;
 
 &lt;p&gt;11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
-数据的指针,p的值为&lt;script type=&quot;math/tex&quot;&gt;x{i}&lt;/script&gt;,那么表达式p+i的值为&lt;script type=&quot;math/tex&quot;&gt;x{p}+L\ast i&lt;/script&gt;,这里L是数据类型T的大小&lt;/p&gt;
+数据的指针,p的值为&lt;script type=&quot;math/tex&quot;&gt;X{i}&lt;/script&gt;,那么表达式p+i的值为&lt;script type=&quot;math/tex&quot;&gt;X{p}+l\ast i&lt;/script&gt;,这里l是数据类型t的大小&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
 
@@ -331,9 +331,10 @@ int main(){
 
 &lt;p&gt;上面运行结果为&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff506d25c8
-b=a+1:0x7fff506d25c9
-c=a-1:0x7fff506d25c7
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff508f85c8
+b=a+1:0x7fff508f85c9
+c=a-1:0x7fff508f85c7
+b-a:0x1#
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -363,9 +364,10 @@ int main(){
 
 &lt;p&gt;运行结果变成如下&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff573525c8
-b=a+1:0x7fff573525cc
-c=a-1:0x7fff573525c4
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a:0x7fff506ab5c8
+b=a+1:0x7fff506ab5cc
+c=a-1:0x7fff506ab5c4
+b-a:0x1#
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
