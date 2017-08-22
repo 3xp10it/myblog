@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 Aug 2017 07:55:54 +0800</pubDate>
-    <lastBuildDate>Tue, 22 Aug 2017 07:55:54 +0800</lastBuildDate>
+    <pubDate>Tue, 22 Aug 2017 14:59:20 +0800</pubDate>
+    <lastBuildDate>Tue, 22 Aug 2017 14:59:20 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -30,9 +30,14 @@
 
 &lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
 
-&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性&lt;br /&gt;
-2.如果1失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?submit('|&quot;)?.*&amp;gt;&lt;/code&gt;的提交按钮,找到后用selenium的click()来提交&lt;br /&gt;
-3.目前这样做无法处理用图片提交的表单,后期视情况增加或不加&lt;/p&gt;
+&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性&lt;/p&gt;
+
+&lt;p&gt;2.如果1失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?submit('|&quot;)?.*&amp;gt;&lt;/code&gt;的提交按钮,找到后用selenium的click()来提交&lt;/p&gt;
+
+&lt;p&gt;3.如果2失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?button('|&quot;)?.*onclick=.*&amp;gt;&lt;/code&gt;的通过js提交表单的行中的按钮,找到后用selenium的
+click()来提交&lt;/p&gt;
+
+&lt;p&gt;4.目前这样做无法处理用图片提交的表单,后期视情况增加或不加&lt;/p&gt;
 </description>
         <pubDate>Mon, 21 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/</link>

@@ -132,9 +132,14 @@
 
 <h3 id="0x02-detail">0x02 Detail</h3>
 
-<p>1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性<br />
-2.如果1失败再找<code class="highlighter-rouge">&lt;input.*type=('|")?submit('|")?.*&gt;</code>的提交按钮,找到后用selenium的click()来提交<br />
-3.目前这样做无法处理用图片提交的表单,后期视情况增加或不加</p>
+<p>1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性</p>
+
+<p>2.如果1失败再找<code class="highlighter-rouge">&lt;input.*type=('|")?submit('|")?.*&gt;</code>的提交按钮,找到后用selenium的click()来提交</p>
+
+<p>3.如果2失败再找<code class="highlighter-rouge">&lt;input.*type=('|")?button('|")?.*onclick=.*&gt;</code>的通过js提交表单的行中的按钮,找到后用selenium的
+click()来提交</p>
+
+<p>4.目前这样做无法处理用图片提交的表单,后期视情况增加或不加</p>
 </span>
 
         
