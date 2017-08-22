@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 Aug 2017 14:59:20 +0800</pubDate>
-    <lastBuildDate>Tue, 22 Aug 2017 14:59:20 +0800</lastBuildDate>
+    <pubDate>Tue, 22 Aug 2017 16:34:29 +0800</pubDate>
+    <lastBuildDate>Tue, 22 Aug 2017 16:34:29 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -30,7 +30,7 @@
 
 &lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
 
-&lt;p&gt;1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性&lt;/p&gt;
+&lt;p&gt;1.先判断html中form action所在行能不能通过selenium(通过查找&lt;code class=&quot;highlighter-rouge&quot;&gt;find_element_by_css_selector('form[action=..]')&lt;/code&gt;)找到,不行再看看form这行有没有id或name,再通过id或name找到并用selenium的submit()来提交&lt;/p&gt;
 
 &lt;p&gt;2.如果1失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?submit('|&quot;)?.*&amp;gt;&lt;/code&gt;的提交按钮,找到后用selenium的click()来提交&lt;/p&gt;
 

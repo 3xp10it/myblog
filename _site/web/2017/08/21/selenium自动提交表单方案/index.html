@@ -132,7 +132,7 @@
 
 <h3 id="0x02-detail">0x02 Detail</h3>
 
-<p>1.先判断html中form action所在行能不能通过selenium找到,也即这一行内容有id或name属性</p>
+<p>1.先判断html中form action所在行能不能通过selenium(通过查找<code class="highlighter-rouge">find_element_by_css_selector('form[action=..]')</code>)找到,不行再看看form这行有没有id或name,再通过id或name找到并用selenium的submit()来提交</p>
 
 <p>2.如果1失败再找<code class="highlighter-rouge">&lt;input.*type=('|")?submit('|")?.*&gt;</code>的提交按钮,找到后用selenium的click()来提交</p>
 
