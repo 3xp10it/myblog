@@ -5,9 +5,65 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 23 Aug 2017 08:30:58 +0800</pubDate>
-    <lastBuildDate>Wed, 23 Aug 2017 08:30:58 +0800</lastBuildDate>
+    <pubDate>Wed, 23 Aug 2017 14:40:24 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Aug 2017 14:40:24 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>sqlmap以加载请求文件方式检测https服务器时存在的bug</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;sqlmap在扫描https类型的注入点的时候,当通过使用-r参数加载请求文件来检测有没有sql注入漏洞时,不能较好处理是否用ssl
+通信,导致无法通过使用-r参数通过加载请求文件的方式自动检测是否是https协议,并因此无法检测出存在的注入点(需要人工添
+加&lt;code class=&quot;highlighter-rouge&quot;&gt;--force-ssl&lt;/code&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;p&gt;1.当requestFile(-r加载的请求文件)中有Referer参数且Referer的值中的hostname部分及port部分与requestFile中的Host参数的值
+中的hostname与port部分相同,且Referer的值是https开头,认为这个requestFile的测试应该走ssl(也即走https通信)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg:[requestFile]
+
+POST /xxx/xxx/xxx/x.jsp?x=a HTTP/1.1
+Host: www.google.com:6666
+...
+Referer: https://www.google.com:6666/xxxooo/xxoo/xxx.jsp
+...
+
+xx=xxx&amp;amp;ooo=ooo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.当requestFile(-r加载的请求文件)中的port值不为80且requestFile中有Referer参数且Referer的值是&lt;code class=&quot;highlighter-rouge&quot;&gt;https://.*cdn.*&lt;/code&gt;的格式,这种情况也认为要走https通信&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg:[requestFile]
+
+POST /xxx/xxx/xxx/x.jsp?x=a HTTP/1.1
+Host: www.google.com:6666
+...
+Referer: https://www.google-cdn.com/lllllllllllxxoo/xxx.jsp
+...
+
+xx=xxx&amp;amp;ooo=ooo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面这种情况认为测试要走https通信,对应修改sqlmap中的lib/core/option.py中相关代码,已提交pull request到sqlmap&lt;br /&gt;
+对应下面的与conf.forceSSL相关的部分代码
+&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/pull/2663&quot;&gt;follow&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 23 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/08/23/sqlmap%E4%BB%A5%E5%8A%A0%E8%BD%BD%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%A3%80%E6%B5%8Bhttps%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%AD%98%E5%9C%A8%E7%9A%84bug/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/23/sqlmap%E4%BB%A5%E5%8A%A0%E8%BD%BD%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%A3%80%E6%B5%8Bhttps%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%AD%98%E5%9C%A8%E7%9A%84bug/</guid>
+        
+        <category>sqlmap</category>
+        
+        <category>https</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>selenium自动提交表单方案</title>
@@ -695,126 +751,6 @@ https://github.com/3xp10it/xwifi/
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>firefox addons--复制cookie附加组件开发</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;目的:制作一个火狐附加组件
-用途:用于在跑sqlmap或其他场景中时方便地提供cookie
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-refer&quot;&gt;0x01 Refer&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.入门
-https://developer.mozilla.org/zh-CN/Add-onso
-2.api
-https://developer.mozilla.org/zh-CN/Add-ons/WebExtensions
-3.示例
-https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Examples
-4.发布
-https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Publishing_your_WebExtension
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.最后代码如下:
-https://github.com/3xp10it/copyCookie
-
-2.关键代码如下,用于获取当前标签页面中的所有cookie
-
---------------cookie.js----------------
-function showCookiesForTab(tabs) {
-  //get the first tab object in the array
-  tab = tabs.pop();
-
-  //get all cookies in the domain
-  var gettingAllCookies = browser.cookies.getAll({url: tab.url});
-  gettingAllCookies.then((cookies) =&amp;gt; {
-    if (cookies.length &amp;gt; 0) {
-      var returnCookie=&quot;&quot;;
-      for (cookie of cookies) {
-        var content = cookie.name + &quot;=&quot;+ cookie.value+&quot;;&quot;;
-        returnCookie=returnCookie+content;
-      }
-      returnCookie=returnCookie.substr(0,returnCookie.length-1);
-       //alert(returnCookie);
-        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
-        var copyText=document.querySelector('#output');
-        copyText.select();
-
-        function copy1(){
-        document.getElementById(&quot;output&quot;).innerHTML=returnCookie;
-        var copyText=document.querySelector('#output');
-        copyText.select();
-        //console.log(copyText.value);
-        var res=document.execCommand(&quot;copy&quot;);
-        //console.log(res);
-        //alert(&quot;copyed to clipboard&quot;);
-        }        
-
-        function copy2(){
-        document.getElementById(&quot;output&quot;).innerHTML=&quot;--cookie='&quot;+returnCookie+&quot;'&quot;;
-        var copyText=document.querySelector('#output');
-        copyText.select();
-        //console.log(copyText.value);
-        var res=document.execCommand(&quot;copy&quot;);
-        //console.log(res);
-        //alert(&quot;copyed to clipboard&quot;);
-        }        
-
-        document.querySelector(&quot;#pureCookie&quot;).addEventListener(&quot;click&quot;,copy1);
-        document.querySelector(&quot;#sqlmapCookie&quot;).addEventListener(&quot;click&quot;,copy2);
-    } else {
-      var p = document.createElement(&quot;p&quot;);
-      var content = document.createTextNode(&quot;No cookies in this tab.&quot;);
-      var parent = cookieList.parentNode;
-
-      p.appendChild(content);
-      parent.appendChild(p);
-    }
-  });
-};
-
-//get active tab to run an callback function.
-//it sends to our callback an array of tab objects
-function getActiveTab() {
-  return browser.tabs.query({currentWindow: true, active: true});
-}
-getActiveTab().then(showCookiesForTab);
---------------cookie.js----------------
-
-3.可用于复制cookie和sqlmap中要用到的cooie参数形式的cookie
-
-4.安装本附加组件方法
-    在firefox的附加组件搜索copy cookie to clipboard,安装即可
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 Attention&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.上面的用于复制数据到系统剪切板的代码如果没有通过人工点击事件触发则无法成功复制数据到剪切板
-2.专门用于操作剪切板的强大js,上面代码中暂时没有用到.
-    https://github.com/zenorocha/clipboard.js
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Thu, 01 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/06/01/firefox-addons-%E5%A4%8D%E5%88%B6cookie%E9%99%84%E5%8A%A0%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
-        
-        <category>addons</category>
-        
-        <category>firefox</category>
-        
-        <category>cookie</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     

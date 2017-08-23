@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "sqlmap以加载请求文件方式检测https服务器时存在的bug",
+    "category" : "",
+    "tags"     : "sqlmap, https",
+    "url"      : "/web/2017/08/23/sqlmap%E4%BB%A5%E5%8A%A0%E8%BD%BD%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%A3%80%E6%B5%8Bhttps%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%AD%98%E5%9C%A8%E7%9A%84bug/",
+    "date"     : "2017-08-23 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "selenium自动提交表单方案",
     "category" : "",
     "tags"     : "python, selenium, form",
