@@ -47,6 +47,5 @@ Referer: https://www.google-cdn.com/lllllllllllxxoo/xxx.jsp
 xx=xxx&ooo=ooo
 ```
 
-上面这种情况认为测试要走https通信,对应修改sqlmap中的lib/core/option.py中相关代码,已提交pull request到sqlmap  
-对应下面的与conf.forceSSL相关的部分代码
+上面这种情况认为测试要走https通信,对应修改sqlmap中的lib/core/option.py中相关代码,已提交pull request到sqlmap,对应下面的与conf.forceSSL相关的部分代码  
 <a href="https://github.com/sqlmapproject/sqlmap/pull/2663">follow</a>
