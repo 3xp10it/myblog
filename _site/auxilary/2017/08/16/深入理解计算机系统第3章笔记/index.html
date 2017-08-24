@@ -267,6 +267,37 @@ c=a-1:0x7fff506ab5c4
 b-a:0x1#
 </code></pre>
 </div>
+
+<p>12.类似于数组的实现,结构的所有组成部分都存放在存储器中一段连续的区域内,python中没有结构体,可用类来代替</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class mystruct:
+
+    def __init__(self):
+        self.name=""
+        self.size=10
+        self.list=[]
+
+a=mystruct()
+a.name='cup'
+a.size=8
+a.list.append('water')
+</code></pre>
+</div>
+
+<p>13.一个联合(union类型)的总的大小等于它最大字段的大小,联合中的每个元素的偏移都是0</p>
+
+<p>14.DDD是GDB的一个扩展,提供了图形界面,据说功能强大<a href="http://blog.csdn.net/yangzm/article/details/51793023">follow</a></p>
+
+<p>15.x86-64下寄存器比IA32的寄存器:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>寄存器数量翻倍至16个,新增加的寄存器命名为%r8-%r15
+可直接访问每个寄存器的低32位(%eax,%ecx,%edx...,%r8d-%r15d)
+可直接访问每个寄存器的低16位(%ax,%cx,%dx...,%r8w-%r15w)
+可直接访问每个寄存器的低8位
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-2.png" /></p>
 </span>
 
         

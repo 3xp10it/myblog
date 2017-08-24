@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 23 Aug 2017 15:56:52 +0800</pubDate>
-    <lastBuildDate>Wed, 23 Aug 2017 15:56:52 +0800</lastBuildDate>
+    <pubDate>Fri, 25 Aug 2017 07:47:49 +0800</pubDate>
+    <lastBuildDate>Fri, 25 Aug 2017 07:47:49 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -425,6 +425,37 @@ c=a-1:0x7fff506ab5c4
 b-a:0x1#
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;12.类似于数组的实现,结构的所有组成部分都存放在存储器中一段连续的区域内,python中没有结构体,可用类来代替&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class mystruct:
+
+    def __init__(self):
+        self.name=&quot;&quot;
+        self.size=10
+        self.list=[]
+
+a=mystruct()
+a.name='cup'
+a.size=8
+a.list.append('water')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;13.一个联合(union类型)的总的大小等于它最大字段的大小,联合中的每个元素的偏移都是0&lt;/p&gt;
+
+&lt;p&gt;14.DDD是GDB的一个扩展,提供了图形界面,据说功能强大&lt;a href=&quot;http://blog.csdn.net/yangzm/article/details/51793023&quot;&gt;follow&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;15.x86-64下寄存器比IA32的寄存器:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;寄存器数量翻倍至16个,新增加的寄存器命名为%r8-%r15
+可直接访问每个寄存器的低32位(%eax,%ecx,%edx...,%r8d-%r15d)
+可直接访问每个寄存器的低16位(%ax,%cx,%dx...,%r8w-%r15w)
+可直接访问每个寄存器的低8位
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-2.png&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 16 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
