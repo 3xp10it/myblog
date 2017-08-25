@@ -148,11 +148,11 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
 的方式来获取,相关具体处理如下</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>    if proxyUrl == "" or proxyUrl == 0:
-        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any','--web-security=false']
+        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false']
     if proxyUrl != "" and proxyUrl != 0:
         proxyType = proxyUrl.split(":")[0]
         proxyValueWithType = proxyUrl.split("/")[-1]
-        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any','--web-security=false',
+        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false',
                               '--proxy=%s' % proxyValueWithType, '--proxy-type=%s' % proxyType]
     # 有跳转的url最后的url如下
     # final_url=driver.current_url
@@ -176,7 +176,6 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
         # selenium webdriver操作cookie
         # http://www.cnblogs.com/fnng/p/3269450.html
         originalCookie = driver.get_cookies()
-        
 
         import random
         # driver.get_screenshot_as_file("/tmp/PhantomJSPic" +
@@ -184,59 +183,61 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
         # selenium无法得到code,先根据返回titile和内容来看如果是正常返回,则这里将code赋值为200
         # 如果title和内容异常(如包含"页面不存在"),则将这个请求重新发给get_request(url,by="MechanicalSoup")
         # 这里将正常的http网页用phantomJS来请求,如果发现异常则交给MechanicalSoup重新访问
-        code = 200 
+        code = 200
         title = driver.title
         content = driver.page_source
-        #表单页面处理
+        # 表单页面处理
         try:
-            form=driver.find_element_by_css_selector('form').submit()
-            hasFormAction=True
-            if "?" in driver.current_url or re.search(r'''&lt;form[^&lt;&gt;]*method=('|")?get('|")?[^&lt;&gt;]*&gt;''',content,re.I):
-                #说明是get请求提交的参数
-                #get提交表单的处理
-                formActionValue=driver.current_url
+            form = driver.find_element_by_css_selector('form').submit()
+            hasFormAction = True
+            if "?" in driver.current_url or re.search(r'''&lt;form[^&lt;&gt;]*method=('|")?get('|")?[^&lt;&gt;]*&gt;''', content, re.I):
+                # 说明是get请求提交的参数
+                # get提交表单的处理
+                formActionValue = driver.current_url
             else:
-                if re.search(r'''&lt;form[^&lt;&gt;]*method=('|")?post('|")?[^&lt;&gt;]*&gt;''',content,re.I):
-                #post提交表单的处理采用自行查找所有表单中的参数
-                #post的测试url中有^,这是人为添加的,便于放到数据库中
-                    formActionValue+=(driver.current_url+"^")
+                if re.search(r'''&lt;form[^&lt;&gt;]*method=('|")?post('|")?[^&lt;&gt;]*&gt;''', content, re.I):
+                    # post提交表单的处理采用自行查找所有表单中的参数
+                    # post的测试url中有^,这是人为添加的,便于放到数据库中
+                    formActionValue += (driver.current_url + "^")
                 else:
-                    #其他情况当作get请求,并用正则找出表单中的参数(不用selenium的submit)
-                    formActionValue+=(driver.current_url+"?")
+                    # 其他情况当作get请求,并用正则找出表单中的参数(不用selenium的submit)
+                    formActionValue += (driver.current_url + "?")
 
-                inputParamList=re.findall(r'''(&lt;input[^&lt;&gt;]*name=('|")?([^'"&lt;&gt;\s]+)('|")?[^&lt;&gt;]*&gt;)''',content,re.I)
-                paramPartValue=""
-                paramNameList=[]
+                inputParamList = re.findall(
+                    r'''(&lt;input[^&lt;&gt;]*name=('|")?([^'"&lt;&gt;\s]+)('|")?[^&lt;&gt;]*&gt;)''', content, re.I)
+                paramPartValue = ""
+                paramNameList = []
                 for each in inputParamList:
-                    paramName=each[2]
+                    paramName = each[2]
                     if paramName not in paramNameList:
-                        #防止有重复的参数
+                        # 防止有重复的参数
                         paramNameList.append(paramName)
-                        if re.search(r'''type=('|")?hidden('|")?''',each[0],re.I):
-                            #处理hidden类型的参数
-                            hiddenParamValue=re.search(r'''value=('|")?([^'"&lt;&gt;\s]*)('|")?''',each[0],re.I).group(2)
-                            paramPartValue+=(paramName+"="+hiddenParamValue+"&amp;")
-                        elif re.search(r'''required=('|")?required('|")?''',each[0],re.I):
-                            #处理必须要填的参数
-                            paramPartValue+=(paramName+"=requiredParamValue&amp;")
+                        if re.search(r'''type=('|")?hidden('|")?''', each[0], re.I):
+                            # 处理hidden类型的参数
+                            hiddenParamValue = re.search(
+                                r'''value=('|")?([^'"&lt;&gt;\s]*)('|")?''', each[0], re.I).group(2)
+                            paramPartValue += (paramName + "=" + hiddenParamValue + "&amp;")
+                        elif re.search(r'''required=('|")?required('|")?''', each[0], re.I):
+                            # 处理必须要填的参数
+                            paramPartValue += (paramName + "=requiredParamValue&amp;")
                         else:
-                            #处理不是hidden也不是required类的参数的处理
-                            paramPartValue+=(paramName+"=&amp;")
-                if paramPartValue[-1]=="&amp;":
-                    paramPartValue=paramPartValue[:-1]
+                            # 处理不是hidden也不是required类的参数的处理
+                            paramPartValue += (paramName + "=&amp;")
+                if paramPartValue[-1] == "&amp;":
+                    paramPartValue = paramPartValue[:-1]
 
-                formActionValue+=paramPartValue
+                formActionValue += paramPartValue
 
         except selenium.common.exceptions.NoSuchElementException:
-            hasFormAction=False
+            hasFormAction = False
             print("没找到这个元素哟...")
         print("len content is :\n" + str(len(content)))
         print("title is :\n" + title)
-        if re.search(r"(页面不存在)|(未找到页面)|(page\s+not\s+found)|(404\s+not\s+found)",content,re.I) or re.search(r"404",title,re.I):
-            if re.search(r'''&lt;form\s+[^&lt;&gt;]*&gt;''',content,re.I):
+        if re.search(r"(页面不存在)|(未找到页面)|(page\s+not\s+found)|(404\s+not\s+found)", content, re.I) or re.search(r"404", title, re.I):
+            if re.search(r'''&lt;form\s+[^&lt;&gt;]*&gt;''', content, re.I):
                 input("需要调整代码!!!!!!!!!")
             else:
-                return get_request(url,by="MechanicalSoup")
+                return get_request(url, by="MechanicalSoup")
         # time.sleep(5) # Let the user actually see something!
         # driver.quit()
 
@@ -252,11 +253,11 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
         # 下面比较特殊,PhantomJS得到的html不用decode,直接就是string类型
         'content': content,
         #True or False
-        'hasFormAction':hasFormAction,
-        #eg,https://www.baidu.com^a=1&amp;b=2
-        #eg,https://www.baidu.com/?a=1&amp;b=2
-        #上面?表示formAction对应get请求,^表示formAction对应post请求
-        'formActionValue':formActionValue}
+        'hasFormAction': hasFormAction,
+        # eg,https://www.baidu.com^a=1&amp;b=2
+        # eg,https://www.baidu.com/?a=1&amp;b=2
+        # 上面?表示formAction对应get请求,^表示formAction对应post请求
+        'formActionValue': formActionValue}
 </code></pre>
 </div>
 </span>
