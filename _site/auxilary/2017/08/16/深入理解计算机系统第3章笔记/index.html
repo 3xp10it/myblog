@@ -177,14 +177,14 @@ old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
 
 <p>9.寄存器使用惯例</p>
 
-<p>a)eax,edx,ecx被划分为<code class="highlighter-rouge">调用者保存</code>寄存器</p>
+<p>a)eax,edx,ecx被划分为<code class="highlighter-rouge">调用者保存</code>寄存器  [x86-64中变成r10和r11两个寄存器]</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
 也即调用者在调用其它函数前会自行保存这些寄存器在调用者的栈桢中,调用完成后会恢复(pop)这些保存过的寄存器
 </code></pre>
 </div>
 
-<p>b)ebx,esi,edi被划分为<code class="highlighter-rouge">被调用者保存</code>寄存器</p>
+<p>b)ebx,esi,edi被划分为<code class="highlighter-rouge">被调用者保存</code>寄存器   [x86-64中变成:rbx,rbp,r12-r15]</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
 也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
@@ -317,10 +317,13 @@ f)使得函数可能需要栈帧的原因如下:
     3)函数用取地址操作符(&amp;)来计算一个局部变量的地址
     4)函数必须将栈上的某些参数传递到另一个函数
     5)在修改一个被调用者保存的寄存器前,函数需要保存它的状态
+g)gcc认为用32字节来保存所有的局部变量和剩余无法存放在寄存器中的函数的参数就足够了(32字节对应4个栈单元)
+h)上面g的好处是为了尽量减少栈指针(rsp)的移动次数,简化编译器用相对于栈指针的偏移量产生对栈元素的引用的任务
+i)在函数开始没有push ebp(32位下为push ebp+mov ebp,esp)了,变成了subq $32,%rsp
 </code></pre>
 </div>
 
-<p>17.为什么IA32中ebp+8的下一个(高地址)栈单元的地址是ebp+c?    [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]</p>
+<p>17.为什么IA32中ebp+0的下一个(高地址)栈单元的地址是ebp+4而不是ebp+0x20? [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
 那么0x10000001中存放的内容为b,也即1个内存地址差对应8位(1字节)的内存容量,如下图od截图中左下角的数据窗口中内存
@@ -329,6 +332,7 @@ f)使得函数可能需要栈帧的原因如下:
 </div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/od1.png" /></p>
+
 </span>
 
         
