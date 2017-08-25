@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 25 Aug 2017 22:27:06 +0800</pubDate>
-    <lastBuildDate>Fri, 25 Aug 2017 22:27:06 +0800</lastBuildDate>
+    <pubDate>Fri, 25 Aug 2017 23:14:27 +0800</pubDate>
+    <lastBuildDate>Fri, 25 Aug 2017 23:14:27 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -462,13 +462,14 @@ a.list.append('water')
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a)将函数参数保存在寄存器上,不保存在栈上(参数&amp;gt;6个除外)
 b)程序不再需要信赖栈来存储和获取过程信息,极大地减少了过程调用和返回的开销
 c)最多可以有6个整型(整数和指针)参数可以通过寄存器进行传递,寄存器名对应于所传递的数据的大小,如下图
-d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-3.png&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;e)使得函数可能需要栈帧的原因如下:
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
+e)函数过程的栈帧通常有固定的大小,在过程开始时通过减小栈指针(rsp)来设置(如某函数的开始就是subq $32,%rsp)
+f)使得函数可能需要栈帧的原因如下:
     1)局部变量大多,不能都放在寄存器中
     2)有些局部变量是数组或是结构
     3)函数用取地址操作符(&amp;amp;)来计算一个局部变量的地址
@@ -476,6 +477,13 @@ d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相�
     5)在修改一个被调用者保存的寄存器前,函数需要保存它的状态
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;17.为什么IA32中ebp+8的下一个(高地址)栈单元的地址是ebp+c?    [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]
+    IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
+那么0x10000001中存放的内容为b,也即1个内存地址差对应8位(1字节)的内存容量,如下图od截图中左下角的数据窗口中内存地址
+与内容数据的对应关系.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/od1.png&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 16 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
