@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 25 Aug 2017 23:14:27 +0800</pubDate>
-    <lastBuildDate>Fri, 25 Aug 2017 23:14:27 +0800</lastBuildDate>
+    <pubDate>Fri, 25 Aug 2017 23:16:26 +0800</pubDate>
+    <lastBuildDate>Fri, 25 Aug 2017 23:16:26 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -478,7 +478,7 @@ f)使得函数可能需要栈帧的原因如下:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;17.为什么IA32中ebp+8的下一个(高地址)栈单元的地址是ebp+c?    [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]
+&lt;p&gt;17.为什么IA32中ebp+8的下一个(高地址)栈单元的地址是ebp+c?    [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]&lt;br /&gt;
     IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
 那么0x10000001中存放的内容为b,也即1个内存地址差对应8位(1字节)的内存容量,如下图od截图中左下角的数据窗口中内存地址
 与内容数据的对应关系.&lt;/p&gt;
