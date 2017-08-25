@@ -298,6 +298,26 @@ a.list.append('water')
 </div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-2.png" /></p>
+
+<p>16.x86-64与栈相关的特性</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a)将函数参数保存在寄存器上,不保存在栈上(参数&gt;6个除外)
+b)程序不再需要信赖栈来存储和获取过程信息,极大地减少了过程调用和返回的开销
+c)最多可以有6个整型(整数和指针)参数可以通过寄存器进行传递,寄存器名对应于所传递的数据的大小,如下图
+d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
+</code></pre>
+</div>
+
+<p>&lt;img src=”https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-3.png”</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>e)使得函数可能需要栈帧的原因如下:
+    1)局部变量大多,不能都放在寄存器中
+    2)有些局部变量是数组或是结构
+    3)函数用取地址操作符(&amp;)来计算一个局部变量的地址
+    4)函数必须将栈上的某些参数传递到另一个函数
+    5)在修改一个被调用者保存的寄存器前,函数需要保存它的状态
+</code></pre>
+</div>
 </span>
 
         
