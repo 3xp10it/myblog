@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 26 Aug 2017 08:46:35 +0800</pubDate>
-    <lastBuildDate>Sat, 26 Aug 2017 08:46:35 +0800</lastBuildDate>
+    <pubDate>Sat, 26 Aug 2017 08:49:45 +0800</pubDate>
+    <lastBuildDate>Sat, 26 Aug 2017 08:49:45 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -599,10 +599,12 @@ g)gcc认为用32字节来保存所有的局部变量和剩余无法存放在寄�
 h)上面g的好处是为了尽量减少栈指针(rsp)的移动次数,简化编译器用相对于栈指针的偏移量产生对栈元素的引用的任务
 i)在函数开始没有push ebp(32位下为push ebp+mov ebp,esp)了,变成了subq $32,%rsp
 j)函数最多可以访问超过当前栈指针(rsp)128个字节的栈上存储空间(address&amp;lt;rsp的内存地址空间)
-h)x86-64 ABI将j中的这个区域称为红色地带,必须保持当rsp移动时,红色地带可读可写
-k)阅读64位反汇编代码可参考&amp;lt;a href=&quot;http://download.csdn.net/download/lpangbing/4237727&quot;&amp;gt;x86-64 ABI文档&amp;lt;/a&amp;gt;
+k)x86-64 ABI将j中的这个区域称为红色地带,必须保持当rsp移动时,红色地带可读可写
+l)阅读64位反汇编代码可参考如下链接
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://download.csdn.net/download/lpangbing/4237727&quot;&gt;x86-64 ABI文档&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;17.为什么IA32中ebp+0的下一个(高地址)栈单元的地址是ebp+4而不是ebp+0x20? [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]&lt;/p&gt;
 
