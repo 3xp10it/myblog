@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>深入理解计算机系统第4章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,116 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">深入理解计算机系统第4章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 29, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><p>1.ISA:指令集体系结构,是指一个处理器支持的指令和指令的字节级编码</p>
+
+<p>2.ISA在编译器编写者和处理器设计人员之间提供了一个概念抽象层,编译器编写者只需要知道允许哪些指令,以及它们是如何编码
+的;而处理器设计者必须建造出执行这些指令的处理器</p>
+
+<p>3.ISA模型看上去应该是顺序指令执行,也就是先取出一条指令,等到它执行完毕,再开始下一条.然而,与一个时刻只执行一条指令
+相比,通过同时处理金条指令的不同部分,处理器可以获得较高的性能(流水线),为了保证处理器能达到同顺序执行相同的结果,人
+们采用了一些特殊的机制</p>
+
+<p>4.生产处理器的公司很少,但是研究处理器的设计人员的队伍已经非常巨大了,而且还在增大.一个主要的处理器设计的各个方面大
+约涉及1000多人</p>
+
+<p>5.HCL:硬件控制语言,是一种描述硬件系统控制部分的简单语言</p>
+
+<p>6.基于顺序操作的功能正确但是有点不实用的Y86处理器是作者用的例子,基于这个顺序设计为基础,进行一系列的改造,创建一个
+流水线化的处理器,这个流水线化的处理器将每条指令的执行分解成五步,处理器可以同时执行五条指令的不同阶段,为了使这个处
+理器保留Y86 ISA的顺序的性质,要求处理很多冒险或冲突情况,冒险就是一条指令的位置或操作数信赖于其他仍在流水线中的指令</p>
+
+<p>7.指令集的一个重要性质就是字节编码必须有唯一的解释,任意一个字节序列要么是一个唯一的指令序列的编码,要么就不是一个
+合法的字节序列</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/08/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/08/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/">深入理解计算机系统第4章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          深入理解计算机系统第4章笔记
-         
-        <a href="/auxilary/2017/08/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

