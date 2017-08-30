@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Aug 2017 23:17:39 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Aug 2017 23:17:39 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Aug 2017 23:19:51 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Aug 2017 23:19:51 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -48,7 +48,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp4-1.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp4-2png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp4-2.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;12.实现所有Y86指令所需要的计算可以组织成六个阶段:取指,译码,执行,访存,写回,更新pc.
 取指:从程序计数器(PC)中读取指令指示符字节的两个四位部分,称为icode(指令代码)和ifun(指令功能)
