@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 31 Aug 2017 23:23:06 +0800</pubDate>
-    <lastBuildDate>Thu, 31 Aug 2017 23:23:06 +0800</lastBuildDate>
+    <pubDate>Fri, 01 Sep 2017 07:59:41 +0800</pubDate>
+    <lastBuildDate>Fri, 01 Sep 2017 07:59:41 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -32,9 +32,14 @@ f)消除不必要的存储器引用&lt;/p&gt;
 &lt;p&gt;5.循环展开是一种程序变换,通过增加每次迭代计算的元素的数量,减少循环的迭代次数.编译器可以很容易地执行循环展开,只要
 优化级别设置得足够高,许多编译器都能例行公事地做到这一点.用命令行选项”-funroll-loops”调用GCC,会执行循环展开.&lt;/p&gt;
 
-&lt;p&gt;循环展开能够从两个方面改程序的性能.
+&lt;p&gt;循环展开能够从两个方面改程序的性能,下图中psum2函数是一个循环展开的示例.
 a)减少了不利操作的数量,如:循环索引计算和条件分支&lt;br /&gt;
 b)提供了一些方法,可以进一步变化代码,减少整个计算中关键路径上的操作数量&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp5-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;6.每个运算都是由两个周期计数值来刻画的:一个是延迟,它表示完成运算所需要的总时间;另一个是发射时间,它表示两个连续的
+同类型运算之间需要的最小时钟周期数.&lt;/p&gt;
 </description>
         <pubDate>Thu, 31 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/31/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC5%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
