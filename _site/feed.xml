@@ -5,18 +5,18 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 31 Aug 2017 23:14:57 +0800</pubDate>
-    <lastBuildDate>Thu, 31 Aug 2017 23:14:57 +0800</lastBuildDate>
+    <pubDate>Thu, 31 Aug 2017 23:23:06 +0800</pubDate>
+    <lastBuildDate>Thu, 31 Aug 2017 23:23:06 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>深入理解计算机系统第5章笔记</title>
-        <description>&lt;p&gt;1.编写高效程序特点:
-a)必须选择一组合适的算法和数据结构
-b)必须编写出编译器能够有效优化以转换成高效可执行代码的源代码
-c)利用多核和多处理器并行计算
-d)消除循环的低效率
-e)减少过程调用
+        <description>&lt;p&gt;1.编写高效程序特点:&lt;br /&gt;
+a)必须选择一组合适的算法和数据结构&lt;br /&gt;
+b)必须编写出编译器能够有效优化以转换成高效可执行代码的源代码&lt;br /&gt;
+c)利用多核和多处理器并行计算&lt;br /&gt;
+d)消除循环的低效率&lt;br /&gt;
+e)减少过程调用&lt;br /&gt;
 f)消除不必要的存储器引用&lt;/p&gt;
 
 &lt;p&gt;2.现代微处理器取得的了不起的功绩之一是:它们采用复杂而奇异的微处理器结构,其中,多条指令可以并行地执行,同时又呈现一
@@ -33,7 +33,7 @@ f)消除不必要的存储器引用&lt;/p&gt;
 优化级别设置得足够高,许多编译器都能例行公事地做到这一点.用命令行选项”-funroll-loops”调用GCC,会执行循环展开.&lt;/p&gt;
 
 &lt;p&gt;循环展开能够从两个方面改程序的性能.
-a)减少了不利操作的数量,如:循环索引计算和条件分支
+a)减少了不利操作的数量,如:循环索引计算和条件分支&lt;br /&gt;
 b)提供了一些方法,可以进一步变化代码,减少整个计算中关键路径上的操作数量&lt;/p&gt;
 </description>
         <pubDate>Thu, 31 Aug 2017 00:00:00 +0800</pubDate>
