@@ -5,19 +5,31 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 04 Sep 2017 20:30:19 +0800</pubDate>
-    <lastBuildDate>Mon, 04 Sep 2017 20:30:19 +0800</lastBuildDate>
+    <pubDate>Tue, 05 Sep 2017 13:46:54 +0800</pubDate>
+    <lastBuildDate>Tue, 05 Sep 2017 13:46:54 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>深入理解计算机系统第5章笔记</title>
-        <description>&lt;p&gt;1.编写高效程序特点:&lt;br /&gt;
-a)必须选择一组合适的算法和数据结构&lt;br /&gt;
-b)必须编写出编译器能够有效优化以转换成高效可执行代码的源代码&lt;br /&gt;
-c)利用多核和多处理器并行计算&lt;br /&gt;
-d)消除循环的低效率&lt;br /&gt;
-e)减少过程调用&lt;br /&gt;
-f)消除不必要的存储器引用&lt;/p&gt;
+        <description>&lt;p&gt;1.编写高效程序特点:&lt;/p&gt;
+
+&lt;p&gt;a)必须选择一组合适的算法和数据结构&lt;br /&gt;
+要筘警觉,避免使用那些会渐进地产生糟糕性能的算法或编码技术&lt;/p&gt;
+
+&lt;p&gt;b)必须编写出编译器能够有效优化以转换成高效可执行代码的源代码&lt;br /&gt;
+如,用好的风格重写条件操作,使得编译采用条件数据传送&lt;/p&gt;
+
+&lt;p&gt;c)利用多核和多处理器并行计算&lt;br /&gt;
+通过使用例如多个累积变量和重新结合等技术,找到方法提高指令级并行&lt;/p&gt;
+
+&lt;p&gt;d)消除循环的低效率&lt;br /&gt;
+展开循环,降低开销,并且使得进一步的优化成为可能&lt;/p&gt;
+
+&lt;p&gt;e)减少过程调用&lt;br /&gt;
+消除连续的函数调用,在可能时,将计算移到循环外,考虑有选择地妥协程序的模块性以获得更大的效率&lt;/p&gt;
+
+&lt;p&gt;f)消除不必要的存储器引用&lt;br /&gt;
+引入临时变量来保存中间结果,只有在最后的值计算出来时,才将结果存放到数组或全局变量中&lt;/p&gt;
 
 &lt;p&gt;2.现代微处理器取得的了不起的功绩之一是:它们采用复杂而奇异的微处理器结构,其中,多条指令可以并行地执行,同时又呈现一
 种简单地顺序执行的表象&lt;/p&gt;
@@ -49,8 +61,16 @@ c)编译器可以很容易地执行循环展开,只要优化级别设置得足�
 对于一个可结合和可交换的合并运算来说,比如说整数加法或乘法,我们可以通过将一组合并运算分割成两个或更多的部分,并在
 最后合并结果来提高性能(利用功能单元的流水线能力来提高性能)&lt;/p&gt;
 
-&lt;p&gt;b)重新结合变换
+&lt;p&gt;b)重新结合变换&lt;br /&gt;
 重新结合变换能够减少计算中关键路径上操作的数量,通过更好地利用功能单元的流水线能力得到更好的性能&lt;/p&gt;
+
+&lt;p&gt;8.unix系统提供了一个剖析程序GPROF,它会计算每个函数花费的时间和函数被调用的次数&lt;/p&gt;
+
+&lt;p&gt;9.为什么函数调用和递归效率低?&lt;/p&gt;
+
+&lt;p&gt;系统每次函数调用都要分配存储空间,并将调用点压栈记录,在函数调用结束后还要释放空间,恢复栈空间,所以函数调用浪费时间
+和空间,而递归正是函数自己调用自己,于是效率低&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 31 Aug 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/08/31/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC5%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
@@ -879,7 +899,7 @@ l)阅读64位反汇编代码可参考如下链接
 &lt;p&gt;1.&lt;a href=&quot;http://www.fx115.net/qa-220-122690.aspx&quot;&gt;movsz/movsx&lt;/a&gt;&lt;br /&gt;
 2.&lt;a href=&quot;http://baike.baidu.com/link?url=LW99HgDBFHx3Ao2Ep1JshAbaQT5O3QqsLqZYhi_a1mJ1tFPXc-S1Y9-JRmYKJQjXn0hR7vO6tIDDzXicIDLnrq&quot;&gt;lodsb/lodsw[stosb/stosw]&lt;/a&gt;&lt;br /&gt;
 3.&lt;a href=&quot;http://bbs.bccn.net/thread-327979-1-1.html&quot;&gt;cdq&lt;/a&gt; &lt;a href=&quot;https://zhidao.baidu.com/question/576311402.html&quot;&gt;cdq-more&lt;/a&gt;&lt;br /&gt;
-4.&lt;a href=&quot;http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_&quot;&gt;neg&lt;/a&gt;
+4.&lt;a href=&quot;http://baike.baidu.com/link?url=CT8ZZrc7HIQuiY5exSQr0uESH2sipINbLQr4APzLt8x2JRGo4mqTYw-NA6MigqE83mCndW2EhKDmUqRk-4io5_&quot;&gt;neg&lt;/a&gt;&lt;br /&gt;
 5.sal/shl,sar/shr&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sal:算术左移
