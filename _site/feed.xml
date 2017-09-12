@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Sep 2017 17:26:41 +0800</pubDate>
-    <lastBuildDate>Mon, 11 Sep 2017 17:26:41 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Sep 2017 08:14:00 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Sep 2017 08:14:00 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -20,7 +20,7 @@
 &lt;p&gt;b)重定位:链接器通过把每个符号定义与一个存储器位置联系起来,然后修改所有对这些符号的引用,使得它们指向这个存储器位置
 ,从而重定位这些节&lt;/p&gt;
 
-&lt;p&gt;2.如下为一个典型的ELF可重定位目标文件格式
+&lt;p&gt;2.如下为一个典型的ELF可重定位目标文件格式(与elf[可执行目标文件]的格式类似)
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-1.png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.text:已编译程序的机器码
@@ -45,6 +45,21 @@
 &lt;p&gt;5.任何声明带有static属性的全局变量或者函数都是模块私有有,类似地,任何声明不带static属性的全局变量和函数都是公共的,
 可以被其他模块访问,使用static属性可在模块内部隐藏变量和函数声明,尽可能用static属性来保护你的变量和函数是很好的编
 程习惯.python中在名称前加下划线表示私有,&lt;a href=&quot;http://python.jobbole.com/81129/&quot;&gt;更多详情&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;6.重定位:在装入程序前,系统会计算未使用的内存,然后将程序装入,并记下开始地址,在执行有相对地址的指令时,会将所有的地
+址加上刚才记下的开始地址,就叫重定位.重定位就是把程序的逻辑地址空间变换成内存中的实际物理地址空间的过程,也就是说在
+装入时对目标程序中指令和数据的修改过程,它是多道程序在内存中同时运行的基础.链接过程中会把多个文件的相同类型数据段
+代码放在一起,所以需要将里面的符号变量重新安置在一个确定的内存地址中,这就是重定位.&lt;/p&gt;
+
+&lt;p&gt;7.对可重定位目标文件的理解,&lt;a href=&quot;http://blog.csdn.net/ky_heart/article/details/51865526&quot;&gt;更多详情&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;8.elf可执行文件格式图如下,.text,.rodata和.data节和可重定位目标文件中的节是相似的,除了这些节已经被重定位到它们最终
+的运行时存储器地址以外.elf可执行文件被设计得很容易加载到存储器,可执行文件的连续的片(chunk)被映射到连续的存储器段,
+段头部表描述了这种关系,如下图7-12展示了一个可执行文件的段头部表(由objdump显示),其中第一部分是代码段,包括(elf头部,
+段头部表,.init,.text,.rodata节),第二部分是数据段,包括(.data,.bss节)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-2.png&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-3.png&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 08 Sep 2017 00:00:00 +0800</pubDate>
