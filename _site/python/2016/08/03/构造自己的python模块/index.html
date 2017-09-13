@@ -118,6 +118,10 @@
 <div class="highlighter-rouge"><pre class="highlight"><code>http://blog.csdn.net/gqtcgq/article/details/49255995
 
 http://blog.useasp.net/archive/2014/09/09/packaging-python-libraries-and-upload-to-pypi-python-package-index.aspx
+
+上传包含文件夹时
+https://stackoverflow.com/questions/7522250/how-to-include-package-data-with-setuptools-distribute
+
 </code></pre>
 </div>
 
@@ -579,13 +583,22 @@ python setup.py sdist upload
 
 <div class="highlighter-rouge"><pre class="highlight"><code>1&gt;python打包模块上传时,打包其他文件夹或文件:
 	新建MANIFEST.in文件,eg.内容如下[graft是包含文件夹]
-		include *.md
+		include *.md design.jpg
 		graft cms_identify
 		graft dicts
 		graft exps
 	但是这样包含的文件夹虽然会上传到pypi中,但是pip install moduleName时在MANIFEST.in中的文件夹不会被安装到系统
 	dist-packages中,如果需要在pip install命令后将文件夹也安装到dist-packages中则需要在setup.py中的packages参数
 	中填写上面的三个文件夹名
+
+    或者如下解决方案:
+    https://stackoverflow.com/questions/7522250/how-to-include-package-data-with-setuptools-distribute
+    在manifest.in文件中写成如下内容:
+        include *.md design.jpg
+        recursive-include cms_identify *
+        recursive-include dicts *
+        recursive-include exps *
+        recursive-include tools *
 
 2&gt;本地下载安装已上传到pypi中的最新模块:
 	pip3 install exp10it -U --no-cache
