@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>深入理解计算机系统第7章笔记</title>
+<title>dvwa的csrf_token机制</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,13 +93,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">深入理解计算机系统第7章笔记</h1>
+      <h1 class="header" itemprop="name">dvwa的csrf_token机制</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">September 8, 2017</span>
-           under auxilary
+          on <span itemprop="datePublished" content="2014-08-28">September 14, 2017</span>
+           under web
         </i></small>
       </div>
 
@@ -113,61 +113,53 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="链接">链接</h3>
+        <span itemprop="articleBody"><p>dvwa的csrf_token在设置level为impossible(除low外未验证)时起作用,有了csrf_token后可防csrf漏洞的利用,同时也给自动化漏洞
+检测带来了麻烦,客户端扫描漏洞时需要每次重新设置新的csrf_token来发送get/post请求,如果没有带上新的token参数值服务器
+会校验不通过</p>
 
-<p>1.为了构造可执行文件,链接器必须完成两个主要任务</p>
+<p>dvwa设置level为impossible后服务端验证(由form action中的地址对应的页面进行验证)客户端传来的csrf_token的过程如下:(以xss[reflected]和login页面为例,dvwa中的login.php和xss_r中的form action中的url都是当前页面)</p>
 
-<p>a)符号解析:符号解析的目的是将每个符号引用刚好和一个符号定义联系起来</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    加载impossible.php
+    impossible.php执行内容流程:
+        1.验证csrf_token
+        2.刷新服务器端存储的csrf_token
 
-<p>b)重定位:链接器通过把每个符号定义与一个存储器位置联系起来,然后修改所有对这些符号的引用,使得它们指向这个存储器位置
-,从而重定位这些节</p>
-
-<p>2.如下为一个典型的ELF可重定位目标文件格式(与elf[可执行目标文件]的格式类似)
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-1.png" /></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>.text:已编译程序的机器码
-.rodata:只读数据,如printf语句中的格式串和开关语句的跳转表
-.data:已初始化的全局变量,局部变量保存在栈中
-.bss:未初始化的全局变量,在目标文件中这个节不占据实际的空间,它仅仅是一个点位符(better save space)
-.symtab:一个符号表,它存放程序中定义和引用的函数和全局变量的信息,.symtab符号表不包含局部变量的条目
-.rel.text:一个.text节中位置的列表,当链接器把这个目标文件和其他文件结合时,需要修改这些位置
-.rel.data:被模块引用或定义的任何全局变量的重定位信息
-.debug:一个调试符号表,其条目是程序中定义的局部变量和类型定义,程序中定义和引用的全局变量,以及原始的C源文件,只有-g
-选项调用编译驱动程序(gcc)才会得到这张表
-.line:源代码和.text节中机器指令之间的映射
-.strtab:一个字符串表,其内容包括.symtab和.debug节中的符号表,以及节头部中的节名字,也即反汇编中"查找字符串"的结果
+    取出新的csrf_token到html的body
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 </code></pre>
 </div>
 
-<p>3.符号:符号是函数名和变量名,本地链接器符号不包含对应于本地非静态程序变量的任何符号(局部变量)</p>
+<p>其中刷新服务器存储的csrf_token的代码如下:</p>
 
-<p>4.定义为带有C static属性的本地过程变量是不在栈中管理的,相反,编译器在.data和.bss中为每个定义分配空间,并在符号表中
-创建一个有唯一名字的本地链接器符号</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
+     if( isset( $_SESSION[ 'session_token'  ]  )  ) {                                                                                                         
+         destroySessionToken();                                                                                                                            
+     }                                                                                                                                                     
+     $_SESSION[ 'session_token'  ] = md5( uniqid()  );                                                                                                       
+} 
+</code></pre>
+</div>
 
-<p>5.任何声明带有static属性的全局变量或者函数都是模块私有有,类似地,任何声明不带static属性的全局变量和函数都是公共的,
-可以被其他模块访问,使用static属性可在模块内部隐藏变量和函数声明,尽可能用static属性来保护你的变量和函数是很好的编
-程习惯.python中在名称前加下划线表示私有,<a href="http://python.jobbole.com/81129/">更多详情</a></p>
+<p>在上面的验证csrf_token中,xss[reflected]是先判断是否传入name参数,也即如果
+在url中出现name参数,无论是否为空都将进行csrf_token验证(服务器中用的isset($_POST[‘name’])来判断)
+eg.
+访问<code class="highlighter-rouge">http://192.168.83.11/dvwa/vulnerabilities/xss_r/?name=1</code>时验证csrf_token
+访问<code class="highlighter-rouge">http://192.168.83.11/dvwa/vulnerabilities/xss_r/?name=</code>时验证csrf_token
+访问<code class="highlighter-rouge">http://192.168.83.11/dvwa/vulnerabilities/xss_r/</code>时不验证csrf_token</p>
 
-<p>6.重定位:在装入程序前,系统会计算未使用的内存,然后将程序装入,并记下开始地址,在执行有相对地址的指令时,会将所有的地
-址加上刚才记下的开始地址,就叫重定位.重定位就是把程序的逻辑地址空间变换成内存中的实际物理地址空间的过程,也就是说在
-装入时对目标程序中指令和数据的修改过程,它是多道程序在内存中同时运行的基础.链接过程中会把多个文件的相同类型数据段
-代码放在一起,所以需要将里面的符号变量重新安置在一个确定的内存地址中,这就是重定位.</p>
+<p>从上面服务器校验客户端传入的csrf_token参数的过程可以看出:</p>
 
-<p>7.对可重定位目标文件的理解,<a href="http://blog.csdn.net/ky_heart/article/details/51865526">更多详情</a></p>
-
-<p>8.elf可执行文件格式图如下,.text,.rodata和.data节和可重定位目标文件中的节是相似的,除了这些节已经被重定位到它们最终
-的运行时存储器地址以外.elf可执行文件被设计得很容易加载到存储器,可执行文件的连续的片(chunk)被映射到连续的存储器段,
-段头部表描述了这种关系,如下图7-12展示了一个可执行文件的段头部表(由objdump显示),其中第一部分是代码段,包括(elf头部,
-段头部表,.init,.text,.rodata节),第二部分是数据段,包括(.data,.bss节)</p>
-
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-2.png" />
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-3.png" /></p>
-
-<p>9.任何unix程序都可以通过调用execve函数来调用加载器,加载器将可执行目标文件中的代码和数据从磁盘拷贝到存储器中,然后
-通过跳转到程序的第一条指令或入口点来运行该程序,加载器运行时,它创建如下图7-13所示的存储器映像,其中内核虚拟存储器为
-高地址</p>
-
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-4.png" /></p>
+<p>a.服务器判断客户端是同一个<code class="highlighter-rouge">人</code>的方法是通过cookie中的sessionid来判断的,判断客户端是同一个<code class="highlighter-rouge">人</code>正常合法地通过浏览器
+访问的通过cookie中的sessionid+传入的csrf_token=服务器保存的csrf_token来判断的<br />
+b.这种带csrf_token验证的情况会对暴力破解产生阻碍,导致暴力破解相当于只能单线程进行(需要每次等待返回的新的
+csrf_token),且暴力破解时需要每次在请求时更新请求参数中的csrf_token的值为从服务器返回的新的csrf_token值<br />
+c.在自动化漏洞检测时需要先判断要检测的页面是否有csrf_token(有些页面是没有的),如果有则要在请求前更新csrf_token参数
+的值(sql注入和xss检测中可能会有)  <br />
+d.这里的csrf_token的验证和<a href="http://3xp10it.cc/web/2016/11/10/%E8%87%AA%E5%8A%A8%E8%AF%86%E5%88%AB%E9%AA%8C%E8%AF%81%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/#0x02-about">这里</a>说的验证码验证机制几乎相同,只不过链接里的form action页面与登录页面不同,也即只
+要登录页面中的form action值不是登录页面则很可能存在验证码绕过的问题(只要人工输入一次验证码即可)</p>
 
 </span>
 
@@ -178,7 +170,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            csapp
+            csrf, token
           </small>
         </div>
         
