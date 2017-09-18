@@ -205,6 +205,12 @@ $(document).ready(function(){
       mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E9%93%81%E8%A1%80%E4%B8%B9%E5%BF%83.mp3",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"Dan Dan心魅かれてく",
+      artist:"龙珠GT",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/Dan%20Dan%E5%BF%83%E9%AD%85%E3%81%8B%E3%82%8C%E3%81%A6%E3%81%8F.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     }];
 
   var cssSelector = {

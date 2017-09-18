@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          39 minute read
+          40 minute read
         </small>
       </div>
 
@@ -1012,6 +1012,9 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
         1.s和x的区别,s是delete+insert,x是delete
 
     my tmux配置:
+        注意新版本tmux配置要变化
+        https://github.com/tmux/tmux/issues/754
+
 		step1.
         https://github.com/tmux/tmux     安装最新版本
 		step2.
@@ -1029,6 +1032,15 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
     ubuntu安装Oh-My-Zsh:
         https://zhuanlan.zhihu.com/p/19556676
         http://www.jianshu.com/p/9a5c4cb0452d
+
+    macOS当用户名不是root时使用非系统自带的zsh方法
+    https://stackoverflow.com/questions/453236/how-to-set-my-default-shell-on-mac
+    brew install zsh
+    chsh -s `which zsh`
+    vim /etc/shells + /usr/local/bin/zsh(这是which zsh的结果)
+    重启终端
+    
+    
 
 </span><span class="p">75.</span>1&gt;dmz+光猫+有线路由+无线路由下的端口映射:
    2&gt;拓扑图大致为:
@@ -2913,6 +2925,14 @@ windows:
 <span class="p">
 293.</span>php的isset函数检测变量有没有存在,在url中如index.php?a=1&amp;b=&amp;c=2中的b变量是存在的,对服务器来说相当于
 $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>="",是个空字符串,isset返回true
+<span class="p">
+294.</span>linux下普通用户保留root权限方法chmod u+s /bin/zsh(/bin/bash)
+<span class="p">
+295.</span>请求一个url时对应的网页中有form action="valuePart":
+    a.如果valuePart以/开头,则要提交到的目的地址是不带路径的url+valuePart
+    b.如果valuePart以http开头,则要提交到的目的地址是valuePart
+    d.如果re.match(r"#+",valuePart)或re.match(r"<span class="se">\s</span><span class="err">*</span>",valuePart)则要提交到的目的地址是url
+    c.如果valuePart不是abc中的情况,则要提交到的目的地址是exp10it.py模块中的get_value_from_url(url)<span class="p">[</span><span class="nv">'y2'</span><span class="p">]</span>+'/'+valuePart
 </code></pre>
 </div>
 
