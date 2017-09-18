@@ -1,9 +1,91 @@
-<html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    </head>
-   <frameset rows="100%,*">
-    <frame src="index2.html"></frame>
-    <frame src="bgmusic.html"></frame>
-   </frameset>
-</html>
+---
+layout: default
+make-smaller-titles: true
+---
+
+<div class="container-fluid index">
+    
+    <div class="row">
+
+        <div class="col-md-12 content-panel main">
+
+            <div class="gravatar">
+			<pre><strong>
+
+ _   _  ___  _           _____ 
+| |_(_)/ _ \/ |_ ____  _|___ / 
+| __| | | | | | '_ \ \/ / |_ \ 
+| |_| | |_| | | |_) >  < ___) |
+ \__|_|\___/|_| .__/_/\_\____/ 
+              |_|              
+
+			</strong></pre>
+<!--                <img src="{{ site.title_image }}" class="img-circle about-image" height="150" width="150"
+																								  alt="{{
+																								  site.title
+}}" /> -->
+            </div>
+
+            <!--
+            <h1 class="header author-header" itemprop="headline">{{ site.title }}</h1>
+            -->
+            <p class="header author-header" itemprop="headline" style="font-family: 'Great Vibes', cursive;">{{ site.title }}</p>
+
+            <div class="author-text">
+                <div id="title_description">{{ site.title_description }}</div>
+<br><a href='mailto:quanyechavshuo@gmail.com'><font color='green'>contact<font></a> <font color='#ffffff'> or <font><a href='mailto:quanyechavshuo@gmail'> <font color='#ff0000'>contribute<font></a>
+
+            </div>
+            <script>
+            var list=new Array()
+            list[0]="the quiter you are,the more you are able to hear"
+            list[1]="人若无名,方可专心练剑"
+            list[2]="断剑重铸日,骑士归来时"
+            list[3]="to be sai"
+            list[4]='"他到底承受了多少,才能到这个水平"--<<博人传>>'
+            list[5]="永远年轻,永远热泪盈眶"
+            list[6]="节制:食不过饱,饮不至醉--<<富兰克林自传>>"
+            list[7]="慎言:言必益人益己,避免无益的闲谈--<<富兰克林自传>>"
+            list[8]="秩序:每件物品都有其位置,做事一定要限定完成时间--<<富兰克林自传>>"
+            list[9]="决心:决心做的事情必须做,不能半途而废--<<富兰克林自传>>"
+            list[10]="节俭:钱要花在益处,换言之,切记浪费--<<富兰克林自传>>"
+            list[11]="勤勉:不浪费任何时间,做该做的事,力戒一切不必要的行动--<<富兰克林自传>>"
+            list[12]="诚恳:不欺骗他人,思想公正无邪,说话亦如此--<<富兰克林自传>>"
+            list[13]="公正:不损人利己,履行应尽的义务--<<富兰克林自传>>"
+            list[14]="适度:避免走极端,要学会容忍--<<富兰克林自传>>"
+            list[15]="整洁:身体,衣服和住所要保持干净整洁--<<富兰克林自传>>"
+            list[16]="镇静:不要因为小事而惊慌失措--<<富兰克林自传>>"
+            list[17]="节欲:不要因为自己欲望而损害自己和他人的声誉和平静的生活--<<富兰克林自传>>"
+            list[18]="谦逊:以耶稣和苏格拉底为榜样--<<富兰克林自传>>"
+
+            var currentSign=list[parseInt(Math.random()*19)];
+            //document.getElementById("title_description").innerHTML=currentSign;
+            </script>
+
+            {% include social_links.html %}
+          </div>
+          <div class="col-md-12 content-panel main">
+
+            <div class="articles">
+
+              <h2>Latest Articles</h2>
+
+              <ul>
+                  {% for post in site.posts limit: site.post_limit %}
+
+                      <li>
+                          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title}}</a>
+                          <small class="hidden-xs">{{ post.date | date: "%B %-d, %Y" }}</small>
+                      </li>
+
+                  {% endfor %}
+              </ul>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
