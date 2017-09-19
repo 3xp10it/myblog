@@ -5,9 +5,57 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 18 Sep 2017 23:42:06 +0800</pubDate>
-    <lastBuildDate>Mon, 18 Sep 2017 23:42:06 +0800</lastBuildDate>
+    <pubDate>Tue, 19 Sep 2017 21:05:52 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Sep 2017 21:05:52 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>cookie和session</title>
+        <description>&lt;p&gt;0x00 set-cookie&lt;/p&gt;
+
+&lt;p&gt;第一次访问页面后,Server可将Cookie信息加入HTTP Header返回给浏览器(set-cookie),浏览器会自动将这些信息保存在本地;
+当再次访问相同域名时,浏览器将对应Cookie信息随请求一起发送,Server端可读取这些信息进行处理.&lt;/p&gt;
+
+&lt;p&gt;0x01 session_start()&lt;/p&gt;
+
+&lt;p&gt;session_start()做了哪些初始化工作
+1.读取名为PHPSESSID(如果没有改变默认值)的cookie值,假使为abc123
+2.若读取到PHPSESSID这个COOKIE,创建$_SESSION变量,并从相应的目录中(可以再php.ini中设置)读取SESS_abc123(默认
+是这种命名方式)文件,将字符装在入$_SESSION变量中; 若没有读取到PHPSESSID这个COOKIE,也会创建$_SESSION变量,同时创
+建一个sess_abc321(名称为随机值)的session文件,同时将abc321作为PHPSESSID的cookie值返回给浏览器端.&lt;/p&gt;
+
+&lt;p&gt;0x02 sessionID&lt;/p&gt;
+
+&lt;p&gt;在用户登录前后,客户端的cookie不会变,只是如果登录成功,这个cookie对应的服务器中的session变成可以访问后台内容的权限,
+所以如果sessionID值放在数据库中,可遍历这些sesionID,将客户端中cookie中的对应的sessioID值替换成数据库中的sessionID,
+如果有一个sessionID是管理员身份的session,那么可用这个cookie进后台&lt;/p&gt;
+
+&lt;p&gt;登录后的用户人为logout后,客户端cookie依然不变,除非时间过期了,这样浏览器就不会再用这个cookie了(dvwa中如此,其他未测
+)&lt;/p&gt;
+
+&lt;p&gt;0x03 python处理cookie&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/21736970/using-requests-module-how-to-handle-set-cookie-in-request-response&quot;&gt;python中自动处理cookie的方法&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;with requests.Session() as s:
+    r = s.get(URL1)
+    r = s.post(URL2, data=&quot;username and password data payload&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 19 Sep 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/09/19/cookie%E5%92%8Csession/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/09/19/cookie%E5%92%8Csession/</guid>
+        
+        <category>cookie</category>
+        
+        <category>session</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>dvwa的csrf_token机制</title>
@@ -137,6 +185,18 @@ csrf_token),且暴力破解时需要每次在请求时更新请求参数中的cs
 &lt;p&gt;10.&lt;a href=&quot;http://blog.chinaunix.net/uid-24532607-id-3082314.html&quot;&gt;静态链接库和动态链接库的区别&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;11.C语言为什么要有main函数?&lt;a href=&quot;https://www.zhihu.com/question/28360770?sort=created&quot;&gt;a&lt;/a&gt;,&lt;a href=&quot;http://blog.csdn.net/xtydtc/article/details/53572455&quot;&gt;b&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;12.GOT:全局偏移量表(global offset table),在加载时,动态链接器会重定位(修改)GOT中的每个条目,使得它包含正确的绝对地址.
+每个引用全局数据的目标模块都有自己的GOT&lt;/p&gt;
+
+&lt;p&gt;13.PLT:过程链接表(Procedure Linkage Table),如果一个目标模块调用定义在共享库中的任何函数,那么它就有自己的GOT和PLT,
+GOT是.data节的一部分,PLT是.text节的一部分&lt;/p&gt;
+
+&lt;p&gt;14.&lt;a href=&quot;https://www.zhihu.com/question/21249496/answer/71226275&quot;&gt;理解GOT和PLt的关系和原理&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;15.链接可以在编译时由静态编译器来完成,也可以在加载时和运行时由动态链接器来完成.链接器的两个主要任务是符号解析和重
+定位,符号解析将目标文件中的每个全局符号都绑定到一个唯一的定义,而重定位确定每个符号的最终存储器地址,并修改对那些目
+标的引用.&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 08 Sep 2017 00:00:00 +0800</pubDate>
@@ -992,51 +1052,6 @@ l)阅读64位反汇编代码可参考如下链接
         <guid isPermaLink="true">http://localhost:4000/auxilary/2017/08/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>csapp</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第2章笔记</title>
-        <description>&lt;h3 id=&quot;信息的表示和处理&quot;&gt;信息的表示和处理&lt;/h3&gt;
-
-&lt;p&gt;1.不同数据类型在不同位数的操作系统下的内存长度
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.大端和小端
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-2.png&quot; /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp2-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;大端(big endian)以高位数值存到内存地址的低位(以大数结尾)&lt;br /&gt;
-小端(little endian)以低位数值存到内存地址的高位(以小数结尾)&lt;br /&gt;
-网络上的字节序为大端,而计算机上的字节序一般为小端,于是在发送到网络上之前需要转换一次,否则数据发送到目的地会被对方
-理解错了,什么转换方法好呢?如果转换成char类型当然好,因为char类型的数据只占一个字节,没有大端和小端的区别,eg:
-将int(127)发到网络上去,127需要(2**xx7=128)7bits也即1B的数据量传输,转成char类型为”127”需要(1,2,7分别作为char)需要
-3B的传输量,这样的话需要传输3倍的数据量,效率太低了,于是不用这种方法,采用base64将本地数据编码后传输到网络上去&lt;/p&gt;
-
-&lt;p&gt;3.数据的表现形式有两种:&lt;code class=&quot;highlighter-rouge&quot;&gt;无符号&lt;/code&gt;类型和&lt;code class=&quot;highlighter-rouge&quot;&gt;补码&lt;/code&gt;类型,负数用补码表示,可由对应正数取反加1得到,eg:-4的表示形式&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4的二进制表示形式是0100,取反加1为:1011+1=1100
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;4.负数的计算为:-1x最高位(1)x2x2..2[位数-1]+除最高位以外的其他位的正数值&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum_{i=0}^{w-2} x_i \cdot 2^i&lt;/script&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg,1100这个负数的值计算方法为:-1x1x2x2x2+1x2x2+0x2+0=-8+4=-4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;5.如果一个表达式中包含有符号数和无符号数则会默认将有符号数转换成无符号数&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Aug 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/08/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>计算机系统</category>
         
         
         <category>auxilary</category>
