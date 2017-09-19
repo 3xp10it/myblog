@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>深入理解计算机系统第8章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,122 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">深入理解计算机系统第8章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 19, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="异常控制流">异常控制流</h3>
+
+<p>1.ECF:异常控制流(Exceptional Control Flow)</p>
+
+<p>2.应用程序通过使用一个叫做陷阱(trap)或者系统调用(system call)的ECF形式,向操作系统请求服务</p>
+
+<p>3.非本地跳转是一种应用层ECF,在C中是通过setjmp和longjmp函数提供的</p>
+
+<p>4.异常位于硬件和操作系统交界的部分,进程和信号位于应用和操作系统的交界之处</p>
+
+<p>5.异常是异常控制流的一种形式,它一部分是由硬件实现的,一部分是由操作系统实现的</p>
+
+<p>6.异常处理程序运行在内核模式下,这意味着它们对所有的系统资源都有完全的访问权限</p>
+
+<p>7.异常可以分为4类:中断,陷阱,故障,终止.如下图8-4.<br />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp8-1.png" /></p>
+
+<p>a)中断:中断是异步发生的,是来自处理器外部的I/O设备的信号的结果.I/O设备通过向外理器芯片上的一个引脚发信号,并将异常
+号放到系统总线上,以触发中断.在当前指令完成执行之后,处理器注意到中断引脚的电压变高了,就从系统总线读取异常号,然后调
+用适当的中断处理程序<br />
+b)陷阱:陷阱是有意的异常,是执行一条指令的结果,陷阱最重要的用途是在用户程序和内核之间提供一个像过程一样的接口,叫系
+统调用.用户程序向内核请求服务(也即应用程序执行一次系统调用syscall),执行syscall指令会导致一个到异常处理程序的陷阱,
+这个处理程序对参数解码,并调用适当的内核程序<br />
+c)故障:故障由错误情况引起,它可能能够被故障处理程序修正.如果处理程序能够修正这个错误情况,它就将控制返回到引起故障
+的指令,从而重新执行它,否则,处理程序返回到内核中的abort例程并终止引起故障的应用程序<br />
+d)终止:终止是不可恢复的致命错误造成的结果,通常是一些硬件错误,终止处理程序从不将控制返回给应用程序</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/09/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC8%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/09/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC8%E7%AB%A0%E7%AC%94%E8%AE%B0/">深入理解计算机系统第8章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          深入理解计算机系统第8章笔记
-         
-        <a href="/auxilary/2017/09/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC8%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
