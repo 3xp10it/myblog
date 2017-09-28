@@ -175,6 +175,12 @@ d)<code class="highlighter-rouge">(?!form).</code>对应的<code class="highligh
 
 <p>2.四种环视匹配<code class="highlighter-rouge">(...)</code>匹配的结果是一个隐藏的位置,是一个位置,不是多个位置,也不是字符</p>
 
+<p>3.<code class="highlighter-rouge">"ifconfig | ack '(?&lt;=inet )(.*)(?= netmask)' -o"</code>可得到ip地址<br />
+<code class="highlighter-rouge">echo lllnihaolllnihaoxxxnihao666 | ack -o '(?&lt;=x)(?=n)nihao.*'</code>其中的<code class="highlighter-rouge">(?&lt;=x)(?=n)</code>两个紧挨的环视匹配得到的是一个
+隐藏的位置,因为环视匹配不会匹配到字符(不捕获),于是第1个环视匹配得到1个位置后由于无法前进字符串,所以第2个环视匹配
+得到的依然是相同的位置处,同理,多个紧挨的环视匹配得到的是相同的位置,说明多个环视匹配紧挨时,匹配结果与各个环视匹配
+表达式的先后顺序无关</p>
+
 </span>
 
         

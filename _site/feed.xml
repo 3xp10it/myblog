@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 28 Sep 2017 14:14:18 +0800</pubDate>
-    <lastBuildDate>Thu, 28 Sep 2017 14:14:18 +0800</lastBuildDate>
+    <pubDate>Thu, 28 Sep 2017 17:16:44 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Sep 2017 17:16:44 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -72,6 +72,12 @@ d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应�
 的位置,&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;是先匹配隐藏的位置再匹配字符&lt;/p&gt;
 
 &lt;p&gt;2.四种环视匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;(...)&lt;/code&gt;匹配的结果是一个隐藏的位置,是一个位置,不是多个位置,也不是字符&lt;/p&gt;
+
+&lt;p&gt;3.&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;ifconfig | ack '(?&amp;lt;=inet )(.*)(?= netmask)' -o&quot;&lt;/code&gt;可得到ip地址&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;echo lllnihaolllnihaoxxxnihao666 | ack -o '(?&amp;lt;=x)(?=n)nihao.*'&lt;/code&gt;其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=x)(?=n)&lt;/code&gt;两个紧挨的环视匹配得到的是一个
+隐藏的位置,因为环视匹配不会匹配到字符(不捕获),于是第1个环视匹配得到1个位置后由于无法前进字符串,所以第2个环视匹配
+得到的依然是相同的位置处,同理,多个紧挨的环视匹配得到的是相同的位置,说明多个环视匹配紧挨时,匹配结果与各个环视匹配
+表达式的先后顺序无关&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
