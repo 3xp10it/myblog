@@ -165,9 +165,9 @@
 <h3 id="0x03-attention">0x03 attention</h3>
 
 <p>1.为了匹配到一个字符串变量中没有form,可以有4种方法:
-a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code>
-b)<code class="highlighter-rouge">(?&lt;!form).</code>对应的<code class="highlighter-rouge">((?&lt;!form).)*</code>
-c)<code class="highlighter-rouge">.(?!form)</code>对应的<code class="highlighter-rouge">(.(?!form))*</code>
+a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code><br />
+b)<code class="highlighter-rouge">(?&lt;!form).</code>对应的<code class="highlighter-rouge">((?&lt;!form).)*</code><br />
+c)<code class="highlighter-rouge">.(?!form)</code>对应的<code class="highlighter-rouge">(.(?!form))*</code><br />
 d)<code class="highlighter-rouge">(?!form).</code>对应的<code class="highlighter-rouge">((?!form).)*</code></p>
 
 <p>其中.在()前[<code class="highlighter-rouge">.()</code>]或.在()后[<code class="highlighter-rouge">().</code>]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,<code class="highlighter-rouge">.()</code>是先匹配字符再匹配隐藏

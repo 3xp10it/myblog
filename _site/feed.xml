@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 28 Sep 2017 13:47:22 +0800</pubDate>
-    <lastBuildDate>Thu, 28 Sep 2017 13:47:22 +0800</lastBuildDate>
+    <pubDate>Thu, 28 Sep 2017 13:50:25 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Sep 2017 13:50:25 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -63,9 +63,9 @@
 &lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 attention&lt;/h3&gt;
 
 &lt;p&gt;1.为了匹配到一个字符串变量中没有form,可以有4种方法:
-a)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?&amp;lt;!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?&amp;lt;!form))*&lt;/code&gt;
-b)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?&amp;lt;!form).)*&lt;/code&gt;
-c)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?!form))*&lt;/code&gt;
+a)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?&amp;lt;!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?&amp;lt;!form))*&lt;/code&gt;&lt;br /&gt;
+b)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?&amp;lt;!form).)*&lt;/code&gt;&lt;br /&gt;
+c)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?!form))*&lt;/code&gt;&lt;br /&gt;
 d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?!form).)*&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;其中.在()前[&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;]或.在()后[&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;是先匹配字符再匹配隐藏
