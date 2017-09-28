@@ -2951,6 +2951,12 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 230.</span>fish安装
     https://www.meanevo.com/2015/07/31/fish-on-macos/
     http://fish.sh/docs/current/index.html(配置文件设置)
+<span class="p">
+231.</span>macOS修改uidt gid
+sudo dscl . read /Users/username UniqueID
+sudo dscl . read /Users/username PrimaryGroupID
+sudo dscl . change /Users/username UniqueID oldvalue newvalue
+sudo dscl . change /Users/username PrimaryGroupID oldvalue newvalue
 </code></pre>
 </div>
 </span>

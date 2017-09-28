@@ -5,9 +5,85 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Sep 2017 10:58:44 +0800</pubDate>
-    <lastBuildDate>Wed, 27 Sep 2017 10:58:44 +0800</lastBuildDate>
+    <pubDate>Thu, 28 Sep 2017 13:47:22 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Sep 2017 13:47:22 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>四种环视匹配</title>
+        <description>&lt;h3 id=&quot;0x00-refer&quot;&gt;0x00 refer&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.jb51.net/article/52491.htm&quot;&gt;匹配不出现字符串&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
+否定顺序环视(?!...)     negtive lookahead   (中文也有翻译成:后向非界定)
+肯定逆序环视(?&amp;lt;=...)    positive lookbehind (中文也有翻译成:前向界定)
+否定逆序环视(?&amp;lt;!...)    negtive lookbehind  (中文也有翻译成:前向非界定)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;从上看出:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;是      =
+不是    !
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在用正则表达式匹配时将待匹配的字符串变量看作是有隐藏位置的字符串,也即将abcd看作|a|b|c|d|,其中|表示一个隐藏位置.
+如果正则表达式中没有上面4种用法则不考虑隐藏的位置,如果有4种任意一种则要考虑隐藏位置,以上4种在匹配时匹配的结果为
+这些隐藏的位置(只匹配位置,不匹配字符).&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02-example&quot;&gt;0x02 example&lt;/h3&gt;
+
+&lt;h4 id=&quot;a前面没有form后面有action&quot;&gt;a.前面没有form后面有action&lt;/h4&gt;
+
+&lt;p&gt;使用(?:\n)不捕获匹配\n
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;替换(?:\n),使用(?&amp;lt;=\n)前向界定和(?=\n)后向界定匹配\n&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg2.png&quot; /&gt;
+上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;,没有用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;为了用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,具体如下图
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg3.png&quot; /&gt;
+上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;b前面有form后面没有action&quot;&gt;b.前面有form后面没有action&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg4.png&quot; /&gt;
+上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;,没有用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;为了用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,具体如下图
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg5.png&quot; /&gt;
+上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x03-attention&quot;&gt;0x03 attention&lt;/h3&gt;
+
+&lt;p&gt;1.为了匹配到一个字符串变量中没有form,可以有4种方法:
+a)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?&amp;lt;!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?&amp;lt;!form))*&lt;/code&gt;
+b)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?&amp;lt;!form).)*&lt;/code&gt;
+c)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?!form))*&lt;/code&gt;
+d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?!form).)*&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;其中.在()前[&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;]或.在()后[&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;是先匹配字符再匹配隐藏
+的位置,&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;是先匹配隐藏的位置再匹配字符&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/</link>
+        <guid isPermaLink="true">http://localhost:4000/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/</guid>
+        
+        <category>环视匹配</category>
+        
+        <category>正则表达式</category>
+        
+        
+        <category>regexp</category>
+        
+      </item>
     
       <item>
         <title>深入理解计算机系统第8章笔记</title>
@@ -760,169 +836,6 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
         <category>selenium</category>
         
         <category>form</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>sqlmap对状态码404处理的bug</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;p&gt;sqlmap对页面遇到404响应码后直接抛出一个异常并退出sqlmap不再进行后续的paylaod测试,在用sqlmap测试sql注入点的时候,一
-般用到&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数来节省时间,这种情况下sqlmap有一处对http状态码404的处理不当导致无法测出注入点的bug&lt;/p&gt;
-
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
-
-&lt;p&gt;在爬虫时get请求的url可轻易爬到,但是post请求的url及post的数据的取得需要探测html中有没有表单相关的关键字,并通过表单
-来构造post参数的值并提交来获取后续返回内容,如下例中详情:&lt;/p&gt;
-
-&lt;p&gt;安装dvwa设置level=low,测试&lt;code class=&quot;highlighter-rouge&quot;&gt;SQL Injection(Blind)&lt;/code&gt;这一项时,参数是通过表单来提交的,点击&lt;code class=&quot;highlighter-rouge&quot;&gt;submit&lt;/code&gt;提交后会将输入框&lt;code class=&quot;highlighter-rouge&quot;&gt;User
-ID&lt;/code&gt;中的内容以get请求发送到服务器,例如在文本框中输入1则浏览器将对应访问&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;amp;Submit=Submit#&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/sqlmap404bug-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;尝试用sqlmap跑出这个注入点,语句如下:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;amp;Submit=Submit#&quot; --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlmap -u &quot;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms --batch -v 3 --cookie='...'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;由于这里的id参数的值通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Submit&lt;/code&gt;按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs
-来获得上面的url(或者使用sqlmap中的&lt;code class=&quot;highlighter-rouge&quot;&gt;--forms&lt;/code&gt;参数来捕获这样的表单),而就算得到了url,由于这个url中的&lt;code class=&quot;highlighter-rouge&quot;&gt;id=&lt;/code&gt;,也即id值为空,
-这种情况下,sqlmap的&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数的处理是随机赋值给id并测试各种payload(eg,id=1389),然而dvwa中的这个页面在服务器上的
-处理并不一般,如果用户提交的id参数在服务器上没有查询到,服务器会响应404状态码(可能一般waf也会这样做),而sqlmap遇到
-404状态码,直接就抛出异常并退出了,这样导致无法用sqlmap的&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch&lt;/code&gt;参数测出这个sql注入点&lt;/p&gt;
-
-&lt;p&gt;其实如果用selenium+phantomjs得到了url&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit#&lt;/code&gt;后
-如果服务器正常响应查询(这里的dvwa不正常响应,对查不到的统一返回404状态码),用sqlmap是可以检测到这种不带具体值的参数
-类型url的注入点的,但是要设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--risk=3&lt;/code&gt;,默认的sqlmap的risk值为1,为1时sqlmap不会测试&lt;code class=&quot;highlighter-rouge&quot;&gt;' or [sqli] and '1'='1&lt;/code&gt;(要测出
-不带参数值的参数的注入点则要通过&lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt;来测试),也即要发挥sqlmap的功能最好设置&lt;code class=&quot;highlighter-rouge&quot;&gt;--batch --risk=3 --forms&lt;/code&gt;.试试直接用这种
-方法测试上面的注入点(在dvwa中对应的页面为&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/&lt;/code&gt;):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/tmp/sqlmap [master] » python2 sqlmap.py -u &quot;192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
-        ___
-       __H__
- ___ ___[']_____ ___ ___  {1.1.8.6#dev}
-|_ -| . [(]     | .'| . |
-|___|_  [&quot;]_|_|_|__,|  _|
-      |_|V          |_|   http://sqlmap.org
-
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
-
-[*] starting at 14:40:30
-
-[14:40:30] [DEBUG] cleaning up configuration parameters
-[14:40:30] [DEBUG] setting the HTTP timeout
-[14:40:30] [DEBUG] setting the HTTP Cookie header
-[14:40:30] [DEBUG] creating HTTP requests opener object
-[14:40:30] [DEBUG] resolving hostname '192.168.8.190'
-[14:40:30] [INFO] testing connection to the target URL
-[14:40:30] [DEBUG] declared web page charset 'utf-8'
-[14:40:30] [INFO] searching for forms
-[14:40:30] [DEBUG] initializing the knowledge base
-[#1] form:
-GET http://192.168.8.190:80/dvwa/vulnerabilities/sqli_blind/?id=&amp;amp;Submit=Submit
-Cookie: PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low
-do you want to test this form? [Y/n/q]
-&amp;gt; Y
-[14:40:30] [DEBUG] used the default behaviour, running in batch mode
-Edit GET data [default: id=&amp;amp;Submit=Submit]: id=&amp;amp;Submit=Submit
-[14:40:30] [DEBUG] used the default behaviour, running in batch mode
-do you want to fill blank fields with random values? [Y/n] Y
-[14:40:30] [DEBUG] used the default behaviour, running in batch mode
-[14:40:30] [INFO] resuming back-end DBMS 'mysql'
-[14:40:30] [INFO] using '/var/root/.sqlmap/output/results-08202017_0240pm.csv' as the CSV results file in multiple targets mode
-[14:40:30] [DEBUG] resolving hostname '192.168.8.190'
-[14:40:30] [DEBUG] declared web page charset 'utf-8'
-[14:40:30] [CRITICAL] page not found (404)
-[14:40:30] [WARNING] HTTP error codes detected during run:
-404 (Not Found) - 1 times
-[14:40:30] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/root/.sqlmap/output/results-08202017_0240pm.csv'
-
-[*] shutting down at 14:40:30
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;发现sqlmap跑不出来,尝试修改sqlmap代码,结果中有关键字&lt;code class=&quot;highlighter-rouge&quot;&gt;page not found (404)&lt;/code&gt;,于是定位相关代码:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /tmp/sqlmap &amp;amp;&amp;amp; grep -r &quot;page not found&quot; .
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;结果如下:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./lib/request/connect.py:                    errMsg = &quot;page not found (%d)&quot; % code
-./lib/request/connect.py:                    debugMsg = &quot;page not found (%d)&quot; % code
-./lib/utils/crawler.py:                    if &quot;page not found&quot; in getSafeExString(ex):
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;于是修改./lib/request/connect.py中代码:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;elif ex.code == httplib.NOT_FOUND:
-    if raise404:
-        errMsg = &quot;page not found (%d)&quot; % code
-        raise SqlmapConnectionException(errMsg)
-    else:
-        debugMsg = &quot;page not found (%d)&quot; % code
-        singleTimeLogMessage(debugMsg, logging.DEBUG)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;将其中的raise SqlmapConnectionException(errMsg)注释掉后再重新用刚才的sqlmap语句测试可测出这个注入点,详情如下:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/tmp/sqlmap [master●] » python2 sqlmap.py -u &quot;192.168.8.190/dvwa/vulnerabilities/sqli_blind/&quot; --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
-[14:48:41] [DEBUG] checking for filtered characters
-[14:48:41] [PAYLOAD] OOFt' OR 6597=IF((3988&amp;gt;3987),SLEEP(5),6597) AND 'sIjt'='sIjt
-GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
-[14:49:06] [DEBUG] used the default behaviour, running in batch mode
-sqlmap identified the following injection point(s) with a total of 146 HTTP(s) requests:
-    ---
-Parameter: id (GET)
-    Type: AND/OR time-based blind
-    Title: MySQL &amp;gt;= 5.0.12 OR time-based blind
-    Payload: id=OOFt' OR SLEEP(5) AND 'CaKs'='CaKs&amp;amp;Submit=Submit
-    Vector: OR [RANDNUM]=IF(([INFERENCE]),SLEEP([SLEEPTIME]),[RANDNUM])
-    ---
-do you want to exploit this SQL injection? [Y/n] Y
-[14:49:06] [DEBUG] used the default behaviour, running in batch mode
-[14:49:06] [INFO] the back-end DBMS is MySQL
-web server operating system: Linux Debian
-web application technology: Apache 2.4.25
-back-end DBMS: MySQL &amp;gt;= 5.0.12
-[14:49:06] [WARNING] HTTP error codes detected during run:
-404 (Not Found) - 131 times
-[14:49:06] [INFO] you can find results of scanning in multiple targets mode inside the CSV file
-'/var/root/.sqlmap/output/results-08202017_0246pm.csv'
-
-[*] shutting down at 14:49:06
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;已提交pull request到sqlmap,相关代码文件为&lt;code class=&quot;highlighter-rouge&quot;&gt;lib/request/connect.py&lt;/code&gt;,&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/pull/2663&quot;&gt;follow&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 20 Aug 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/08/20/sqlmap%E5%AF%B9%E7%8A%B6%E6%80%81%E7%A0%81404%E5%A4%84%E7%90%86%E7%9A%84bug/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/08/20/sqlmap%E5%AF%B9%E7%8A%B6%E6%80%81%E7%A0%81404%E5%A4%84%E7%90%86%E7%9A%84bug/</guid>
-        
-        <category>sqlmap</category>
-        
-        <category>python</category>
         
         
         <category>web</category>

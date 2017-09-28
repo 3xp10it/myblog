@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>四种环视匹配</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,155 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">四种环视匹配</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 28, 2017</span>
+           under regexp
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-refer">0x00 refer</h3>
+
+<p><a href="http://www.jb51.net/article/52491.htm">匹配不出现字符串</a></p>
+
+<h3 id="0x01-detail">0x01 detail</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
+否定顺序环视(?!...)     negtive lookahead   (中文也有翻译成:后向非界定)
+肯定逆序环视(?&lt;=...)    positive lookbehind (中文也有翻译成:前向界定)
+否定逆序环视(?&lt;!...)    negtive lookbehind  (中文也有翻译成:前向非界定)
+</code></pre>
+</div>
+
+<p>从上看出:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>是      =
+不是    !
+</code></pre>
+</div>
+
+<p>在用正则表达式匹配时将待匹配的字符串变量看作是有隐藏位置的字符串,也即将abcd看作|a|b|c|d|,其中|表示一个隐藏位置.
+如果正则表达式中没有上面4种用法则不考虑隐藏的位置,如果有4种任意一种则要考虑隐藏位置,以上4种在匹配时匹配的结果为
+这些隐藏的位置(只匹配位置,不匹配字符).</p>
+
+<h3 id="0x02-example">0x02 example</h3>
+
+<h4 id="a前面没有form后面有action">a.前面没有form后面有action</h4>
+
+<p>使用(?:\n)不捕获匹配\n
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg1.png" /></p>
+
+<p>替换(?:\n),使用(?&lt;=\n)前向界定和(?=\n)后向界定匹配\n</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg2.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?!=)</code>,<code class="highlighter-rouge">(?=)</code>,没有用到<code class="highlighter-rouge">(?&lt;!)</code></p>
+
+<p>为了用到<code class="highlighter-rouge">(?&lt;!)</code>,具体如下图
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg3.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?&lt;!)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code></p>
+
+<h4 id="b前面有form后面没有action">b.前面有form后面没有action</h4>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg4.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code>,没有用到<code class="highlighter-rouge">(?&lt;!)</code></p>
+
+<p>为了用到<code class="highlighter-rouge">(?&lt;!)</code>,具体如下图
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg5.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?&lt;!)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code></p>
+
+<h3 id="0x03-attention">0x03 attention</h3>
+
+<p>1.为了匹配到一个字符串变量中没有form,可以有4种方法:
+a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code>
+b)<code class="highlighter-rouge">(?&lt;!form).</code>对应的<code class="highlighter-rouge">((?&lt;!form).)*</code>
+c)<code class="highlighter-rouge">.(?!form)</code>对应的<code class="highlighter-rouge">(.(?!form))*</code>
+d)<code class="highlighter-rouge">(?!form).</code>对应的<code class="highlighter-rouge">((?!form).)*</code></p>
+
+<p>其中.在()前[<code class="highlighter-rouge">.()</code>]或.在()后[<code class="highlighter-rouge">().</code>]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,<code class="highlighter-rouge">.()</code>是先匹配字符再匹配隐藏
+的位置,<code class="highlighter-rouge">().</code>是先匹配隐藏的位置再匹配字符</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            环视匹配, 正则表达式
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/">四种环视匹配</a>
-      </div>
-      <div class="excerpt">
-         
-          四种环视匹配
-         
-        <a href="/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
