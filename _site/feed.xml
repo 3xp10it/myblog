@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 28 Sep 2017 13:50:25 +0800</pubDate>
-    <lastBuildDate>Thu, 28 Sep 2017 13:50:25 +0800</lastBuildDate>
+    <pubDate>Thu, 28 Sep 2017 14:14:18 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Sep 2017 14:14:18 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -70,6 +70,8 @@ d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应�
 
 &lt;p&gt;其中.在()前[&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;]或.在()后[&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;是先匹配字符再匹配隐藏
 的位置,&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;是先匹配隐藏的位置再匹配字符&lt;/p&gt;
+
+&lt;p&gt;2.四种环视匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;(...)&lt;/code&gt;匹配的结果是一个隐藏的位置,是一个位置,不是多个位置,也不是字符&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
