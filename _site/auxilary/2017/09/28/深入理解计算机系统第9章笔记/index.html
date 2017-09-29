@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>深入理解计算机系统第9章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,111 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">深入理解计算机系统第9章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 28, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="虚拟存储器">虚拟存储器</h3>
+
+<p>1.<a href="https://www.zhihu.com/question/21088377">虚拟存储器的理解</a>,windows下的c盘中的pagefile.sys是虚拟内存文件.</p>
+
+<p>2.虚拟存储器是硬件异常,硬件地址翻译,主存,磁盘文件和内核软件的完美交互,它为每个进程提供了一个大的,一致的私有的地址
+空间.虚拟存储器提供了3个重要能力:<br />
+a)它将主存看成是一个存储在磁盘上的地址空间的高速缓存,在主存中只保存活动区域,并根据需要在磁盘和主存之间来回传送数
+据,通过这种方式,它高效地使用了主存<br />
+b)它为每个进程提供了一致的地址空间,从而简化了存储器管理<br />
+c)它保护了每个进程的地址空间不被其他进程破坏</p>
+
+<p>3.地址翻译:将一个虚拟地址转换为物理地址.就像异常处理一样,地址翻译需要cpu硬件和操作系统之间的紧密合作.cpu芯片上叫
+做存储器管理单元(MMU)的专用硬件,利用存放在主存中的查询表来动态翻译虚拟地址.如下图.</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-1.png" /></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/">深入理解计算机系统第9章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          深入理解计算机系统第9章笔记
-         
-        <a href="/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

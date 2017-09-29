@@ -5,9 +5,39 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 28 Sep 2017 17:16:44 +0800</pubDate>
-    <lastBuildDate>Thu, 28 Sep 2017 17:16:44 +0800</lastBuildDate>
+    <pubDate>Fri, 29 Sep 2017 08:04:05 +0800</pubDate>
+    <lastBuildDate>Fri, 29 Sep 2017 08:04:05 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>深入理解计算机系统第9章笔记</title>
+        <description>&lt;h3 id=&quot;虚拟存储器&quot;&gt;虚拟存储器&lt;/h3&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;https://www.zhihu.com/question/21088377&quot;&gt;虚拟存储器的理解&lt;/a&gt;,windows下的c盘中的pagefile.sys是虚拟内存文件.&lt;/p&gt;
+
+&lt;p&gt;2.虚拟存储器是硬件异常,硬件地址翻译,主存,磁盘文件和内核软件的完美交互,它为每个进程提供了一个大的,一致的私有的地址
+空间.虚拟存储器提供了3个重要能力:&lt;br /&gt;
+a)它将主存看成是一个存储在磁盘上的地址空间的高速缓存,在主存中只保存活动区域,并根据需要在磁盘和主存之间来回传送数
+据,通过这种方式,它高效地使用了主存&lt;br /&gt;
+b)它为每个进程提供了一致的地址空间,从而简化了存储器管理&lt;br /&gt;
+c)它保护了每个进程的地址空间不被其他进程破坏&lt;/p&gt;
+
+&lt;p&gt;3.地址翻译:将一个虚拟地址转换为物理地址.就像异常处理一样,地址翻译需要cpu硬件和操作系统之间的紧密合作.cpu芯片上叫
+做存储器管理单元(MMU)的专用硬件,利用存放在主存中的查询表来动态翻译虚拟地址.如下图.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-1.png&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>csapp</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>四种环视匹配</title>
@@ -679,171 +709,6 @@ xx=xxx&amp;amp;ooo=ooo
         <category>sqlmap</category>
         
         <category>https</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>selenium自动提交表单方案</title>
-        <description>&lt;h3 id=&quot;0x00-refer&quot;&gt;0x00 Refer&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/wang02011/article/details/6299517&quot;&gt;1.常见的提交表单的方法&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/manors/archive/2010/03/11/1683727.html&quot;&gt;2.表单提交规则&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/32779563/how-can-i-click-submit-button&quot;&gt;3.selenium提交表单&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/17530104/selenium-webdriver-submit-vs-click&quot;&gt;4.selenium中click()和submit()的区别&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-about&quot;&gt;0x01 About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
-数
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-detail&quot;&gt;0x02 Detail&lt;/h3&gt;
-
-&lt;p&gt;1.先判断html中form action所在行能不能通过selenium(通过查找&lt;code class=&quot;highlighter-rouge&quot;&gt;find_element_by_css_selector('form')&lt;/code&gt;)找到,不行再看看form这行有没有id或name,再通过id或name找到并用selenium的submit()来提交&lt;/p&gt;
-
-&lt;p&gt;2.如果1失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?submit('|&quot;)?.*&amp;gt;&lt;/code&gt;的提交按钮,找到后用selenium的click()来提交&lt;/p&gt;
-
-&lt;p&gt;3.如果2失败再找&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input.*type=('|&quot;)?button('|&quot;)?.*onclick=.*&amp;gt;&lt;/code&gt;的通过js提交表单的行中的按钮,找到后用selenium的
-click()来提交&lt;/p&gt;
-
-&lt;p&gt;4.目前这样做无法处理用图片提交的表单,后期视情况增加或不加&lt;/p&gt;
-
-&lt;h3 id=&quot;0x03-code&quot;&gt;0x03 Code&lt;/h3&gt;
-
-&lt;p&gt;目前情况看,直接通过上面第1步中的用selenium查找form可定位目前遇到的所有表单,但是由于selenium在py3下还无法直接通过
-selenium对form元素的submit()调用来获得提交的post参数(get参数是可以得到的),在获取表单提交的参数时采用正则查找参数
-的方式来获取,相关具体处理如下&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    if proxyUrl == &quot;&quot; or proxyUrl == 0:
-        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false']
-    if proxyUrl != &quot;&quot; and proxyUrl != 0:
-        proxyType = proxyUrl.split(&quot;:&quot;)[0]
-        proxyValueWithType = proxyUrl.split(&quot;/&quot;)[-1]
-        service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false',
-                              '--proxy=%s' % proxyValueWithType, '--proxy-type=%s' % proxyType]
-    # 有跳转的url最后的url如下
-    # final_url=driver.current_url
-    # print(&quot;正在访问的url是这个:\n&quot;+final_url)
-    # driver.quit()
-
-    try:
-        from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-        if cookie != &quot;&quot;:
-            dcap = dict(DesiredCapabilities.PHANTOMJS)
-            dcap[&quot;phantomjs.page.settings.cookie&quot;] = cookie
-            dcap[&quot;phantomjs.page.settings.userAgent&quot;] = get_random_ua()
-            driver = webdriver.PhantomJS(service_args=service_args_value, desired_capabilities=dcap)
-        else:
-            driver = webdriver.PhantomJS(service_args=service_args_value)
-
-        driver.implicitly_wait(10)
-        driver.set_page_load_timeout(10)
-
-        driver.get(url)
-        # selenium webdriver操作cookie
-        # http://www.cnblogs.com/fnng/p/3269450.html
-        originalCookie = driver.get_cookies()
-
-        import random
-        # driver.get_screenshot_as_file(&quot;/tmp/PhantomJSPic&quot; +
-        # get_http_domain_from_url(url).split(&quot;/&quot;)[-1] + str(random.random()))
-        # selenium无法得到code,先根据返回titile和内容来看如果是正常返回,则这里将code赋值为200
-        # 如果title和内容异常(如包含&quot;页面不存在&quot;),则将这个请求重新发给get_request(url,by=&quot;MechanicalSoup&quot;)
-        # 这里将正常的http网页用phantomJS来请求,如果发现异常则交给MechanicalSoup重新访问
-        code = 200
-        title = driver.title
-        content = driver.page_source
-        # 表单页面处理
-        try:
-            form = driver.find_element_by_css_selector('form').submit()
-            hasFormAction = True
-            if &quot;?&quot; in driver.current_url or re.search(r'''&amp;lt;form[^&amp;lt;&amp;gt;]*method=('|&quot;)?get('|&quot;)?[^&amp;lt;&amp;gt;]*&amp;gt;''', content, re.I):
-                # 说明是get请求提交的参数
-                # get提交表单的处理
-                formActionValue = driver.current_url
-            else:
-                if re.search(r'''&amp;lt;form[^&amp;lt;&amp;gt;]*method=('|&quot;)?post('|&quot;)?[^&amp;lt;&amp;gt;]*&amp;gt;''', content, re.I):
-                    # post提交表单的处理采用自行查找所有表单中的参数
-                    # post的测试url中有^,这是人为添加的,便于放到数据库中
-                    formActionValue += (driver.current_url + &quot;^&quot;)
-                else:
-                    # 其他情况当作get请求,并用正则找出表单中的参数(不用selenium的submit)
-                    formActionValue += (driver.current_url + &quot;?&quot;)
-
-                inputParamList = re.findall(
-                    r'''(&amp;lt;input[^&amp;lt;&amp;gt;]*name=('|&quot;)?([^'&quot;&amp;lt;&amp;gt;\s]+)('|&quot;)?[^&amp;lt;&amp;gt;]*&amp;gt;)''', content, re.I)
-                paramPartValue = &quot;&quot;
-                paramNameList = []
-                for each in inputParamList:
-                    paramName = each[2]
-                    if paramName not in paramNameList:
-                        # 防止有重复的参数
-                        paramNameList.append(paramName)
-                        if re.search(r'''type=('|&quot;)?hidden('|&quot;)?''', each[0], re.I):
-                            # 处理hidden类型的参数
-                            hiddenParamValue = re.search(
-                                r'''value=('|&quot;)?([^'&quot;&amp;lt;&amp;gt;\s]*)('|&quot;)?''', each[0], re.I).group(2)
-                            paramPartValue += (paramName + &quot;=&quot; + hiddenParamValue + &quot;&amp;amp;&quot;)
-                        elif re.search(r'''required=('|&quot;)?required('|&quot;)?''', each[0], re.I):
-                            # 处理必须要填的参数
-                            paramPartValue += (paramName + &quot;=requiredParamValue&amp;amp;&quot;)
-                        else:
-                            # 处理不是hidden也不是required类的参数的处理
-                            paramPartValue += (paramName + &quot;=&amp;amp;&quot;)
-                if paramPartValue[-1] == &quot;&amp;amp;&quot;:
-                    paramPartValue = paramPartValue[:-1]
-
-                formActionValue += paramPartValue
-
-        except selenium.common.exceptions.NoSuchElementException:
-            hasFormAction = False
-            print(&quot;没找到这个元素哟...&quot;)
-        print(&quot;len content is :\n&quot; + str(len(content)))
-        print(&quot;title is :\n&quot; + title)
-        if re.search(r&quot;(页面不存在)|(未找到页面)|(page\s+not\s+found)|(404\s+not\s+found)&quot;, content, re.I) or re.search(r&quot;404&quot;, title, re.I):
-            if re.search(r'''&amp;lt;form\s+[^&amp;lt;&amp;gt;]*&amp;gt;''', content, re.I):
-                input(&quot;需要调整代码!!!!!!!!!&quot;)
-            else:
-                return get_request(url, by=&quot;MechanicalSoup&quot;)
-        # time.sleep(5) # Let the user actually see something!
-        # driver.quit()
-
-    except TimeoutException as e:
-        # Handle your exception here
-        print(e)
-    finally:
-        driver.quit()
-
-    return {
-        'code': code,
-        'title': title,
-        # 下面比较特殊,PhantomJS得到的html不用decode,直接就是string类型
-        'content': content,
-        #True or False
-        'hasFormAction': hasFormAction,
-        # eg,https://www.baidu.com^a=1&amp;amp;b=2
-        # eg,https://www.baidu.com/?a=1&amp;amp;b=2
-        # 上面?表示formAction对应get请求,^表示formAction对应post请求
-        'formActionValue': formActionValue}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 21 Aug 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/08/21/selenium%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%96%B9%E6%A1%88/</guid>
-        
-        <category>python</category>
-        
-        <category>selenium</category>
-        
-        <category>form</category>
         
         
         <category>web</category>
