@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 12 Oct 2017 21:23:11 +0800</pubDate>
-    <lastBuildDate>Thu, 12 Oct 2017 21:23:11 +0800</lastBuildDate>
+    <pubDate>Thu, 12 Oct 2017 22:21:36 +0800</pubDate>
+    <lastBuildDate>Thu, 12 Oct 2017 22:21:36 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -61,6 +61,40 @@ free.反之,垃圾收集器定期识别垃圾块,并相应地调用free,将这�
 
 &lt;p&gt;10.分配器有两种类型.显式分配器要求应用显式地释放它们的存储器块,隐式分配器(垃圾收集器)自动释放任何未使用的和不可达
 的块.&lt;/p&gt;
+
+&lt;p&gt;11.页表是一个存放在物理存储器中的数据结构,页表将虚拟页映射到物理页,每次地址翻译硬件将一个虚拟地址转换为物理地址时
+都会读取页表,页表是敷于脸上页表条目的数组,虚拟地址空间中的每个页在页表中一个固定偏移量处都有一个PTE(page table
+entry,页表条目).&lt;/p&gt;
+
+&lt;p&gt;12.图9-4中的示例展示了一个有8个虚拟页和4个物理页的系统的页表.四个虚拟页(vp1,vp2,vp4,vp7)当前被缓存在DRAM中,两个页
+(vp0,vp5)还未被分配,而剩下的页(vp3,vp6)已经被分配了,但是当前还未被缓存.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;13.缺页:在虚拟存储器的习惯说法中,DRAM缓存不命中称为缺页,图9-6展示了在缺页之前我们的示例页表的状态.cpu引用了vp3中
+的一个字,vp3并未缓存在DRAM中,地址翻译硬件从存储器中读取PTE3,从有效位推断出vp3未被缓存,并且触发一个缺页异常.缺页异
+常调用内核中的缺页异常处理程序,该程序会选择一个牺牲页,在紫剑中就是存放在pp3中的vp4,如果vp4已经被修改了,那么内核就
+会将它拷贝加磁盘.当异常处理程序返回时,它会重新启动导致缺页的指令,该指令会把导致缺页的虚拟地址重发送到地址翻译硬件
+.但是现在,vp3已经缓存在主存中了,那么页命中也能由地址翻译硬件正常处理了.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;14.操作系统为每个进程提供了一个独立的页表,因而也就是一个独立的虚拟地址空间.&lt;/p&gt;
+
+&lt;p&gt;15.地址翻译:图9-12展示了MMU如何利用页表来实现虚拟地址到物理地址的映射.cpu中的一个控制寄存器,页表基址寄存器
+(PTBR)指向当前页表.n位的虚拟地址包含两个部分:一个p位的虚拟页面偏移(VPO)和一个(n-p)位的虚拟页号(VPN).MMU利用VPN来
+选择适当的PTE.例如,VPN 0选择PTE 0,VPN 1选择PTE 1,以此类推.将页表条目中物理页号(PPN)和虚拟地址中的VPO串联起来,就得
+到相应的物理地址.注意,因为物理和虚拟页面都是P字节的,所以物理页面偏移(PPO)和VPO是相同的.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;16.linux为每个进程维持了一个单独的虚拟地址空间,形式如图9-26所示.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;17.linux通过将一个虚拟存储器区域与一个磁盘上的对象关联起来,以初始化这个虚拟存储器区域的内容,这个过程称为存储器映
+射.一旦一个虚拟页面被初始化了,它就在一个由内核维护的专门的交换文件之间换来换去,在任何时刻,交换空间都限制着当前运
+行着的进程能够分配的虚拟页面的总数.&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
