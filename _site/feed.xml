@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 11 Oct 2017 08:09:03 +0800</pubDate>
-    <lastBuildDate>Wed, 11 Oct 2017 08:09:03 +0800</lastBuildDate>
+    <pubDate>Thu, 12 Oct 2017 21:23:11 +0800</pubDate>
+    <lastBuildDate>Thu, 12 Oct 2017 21:23:11 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -42,7 +42,25 @@ c)它保护了每个进程的地址空间不被其他进程破坏&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-2.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;7.&lt;/p&gt;
+&lt;p&gt;7.Linux将随机存储RAM称为内存页.交换技术就是将一页内存复制到预先设定的硬盘上的交换空间,来释放该页占用内存.物理
+内存和交换空间的和就是可提供的虚拟内存的总量.&lt;br /&gt;
+windows:虚拟内存 
+linux:swap分区 
+windows即使物理内存没有用完也会去用到虚拟内存,而Linux不一样 Linux只有当物理内存用完的时候才会去动用虚拟内存(即
+swap分区)&lt;br /&gt;
+swap类似于windows的虚拟内存,不同之处在于,Windows可以设置在windows的任何盘符下面,默认是在C盘,可以和系统文件放
+在一个分区里.而linux则是独立占用一个分区,方便由于内存需求不够的情况下,把一部分内容放在swap分区里,待内存有空余
+的情况下再继续执行,也称之为交换分区,交换空间是其中的部分&lt;/p&gt;
+
+&lt;p&gt;8.垃圾收集器是一种动态存储分配器,它自动释放程序不再需要的已分配块,这些块称为垃圾,自动回收堆存储的过程叫做垃圾收集
+.在一个支持垃圾收集的系统中,应用显式分配堆块,但是从不显式地释放它们.在C程序的上下文中,应用调用malloc,但是从不调用
+free.反之,垃圾收集器定期识别垃圾块,并相应地调用free,将这些块放回到空闲链表中.&lt;/p&gt;
+
+&lt;p&gt;9.虚拟存储器是对主存的一个抽象,支持虚拟存储器的处理器通过使用一种叫做虚拟寻址的间接形式来引用主存.专门的硬件通过
+使用页表来翻译虚拟地址,而页表的内容是由操作系统提供的.&lt;/p&gt;
+
+&lt;p&gt;10.分配器有两种类型.显式分配器要求应用显式地释放它们的存储器块,隐式分配器(垃圾收集器)自动释放任何未使用的和不可达
+的块.&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
