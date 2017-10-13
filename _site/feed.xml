@@ -5,9 +5,33 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 12 Oct 2017 22:21:36 +0800</pubDate>
-    <lastBuildDate>Thu, 12 Oct 2017 22:21:36 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Oct 2017 15:58:06 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Oct 2017 15:58:06 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>深入理解计算机系统第10章笔记</title>
+        <description>&lt;h3 id=&quot;系统级io&quot;&gt;系统级I/O&lt;/h3&gt;
+
+&lt;p&gt;1.输入/输出(I/O)是在主存和外部设备(如磁盘驱动器,终端和网络)之间拷贝数据的过程.输入操作是从I/O设备拷贝数据到主存,
+而输出操作是从主存拷贝数据到I/O设备.I/O函数如&lt;code class=&quot;highlighter-rouge&quot;&gt;printf,scanf,&amp;lt;&amp;lt;,&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.所有的I/O设备,如网络,磁盘和终端,都被模型化为文件,而所有的输入和输出都被当做对相应文件的读和写来执行.这种将设备
+优雅地映射为文件的方式,允许unix内核引出一个简单,低级的应用接口,称为unix I/O,这种使得所有的输入和输出都能以一种统
+一且一致的方式来执行:打开文件,改变当前的文件位置,读写文件,关闭文件.&lt;/p&gt;
+
+&lt;p&gt;3.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/10/13/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC10%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/13/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC10%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>csapp</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>深入理解计算机系统第9章笔记</title>
@@ -736,61 +760,6 @@ c)编译器可以很容易地执行循环展开,只要优化级别设置得足�
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>sqlmap以加载请求文件方式检测https服务器时存在的bug</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;p&gt;sqlmap在扫描https类型的注入点的时候,当通过使用-r参数加载请求文件来检测有没有sql注入漏洞时,不能较好处理是否用ssl
-通信,导致无法通过使用-r参数通过加载请求文件的方式自动检测是否是https协议,并因此无法检测出存在的注入点(需要人工添
-加&lt;code class=&quot;highlighter-rouge&quot;&gt;--force-ssl&lt;/code&gt;)&lt;/p&gt;
-
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
-
-&lt;p&gt;1.当requestFile(-r加载的请求文件)中有Referer参数且Referer的值中的hostname部分及port部分与requestFile中的Host参数的值
-中的hostname与port部分相同,且Referer的值是https开头,认为这个requestFile的测试应该走ssl(也即走https通信)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg:[requestFile]
-
-POST /xxx/xxx/xxx/x.jsp?x=a HTTP/1.1
-Host: www.google.com:6666
-...
-Referer: https://www.google.com:6666/xxxooo/xxoo/xxx.jsp
-...
-
-xx=xxx&amp;amp;ooo=ooo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.当requestFile(-r加载的请求文件)中的port值不为80且requestFile中有Referer参数且Referer的值是&lt;code class=&quot;highlighter-rouge&quot;&gt;https://.*cdn.*&lt;/code&gt;的格式,这种情况也认为要走https通信&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eg:[requestFile]
-
-POST /xxx/xxx/xxx/x.jsp?x=a HTTP/1.1
-Host: www.google.com:6666
-...
-Referer: https://www.google-cdn.com/lllllllllllxxoo/xxx.jsp
-...
-
-xx=xxx&amp;amp;ooo=ooo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上面这种情况认为测试要走https通信,对应修改sqlmap中的lib/core/option.py中相关代码(&lt;code class=&quot;highlighter-rouge&quot;&gt;lib/core/option.py&lt;/code&gt;),已提交pull request到sqlmap,对应下面的与conf.forceSSL相关的部分代码&lt;br /&gt;
-&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/pull/2663&quot;&gt;follow&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 23 Aug 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/08/23/sqlmap%E4%BB%A5%E5%8A%A0%E8%BD%BD%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%A3%80%E6%B5%8Bhttps%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%AD%98%E5%9C%A8%E7%9A%84bug/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/08/23/sqlmap%E4%BB%A5%E5%8A%A0%E8%BD%BD%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%A3%80%E6%B5%8Bhttps%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%AD%98%E5%9C%A8%E7%9A%84bug/</guid>
-        
-        <category>sqlmap</category>
-        
-        <category>https</category>
-        
-        
-        <category>web</category>
         
       </item>
     
