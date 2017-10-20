@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>深入理解计算机系统第11章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,122 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">深入理解计算机系统第11章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">October 17, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="网络编程">网络编程</h3>
+
+<p>1.认识到客户端和服务器是进程,而不是常常提到的机器或主机,这是很重要的.无论客户端和服务器是怎样映射到主机上的,客户
+端-服务器模型是相同的.</p>
+
+<p>2.因为因特网主机可以有不同的主机字节顺序,TCP/IP为任意整数数据项定义了统一的网络字节顺序(大端字节顺序),例如IP地址.
+htonl函数将32位整数由主机字节顺序转换为网络字节顺序,ntohl函数将32位整数从网络字节顺序转换为主机字节,htons和ntohs
+函数为16位的整数执行相应的转换.(不同的CPU有不同的字节序类型,这些字节序是指整数在内存中保存的顺序,这个叫做主机序
+),网络程序使用inet_aton和inet_ntoa函数来实现IP地址和点分十进制之间的转换.<a href="http://blog.csdn.net/fan_hai_ping/article/details/8435140">以上python版本</a></p>
+
+<p>3.linux中<code class="highlighter-rouge">hostname -I</code>可得到ip地址</p>
+
+<p>4.一旦一个组织得到了一个二级域名,那么它就可以在这个子域中创建任何新的域名了,从数学意义上讲,可以认为每条主机条目就
+是一个域名和IP地址的等价类</p>
+
+<p>5.每台主机都有本地定义的域名localhost,这个域名总是映射为本地回送地址(loopback address)127.0.0.1</p>
+
+<p>6.在unix机器上,文件/etc/services包含一张这台机器提供的服务以及它们的知名端口号的综合列表</p>
+
+<p>7.socket连接中监听描述符和已连接描述符之间的区别使很多人感到迷惑,监听描述符是作为客户端连接请求的一个端点.它被创
+建一次,并存在于服务器的整个生命周期.已连接描述符是客户端和服务器之间已经建立起来了的连接的一个端点,服务器每次接受
+连接请求时都会创建一次,它只存在于服务器为一个客户端服务的过程中.图11-18展示了监听描述符和已连接描述符的关系,其中
+的3和4表示描述符值(0~2描述符是预留给标准文件的)</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-1.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-2.png" /></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC11%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC11%E7%AB%A0%E7%AC%94%E8%AE%B0/">深入理解计算机系统第11章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          深入理解计算机系统第11章笔记
-         
-        <a href="/auxilary/2017/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC11%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
