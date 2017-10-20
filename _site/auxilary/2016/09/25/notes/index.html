@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          40 minute read
+          41 minute read
         </small>
       </div>
 
@@ -453,6 +453,14 @@
   git commit -a -m "xxx"
   git remote add origin tar_url
   git push -u origin master                                               
+<span class="p">  -----------------------</span>
+  如果同1个github帐号有2台机器操作相同的项目(家里一台,上班一台),github.com上项目是最新版本,要在新电脑上(eg,上班的电脑)继续这个项
+  目:
+  git clone https://github.com/..../xxx.git(新电脑本地没有这个项目时需要运行)
+  自行更新需要更新的文件
+  git add .
+  git commit -a -m "up"
+  git push -u origin master
 
   删除所有历史版本中的敏感文件
   cd /tmp
@@ -461,6 +469,14 @@
   git init 
   git pull https://github.com/3xp10it/3xp10it.git
   git filter-branch --tree-filter 'rm -f config.ini'
+
+  github多人协作
+  https://gist.github.com/suziewong/4378619
+
+  git pull<span class="err">&lt;</span>==&gt;svn update
+  git push -u origin master<span class="err">&lt;</span>==&gt;svn commit
+
+  git有本地仓库和远程仓库,svn只有远程仓库
 <span class="p">
 35.</span>生活学习:1&gt;(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
              2&gt;(曾国藩修身12条)http://www.201980.com/lizhi/chenggong/8007.html
