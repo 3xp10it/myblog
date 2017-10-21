@@ -1,3 +1,4 @@
+_posts/*.swap
 # Mac Specific
 .DS_Store
 .AppleDouble
