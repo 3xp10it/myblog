@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "git当svn用",
+    "category" : "",
+    "tags"     : "git, svn",
+    "url"      : "/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/",
+    "date"     : "2017-10-21 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "深入理解计算机系统第11章笔记",
     "category" : "",
     "tags"     : "csapp",

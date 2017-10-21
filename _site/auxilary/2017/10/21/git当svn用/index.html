@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>git当svn用</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,124 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">git当svn用</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">October 21, 2017</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="about">About</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.git pull相当于svn update
+2.git push相当于svn commit
+3.git有本地仓库,svn没有本地仓库,上面git push前要git commit -a -m 到本地仓库
+4.git多人协作  https://gist.github.com/suziewong/4378619
+5.同一个github帐号多台不同电脑时可用下面代码方便同步数据
+</code></pre>
+</div>
+
+<h3 id="code">Code</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 每天第1次接触电脑时运行py3 gitTool.py --update
+# 每天第-1次接触电脑时运行py3 gitTool.py --commit
+
+import sys
+import os
+dirList = ["~/myblog/", "~/3xp10it.github.io/",
+           "~/mypypi/", "/usr/share/mytools"]
+if sys.argv[1] == "--update":
+    for eachDir in dirList:
+        os.system("cd %s &amp;&amp; git pull" % eachDir)
+if sys.argv[1] == "--commit":
+    os.system("upa")
+    for eachDir in dirList:
+        os.system(
+            "cd %s &amp;&amp; git add . &amp;&amp; git commit -a -m 'up' &amp;&amp; git push -u origin master" % eachDir)
+</code></pre>
+</div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            git, svn
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/">git当svn用</a>
-      </div>
-      <div class="excerpt">
-         
-          git当svn用
-         
-        <a href="/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
