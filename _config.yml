@@ -30,5 +30,5 @@ kramdown:
 permalink: pretty
 exclude: [vendor]
 
-plugins: [jekyll-paginate]
+plugins_dir: [jekyll-paginate]
 
