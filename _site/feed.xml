@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Oct 2017 14:58:11 +0800</pubDate>
-    <lastBuildDate>Sat, 21 Oct 2017 14:58:11 +0800</lastBuildDate>
+    <pubDate>Sat, 21 Oct 2017 14:59:58 +0800</pubDate>
+    <lastBuildDate>Sat, 21 Oct 2017 14:59:58 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -34,7 +34,7 @@ if sys.argv[1] == &quot;--update&quot;:
     for eachDir in dirList:
         os.system(&quot;cd %s &amp;amp;&amp;amp; git pull&quot; % eachDir)
 if sys.argv[1] == &quot;--commit&quot;:
-    os.system(&quot;upa&quot;)
+    os.system(&quot;bash /usr/share/mytools/up.sh&quot;)
     for eachDir in dirList:
         os.system(
             &quot;cd %s &amp;amp;&amp;amp; git add . &amp;amp;&amp;amp; git commit -a -m 'up' &amp;amp;&amp;amp; git push -u origin master&quot; % eachDir)
