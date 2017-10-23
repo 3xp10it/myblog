@@ -2318,9 +2318,12 @@ MyThread类中的函数时,只有一个参数时要用<span class="err">[</span>
         https://www.coresecurity.com/blog/exploiting-cve-2015-0311-part-ii-bypassing-control-flow-guard-on-windows-8-1-update-3
         CFG(执行流保护),微软在Win 8.1 Update 3以及Win 10中启用了一种抵御内存泄露攻击的新机制,
         即Control Flow Guard(CFG)——控制流防护.这项技术是为了弥补此前不完美的保护机制,例如地址空间布局随机化
-        (ASLR)导致了堆喷射的发展,而数据执行保护(DEP)造成了漏洞利用代码中返回导向编程(ROP)技术的发展.
-<span class="p">
-284.</span>windows安装openvpn
+        (ASLR)导致了堆喷射的发展,而数据执行保护(DEP)造成了漏洞利用代码中返回导向编程(ROP)技术的发展.<span class="sb">
+
+    pie:
+        linux下的安全机制,dep+aslr没开pie的情况下可利用return2plt绕过aslr
+
+</span><span class="p">284.</span>windows安装openvpn
     1&gt;不要将安装文件命名为openvpn.exe,否则会无法继续安装,会提示有一个实例正在运行
     win2003安装openvpn:
     http://www.he11oworld.com/system/2314.html
