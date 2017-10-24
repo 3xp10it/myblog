@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Oct 2017 18:07:52 +0800</pubDate>
-    <lastBuildDate>Mon, 23 Oct 2017 18:07:52 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 24 Oct 2017 08:10:53 +0800</pubDate>
+    <lastBuildDate>Tue, 24 Oct 2017 08:10:53 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>git当svn用</title>
@@ -82,6 +82,19 @@ htonl函数将32位整数由主机字节顺序转换为网络字节顺序,ntohl�
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-1.png&quot; /&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;8.内核在一个进程终止时会自动关闭所有打开的描述符&lt;/p&gt;
+
+&lt;p&gt;9.http请求头中的host字段在HTTP/1.1请求中是需要的,而在HTTP/1.0请求中是不需要的.代理缓存(proxy cache)会使用host字段
+,这个代理缓存有时作为浏览器和管理被请求文件的原始服务器(origin server)的中介[这里的1.1和1.0的区别可能可以成为绕过
+waf和漏洞挖掘的思路]&lt;/p&gt;
+
+&lt;p&gt;10.图11-24是一些http状态码
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 </description>
         <pubDate>Tue, 17 Oct 2017 00:00:00 +0800</pubDate>
