@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>深入理解计算机系统第11章笔记</title>
+<title>深入理解计算机系统第12章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,12 +93,12 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">深入理解计算机系统第11章笔记</h1>
+      <h1 class="header" itemprop="name">深入理解计算机系统第12章笔记</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">October 17, 2017</span>
+          on <span itemprop="datePublished" content="2014-08-28">October 24, 2017</span>
            under auxilary
         </i></small>
       </div>
@@ -113,43 +113,15 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="网络编程">网络编程</h3>
+        <span itemprop="articleBody"><h3 id="并发编程">并发编程</h3>
 
-<p>1.认识到客户端和服务器是进程,而不是常常提到的机器或主机,这是很重要的.无论客户端和服务器是怎样映射到主机上的,客户
-端-服务器模型是相同的.</p>
+<p>1.I/O多路复用:多路复用是指使用一个线程来检查多个描述符(socket)的就绪状态,比如调用select和poll函数,传入多个文件描
+述符,如果有一个文件描述符就绪,则返回,否则阻塞直到超时.得到就绪状态后进行真正的操作可以在同一个线程里执行,也可以启
+动线程执行(比如使用线程池),<a href="https://www.zhihu.com/question/28594409">必读理解</a></p>
 
-<p>2.因为因特网主机可以有不同的主机字节顺序,TCP/IP为任意整数数据项定义了统一的网络字节顺序(大端字节顺序),例如IP地址.
-htonl函数将32位整数由主机字节顺序转换为网络字节顺序,ntohl函数将32位整数从网络字节顺序转换为主机字节,htons和ntohs
-函数为16位的整数执行相应的转换.(不同的CPU有不同的字节序类型,这些字节序是指整数在内存中保存的顺序,这个叫做主机序
-),网络程序使用inet_aton和inet_ntoa函数来实现IP地址和点分十进制之间的转换.<a href="http://blog.csdn.net/fan_hai_ping/article/details/8435140">以上python版本</a></p>
+<p>2.现代操作系统提供了三种基本的构造并发程序的方法:<code class="highlighter-rouge">进程</code>,<code class="highlighter-rouge">I/O多路复用</code>,<code class="highlighter-rouge">线程</code>.</p>
 
-<p>3.linux中<code class="highlighter-rouge">hostname -I</code>可得到ip地址</p>
-
-<p>4.一旦一个组织得到了一个二级域名,那么它就可以在这个子域中创建任何新的域名了,从数学意义上讲,可以认为每条主机条目就
-是一个域名和IP地址的等价类</p>
-
-<p>5.每台主机都有本地定义的域名localhost,这个域名总是映射为本地回送地址(loopback address)127.0.0.1</p>
-
-<p>6.在unix机器上,文件/etc/services包含一张这台机器提供的服务以及它们的知名端口号的综合列表</p>
-
-<p>7.socket连接中监听描述符和已连接描述符之间的区别使很多人感到迷惑,监听描述符是作为客户端连接请求的一个端点.它被创
-建一次,并存在于服务器的整个生命周期.已连接描述符是客户端和服务器之间已经建立起来了的连接的一个端点,服务器每次接受
-连接请求时都会创建一次,它只存在于服务器为一个客户端服务的过程中.图11-18展示了监听描述符和已连接描述符的关系,其中
-的3和4表示描述符值(0~2描述符是预留给标准文件的)</p>
-
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-1.png" />
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-2.png" /></p>
-
-<p>8.内核在一个进程终止时会自动关闭所有打开的描述符</p>
-
-<p>9.http请求头中的host字段在HTTP/1.1请求中是需要的,而在HTTP/1.0请求中是不需要的.代理缓存(proxy cache)会使用host字段
-,这个代理缓存有时作为浏览器和管理被请求文件的原始服务器(origin server)的中介[这里的1.1和1.0的区别可能可以成为绕过
-waf和漏洞挖掘的思路]</p>
-
-<p>10.图11-24是一些http状态码
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-3.png" /></p>
-
-<p>11.<a href="https://www.awaimai.com/371.html">cgi理解</a></p>
+<p>3.</p>
 
 </span>
 
