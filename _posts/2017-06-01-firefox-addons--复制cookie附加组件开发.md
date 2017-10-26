@@ -102,7 +102,7 @@ getActiveTab().then(showCookiesForTab);
 3.可用于复制cookie和sqlmap中要用到的cooie参数形式的cookie
 
 4.安装本附加组件方法
-    在firefox的附加组件搜索xcopy,安装即可
+    在firefox的附加组件搜索xcookie,安装即可
 ```
 
 ### 0x03 Attention
