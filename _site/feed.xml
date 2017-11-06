@@ -5,9 +5,35 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 03 Nov 2017 09:28:42 +0800</pubDate>
-    <lastBuildDate>Fri, 03 Nov 2017 09:28:42 +0800</lastBuildDate>
+    <pubDate>Mon, 06 Nov 2017 09:25:20 +0800</pubDate>
+    <lastBuildDate>Mon, 06 Nov 2017 09:25:20 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>ios tweak制作</title>
+        <description>&lt;h3 id=&quot;工具准备&quot;&gt;工具准备&lt;/h3&gt;
+
+&lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;
+2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;cluth&lt;/a&gt;
+3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;
+4.swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,[可执行文件][5]&lt;/p&gt;
+
+&lt;p&gt;[5]:&lt;/p&gt;
+</description>
+        <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/06/ios-tweak%E5%88%B6%E4%BD%9C/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/06/ios-tweak%E5%88%B6%E4%BD%9C/</guid>
+        
+        <category>ios</category>
+        
+        <category>tweak</category>
+        
+        <category>lldb</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>深入理解计算机系统第12章笔记</title>
@@ -607,92 +633,6 @@ csrf_token),且暴力破解时需要每次在请求时更新请求参数中的cs
         
         
         <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第7章笔记</title>
-        <description>&lt;h3 id=&quot;链接&quot;&gt;链接&lt;/h3&gt;
-
-&lt;p&gt;1.为了构造可执行文件,链接器必须完成两个主要任务&lt;/p&gt;
-
-&lt;p&gt;a)符号解析:符号解析的目的是将每个符号引用刚好和一个符号定义联系起来&lt;/p&gt;
-
-&lt;p&gt;b)重定位:链接器通过把每个符号定义与一个存储器位置联系起来,然后修改所有对这些符号的引用,使得它们指向这个存储器位置
-,从而重定位这些节&lt;/p&gt;
-
-&lt;p&gt;2.如下为一个典型的ELF可重定位目标文件格式(与elf[可执行目标文件]的格式类似)
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.text:已编译程序的机器码
-.rodata:只读数据,如printf语句中的格式串和开关语句的跳转表
-.data:已初始化的全局变量,局部变量保存在栈中
-.bss:未初始化的全局变量,在目标文件中这个节不占据实际的空间,它仅仅是一个点位符(better save space)
-.symtab:一个符号表,它存放程序中定义和引用的函数和全局变量的信息,.symtab符号表不包含局部变量的条目
-.rel.text:一个.text节中位置的列表,当链接器把这个目标文件和其他文件结合时,需要修改这些位置
-.rel.data:被模块引用或定义的任何全局变量的重定位信息
-.debug:一个调试符号表,其条目是程序中定义的局部变量和类型定义,程序中定义和引用的全局变量,以及原始的C源文件,只有-g
-选项调用编译驱动程序(gcc)才会得到这张表
-.line:源代码和.text节中机器指令之间的映射
-.strtab:一个字符串表,其内容包括.symtab和.debug节中的符号表,以及节头部中的节名字,也即反汇编中&quot;查找字符串&quot;的结果
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;3.符号:符号是函数名和变量名,本地链接器符号不包含对应于本地非静态程序变量的任何符号(局部变量)&lt;/p&gt;
-
-&lt;p&gt;4.定义为带有C static属性的本地过程变量是不在栈中管理的,相反,编译器在.data和.bss中为每个定义分配空间,并在符号表中
-创建一个有唯一名字的本地链接器符号&lt;/p&gt;
-
-&lt;p&gt;5.任何声明带有static属性的全局变量或者函数都是模块私有有,类似地,任何声明不带static属性的全局变量和函数都是公共的,
-可以被其他模块访问,使用static属性可在模块内部隐藏变量和函数声明,尽可能用static属性来保护你的变量和函数是很好的编
-程习惯.python中在名称前加下划线表示私有,&lt;a href=&quot;http://python.jobbole.com/81129/&quot;&gt;更多详情&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;6.重定位:在装入程序前,系统会计算未使用的内存,然后将程序装入,并记下开始地址,在执行有相对地址的指令时,会将所有的地
-址加上刚才记下的开始地址,就叫重定位.重定位就是把程序的逻辑地址空间变换成内存中的实际物理地址空间的过程,也就是说在
-装入时对目标程序中指令和数据的修改过程,它是多道程序在内存中同时运行的基础.链接过程中会把多个文件的相同类型数据段
-代码放在一起,所以需要将里面的符号变量重新安置在一个确定的内存地址中,这就是重定位.&lt;/p&gt;
-
-&lt;p&gt;7.对可重定位目标文件的理解,&lt;a href=&quot;http://blog.csdn.net/ky_heart/article/details/51865526&quot;&gt;更多详情&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;8.elf可执行文件格式图如下,.text,.rodata和.data节和可重定位目标文件中的节是相似的,除了这些节已经被重定位到它们最终
-的运行时存储器地址以外.elf可执行文件被设计得很容易加载到存储器,可执行文件的连续的片(chunk)被映射到连续的存储器段,
-段头部表描述了这种关系,如下图7-12展示了一个可执行文件的段头部表(由objdump显示),其中第一部分是代码段,包括(elf头部,
-段头部表,.init,.text,.rodata节),第二部分是数据段,包括(.data,.bss节)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-2.png&quot; /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;9.任何unix程序都可以通过调用execve函数来调用加载器,加载器将可执行目标文件中的代码和数据从磁盘拷贝到存储器中,然后
-通过跳转到程序的第一条指令或入口点来运行该程序,加载器运行时,它创建如下图7-13所示的存储器映像,其中内核虚拟存储器为
-高地址&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;10.&lt;a href=&quot;http://blog.chinaunix.net/uid-24532607-id-3082314.html&quot;&gt;静态链接库和动态链接库的区别&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;11.C语言为什么要有main函数?&lt;a href=&quot;https://www.zhihu.com/question/28360770?sort=created&quot;&gt;a&lt;/a&gt;,&lt;a href=&quot;http://blog.csdn.net/xtydtc/article/details/53572455&quot;&gt;b&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;12.GOT:全局偏移量表(global offset table),在加载时,动态链接器会重定位(修改)GOT中的每个条目,使得它包含正确的绝对地址.
-每个引用全局数据的目标模块都有自己的GOT&lt;/p&gt;
-
-&lt;p&gt;13.PLT:过程链接表(Procedure Linkage Table),如果一个目标模块调用定义在共享库中的任何函数,那么它就有自己的GOT和PLT,
-GOT是.data节的一部分,PLT是.text节的一部分&lt;/p&gt;
-
-&lt;p&gt;14.&lt;a href=&quot;https://www.zhihu.com/question/21249496/answer/71226275&quot;&gt;理解GOT和PLt的关系和原理&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;15.链接可以在编译时由静态编译器来完成,也可以在加载时和运行时由动态链接器来完成.链接器的两个主要任务是符号解析和重
-定位,符号解析将目标文件中的每个全局符号都绑定到一个唯一的定义,而重定位确定每个符号的最终存储器地址,并修改对那些目
-标的引用.&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 08 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC7%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC7%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>csapp</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
