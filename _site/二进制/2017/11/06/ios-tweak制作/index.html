@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          1 minute read
+          2 minute read
         </small>
       </div>
 
@@ -127,7 +127,7 @@
 
 <p>6.远程调试ios工具:debugserver+lldb+[ida pro]</p>
 
-<p>7.查看ios app中的ui对应的类的工具(安装在手机上):flex_injected<a href="https://github.com/dtrukr/FLEX_injected">6</a></p>
+<p>7.查看ios app中的ui对应的类的工具(安装在手机上):<a href="https://github.com/dtrukr/FLEX_injected">flex_injected</a></p>
 
 <h3 id="0x01-tweak制作实例">0x01 tweak制作实例</h3>
 
@@ -222,8 +222,89 @@ integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是�
 <div class="highlighter-rouge"><pre class="highlight"><code>将
 - (long long )integratedSteps { %log; long long  r = %orig; HBLogDebug(@" = %lld", r); return r; }
 修改为:
-
 - (long long )integratedSteps { %log; long long  r =15347; return r; }
+</code></pre>
+</div>
+
+<h3 id="0x02-注意事项">0x02 注意事项</h3>
+
+<p>1.在运行nic.pl新建tweak项目时在输入bundleid时默认值为com.apple.springboard,这里要修改,且要修改成要hook的app的
+bundleid,查看bundleid可在app的安装包的Info.plist文件中得到</p>
+
+<p>2.hook原理理解</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
+https://www.oschina.net/question/565065_68287
+</code></pre>
+</div>
+
+<p>3.如果使用ida pro动态调试ios app,需要设置使用远程gdb server(使用ios debugsever失败),在mac上用ida加载脱壳后的
+mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安装的app应该也可以,未尝试],需要在ida中重新设置加载基址,
+在ida菜单的edit|segment|rebase program处设置,如果不设置加载基地会导致无法下断点,因为断点是在真实的内存偏移处中断,
+而不设置加载基址看到的ida中的偏移只是相对偏移,相对偏移不是真实的内存地址,真实的内存地址=加载基址+相对偏移.目前暂
+未找到好用的查看app运行的加载基址的方法,网上有篇文章使用的是vmmap查看,实际编译没成功.</p>
+
+<p>4.动态调试最好用lldb调试,ida调试很慢,在lldb中调试下断点时,断点地址可根据image list -o -f得到的加载基址加上ida pro
+中查看到的相对偏移得到</p>
+
+<h3 id="0x03-refer">0x03 Refer</h3>
+
+<p>1.ida远程调试ios程序</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>a.debugserver
+    http://blog.csdn.net/u013538542/article/details/72853521
+    http://bbs.iosre.com/t/debugserver-lldb-gdb/65
+b.ios安装gcc,ldid,make
+    http://kimi.it/517.html
+c.调试
+    1)http://blog.csdn.net/proteas/article/details/78083512
+    2)https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf
+</code></pre>
+</div>
+
+<p>2.ios越狱应用开发</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://www.jianshu.com/p/bc63492e4847
+http://www.swiftyper.com/2016/01/25/ios-tweak-install-guide/
+
+lldb与gdb命令对照:
+    http://lldb.llvm.org/lldb-gdb.html
+
+ios脱appstre的壳:Clutch与dumpdecrypted的使用 
+    http://sunhongyi.com/2017/01/05/iOSReverse-decrytion-tools/
+
+make出错时尝试这样:
+    http://bbs.iosre.com/t/theos/2049
+
+实例开发:
+    https://github.com/jackrex/FakeWeChatLoc
+    http://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;amp;mid=2653577384&amp;amp;idx=1&amp;amp;sn=b44a9c9651bf09c5bea7e0337031c53c&amp;amp;scene=0#wechat_redirect
+    logify.pl方法加日志
+    http://www.qingpingshan.com/m/view.php?aid=156771
+
+免越狱tweak开发
+    https://juejin.im/entry/58931dd5128fe10065441717
+
+动态调试(在ida中要设置基址)
+    http://www.cnblogs.com/ludashi/p/5730338.html
+
+hook原理
+    hook理解:
+        http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
+        https://www.oschina.net/question/565065_68287
+
+    hook种类
+        https://bbs.kafan.cn/thread-471551-1-1.html
+        http://www.epubit.com.cn/book/onlinechapter/33620
+    inline hook原理
+        http://www.cnblogs.com/zhangdongsheng/archive/2013/04/08/3007154.html
+    百科
+        http://www.baike.com/wiki/API+HOOK
+    got hook
+        http://ele7enxxh.com/Android-Arm-Inline-Hook.html
+
+    http://gslab.qq.com/article-164-1.html
+    http://www.jianshu.com/p/4f6d20076922
 </code></pre>
 </div>
 
