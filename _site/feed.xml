@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 06 Nov 2017 09:25:20 +0800</pubDate>
-    <lastBuildDate>Mon, 06 Nov 2017 09:25:20 +0800</lastBuildDate>
+    <pubDate>Mon, 06 Nov 2017 13:34:26 +0800</pubDate>
+    <lastBuildDate>Mon, 06 Nov 2017 13:34:26 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -16,9 +16,109 @@
 &lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;
 2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;cluth&lt;/a&gt;
 3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;
-4.swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,[可执行文件][5]&lt;/p&gt;
+4.class-dump的swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/class-dump&quot;&gt;可执行文件&lt;/a&gt;
+5.查看运行时函数调用及调用参数值工具:logify.pl,logify是theos的一个内置工具,路径为/opt/theos/bin/logify.pl
+6.远程调试ios工具:debugserver+lldb+[ida pro]
+7.查看ios app中的ui对应的类的工具(安装在手机上):flex_injected&lt;a href=&quot;https://github.com/dtrukr/FLEX_injected&quot;&gt;6&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[5]:&lt;/p&gt;
+&lt;h3 id=&quot;tweak制作实例&quot;&gt;tweak制作实例&lt;/h3&gt;
+
+&lt;h4 id=&quot;实现一个app上传步数大于5000&quot;&gt;实现一个app上传步数大于5000&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@iphone.ip
+wget https://github.com/KJCracks/Clutch/releases/download/2.0.4/Clutch-2.0.4 -O /usr/bin/Cluth
+Cluth -i
+Cluth -d index_number_of_target_app
+scp output.ipa user@pc_ip:
+exit
+extract the executable mach-o target file from ~/output.ipa to ~/output
+class-dump -H ~/output -o ~/output_header
+分析出可疑类中的函数为PARSPedometerInfo.h中的函数[结合flex_injected,ida pro,frida,logify.pl得出]
+nic.pl
+选择新建一个iphone tweak,项目目录为~/xupload
+设置MobileSubstrate Bundle filter的值为output.ipa的bundleid的值,可从output.ipa的info.plist中得到
+logify.pl ~/output_header/PARSPedometerInfo.h &amp;gt; ~/xupload/Tweak.xm[这一步是为了hook可疑函数,查看调用及参数]
+cd xupload
+make
+make package
+scp package/xxxx.deb root@iphone.ip:
+ssh root@iphone.ip
+dpkg -i xxxx.deb
+手机连接mac,打开xcode,在windows|device and simulators|点击查看log按钮(小三角形状)
+运行目标app并点击上传步数
+查看xcode中函数的调用日志如下
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x1708d8f70&amp;gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x1708d8f70&amp;gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x1708d8f70&amp;gt; setIntegratedSteps:36]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:8[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x1708d8f70&amp;gt; setStartDate:2017-11-04 16:00:00 +0000]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; init]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; description]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x174ad8100&amp;gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x174ad8100&amp;gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; setIntegratedSteps:2305]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;从上面日志中发现关键函数及参数setIntegratedSteps:2305,于是要hook这个函数并设置参数为大于5000的值.
+回到Tweak.xm中查看这个函数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;从中看出setIntergratedSteps函数传入了一个参数,参数类型是long long,这也是一种int类型,大小范围是int类型的4倍,直接修改
+成&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%hook PARSPedometerInfo
+- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig(15347);  }
+%end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make clean
+make 
+make package
+scp packages/xxx.deb root@iphone.ip:
+ssh root@iphone.ip
+dpkg -P com.yourcompany.xupload
+dpkg -i xxx.deb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;重新运行目标app并点击上传步数,成功上传,后来分析上面setIntegratedSteps函数调用的参数为integratedSteps函数,也即
+integratedSteps参数的返回值作为setIntegratedSteps函数的参数,也即同样可通过hook integratedSteps函数来实现,分析认为
+integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是上传本地步数.hook integratedSteps函数可如下修改&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;将
+- (long long )integratedSteps { %log; long long  r = %orig; HBLogDebug(@&quot; = %lld&quot;, r); return r; }
+修改为:
+
+- (long long )integratedSteps { %log; long long  r =15347; return r; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 </description>
         <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/06/ios-tweak%E5%88%B6%E4%BD%9C/</link>

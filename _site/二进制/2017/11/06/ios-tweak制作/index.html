@@ -118,9 +118,109 @@
 <p>1.tweak制作工具(框架):<a href="https://github.com/theos/theos">theos</a>
 2.ios app脱appstore加的壳工具:<a href="https://github.com/theos/theos">cluth</a>
 3.ios app头文件提取工具:<a href="https://github.com/nygard/class-dump">class-dump</a>
-4.swift+object c不报错版本:<a href="https://github.com/BlueCocoa/class-dump">项目地址</a>,[可执行文件][5]</p>
+4.class-dump的swift+object c不报错版本:<a href="https://github.com/BlueCocoa/class-dump">项目地址</a>,<a href="https://github.com/3xp10it/mytools/blob/master/class-dump">可执行文件</a>
+5.查看运行时函数调用及调用参数值工具:logify.pl,logify是theos的一个内置工具,路径为/opt/theos/bin/logify.pl
+6.远程调试ios工具:debugserver+lldb+[ida pro]
+7.查看ios app中的ui对应的类的工具(安装在手机上):flex_injected<a href="https://github.com/dtrukr/FLEX_injected">6</a></p>
 
-<p>[5]:</p>
+<h3 id="tweak制作实例">tweak制作实例</h3>
+
+<h4 id="实现一个app上传步数大于5000">实现一个app上传步数大于5000</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone.ip
+wget https://github.com/KJCracks/Clutch/releases/download/2.0.4/Clutch-2.0.4 -O /usr/bin/Cluth
+Cluth -i
+Cluth -d index_number_of_target_app
+scp output.ipa user@pc_ip:
+exit
+extract the executable mach-o target file from ~/output.ipa to ~/output
+class-dump -H ~/output -o ~/output_header
+分析出可疑类中的函数为PARSPedometerInfo.h中的函数[结合flex_injected,ida pro,frida,logify.pl得出]
+nic.pl
+选择新建一个iphone tweak,项目目录为~/xupload
+设置MobileSubstrate Bundle filter的值为output.ipa的bundleid的值,可从output.ipa的info.plist中得到
+logify.pl ~/output_header/PARSPedometerInfo.h &gt; ~/xupload/Tweak.xm[这一步是为了hook可疑函数,查看调用及参数]
+cd xupload
+make
+make package
+scp package/xxxx.deb root@iphone.ip:
+ssh root@iphone.ip
+dpkg -i xxxx.deb
+手机连接mac,打开xcode,在windows|device and simulators|点击查看log按钮(小三角形状)
+运行目标app并点击上传步数
+查看xcode中函数的调用日志如下
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x1708d8f70&gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x1708d8f70&gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x1708d8f70&gt; setIntegratedSteps:36]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:8[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x1708d8f70&gt; setStartDate:2017-11-04 16:00:00 +0000]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x174ad8100&gt; init]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x174ad8100&gt; description]
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x174ad8100&gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x174ad8100&gt;: 
+	 integration=0 
+	 iPhone=0 
+	 watch=0 
+	 heartRat=0
+	 at:2017-11-05 16:00:00 +0000
+Nov  6 12:05:32 iPhone PALifeApp[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x174ad8100&gt; setIntegratedSteps:2305]
+</code></pre>
+</div>
+
+<p>从上面日志中发现关键函数及参数setIntegratedSteps:2305,于是要hook这个函数并设置参数为大于5000的值.
+回到Tweak.xm中查看这个函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig; }
+</code></pre>
+</div>
+
+<p>从中看出setIntergratedSteps函数传入了一个参数,参数类型是long long,这也是一种int类型,大小范围是int类型的4倍,直接修改
+成</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%hook PARSPedometerInfo
+- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig(15347);  }
+%end
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>make clean
+make 
+make package
+scp packages/xxx.deb root@iphone.ip:
+ssh root@iphone.ip
+dpkg -P com.yourcompany.xupload
+dpkg -i xxx.deb
+</code></pre>
+</div>
+
+<p>重新运行目标app并点击上传步数,成功上传,后来分析上面setIntegratedSteps函数调用的参数为integratedSteps函数,也即
+integratedSteps参数的返回值作为setIntegratedSteps函数的参数,也即同样可通过hook integratedSteps函数来实现,分析认为
+integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是上传本地步数.hook integratedSteps函数可如下修改</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>将
+- (long long )integratedSteps { %log; long long  r = %orig; HBLogDebug(@" = %lld", r); return r; }
+修改为:
+
+- (long long )integratedSteps { %log; long long  r =15347; return r; }
+</code></pre>
+</div>
+
 </span>
 
         
