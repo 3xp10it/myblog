@@ -5,23 +5,29 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 06 Nov 2017 13:34:26 +0800</pubDate>
-    <lastBuildDate>Mon, 06 Nov 2017 13:34:26 +0800</lastBuildDate>
+    <pubDate>Mon, 06 Nov 2017 13:36:15 +0800</pubDate>
+    <lastBuildDate>Mon, 06 Nov 2017 13:36:15 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>ios tweak制作</title>
-        <description>&lt;h3 id=&quot;工具准备&quot;&gt;工具准备&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-工具准备&quot;&gt;0x00 工具准备&lt;/h3&gt;
 
-&lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;
-2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;cluth&lt;/a&gt;
-3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;
-4.class-dump的swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/class-dump&quot;&gt;可执行文件&lt;/a&gt;
-5.查看运行时函数调用及调用参数值工具:logify.pl,logify是theos的一个内置工具,路径为/opt/theos/bin/logify.pl
-6.远程调试ios工具:debugserver+lldb+[ida pro]
-7.查看ios app中的ui对应的类的工具(安装在手机上):flex_injected&lt;a href=&quot;https://github.com/dtrukr/FLEX_injected&quot;&gt;6&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;tweak制作实例&quot;&gt;tweak制作实例&lt;/h3&gt;
+&lt;p&gt;2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;cluth&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;4.class-dump的swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/class-dump&quot;&gt;可执行文件&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;5.查看运行时函数调用及调用参数值工具:logify.pl,logify是theos的一个内置工具,路径为/opt/theos/bin/logify.pl&lt;/p&gt;
+
+&lt;p&gt;6.远程调试ios工具:debugserver+lldb+[ida pro]&lt;/p&gt;
+
+&lt;p&gt;7.查看ios app中的ui对应的类的工具(安装在手机上):flex_injected&lt;a href=&quot;https://github.com/dtrukr/FLEX_injected&quot;&gt;6&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-tweak制作实例&quot;&gt;0x01 tweak制作实例&lt;/h3&gt;
 
 &lt;h4 id=&quot;实现一个app上传步数大于5000&quot;&gt;实现一个app上传步数大于5000&lt;/h4&gt;
 
