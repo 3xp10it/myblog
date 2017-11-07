@@ -5,9 +5,35 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 07 Nov 2017 08:53:02 +0800</pubDate>
-    <lastBuildDate>Tue, 07 Nov 2017 08:53:02 +0800</lastBuildDate>
+    <pubDate>Tue, 07 Nov 2017 18:14:57 +0800</pubDate>
+    <lastBuildDate>Tue, 07 Nov 2017 18:14:57 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>正则实用备忘录</title>
+        <description>&lt;p&gt;1.查找一个目录下的具备可匹配出正则内容的文件名.
+    eg.查找当前目录下能匹配”allow.*certificate”内容的文件的文件名,-i表示忽略大小写,-r表示递归搜索,-l表示只列出文件名&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ack -irl &quot;allow.*certificate&quot; .
+
+配合for循环:(用于查找ios头文件中用来进行https强校验的函数evaluateServerTrust)
+
+for each in $(ack -irl &quot;allow.*certificate&quot; .); do logify.pl $each &amp;gt;&amp;gt;  ~/xupload/Tweak.xm; done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.to be continue&lt;/p&gt;
+</description>
+        <pubDate>Tue, 07 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/11/07/%E6%AD%A3%E5%88%99%E5%AE%9E%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/11/07/%E6%AD%A3%E5%88%99%E5%AE%9E%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+        
+        <category>regexp</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>ios tweak制作</title>
@@ -37,8 +63,8 @@ Cluth -i
 Cluth -d index_number_of_target_app
 scp output.ipa user@pc_ip:
 exit
-extract the executable mach-o target file from ~/output.ipa to ~/output
-class-dump -H ~/output -o ~/output_header
+unzip output.ipa -d ~/output
+class-dump -H ~/output/Payload/xxx.app/xxx -o ~/output_header
 分析出可疑类中的函数为PARSPedometerInfo.h中的函数[结合flex_injected,ida pro,frida,logify.pl得出]
 nic.pl
 选择新建一个iphone tweak,项目目录为~/xupload
@@ -752,73 +778,6 @@ b)私有地址空间:它提供给每个程序一个假象,好像它是在独占�
         <category>cookie</category>
         
         <category>session</category>
-        
-        
-        <category>web</category>
-        
-      </item>
-    
-      <item>
-        <title>dvwa的csrf_token机制</title>
-        <description>&lt;p&gt;dvwa的csrf_token在设置level为impossible(除low外未验证)时起作用,有了csrf_token后可防csrf漏洞的利用,同时也给自动化漏洞
-检测带来了麻烦,客户端扫描漏洞时需要每次重新设置新的csrf_token来发送get/post请求,如果没有带上新的token参数值服务器
-会校验不通过&lt;/p&gt;
-
-&lt;p&gt;dvwa设置level为impossible后服务端验证(由form action中的地址对应的页面进行验证)客户端传来的csrf_token的过程如下:(以xss[reflected]和login页面为例,dvwa中的login.php和xss_r中的form action中的url都是当前页面)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-    加载impossible.php
-    impossible.php执行内容流程:
-        1.验证csrf_token
-        2.刷新服务器端存储的csrf_token
-
-    取出新的csrf_token到html的body
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;其中刷新服务器存储的csrf_token的代码如下:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
-     if( isset( $_SESSION[ 'session_token'  ]  )  ) {                                                                                                         
-         destroySessionToken();                                                                                                                            
-     }                                                                                                                                                     
-     $_SESSION[ 'session_token'  ] = md5( uniqid()  );                                                                                                       
-} 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;在上面的验证csrf_token中,xss[reflected]是先判断是否传入name参数,也即如果
-在url中出现name参数,无论是否为空都将进行csrf_token验证(服务器中用的isset($_POST[‘name’])来判断)
-eg.&lt;br /&gt;
-访问&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.83.11/dvwa/vulnerabilities/xss_r/?name=1&lt;/code&gt;时验证csrf_token&lt;br /&gt;
-访问&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.83.11/dvwa/vulnerabilities/xss_r/?name=&lt;/code&gt;时验证csrf_token&lt;br /&gt;
-访问&lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.83.11/dvwa/vulnerabilities/xss_r/&lt;/code&gt;时不验证csrf_token&lt;/p&gt;
-
-&lt;p&gt;从上面服务器校验客户端传入的csrf_token参数的过程可以看出:&lt;/p&gt;
-
-&lt;p&gt;a.服务器判断客户端是同一个&lt;code class=&quot;highlighter-rouge&quot;&gt;人&lt;/code&gt;的方法是通过cookie中的sessionid来判断的,判断客户端是同一个&lt;code class=&quot;highlighter-rouge&quot;&gt;人&lt;/code&gt;正常合法地通过浏览器
-访问的通过cookie中的sessionid+传入的csrf_token=服务器保存的csrf_token来判断的&lt;/p&gt;
-
-&lt;p&gt;b.这种带csrf_token验证的情况会对暴力破解产生阻碍,导致暴力破解相当于只能单线程进行(需要每次等待返回的新的
-csrf_token),且暴力破解时需要每次在请求时更新请求参数中的csrf_token的值为从服务器返回的新的csrf_token值&lt;/p&gt;
-
-&lt;p&gt;c.在自动化漏洞检测时需要先判断要检测的页面是否有csrf_token(有些页面是没有的),如果有则要在请求前更新csrf_token参数
-的值(sql注入和xss检测中可能会有)&lt;/p&gt;
-
-&lt;p&gt;d.这里的csrf_token的验证和&lt;a href=&quot;http://3xp10it.cc/web/2016/11/10/%E8%87%AA%E5%8A%A8%E8%AF%86%E5%88%AB%E9%AA%8C%E8%AF%81%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/#0x02-about&quot;&gt;这里&lt;/a&gt;说的验证码验证机制几乎相同,只不过链接里的form action页面与登录页面不同,也即只
-要登录页面中的form action值不是登录页面则很可能存在验证码绕过的问题(只要人工输入一次验证码即可)&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 14 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2017/09/14/dvwa%E7%9A%84csrf_token%E6%9C%BA%E5%88%B6/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2017/09/14/dvwa%E7%9A%84csrf_token%E6%9C%BA%E5%88%B6/</guid>
-        
-        <category>csrf</category>
-        
-        <category>token</category>
         
         
         <category>web</category>

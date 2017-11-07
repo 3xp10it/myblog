@@ -139,8 +139,8 @@ Cluth -i
 Cluth -d index_number_of_target_app
 scp output.ipa user@pc_ip:
 exit
-extract the executable mach-o target file from ~/output.ipa to ~/output
-class-dump -H ~/output -o ~/output_header
+unzip output.ipa -d ~/output
+class-dump -H ~/output/Payload/xxx.app/xxx -o ~/output_header
 分析出可疑类中的函数为PARSPedometerInfo.h中的函数[结合flex_injected,ida pro,frida,logify.pl得出]
 nic.pl
 选择新建一个iphone tweak,项目目录为~/xupload
