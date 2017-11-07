@@ -117,7 +117,7 @@
 
 <p>1.tweak制作工具(框架):<a href="https://github.com/theos/theos">theos</a></p>
 
-<p>2.ios app脱appstore加的壳工具:<a href="https://github.com/theos/theos">cluth</a></p>
+<p>2.ios app脱appstore加的壳工具:<a href="https://github.com/theos/theos">clutch</a>,如果失败则用<a href="https://github.com/stefanesser/dumpdecrypted">dumpdecrypted</a>尝试</p>
 
 <p>3.ios app头文件提取工具:<a href="https://github.com/nygard/class-dump">class-dump</a></p>
 
@@ -240,7 +240,7 @@ https://www.oschina.net/question/565065_68287
 
 <p>3.如果使用ida pro动态调试ios app,需要设置使用远程gdb server(使用ios debugsever失败),在mac上用ida加载脱壳后的
 mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安装的app应该也可以,未尝试],需要在ida中重新设置加载基址,
-在ida菜单的edit|segment|rebase program处设置,如果不设置加载基地会导致无法下断点,因为断点是在真实的内存偏移处中断,
+在ida菜单的edit|segment|rebase program处设置,如果不设置加载基址会导致无法下断点,因为断点是在真实的内存偏移处中断,
 而不设置加载基址看到的ida中的偏移只是相对偏移,相对偏移不是真实的内存地址,真实的内存地址=加载基址+相对偏移.目前暂
 未找到好用的查看app运行的加载基址的方法,网上有篇文章使用的是vmmap查看,实际编译没成功.</p>
 
@@ -272,6 +272,8 @@ lldb与gdb命令对照:
 
 ios脱appstre的壳:Clutch与dumpdecrypted的使用 
     http://sunhongyi.com/2017/01/05/iOSReverse-decrytion-tools/
+    clutch用法:
+        http://www.jianshu.com/p/47836c78eb0a
 
 make出错时尝试这样:
     http://bbs.iosre.com/t/theos/2049

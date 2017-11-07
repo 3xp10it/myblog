@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 06 Nov 2017 13:54:38 +0800</pubDate>
-    <lastBuildDate>Mon, 06 Nov 2017 13:54:38 +0800</lastBuildDate>
+    <pubDate>Tue, 07 Nov 2017 08:53:02 +0800</pubDate>
+    <lastBuildDate>Tue, 07 Nov 2017 08:53:02 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;cluth&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;clutch&lt;/a&gt;,如果失败则用&lt;a href=&quot;https://github.com/stefanesser/dumpdecrypted&quot;&gt;dumpdecrypted&lt;/a&gt;尝试&lt;/p&gt;
 
 &lt;p&gt;3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;&lt;/p&gt;
 
@@ -138,7 +138,7 @@ https://www.oschina.net/question/565065_68287
 
 &lt;p&gt;3.如果使用ida pro动态调试ios app,需要设置使用远程gdb server(使用ios debugsever失败),在mac上用ida加载脱壳后的
 mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安装的app应该也可以,未尝试],需要在ida中重新设置加载基址,
-在ida菜单的edit|segment|rebase program处设置,如果不设置加载基地会导致无法下断点,因为断点是在真实的内存偏移处中断,
+在ida菜单的edit|segment|rebase program处设置,如果不设置加载基址会导致无法下断点,因为断点是在真实的内存偏移处中断,
 而不设置加载基址看到的ida中的偏移只是相对偏移,相对偏移不是真实的内存地址,真实的内存地址=加载基址+相对偏移.目前暂
 未找到好用的查看app运行的加载基址的方法,网上有篇文章使用的是vmmap查看,实际编译没成功.&lt;/p&gt;
 
@@ -170,6 +170,8 @@ lldb与gdb命令对照:
 
 ios脱appstre的壳:Clutch与dumpdecrypted的使用 
     http://sunhongyi.com/2017/01/05/iOSReverse-decrytion-tools/
+    clutch用法:
+        http://www.jianshu.com/p/47836c78eb0a
 
 make出错时尝试这样:
     http://bbs.iosre.com/t/theos/2049
