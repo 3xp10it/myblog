@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="工具准备">工具准备</h3>
 
-<p>1.apktool,<code class="highlighter-rouge">brew install apktool</code>[可得到关键id]</p>
+<p>1.apktool,<code class="highlighter-rouge">brew install apktool</code>[可得到关键smali文件]</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>apktool d target.apk -o target
 </code></pre>
@@ -128,6 +128,15 @@
 </div>
 
 <p>3.jd-gui,<code class="highlighter-rouge">brew cask install jd-gui</code>[可得到java源码]</p>
+
+<p>4.<a href="https://varaneckas.com/jad/">jad</a>,如果jd-gui看到的代码不全,可尝试jad看能否看到更多源代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jar -xvf target.jar[得到.class文件]
+for each in $(find . -name "*.class");do echo y | jad $each;done
+for each in $(find . -name "*.jad");do copy $each /tmp/source;done
+其中.jad为jad将.class反编译得到的java代码文件
+</code></pre>
+</div>
 
 <h3 id="实例破解">实例破解</h3>
 

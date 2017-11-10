@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 10 Nov 2017 07:30:36 +0800</pubDate>
-    <lastBuildDate>Fri, 10 Nov 2017 07:30:36 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Fri, 10 Nov 2017 17:37:28 +0800</pubDate>
+    <lastBuildDate>Fri, 10 Nov 2017 17:37:28 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>apk逆向</title>
@@ -26,6 +26,15 @@
 &lt;/div&gt;
 
 &lt;p&gt;3.jd-gui,&lt;code class=&quot;highlighter-rouge&quot;&gt;brew cask install jd-gui&lt;/code&gt;[可得到java源码]&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://varaneckas.com/jad/&quot;&gt;jad&lt;/a&gt;,如果jd-gui看到的代码不全,可尝试jad看能否看到更多源代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jar -xvf target.jar[得到.class文件]
+for each in $(find . -name &quot;*.class&quot;);do echo y | jad $each;done
+for each in $(find . -name &quot;*.jad&quot;);do copy $each /tmp/source;done
+其中.jad为jad将.class反编译得到的java代码文件
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&quot;实例破解&quot;&gt;实例破解&lt;/h3&gt;
 
