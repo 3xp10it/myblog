@@ -5,13 +5,13 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 10 Nov 2017 17:40:48 +0800</pubDate>
-    <lastBuildDate>Fri, 10 Nov 2017 17:40:48 +0800</lastBuildDate>
+    <pubDate>Fri, 10 Nov 2017 18:05:45 +0800</pubDate>
+    <lastBuildDate>Fri, 10 Nov 2017 18:05:45 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>apk逆向</title>
-        <description>&lt;h3 id=&quot;工具准备&quot;&gt;工具准备&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-工具准备&quot;&gt;0x01 工具准备&lt;/h3&gt;
 
 &lt;p&gt;1.apktool,&lt;code class=&quot;highlighter-rouge&quot;&gt;brew install apktool&lt;/code&gt;[可得到关键smali文件]&lt;/p&gt;
 
@@ -37,7 +37,15 @@ for each in $(find . -name &quot;*.jad&quot;);do copy $each /tmp/source;done
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;实例破解&quot;&gt;实例破解&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-apk逆向好文&quot;&gt;0x02 apk逆向好文&lt;/h3&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;http://pwn4.fun/2016/01/08/Android逆向基础/&quot;&gt;smali插桩&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/charlessimonyi/article/details/52027563&quot;&gt;smali批量插桩&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://unclechen.github.io/2016/09/07/Android%E5%8F%8D%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/&quot;&gt;自动化工具&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x03-实例破解&quot;&gt;0x03 实例破解&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/money_apk.png&quot; /&gt;&lt;/p&gt;
 
