@@ -5,17 +5,18 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 10 Nov 2017 17:37:28 +0800</pubDate>
-    <lastBuildDate>Fri, 10 Nov 2017 17:37:28 +0800</lastBuildDate>
+    <pubDate>Fri, 10 Nov 2017 17:40:48 +0800</pubDate>
+    <lastBuildDate>Fri, 10 Nov 2017 17:40:48 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>apk逆向</title>
         <description>&lt;h3 id=&quot;工具准备&quot;&gt;工具准备&lt;/h3&gt;
 
-&lt;p&gt;1.apktool,&lt;code class=&quot;highlighter-rouge&quot;&gt;brew install apktool&lt;/code&gt;[可得到关键id]&lt;/p&gt;
+&lt;p&gt;1.apktool,&lt;code class=&quot;highlighter-rouge&quot;&gt;brew install apktool&lt;/code&gt;[可得到关键smali文件]&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apktool d target.apk -o target
+与apktool相同功能的工具但更新更多的是[baksmali][3]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
