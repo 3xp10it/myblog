@@ -311,14 +311,17 @@ hook原理
 </code></pre>
 </div>
 
-<p>3.ios逆向工具汇总
-    flex(cydia),patch app的函数参数和返回值
-    <a href="https://github.com/dtrukr/FLEX_injected">flex_injected</a>,找到app中的按钮对应的类
-    reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal
-    syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同
-    <a href="https://github.com/frida/frida">frida</a>
-    class-dump,脱壳工具
-    dumpdecrypted,脱壳工具</p>
+<p>3.ios逆向工具汇总</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>flex(cydia),patch app的函数参数和返回值
+[flex_injected][6],找到app中的按钮对应的类
+reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal
+syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同[需要执行cat /dev/null &gt; /var/log/syslog]
+[frida][8]
+class-dump,脱壳工具
+dumpdecrypted,脱壳工具
+</code></pre>
+</div>
 
 </span>
 

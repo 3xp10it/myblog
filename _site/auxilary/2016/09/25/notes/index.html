@@ -3116,6 +3116,8 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 
 </span><span class="p">244.</span>获取指定网站公钥命令
     openssl s_client -connect the.host.name:443 | openssl x509 -pubkey -noout
+    从证书文件中获取公钥命令
+    openssl x509 -in ~/Downloads/1.pem -pubkey
 <span class="p">
 245.</span>z3用法
     http://mp.weixin.qq.com/s/RLCGhXfBlL32gCDpleeQ9g
