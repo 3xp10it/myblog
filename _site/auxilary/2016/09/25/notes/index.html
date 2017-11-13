@@ -2906,8 +2906,15 @@ windows:
 <span class="p">
 281.</span>绕过钉钉打卡检测虚拟定位插件实现任意地址打卡
     https://bbs.feng.com/read-htm-tid-10874179.html
-<span class="p">
-282.</span>python的requests模块无法访问https证书未通过验证的形如https://www.baidu.com的url的解决办法
+    google:钉钉打卡+ibackupbot<span class="sb">
+
+    逆向绕过钉钉打卡
+    http://www.swiftyper.com/2017/02/15/dingtalk-fake-gps/
+    [不越狱]http://www.dongcoder.com/detail-679997.html
+            http://www.qiyouapp.com/kaoqinqiandao/dingding/14190.htm
+            http://www.qiyouapp.com/kaoqinqiandao/dingding/14189.htm
+
+</span><span class="p">282.</span>python的requests模块无法访问https证书未通过验证的形如https://www.baidu.com的url的解决办法
     http://blog.csdn.net/xiaopangxia/article/details/49908889
 <span class="p">
 283.</span>查看未知python变量时可用:
@@ -3056,6 +3063,7 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     
     免越狱tweak开发
         https://juejin.im/entry/58931dd5128fe10065441717
+        http://www.chinapyg.com/thread-88593-1-1.html
 
     动态调试(在ida中要设置基址)
         http://www.cnblogs.com/ludashi/p/5730338.html
@@ -3101,9 +3109,19 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
         apt-get update
         <span class="p">[</span><span class="nv">reboot</span><span class="p">]</span>
     cydia闪退修复方法:(不用重新安装cydia)
-        rm -r /var/mobile/Library/Caches/com.saurik.Cydia/<span class="err">*</span>
+        rm -r /var/mobile/Library/Caches/com.saurik.Cydia/<span class="err">*</span><span class="sb">
+
+    cydia出现Encountered a section with no package: header的问题解决办法:
+        看看cydia中每次apt-get update后的日志中有什么源有什么问题,如果有则删除这个源即可解决上面的问题
+
+</span><span class="p">244.</span>获取指定网站公钥命令
+    openssl s_client -connect the.host.name:443 | openssl x509 -pubkey -noout
 <span class="p">
-244.</span>to be continued
+245.</span>z3用法
+    http://mp.weixin.qq.com/s/RLCGhXfBlL32gCDpleeQ9g
+    https://github.com/Z3Prover/z3/wiki/Documentation
+    https://yurichev.com/writings/SAT_SMT_draft-EN.pdf
+
 </code></pre>
 </div>
 </span>

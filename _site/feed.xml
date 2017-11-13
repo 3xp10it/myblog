@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 10 Nov 2017 18:05:45 +0800</pubDate>
-    <lastBuildDate>Fri, 10 Nov 2017 18:05:45 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Mon, 13 Nov 2017 08:02:53 +0800</pubDate>
+    <lastBuildDate>Mon, 13 Nov 2017 08:02:53 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>apk逆向</title>
@@ -430,6 +430,7 @@ make出错时尝试这样:
 
 免越狱tweak开发
     https://juejin.im/entry/58931dd5128fe10065441717
+    http://www.chinapyg.com/thread-88593-1-1.html
 
 动态调试(在ida中要设置基址)
     http://www.cnblogs.com/ludashi/p/5730338.html
@@ -453,6 +454,15 @@ hook原理
     http://www.jianshu.com/p/4f6d20076922
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;3.ios逆向工具汇总
+    flex(cydia),patch app的函数参数和返回值
+    &lt;a href=&quot;https://github.com/dtrukr/FLEX_injected&quot;&gt;flex_injected&lt;/a&gt;,找到app中的按钮对应的类
+    reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal
+    syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同
+    &lt;a href=&quot;https://github.com/frida/frida&quot;&gt;frida&lt;/a&gt;
+    class-dump,脱壳工具
+    dumpdecrypted,脱壳工具&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
