@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 13 Nov 2017 19:46:04 +0800</pubDate>
-    <lastBuildDate>Mon, 13 Nov 2017 19:46:04 +0800</lastBuildDate>
+    <pubDate>Mon, 13 Nov 2017 19:48:07 +0800</pubDate>
+    <lastBuildDate>Mon, 13 Nov 2017 19:48:07 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -493,7 +493,7 @@ dumpdecrypted,脱壳工具
 
 &lt;p&gt;2.现代操作系统提供了三种基本的构造并发程序的方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;进程&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;I/O多路复用&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;线程&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;3.select实现I/O多路复用用法示例 1&lt;a href=&quot;http://www.jb51.net/article/111899.htm&quot;&gt;2&lt;/a&gt;,2&lt;a href=&quot;https://www.chengxulvtu.com/2017/10/10/以python理解linux的io多路复用,select、poll、epoll.html&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3.select实现I/O多路复用用法示例 &lt;a href=&quot;http://www.jb51.net/article/111899.htm&quot;&gt;1&lt;/a&gt;,&lt;a href=&quot;https://www.chengxulvtu.com/2017/10/10/以python理解linux的io多路复用,select、poll、epoll.html&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;4.信号量:线程的信号量与进程间通信中使用的信号量的概念是一样,它是一种特殊的变量,它可以被增加或减少,但对其的关键
 访问被保证是原子操作.如果一个程序中有多个线程试图改变一个信号量的值,系统将保证所有的操作都将依次进行.&lt;/p&gt;
