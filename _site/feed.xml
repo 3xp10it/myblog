@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 13 Nov 2017 18:06:09 +0800</pubDate>
-    <lastBuildDate>Mon, 13 Nov 2017 18:06:09 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Mon, 13 Nov 2017 19:46:04 +0800</pubDate>
+    <lastBuildDate>Mon, 13 Nov 2017 19:46:04 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>apk逆向</title>
@@ -493,9 +493,18 @@ dumpdecrypted,脱壳工具
 
 &lt;p&gt;2.现代操作系统提供了三种基本的构造并发程序的方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;进程&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;I/O多路复用&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;线程&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;3.select实现I/O多路复用用法示例 1&lt;a href=&quot;http://www.jb51.net/article/111899.htm&quot;&gt;2&lt;/a&gt;,2&lt;a href=&quot;https://www.chengxulvtu.com/2017/10/10/以python理解linux的io多路复用，select、poll、epoll.html&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3.select实现I/O多路复用用法示例 1&lt;a href=&quot;http://www.jb51.net/article/111899.htm&quot;&gt;2&lt;/a&gt;,2&lt;a href=&quot;https://www.chengxulvtu.com/2017/10/10/以python理解linux的io多路复用,select、poll、epoll.html&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;4.&lt;/p&gt;
+&lt;p&gt;4.信号量:线程的信号量与进程间通信中使用的信号量的概念是一样,它是一种特殊的变量,它可以被增加或减少,但对其的关键
+访问被保证是原子操作.如果一个程序中有多个线程试图改变一个信号量的值,系统将保证所有的操作都将依次进行.&lt;/p&gt;
+
+&lt;p&gt;5.信号量与互斥量的&lt;a href=&quot;https://www.zhihu.com/question/47411729&quot;&gt;理解1&lt;/a&gt;,&lt;a href=&quot;http://blog.csdn.net/bao_qibiao/article/details/4516196&quot;&gt;理解2&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;6.每个线程都有它自己独立的线程上下文,包括线程ID,栈,栈指针,程序计数器,条件码和通用目的寄存器值.每个线程和其他线程
+一起共享进程上下文的剩余部分,这包括整个用户虚拟地址空间,它是由只读文本(代码),读/写数据,堆以及所有的共享库代码和数
+据区域组成的.线程也共享同样的打开的文件的集合.寄存器是从不共享的,而虚拟存储器总是共享的.&lt;/p&gt;
+
+&lt;p&gt;7.如果一个线程以某种方式得到一个指向其他线程栈的指针,那么它就可以读写这个栈的任何部分.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 24 Oct 2017 00:00:00 +0800</pubDate>
