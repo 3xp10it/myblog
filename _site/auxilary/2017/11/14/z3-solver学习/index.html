@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          2 minute read
+          4 minute read
         </small>
       </div>
 
@@ -166,6 +166,45 @@ print(tidy_answer)
 </div>
 
 <h4 id="0x0b-未涉及bitvec类型">0x0b 未涉及BitVec类型</h4>
+
+<p><a href="https://github.com/p4-team/ctf/tree/master/2017-09-02-tokyo/crypto_simple">题目地址</a></p>
+
+<p>解法:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/usr/bin/env python2</span>
+<span class="kn">from</span> <span class="nn">z3</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solver</span><span class="p">()</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="s">"7c153a474b6a2d3f7d3f7328703e6c2d243a083e2e773c45547748667c1511333f4f745e"</span>
+<span class="n">cipher</span> <span class="o">=</span> <span class="n">ciphertext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"hex"</span><span class="p">)</span>
+<span class="c"># print(cipher)</span>
+<span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">Int</span><span class="p">(</span><span class="s">'k</span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">13</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">each</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">each</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="n">Int</span><span class="p">(</span><span class="s">'flag</span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span> <span class="o">-</span> <span class="mi">15</span><span class="p">)]</span>
+<span class="n">prefix</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">each</span><span class="p">)</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="s">"TWCTF{"</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)):</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">each</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">each</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">message</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="s">'|'</span><span class="p">)]</span> <span class="o">+</span> <span class="n">key</span>
+<span class="n">encrypted</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="s">'R'</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">encrypted</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">encrypted</span> <span class="o">&lt;=</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">encrypted</span> <span class="o">=</span> <span class="p">[</span><span class="n">encrypted</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">Int</span><span class="p">(</span><span class="s">'encrypted</span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+                           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">encrypted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">key</span><span class="p">[(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span>
+                                         <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">+</span> <span class="n">encrypted</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">%</span> <span class="mi">128</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cipher</span><span class="p">)):</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">cipher</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="n">encrypted</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">answer</span><span class="p">[</span><span class="n">each</span><span class="p">]</span><span class="o">.</span><span class="n">as_long</span><span class="p">())</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <h4 id="0x0c-bitvec类型">0x0c BitVec类型</h4>
 
