@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "z3 solver学习",
+    "category" : "",
+    "tags"     : "z3, ctf, python",
+    "url"      : "/auxilary/2017/11/14/z3-solver%E5%AD%A6%E4%B9%A0/",
+    "date"     : "2017-11-14 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "apk逆向",
     "category" : "",
     "tags"     : "apk",

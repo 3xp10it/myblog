@@ -5,9 +5,222 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 14 Nov 2017 08:04:12 +0800</pubDate>
-    <lastBuildDate>Tue, 14 Nov 2017 08:04:12 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Tue, 14 Nov 2017 16:07:00 +0800</pubDate>
+    <lastBuildDate>Tue, 14 Nov 2017 16:07:00 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>z3 solver学习</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;p&gt;z3是个解题神器,可用于ctf中的加解密和逆向和pwn类型的题目.安装方法为:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install z3-solver
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-解题&quot;&gt;0x01 解题&lt;/h3&gt;
+
+&lt;h4 id=&quot;0x0a-加减乘除&quot;&gt;0x0a 加减乘除&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://solution-36.blogspot.com/2014/08/solving-picoctf-2013-harder-serial-with.html&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解法:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from z3 import *
+s=[Int('serial%d' % i) for i in range(20)]
+solver = Solver()
+solver.add(s[15] + s[4] == 10)
+solver.add(s[1] * s[18] == 2 )
+solver.add(s[15] / s[9] == 1)
+solver.add(s[17] - s[0] == 4)
+solver.add(s[5] - s[17] == -1)
+solver.add(s[15] - s[1] == 5)
+solver.add(s[1] * s[10] == 18)
+solver.add(s[8] + s[13] == 14)
+solver.add(s[18] * s[8] == 5)
+solver.add(s[4] * s[11] == 0)
+solver.add(s[8] + s[9] == 12)
+solver.add(s[12] - s[19] == 1)
+solver.add(s[9] % s[17] == 7)
+solver.add(s[14] * s[16] == 40)
+solver.add(s[7] - s[4] == 1)
+solver.add(s[6] + s[0] == 6)
+solver.add(s[2] - s[16] == 0)
+solver.add(s[4] - s[6] == 1)
+solver.add(s[0] % s[5] == 4)
+solver.add(s[5] * s[11] == 0)
+solver.add(s[10] % s[15] == 2)
+solver.add(s[11] / s[3] == 0)
+solver.add(s[14] - s[13] == -4)
+solver.add(s[18] + s[19] == 3)
+
+print(solver.check())
+answer=solver.model()
+print(answer)
+tidy_answer=&quot;&quot;.join([str(answer[each]) for each in s])
+print(tidy_answer)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0x0b-未涉及bitvec类型&quot;&gt;0x0b 未涉及BitVec类型&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x0c-bitvec类型&quot;&gt;0x0c BitVec类型&lt;/h4&gt;
+
+&lt;p&gt;当实际问题中需要进行与二进制数据有关的操作(如异或操作),则需要用到BitVec类型变量,在z3中:&lt;/p&gt;
+
+&lt;p&gt;1.只有BitVec变量可以进行异或&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;solver.add(Int('x')^Int('y')==5)不被允许
+只能solver.add(BitVec('x',8)^BitVec('y',8)==5)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.BitVecVal值之间不能进行&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;或&amp;lt;&lt;/code&gt;比较,只能转换成python认识的类型才可以比较&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;不允许:if BitVecVal(98,8)&amp;gt;BitVecVal(97,8)
+允许:if BitVecVal(98,8)==98:
+允许:if BitVecVal(98,8).as_long()&amp;gt;97
+允许:if BitVecVal(98,8).as_long()&amp;gt;BitVecVal(97,8).as_long()
+z3重载了==符号,但是没有重载&amp;gt;和&amp;lt;号,在int类型与bit-vector类型进行&quot;==&quot;比较时会将int常量当作bit-vector类型来比较
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.BitVec变量值之间可进行&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;或&amp;lt;或=或&amp;gt;=或&amp;lt;=&lt;/code&gt;的比较&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;允许:BitVec('a',8)&amp;gt;=BitVec('b',8)
+允许:BitVec('a',8)&amp;lt;=BitVec('b',8)
+允许:BitVec('a',8)&amp;lt;=9
+允许:BitVec('a',8)==9
+不允许:BitVec('a',8).as_long(),而允许BitVecVal(98,8).as_long()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4.z3中不允许列表与列表之间添加&lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt;约束条件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;允许对列表中的每个元素分开进行==的条件限定约束:
+
+from z3 import *
+prefix=[ord(each) for each in &quot;flag{&quot;]
+plain_line=[Int('x%d' % i) for i in range(5)]
+s=Solver()
+z=0
+#s.add(plain_line[z:z+5]==prefix)
+s.add(plain_line[z]==prefix[0])
+s.add(plain_line[z+1]==prefix[1])
+s.add(plain_line[z+2]==prefix[2])
+s.add(plain_line[z+3]==prefix[3])
+s.add(plain_line[z+4]==prefix[4])
+s.check()
+print(s.model())
+
+
+不允许直接对列表进行==的条件限定约束,下面的用法是不允许的,会无解:
+
+from z3 import *
+prefix=[ord(each) for each in &quot;flag{&quot;]
+plain_line=[Int('x%d' % i) for i in range(5)]
+s=Solver()
+z=0
+s.add(plain_line[z:z+5]==prefix)
+#s.add(plain_line[z]==prefix[0])
+#s.add(plain_line[z+1]==prefix[1])
+#s.add(plain_line[z+2]==prefix[2])
+#s.add(plain_line[z+3]==prefix[3])
+#s.add(plain_line[z+4]==prefix[4])
+s.check()
+print(s.model())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/ctf/blob/master/babyxor.md&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/babyxor_show.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;解法:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from z3 import *
+import base64
+
+def encrypt(plaintext, key):
+    plaintext += '|'
+    plaintext += key
+    key = key*(len(plaintext)//len(key))
+    key += key[:len(plaintext)-len(key)]
+
+    cipher = ''.join(chr(ord(i)^ord(j)) for i,j in zip(plaintext, key))
+    cipher = base64.b64encode(cipher.encode('ascii'))
+    return cipher.decode('ascii')
+
+#z=11,y=17
+ceshi_encrypted=encrypt(&quot;lalalanihaoflag{8989082399}&quot;,&quot;11122233344455566&quot;)
+
+
+timu_encrypted=&quot;BCU8EGwlJzAdBjAcGCgaFxgsNyEKIy9iOBxDLwFePVtEIj1kOxBsJisnCg1jHFd4HQ0GaSYnF2wuLDIKT2MJVjxVDA5pKScQOGEuOBkGYwFMeAYLSyg3chcjYSQ0Cg9jBld4AQsZPTEgCiImYiMKBDENTCtVAgQ7ZCUCPzUnNU8aJglKK1lEBSwyNxFsKiw+GEM3AF14FxEZJy08BGwyKjACBmMHXngURAYsJTxDLS8mcR8GNxxBeAUFGD1/chAjYS44GQZjHFA5AUhLLT07DSttYjkKQy4BXzABRBgoPWhDLS0ucQIaYwRRPhBISygoPkMhOGIiGxEmBl8sHUQcLDY3QysoNDQBQzcHGCwdAUsvLTwGPzViMg4WMA0YMRtECiUochckJGImABEvDBR4AQwOaSI7BCQ1YjcAEWMcUD1VKAIrISACOCgtP08MJUh1ORsPAicgfEMEJDA0TwowSEwwEEQbOy0oBmwnLSNPFysBS3gZAR0sKGhDKi0jNhQ3Kw1nNRQDAiobJQw+JR04HDw7B0olCS0vGyceIg4QLTIsC3swTTwe&quot;
+
+#encrypted=ceshi_encrypted
+encrypted=timu_encrypted
+
+cipher=base64.b64decode(encrypted.encode(&quot;ascii&quot;)).decode('ascii')
+length=len(cipher)
+cipher=[BitVecVal(ord(each),8) for each in cipher]
+plain_line=[BitVec('p%d' % i,8) for i in range(length)]
+key_line=[BitVec('k%d' % i,8) for i in range(length)]
+prefix=[BitVecVal(ord(each),8) for each in &quot;flag{&quot;]
+for y in range(1,length-7+1):
+    for z in range(0,length-y-7+1):
+        s=Solver()
+        #s.add(plain_line[z:z+5]==prefix)
+        s.add(plain_line[z]==prefix[0])
+        s.add(plain_line[z+1]==prefix[1])
+        s.add(plain_line[z+2]==prefix[2])
+        s.add(plain_line[z+3]==prefix[3])
+        s.add(plain_line[z+4]==prefix[4])
+        for i in range(length):
+            32&amp;lt;=plain_line[i]
+            plain_line[i]&amp;lt;=126
+            32&amp;lt;=key_line[i]
+            key_line[i]&amp;lt;=126
+        plain_line[-y-1]==ord('|')
+        key=plain_line[-y:]
+        for i in range(length):
+            s.add(key_line[i]==key[i%y])
+            s.add(plain_line[i]^key_line[i]==cipher[i])
+        if s.check()==sat:
+            answer=s.model()
+            print(answer)
+            key_line=&quot;&quot;.join([chr(answer[each].as_long()) for each in key_line])
+            plain_line=&quot;&quot;.join([chr(answer[each].as_long()) for each in plain_line])
+            print(&quot;key_line:&quot;)
+            print(key_line)
+            print(&quot;plain_line:&quot;)
+            print(plain_line)
+            input(&quot;Congratulations!&quot;)
+
+        else:
+            print(&quot;try key len:%d,'flag{' index:%d&quot; % (y,z))
+            continue
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/babyxor_answer.png&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 14 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/11/14/z3-solver%E5%AD%A6%E4%B9%A0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/11/14/z3-solver%E5%AD%A6%E4%B9%A0/</guid>
+        
+        <category>z3</category>
+        
+        <category>ctf</category>
+        
+        <category>python</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>apk逆向</title>
@@ -875,115 +1088,6 @@ d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应�
         
         
         <category>regexp</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第8章笔记</title>
-        <description>&lt;h3 id=&quot;异常控制流&quot;&gt;异常控制流&lt;/h3&gt;
-
-&lt;p&gt;1.ECF:异常控制流(Exceptional Control Flow)&lt;/p&gt;
-
-&lt;p&gt;2.应用程序通过使用一个叫做陷阱(trap)或者系统调用(system call)的ECF形式,向操作系统请求服务&lt;/p&gt;
-
-&lt;p&gt;3.非本地跳转是一种应用层ECF,在C中是通过setjmp和longjmp函数提供的&lt;/p&gt;
-
-&lt;p&gt;4.异常位于硬件和操作系统交界的部分,进程和信号位于应用和操作系统的交界之处&lt;/p&gt;
-
-&lt;p&gt;5.异常是异常控制流的一种形式,它一部分是由硬件实现的,一部分是由操作系统实现的&lt;/p&gt;
-
-&lt;p&gt;6.异常处理程序运行在内核模式下,这意味着它们对所有的系统资源都有完全的访问权限&lt;/p&gt;
-
-&lt;p&gt;7.异常可以分为4类:中断,陷阱,故障,终止.如下图8-4.&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp8-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;a)中断:中断是异步发生的,是来自处理器外部的I/O设备的信号的结果.I/O设备通过向外理器芯片上的一个引脚发信号,并将异常
-号放到系统总线上,以触发中断.在当前指令完成执行之后,处理器注意到中断引脚的电压变高了,就从系统总线读取异常号,然后调
-用适当的中断处理程序&lt;br /&gt;
-b)陷阱:陷阱是有意的异常,是执行一条指令的结果,陷阱最重要的用途是在用户程序和内核之间提供一个像过程一样的接口,叫系
-统调用.用户程序向内核请求服务(也即应用程序执行一次系统调用syscall),执行syscall指令会导致一个到异常处理程序的陷阱,
-这个处理程序对参数解码,并调用适当的内核程序.在IA32系统上,系统调用是通过一条称为int n的陷阱指令来提供的.C程序用
-syscall函数可以直接调用任何系统调用,然而,实际中几乎没必要这么做,对于大多数系统调用,标准C库提供了一组方便的包装函
-数.这些包装函数将参数打包到一起,以适当的系统调用号陷入内核,然后将系统调用的返回状态传递回应用程序.所有的Linux系统
-调用的参数老师通过寄存器而不是栈传递的.按照惯例,寄存器%eax包含系统调用号,寄存器%ebx,%ecx,%edx,%esi,%edi和%ebp包含
-最多六个任意的参数,栈指针%esp不能使用,因为当进入内核模式时,内核会覆盖它.常见系统级调用如下: &lt;br /&gt;
-exit,fork,read,write,open,close,waitpid
-c)故障:故障由错误情况引起,它可能能够被故障处理程序修正.如果处理程序能够修正这个错误情况,它就将控制返回到引起故障
-的指令,从而重新执行它,否则,处理程序返回到内核中的abort例程并终止引起故障的应用程序&lt;br /&gt;
-d)终止:终止是不可恢复的致命错误造成的结果,通常是一些硬件错误,终止处理程序从不将控制返回给应用程序&lt;/p&gt;
-
-&lt;p&gt;8.进程是计算机科学最深刻最成功的概念之一.系统中的每个程序都是运行在某个进程的上下文中的.上下文是由程序正确运行所
-需的状态组成的.每次用户通过向外壳输入一个可执行目标文件的名字,并运行一个程序时,外壳就会创建一个新的进程,然后在这
-个新进程的上下文中运行这个可执行目标文件.应用程序也能够创建新进程,且在这个新进程的上下文中运行它们自己的代码或其
-他应用程序.进程提供给应用程序的2个抽象:&lt;br /&gt;
-a)一个独立的逻辑控制流,它提供一个假象,好像我们的程序独占地使用处理器&lt;br /&gt;
-b)一个么有的地址空间,它提供一个假象,好像我们的程序独占地使用存储器系统&lt;/p&gt;
-
-&lt;p&gt;9.并行与并发的区别&lt;br /&gt;
-你吃饭吃到一半,电话来了,你一直到吃完了以后才去接,这就说明你不支持并发也不支持并行.你吃饭吃到一半,电话来了,
-你停了下来接了电话,接完后继续吃饭,这说明你支持并发.你吃饭吃到一半,电话来了,你一边打电话一边吃饭,这说明你支
-持并行.并发的关键是你有处理多个任务的能力,不一定要同时.并行的关键是你有同时处理多个任务的能力.&lt;/p&gt;
-
-&lt;p&gt;10.处理器通常是用某个控制寄存器中的一个模式位来提供控制权限的,该寄存器描述了进程当前享有的权限,当设置了模式位时,
-进程就运行在内核模式中,一个运行在内核模式的进程可以执行指令集中的任何指令,并且可以访问系统中任何存储器位置.没有设
-置模式位时,进程就运行在用户模式中,必须通过系统调用接口间接访问内核代码和数据.进程从用户模式变为内核模式的唯一方法
-是通过诸如中断,故障或者陷入系统调用这样的异常.&lt;/p&gt;
-
-&lt;p&gt;11.unix系统级函数遇到错误时,它们典型地会返回-1,并设置全局整数变量errno来表示什么出错了.&lt;/p&gt;
-
-&lt;p&gt;12.从程序员的角度,可以认为进程总是处于下面3种状态之一:&lt;br /&gt;
-a)运行.要么在cpu上执行,要么在等待被执行且最终会被内核调度&lt;br /&gt;
-b)停止.进程的执行被挂起(suspend),且不会被调度.当收到SIGSTOP,SIGTSTP,SIDTTIN或者SIGTTOU信号时,进程就停止,并且保持
-停止直到它收到一个SIGCONT信号,在这个时刻,进程再次开始运行.(相当于linux命令中的ctrl+z,ctrl+z的是将任务中断,但是此
-任务并没有结束,他仍然在进程中他只是维持挂起的状态.)&lt;br /&gt;
-c)终止.进程永远停止了.进程会因为3种原因终止:1)收到一个信号,该信号的默认行为是终止进程,2)从主程序返回,3)调用exit函
-数&lt;/p&gt;
-
-&lt;p&gt;13.父进程通过调用fork函数创建一个新的运行子进程(pid_t fork(void)).新创建的子进程几乎但不完全与父进程相同.子进程得
-到与父进程用户级虚拟地址空间相同的(但是独立的)一份拷贝,包括文本,数据和bss段,堆以及用户栈.子进程还获得与父进程任何
-打开文件描述符相同的拷贝,这就意味着当父进程调用fork时,子进程可以读写父进程中打开的任何文件.父进程和新创建的子进程
-之间最大的区别在于它们有不同的pid.frok函数只被调用1次却会返回2次,一次是在调用进程(父进程)中,一次是在新创建的子进
-程中.在父进程中,fork返回子进程的pid,在子进程中,fork返回0.fork被调用后,父进程和子进程是并发运行的独立进程,父进程和
-子进程对各自相同的变量所做的改变都是独立的,不会反映在另一个进程的存储器中.(联想github上的fork项目后发生的事).&lt;/p&gt;
-
-&lt;p&gt;14.当一个进程由于某种原因终止时,内核并不是立即把它从系统中清除,相反,进程被保持在一种已终止的状态中,直到被它的父进
-程回收.&lt;/p&gt;
-
-&lt;p&gt;15.程序与进程的关系.程序是一堆代码和数据;程序可以作为目标模块存在于磁盘上,或者作为段存在于地址空间中.进程是执行中
-程序的一个具体的实例;程序总是运行在某个进程的上下文中.fork函数在新的子进程中运行相同的程序,新的子进程是父进程的一
-个复制品.execve函数在当前进程的上下文中加载并运行一个新的程序,它会覆盖当前进程的地址空间,但并没有创建一个新进程.
-新的程序仍然有相同的pid,并且继承了调用execve函数时已打开的所有文件描述符.python中os.system(cmd)相当于在当前的
-python脚本中阻塞运行一个cmd,这里的python脚本和cmd的关系相当于linux中bash和手动输入的命令的关系,就算bash被kill -9
-bashPid了,手动输入的命令还在执行,同样,就算python脚本被kill -9 pythonFilePid了,python脚本中运行的cmd还在运行,相当
-于异步阻塞.python中可用&lt;a href=&quot;http://blog.csdn.net/seetheworld518/article/details/49639247&quot;&gt;os.fork()&lt;/a&gt;实现linux的C语言中的fork()&lt;/p&gt;
-
-&lt;p&gt;16.unix信号是一种相对更高层的软件形式的异常,它允许进程中断其他进程,一个信号就是一条小消息,它通知进程系统中发生了
-一个某种类型的事件.&lt;/p&gt;
-
-&lt;p&gt;17.每个进程都只属于一个进程组,进程组是由一个正整数进程组ID来标识的,getpgrp函数返回当前进程的进程组ID,默认地,一个
-子进程和它的父进程同属于一个进程组,一个进程可以通过使用setpgid函数来改变自己或其他进程的进程组.&lt;/p&gt;
-
-&lt;p&gt;18./bin/kill -9 -15213表示由kill程序向15213进程组中的每个进程发送信号9(SIGKILL),kill程序可以向另外的进程发送任意
-的信号,一个为负的PID会导致信号被发送到进程组PID中的每个进程.除了kill程序可以发送信号外,也可从键盘发送信号,或者调
-用alarm函数来发送信号.&lt;/p&gt;
-
-&lt;p&gt;19.应用程序可以使用sigprocmask函数显示地(阻塞)和(取消阻塞)信号&lt;/p&gt;
-
-&lt;p&gt;20.异常控制流(ECF)发生在计算机系统的各个层次,是计算机系统中提供并发的基本机制.&lt;/p&gt;
-
-&lt;p&gt;21.在操作系统层,内核用ECF提供进程的基本概念,进程提供给应用两个重要的抽象:&lt;br /&gt;
-a)逻辑控制流:它提供给每个程序一个假象,好像它是丰独占地使用处理器&lt;br /&gt;
-b)私有地址空间:它提供给每个程序一个假象,好像它是在独占地使用主存&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 19 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/09/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC8%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/09/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC8%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>csapp</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
