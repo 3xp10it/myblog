@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>angr解题</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,213 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">angr解题</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">November 16, 2017</span>
+           under 二进制
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<p>1.kali linux安装angr</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install python-dev libffi-dev build-essential virtualenvwrapper
+mkvirtualenv angr &amp;&amp; pip install angr
+</code></pre>
+</div>
+
+<p>2.必读link</p>
+
+<p>1)<a href="http://www.freebuf.com/articles/web/150296.html">用法小结</a>
+2)<a href="http://angr.io/api-doc">api文档</a></p>
+
+<h3 id="0x01-注意">0x01 注意</h3>
+
+<p>1.获取程序的输出的值的方法为<code class="highlighter-rouge">ex.found[0].posix.dumps(1)</code></p>
+
+<p>2.如果程序不能从开头执行(如:开头损坏),则可用<code class="highlighter-rouge">state = p.factory.blank_state(addr=xxx)</code>,从开头运行则可用
+<code class="highlighter-rouge">p.factory.entry_state</code>,更多的state运行方法参考<a href="https://github.com/angr/angr-doc/blob/master/docs/states.md">这里</a></p>
+
+<p>3.目前的理解是find是到哪里停,avoid是不能经过哪,在解题时,avoid可没有,find必需有,但是最好两者都有,这样可减少符号执
+行的计算量</p>
+
+<p>4.claripy的BVS函数可以创建一个指定长度的抽象数据,如下,要注意的是:BVS的第2个参数的大小是位数,不是字节数,claripy的
+功能与z3相当</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import claripy
+a = claripy.BVS("sym_val", 32)
+b = claripy.RotateLeft(a, 8)
+c = b + 4
+s = claripy.Solver()
+s.add(c == 0x41424344)
+assert s.eval(c, 1)[0] == 0x41424344
+assert s.eval(a, 1)[0] == 0x40414243
+</code></pre>
+</div>
+
+<h3 id="0x01-解题">0x01 解题</h3>
+
+<h4 id="0x0a-命令行参数">0x0a 命令行参数</h4>
+
+<p>从命令行提供程序参数:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>p = angr.Project('./ais3_crackme')
+arg1=claripy.BVS('arg1',30*8)
+state=p.factory.entry_state(args=[p.filename,arg1])
+</code></pre>
+</div>
+
+<p>最后获取命令行参数值:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>arg1=ex.found[0].solver.eval(arg1,cast_to = str)
+</code></pre>
+</div>
+
+<p><a href="http://blog.csdn.net/cosmopolitanme/article/details/73284074">题目地址</a></p>
+
+<p>解法:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import angr
+import claripy
+find = 0x400602
+avoid = [0x40060e]
+
+p = angr.Project('./ais3_crackme')
+arg1 = claripy.BVS('arg1', 30 * 8)
+state = p.factory.entry_state(args=[p.filename, arg1])
+
+ex = p.factory.simgr(state)
+ex.explore(find=find, avoid=avoid)
+
+arg1 = ex.found[0].solver.eval(arg1, cast_to=str)
+print(arg1)
+</code></pre>
+</div>
+
+<h4 id="0x0b-标准输入">0x0b 标准输入</h4>
+
+<p>从标准输入中提供程序参数:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>state.posix.files[0].read_from(30)
+或
+for _ in xrange(5):  
+    k = state.posix.files[0].read_from(1)
+    state.se.add(k!=10)
+</code></pre>
+</div>
+
+<p>最后获取标准输入值:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>inp = ex.found[0].posix.files[0].all_bytes()  
+print ex.found[0].solver.eval(inp,cast_to = str)
+</code></pre>
+</div>
+
+<p><a href="http://oj.xctf.org.cn/web/practice/defensetrain/465f6bb8f4ad4d65a70cce2bd69dfacf/">题目地址</a></p>
+
+<p>解法:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import angr
+find = (0x8048697,)
+avoid = (0x804869e,)
+
+p = angr.Project('./ppp')
+state = p.factory.entry_state()
+state.posix.files[0].read_from(50)
+
+pg = p.factory.simgr(state, threads=8)
+ex = pg.explore(find=find, avoid=avoid)
+
+output = ex.found[0].posix.dumps(1)
+print(output)
+inp = ex.found[0].posix.files[0].all_bytes()
+print ex.found[0].solver.eval(inp, cast_to=str)
+</code></pre>
+</div>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            angr, 符号执行
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/">angr解题</a>
-      </div>
-      <div class="excerpt">
-         
-          angr解题
-         
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

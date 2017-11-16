@@ -5,9 +5,143 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 15 Nov 2017 08:06:47 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Nov 2017 08:06:47 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Thu, 16 Nov 2017 13:50:49 +0800</pubDate>
+    <lastBuildDate>Thu, 16 Nov 2017 13:50:49 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>angr解题</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;p&gt;1.kali linux安装angr&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install python-dev libffi-dev build-essential virtualenvwrapper
+mkvirtualenv angr &amp;amp;&amp;amp; pip install angr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.必读link&lt;/p&gt;
+
+&lt;p&gt;1)&lt;a href=&quot;http://www.freebuf.com/articles/web/150296.html&quot;&gt;用法小结&lt;/a&gt;
+2)&lt;a href=&quot;http://angr.io/api-doc&quot;&gt;api文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-注意&quot;&gt;0x01 注意&lt;/h3&gt;
+
+&lt;p&gt;1.获取程序的输出的值的方法为&lt;code class=&quot;highlighter-rouge&quot;&gt;ex.found[0].posix.dumps(1)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.如果程序不能从开头执行(如:开头损坏),则可用&lt;code class=&quot;highlighter-rouge&quot;&gt;state = p.factory.blank_state(addr=xxx)&lt;/code&gt;,从开头运行则可用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;p.factory.entry_state&lt;/code&gt;,更多的state运行方法参考&lt;a href=&quot;https://github.com/angr/angr-doc/blob/master/docs/states.md&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3.目前的理解是find是到哪里停,avoid是不能经过哪,在解题时,avoid可没有,find必需有,但是最好两者都有,这样可减少符号执
+行的计算量&lt;/p&gt;
+
+&lt;p&gt;4.claripy的BVS函数可以创建一个指定长度的抽象数据,如下,要注意的是:BVS的第2个参数的大小是位数,不是字节数,claripy的
+功能与z3相当&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import claripy
+a = claripy.BVS(&quot;sym_val&quot;, 32)
+b = claripy.RotateLeft(a, 8)
+c = b + 4
+s = claripy.Solver()
+s.add(c == 0x41424344)
+assert s.eval(c, 1)[0] == 0x41424344
+assert s.eval(a, 1)[0] == 0x40414243
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x01-解题&quot;&gt;0x01 解题&lt;/h3&gt;
+
+&lt;h4 id=&quot;0x0a-命令行参数&quot;&gt;0x0a 命令行参数&lt;/h4&gt;
+
+&lt;p&gt;从命令行提供程序参数:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;p = angr.Project('./ais3_crackme')
+arg1=claripy.BVS('arg1',30*8)
+state=p.factory.entry_state(args=[p.filename,arg1])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;最后获取命令行参数值:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arg1=ex.found[0].solver.eval(arg1,cast_to = str)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/cosmopolitanme/article/details/73284074&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解法:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import angr
+import claripy
+find = 0x400602
+avoid = [0x40060e]
+
+p = angr.Project('./ais3_crackme')
+arg1 = claripy.BVS('arg1', 30 * 8)
+state = p.factory.entry_state(args=[p.filename, arg1])
+
+ex = p.factory.simgr(state)
+ex.explore(find=find, avoid=avoid)
+
+arg1 = ex.found[0].solver.eval(arg1, cast_to=str)
+print(arg1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0x0b-标准输入&quot;&gt;0x0b 标准输入&lt;/h4&gt;
+
+&lt;p&gt;从标准输入中提供程序参数:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;state.posix.files[0].read_from(30)
+或
+for _ in xrange(5):  
+    k = state.posix.files[0].read_from(1)
+    state.se.add(k!=10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;最后获取标准输入值:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inp = ex.found[0].posix.files[0].all_bytes()  
+print ex.found[0].solver.eval(inp,cast_to = str)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://oj.xctf.org.cn/web/practice/defensetrain/465f6bb8f4ad4d65a70cce2bd69dfacf/&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解法:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import angr
+find = (0x8048697,)
+avoid = (0x804869e,)
+
+p = angr.Project('./ppp')
+state = p.factory.entry_state()
+state.posix.files[0].read_from(50)
+
+pg = p.factory.simgr(state, threads=8)
+ex = pg.explore(find=find, avoid=avoid)
+
+output = ex.found[0].posix.dumps(1)
+print(output)
+inp = ex.found[0].posix.files[0].all_bytes()
+print ex.found[0].solver.eval(inp, cast_to=str)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Thu, 16 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/</guid>
+        
+        <category>angr</category>
+        
+        <category>符号执行</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>z3 solver学习</title>
@@ -1033,100 +1167,6 @@ entry,页表条目).&lt;/p&gt;
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>四种环视匹配</title>
-        <description>&lt;h3 id=&quot;0x00-refer&quot;&gt;0x00 refer&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.jb51.net/article/52491.htm&quot;&gt;匹配不出现字符串&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
-否定顺序环视(?!...)     negtive lookahead   (中文也有翻译成:后向非界定)
-肯定逆序环视(?&amp;lt;=...)    positive lookbehind (中文也有翻译成:前向界定)
-否定逆序环视(?&amp;lt;!...)    negtive lookbehind  (中文也有翻译成:前向非界定)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;从上看出:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;是      =
-不是    !
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;在用正则表达式匹配时将待匹配的字符串变量看作是有隐藏位置的字符串,也即将abcd看作|a|b|c|d|,其中|表示一个隐藏位置.
-如果正则表达式中没有上面4种用法则不考虑隐藏的位置,如果有4种任意一种则要考虑隐藏位置,以上4种在匹配时匹配的结果为
-这些隐藏的位置(只匹配位置,不匹配字符).&lt;/p&gt;
-
-&lt;h3 id=&quot;0x02-example&quot;&gt;0x02 example&lt;/h3&gt;
-
-&lt;h4 id=&quot;a前面没有form后面有action&quot;&gt;a.前面没有form后面有action&lt;/h4&gt;
-
-&lt;p&gt;使用(?:\n)不捕获匹配\n
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;替换(?:\n),使用(?&amp;lt;=\n)前向界定和(?=\n)后向界定匹配\n&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg2.png&quot; /&gt;
-上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;,没有用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;为了用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,具体如下图
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg3.png&quot; /&gt;
-上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;b前面有form后面没有action&quot;&gt;b.前面有form后面没有action&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg4.png&quot; /&gt;
-上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;,没有用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;为了用到&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,具体如下图
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reg5.png&quot; /&gt;
-上图共使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;(?=)&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x03-vim中的环视匹配&quot;&gt;0x03 vim中的环视匹配&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/vim%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D.png&quot; /&gt;
-注意&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.其中上图的倒数第2个应该是:`...\@&amp;lt;!`
-2.匹配时是正常匹配,不是\v(very magic)模式匹配
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x04-attention&quot;&gt;0x04 attention&lt;/h3&gt;
-
-&lt;p&gt;1.为了匹配到一个字符串变量中没有form,可以有4种方法:
-a)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?&amp;lt;!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?&amp;lt;!form))*&lt;/code&gt;&lt;br /&gt;
-b)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?&amp;lt;!form).)*&lt;/code&gt;&lt;br /&gt;
-c)&lt;code class=&quot;highlighter-rouge&quot;&gt;.(?!form)&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;(.(?!form))*&lt;/code&gt;&lt;br /&gt;
-d)&lt;code class=&quot;highlighter-rouge&quot;&gt;(?!form).&lt;/code&gt;对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;((?!form).)*&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;其中.在()前[&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;]或.在()后[&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,&lt;code class=&quot;highlighter-rouge&quot;&gt;.()&lt;/code&gt;是先匹配字符再匹配隐藏
-的位置,&lt;code class=&quot;highlighter-rouge&quot;&gt;().&lt;/code&gt;是先匹配隐藏的位置再匹配字符&lt;/p&gt;
-
-&lt;p&gt;2.四种环视匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;(...)&lt;/code&gt;匹配的结果是一个隐藏的位置,是一个位置,不是多个位置,也不是字符&lt;/p&gt;
-
-&lt;p&gt;3.&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;ifconfig | ack '(?&amp;lt;=inet )(.*)(?= netmask)' -o&quot;&lt;/code&gt;可得到ip地址&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;echo lllnihaolllnihaoxxxnihao666 | ack -o '(?&amp;lt;=x)(?=n)nihao.*'&lt;/code&gt;其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=x)(?=n)&lt;/code&gt;两个紧挨的环视匹配得到的是一个
-隐藏的位置,因为环视匹配不会匹配到字符(不捕获),于是第1个环视匹配得到1个位置后由于无法前进字符串,所以第2个环视匹配
-得到的依然是相同的位置处,同理,多个紧挨的环视匹配得到的是相同的位置,说明多个环视匹配紧挨时,匹配结果与各个环视匹配
-表达式的先后顺序无关&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/</link>
-        <guid isPermaLink="true">http://localhost:4000/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/</guid>
-        
-        <category>环视匹配</category>
-        
-        <category>正则表达式</category>
-        
-        
-        <category>regexp</category>
         
       </item>
     
