@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 16 Nov 2017 13:50:49 +0800</pubDate>
-    <lastBuildDate>Thu, 16 Nov 2017 13:50:49 +0800</lastBuildDate>
+    <pubDate>Thu, 16 Nov 2017 18:20:35 +0800</pubDate>
+    <lastBuildDate>Thu, 16 Nov 2017 18:20:35 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -22,8 +22,11 @@ mkvirtualenv angr &amp;amp;&amp;amp; pip install angr
 
 &lt;p&gt;2.必读link&lt;/p&gt;
 
-&lt;p&gt;1)&lt;a href=&quot;http://www.freebuf.com/articles/web/150296.html&quot;&gt;用法小结&lt;/a&gt;
-2)&lt;a href=&quot;http://angr.io/api-doc&quot;&gt;api文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1)&lt;a href=&quot;http://www.freebuf.com/articles/web/150296.html&quot;&gt;用法小结&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;2)&lt;a href=&quot;http://angr.io/api-doc&quot;&gt;api文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3)&lt;a href=&quot;https://hitcon.org/2016/CMT/slide/day1-r1-a-1.pdf&quot;&gt;进阶文档&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x01-注意&quot;&gt;0x01 注意&lt;/h3&gt;
 
@@ -35,7 +38,9 @@ mkvirtualenv angr &amp;amp;&amp;amp; pip install angr
 &lt;p&gt;3.目前的理解是find是到哪里停,avoid是不能经过哪,在解题时,avoid可没有,find必需有,但是最好两者都有,这样可减少符号执
 行的计算量&lt;/p&gt;
 
-&lt;p&gt;4.claripy的BVS函数可以创建一个指定长度的抽象数据,如下,要注意的是:BVS的第2个参数的大小是位数,不是字节数,claripy的
+&lt;p&gt;4.通过字符串设置find方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;pg.explore(find=lambda s:&quot;it is my secret&quot; ins.posix.dumps(1))&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;5.claripy的BVS函数可以创建一个指定长度的抽象数据,如下,要注意的是:BVS的第2个参数的大小是位数,不是字节数,claripy的
 功能与z3相当&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import claripy
@@ -49,9 +54,9 @@ assert s.eval(a, 1)[0] == 0x40414243
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;0x01-解题&quot;&gt;0x01 解题&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-解题&quot;&gt;0x02 解题&lt;/h3&gt;
 
-&lt;h4 id=&quot;0x0a-命令行参数&quot;&gt;0x0a 命令行参数&lt;/h4&gt;
+&lt;h4 id=&quot;0xa-命令行参数&quot;&gt;0xa 命令行参数&lt;/h4&gt;
 
 &lt;p&gt;从命令行提供程序参数:&lt;/p&gt;
 
@@ -88,7 +93,7 @@ print(arg1)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;0x0b-标准输入&quot;&gt;0x0b 标准输入&lt;/h4&gt;
+&lt;h4 id=&quot;0xb-标准输入&quot;&gt;0xb 标准输入&lt;/h4&gt;
 
 &lt;p&gt;从标准输入中提供程序参数:&lt;/p&gt;
 

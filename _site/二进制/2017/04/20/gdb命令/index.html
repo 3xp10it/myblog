@@ -131,7 +131,7 @@ b 15
 info b(info break)
 info registers       #show registers
 r(run)               #第一次运行或重新开始运行程序
-start                #开始运行程序
+gdb|file tarelf|start#会自动在开始处下断点
 continue             #继续运行
 disas /m
             /r      #show hex(显示汇编指令对应十六进制值)
