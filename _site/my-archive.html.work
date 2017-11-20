@@ -139,6 +139,20 @@
 								
 
 
+								<li><a href="/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2017-11-20</small></font>
+												<font color=#C04040>流畅的python第1章笔记</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/" ><font color=#C08040><small>2017-11-16</small></font>
 												<font color=#C04040>angr解题</font></a></li>
 								
@@ -213,7 +227,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "5";
+document.getElementById("my_month_article_num_Span1").innerHTML = "6";
 								</script>
 								
 
@@ -1023,7 +1037,7 @@ document.getElementById("my_month_article_num_Span11").innerHTML = "3";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "53";
+document.getElementById("my_year_article_num_Span1").innerHTML = "54";
 						</script>
 
 
@@ -1041,7 +1055,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "53";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2016 <span
-									   id="my_year_article_num_Span2">53</span>
+									   id="my_year_article_num_Span2">54</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">

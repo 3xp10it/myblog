@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          41 minute read
+          42 minute read
         </small>
       </div>
 
@@ -166,6 +166,10 @@
   sed -ri 's/pattern1/string' file
       标准正则查找替换,上面没有r选项的正则中()或{}要加<span class="se">\,</span>也即<span class="se">\(</span>或<span class="se">\{</span>,此处r要在i前面
       否则用sed -ir无效
+  如果要替换成的字符串中有<span class="se">\n</span>,且用的是python调试os.system执行sed,则要将<span class="se">\n</span>变成<span class="se">\\</span>n,eg:
+  sed -i "s/&lt;?php/&lt;?php<span class="se">\n</span>echo 666;/g" test.php
+  在python中要这样写:
+  os.system('''sed -i "s/&lt;?php/&lt;?php<span class="se">\\</span>necho 666;/g" test.php''')
 <span class="p">
 10.</span>加了vpn就相当于vpn强制给通信链路加了个限制:所有数据只能通过vpn进出.
 (正常联网的功能只是给系统加了连接其他地址的各种道路,必须先保证可以联网,然后可以保证加了vpn后的效果会是这样&gt;&gt;
@@ -1463,6 +1467,8 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
     https://xin053.github.io/2016/07/06/pyfiglet%E5%BA%93%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/
 <span class="p">
 138.</span>bind shift+e to firefox's perference shortcut key bind
+    firefox快捷键大全
+        https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly
 <span class="p">
 139.</span>制作pypi的python模块(eg.exp10it.py)时,在本地如果exp10it.py中有中文,在一个正常的py文件中如果有一句
     from exp10it import <span class="err">*</span>,如果这个正常的py文件中由于这句导入了相同文件夹目录下的exp10it.py模块,会由于其中的中文
@@ -3133,6 +3139,10 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 246.</span>python离线安装依赖包方法
     http://guoqiao.me/post/2015/1212-pip-install-offline-via-wheels
+<span class="p">
+247.</span>爬虫防ban
+    https://scrapinghub.com/crawlera<span class="p">[</span><span class="nv">收费</span><span class="p">]</span>
+    https://github.com/qiyeboy/IPProxyPool<span class="p">[</span><span class="nv">免费</span><span class="p">]</span>
 </code></pre>
 </div>
 </span>

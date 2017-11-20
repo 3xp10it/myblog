@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>流畅的python第1章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,166 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">流畅的python第1章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">November 20, 2017</span>
+           under python
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="python数据模型">Python数据模型</h3>
+
+<p>1.doctest模块是测试代码中在注释内的以<code class="highlighter-rouge">&gt;&gt;&gt;</code>开头的所在行的python语句正确性的模块</p>
+
+<p>2.特殊方法的存在是为了被python解释器调用的,你自己不需要调用它.例如,没有<code class="highlighter-rouge">my_obj.__len__()</code>这种写法,而应该用
+<code class="highlighter-rouge">len(my_obj)</code>,在执行<code class="highlighter-rouge">len(my_obj)</code>时,如果<code class="highlighter-rouge">my_obj</code>是一个自定义类的对象,那么python会自己调用其中由你实现的
+<code class="highlighter-rouge">__len__</code>方法</p>
+
+<p>3.如果是python内置类型,如list,str,bytearray(字节序列),那么CPython会抄近路,<code class="highlighter-rouge">__len__</code>实际上会直接返回PyVarObject里
+的<code class="highlighter-rouge">ob_size</code>属性,直接读取这个值比调用一个方法要快很多</p>
+
+<p>4.很多时候,特殊方法是隐式的,比如<code class="highlighter-rouge">for i in x:</code>这个语句,背后其实用的是<code class="highlighter-rouge">iter(x)</code>,而这个函数的背后则是
+<code class="highlighter-rouge">x.__iter__()</code>方法,当然前提是这个方法在x中被实现了</p>
+
+<p>5.Python有个内置函数<code class="highlighter-rouge">repr</code>,它能把一个对象用字符串的形式表达出来以便辨认,这就是”字符串表示形式”,repr就是通过
+<code class="highlighter-rouge">__repr__</code>这个特殊方法来得到一个对象的字符表示形式的,如果没有实现<code class="highlighter-rouge">__repr__</code>,当我们在控制台里打印一个向量的实例时,
+得到的字符串可能会是<code class="highlighter-rouge">&lt;Vector object at 0x10e100070&gt;</code>.通常eval(repr(obj))和obj是等同的.<code class="highlighter-rouge">%r</code>可获取对象各个属性的标
+准字符串表示形式.</p>
+
+<p>6.<code class="highlighter-rouge">repr()</code>和<code class="highlighter-rouge">str()</code>的对比:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>repr()得到的结果是给python看的,方便调试和记录日志
+str()得到的结果是用户看的,方便给终端用户看
+如果一个对象没有__str__函数,而python又需要调用它时,解释器会用__repr__作为替代
+
+import datetime
+d=datetime.date.today()
+print("%s" % d)
+print("%r" % d)
+
+输出:
+2017-11-20
+datetime.date(2017,11,20)
+</code></pre>
+</div>
+
+<p>7.bool(x)的背后是调用<code class="highlighter-rouge">x.__bool__()</code>的结果;如果不存在<code class="highlighter-rouge">__bool__</code>方法,那么bool(x)会尝试调用<code class="highlighter-rouge">x.__len__()</code>,若返回0,则
+bool会返回False,否则返回True.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>None==[]==()=={}==False?    ====&gt; 不是的
+而是:
+bool(None)==bool([])=bool(())==bool({})==False
+</code></pre>
+</div>
+
+<p>8.在python中,输入import this会弹出python之禅</p>
+
+<p>9.len之所以不是一个普通的方法,是为了让python自带的数据结构可以走后门,因为如果x是一个内置类型的实例,那么len(x)会通
+过CPython直接从一个C结构体里读取对象的长度得到,完全不会调用任何方法,获取一个集合中元素的数量是一个很常见的操作,在
+str,list,memoryview等类型上,这个操作必须高效</p>
+
+<p>10.通过实现特殊方法,自定义数据类型可以表现得跟内置类型一样,从而让我们写出更具表达力的代码.如:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class FrenchDeck:
+    ranks=[str(n) for n in range(2,11)]+list('JQKA')
+    suits='spades diamonds clubs hearts'.split()
+
+    def __init__(self):
+        self.cards=...
+
+    def __len__(self):
+        return len(self._cards)
+
+    def __getitem__(self,position):
+        return self._cards[position]
+    
+</code></pre>
+</div>
+
+<p>11.python的<a href="http://blog.csdn.net/yuan_j_y/article/details/9317817">四个魔法方法</a></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            python
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/">流畅的python第1章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          流畅的python第1章笔记
-         
-        <a href="/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

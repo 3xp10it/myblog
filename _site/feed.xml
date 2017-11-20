@@ -5,9 +5,94 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Nov 2017 08:05:51 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Nov 2017 08:05:51 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Mon, 20 Nov 2017 18:04:40 +0800</pubDate>
+    <lastBuildDate>Mon, 20 Nov 2017 18:04:40 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>流畅的python第1章笔记</title>
+        <description>&lt;h3 id=&quot;python数据模型&quot;&gt;Python数据模型&lt;/h3&gt;
+
+&lt;p&gt;1.doctest模块是测试代码中在注释内的以&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;开头的所在行的python语句正确性的模块&lt;/p&gt;
+
+&lt;p&gt;2.特殊方法的存在是为了被python解释器调用的,你自己不需要调用它.例如,没有&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj.__len__()&lt;/code&gt;这种写法,而应该用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;len(my_obj)&lt;/code&gt;,在执行&lt;code class=&quot;highlighter-rouge&quot;&gt;len(my_obj)&lt;/code&gt;时,如果&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj&lt;/code&gt;是一个自定义类的对象,那么python会自己调用其中由你实现的
+&lt;code class=&quot;highlighter-rouge&quot;&gt;__len__&lt;/code&gt;方法&lt;/p&gt;
+
+&lt;p&gt;3.如果是python内置类型,如list,str,bytearray(字节序列),那么CPython会抄近路,&lt;code class=&quot;highlighter-rouge&quot;&gt;__len__&lt;/code&gt;实际上会直接返回PyVarObject里
+的&lt;code class=&quot;highlighter-rouge&quot;&gt;ob_size&lt;/code&gt;属性,直接读取这个值比调用一个方法要快很多&lt;/p&gt;
+
+&lt;p&gt;4.很多时候,特殊方法是隐式的,比如&lt;code class=&quot;highlighter-rouge&quot;&gt;for i in x:&lt;/code&gt;这个语句,背后其实用的是&lt;code class=&quot;highlighter-rouge&quot;&gt;iter(x)&lt;/code&gt;,而这个函数的背后则是
+&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__iter__()&lt;/code&gt;方法,当然前提是这个方法在x中被实现了&lt;/p&gt;
+
+&lt;p&gt;5.Python有个内置函数&lt;code class=&quot;highlighter-rouge&quot;&gt;repr&lt;/code&gt;,它能把一个对象用字符串的形式表达出来以便辨认,这就是”字符串表示形式”,repr就是通过
+&lt;code class=&quot;highlighter-rouge&quot;&gt;__repr__&lt;/code&gt;这个特殊方法来得到一个对象的字符表示形式的,如果没有实现&lt;code class=&quot;highlighter-rouge&quot;&gt;__repr__&lt;/code&gt;,当我们在控制台里打印一个向量的实例时,
+得到的字符串可能会是&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Vector object at 0x10e100070&amp;gt;&lt;/code&gt;.通常eval(repr(obj))和obj是等同的.&lt;code class=&quot;highlighter-rouge&quot;&gt;%r&lt;/code&gt;可获取对象各个属性的标
+准字符串表示形式.&lt;/p&gt;
+
+&lt;p&gt;6.&lt;code class=&quot;highlighter-rouge&quot;&gt;repr()&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;str()&lt;/code&gt;的对比:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;repr()得到的结果是给python看的,方便调试和记录日志
+str()得到的结果是用户看的,方便给终端用户看
+如果一个对象没有__str__函数,而python又需要调用它时,解释器会用__repr__作为替代
+
+import datetime
+d=datetime.date.today()
+print(&quot;%s&quot; % d)
+print(&quot;%r&quot; % d)
+
+输出:
+2017-11-20
+datetime.date(2017,11,20)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;7.bool(x)的背后是调用&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__bool__()&lt;/code&gt;的结果;如果不存在&lt;code class=&quot;highlighter-rouge&quot;&gt;__bool__&lt;/code&gt;方法,那么bool(x)会尝试调用&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__len__()&lt;/code&gt;,若返回0,则
+bool会返回False,否则返回True.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;None==[]==()=={}==False?    ====&amp;gt; 不是的
+而是:
+bool(None)==bool([])=bool(())==bool({})==False
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;8.在python中,输入import this会弹出python之禅&lt;/p&gt;
+
+&lt;p&gt;9.len之所以不是一个普通的方法,是为了让python自带的数据结构可以走后门,因为如果x是一个内置类型的实例,那么len(x)会通
+过CPython直接从一个C结构体里读取对象的长度得到,完全不会调用任何方法,获取一个集合中元素的数量是一个很常见的操作,在
+str,list,memoryview等类型上,这个操作必须高效&lt;/p&gt;
+
+&lt;p&gt;10.通过实现特殊方法,自定义数据类型可以表现得跟内置类型一样,从而让我们写出更具表达力的代码.如:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class FrenchDeck:
+    ranks=[str(n) for n in range(2,11)]+list('JQKA')
+    suits='spades diamonds clubs hearts'.split()
+
+    def __init__(self):
+        self.cards=...
+
+    def __len__(self):
+        return len(self._cards)
+
+    def __getitem__(self,position):
+        return self._cards[position]
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;11.python的&lt;a href=&quot;http://blog.csdn.net/yuan_j_y/article/details/9317817&quot;&gt;四个魔法方法&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 20 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
     
       <item>
         <title>angr解题</title>
@@ -133,6 +218,16 @@ inp = ex.found[0].posix.files[0].all_bytes()
 print ex.found[0].solver.eval(inp, cast_to=str)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h4 id=&quot;0xc-文件输入&quot;&gt;0xc 文件输入&lt;/h4&gt;
+
+&lt;p&gt;从文件中提供程序’参数’&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ctfhacker.com/re/angr/2016/02/21/ctf-symbolic-execution.html&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解法:&lt;/p&gt;
+
+&lt;p&gt;to be continue…&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 16 Nov 2017 00:00:00 +0800</pubDate>
@@ -1068,105 +1163,6 @@ I/O,标准I/O和RIO之间的关系.&lt;/p&gt;
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2017/10/13/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC10%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/13/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC10%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>csapp</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第9章笔记</title>
-        <description>&lt;h3 id=&quot;虚拟存储器&quot;&gt;虚拟存储器&lt;/h3&gt;
-
-&lt;p&gt;1.&lt;a href=&quot;https://www.zhihu.com/question/21088377&quot;&gt;虚拟存储器的理解&lt;/a&gt;,windows下的c盘中的pagefile.sys是虚拟内存文件.&lt;/p&gt;
-
-&lt;p&gt;2.虚拟存储器是硬件异常,硬件地址翻译,主存,磁盘文件和内核软件的完美交互,它为每个进程提供了一个大的,一致的私有的地址
-空间.虚拟存储器提供了3个重要能力:&lt;br /&gt;
-a)它将主存看成是一个存储在磁盘上的地址空间的高速缓存,在主存中只保存活动区域,并根据需要在磁盘和主存之间来回传送数
-据,通过这种方式,它高效地使用了主存&lt;br /&gt;
-b)它为每个进程提供了一致的地址空间,从而简化了存储器管理&lt;br /&gt;
-c)它保护了每个进程的地址空间不被其他进程破坏&lt;/p&gt;
-
-&lt;p&gt;3.地址翻译:将一个虚拟地址转换为物理地址.就像异常处理一样,地址翻译需要cpu硬件和操作系统之间的紧密合作.cpu芯片上叫
-做存储器管理单元(MMU)的专用硬件,利用存放在主存中的查询表来动态翻译虚拟地址.如下图.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.主存中的每个字节都有一个选自虚拟地址空间的虚拟地址和一个选自物理地址空间的物理地址&lt;/p&gt;
-
-&lt;p&gt;5.磁盘上数组的内容被缓存在主存中.和存储器层次结构中其他缓存一样,磁盘(较低层)上的数据被分割成块,这些块作为磁盘和主
-存(较高层)之间的传输单元.为了有助于清晰地去理解存储层次结构中不同的缓存概念,我们将使用术语SRAM缓存来表示位于CPU和
-主存之间的L1,L2和L3调整缓存,并且用术语DRAM缓存来表示虚拟存储器系统的缓存,它在主存中缓存虚拟页&lt;/p&gt;
-
-&lt;p&gt;6.虚拟存储器系统通过将虚拟存储器分割为称为虚拟页的大小固定的块来处理这个问题,如下图中的虚拟存储器有8个虚拟页.类似
-地,物理存储器被分割为物理页,物理页和虚拟页大小相同,物理页也称为页帧.任意时刻,虚拟页面的集合都分为有一个不相交的子
-集:&lt;br /&gt;
-未分配的:虚拟存储器系统还未分配的页,未分配的块没有任何数据和它们相关联,因此也就不占用任何磁盘空间&lt;br /&gt;
-缓存的:当前缓存在物理存储器中的已分配页&lt;br /&gt;
-未缓存的:没有缓存在物理存储器中的已分配页(已分配代表占用磁盘空间)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;7.Linux将随机存储RAM称为内存页.交换技术就是将一页内存复制到预先设定的硬盘上的交换空间,来释放该页占用内存.物理
-内存和交换空间的和就是可提供的虚拟内存的总量.&lt;br /&gt;
-windows:虚拟内存 
-linux:swap分区 
-windows即使物理内存没有用完也会去用到虚拟内存,而Linux不一样 Linux只有当物理内存用完的时候才会去动用虚拟内存(即
-swap分区)&lt;br /&gt;
-swap类似于windows的虚拟内存,不同之处在于,Windows可以设置在windows的任何盘符下面,默认是在C盘,可以和系统文件放
-在一个分区里.而linux则是独立占用一个分区,方便由于内存需求不够的情况下,把一部分内容放在swap分区里,待内存有空余
-的情况下再继续执行,也称之为交换分区,交换空间是其中的部分&lt;/p&gt;
-
-&lt;p&gt;8.垃圾收集器是一种动态存储分配器,它自动释放程序不再需要的已分配块,这些块称为垃圾,自动回收堆存储的过程叫做垃圾收集
-.在一个支持垃圾收集的系统中,应用显式分配堆块,但是从不显式地释放它们.在C程序的上下文中,应用调用malloc,但是从不调用
-free.反之,垃圾收集器定期识别垃圾块,并相应地调用free,将这些块放回到空闲链表中.&lt;/p&gt;
-
-&lt;p&gt;9.虚拟存储器是对主存的一个抽象,支持虚拟存储器的处理器通过使用一种叫做虚拟寻址的间接形式来引用主存.专门的硬件通过
-使用页表来翻译虚拟地址,而页表的内容是由操作系统提供的.&lt;/p&gt;
-
-&lt;p&gt;10.分配器有两种类型.显式分配器要求应用显式地释放它们的存储器块,隐式分配器(垃圾收集器)自动释放任何未使用的和不可达
-的块.&lt;/p&gt;
-
-&lt;p&gt;11.页表是一个存放在物理存储器中的数据结构,页表将虚拟页映射到物理页,每次地址翻译硬件将一个虚拟地址转换为物理地址时
-都会读取页表,页表是敷于脸上页表条目的数组,虚拟地址空间中的每个页在页表中一个固定偏移量处都有一个PTE(page table
-entry,页表条目).&lt;/p&gt;
-
-&lt;p&gt;12.图9-4中的示例展示了一个有8个虚拟页和4个物理页的系统的页表.四个虚拟页(vp1,vp2,vp4,vp7)当前被缓存在DRAM中,两个页
-(vp0,vp5)还未被分配,而剩下的页(vp3,vp6)已经被分配了,但是当前还未被缓存.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;13.缺页:在虚拟存储器的习惯说法中,DRAM缓存不命中称为缺页,图9-6展示了在缺页之前我们的示例页表的状态.cpu引用了vp3中
-的一个字,vp3并未缓存在DRAM中,地址翻译硬件从存储器中读取PTE3,从有效位推断出vp3未被缓存,并且触发一个缺页异常.缺页异
-常调用内核中的缺页异常处理程序,该程序会选择一个牺牲页,在紫剑中就是存放在pp3中的vp4,如果vp4已经被修改了,那么内核就
-会将它拷贝加磁盘.当异常处理程序返回时,它会重新启动导致缺页的指令,该指令会把导致缺页的虚拟地址重发送到地址翻译硬件
-.但是现在,vp3已经缓存在主存中了,那么页命中也能由地址翻译硬件正常处理了.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;14.操作系统为每个进程提供了一个独立的页表,因而也就是一个独立的虚拟地址空间.&lt;/p&gt;
-
-&lt;p&gt;15.地址翻译:图9-12展示了MMU如何利用页表来实现虚拟地址到物理地址的映射.cpu中的一个控制寄存器,页表基址寄存器
-(PTBR)指向当前页表.n位的虚拟地址包含两个部分:一个p位的虚拟页面偏移(VPO)和一个(n-p)位的虚拟页号(VPN).MMU利用VPN来
-选择适当的PTE.例如,VPN 0选择PTE 0,VPN 1选择PTE 1,以此类推.将页表条目中物理页号(PPN)和虚拟地址中的VPO串联起来,就得
-到相应的物理地址.注意,因为物理和虚拟页面都是P字节的,所以物理页面偏移(PPO)和VPO是相同的.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-5.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;16.linux为每个进程维持了一个单独的虚拟地址空间,形式如图9-26所示.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp9-6.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;17.linux通过将一个虚拟存储器区域与一个磁盘上的对象关联起来,以初始化这个虚拟存储器区域的内容,这个过程称为存储器映
-射.一旦一个虚拟页面被初始化了,它就在一个由内核维护的专门的交换文件之间换来换去,在任何时刻,交换空间都限制着当前运
-行着的进程能够分配的虚拟页面的总数.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 28 Sep 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/09/28/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC9%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>csapp</category>
         
