@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 21 Nov 2017 17:59:50 +0800</pubDate>
-    <lastBuildDate>Tue, 21 Nov 2017 17:59:50 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Wed, 22 Nov 2017 08:01:06 +0800</pubDate>
+    <lastBuildDate>Wed, 22 Nov 2017 08:01:06 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>流畅的python第2章笔记</title>
@@ -114,6 +114,44 @@ str,list,memoryview等类型上,这个操作必须高效&lt;/p&gt;
         
         
         <category>python</category>
+        
+      </item>
+    
+      <item>
+        <title>Linux内核源代码情景分析第1章笔记</title>
+        <description>&lt;h3 id=&quot;预备知识&quot;&gt;预备知识&lt;/h3&gt;
+
+&lt;p&gt;1.在安装好的linux系统中,内核源代码位于/usr/src/linux.如果是从gnu网站下载的linux内核的tar文件,则展开以后在一个叫
+linux的子目录中.&lt;/p&gt;
+
+&lt;p&gt;2.linux的源代码看似庞大,其实对于每一个具体的内核而言并不是所有的.c和.h文件都会用到,而是在编译(包括连接)时根据系统
+的配置有选择地使用&lt;/p&gt;
+
+&lt;p&gt;3.在版本号x.yy.zz中,yy一方面表示版本的变迁,一方面标志着版本的种类,即”发行版”或”开发版”.如果yy为偶数便表示一个相对
+稳定,已经发行的版本,如果为奇数则表示还在开发中.”发行版”和”开发版”的zz是独立编号的,因此并没有固定的对应关系,例如,
+当开发版本号达到2.3.99时,相应的发行版还只是2.2.18&lt;/p&gt;
+
+&lt;p&gt;4.linux的内核基本上只有一种来源,那就是同Linus主持开发和维护的内核版本,但是有很多公司在发行linux操作系统不同的发行
+版,如Red Hat,Caldera等等.原则上全世界只有一个linux,所谓”某某linux”只是它的一种发行版本或修订版本.另外,不要把Linux
+内核的版本与发行商自己的版本(如”Red Hat6.0”)混淆,例如,Caldera2.2版的内核是2.2.5版&lt;/p&gt;
+
+&lt;p&gt;5.对于大多数用户,由发行商提供的这些发行版起着十分重要的作用.让用户自行配置和生成整个系统是相当困难的,因为那样用户
+不但要自己下载内核源程序,自己编译安装,还要从不同的ftp站点下载各种自由软件添加到自己的系统中,还要为系统加入各种有
+用的工具,等等.而所有这些工作都是很费时费力的事情.linux的发行厂商正是看到了这一点,替用户做了这些工作,在内核上集成
+了大量的应用软件.并且,为了安装软件,发行厂商同时还提供了用于软件安装的工具性软件,以利于用户安装管理.(apt-get/yum)&lt;/p&gt;
+
+&lt;p&gt;6.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/linux/2017/11/20/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E4%BB%A3%E7%A0%81%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/2017/11/20/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E4%BB%A3%E7%A0%81%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>kernel</category>
+        
+        <category>linux</category>
+        
+        
+        <category>linux</category>
         
       </item>
     
@@ -1075,58 +1113,6 @@ if sys.argv[1] == &quot;--commit&quot;:
         <category>git</category>
         
         <category>svn</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第11章笔记</title>
-        <description>&lt;h3 id=&quot;网络编程&quot;&gt;网络编程&lt;/h3&gt;
-
-&lt;p&gt;1.认识到客户端和服务器是进程,而不是常常提到的机器或主机,这是很重要的.无论客户端和服务器是怎样映射到主机上的,客户
-端-服务器模型是相同的.&lt;/p&gt;
-
-&lt;p&gt;2.因为因特网主机可以有不同的主机字节顺序,TCP/IP为任意整数数据项定义了统一的网络字节顺序(大端字节顺序),例如IP地址.
-htonl函数将32位整数由主机字节顺序转换为网络字节顺序,ntohl函数将32位整数从网络字节顺序转换为主机字节,htons和ntohs
-函数为16位的整数执行相应的转换.(不同的CPU有不同的字节序类型,这些字节序是指整数在内存中保存的顺序,这个叫做主机序
-),网络程序使用inet_aton和inet_ntoa函数来实现IP地址和点分十进制之间的转换.&lt;a href=&quot;http://blog.csdn.net/fan_hai_ping/article/details/8435140&quot;&gt;以上python版本&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;3.linux中&lt;code class=&quot;highlighter-rouge&quot;&gt;hostname -I&lt;/code&gt;可得到ip地址&lt;/p&gt;
-
-&lt;p&gt;4.一旦一个组织得到了一个二级域名,那么它就可以在这个子域中创建任何新的域名了,从数学意义上讲,可以认为每条主机条目就
-是一个域名和IP地址的等价类&lt;/p&gt;
-
-&lt;p&gt;5.每台主机都有本地定义的域名localhost,这个域名总是映射为本地回送地址(loopback address)127.0.0.1&lt;/p&gt;
-
-&lt;p&gt;6.在unix机器上,文件/etc/services包含一张这台机器提供的服务以及它们的知名端口号的综合列表&lt;/p&gt;
-
-&lt;p&gt;7.socket连接中监听描述符和已连接描述符之间的区别使很多人感到迷惑,监听描述符是作为客户端连接请求的一个端点.它被创
-建一次,并存在于服务器的整个生命周期.已连接描述符是客户端和服务器之间已经建立起来了的连接的一个端点,服务器每次接受
-连接请求时都会创建一次,它只存在于服务器为一个客户端服务的过程中.图11-18展示了监听描述符和已连接描述符的关系,其中
-的3和4表示描述符值(0~2描述符是预留给标准文件的)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-1.png&quot; /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;8.内核在一个进程终止时会自动关闭所有打开的描述符&lt;/p&gt;
-
-&lt;p&gt;9.http请求头中的host字段在HTTP/1.1请求中是需要的,而在HTTP/1.0请求中是不需要的.代理缓存(proxy cache)会使用host字段
-,这个代理缓存有时作为浏览器和管理被请求文件的原始服务器(origin server)的中介[这里的1.1和1.0的区别可能可以成为绕过
-waf和漏洞挖掘的思路]&lt;/p&gt;
-
-&lt;p&gt;10.图11-24是一些http状态码
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/csapp11-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;11.&lt;a href=&quot;https://www.awaimai.com/371.html&quot;&gt;cgi理解&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 17 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC11%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC11%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>csapp</category>
         
         
         <category>auxilary</category>
