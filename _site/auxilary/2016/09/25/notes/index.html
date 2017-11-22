@@ -2982,9 +2982,12 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     a.如果valuePart以/开头,则要提交到的目的地址是不带路径的url+valuePart
     b.如果valuePart以http开头,则要提交到的目的地址是valuePart
     d.如果re.match(r"#+",valuePart)或re.match(r"<span class="se">\s</span><span class="err">*</span>",valuePart)则要提交到的目的地址是url
-    c.如果valuePart不是abc中的情况,则要提交到的目的地址是exp10it.py模块中的get_value_from_url(url)<span class="p">[</span><span class="nv">'y2'</span><span class="p">]</span>+'/'+valuePart
-<span class="p">
-296.</span>python变量命名规范
+    c.如果valuePart不是abc中的情况,则要提交到的目的地址是exp10it.py模块中的get_value_from_url(url)<span class="p">[</span><span class="nv">'y2'</span><span class="p">]</span>+'/'+valuePart<span class="sb">
+
+    后发现有python库[urllib.parse.urljoin]
+    https://codeday.me/bug/20170825/60664.html
+
+</span><span class="p">296.</span>python变量命名规范
     http://www.cnblogs.com/Maker-Liu/p/5528213.html
 <span class="p">
 297.</span>tomcat部署web应用
