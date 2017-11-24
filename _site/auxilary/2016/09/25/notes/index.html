@@ -3155,6 +3155,13 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 250.</span>编译python文件
     https://www.zhihu.com/question/30296617
+<span class="p">
+251.</span>python获取当前脚本的路径
+    绝对路径:
+        os.path.realpath(__file__)
+    所在目录的绝对路径:
+        os.path.split(os.path.realpath(__file__))<span class="p">[</span><span class="nv">0</span><span class="p">]</span>
+        eg结果为:/root/1/dirname 
 </code></pre>
 </div>
 </span>
