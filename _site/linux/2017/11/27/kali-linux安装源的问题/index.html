@@ -113,24 +113,24 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="about">About</h3>
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
 <p>新下载的kali linux 3在安装pd的paralles tools时需要安装<code class="highlighter-rouge">linux-headers-$(uname -r)</code>,于是apt-get update,出现了经典的
 基于debain的系统的安装源的问题,如下图</p>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/kali3.png" /></p>
 
-<h3 id="必读link">必读link</h3>
+<h3 id="0x01-必读link">0x01 必读link</h3>
 
 <p>debain安装源地址语法<a href="http://www.cnblogs.com/beanmoon/p/3387652.html">理解</a></p>
 
-<p><code class="highlighter-rouge">apt-get update</code> Hash 校验和不符等错误的原因
-<a href="http://www.kali.org.cn/thread-23272-1-1.html">1</a>
+<p><code class="highlighter-rouge">apt-get update</code> Hash 校验和不符等错误的原因<br />
+<a href="http://www.kali.org.cn/thread-23272-1-1.html">1</a><br />
 <a href="http://forum.ubuntu.org.cn/viewtopic.php?t=473765">2</a></p>
 
-<h3 id="解决方法">解决方法</h3>
+<h3 id="0x02-解决方法">0x02 解决方法</h3>
 
-<p>1.理解debain安装源地址格式语法后,设置正确的源后用后面3种方法之一即可</p>
+<p>1.理解debain安装源地址格式语法后,设置正确的源</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kali官方debain源:
 http://http.kali.org/
@@ -141,11 +141,12 @@ deb http://http.kali.org/ kali-rolling main contrib non-free
 </code></pre>
 </div>
 
-<p>2.手机开个热点后重新<code class="highlighter-rouge">apt-get update</code></p>
+<p>2.手机开个热点或换个wifi或开vpn之后重新<code class="highlighter-rouge">apt-get update</code>即可</p>
 
-<p>3.换个wifi后重新<code class="highlighter-rouge">apt-get update</code></p>
+<p>3.解决安装源的问题后如果再安装paralles tools还有问题可按照<a href="http://kb.parallels.com/en/123968">这里</a>解决</p>
 
-<p>4.挂vpn,开代理后重新<code class="highlighter-rouge">apt-get update</code></p>
+<p>4.如果上面3中的链接没有解决则升级paralleles desktop,实际安装中,升级为paralleles13.2.0后再按照上面3中的链接可成功安装</p>
+
 </span>
 
         

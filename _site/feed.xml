@@ -5,30 +5,30 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Nov 2017 12:10:38 +0800</pubDate>
-    <lastBuildDate>Mon, 27 Nov 2017 12:10:38 +0800</lastBuildDate>
+    <pubDate>Mon, 27 Nov 2017 14:24:46 +0800</pubDate>
+    <lastBuildDate>Mon, 27 Nov 2017 14:24:46 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>kali linux安装源的问题</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
 
 &lt;p&gt;新下载的kali linux 3在安装pd的paralles tools时需要安装&lt;code class=&quot;highlighter-rouge&quot;&gt;linux-headers-$(uname -r)&lt;/code&gt;,于是apt-get update,出现了经典的
 基于debain的系统的安装源的问题,如下图&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kali3.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
+&lt;h3 id=&quot;0x01-必读link&quot;&gt;0x01 必读link&lt;/h3&gt;
 
 &lt;p&gt;debain安装源地址语法&lt;a href=&quot;http://www.cnblogs.com/beanmoon/p/3387652.html&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt; Hash 校验和不符等错误的原因
-&lt;a href=&quot;http://www.kali.org.cn/thread-23272-1-1.html&quot;&gt;1&lt;/a&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt; Hash 校验和不符等错误的原因&lt;br /&gt;
+&lt;a href=&quot;http://www.kali.org.cn/thread-23272-1-1.html&quot;&gt;1&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://forum.ubuntu.org.cn/viewtopic.php?t=473765&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;解决方法&quot;&gt;解决方法&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-解决方法&quot;&gt;0x02 解决方法&lt;/h3&gt;
 
-&lt;p&gt;1.理解debain安装源地址格式语法后,设置正确的源后用后面3种方法之一即可&lt;/p&gt;
+&lt;p&gt;1.理解debain安装源地址格式语法后,设置正确的源&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kali官方debain源:
 http://http.kali.org/
@@ -39,11 +39,12 @@ deb http://http.kali.org/ kali-rolling main contrib non-free
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;2.手机开个热点后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.手机开个热点或换个wifi或开vpn之后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;即可&lt;/p&gt;
 
-&lt;p&gt;3.换个wifi后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3.解决安装源的问题后如果再安装paralles tools还有问题可按照&lt;a href=&quot;http://kb.parallels.com/en/123968&quot;&gt;这里&lt;/a&gt;解决&lt;/p&gt;
 
-&lt;p&gt;4.挂vpn,开代理后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4.如果上面3中的链接没有解决则升级paralleles desktop,实际安装中,升级为paralleles13.2.0后再按照上面3中的链接可成功安装&lt;/p&gt;
+
 </description>
         <pubDate>Mon, 27 Nov 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</link>
