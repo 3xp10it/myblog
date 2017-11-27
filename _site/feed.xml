@@ -5,9 +5,60 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Nov 2017 08:14:44 +0800</pubDate>
-    <lastBuildDate>Mon, 27 Nov 2017 08:14:44 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Mon, 27 Nov 2017 12:10:38 +0800</pubDate>
+    <lastBuildDate>Mon, 27 Nov 2017 12:10:38 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>kali linux安装源的问题</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;新下载的kali linux 3在安装pd的paralles tools时需要安装&lt;code class=&quot;highlighter-rouge&quot;&gt;linux-headers-$(uname -r)&lt;/code&gt;,于是apt-get update,出现了经典的
+基于debain的系统的安装源的问题,如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kali3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
+
+&lt;p&gt;debain安装源地址语法&lt;a href=&quot;http://www.cnblogs.com/beanmoon/p/3387652.html&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt; Hash 校验和不符等错误的原因
+&lt;a href=&quot;http://www.kali.org.cn/thread-23272-1-1.html&quot;&gt;1&lt;/a&gt;
+&lt;a href=&quot;http://forum.ubuntu.org.cn/viewtopic.php?t=473765&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;解决方法&quot;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;1.理解debain安装源地址格式语法后,设置正确的源后用后面3种方法之一即可&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kali官方debain源:
+http://http.kali.org/
+
+需要在sources.list文件中如下设置:
+deb http://http.kali.org/ kali-rolling main contrib non-free
+其中main contrib non-free的顺序可变
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.手机开个热点后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.换个wifi后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;4.挂vpn,开代理后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 27 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        
+        <category>kali</category>
+        
+        <category>debain</category>
+        
+        <category>sources.list</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
     
       <item>
         <title>流畅的python第2章笔记</title>
@@ -1068,51 +1119,6 @@ dumpdecrypted,脱壳工具
         <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC12%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>csapp</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>git当svn用</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.git pull相当于svn update
-2.git push相当于svn commit
-3.git有本地仓库,svn没有本地仓库,上面git push前要git commit -a -m 到本地仓库
-4.git多人协作  https://gist.github.com/suziewong/4378619
-5.同一个github帐号多台不同电脑时可用下面代码方便同步数据
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 每天第1次接触电脑时运行py3 gitTool.py --update
-# 每天第-1次接触电脑时运行py3 gitTool.py --commit
-
-import sys
-import os
-dirList = [&quot;~/myblog/&quot;, &quot;~/3xp10it.github.io/&quot;,
-           &quot;~/mypypi/&quot;, &quot;/usr/share/mytools&quot;]
-if sys.argv[1] == &quot;--update&quot;:
-    for eachDir in dirList:
-        os.system(&quot;cd %s &amp;amp;&amp;amp; git pull&quot; % eachDir)
-if sys.argv[1] == &quot;--commit&quot;:
-    os.system(&quot;bash /usr/share/mytools/up.sh&quot;)
-    for eachDir in dirList:
-        os.system(
-            &quot;cd %s &amp;amp;&amp;amp; git add . &amp;amp;&amp;amp; git commit -a -m 'up' &amp;amp;&amp;amp; git push -u origin master&quot; % eachDir)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sat, 21 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/21/git%E5%BD%93svn%E7%94%A8/</guid>
-        
-        <category>git</category>
-        
-        <category>svn</category>
         
         
         <category>auxilary</category>
