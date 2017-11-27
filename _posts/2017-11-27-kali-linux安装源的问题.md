@@ -42,7 +42,7 @@ deb http://http.kali.org/ kali-rolling main contrib non-free
 
 3.解决安装源的问题后如果再安装paralles tools还有问题可按照[这里][4]解决
 
-4.如果上面3中的链接没有解决则升级paralleles desktop,实际安装中,升级为paralleles13.2.0后再按照上面3中的链接可成功安装
+4.如果上面3中的链接没有成功安装,则升级paralleles desktop,实际安装中,由paralleles12升级为paralleles13.2.0后再按照上面3中的链接可成功安装
 
 [1]: http://www.cnblogs.com/beanmoon/p/3387652.html
 [2]: http://www.kali.org.cn/thread-23272-1-1.html
