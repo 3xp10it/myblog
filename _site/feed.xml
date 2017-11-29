@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 29 Nov 2017 08:07:26 +0800</pubDate>
-    <lastBuildDate>Wed, 29 Nov 2017 08:07:26 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Wed, 29 Nov 2017 18:14:18 +0800</pubDate>
+    <lastBuildDate>Wed, 29 Nov 2017 18:14:18 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>kali linux安装源的问题</title>
