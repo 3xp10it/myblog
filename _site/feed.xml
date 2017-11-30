@@ -5,9 +5,160 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Nov 2017 18:17:58 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2017 18:17:58 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Thu, 30 Nov 2017 22:13:26 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Nov 2017 22:13:26 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>老码识途第1章笔记</title>
+        <description>&lt;h3 id=&quot;欲向码途问大道锵锵bit是吾刀&quot;&gt;欲向码途问大道,锵锵bit是吾刀&lt;/h3&gt;
+
+&lt;p&gt;1.c语言中嵌入的汇编能够识别高级语言中的符号,如变量address&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int i,gi;
+void * address{
+    _asm {
+    mov address,offset _lb1
+    jmp address
+    }
+    i=2;
+_lb1:
+    gi=12;
+    
+}
+
+
+                            jmp address
+004113C8 ff 25 cc 74 41 00  jmp dword ptr ds:[004174cch]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.指针的类型信息(dword ptr,word ptr,byte ptr…)决定了赋值/读取时写/读多少字节.读/写多少字节的信息不是存放在指针
+变量中,而是放到了与该地址相关的赋值指令中,如&lt;code class=&quot;highlighter-rouge&quot;&gt;mov dword ptr [eax],0ch&lt;/code&gt;中的dword指明了这个信息.不同类型指针,访问字
+节数不同,&lt;code class=&quot;highlighter-rouge&quot;&gt;int *&lt;/code&gt;访问4字节,&lt;code class=&quot;highlighter-rouge&quot;&gt;short *&lt;/code&gt;访问2字节,这样就方便我们操控一个地址,否则如果只有地址信息,每次访问它还要附加说
+明访问的字节数.这时,我们也能理解指针加/减1不是加/减1字节,而是加/减长度为该指针指向类型的长度的字节数,我们也能理解
+,&lt;code class=&quot;highlighter-rouge&quot;&gt;void *&lt;/code&gt;类型的指针为什么无法进行加减运算,因为它只是汇编语言中的地址,没有类型信息,加减的时候不知道加减多少字节&lt;/p&gt;
+
+&lt;p&gt;3.强制类型转换中有2点:&lt;/p&gt;
+
+&lt;p&gt;a)不能将一个&lt;code class=&quot;highlighter-rouge&quot;&gt;short *&lt;/code&gt;指针变量赋值给&lt;code class=&quot;highlighter-rouge&quot;&gt;int *&lt;/code&gt;变量,因为生成赋值语句的指令时,必然生成move dword指令,即写4字节,而&lt;code class=&quot;highlighter-rouge&quot;&gt;short
+*&lt;/code&gt;的变量只有2字节`&lt;/p&gt;
+
+&lt;p&gt;b)指针强制类型转换的影响不是在转换的时候发生,在转换时除了赋值地址没有多余动作,起效的时是在用转换后的身份去访问内
+存的时候,编译器会按转换后的指针类型产生相应代码,如下打印的结果是0xcccc000c而不是0c.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int *pi;
+short si=12;
+pi=(int *)&amp;amp;si;
+printf(&quot;%x&quot;,*pi);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4.计算负数值方法:取反加1&lt;/p&gt;
+
+&lt;p&gt;5.call指令的偏移量计算方法:偏移量=跳转到的地址-call指令后一条指令的起始地址&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;00413766    e8 7a da ff ff      call 00411e5
+0041376b    ...                 ...
+
+e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b+(-0x2586)=0x00411e5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;6.call指令相当于以下2条指令,在调用call之前要先push函数参数(x86),如push 1,push2,call 0x0402848,所以可以理解:在当前
+函数帧栈中,第1个参数的位置在ebp+8处,因为ebp+4处的内容是call之前push的返回地址.在使用了ebp寻址的函数中,ebp+偏移量
+是参数的地址,ebp-偏移量是局部变量的地址&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;push 返回地址
+jmp 函数入口
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;7._cdecl是调用方清理栈,_pascal,_fastcall和_stdcall是被调用方清理栈.c语言缺省调用惯例是_cdecl,_stdcall通常用于
+win32 API.&lt;a href=&quot;https://www.cnblogs.com/john-h/p/6276828.html&quot;&gt;更多&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;8.函数指针赋值的原则是:只能将与指针原型匹配的函数的入口地址赋值给它,因为不同的函数的调用约定不一定相同,如上面的7
+中所示&lt;/p&gt;
+
+&lt;p&gt;9.数组的第1个元素的索引从0开始的原因&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;索引从1开始:
+
+第1个元素的地址=首地址a
+第2个元素的地址=首地址a+1x元素大小
+第3个元素的地址=首地址a+2x元素大小
+第i个元素的地址=首地址a+(i-1)x元素大小
+
+索引从0开始:
+
+第0个元素的地址=首地址a
+第1个元素的地址=首地址a+1x元素大小
+第2个元素的地址=首地址a+2x元素大小
+第i个元素的地址=首地址a+(i)x元素大小
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;10.从上面9中也理解了c语言为什么会发生数组越界错误,因为它只是拿到首部地址然后加偏移量,如果索引值超出范围,那么求得
+的元素地址也就超过了范围&lt;/p&gt;
+
+&lt;p&gt;11.一般情况下,网络字节顺序是大端,主机字节顺序是小端&lt;/p&gt;
+
+&lt;p&gt;12.内存中字节对齐的规律&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;首先选定一个盒子,然后依序将字段往盒子中放,当盒子放不下后,又用下一个盒子存放,直至所有字段都存放完毕.
+
+相关限制条件:
+a)盒子长度=min{max{sizeof(成员变量)},对齐长度}
+b)字段放入盒子的可放置位置如下:
+    离盒子头部偏移字节数=nxsizeof(成员变量)     (n=0,1,2,...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;13.为了让结构体更整齐以便于在不同字节序程序间传递,我们就尽量调整结构体的字段顺序,在没办法的情况下,可考虑主动添加
+一些字段,防止计算机为了对齐而填充&lt;/p&gt;
+
+&lt;p&gt;14.一般情况下,switch比if-else快&lt;/p&gt;
+
+&lt;p&gt;15.ga,ge,gb…中ab无符号,gl有符号&lt;/p&gt;
+
+&lt;p&gt;16.在cpu保护模式下,每个执行进程(程序的一个实例)都拥有自己独立的线性地址空间,这种机制叫虚存系统&lt;/p&gt;
+
+&lt;p&gt;17.完成加载程序并将eip寄存器的值指向main()入口的程序称为加载器&lt;/p&gt;
+
+&lt;p&gt;18.重定位与模块绑定&lt;a href=&quot;http://blog.csdn.net/ithzhang/article/details/7058576&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;relocAddr=actualBase+a
+* relocAddr=*relocAddr+actualBase-expectedAddr
+eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有重定位段的pe中,有多个a,如a=0x100,a=0x502,
+表示在pe的偏移0x100,0x502处的4字节值需要修改为原来的值+(实际加载基址与期望加载基址的差)
+
+一般elf的expectedAddr为0x8000000(128M),linux共享库的expectedAddr为0x40000000(1G)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;19.vtune是一个收费$899的性能分析工具(可下载破解版),python下免费的其他工具可参考&lt;a href=&quot;https://www.cnblogs.com/nisen/p/6076082.html&quot;&gt;这里1&lt;/a&gt;,&lt;a href=&quot;https://github.com/rkern/line_profiler&quot;&gt;这里2&lt;/a&gt;,&lt;a href=&quot;https://github.com/pythonprofilers/memory_profiler&quot;&gt;这里3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;20.学习汇编的方法:用汇编实现开发环境所带的运行时库中的函数,如c语言中的strlen,strcpy等.然后,分析系统库实现的这些函
+数.因为它们调用频繁,所以要求有很高的效率,基本都用汇编撰写.好好阅读能学到很多高级技巧,(能从高手的经典中汲取到很多营
+养),再做性能实验,测试自己版本与系统版本的差异,并分析修改(这一过程可用vtune在优化方面深入实战),最后分析不同库实现
+的异同和好坏,如vc,c++ builder,delphi,gcc&lt;/p&gt;
+
+&lt;p&gt;21.一个技巧:判断一个数能否被4整除可通过&lt;code class=&quot;highlighter-rouge&quot;&gt;test xxx,3    je ...&lt;/code&gt;实现&lt;/p&gt;
+
+&lt;p&gt;22.对于&lt;code class=&quot;highlighter-rouge&quot;&gt;_declspec(naked) int strlen2(char *str)&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;_declspec(naked)&lt;/code&gt;属于vc的特殊关键字,表示该函数的左右括号不会生
+成任何代码,此时strlen2()的代码就是汇编本身&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 30 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/30/%E8%80%81%E7%A0%81%E8%AF%86%E9%80%94%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/30/%E8%80%81%E7%A0%81%E8%AF%86%E9%80%94%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>老码识途</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>kali linux安装源的问题</title>
@@ -1079,50 +1230,6 @@ dumpdecrypted,脱壳工具
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>深入理解计算机系统第12章笔记</title>
-        <description>&lt;h3 id=&quot;并发编程&quot;&gt;并发编程&lt;/h3&gt;
-
-&lt;p&gt;1.I/O多路复用:多路复用是指使用一个线程来检查多个描述符(socket)的就绪状态,比如调用select和poll函数,传入多个文件描
-述符,如果有一个文件描述符就绪,则返回,否则阻塞直到超时.得到就绪状态后进行真正的操作可以在同一个线程里执行,也可以启
-动线程执行(比如使用线程池),&lt;a href=&quot;https://www.zhihu.com/question/28594409&quot;&gt;必读理解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;2.现代操作系统提供了三种基本的构造并发程序的方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;进程&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;I/O多路复用&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;线程&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;3.select实现I/O多路复用用法示例 &lt;a href=&quot;http://www.jb51.net/article/111899.htm&quot;&gt;1&lt;/a&gt;,&lt;a href=&quot;https://www.chengxulvtu.com/2017/10/10/以python理解linux的io多路复用,select、poll、epoll.html&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;4.信号量:线程的信号量与进程间通信中使用的信号量的概念是一样,它是一种特殊的变量,它可以被增加或减少,但对其的关键
-访问被保证是原子操作.如果一个程序中有多个线程试图改变一个信号量的值,系统将保证所有的操作都将依次进行.&lt;/p&gt;
-
-&lt;p&gt;5.信号量与互斥量的&lt;a href=&quot;https://www.zhihu.com/question/47411729&quot;&gt;理解1&lt;/a&gt;,&lt;a href=&quot;http://blog.csdn.net/bao_qibiao/article/details/4516196&quot;&gt;理解2&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;6.每个线程都有它自己独立的线程上下文,包括线程ID,栈,栈指针,程序计数器,条件码和通用目的寄存器值.每个线程和其他线程
-一起共享进程上下文的剩余部分,这包括整个用户虚拟地址空间,它是由只读文本(代码),读/写数据,堆以及所有的共享库代码和数
-据区域组成的.线程也共享同样的打开的文件的集合.寄存器是从不共享的,而虚拟存储器总是共享的.&lt;/p&gt;
-
-&lt;p&gt;7.如果一个线程以某种方式得到一个指向其他线程栈的指针,那么它就可以读写这个栈的任何部分.&lt;/p&gt;
-
-&lt;p&gt;8.互斥锁的&lt;a href=&quot;https://yq.aliyun.com/articles/5690&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;9.如果线程不安全函数是难以修改或不可能修改的(例如,代码非常复杂或是没有源代码可用),那么另外一种选择就是使用&lt;code class=&quot;highlighter-rouge&quot;&gt;加锁-
-拷贝&lt;/code&gt;技术.基本思想是将线程不安全函数与互斥锁联系起来.在每一个调用位置,对互斥锁加锁,调用线程不安全函数,将函数返回
-的结果拷贝到一个私有的存储器位置,然后对互斥锁解锁.&lt;/p&gt;
-
-&lt;p&gt;10.死锁:死锁(Deadlock)就是一个进程拿着资源A请求资源B,另一个进程拿着资源B请求资源A,双方都不释放自己的资源,导致
-两个进程都进行不下去.&lt;a href=&quot;http://www.jianshu.com/p/0494ab7c96f9&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 24 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/10/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC12%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/10/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%AC%AC12%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>csapp</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
