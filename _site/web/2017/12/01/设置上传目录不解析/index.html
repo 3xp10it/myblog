@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>设置上传目录不解析</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,119 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">设置上传目录不解析</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 1, 2017</span>
+           under web
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<p>设置上传目录不解析要怎样实现,之前一直以为是chmod -x uploads实现的,但是并不是这样</p>
+
+<h3 id="0x01-linux的文件属性">0x01 linux的文件属性</h3>
+
+<p>linux的文件夹和文件的属性特点</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/resolve.png" /></p>
+
+<p>如果一个文件有r属性,文件所在的文件夹也有r属性,但是文件所在文件夹没有x属性,那么这个文件是不能cat的,会提示权限不够,
+这种情况下,如果再给文件赋予x属性,这个文件也是不能执行的,会提示权限不够,笔者认为是因为该文件所在的文件夹没有x属性
+导致这个文件不可读,不可读的情况下,就算赋予x属性也是无法执行的</p>
+
+<h3 id="0x02-设置上传目录不解析">0x02 设置上传目录不解析</h3>
+
+<p>从上面看出,可通过chmod -x uploads让uploads目录下的webshell.php不解析,webshell.php不解析的原因是webshell.php对
+apache用户www-data不可读(即使webshell.php的属性是644),webshell.php对apache用户www-data不可读的原因是uploads目录没
+有x属性.但是这种通过chmod -x uploads的方法没有意义,因为这样虽然防住了webshell.php不解析,却也会导致正常的图片和其
+他文件无法查看和使用</p>
+
+<p>真正的用法是通过httpd.conf(现在叫apache2.conf)或者.htaccess来实现,具体实现方法可参考<a href="http://www.freebuf.com/articles/2465.html">这里</a>,.htaccess的更多用法
+可参考<a href="http://www.curafund.com/upload/download_file/1463483103.pdf">这里</a>,httpd.conf(apache2.conf)和.htaccess的关系可参考<a href="http://m.itboth.com/d/RBvuy2/apache-.htaccess-cgi-include">这里</a></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            upload, webshell
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/web/2017/12/01/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E7%9B%AE%E5%BD%95%E4%B8%8D%E8%A7%A3%E6%9E%90/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/web/2017/12/01/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E7%9B%AE%E5%BD%95%E4%B8%8D%E8%A7%A3%E6%9E%90/">设置上传目录不解析</a>
-      </div>
-      <div class="excerpt">
-         
-          设置上传目录不解析
-         
-        <a href="/web/2017/12/01/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E7%9B%AE%E5%BD%95%E4%B8%8D%E8%A7%A3%E6%9E%90/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

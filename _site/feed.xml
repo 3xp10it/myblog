@@ -5,9 +5,49 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 01 Dec 2017 18:02:37 +0800</pubDate>
-    <lastBuildDate>Fri, 01 Dec 2017 18:02:37 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Fri, 01 Dec 2017 21:13:29 +0800</pubDate>
+    <lastBuildDate>Fri, 01 Dec 2017 21:13:29 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>设置上传目录不解析</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;p&gt;设置上传目录不解析要怎样实现,之前一直以为是chmod -x uploads实现的,但是并不是这样&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-linux的文件属性&quot;&gt;0x01 linux的文件属性&lt;/h3&gt;
+
+&lt;p&gt;linux的文件夹和文件的属性特点&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/resolve.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果一个文件有r属性,文件所在的文件夹也有r属性,但是文件所在文件夹没有x属性,那么这个文件是不能cat的,会提示权限不够,
+这种情况下,如果再给文件赋予x属性,这个文件也是不能执行的,会提示权限不够,笔者认为是因为该文件所在的文件夹没有x属性
+导致这个文件不可读,不可读的情况下,就算赋予x属性也是无法执行的&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02-设置上传目录不解析&quot;&gt;0x02 设置上传目录不解析&lt;/h3&gt;
+
+&lt;p&gt;从上面看出,可通过chmod -x uploads让uploads目录下的webshell.php不解析,webshell.php不解析的原因是webshell.php对
+apache用户www-data不可读(即使webshell.php的属性是644),webshell.php对apache用户www-data不可读的原因是uploads目录没
+有x属性.但是这种通过chmod -x uploads的方法没有意义,因为这样虽然防住了webshell.php不解析,却也会导致正常的图片和其
+他文件无法查看和使用&lt;/p&gt;
+
+&lt;p&gt;真正的用法是通过httpd.conf(现在叫apache2.conf)或者.htaccess来实现,具体实现方法可参考&lt;a href=&quot;http://www.freebuf.com/articles/2465.html&quot;&gt;这里&lt;/a&gt;,.htaccess的更多用法
+可参考&lt;a href=&quot;http://www.curafund.com/upload/download_file/1463483103.pdf&quot;&gt;这里&lt;/a&gt;,httpd.conf(apache2.conf)和.htaccess的关系可参考&lt;a href=&quot;http://m.itboth.com/d/RBvuy2/apache-.htaccess-cgi-include&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 01 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2017/12/01/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E7%9B%AE%E5%BD%95%E4%B8%8D%E8%A7%A3%E6%9E%90/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/12/01/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E7%9B%AE%E5%BD%95%E4%B8%8D%E8%A7%A3%E6%9E%90/</guid>
+        
+        <category>upload</category>
+        
+        <category>webshell</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>老码识途第2章笔记</title>
@@ -995,32 +1035,6 @@ for each in $(find . -name &quot;*.jad&quot;);do copy $each /tmp/source;done
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>正则实用备忘录</title>
-        <description>&lt;p&gt;1.查找一个目录下的具备可匹配出正则内容的文件名.
-    eg.查找当前目录下能匹配”allow.*certificate”内容的文件的文件名,-i表示忽略大小写,-r表示递归搜索,-l表示只列出文件名&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ack -irl &quot;allow.*certificate&quot; .
-
-配合for循环:(用于查找ios头文件中用来进行https强校验的函数evaluateServerTrust)
-
-for each in $(ack -irl &quot;allow.*certificate&quot; .); do logify.pl $each &amp;gt;&amp;gt;  ~/xupload/Tweak.xm; done
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.to be continue&lt;/p&gt;
-</description>
-        <pubDate>Tue, 07 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/11/07/%E6%AD%A3%E5%88%99%E5%AE%9E%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/11/07/%E6%AD%A3%E5%88%99%E5%AE%9E%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
-        
-        <category>regexp</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
