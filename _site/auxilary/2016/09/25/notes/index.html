@@ -3175,6 +3175,28 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 256.</span>查看网站rank
     http://www.rankank.com/
+<span class="p">
+257.</span>linux权限
+    目录
+        读:   ls , dir ... 			表示可查看该目录下的文件列表
+        写:   rm , mv, cp, mkdir ,touch ...	表示可在该目录下创建,删除,修改文件或者子目录,不过在这之前,一定要先有执行权限,不然进都进不去,又怎么写呢
+        执行: cd  ...		
+    文件
+        读:	cat , tac , more , less ,head , tail ... 表示可查看该文件中的内容
+        写:	vi , nano , echo ...			 只表示可对文件中的 内容 进行增删改,删除文件还要取决于当前用户对该文件所在目录是否有写权限
+        执行:	可执行文件,shell脚本...			 在linux中任何文件都可以有执行权限,但只有可执行文件和脚本才能真正执行<span class="sb">
+
+    eg.如果一个文件有r属性,文件所在的文件夹也有r属性,但是文件所在文件夹没有x属性,那么这个文件是不能cat的,会提示权
+    限不够,这种情况下,如果再给文件赋予x属性,这个文件也是不能执行的,会提示权限不够,应该是因为该文件所在的文件夹没
+    有x属性导致这个文件不可读,不可读的情况下,就算赋予x属性也是无法执行的
+
+</span><span class="p">258.</span>设置上传目录不解析的方法,并不是chmod -x upload
+    http://www.freebuf.com/articles/2465.html
+<span class="p">
+259.</span>httpd.conf(apache2.conf)和.htaccess的关系
+    http://m.itboth.com/d/RBvuy2/apache-.htaccess-cgi-include
+    .htaccess怎么用
+        http://www.curafund.com/upload/download_file/1463483103.pdf
 </code></pre>
 </div>
 </span>
