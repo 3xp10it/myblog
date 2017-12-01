@@ -5,9 +5,28 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Nov 2017 22:13:26 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2017 22:13:26 +0800</lastBuildDate>
+    <pubDate>Fri, 01 Dec 2017 08:11:52 +0800</pubDate>
+    <lastBuildDate>Fri, 01 Dec 2017 08:11:52 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>老码识途第2章笔记</title>
+        <description>&lt;h3 id=&quot;庖丁解码底层的力量与乐趣&quot;&gt;庖丁解码:底层的力量与乐趣&lt;/h3&gt;
+
+&lt;p&gt;1.全局变量或字符串常量等数据存放在程序的数据段&lt;/p&gt;
+
+&lt;p&gt;2.ida+image base+重定位+got+plt&lt;/p&gt;
+</description>
+        <pubDate>Fri, 01 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/01/%E8%80%81%E7%A0%81%E8%AF%86%E9%80%94%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/01/%E8%80%81%E7%A0%81%E8%AF%86%E9%80%94%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>老码识途</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>老码识途第1章笔记</title>
@@ -1002,234 +1021,6 @@ for each in $(ack -irl &quot;allow.*certificate&quot; .); do logify.pl $each &am
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>ios tweak制作</title>
-        <description>&lt;h3 id=&quot;0x00-工具准备&quot;&gt;0x00 工具准备&lt;/h3&gt;
-
-&lt;p&gt;1.tweak制作工具(框架):&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;theos&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;2.ios app脱appstore加的壳工具:&lt;a href=&quot;https://github.com/theos/theos&quot;&gt;clutch&lt;/a&gt;,如果失败则用&lt;a href=&quot;https://github.com/stefanesser/dumpdecrypted&quot;&gt;dumpdecrypted&lt;/a&gt;尝试&lt;/p&gt;
-
-&lt;p&gt;3.ios app头文件提取工具:&lt;a href=&quot;https://github.com/nygard/class-dump&quot;&gt;class-dump&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;4.class-dump的swift+object c不报错版本:&lt;a href=&quot;https://github.com/BlueCocoa/class-dump&quot;&gt;项目地址&lt;/a&gt;,&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/class-dump&quot;&gt;可执行文件&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;5.查看运行时函数调用及调用参数值工具:logify.pl,logify是theos的一个内置工具,路径为/opt/theos/bin/logify.pl&lt;/p&gt;
-
-&lt;p&gt;6.远程调试ios工具:debugserver+lldb+[ida pro]&lt;/p&gt;
-
-&lt;p&gt;7.查看ios app中的ui对应的类的工具(安装在手机上):&lt;a href=&quot;https://github.com/dtrukr/FLEX_injected&quot;&gt;flex_injected&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-tweak制作实例&quot;&gt;0x01 tweak制作实例&lt;/h3&gt;
-
-&lt;h4 id=&quot;实现一个app上传步数大于5000&quot;&gt;实现一个app上传步数大于5000&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@iphone.ip
-wget https://github.com/KJCracks/Clutch/releases/download/2.0.4/Clutch-2.0.4 -O /usr/bin/Cluth
-Cluth -i
-Cluth -d index_number_of_target_app
-scp output.ipa user@pc_ip:
-exit
-unzip output.ipa -d ~/output
-class-dump -H ~/output/Payload/xxx.app/xxx -o ~/output_header
-分析出可疑类中的函数为PARSPedometerInfo.h中的函数[结合flex_injected,ida pro,frida,logify.pl得出]
-nic.pl
-选择新建一个iphone tweak,项目目录为~/xupload
-设置MobileSubstrate Bundle filter的值为output.ipa的bundleid的值,可从output.ipa的info.plist中得到
-logify.pl ~/output_header/PARSPedometerInfo.h &amp;gt; ~/xupload/Tweak.xm[这一步是为了hook可疑函数,查看调用及参数]
-cd xupload
-make
-make package
-scp package/xxxx.deb root@iphone.ip:
-ssh root@iphone.ip
-dpkg -i xxxx.deb
-手机连接mac,打开xcode,在windows|device and simulators|点击查看log按钮(小三角形状)
-运行目标app并点击上传步数
-查看xcode中函数的调用日志如下
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x1708d8f70&amp;gt;: 
-	 integration=0 
-	 iPhone=0 
-	 watch=0 
-	 heartRat=0
-	 at:2017-11-05 16:00:00 +0000
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x1708d8f70&amp;gt;: 
-	 integration=0 
-	 iPhone=0 
-	 watch=0 
-	 heartRat=0
-	 at:2017-11-05 16:00:00 +0000
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x1708d8f70&amp;gt; setIntegratedSteps:36]
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:8[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x1708d8f70&amp;gt; setStartDate:2017-11-04 16:00:00 +0000]
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; init]
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; description]
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x174ad8100&amp;gt;: 
-	 integration=0 
-	 iPhone=0 
-	 watch=0 
-	 heartRat=0
-	 at:2017-11-05 16:00:00 +0000
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:21[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&amp;lt;0x174ad8100&amp;gt;: 
-	 integration=0 
-	 iPhone=0 
-	 watch=0 
-	 heartRat=0
-	 at:2017-11-05 16:00:00 +0000
-Nov  6 12:05:32 iPhone PALifeApp[4494] &amp;lt;Notice&amp;gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&amp;lt;PARSPedometerInfo: 0x174ad8100&amp;gt; setIntegratedSteps:2305]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;从上面日志中发现关键函数及参数setIntegratedSteps:2305,于是要hook这个函数并设置参数为大于5000的值.
-回到Tweak.xm中查看这个函数&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig; }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;从中看出setIntergratedSteps函数传入了一个参数,参数类型是long long,这也是一种int类型,大小范围是int类型的4倍,直接修改
-成&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%hook PARSPedometerInfo
-- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig(15347);  }
-%end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make clean
-make 
-make package
-scp packages/xxx.deb root@iphone.ip:
-ssh root@iphone.ip
-dpkg -P com.yourcompany.xupload
-dpkg -i xxx.deb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;重新运行目标app并点击上传步数,成功上传,后来分析上面setIntegratedSteps函数调用的参数为integratedSteps函数,也即
-integratedSteps参数的返回值作为setIntegratedSteps函数的参数,也即同样可通过hook integratedSteps函数来实现,分析认为
-integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是上传本地步数.hook integratedSteps函数可如下修改&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;将
-- (long long )integratedSteps { %log; long long  r = %orig; HBLogDebug(@&quot; = %lld&quot;, r); return r; }
-修改为:
-- (long long )integratedSteps { %log; long long  r =15347; return r; }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-注意事项&quot;&gt;0x02 注意事项&lt;/h3&gt;
-
-&lt;p&gt;1.在运行nic.pl新建tweak项目时在输入bundleid时默认值为com.apple.springboard,这里要修改,且要修改成要hook的app的
-bundleid,查看bundleid可在app的安装包的Info.plist文件中得到&lt;/p&gt;
-
-&lt;p&gt;2.hook原理理解&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
-https://www.oschina.net/question/565065_68287
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;3.如果使用ida pro动态调试ios app,需要设置使用远程gdb server(使用ios debugsever失败),在mac上用ida加载脱壳后的
-mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安装的app应该也可以,未尝试],需要在ida中重新设置加载基址,
-在ida菜单的edit|segment|rebase program处设置,如果不设置加载基址会导致无法下断点,因为断点是在真实的内存偏移处中断,
-而不设置加载基址看到的ida中的偏移只是相对偏移,相对偏移不是真实的内存地址,真实的内存地址=加载基址+相对偏移.目前暂
-未找到好用的查看app运行的加载基址的方法,网上有篇文章使用的是vmmap查看,实际编译没成功.&lt;/p&gt;
-
-&lt;p&gt;4.动态调试最好用lldb调试,ida调试很慢,在lldb中调试下断点时,断点地址可根据image list -o -f得到的加载基址加上ida pro
-中查看到的相对偏移得到&lt;/p&gt;
-
-&lt;h3 id=&quot;0x03-refer&quot;&gt;0x03 Refer&lt;/h3&gt;
-
-&lt;p&gt;1.ida远程调试ios程序&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.debugserver
-    http://blog.csdn.net/u013538542/article/details/72853521
-    http://bbs.iosre.com/t/debugserver-lldb-gdb/65
-b.ios安装gcc,ldid,make
-    http://kimi.it/517.html
-c.调试
-    1)http://blog.csdn.net/proteas/article/details/78083512
-    2)https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.ios越狱应用开发&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.jianshu.com/p/bc63492e4847
-http://www.swiftyper.com/2016/01/25/ios-tweak-install-guide/
-
-lldb与gdb命令对照:
-    http://lldb.llvm.org/lldb-gdb.html
-
-ios脱appstre的壳:Clutch与dumpdecrypted的使用 
-    http://sunhongyi.com/2017/01/05/iOSReverse-decrytion-tools/
-    clutch用法:
-        http://www.jianshu.com/p/47836c78eb0a
-
-make出错时尝试这样:
-    http://bbs.iosre.com/t/theos/2049
-
-实例开发:
-    https://github.com/jackrex/FakeWeChatLoc
-    http://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;amp;amp;mid=2653577384&amp;amp;amp;idx=1&amp;amp;amp;sn=b44a9c9651bf09c5bea7e0337031c53c&amp;amp;amp;scene=0#wechat_redirect
-    logify.pl方法加日志
-    http://www.qingpingshan.com/m/view.php?aid=156771
-
-免越狱tweak开发
-    https://juejin.im/entry/58931dd5128fe10065441717
-    http://www.chinapyg.com/thread-88593-1-1.html
-
-动态调试(在ida中要设置基址)
-    http://www.cnblogs.com/ludashi/p/5730338.html
-
-hook原理
-    hook理解:
-        http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
-        https://www.oschina.net/question/565065_68287
-
-    hook种类
-        https://bbs.kafan.cn/thread-471551-1-1.html
-        http://www.epubit.com.cn/book/onlinechapter/33620
-    inline hook原理
-        http://www.cnblogs.com/zhangdongsheng/archive/2013/04/08/3007154.html
-    百科
-        http://www.baike.com/wiki/API+HOOK
-    got hook
-        http://ele7enxxh.com/Android-Arm-Inline-Hook.html
-
-    http://gslab.qq.com/article-164-1.html
-    http://www.jianshu.com/p/4f6d20076922
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;3.ios逆向工具汇总&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;flex(cydia),patch app的函数参数和返回值
-[flex_injected][6],找到app中的按钮对应的类
-reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal
-syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同[需要执行cat /dev/null &amp;gt; /var/log/syslog]
-[frida][8]
-class-dump,脱壳工具
-dumpdecrypted,脱壳工具
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/06/ios-tweak%E5%88%B6%E4%BD%9C/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/06/ios-tweak%E5%88%B6%E4%BD%9C/</guid>
-        
-        <category>ios</category>
-        
-        <category>tweak</category>
-        
-        <category>lldb</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     
