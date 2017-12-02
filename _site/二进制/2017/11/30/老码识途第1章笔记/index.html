@@ -238,16 +238,25 @@ eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有
 </code></pre>
 </div>
 
-<p>19.vtune是一个收费$899的性能分析工具(可下载破解版),python下免费的其他工具可参考<a href="https://www.cnblogs.com/nisen/p/6076082.html">这里1</a>,<a href="https://github.com/rkern/line_profiler">这里2</a>,<a href="https://github.com/pythonprofilers/memory_profiler">这里3</a></p>
+<p>上面的expectedAddr可通过ida加载一个elf,查看ida中的进度条最开始位置的地址,这个地址即是elf期望的加载基址,如下图期望
+加载基址为0x8048000</p>
 
-<p>20.学习汇编的方法:用汇编实现开发环境所带的运行时库中的函数,如c语言中的strlen,strcpy等.然后,分析系统库实现的这些函
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/lmst1-1.png" /></p>
+
+<p>或者通过linux下的工具readelf -l elffile查看,如下图</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/lmst1-2.png" /></p>
+
+<p>20.vtune是一个收费$899的性能分析工具(可下载破解版),python下免费的其他工具可参考<a href="https://www.cnblogs.com/nisen/p/6076082.html">这里1</a>,<a href="https://github.com/rkern/line_profiler">这里2</a>,<a href="https://github.com/pythonprofilers/memory_profiler">这里3</a></p>
+
+<p>21.学习汇编的方法:用汇编实现开发环境所带的运行时库中的函数,如c语言中的strlen,strcpy等.然后,分析系统库实现的这些函
 数.因为它们调用频繁,所以要求有很高的效率,基本都用汇编撰写.好好阅读能学到很多高级技巧,(能从高手的经典中汲取到很多营
 养),再做性能实验,测试自己版本与系统版本的差异,并分析修改(这一过程可用vtune在优化方面深入实战),最后分析不同库实现
 的异同和好坏,如vc,c++ builder,delphi,gcc</p>
 
-<p>21.一个技巧:判断一个数能否被4整除可通过<code class="highlighter-rouge">test xxx,3    je ...</code>实现</p>
+<p>22.一个技巧:判断一个数能否被4整除可通过<code class="highlighter-rouge">test xxx,3    je ...</code>实现</p>
 
-<p>22.对于<code class="highlighter-rouge">_declspec(naked) int strlen2(char *str)</code>,<code class="highlighter-rouge">_declspec(naked)</code>属于vc的特殊关键字,表示该函数的左右括号不会生
+<p>23.对于<code class="highlighter-rouge">_declspec(naked) int strlen2(char *str)</code>,<code class="highlighter-rouge">_declspec(naked)</code>属于vc的特殊关键字,表示该函数的左右括号不会生
 成任何代码,此时strlen2()的代码就是汇编本身</p>
 
 </span>
