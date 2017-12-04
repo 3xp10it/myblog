@@ -174,8 +174,9 @@
 
 <h3 id="0x04-attention">0x04 attention</h3>
 
-<p>1.为了匹配到一个字符串变量中没有form,可以有4种方法:
-a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code><br />
+<p>1.为了匹配到一个字符串变量中没有form,可以有4种方法:</p>
+
+<p>a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code><br />
 b)<code class="highlighter-rouge">(?&lt;!form).</code>对应的<code class="highlighter-rouge">((?&lt;!form).)*</code><br />
 c)<code class="highlighter-rouge">.(?!form)</code>对应的<code class="highlighter-rouge">(.(?!form))*</code><br />
 d)<code class="highlighter-rouge">(?!form).</code>对应的<code class="highlighter-rouge">((?!form).)*</code></p>

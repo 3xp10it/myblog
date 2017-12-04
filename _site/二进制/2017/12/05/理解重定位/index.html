@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>理解重定位</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,134 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">理解重定位</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 5, 2017</span>
+           under 二进制
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-必读link">0x00 必读link</h3>
+
+<p>1.<a href="https://www.zhihu.com/question/21249496">Linux动态链接为什么要用PLT和GOT表</a></p>
+
+<p>2.<a href="https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/">共享库加载时重定位</a></p>
+
+<p>3.<a href="https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/">共享库中的PIC</a></p>
+
+<h3 id="0x01-预备知识">0x01 预备知识</h3>
+
+<p>1.硬件对变量和函数的寻址方式不同,寻找变量要求绝对地址,寻找函数要求相对地址.</p>
+
+<p>call指令的偏移量计算方法:偏移量=跳转到的地址-call指令后一条指令的起始地址</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
+0041376b    ...                 ...
+
+e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b+(-0x2586)=0x00411e5
+</code></pre>
+</div>
+
+<p>3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+运行时重定位(上面必读link中叫load-time
+relocate),运行时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
+地址到真实物理内存地址的转换.</p>
+
+<p>4.编译阶段,.o文件的全局变量位置不确定,因为这时无法确定还有其它哪些.o文件,以及链接器将来会按什么顺序”排列”这些.o文
+件,所以编译阶段没有重定位,链接阶段,如果elf没有调用so中的符号,则可以在链接时重定位所有符号的地址(因为这时所有的.o
+文件的数据段代码段都组合完成了,所有符号的偏移都是确定的),如果elf调用了so中的符号,则由于so文件的符号位置不确定,因为
+这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要运行时重定位.</p>
+
+<p>5.在没有aslr和pie的情况下:elf如果没有调用so中的符号则不用运行时重定位,so则一般必然发生运行时重定位</p>
+
+<p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8000000(128M),so为0x40000000(1G),期望加载
+基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
+
+<p>7.pie的什么用是什么?pic和pie是什么,有什么关系?</p>
+
+<h3 id="0x02-实例跟踪重定位过程">0x02 实例跟踪重定位过程</h3>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            重定位
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/05/%E7%90%86%E8%A7%A3%E9%87%8D%E5%AE%9A%E4%BD%8D/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/05/%E7%90%86%E8%A7%A3%E9%87%8D%E5%AE%9A%E4%BD%8D/">理解重定位</a>
-      </div>
-      <div class="excerpt">
-         
-          理解重定位
-         
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/05/%E7%90%86%E8%A7%A3%E9%87%8D%E5%AE%9A%E4%BD%8D/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
