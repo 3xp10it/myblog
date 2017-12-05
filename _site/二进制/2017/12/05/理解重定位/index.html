@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          4 minute read
+          5 minute read
         </small>
       </div>
 
@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-必读link">0x00 必读link</h3>
 
-<p>1.«程序员的自我修养» 4.2和7.3.2章节</p>
+<p>1.书籍<code class="highlighter-rouge">程序员的自我修养</code>中第4.2和7.3和7.4章节</p>
 
 <p>2.<a href="https://www.zhihu.com/question/21249496">Linux动态链接为什么要用PLT和GOT表</a></p>
 
@@ -150,8 +150,8 @@ relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟�
 <p>5.在没有开启pie的情况下:elf如果没有调用so则不用装载时重定位.elf如果没有调用so则没有plt表(有got表).so(elf)通过
 plt+got来实现pic(pie)</p>
 
-<p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8000000(128M),so为0x40000000(1G),期望加载
-基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
+<p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8048000(约128M),so为0x40000000(1G),期望加
+载基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
 
 <p>7.查看elf有没有开pie可简单通过readelf -l elffile看出,对应如下</p>
 
@@ -238,9 +238,9 @@ ld a.o b.o -e main -o ab
 objdump -h a.o
 
 objdump -h a.o
-    a.o：     文件格式 elf32-i386
+    a.o:     文件格式 elf32-i386
 
-    节：
+    节:
     Idx Name          Size      VMA       LMA       File off  Algn
       0 .group        00000008  00000000  00000000  00000034  2**2
                       CONTENTS, READONLY, EXCLUDE, GROUP, LINK_ONCE_DISCARD
@@ -251,9 +251,9 @@ objdump -h a.o
       3 .bss          00000000  00000000  00000000  00000086  2**0
 
 objdump -h b.o
-    b.o：     文件格式 elf32-i386
+    b.o:     文件格式 elf32-i386
 
-    节：
+    节:
     Idx Name          Size      VMA       LMA       File off  Algn
       0 .group        00000008  00000000  00000000  00000034  2**2
                       CONTENTS, READONLY, EXCLUDE, GROUP, LINK_ONCE_DISCARD
@@ -264,9 +264,9 @@ objdump -h b.o
       3 .bss          00000000  00000000  00000000  00000084  2**0
 
 objdump -h ab
-    ab：     文件格式 elf32-i386
+    ab:     文件格式 elf32-i386
 
-    节：
+    节:
     Idx Name          Size      VMA       LMA       File off  Algn
       0 .text         00000091  08048094  08048094  00000094  2**0
                       CONTENTS, ALLOC, LOAD, READONLY, CODE
@@ -307,7 +307,7 @@ objdump -h ab
       got表中的地址.当然这里的elf文件ab没有plt表,因为不涉及so文件中符号的使用.
 
 objdump -d a.o
-    a.o：     文件格式 elf32-i386
+    a.o:     文件格式 elf32-i386
     Disassembly of section .text:
     00000000 &lt;main&gt;:
        0:	8d 4c 24 04          	lea    0x4(%esp),%ecx
@@ -344,7 +344,7 @@ objdump -d a.o
       了(因为这里未涉及so的调用),那么链接器就可以根据符号的地址对每个需要重定位的指令进行地址修正.
 
 objdump -d ab
-    ab：     文件格式 elf32-i386
+    ab:     文件格式 elf32-i386
     Disassembly of section .text:
 
     08048094 &lt;main&gt;:
@@ -381,7 +381,7 @@ objdump -d ab
      位的地方,那么会有一个相应叫.rel.data的段保存了数据段的重定位表,可以通过objdump -r查看目标文件的重定位表
 
 objdump -r a.o
-    a.o：     文件格式 elf32-i386
+    a.o:     文件格式 elf32-i386
     RELOCATION RECORDS FOR [.text]:
     OFFSET   TYPE              VALUE 
     00000013 R_386_PC32        __x86.get_pc_thunk.ax
@@ -396,12 +396,92 @@ objdump -r a.o
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc4.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><pre class="highlight"><code>ab文件不涉及so的调用,所以链接时重定位就可以完成重定位的工作了,证明如下,在gdb加载ab文件后,分别查看main的地址
+,main+0x28,main+0x34中的内容发现与运行前(链接后)链接器认为的地址一致,具体如下:
 
+gdb ab
+p main
+    $1 = {&lt;text variable, no debug info&gt;} 0x8048094 &lt;main&gt;
+x main+0x28
+    (gdb) x main+0x28
+    0x80480bc &lt;main+40&gt;:	0x0804a00c
+x main+0x34
+    (gdb) x main+0x34
+    0x80480c8 &lt;main+52&gt;:	0x00000016
 </code></pre>
 </div>
 
 <h3 id="0x03-装载时重定位">0x03 装载时重定位</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.场景
+
+以上链接时重定位可以完成没有调用so文件的代码的重定位工作,如果涉及到so中符号的调用,则需要装载时重定位来完成与调用
+so符号相关代码的重定位工作,因为在可执行文件加载so前是不知道so的加载基址的,重定位与so符号相关的值这项工作需要装载
+时重定位完成.
+
+
+2.PIC及实现
+
+PIC:程序模块中共享的指令部分在装载时不需要因为装载地址的改变而改变,通过把指令中的那些需要修改的部
+分分离出来,跟数据部分放在一起,这样指令部分就可以保持不变,而数据部分可以在每个进程中拥有一个副本,这种方案就是目前
+被称为`地址无关代码`技术,PIC是对动态链接库(so)而言的,可执行文件(elf)对应的技术叫PIE
+
+怎样实现PIC?
+
+a)模块内部的函数调用,跳转
+
+这种情况下是最简单的,直接使用相对地址调用或者基于寄存器的相对调用即可,所以对于这种指令是不需要重定位的
+
+b)模块内部数据访问
+
+指令中不能直接包含数据的绝对地址,于是只能用相对寻址.`__i686.get_pc_thunk.cx`函数可以获取当前汇编指令的下一条指令
+的地址,会将这个地址放到ecx寄存器,即把`call __i686.get_pc_thunk.cx`下一条指令的地址放到ecx中.由于任何一条指令与它
+需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址
+
+c)模块间数据访问
+
+由于模块间的数据访问目标地址要等到装载时才知道,只好通过got表来实现.elf的做法是数据段里面建立一个指向这些变量的指
+针数组,也被称为全局偏移表(GOT),当代码需要引用模块间的数据时,可以通过GOT中相对应的项间接引用.(任何一条指令与GOT表
+的距离是确定的,于是可通过上面b中相同方法找到GOT的地址,再根据GOT中变量对应的项找到变量的目标地址)
+
+d)模块间调用,跳转
+
+与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址
+
+3.延迟绑定PLT
+
+在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
+块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做`延迟绑定`的做法,基本思想就是当函数第一
+次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
+而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的
+
+plt示例:
+
+bar@plt:
+jmp *(bar@GOT)
+push n
+push moduleID
+jmp _dl_runtime_resolve
+
+bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
+在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
+查找任何符号,所以代价很低.也即,第一条指令的效果是跳转到第二条指令,相当于没有进行任何操作.然后将n和moudleID两个参
+数压入栈中作为_dl_runtime_resolve的参数,其中n是bar这个符号引用在重定位表.rel.plt中的下标,_dl_runtime_resolve函数
+在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,第一
+条jmp指令就能够跳转到真正的bar()函数中
+
+4.GOT表结构
+
+elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
+是说,所有对于外部函数的引用全部被分离出来放到了.got.plt中,另外,.got.plt还有一个特殊的地方是它的前三项是有特殊意义
+的:
+
+第一项保存的是.dynamic段的地址
+第二项保存的是本模块的ID
+第三项保存的是_dl_runtime_resolve()的地址
+
+</code></pre>
+</div>
 
 </span>
 
