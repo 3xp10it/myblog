@@ -234,7 +234,7 @@ b)字段放入盒子的可放置位置如下:
 eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有重定位段的pe中,有多个a,如a=0x100,a=0x502,
 表示在pe的偏移0x100,0x502处的4字节值需要修改为原来的值+(实际加载基址与期望加载基址的差)
 
-一般elf的expectedAddr为0x8000000(128M),linux共享库的expectedAddr为0x40000000(1G)
+一般elf的expectedAddr为0x8048000(约128M),linux共享库的expectedAddr为0x40000000(1G)
 </code></pre>
 </div>
 
