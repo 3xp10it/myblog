@@ -5,19 +5,23 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 05 Dec 2017 07:49:49 +0800</pubDate>
-    <lastBuildDate>Tue, 05 Dec 2017 07:49:49 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Tue, 05 Dec 2017 16:09:26 +0800</pubDate>
+    <lastBuildDate>Tue, 05 Dec 2017 16:09:26 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>理解重定位</title>
         <description>&lt;h3 id=&quot;0x00-必读link&quot;&gt;0x00 必读link&lt;/h3&gt;
 
-&lt;p&gt;1.&lt;a href=&quot;https://www.zhihu.com/question/21249496&quot;&gt;Linux动态链接为什么要用PLT和GOT表&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1.«程序员的自我修养» 4.2和7.3.2章节&lt;/p&gt;
 
-&lt;p&gt;2.&lt;a href=&quot;https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/&quot;&gt;共享库加载时重定位&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2.&lt;a href=&quot;https://www.zhihu.com/question/21249496&quot;&gt;Linux动态链接为什么要用PLT和GOT表&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;3.&lt;a href=&quot;https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/&quot;&gt;共享库中的PIC&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3.&lt;a href=&quot;https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/&quot;&gt;共享库加载时重定位&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/24231428&quot;&gt;pie/pic/aslr的理解&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/&quot;&gt;共享库中的PIC&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x01-预备知识&quot;&gt;0x01 预备知识&lt;/h3&gt;
 
@@ -32,23 +36,68 @@ e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+运行时重定位(上面必读link中叫load-time
-relocate),运行时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
+&lt;p&gt;3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+装载时重定位(上面必读link中叫load time
+relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
 地址到真实物理内存地址的转换.&lt;/p&gt;
 
 &lt;p&gt;4.编译阶段,.o文件的全局变量位置不确定,因为这时无法确定还有其它哪些.o文件,以及链接器将来会按什么顺序”排列”这些.o文
 件,所以编译阶段没有重定位,链接阶段,如果elf没有调用so中的符号,则可以在链接时重定位所有符号的地址(因为这时所有的.o
 文件的数据段代码段都组合完成了,所有符号的偏移都是确定的),如果elf调用了so中的符号,则由于so文件的符号位置不确定,因为
-这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要运行时重定位.&lt;/p&gt;
+这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要装载时重定位.&lt;/p&gt;
 
-&lt;p&gt;5.在没有aslr和pie的情况下:elf如果没有调用so中的符号则不用运行时重定位,so则一般必然发生运行时重定位&lt;/p&gt;
+&lt;p&gt;5.在没有开启pie的情况下:elf如果没有调用so中的符号则不用装载时重定位.so(elf)通过plt+got来实现pic(pie),有plt和got的
+so(elf)并不一定开启了pic(pie).&lt;/p&gt;
 
 &lt;p&gt;6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8000000(128M),so为0x40000000(1G),期望加载
 基址由编译器指定,在可执行文件中有一个位置存放这个值&lt;/p&gt;
 
-&lt;p&gt;7.pie的什么用是什么?pic和pie是什么,有什么关系?&lt;/p&gt;
+&lt;p&gt;7.查看elf有没有开pie可简单通过readelf -l elffile看出,对应如下&lt;/p&gt;
 
-&lt;h3 id=&quot;0x02-实例跟踪重定位过程&quot;&gt;0x02 实例跟踪重定位过程&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Elf 文件类型为 DYN (共享目标文件)       ===&amp;gt;对应开启了pie
+Elf 文件类型为 EXEC (可执行文件)        ===&amp;gt;对应未开启pie
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;8.plt和got示例(linux下这样叫,macOS下有其他名字)&lt;/p&gt;
+
+&lt;p&gt;如下图中printf函数是外部so文件中的函数,于是需要有plt和got,从左边的printf,puts,atoi等函数看出,一般只有外部so文件中
+的函数调用才会用到plt,在下图ida中,发现plt段在.init段之后,.text段之前&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;printf函数的plt表中内容如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.plt:080483C0
+.plt:080483C0 ; =============== S U B R O U T I N E =======================================
+.plt:080483C0
+.plt:080483C0 ; Attributes: thunk
+.plt:080483C0
+.plt:080483C0 ; int printf(const char *format, ...)
+.plt:080483C0 _printf         proc near               ; CODE XREF: main+2C↓p
+.plt:080483C0
+.plt:080483C0 format          = dword ptr  4
+.plt:080483C0
+.plt:080483C0                 jmp     ds:off_804A000
+.plt:080483C0 _printf         endp
+.plt:080483C0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;printf函数对应的got表中内容如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图中的got表被ida解析了,ida指出0x804A000处的内容是printf函数的偏移,实际在16进制模式下的内容如下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也即在0x804A000这个地址中的值为0x804A030,也即got表中对应内容如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0x804A000:0x804A030
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这个0x804A030在运行后会被因为重定位被修改成其他值,因为实际运行时printf函数的地址应该会变成不再是0x404A030了&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 05 Dec 2017 00:00:00 +0800</pubDate>

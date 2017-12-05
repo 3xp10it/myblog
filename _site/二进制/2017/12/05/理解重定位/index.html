@@ -115,11 +115,15 @@
 
         <span itemprop="articleBody"><h3 id="0x00-必读link">0x00 必读link</h3>
 
-<p>1.<a href="https://www.zhihu.com/question/21249496">Linux动态链接为什么要用PLT和GOT表</a></p>
+<p>1.«程序员的自我修养» 4.2和7.3.2章节</p>
 
-<p>2.<a href="https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/">共享库加载时重定位</a></p>
+<p>2.<a href="https://www.zhihu.com/question/21249496">Linux动态链接为什么要用PLT和GOT表</a></p>
 
-<p>3.<a href="https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/">共享库中的PIC</a></p>
+<p>3.<a href="https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/">共享库加载时重定位</a></p>
+
+<p>4.<a href="https://zhuanlan.zhihu.com/p/24231428">pie/pic/aslr的理解</a></p>
+
+<p>5.<a href="https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/">共享库中的PIC</a></p>
 
 <h3 id="0x01-预备知识">0x01 预备知识</h3>
 
@@ -134,23 +138,68 @@ e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b
 </code></pre>
 </div>
 
-<p>3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+运行时重定位(上面必读link中叫load-time
-relocate),运行时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
+<p>3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+装载时重定位(上面必读link中叫load time
+relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
 地址到真实物理内存地址的转换.</p>
 
 <p>4.编译阶段,.o文件的全局变量位置不确定,因为这时无法确定还有其它哪些.o文件,以及链接器将来会按什么顺序”排列”这些.o文
 件,所以编译阶段没有重定位,链接阶段,如果elf没有调用so中的符号,则可以在链接时重定位所有符号的地址(因为这时所有的.o
 文件的数据段代码段都组合完成了,所有符号的偏移都是确定的),如果elf调用了so中的符号,则由于so文件的符号位置不确定,因为
-这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要运行时重定位.</p>
+这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要装载时重定位.</p>
 
-<p>5.在没有aslr和pie的情况下:elf如果没有调用so中的符号则不用运行时重定位,so则一般必然发生运行时重定位</p>
+<p>5.在没有开启pie的情况下:elf如果没有调用so中的符号则不用装载时重定位.so(elf)通过plt+got来实现pic(pie),有plt和got的
+so(elf)并不一定开启了pic(pie).</p>
 
 <p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8000000(128M),so为0x40000000(1G),期望加载
 基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
 
-<p>7.pie的什么用是什么?pic和pie是什么,有什么关系?</p>
+<p>7.查看elf有没有开pie可简单通过readelf -l elffile看出,对应如下</p>
 
-<h3 id="0x02-实例跟踪重定位过程">0x02 实例跟踪重定位过程</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>Elf 文件类型为 DYN (共享目标文件)       ===&gt;对应开启了pie
+Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
+</code></pre>
+</div>
+
+<p>8.plt和got示例(linux下这样叫,macOS下有其他名字)</p>
+
+<p>如下图中printf函数是外部so文件中的函数,于是需要有plt和got,从左边的printf,puts,atoi等函数看出,一般只有外部so文件中
+的函数调用才会用到plt,在下图ida中,发现plt段在.init段之后,.text段之前</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc1.png" /></p>
+
+<p>printf函数的plt表中内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:080483C0
+.plt:080483C0 ; =============== S U B R O U T I N E =======================================
+.plt:080483C0
+.plt:080483C0 ; Attributes: thunk
+.plt:080483C0
+.plt:080483C0 ; int printf(const char *format, ...)
+.plt:080483C0 _printf         proc near               ; CODE XREF: main+2C↓p
+.plt:080483C0
+.plt:080483C0 format          = dword ptr  4
+.plt:080483C0
+.plt:080483C0                 jmp     ds:off_804A000
+.plt:080483C0 _printf         endp
+.plt:080483C0
+</code></pre>
+</div>
+
+<p>printf函数对应的got表中内容如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc2.png" /></p>
+
+<p>上图中的got表被ida解析了,ida指出0x804A000处的内容是printf函数的偏移,实际在16进制模式下的内容如下图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc3.png" /></p>
+
+<p>也即在0x804A000这个地址中的值为0x804A030,也即got表中对应内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0x804A000:0x804A030
+</code></pre>
+</div>
+
+<p>这个0x804A030在运行后会被因为重定位被修改成其他值,因为实际运行时printf函数的地址应该会变成不再是0x404A030了</p>
 
 </span>
 
