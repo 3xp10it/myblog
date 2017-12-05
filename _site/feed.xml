@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 05 Dec 2017 16:09:26 +0800</pubDate>
-    <lastBuildDate>Tue, 05 Dec 2017 16:09:26 +0800</lastBuildDate>
+    <pubDate>Tue, 05 Dec 2017 18:16:32 +0800</pubDate>
+    <lastBuildDate>Tue, 05 Dec 2017 18:16:32 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -98,6 +98,102 @@ Elf 文件类型为 EXEC (可执行文件)        ===&amp;gt;对应未开启pie
 &lt;/div&gt;
 
 &lt;p&gt;这个0x804A030在运行后会被因为重定位被修改成其他值,因为实际运行时printf函数的地址应该会变成不再是0x404A030了&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02-链接时重定位&quot;&gt;0x02 链接时重定位&lt;/h3&gt;
+
+&lt;p&gt;如果没涉及so函数调用,则只通过链接时重定位即可完成重定位,不需要装载时重定位,下面进入操作&lt;/p&gt;
+
+&lt;p&gt;```
+vi a.c&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/* a.c */
+extern int shared;
+
+int main()
+{
+    int a = 100;
+    swap(&amp;amp;a,&amp;amp;shared);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;vi b.c&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/* b.c */
+int shared = 1;
+
+void swap(int* a,int* b)
+{
+    *a ^= *b ^= *a ^= *b;
+}
+
+在kali3x64中,将上面两个文件编译成32位的.o文件(之所以编译成32位是因为64位的反汇编代码与32位的反汇编代码不同),
+x64的kali要想编译出32位的程序需要先安装依赖
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;apt-get install gcc-multilib
+apt-get install g++-multilib&lt;/p&gt;
+
+&lt;p&gt;gcc -c a.c b.c -m32 -no-pie
+    编译得到a.o和b.o目标文件&lt;/p&gt;
+
+&lt;p&gt;ld a.o b.o -e main -o ab -m elf_i386 
+    链接a.o和b.o,设置输出文件为ab,设置main函数为入口&lt;/p&gt;
+
+&lt;p&gt;objdump -h a.o
+    a.o：     文件格式 elf32-i386&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;节：
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .group        00000008  00000000  00000000  00000034  2**2
+                  CONTENTS, READONLY, GROUP, LINK_ONCE_DISCARD
+  1 .text         0000004a  00000000  00000000  0000003c  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .data         00000000  00000000  00000000  00000086  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          00000000  00000000  00000000  00000086  2**0
+                  ALLOC
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;objdump -h b.o
+    b.o：     文件格式 elf32-i386&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;节：
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .group        00000008  00000000  00000000  00000034  2**2
+                  CONTENTS, READONLY, GROUP, LINK_ONCE_DISCARD
+  1 .text         00000043  00000000  00000000  0000003c  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .data         00000004  00000000  00000000  00000080  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          00000000  00000000  00000000  00000084  2**0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;objdump -h ab
+    ab：     文件格式 elf32-i386&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;节：
+Idx Name          Size      VMA       LMA       File off  Algn
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  8 .rel.dyn      00000040  00000310  00000310  00000310  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  9 .rel.plt      00000008  00000350  00000350  00000350  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 10 .init         00000023  00000358  00000358  00000358  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 11 .plt          00000020  00000380  00000380  00000380  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 12 .plt.got      00000010  000003a0  000003a0  000003a0  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .text         00000232  000003b0  000003b0  000003b0  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .fini         00000014  000005e4  000005e4  000005e4  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE ### 0x03 装载时重定位
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Tue, 05 Dec 2017 00:00:00 +0800</pubDate>
