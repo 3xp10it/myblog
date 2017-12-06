@@ -160,7 +160,11 @@ Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
 </code></pre>
 </div>
 
-<p>8.plt和got示例(linux下这样叫,macOS下有其他名字)</p>
+<p>8.实际情况中,对有PIE保护的elf,ida静态分析时会以加载基址=0加载,angr在加载这样的elf时会以加载基址=0x400000加载到虚
+拟内存中进行符号执行,也即angr会强制将有pie保护的elf加载到0x400000处去,这样就相当于去掉了pie的每次加载基址不同
+(aslr)的特性</p>
+
+<p>9.plt和got示例(linux下这样叫,macOS下有其他名字)</p>
 
 <p>如下图中printf函数是外部so文件中的函数,于是需要有plt和got,从左边的printf,puts,atoi等函数看出,一般只有外部so文件中
 的函数调用才会用到plt,在下图ida中,发现plt段在.init段之后,.text段之前</p>
@@ -454,7 +458,7 @@ int main(void)
 遍历模块中的重定位表,把所有对foobar的地址引用都重定位到0x10000100.但是由于这种普通的装载时重定位存在一些问题,现在
 的操作系统一般使用pie|pic技术</p>
 
-<p>2.PIC(特殊的装载时重定位)</p>
+<p>3.PIC(特殊的装载时重定位)</p>
 
 <p>PIC:程序模块中共享的指令部分在装载时不需要因为装载地址的改变而改变,通过把指令中的那些需要修改的部分分离出来,跟数据
 部分放在一起,这样指令部分就可以保持不变,而数据部分可以在每个进程中拥有一个副本,这种方案就是目前被称为
@@ -479,7 +483,7 @@ Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RU
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc6.png" /></p>
 
-<p>3.怎样实现PIC?</p>
+<p>4.怎样实现PIC?</p>
 
 <p>a)模块内部的函数调用,跳转</p>
 
@@ -529,7 +533,7 @@ __x86_get_pc_thunk_ax endp
 
 <p>与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址</p>
 
-<p>4.延迟绑定PLT</p>
+<p>5.延迟绑定PLT</p>
 
 <p>在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
 块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做<code class="highlighter-rouge">延迟绑定</code>的做法,基本思想就是当函数第一
@@ -755,7 +759,7 @@ ld_2.24.so:F7F5B71B retn    0Ch
 </code></pre>
 </div>
 
-<p>这应该就是_<code class="highlighter-rouge">dl_runtime_resolve</code>函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
+<p>这应该就是<code class="highlighter-rouge">_dl_runtime_resolve</code>函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
 正在进行puts函数(符号)的重定位,重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址(这是
 错误的想法,由于.got.plt结构特殊,实际并不会将0x565ce008处的内容修改,后面将看出),继续跟踪</p>
 
@@ -811,7 +815,7 @@ puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,�
 <code class="highlighter-rouge">_IO_puts</code>函数了.也即证明重定位过程中plt中的代码是不会变的,只是在重定位后,plt中代码不变的情况下实际会取到got表项中
 的其他值,这样也体现了PIC的原理(利用相对偏移跳转到函数).</p>
 
-<p>5.GOT表结构</p>
+<p>6.GOT表结构</p>
 
 <p>elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
 是说,所有对于外部函数的引用全部被分离出来放到了.got.plt中,另外,.got.plt还有一个特殊的地方是它的前三项是有特殊意义
