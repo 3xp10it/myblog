@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 06 Dec 2017 18:30:06 +0800</pubDate>
-    <lastBuildDate>Wed, 06 Dec 2017 18:30:06 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Thu, 07 Dec 2017 07:21:21 +0800</pubDate>
+    <lastBuildDate>Thu, 07 Dec 2017 07:21:21 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>理解重定位</title>
@@ -135,9 +135,6 @@ gcc -c a.c b.c
 
 ld a.o b.o -e main -o ab
     链接a.o和b.o,设置输出文件为ab,设置main函数为入口
-
-
-objdump -h a.o
 
 objdump -h a.o
     a.o:     文件格式 elf32-i386
@@ -437,10 +434,6 @@ __x86_get_pc_thunk_ax endp
 块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;延迟绑定&lt;/code&gt;的做法,基本思想就是当函数第一
 次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
 而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的.&lt;/p&gt;
-
-&lt;p&gt;在test文件中的plt如下图:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc7.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在运行test前,test文件的put函数的plt内容很简单,直接jmp,内容如下:&lt;/p&gt;
 
@@ -803,7 +796,7 @@ apache用户www-data不可读(即使webshell.php的属性是644),webshell.php对
 
 &lt;p&gt;1.全局变量或字符串常量等数据存放在程序的数据段&lt;/p&gt;
 
-&lt;p&gt;2.ida+image base+重定位+got+plt&lt;/p&gt;
+&lt;p&gt;2.jmp的机器码是eb,jz的机器码是74&lt;/p&gt;
 </description>
         <pubDate>Fri, 01 Dec 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/01/%E8%80%81%E7%A0%81%E8%AF%86%E9%80%94%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>

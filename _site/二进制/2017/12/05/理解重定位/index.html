@@ -238,9 +238,6 @@ gcc -c a.c b.c
 ld a.o b.o -e main -o ab
     链接a.o和b.o,设置输出文件为ab,设置main函数为入口
 
-
-objdump -h a.o
-
 objdump -h a.o
     a.o:     文件格式 elf32-i386
 
@@ -539,10 +536,6 @@ __x86_get_pc_thunk_ax endp
 块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做<code class="highlighter-rouge">延迟绑定</code>的做法,基本思想就是当函数第一
 次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
 而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的.</p>
-
-<p>在test文件中的plt如下图:</p>
-
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc7.png" /></p>
 
 <p>在运行test前,test文件的put函数的plt内容很简单,直接jmp,内容如下:</p>
 
