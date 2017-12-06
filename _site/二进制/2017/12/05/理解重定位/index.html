@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          7 minute read
+          10 minute read
         </small>
       </div>
 
@@ -571,16 +571,95 @@ __x86_get_pc_thunk_ax endp
 现在感到迷惑了,怎么会这样,plt表中的内容按道理不会变才对(plt表中的内容是代码),按理只有got表中的内容才会改变,使用
 objdump查看下,发现与ida不同</p>
 
-<p>objdump -D test
+<div class="highlighter-rouge"><pre class="highlight"><code>objdump -D test
     其中puts函数反汇编内容如下:
-    000003b0 <a href="mailto:puts@plt">puts@plt</a>:                               <br />
+    000003b0 &lt;puts@plt&gt;:                                 
      3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
      3b6:   68 00 00 00 00          push   $0x0
-     3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;</p>
+     3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;     
+
+</code></pre>
+</div>
 
 <p>说明puts函数的plt表项内容没变,而ida中却在test运行前解析成其他内容了,这应该是ida的bug吧(实验中用的是macOS下的ida加
-载的test文件,动态调试时用的是ida远程调试kali x64下的test),动态调试时ida的内容没问题.一般PLT(延迟绑定)中,so中的函
-数只有在调用时才做重定位,运行时调用so中的函数时一般plt表项内容如下:</p>
+载的test文件,动态调试时用的是ida远程调试kali x64下的test),动态调试时ida的内容没问题.上面的plt中内容由于是在test
+未运行时在ida中加载看出的,这种情况有误,需要重新查看真实的plt表中内容,直接查看运行后的ida中的test文
+件的plt表的内容:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 ; ===========================================================================
+.plt:565CC3A0
+.plt:565CC3A0 ; Segment type: Pure code
+.plt:565CC3A0 ; Segment permissions: Read/Execute
+.plt:565CC3A0 _plt segment para public 'CODE' use32
+.plt:565CC3A0 assume cs:_plt
+.plt:565CC3A0 ;org 565CC3A0h
+.plt:565CC3A0 assume es:nothing, ss:nothing, ds:_data, fs:nothing, gs:nothing
+.plt:565CC3A0
+.plt:565CC3A0 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3A0
+.plt:565CC3A0
+.plt:565CC3A0 sub_565CC3A0 proc near                  ; CODE XREF: sub_565CC3B6+5↓j
+.plt:565CC3A0                                         ; .plt:565CC3CB↓j
+.plt:565CC3A0 push    dword ptr [ebx+4]
+.plt:565CC3A6 jmp     dword ptr [ebx+8]
+.plt:565CC3A6 sub_565CC3A0 endp
+.plt:565CC3A6
+.plt:565CC3A6 ; ---------------------------------------------------------------------------
+.plt:565CC3AC align 10h
+.plt:565CC3B0
+.plt:565CC3B0 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B0
+.plt:565CC3B0 ; Attributes: thunk
+.plt:565CC3B0
+.plt:565CC3B0 ; int puts(const char *s)
+.plt:565CC3B0 _puts proc near                         ; CODE XREF: print_banner+1D↓p
+.plt:565CC3B0
+.plt:565CC3B0 s= dword ptr  4
+.plt:565CC3B0
+.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+.plt:565CC3B0
+.plt:565CC3B6
+.plt:565CC3B6 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B6
+.plt:565CC3B6
+.plt:565CC3B6 sub_565CC3B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565CC3B6                                         ; DATA XREF: .got.plt:565CE00C↓o
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+.plt:565CC3BB sub_565CC3B6 endp
+.plt:565CC3BB
+.plt:565CC3C0 ; [00000006 BYTES: COLLAPSED FUNCTION ___libc_start_main. PRESS CTRL-NUMPAD+ TO EXPAND]
+.plt:565CC3C6 ; ---------------------------------------------------------------------------
+.plt:565CC3C6 push    8
+.plt:565CC3CB jmp     sub_565CC3A0
+.plt:565CC3CB _plt ends
+</code></pre>
+</div>
+
+<p>objdump -D test中查看更简洁,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Disassembly of section .plt:               
+                                                
+000003a0 &lt;.plt&gt;:                                                  
+ 3a0:   ff b3 04 00 00 00       pushl  0x4(%ebx)   
+ 3a6:   ff a3 08 00 00 00       jmp    *0x8(%ebx)
+ 3ac:   00 00                   add    %al,(%eax)        
+        ...                                
+                                                
+000003b0 &lt;puts@plt&gt;:                                 
+ 3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
+ 3b6:   68 00 00 00 00          push   $0x0
+ 3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;     
+                                     
+000003c0 &lt;__libc_start_main@plt&gt;:  
+ 3c0:   ff a3 10 00 00 00       jmp    *0x10(%ebx)
+ 3c6:   68 08 00 00 00          push   $0x8
+ 3cb:   e9 d0 ff ff ff          jmp    3a0 &lt;.plt&gt;    
+</code></pre>
+</div>
+
+<p>在PLT(延迟绑定)中,so中的函数只有在调用时才做重定位,运行时调用so中的函数时一般plt表项内容如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>bar@plt:
 jmp *(bar@GOT)
@@ -605,6 +684,122 @@ jmp _dl_runtime_resolve
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc8.jpeg" /></p>
 
+<p>现在动态跟踪puts函数的重定位过程:</p>
+
+<p>a)跳转到plt表之前内容如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.text:565CC53A call    _puts
+</code></pre>
+</div>
+
+<p>b)上面的call _puts在ida中f7之后跳转到.plt表,内容如下(eip=0x565cc3b0),对应指令为jmp dword ptr [ebx+0ch]</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>===&gt;EIP=0x565cc3b0
+
+.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+.plt:565CC3B0
+.plt:565CC3B6
+.plt:565CC3B6 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B6
+.plt:565CC3B6
+.plt:565CC3B6 sub_565CC3B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565CC3B6                                         ; DATA XREF: .got.plt:565CE00C↓o
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+.plt:565CC3BB sub_565CC3B6 endp
+.plt:565CC3BB
+.plt:565CC3C0 ; [00000006 BYTES: COLLAPSED FUNCTION ___libc_start_main. PRESS CTRL-NUMPAD+ TO EXPAND]
+.plt:565CC3C6 ; ---------------------------------------------------------------------------
+.plt:565CC3C6 push    8
+.plt:565CC3CB jmp     sub_565CC3A0
+.plt:565CC3CB _plt ends
+</code></pre>
+</div>
+
+<p>c)上一步动态调试发现jmp dword ptr [ebx+0xch]实际上就是跳到下一条指令处,也即跳到0x565cc3b6处的push 0,执行完
+0x565cc3b6处的push 0之后会jmp到0x565cc3a0,而这个地址是plt表的起始地址,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 push    dword ptr [ebx+4]
+.plt:565CC3A6 jmp     dword ptr [ebx+8]
+.plt:565CC3A6 sub_565CC3A0 endp
+</code></pre>
+</div>
+
+<p>d)在上面c中0x565cc3a6处的ebx+8在ida中的值为0x565ce008,0x565ce008处的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset sub_565CC3B6
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>这里时got表项,重定位将修改got表项中的值,目前0x565ce008这个got表项的内容是0xf7f5b700,也即0x565cc3a6处的jmp将跳转到0xf7f5b700,0xf7f5b700外的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ld_2.24.so:F7F5B700 push    eax
+ld_2.24.so:F7F5B701 push    ecx
+ld_2.24.so:F7F5B702 push    edx
+ld_2.24.so:F7F5B703 mov     edx, [esp+10h]
+ld_2.24.so:F7F5B707 mov     eax, [esp+0Ch]
+ld_2.24.so:F7F5B70B call    near ptr unk_F7F55000
+ld_2.24.so:F7F5B710 pop     edx
+ld_2.24.so:F7F5B711 mov     ecx, [esp]
+ld_2.24.so:F7F5B714 mov     [esp], eax
+ld_2.24.so:F7F5B717 mov     eax, [esp+4]
+ld_2.24.so:F7F5B71B retn    0Ch
+</code></pre>
+</div>
+
+<p>这应该就是_dl_runtime_resolve函数了,联合上图可知,现在由于是puts函数第一次被调用,正在进行puts函数(符号)的重定位,
+重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址,继续跟踪</p>
+
+<p>e)执行到上面0xf7f5b71b处的retn 0ch后,查看0x565ce008这个got表项内容有没有改变,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset _IO_puts
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
+<code class="highlighter-rouge">IOputs</code>,在上面的<code class="highlighter-rouge">_dl_runtime_resolve</code>函数retn 0ch后进入到_<code class="highlighter-rouge">IO_puts</code>函数,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>libc_2.24.so:F7DB8890 _IO_puts:
+libc_2.24.so:F7DB8890 push    ebp
+libc_2.24.so:F7DB8891 mov     ebp, esp
+libc_2.24.so:F7DB8893 push    edi
+libc_2.24.so:F7DB8894 push    esi
+libc_2.24.so:F7DB8895 push    ebx
+libc_2.24.so:F7DB8896 call    near ptr unk_F7E79A25
+libc_2.24.so:F7DB889B add     edi, 153765h
+libc_2.24.so:F7DB88A1 sub     esp, 28h
+libc_2.24.so:F7DB88A4 push    dword ptr [ebp+8]
+libc_2.24.so:F7DB88A7 call    near ptr unk_F7DCECB0
+libc_2.24.so:F7DB88AC mov     edx, [edi+0DFCh]
+libc_2.24.so:F7DB88B2 mov     esi, eax
+</code></pre>
+</div>
+
+<p>也即_IO_puts函数的地址为0xf7db8890,也即got表项中0x565ce008+4处的内容由0x565cc3b6变成了0xf7db8890,至此,完成了puts函数的重定
+位,而此时查看plt表项中的代码,没有发生变化,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+</code></pre>
+</div>
+
+<p>只是此时,ebx+0xch的值为0x565ce00c,而0x565ce00c中的内容已经由原来的0x565cc3b6变成了<code class="highlighter-rouge">_IO_puts</code>函数的地址
+0xf7db8890,也就是第一次调用puts函数后,以后从plt表项中的代码jmp到的地方不再会经过<code class="highlighter-rouge">_dl_runtime_resolve</code>函数,而是直
+接的<code class="highlighter-rouge">_IO_puts</code>函数了.</p>
+
 <p>5.GOT表结构</p>
 
 <p>elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
@@ -614,6 +809,28 @@ jmp _dl_runtime_resolve
 <p>第一项保存的是.dynamic段的地址
 第二项保存的是本模块的ID
 第三项保存的是_dl_runtime_resolve()的地址</p>
+
+<p>查看上面4中跟踪完puts函数的重定位后的.got.plt的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE000 assume cs:_got_plt
+.got.plt:565CE000 ;org 565CE000h
+.got.plt:565CE000 _GLOBAL_OFFSET_TABLE_ dd 1EFCh
+.got.plt:565CE004 db  20h
+.got.plt:565CE005 db 0A9h
+.got.plt:565CE006 db 0F6h
+.got.plt:565CE007 db 0F7h
+.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset _IO_puts
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>第一项的值为0x565ce000,第二项的值为0xf7f6a920,第三项的值为0xf7f5b700(前3项为公共项),第四项开始为第一个函数项
+(puts函数的地址)</p>
 
 </span>
 
