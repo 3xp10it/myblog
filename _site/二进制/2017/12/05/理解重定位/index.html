@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          5 minute read
+          7 minute read
         </small>
       </div>
 
@@ -148,7 +148,7 @@ relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟�
 这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要装载时重定位.</p>
 
 <p>5.在没有开启pie的情况下:elf如果没有调用so则不用装载时重定位.elf如果没有调用so则没有plt表(有got表).so(elf)通过
-plt+got来实现pic(pie)</p>
+plt+got来实现pic(pie).plt表中的内容是代码,got表中的内容是数据(各种符号的地址)</p>
 
 <p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8048000(约128M),so为0x40000000(1G),期望加
 载基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
@@ -479,7 +479,7 @@ Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RU
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc6.png" /></p>
 
-<p>怎样实现PIC?</p>
+<p>3.怎样实现PIC?</p>
 
 <p>a)模块内部的函数调用,跳转</p>
 
@@ -489,7 +489,35 @@ Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RU
 
 <p>指令中不能直接包含数据的绝对地址,于是只能用相对寻址.<code class="highlighter-rouge">__i686.get_pc_thunk.cx</code>函数可以获取当前汇编指令的下一条指令
 的地址,会将这个地址放到ecx寄存器,即把<code class="highlighter-rouge">call __i686.get_pc_thunk.cx</code>下一条指令的地址放到ecx中.由于任何一条指令与它
-需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址</p>
+需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址.如下在test文件中的
+<code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>函数,作用是将下一条指令的地址放到ax中.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>push    ebp
+mov     ebp, esp
+push    ebx
+sub     esp, 4
+call    __x86_get_pc_thunk_ax
+add     eax, 1AD7h
+sub     esp, 0Ch
+lea     edx, (aWelcomeToWorld - 2000h)[eax] ; "Welcome to World of PLT and GOT"
+push    edx             ; s
+mov     ebx, eax
+call    _puts
+add     esp, 10h
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>的实现很简单,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public __x86_get_pc_thunk_ax
+__x86_get_pc_thunk_ax proc near
+; __unwind {
+mov     eax, [esp+0]
+retn
+; } // starts at 576
+__x86_get_pc_thunk_ax endp
+</code></pre>
+</div>
 
 <p>c)模块间数据访问</p>
 
@@ -501,20 +529,66 @@ Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RU
 
 <p>与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址</p>
 
-<p>3.延迟绑定PLT</p>
+<p>4.延迟绑定PLT</p>
 
 <p>在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
 块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做<code class="highlighter-rouge">延迟绑定</code>的做法,基本思想就是当函数第一
 次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
-而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的</p>
+而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的.</p>
 
-<p>plt示例:</p>
+<p>在test文件中的plt如下图:</p>
 
-<p>bar@plt:
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc7.png" /></p>
+
+<p>在运行test前,test文件的put函数的plt内容很简单,直接jmp,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:000003B0                 jmp     ds:off_200C     ; PIC mode
+.plt:000003B0 _puts           endp
+</code></pre>
+</div>
+
+<p>实际运行test时,put函数的plt内容会发生变化,变成下面的样子:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565843B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565843B0 _puts endp
+.plt:565843B0
+.plt:565843B6
+.plt:565843B6 ; =============== S U B R O U T I N E =======================================
+.plt:565843B6
+.plt:565843B6
+.plt:565843B6 sub_565843B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565843B6                                         ; DATA XREF: .got.plt:5658600C↓o
+.plt:565843B6 push    0
+.plt:565843BB jmp     sub_565843A0
+
+.plt:565843A0 push    dword ptr [ebx+4]
+.plt:565843A6 jmp     dword ptr [ebx+8]
+</code></pre>
+</div>
+
+<p>也即由jmp ds:off_200c变成jmp dword ptr [ebx+0ch],对应的机器码的变化是:
+由ff 25 0c 20 00 00变成ff a3 0c 00 00 00
+现在感到迷惑了,怎么会这样,plt表中的内容按道理不会变才对(plt表中的内容是代码),按理只有got表中的内容才会改变,使用
+objdump查看下,发现与ida不同</p>
+
+<p>objdump -D test
+    其中puts函数反汇编内容如下:
+    000003b0 <a href="mailto:puts@plt">puts@plt</a>:                               <br />
+     3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
+     3b6:   68 00 00 00 00          push   $0x0
+     3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;</p>
+
+<p>说明puts函数的plt表项内容没变,而ida中却在test运行前解析成其他内容了,这应该是ida的bug吧(实验中用的是macOS下的ida加
+载的test文件,动态调试时用的是ida远程调试kali x64下的test),动态调试时ida的内容没问题.一般PLT(延迟绑定)中,so中的函
+数只有在调用时才做重定位,运行时调用so中的函数时一般plt表项内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bar@plt:
 jmp *(bar@GOT)
 push n
 push moduleID
-jmp _dl_runtime_resolve</p>
+jmp _dl_runtime_resolve
+</code></pre>
+</div>
 
 <p>bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
 在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
@@ -523,7 +597,15 @@ jmp _dl_runtime_resolve</p>
 在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,第一
 条jmp指令就能够跳转到真正的bar()函数中</p>
 
-<p>4.GOT表结构</p>
+<p>plt重定位过程图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc7.jpeg" /></p>
+
+<p>重定位之后的调用图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc8.jpeg" /></p>
+
+<p>5.GOT表结构</p>
 
 <p>elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
 是说,所有对于外部函数的引用全部被分离出来放到了.got.plt中,另外,.got.plt还有一个特殊的地方是它的前三项是有特殊意义
