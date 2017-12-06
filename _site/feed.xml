@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 06 Dec 2017 17:38:49 +0800</pubDate>
-    <lastBuildDate>Wed, 06 Dec 2017 17:38:49 +0800</lastBuildDate>
+    <pubDate>Wed, 06 Dec 2017 17:59:30 +0800</pubDate>
+    <lastBuildDate>Wed, 06 Dec 2017 17:59:30 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -570,9 +570,9 @@ jmp _dl_runtime_resolve
 &lt;p&gt;bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
 在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
 查找任何符号,所以代价很低.也即,第一条指令的效果是跳转到第二条指令,相当于没有进行任何操作.然后将n和moudleID两个参
-数压入栈中作为_dl_runtime_resolve的参数,其中n是bar这个符号引用在重定位表.rel.plt中的下标,_dl_runtime_resolve函数
-在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,第一
-条jmp指令就能够跳转到真正的bar()函数中&lt;/p&gt;
+数压入栈中作为&lt;code class=&quot;highlighter-rouge&quot;&gt;_dl_runtime_resolve&lt;/code&gt;的参数,其中n是bar这个符号引用在重定位表.rel.plt中的下标,&lt;code class=&quot;highlighter-rouge&quot;&gt;_dl_runtime_resolve&lt;/code&gt;
+函数在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,
+第一条jmp指令就能够跳转到真正的bar()函数中&lt;/p&gt;
 
 &lt;p&gt;plt重定位过程图:&lt;/p&gt;
 
@@ -590,7 +590,7 @@ jmp _dl_runtime_resolve
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;b)上面的call _puts在ida中f7之后跳转到.plt表,内容如下(eip=0x565cc3b0),对应指令为jmp dword ptr [ebx+0ch]&lt;/p&gt;
+&lt;p&gt;b)上面的&lt;code class=&quot;highlighter-rouge&quot;&gt;call _puts&lt;/code&gt;在ida中f7之后跳转到.plt表,内容如下(eip=0x565cc3b0),对应指令为jmp dword ptr [ebx+0ch]&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;===&amp;gt;EIP=0x565cc3b0
 
@@ -636,7 +636,8 @@ jmp _dl_runtime_resolve
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;这里时got表项,重定位将修改got表项中的值,目前0x565ce008这个got表项的内容是0xf7f5b700,也即0x565cc3a6处的jmp将跳转到0xf7f5b700,0xf7f5b700外的内容如下:&lt;/p&gt;
+&lt;p&gt;这里是got表项,重定位将修改got表项中的值,目前0x565ce008这个got表项的内容是0xf7f5b700,也即0x565cc3a6处的jmp将跳转到
+0xf7f5b700,0xf7f5b700处的内容如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ld_2.24.so:F7F5B700 push    eax
 ld_2.24.so:F7F5B701 push    ecx
@@ -652,8 +653,9 @@ ld_2.24.so:F7F5B71B retn    0Ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;这应该就是_dl_runtime_resolve函数了,联合上图可知,现在由于是puts函数第一次被调用,正在进行puts函数(符号)的重定位,
-重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址,继续跟踪&lt;/p&gt;
+&lt;p&gt;这应该就是_dl_runtime_resolve函数了,联合&lt;code class=&quot;highlighter-rouge&quot;&gt;plt重定位过程图&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;重定位之后调用图&lt;/code&gt;可知,现在由于是puts函数第一次被调用,
+正在进行puts函数(符号)的重定位,重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址(这是
+错误的想法,由于.got.plt结构特殊,实际并不会将0x565ce008处的内容修改,后面将看出),继续跟踪&lt;/p&gt;
 
 &lt;p&gt;e)执行到上面0xf7f5b71b处的retn 0ch后,查看0x565ce008这个got表项内容有没有改变,内容如下:&lt;/p&gt;
 
@@ -694,9 +696,10 @@ libc_2.24.so:F7DB88B2 mov     esi, eax
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;只是此时,ebx+0xch的值为0x565ce00c,而0x565ce00c中的内容已经由原来的0x565cc3b6变成了&lt;code class=&quot;highlighter-rouge&quot;&gt;_IO_puts&lt;/code&gt;函数的地址
-0xf7db8890,也就是第一次调用puts函数后,以后从plt表项中的代码jmp到的地方不再会经过&lt;code class=&quot;highlighter-rouge&quot;&gt;_dl_runtime_resolve&lt;/code&gt;函数,而是直
-接的&lt;code class=&quot;highlighter-rouge&quot;&gt;_IO_puts&lt;/code&gt;函数了.&lt;/p&gt;
+&lt;p&gt;只是此时,ebx+0xch的值为0x565ce00c,而0x565ce00c中的内容已经由原来的0x565cc3b6变成了&lt;code class=&quot;highlighter-rouge&quot;&gt;_IO_puts&lt;/code&gt;函数的地址0xf7db8890,
+也就是第一次调用puts函数后,以后从plt表项中的代码jmp到的地方不再会经过&lt;code class=&quot;highlighter-rouge&quot;&gt;_dl_runtime_resolve&lt;/code&gt;函数,而是直接的
+&lt;code class=&quot;highlighter-rouge&quot;&gt;_IO_puts&lt;/code&gt;函数了.也即证明重定位过程中plt中的代码是不会变的,只是在重定位后,plt中代码不变的情况下实际会取到got表项中
+的其他值,这样也体现了PIC的原理(利用相对偏移跳转到函数).&lt;/p&gt;
 
 &lt;p&gt;5.GOT表结构&lt;/p&gt;
 
