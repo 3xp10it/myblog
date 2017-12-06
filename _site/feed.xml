@@ -5,15 +5,15 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 06 Dec 2017 07:19:32 +0800</pubDate>
-    <lastBuildDate>Wed, 06 Dec 2017 07:19:32 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Wed, 06 Dec 2017 10:15:33 +0800</pubDate>
+    <lastBuildDate>Wed, 06 Dec 2017 10:15:33 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>理解重定位</title>
         <description>&lt;h3 id=&quot;0x00-必读link&quot;&gt;0x00 必读link&lt;/h3&gt;
 
-&lt;p&gt;1.书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;程序员的自我修养&lt;/code&gt;中第4.2和7.3和7.4章节&lt;/p&gt;
+&lt;p&gt;1.书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;程序员的自我修养&lt;/code&gt;中第4.2和7.3和7.4和7.5章节&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;https://www.zhihu.com/question/21249496&quot;&gt;Linux动态链接为什么要用PLT和GOT表&lt;/a&gt;&lt;/p&gt;
 
@@ -311,75 +311,125 @@ x main+0x34
 
 &lt;h3 id=&quot;0x03-装载时重定位&quot;&gt;0x03 装载时重定位&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.场景
+&lt;p&gt;1.场景&lt;/p&gt;
 
-以上链接时重定位可以完成没有调用so文件的代码的重定位工作,如果涉及到so中符号的调用,则需要装载时重定位来完成与调用
+&lt;p&gt;以上链接时重定位可以完成没有调用so文件的代码的重定位工作,如果涉及到so中符号的调用,则需要装载时重定位来完成与调用
 so符号相关代码的重定位工作,因为在可执行文件加载so前是不知道so的加载基址的,重定位与so符号相关的值这项工作需要装载
-时重定位完成.
+时重定位完成.&lt;/p&gt;
 
+&lt;p&gt;实例:(works in kali x64)&lt;/p&gt;
 
-2.PIC及实现
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/* test.c */
+#include &amp;lt;stdio.h&amp;gt;
 
-PIC:程序模块中共享的指令部分在装载时不需要因为装载地址的改变而改变,通过把指令中的那些需要修改的部
-分分离出来,跟数据部分放在一起,这样指令部分就可以保持不变,而数据部分可以在每个进程中拥有一个副本,这种方案就是目前
-被称为`地址无关代码`技术,PIC是对动态链接库(so)而言的,可执行文件(elf)对应的技术叫PIE
+void print_banner()
+{
+    printf(&quot;Welcome to World of PLT and GOT\n&quot;);
+}
 
-怎样实现PIC?
+int main(void)
+{
+    print_banner();
 
-a)模块内部的函数调用,跳转
+    return 0;
+}
 
-这种情况下是最简单的,直接使用相对地址调用或者基于寄存器的相对调用即可,所以对于这种指令是不需要重定位的
+由于实验在x64的kali系统下进行,要编译32位的elf需要先安装依赖,上面的链接时重定位的内容是在x86的kali上做的实验,而这
+里是在x64上做的实验,原因是做这个实验时旁边没有x86的机器.
+    apt-get install gcc-multilib
+    apt-get install g++-multilib
 
-b)模块内部数据访问
+编译:gcc -Wall -g -o test.o -c test.c -m32
+链接:gcc -o test test.o -m32
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-指令中不能直接包含数据的绝对地址,于是只能用相对寻址.`__i686.get_pc_thunk.cx`函数可以获取当前汇编指令的下一条指令
-的地址,会将这个地址放到ecx寄存器,即把`call __i686.get_pc_thunk.cx`下一条指令的地址放到ecx中.由于任何一条指令与它
-需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址
+&lt;p&gt;2.普通的装载时重定位&lt;/p&gt;
 
-c)模块间数据访问
+&lt;p&gt;为了能够使so可以在任意地址装载,可以通过在链接时对所有绝对地址的引用不作重定位,而把这一步推迟到装载时再完成.一旦
+模块装载地址确定,即目标地址确定,那么系统就对程序中所有的绝对地址引用进行重定位.假设函数foobar相对于代码段的起始地
+址是0x100,当模块被装载到0x10000000时,假设代码段位于模块的最开始,那么可以确定foobar的地址为0x10000100,这时候,系统
+遍历模块中的重定位表,把所有对foobar的地址引用都重定位到0x10000100.但是由于这种普通的装载时重定位存在一些问题,现在
+的操作系统一般使用pie|pic技术&lt;/p&gt;
 
-由于模块间的数据访问目标地址要等到装载时才知道,只好通过got表来实现.elf的做法是数据段里面建立一个指向这些变量的指
+&lt;p&gt;2.PIC(特殊的装载时重定位)&lt;/p&gt;
+
+&lt;p&gt;PIC:程序模块中共享的指令部分在装载时不需要因为装载地址的改变而改变,通过把指令中的那些需要修改的部分分离出来,跟数据
+部分放在一起,这样指令部分就可以保持不变,而数据部分可以在每个进程中拥有一个副本,这种方案就是目前被称为
+&lt;code class=&quot;highlighter-rouge&quot;&gt;地址无关代码&lt;/code&gt;技术,PIC是对动态链接库(so)而言的,可执行文件(elf)对应的技术叫PIE.&lt;/p&gt;
+
+&lt;p&gt;在test.c得到的test文件,查看test文件有没有使用到pie(现在gcc一般默认开启了pie选项):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./checksec -f test
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FORTIFY Fortified Fortifiable  FILE
+Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RUNPATH   No      0       0test
+
+说明开启了pie
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;用ida打开test,双击print_banner函数,可以看到对应的反汇编代码如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;双击其中的so中的put函数(也即对应test.c中的printf函数),可以看到ida中的注释&lt;code class=&quot;highlighter-rouge&quot;&gt;PIC mode&lt;/code&gt;,说明printf对应的so库采用了PIC
+技术:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/reloc6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;怎样实现PIC?&lt;/p&gt;
+
+&lt;p&gt;a)模块内部的函数调用,跳转&lt;/p&gt;
+
+&lt;p&gt;这种情况下是最简单的,直接使用相对地址调用或者基于寄存器的相对调用即可,所以对于这种指令是不需要重定位的&lt;/p&gt;
+
+&lt;p&gt;b)模块内部数据访问&lt;/p&gt;
+
+&lt;p&gt;指令中不能直接包含数据的绝对地址,于是只能用相对寻址.&lt;code class=&quot;highlighter-rouge&quot;&gt;__i686.get_pc_thunk.cx&lt;/code&gt;函数可以获取当前汇编指令的下一条指令
+的地址,会将这个地址放到ecx寄存器,即把&lt;code class=&quot;highlighter-rouge&quot;&gt;call __i686.get_pc_thunk.cx&lt;/code&gt;下一条指令的地址放到ecx中.由于任何一条指令与它
+需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址&lt;/p&gt;
+
+&lt;p&gt;c)模块间数据访问&lt;/p&gt;
+
+&lt;p&gt;由于模块间的数据访问目标地址要等到装载时才知道,只好通过got表来实现.elf的做法是数据段里面建立一个指向这些变量的指
 针数组,也被称为全局偏移表(GOT),当代码需要引用模块间的数据时,可以通过GOT中相对应的项间接引用.(任何一条指令与GOT表
-的距离是确定的,于是可通过上面b中相同方法找到GOT的地址,再根据GOT中变量对应的项找到变量的目标地址)
+的距离是确定的,于是可通过上面b中相同方法找到GOT的地址,再根据GOT中变量对应的项找到变量的目标地址)&lt;/p&gt;
 
-d)模块间调用,跳转
+&lt;p&gt;d)模块间调用,跳转&lt;/p&gt;
 
-与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址
+&lt;p&gt;与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址&lt;/p&gt;
 
-3.延迟绑定PLT
+&lt;p&gt;3.延迟绑定PLT&lt;/p&gt;
 
-在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
-块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做`延迟绑定`的做法,基本思想就是当函数第一
+&lt;p&gt;在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
+块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;延迟绑定&lt;/code&gt;的做法,基本思想就是当函数第一
 次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
-而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的
+而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的&lt;/p&gt;
 
-plt示例:
+&lt;p&gt;plt示例:&lt;/p&gt;
 
-bar@plt:
+&lt;p&gt;bar@plt:
 jmp *(bar@GOT)
 push n
 push moduleID
-jmp _dl_runtime_resolve
+jmp _dl_runtime_resolve&lt;/p&gt;
 
-bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
+&lt;p&gt;bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
 在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
 查找任何符号,所以代价很低.也即,第一条指令的效果是跳转到第二条指令,相当于没有进行任何操作.然后将n和moudleID两个参
 数压入栈中作为_dl_runtime_resolve的参数,其中n是bar这个符号引用在重定位表.rel.plt中的下标,_dl_runtime_resolve函数
 在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,第一
-条jmp指令就能够跳转到真正的bar()函数中
+条jmp指令就能够跳转到真正的bar()函数中&lt;/p&gt;
 
-4.GOT表结构
+&lt;p&gt;4.GOT表结构&lt;/p&gt;
 
-elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
+&lt;p&gt;elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
 是说,所有对于外部函数的引用全部被分离出来放到了.got.plt中,另外,.got.plt还有一个特殊的地方是它的前三项是有特殊意义
-的:
+的:&lt;/p&gt;
 
-第一项保存的是.dynamic段的地址
+&lt;p&gt;第一项保存的是.dynamic段的地址
 第二项保存的是本模块的ID
-第三项保存的是_dl_runtime_resolve()的地址
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+第三项保存的是_dl_runtime_resolve()的地址&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 05 Dec 2017 00:00:00 +0800</pubDate>
