@@ -755,7 +755,7 @@ ld_2.24.so:F7F5B71B retn    0Ch
 </code></pre>
 </div>
 
-<p>这应该就是_dl_runtime_resolve函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
+<p>这应该就是_<code class="highlighter-rouge">dl_runtime_resolve</code>函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
 正在进行puts函数(符号)的重定位,重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址(这是
 错误的想法,由于.got.plt结构特殊,实际并不会将0x565ce008处的内容修改,后面将看出),继续跟踪</p>
 
@@ -772,7 +772,15 @@ ld_2.24.so:F7F5B71B retn    0Ch
 </div>
 
 <p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
-<code class="highlighter-rouge">IOputs</code>,在上面的<code class="highlighter-rouge">_dl_runtime_resolve</code>函数retn 0ch后进入到_<code class="highlighter-rouge">IO_puts</code>函数,内容如下:</p>
+<code class="highlighter-rouge">IOputs</code>,这里的sub_565cc3b6实际上是上面c)中的plt表项中的jmp [ebx+0xc]的下一条指令的地址,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+</code></pre>
+</div>
+
+<p>在上面<code class="highlighter-rouge">_dl_runtime_resolve</code>函数中0xf7f5b71b处的retn 0ch后进入到_<code class="highlighter-rouge">IO_puts</code>函数,内容如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>libc_2.24.so:F7DB8890 _IO_puts:
 libc_2.24.so:F7DB8890 push    ebp
@@ -790,8 +798,8 @@ libc_2.24.so:F7DB88B2 mov     esi, eax
 </code></pre>
 </div>
 
-<p>也即_IO_puts函数的地址为0xf7db8890,也即got表项中0x565ce008+4处的内容由0x565cc3b6变成了0xf7db8890,至此,完成了puts函数的重定
-位,而此时查看plt表项中的代码,没有发生变化,如下:</p>
+<p>也即<code class="highlighter-rouge">_IO_puts</code>函数的地址为0xf7db8890,也即got表项中0x565ce008+4处的内容由0x565cc3b6变成了0xf7db8890,至此,完成了
+puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565CC3B0 _puts endp
@@ -811,7 +819,7 @@ libc_2.24.so:F7DB88B2 mov     esi, eax
 
 <p>第一项保存的是.dynamic段的地址
 第二项保存的是本模块的ID
-第三项保存的是_dl_runtime_resolve()的地址</p>
+第三项保存的是<code class="highlighter-rouge">_dl_runtime_resolve()</code>的地址</p>
 
 <p>查看上面4中跟踪完puts函数的重定位后的.got.plt的内容如下:</p>
 
