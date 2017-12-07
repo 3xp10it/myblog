@@ -596,7 +596,7 @@ objdump查看下,发现与ida不同</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>readelf -r test
 
-重定位节 '.rel.dyn' 位于偏移量 0x328 含有 8 个条目：
+重定位节 '.rel.dyn' 位于偏移量 0x328 含有 8 个条目:
  偏移量     信息    类型              符号值      符号名称
 00001ef4  00000008 R_386_RELATIVE   
 00001ef8  00000008 R_386_RELATIVE   
@@ -607,7 +607,7 @@ objdump查看下,发现与ida不同</p>
 00001ff4  00000406 R_386_GLOB_DAT    00000000   __gmon_start__
 00001ffc  00000606 R_386_GLOB_DAT    00000000   _ITM_registerTMCloneTa
 
-重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目：
+重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
  偏移量     信息    类型              符号值      符号名称
 0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
 00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
@@ -814,7 +814,7 @@ ld_2.24.so:F7F5B71B retn    0Ch
 <p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
 <code class="highlighter-rouge">IOputs</code>,回忆下puts函数的重定位表:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目：
+<div class="highlighter-rouge"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
  偏移量     信息    类型              符号值      符号名称
 0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
 00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
