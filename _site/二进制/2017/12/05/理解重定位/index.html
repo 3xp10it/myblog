@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          10 minute read
+          11 minute read
         </small>
       </div>
 
@@ -379,7 +379,19 @@ objdump -d ab
      由ab文件的反汇编代码可以看出,经过链接阶段的修正后,shared变量和swap函数的地址分别为0x804a00c和0x00000016.
      链接器通过重定位表来对shared和swap的地址重定位,对于每个要重定位的elf段都有一个对应的重定位段(重定位表),比如
      代码段.text如有要重定位的地方,那么会有一个相应叫.rel.text的段保存了代码段的重定位表,如果代码段.data有要重定
-     位的地方,那么会有一个相应叫.rel.data的段保存了数据段的重定位表,可以通过objdump -r查看目标文件的重定位表
+     位的地方,那么会有一个相应叫.rel.data的段保存了数据段的重定位表,可以通过objdump -r或readelf -r查看目标文件的
+     重定位表,objdump -r可查看.o文件的重定位位,无法查看elf文件的重定位表,如果要查看elf文件的重定位表要使用readelf
+     -r elffile,在.o文件中重定位段分别为.rel.text和.rel.data的段在elf(so)文件中的名称为.rel.plt和.rel.dyn,其中
+     .rel.plt是对函数的引用的修正,它所修正的位置位于.got.plt;其中.rel.dyn是对数据引用的修正,它所修正的位置位于
+     .got以及数据段.
+
+     .o文件:(查看方法:objdump|readelf -r xxx.o)
+     .rel.text&lt;===&gt;代码段重定位表
+     .rel.data&lt;===&gt;数据段重定位表
+
+     elf(so)文件:(查看方法:readelf -r elffile)
+    .rel.plt&lt;===&gt;代码段重定位表,对函数引用的修正,修正的位置位于.got.plt
+    .rel.dyn&lt;===&gt;数据段重定位表,对数据引用的修正,修正的位置位于.got以及数据段
 
 objdump -r a.o
     a.o:     文件格式 elf32-i386
@@ -579,9 +591,40 @@ objdump查看下,发现与ida不同</p>
 </div>
 
 <p>说明puts函数的plt表项内容没变,而ida中却在test运行前解析成其他内容了,这应该是ida的bug吧(实验中用的是macOS下的ida加
-载的test文件,动态调试时用的是ida远程调试kali x64下的test),动态调试时ida的内容没问题.上面的plt中内容由于是在test
-未运行时在ida中加载看出的,这种情况有误,需要重新查看真实的plt表中内容,直接查看运行后的ida中的test文
-件的plt表的内容:</p>
+载的test文件,动态调试时用的是ida远程调试kali x64下的test),但是ida怎么会将[ebx+0ch]解析成ds:off_200c呢?用readelf查
+看下test文件的重定位表如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>readelf -r test
+
+重定位节 '.rel.dyn' 位于偏移量 0x328 含有 8 个条目：
+ 偏移量     信息    类型              符号值      符号名称
+00001ef4  00000008 R_386_RELATIVE   
+00001ef8  00000008 R_386_RELATIVE   
+00001ff8  00000008 R_386_RELATIVE   
+00002018  00000008 R_386_RELATIVE   
+00001fec  00000106 R_386_GLOB_DAT    00000000   _ITM_deregisterTMClone
+00001ff0  00000206 R_386_GLOB_DAT    00000000   __cxa_finalize@GLIBC_2.1.3
+00001ff4  00000406 R_386_GLOB_DAT    00000000   __gmon_start__
+00001ffc  00000606 R_386_GLOB_DAT    00000000   _ITM_registerTMCloneTa
+
+重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目：
+ 偏移量     信息    类型              符号值      符号名称
+0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
+00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
+</code></pre>
+</div>
+
+<p>可以看出,其中puts函数的重定位项的偏移量是200c,猜测由于这个elf文件(test文件)有pie属性,而ida加载有pie属性的elf时是以
+<code class="highlighter-rouge">加载基址=0</code>加载的,于是ida解析出这个具有pie属性文件test的代码jmp [ebx+0ch]实际在运行时是jmp到与文件头初始处偏移
+200c中存放的地址,从而ida将这里解析成jmp ds:200c了,并将机器码变成了ff 25 0c 20 00 00,实际上这里的机器码在运行前是
+ff a3 0c 00 00 00.实际上从后面的分析可以知道,test在运行时会有第一次调用puts函数时的对puts函数的重定位,在重定位时
+jmp [ebx+0ch]实际上是跳到下一条汇编指令的地址,而重定位后,jmp [ebx+0ch]指令不变,跳转到的位置会变成不再是下一条指
+令的位置,而是完成重定位后的puts函数的地址,也即test文件偏移200c处(这个地方在.got.plt段中)的puts函数的.got.plt表项中
+存放的内容,ida在test运行前就这样解析,可能是为了给用户忽略掉puts函数的<code class="highlighter-rouge">PLT延迟绑定</code>的过程,让用户看起来程序在运行时
+“更简洁”</p>
+
+<p>动态调试时ida的内容没问题.上面的plt中内容由于是在test未运行时在ida中加载看出的,这种情况”有误”,需要重新查看真实的
+plt表中内容,直接查看运行后的ida中的test文件的plt表的内容:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 ; ===========================================================================
 .plt:565CC3A0
@@ -769,7 +812,17 @@ ld_2.24.so:F7F5B71B retn    0Ch
 </div>
 
 <p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
-<code class="highlighter-rouge">IOputs</code>,这里的sub_565cc3b6实际上是上面c)中的plt表项中的jmp [ebx+0xc]的下一条指令的地址,如下:</p>
+<code class="highlighter-rouge">IOputs</code>,回忆下puts函数的重定位表:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目：
+ 偏移量     信息    类型              符号值      符号名称
+0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
+00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
+</code></pre>
+</div>
+
+<p>0x565ce00c实际是test在运行后的200c偏移(test在这次运行中实际加载基址为0x565ce00c-0x200c=0x565cc000),这
+里的sub_565cc3b6实际上是上面c)中的plt表项中的jmp [ebx+0xc]的下一条指令的地址,如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565CC3B6 push    0
