@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          42 minute read
+          43 minute read
         </small>
       </div>
 
@@ -3214,7 +3214,30 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     加密:openssl aes-256-cbc -in inputfile -out outputfile
     解密:openssl aes-256-cbc -d -in outputfile -out inputfile
 <span class="p">
-265.</span>to be continue...
+265.</span>mysql触发器用法
+    https://www.cnblogs.com/zzwlovegfj/archive/2012/07/04/2576989.html
+    利用触发器debug:
+    https://stackoverflow.com/questions/10628640/get-full-mysql-query-string-on-insert-or-update
+    same to:<span class="sb">
+
+    create table app_sql_debug_log(query mediumtext);
+    DELIMITER |
+
+    CREATE TRIGGER log_queries_insert BEFORE INSERT ON `your_table`
+    FOR EACH ROW
+    BEGIN
+        DECLARE original_query VARCHAR(1024);
+        SET original_query = (SELECT info FROM INFORMATION_SCHEMA.PROCESSLIST WHERE id = CONNECTION_ID());
+        INSERT INTO `app_sql_debug_log`(`query`) VALUES (original_query);
+    END;
+    |
+    DELIMITER ;
+
+</span><span class="p">266.</span>mysql开启general log
+    http://lj6684.iteye.com/blog/1520681
+<span class="p">
+267.</span>python中for else,while else的用法
+    https://blog.oldj.net/2010/06/20/python-loop-else/
 </code></pre>
 </div>
 </span>
