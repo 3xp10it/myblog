@@ -5,9 +5,192 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 14 Dec 2017 18:11:17 +0800</pubDate>
-    <lastBuildDate>Thu, 14 Dec 2017 18:11:17 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Fri, 15 Dec 2017 07:58:59 +0800</pubDate>
+    <lastBuildDate>Fri, 15 Dec 2017 07:58:59 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>记一次爬虫绕过</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;p&gt;在一次数据采集(爬虫)中,目标服务器比较特殊,似乎是数据库服务器设置了一定时间内有查询次数上限,导致多次尝试没有成功爬
+取大量数据.目标网站防爬虫特点:&lt;/p&gt;
+
+&lt;p&gt;1.关键的元素页数(下面的pageNo)用的是js动态生成再显示到网页上的&lt;/p&gt;
+
+&lt;p&gt;2.没带cookie请求时,请求不同页数(下面的pageNo)的html内容时,返回的html相同&lt;/p&gt;
+
+&lt;p&gt;3.一个cookie似乎查询5000项数据次以后就不能再请求了,要过10min或更多的时间才可以访问&lt;/p&gt;
+
+&lt;p&gt;4.换ip不换cookie的情况下查询次数也是5000项左右&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-solution&quot;&gt;0x01 Solution&lt;/h3&gt;
+
+&lt;p&gt;1.用phantomjs(通过js脚本)发送请求,使目标的js可在phantomjs中运行成功&lt;/p&gt;
+
+&lt;p&gt;2.用ip代理池(IPProxyPool)&lt;/p&gt;
+
+&lt;p&gt;3.每次请求带cookie且每个不同的请求用不同的cookie&lt;/p&gt;
+
+&lt;p&gt;4.多线程查询,下面代码中涉及多线程写同一个文件时要事先加锁&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02-code&quot;&gt;0x02 Code&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import requests
+import re
+import random
+import os
+from exp10it import get_string_from_command
+
+IPProxyPoolUrl = &quot;http://192.168.8.240:8000/?types=0&amp;amp;count=100&quot;
+
+
+def get_random_proxy():
+    IPPOOL = eval(requests.get(IPProxyPoolUrl).text)
+    random_choose = random.choice(IPPOOL)
+    proxy_addr = &quot;http://&quot; + \
+        str(random_choose[0]) + &quot;:&quot; + str(random_choose[1])
+    return proxy_addr
+
+
+qihao_list = [
+    '201502',
+    '201503',
+    '201504',
+    '201505',
+    '201506',
+    '201507',
+    '201508',
+    '201509',
+    '201510',
+    '201511',
+    '201512',
+    '201601',
+    '201602',
+    '201603',
+    '201604',
+    '201605',
+    '201606',
+    '201607',
+    '201608',
+    '201609',
+    '201610',
+    '201611',
+    '201612',
+    '201701',
+    '201702',
+    '201703',
+    '201704',
+    '201705',
+    '201706',
+    '201707',
+    '201708',
+    '201709',
+    '201710',
+    '201711'
+]
+
+url = &quot;http://xxx.xxx.xxx&quot;
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:51.0) Gecko/20100101 Firefox/51.0',
+           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+           'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
+           'Cookie': 'JSESSIONID=EA6DCEF9BA7D4ED7EA25B0377C20C092-n2.Tomcat1',
+           'Connection': 'close',
+           'Upgrade-Insecure-Requests': '1',
+           'Content-Type': 'application/x-www-form-urlencoded',
+           'Content-Length': '38'
+           }
+import threading
+mutex = threading.Lock()
+for qihao in qihao_list:
+    i = 0
+    post_js_content = '''
+&quot;use strict&quot;;
+var page = require('webpage').create(),
+    server = 'http://xxx.xxx.xxx',
+    data = 'pageNo=1&amp;amp;issueNumber=%s&amp;amp;applyCode=';
+
+page.settings.resourceTimeout = 9999999999999;
+page.settings.userAgent = &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.%s Safari/537.36&quot;;
+
+page.open(server, 'post', data, function (status) {
+    if (status !== 'success') {
+        console.log('Unable to post!');
+    } else {
+        console.log(page.content);
+    }
+    phantom.exit();
+});
+    ''' % (qihao, ++i)
+    while True:
+        os.system(&quot;rm post.js&quot;)
+        with open(&quot;post.js&quot;, &quot;a+&quot;) as f:
+            f.write(post_js_content)
+        proxy_addr = get_random_proxy()
+        print(proxy_addr)
+        html = get_string_from_command(
+            &quot;phantomjs post.js --proxy=%s&quot; % proxy_addr)
+        has_page_no = re.search(r&quot;/(\d+)页&quot;, html)
+        if has_page_no:
+            break
+        else:
+            print(&quot;没有获取到页数,尝试再次获取...&quot;)
+            continue
+
+    pageNo = has_page_no.group(1)
+    print(&quot;期号:%s,页数:%s&quot; % (qihao, pageNo))
+    page_list = []
+    for page in range(1, int(pageNo) + 1):
+        page_list.append(str(page))
+
+    def get_page_content(page):
+        data = &quot;pageNo=%s&amp;amp;issueNumber=%s&amp;amp;applyCode=&quot; % (page, qihao)
+        print(&quot;正在请求第%s期,第%s页...&quot; % (qihao, page))
+        rsp = requests.get(url, timeout=60)
+        cookie = rsp.headers['Set-Cookie']
+        # print(cookie)
+        headers['Cookie'] = cookie
+        proxy_addr = get_random_proxy()
+        proxies = {}
+        proxies_1 = proxy_addr.split(&quot;:&quot;)[0]
+        proxies[proxies_1] = proxy_addr
+        # print(proxies)
+        html = requests.post(url, data.encode(&quot;utf-8&quot;),
+                             headers=headers, proxies=proxies, timeout=60).text
+        a = re.findall(
+            r'''class=&quot;content_data&quot;[\s\S]*?&amp;lt;td\s*&amp;gt;(\d+)&amp;lt;/td&amp;gt;[\s\S]*?&amp;lt;td\s*&amp;gt;(.+)&amp;lt;/td&amp;gt;''', html)
+        mutex.acquire()
+        for each in a:
+            with open(&quot;x.txt&quot;, &quot;a+&quot;) as f:
+                string_to_write = qihao + &quot;    &quot; + \
+                    each[0] + &quot;    &quot; + each[1] + &quot;\n&quot;
+                print(string_to_write)
+                f.write(string_to_write)
+        mutex.release()
+
+    from concurrent import futures
+    with futures.ThreadPoolExecutor(max_workers=20) as executor:
+        executor.map(get_page_content, page_list)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;code can be download &lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/xban.py&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 15 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/12/15/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%88%AC%E8%99%AB%E7%BB%95%E8%BF%87/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/12/15/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%88%AC%E8%99%AB%E7%BB%95%E8%BF%87/</guid>
+        
+        <category>spider</category>
+        
+        <category>phantomjs</category>
+        
+        <category>IPProxyPool</category>
+        
+        
+        <category>python</category>
+        
+      </item>
     
       <item>
         <title>pycharm调试包含scrapy框架的项目</title>
@@ -1445,44 +1628,6 @@ str,list,memoryview等类型上,这个操作必须高效&lt;/p&gt;
         
         
         <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>Linux内核源代码情景分析第1章笔记</title>
-        <description>&lt;h3 id=&quot;预备知识&quot;&gt;预备知识&lt;/h3&gt;
-
-&lt;p&gt;1.在安装好的linux系统中,内核源代码位于/usr/src/linux.如果是从gnu网站下载的linux内核的tar文件,则展开以后在一个叫
-linux的子目录中.&lt;/p&gt;
-
-&lt;p&gt;2.linux的源代码看似庞大,其实对于每一个具体的内核而言并不是所有的.c和.h文件都会用到,而是在编译(包括连接)时根据系统
-的配置有选择地使用&lt;/p&gt;
-
-&lt;p&gt;3.在版本号x.yy.zz中,yy一方面表示版本的变迁,一方面标志着版本的种类,即”发行版”或”开发版”.如果yy为偶数便表示一个相对
-稳定,已经发行的版本,如果为奇数则表示还在开发中.”发行版”和”开发版”的zz是独立编号的,因此并没有固定的对应关系,例如,
-当开发版本号达到2.3.99时,相应的发行版还只是2.2.18&lt;/p&gt;
-
-&lt;p&gt;4.linux的内核基本上只有一种来源,那就是同Linus主持开发和维护的内核版本,但是有很多公司在发行linux操作系统不同的发行
-版,如Red Hat,Caldera等等.原则上全世界只有一个linux,所谓”某某linux”只是它的一种发行版本或修订版本.另外,不要把Linux
-内核的版本与发行商自己的版本(如”Red Hat6.0”)混淆,例如,Caldera2.2版的内核是2.2.5版&lt;/p&gt;
-
-&lt;p&gt;5.对于大多数用户,由发行商提供的这些发行版起着十分重要的作用.让用户自行配置和生成整个系统是相当困难的,因为那样用户
-不但要自己下载内核源程序,自己编译安装,还要从不同的ftp站点下载各种自由软件添加到自己的系统中,还要为系统加入各种有
-用的工具,等等.而所有这些工作都是很费时费力的事情.linux的发行厂商正是看到了这一点,替用户做了这些工作,在内核上集成
-了大量的应用软件.并且,为了安装软件,发行厂商同时还提供了用于软件安装的工具性软件,以利于用户安装管理.(apt-get/yum)&lt;/p&gt;
-
-&lt;p&gt;6.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 20 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/linux/2017/11/20/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E4%BB%A3%E7%A0%81%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/linux/2017/11/20/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E4%BB%A3%E7%A0%81%E6%83%85%E6%99%AF%E5%88%86%E6%9E%90%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>kernel</category>
-        
-        <category>linux</category>
-        
-        
-        <category>linux</category>
         
       </item>
     
