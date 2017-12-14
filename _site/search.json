@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "pycharm调试包含scrapy框架的项目",
+    "category" : "",
+    "tags"     : "pycharm, scrapy",
+    "url"      : "/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/",
+    "date"     : "2017-12-14 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "Android软件安全与逆向分析第3章笔记",
     "category" : "",
     "tags"     : "Android, reverse",

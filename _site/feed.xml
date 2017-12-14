@@ -5,9 +5,146 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 14 Dec 2017 08:16:37 +0800</pubDate>
-    <lastBuildDate>Thu, 14 Dec 2017 08:16:37 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Thu, 14 Dec 2017 16:47:01 +0800</pubDate>
+    <lastBuildDate>Thu, 14 Dec 2017 16:47:01 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>pycharm调试包含scrapy框架的项目</title>
+        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pdb调试python文件方法:
+import pdb
+pdb.set_trace()
+
+pdb调试好处很多,但是不的支持多线程调试和远程调试
+于是通过pycharm调试scrapy中的爬虫脚本
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;refer:&lt;/p&gt;
+
+&lt;p&gt;http://www.jianshu.com/p/eda047ac5c89&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-项目结构&quot;&gt;0x01 项目结构&lt;/h3&gt;
+
+&lt;p&gt;在pycharm中新建项目时默认会为新建的项目新建一个python虚拟环境&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/root/PycharmProjects为pycharm默认存放项目的目录
+scanner为新建的项目的项目名
+venv是pycharm新建的python虚拟环境目录
+
+/root/PycharmProjects
+└── scanner
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        ├── pip-selfcheck.json
+        └── selenium
+
+项目包含两个文件夹,分别为/root/3xp10it和/root/mypypi
+
+其中/root/3xp10it目录如下,其中/root/3xp10it/3xp10it.py为项目启动文件,项目通过python3 3xp10it.py运行
+
+/root/3xp10it
+├── 3xp10it.py
+├── debug.py
+├── develop.md
+├── ghostdriver.log
+├── ipproxypool_scrapysplash_server.py
+├── pannel
+│   ├── manage.py
+│   ├── models.py
+│   ├── pages
+│   └── pannel
+├── readme.md
+├── targets.py
+├── uninstall.py
+└── web.py
+
+
+/root/mypypi中的爬虫模块相关目录如下,其中/root/mypypi/crawler/crawler/spiders/exp10it_spider.py为scrapy爬虫脚本,单
+独启动爬虫的命令为cd /root/mypypi/crawler &amp;amp;&amp;amp; python3 -m scrapy crawl exp10it
+
+├── crawler                 
+│   ├── crawler                  
+│   │   ├── ghostdriver.log
+│   │   ├── __init__.py   
+│   │   ├── items.py    
+│   │   ├── middlewares.py    
+│   │   ├── pipelines.py                 
+│   │   ├── settings.py    
+│   │   └── spiders       
+│   │       ├── exp10it_spider.py
+│   │       ├── __init__.py
+│   ├── ghostdriver.log        
+│   ├── scrapy.cfg                     
+│   └── start.py                 
+├── xxx
+├── dicts           
+
+其中exp10it_spider.py内容大致如下:
+
+class Exp10itSpider(scrapy.Spider):
+    name = &quot;exp10it&quot;
+    collected_urls = []
+    domain = &quot;&quot;
+    start_url = &quot;&quot;
+
+    def add_url_templet_to_collected_urls(self, url):
+        url=re.sub(r&quot;(#[^\?]*)$&quot;,&quot;&quot;,url)
+        parsed = urlparse(url)
+        if len(parsed)&amp;lt;4:
+
+
+三个文件夹的关系:
+/root/3xp10it/3xp10it.py中的funcA调用了/root/mypypi/exp10it.py中的funcB
+/root/mypypi/exp10it.py中的funcB调用了/root/PycharmProject/scanner/venv/lib/site-packages/scrapy模块进行爬虫
+,funcB相关代码如下(funB为下面的scrapy_splash_crawl_url):
+
+def scrapy_splash_crawl_url(url):
+    # replace crawl_url method
+    url=re.sub(r&quot;\s+$&quot;,&quot;&quot;,url)
+    spider_file=ModulePath+&quot;/crawler/crawler/spiders/exp10it_spider.py&quot;
+    parsed=urlparse(url)
+    if re.search(r&quot;/\S+\.\S{1,4}$&quot;,parsed.path):
+        path=re.sub(r&quot;(?&amp;lt;=/)[^/\s\.]+\.\S{1,4}&quot;,&quot;&quot;,parsed.path)
+    else:
+        if parsed.path==&quot;&quot; or parsed.path[-1]!=&quot;/&quot;:
+            path=parsed.path+&quot;/&quot;
+        else:
+            path=parsed.path
+    modify_url=parsed.scheme+&quot;://&quot;+parsed.netloc+path
+    cmd='''sed -i 's#target_url_to_crawl=&quot;.*&quot;#target_url_to_crawl=&quot;%s&quot;#g' %s''' % (modify_url,spider_file)
+    os.system(cmd)
+    from scrapy import cmdline
+    cmdline.execute('scrapy crawl exp10it'.split())
+
+上面funB中调用scrapy关键代码为:
+    cmdline.execute('scrapy crawl exp10it'.split())
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02-解决办法&quot;&gt;0x02 解决办法&lt;/h3&gt;
+
+&lt;p&gt;设置/root/3xp10it/3xp10it.py(项目运行文件)的工作目录为与爬虫目录中的scrapy.cfg文件同目录的/root/mypypi/crawler,如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/pycharm_scrapy.png&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 14 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/</guid>
+        
+        <category>pycharm</category>
+        
+        <category>scrapy</category>
+        
+        
+        <category>python</category>
+        
+      </item>
     
       <item>
         <title>Android软件安全与逆向分析第3章笔记</title>
@@ -1347,155 +1484,6 @@ linux的子目录中.&lt;/p&gt;
         
         
         <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>angr解题</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;p&gt;1.kali linux安装angr&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install python-dev libffi-dev build-essential virtualenvwrapper
-mkvirtualenv angr &amp;amp;&amp;amp; pip install angr
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.必读link&lt;/p&gt;
-
-&lt;p&gt;1)&lt;a href=&quot;http://www.freebuf.com/articles/web/150296.html&quot;&gt;用法小结&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;2)&lt;a href=&quot;http://angr.io/api-doc&quot;&gt;api文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;3)&lt;a href=&quot;https://hitcon.org/2016/CMT/slide/day1-r1-a-1.pdf&quot;&gt;进阶文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-注意&quot;&gt;0x01 注意&lt;/h3&gt;
-
-&lt;p&gt;1.获取程序的输出的值的方法为&lt;code class=&quot;highlighter-rouge&quot;&gt;ex.found[0].posix.dumps(1)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;2.如果程序不能从开头执行(如:开头损坏),则可用&lt;code class=&quot;highlighter-rouge&quot;&gt;state = p.factory.blank_state(addr=xxx)&lt;/code&gt;,从开头运行则可用
-&lt;code class=&quot;highlighter-rouge&quot;&gt;p.factory.entry_state&lt;/code&gt;,更多的state运行方法参考&lt;a href=&quot;https://github.com/angr/angr-doc/blob/master/docs/states.md&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;3.目前的理解是find是到哪里停,avoid是不能经过哪,在解题时,avoid可没有,find必需有,但是最好两者都有,这样可减少符号执
-行的计算量&lt;/p&gt;
-
-&lt;p&gt;4.通过字符串设置find方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;pg.explore(find=lambda s:&quot;it is my secret&quot; ins.posix.dumps(1))&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;5.claripy的BVS函数可以创建一个指定长度的抽象数据,如下,要注意的是:BVS的第2个参数的大小是位数,不是字节数,claripy的
-功能与z3相当&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import claripy
-a = claripy.BVS(&quot;sym_val&quot;, 32)
-b = claripy.RotateLeft(a, 8)
-c = b + 4
-s = claripy.Solver()
-s.add(c == 0x41424344)
-assert s.eval(c, 1)[0] == 0x41424344
-assert s.eval(a, 1)[0] == 0x40414243
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x02-解题&quot;&gt;0x02 解题&lt;/h3&gt;
-
-&lt;h4 id=&quot;0xa-命令行参数&quot;&gt;0xa 命令行参数&lt;/h4&gt;
-
-&lt;p&gt;从命令行提供程序参数:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;p = angr.Project('./ais3_crackme')
-arg1=claripy.BVS('arg1',30*8)
-state=p.factory.entry_state(args=[p.filename,arg1])
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;最后获取命令行参数值:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arg1=ex.found[0].solver.eval(arg1,cast_to = str)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/cosmopolitanme/article/details/73284074&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;解法:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import angr
-import claripy
-find = 0x400602
-avoid = [0x40060e]
-
-p = angr.Project('./ais3_crackme')
-arg1 = claripy.BVS('arg1', 30 * 8)
-state = p.factory.entry_state(args=[p.filename, arg1])
-
-ex = p.factory.simgr(state)
-ex.explore(find=find, avoid=avoid)
-
-arg1 = ex.found[0].solver.eval(arg1, cast_to=str)
-print(arg1)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;0xb-标准输入&quot;&gt;0xb 标准输入&lt;/h4&gt;
-
-&lt;p&gt;从标准输入中提供程序参数:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;state.posix.files[0].read_from(30)
-或
-for _ in xrange(5):  
-    k = state.posix.files[0].read_from(1)
-    state.se.add(k!=10)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;最后获取标准输入值:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inp = ex.found[0].posix.files[0].all_bytes()  
-print ex.found[0].solver.eval(inp,cast_to = str)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://oj.xctf.org.cn/web/practice/defensetrain/465f6bb8f4ad4d65a70cce2bd69dfacf/&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;解法:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import angr
-find = (0x8048697,)
-avoid = (0x804869e,)
-
-p = angr.Project('./ppp')
-state = p.factory.entry_state()
-state.posix.files[0].read_from(50)
-
-pg = p.factory.simgr(state, threads=8)
-ex = pg.explore(find=find, avoid=avoid)
-
-output = ex.found[0].posix.dumps(1)
-print(output)
-inp = ex.found[0].posix.files[0].all_bytes()
-print ex.found[0].solver.eval(inp, cast_to=str)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;0xc-文件输入&quot;&gt;0xc 文件输入&lt;/h4&gt;
-
-&lt;p&gt;从文件中提供程序’参数’&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ctfhacker.com/re/angr/2016/02/21/ctf-symbolic-execution.html&quot;&gt;题目地址&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;解法:&lt;/p&gt;
-
-&lt;p&gt;to be continue…&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 16 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/11/16/angr%E8%A7%A3%E9%A2%98/</guid>
-        
-        <category>angr</category>
-        
-        <category>符号执行</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     

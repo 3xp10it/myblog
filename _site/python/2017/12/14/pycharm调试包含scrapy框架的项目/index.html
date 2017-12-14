@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>pycharm调试包含scrapy框架的项目</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,216 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">pycharm调试包含scrapy框架的项目</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 14, 2017</span>
+           under python
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pdb调试python文件方法:
+import pdb
+pdb.set_trace()
+
+pdb调试好处很多,但是不的支持多线程调试和远程调试
+于是通过pycharm调试scrapy中的爬虫脚本
+</code></pre>
+</div>
+
+<p>refer:</p>
+
+<p>http://www.jianshu.com/p/eda047ac5c89</p>
+
+<h3 id="0x01-项目结构">0x01 项目结构</h3>
+
+<p>在pycharm中新建项目时默认会为新建的项目新建一个python虚拟环境</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/root/PycharmProjects为pycharm默认存放项目的目录
+scanner为新建的项目的项目名
+venv是pycharm新建的python虚拟环境目录
+
+/root/PycharmProjects
+└── scanner
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        ├── pip-selfcheck.json
+        └── selenium
+
+项目包含两个文件夹,分别为/root/3xp10it和/root/mypypi
+
+其中/root/3xp10it目录如下,其中/root/3xp10it/3xp10it.py为项目启动文件,项目通过python3 3xp10it.py运行
+
+/root/3xp10it
+├── 3xp10it.py
+├── debug.py
+├── develop.md
+├── ghostdriver.log
+├── ipproxypool_scrapysplash_server.py
+├── pannel
+│   ├── manage.py
+│   ├── models.py
+│   ├── pages
+│   └── pannel
+├── readme.md
+├── targets.py
+├── uninstall.py
+└── web.py
+
+
+/root/mypypi中的爬虫模块相关目录如下,其中/root/mypypi/crawler/crawler/spiders/exp10it_spider.py为scrapy爬虫脚本,单
+独启动爬虫的命令为cd /root/mypypi/crawler &amp;&amp; python3 -m scrapy crawl exp10it
+
+├── crawler                 
+│   ├── crawler                  
+│   │   ├── ghostdriver.log
+│   │   ├── __init__.py   
+│   │   ├── items.py    
+│   │   ├── middlewares.py    
+│   │   ├── pipelines.py                 
+│   │   ├── settings.py    
+│   │   └── spiders       
+│   │       ├── exp10it_spider.py
+│   │       ├── __init__.py
+│   ├── ghostdriver.log        
+│   ├── scrapy.cfg                     
+│   └── start.py                 
+├── xxx
+├── dicts           
+
+其中exp10it_spider.py内容大致如下:
+
+class Exp10itSpider(scrapy.Spider):
+    name = "exp10it"
+    collected_urls = []
+    domain = ""
+    start_url = ""
+
+    def add_url_templet_to_collected_urls(self, url):
+        url=re.sub(r"(#[^\?]*)$","",url)
+        parsed = urlparse(url)
+        if len(parsed)&lt;4:
+
+
+三个文件夹的关系:
+/root/3xp10it/3xp10it.py中的funcA调用了/root/mypypi/exp10it.py中的funcB
+/root/mypypi/exp10it.py中的funcB调用了/root/PycharmProject/scanner/venv/lib/site-packages/scrapy模块进行爬虫
+,funcB相关代码如下(funB为下面的scrapy_splash_crawl_url):
+
+def scrapy_splash_crawl_url(url):
+    # replace crawl_url method
+    url=re.sub(r"\s+$","",url)
+    spider_file=ModulePath+"/crawler/crawler/spiders/exp10it_spider.py"
+    parsed=urlparse(url)
+    if re.search(r"/\S+\.\S{1,4}$",parsed.path):
+        path=re.sub(r"(?&lt;=/)[^/\s\.]+\.\S{1,4}","",parsed.path)
+    else:
+        if parsed.path=="" or parsed.path[-1]!="/":
+            path=parsed.path+"/"
+        else:
+            path=parsed.path
+    modify_url=parsed.scheme+"://"+parsed.netloc+path
+    cmd='''sed -i 's#target_url_to_crawl=".*"#target_url_to_crawl="%s"#g' %s''' % (modify_url,spider_file)
+    os.system(cmd)
+    from scrapy import cmdline
+    cmdline.execute('scrapy crawl exp10it'.split())
+
+上面funB中调用scrapy关键代码为:
+    cmdline.execute('scrapy crawl exp10it'.split())
+
+</code></pre>
+</div>
+
+<h3 id="0x02-解决办法">0x02 解决办法</h3>
+
+<p>设置/root/3xp10it/3xp10it.py(项目运行文件)的工作目录为与爬虫目录中的scrapy.cfg文件同目录的/root/mypypi/crawler,如下图</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/pycharm_scrapy.png" /></p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            pycharm, scrapy
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/">pycharm调试包含scrapy框架的项目</a>
-      </div>
-      <div class="excerpt">
-         
-          pycharm调试包含scrapy框架的项目
-         
-        <a href="/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
