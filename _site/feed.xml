@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 14 Dec 2017 16:47:01 +0800</pubDate>
-    <lastBuildDate>Thu, 14 Dec 2017 16:47:01 +0800</lastBuildDate>
+    <pubDate>Thu, 14 Dec 2017 18:11:17 +0800</pubDate>
+    <lastBuildDate>Thu, 14 Dec 2017 18:11:17 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -17,7 +17,7 @@
 import pdb
 pdb.set_trace()
 
-pdb调试好处很多,但是不的支持多线程调试和远程调试
+pdb调试好处很多,但是不支持多线程调试和远程调试
 于是通过pycharm调试scrapy中的爬虫脚本
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -64,8 +64,7 @@ venv是pycharm新建的python虚拟环境目录
 └── web.py
 
 
-/root/mypypi中的爬虫模块相关目录如下,其中/root/mypypi/crawler/crawler/spiders/exp10it_spider.py为scrapy爬虫脚本,单
-独启动爬虫的命令为cd /root/mypypi/crawler &amp;amp;&amp;amp; python3 -m scrapy crawl exp10it
+/root/mypypi中的爬虫模块相关目录如下,其中/root/mypypi/crawler/crawler/spiders/exp10it_spider.py为scrapy爬虫脚本,单独启动爬虫的命令为cd /root/mypypi/crawler &amp;amp;&amp;amp; python3 -m scrapy crawl exp10it
 
 ├── crawler                 
 │   ├── crawler                  
