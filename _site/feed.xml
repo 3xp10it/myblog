@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 15 Dec 2017 18:20:54 +0800</pubDate>
-    <lastBuildDate>Fri, 15 Dec 2017 18:20:54 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Sat, 16 Dec 2017 14:48:46 +0800</pubDate>
+    <lastBuildDate>Sat, 16 Dec 2017 14:48:46 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>记一次爬虫绕过</title>
@@ -311,9 +311,20 @@ def scrapy_splash_crawl_url(url):
 
 &lt;h3 id=&quot;0x02-解决办法&quot;&gt;0x02 解决办法&lt;/h3&gt;
 
+&lt;p&gt;方法1:&lt;/p&gt;
+
 &lt;p&gt;设置/root/3xp10it/3xp10it.py(项目运行文件)的工作目录为与爬虫目录中的scrapy.cfg文件同目录的/root/mypypi/crawler,如下图&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/pycharm_scrapy.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;方法2(推荐):&lt;/p&gt;
+
+&lt;p&gt;将方法1中的在pycharm中为/root/3xp10it/3xp10it.py设置的工作目录为/root/mypypi/crawler通过代码实现,在
+&lt;code class=&quot;highlighter-rouge&quot;&gt;cmdline.execute('scrapy crawl exp10it'.split())&lt;/code&gt;前通过代码切换工作目录:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;os.chdir(&quot;/root/mypypi/crawler&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Thu, 14 Dec 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/python/2017/12/14/pycharm%E8%B0%83%E8%AF%95%E5%8C%85%E5%90%ABscrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E9%A1%B9%E7%9B%AE/</link>

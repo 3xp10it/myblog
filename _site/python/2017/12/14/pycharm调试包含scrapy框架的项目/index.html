@@ -230,9 +230,20 @@ def scrapy_splash_crawl_url(url):
 
 <h3 id="0x02-解决办法">0x02 解决办法</h3>
 
+<p>方法1:</p>
+
 <p>设置/root/3xp10it/3xp10it.py(项目运行文件)的工作目录为与爬虫目录中的scrapy.cfg文件同目录的/root/mypypi/crawler,如下图</p>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/pycharm_scrapy.png" /></p>
+
+<p>方法2(推荐):</p>
+
+<p>将方法1中的在pycharm中为/root/3xp10it/3xp10it.py设置的工作目录为/root/mypypi/crawler通过代码实现,在
+<code class="highlighter-rouge">cmdline.execute('scrapy crawl exp10it'.split())</code>前通过代码切换工作目录:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>os.chdir("/root/mypypi/crawler")
+</code></pre>
+</div>
 </span>
 
         
