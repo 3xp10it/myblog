@@ -32,6 +32,7 @@ $green:          #92C7A3;
 $good-green:	 #B3D169;
 $light:          #DFECE6;
 $white:          #FFFFFF;
+$word-color:     #CCCCCC;
 $dark-purple:    #300030;
 $medium-purple:  #480048;
 $regular-purple: #601848;
@@ -61,7 +62,7 @@ body {
 	font-family: '文泉驿等宽正黑';
 	font-weight: 300;
 	background-color: $dark;
-	color: $white;
+	color: $word-color;
 	font-size: 16px;
 	height: 100%;
 	width: 100%
