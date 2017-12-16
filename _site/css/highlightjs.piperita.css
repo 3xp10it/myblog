@@ -1,6 +1,7 @@
 /* Piperita - Theme */
 /* by Jacob Tomlinson () */
 /* Colours */
+/*$base-white:      #E6E6E6;*/
 /* Piperita Dark Title */
 .hljs-title {
   color: #DBDBDB; }
@@ -68,7 +69,7 @@
 .hljs {
   display: block;
   overflow-x: auto;
-  color: #E6E6E6;
+  color: #CCCCCC;
   -webkit-text-size-adjust: none; }
 
 .coffeescript .javascript,
