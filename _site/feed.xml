@@ -5,9 +5,34 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 18 Dec 2017 18:00:29 +0800</pubDate>
-    <lastBuildDate>Mon, 18 Dec 2017 18:00:29 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Mon, 18 Dec 2017 23:48:36 +0800</pubDate>
+    <lastBuildDate>Mon, 18 Dec 2017 23:48:36 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>ios应用逆向工程1-4章笔记</title>
+        <description>&lt;h3 id=&quot;概念篇工具篇&quot;&gt;概念篇+工具篇&lt;/h3&gt;
+
+&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资
+源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个
+dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口
+来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度&lt;/p&gt;
+
+&lt;p&gt;2.Xcode自带的plutil工具可查看plist文件,命令为&lt;code class=&quot;highlighter-rouge&quot;&gt;plutil -p xxx.plist&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 18 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>ios</category>
+        
+        <category>reverse</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>记一次爬虫绕过</title>
@@ -1549,91 +1574,6 @@ for循环重写了&lt;/p&gt;
         <pubDate>Tue, 21 Nov 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/python/2017/11/21/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2017/11/21/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>流畅的python第1章笔记</title>
-        <description>&lt;h3 id=&quot;python数据模型&quot;&gt;Python数据模型&lt;/h3&gt;
-
-&lt;p&gt;1.doctest模块是测试代码中在注释内的以&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;开头的所在行的python语句正确性的模块&lt;/p&gt;
-
-&lt;p&gt;2.特殊方法的存在是为了被python解释器调用的,你自己不需要调用它.例如,没有&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj.__len__()&lt;/code&gt;这种写法,而应该用
-&lt;code class=&quot;highlighter-rouge&quot;&gt;len(my_obj)&lt;/code&gt;,在执行&lt;code class=&quot;highlighter-rouge&quot;&gt;len(my_obj)&lt;/code&gt;时,如果&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj&lt;/code&gt;是一个自定义类的对象,那么python会自己调用其中由你实现的
-&lt;code class=&quot;highlighter-rouge&quot;&gt;__len__&lt;/code&gt;方法&lt;/p&gt;
-
-&lt;p&gt;3.如果是python内置类型,如list,str,bytearray(字节序列),那么CPython会抄近路,&lt;code class=&quot;highlighter-rouge&quot;&gt;__len__&lt;/code&gt;实际上会直接返回PyVarObject里
-的&lt;code class=&quot;highlighter-rouge&quot;&gt;ob_size&lt;/code&gt;属性,直接读取这个值比调用一个方法要快很多&lt;/p&gt;
-
-&lt;p&gt;4.很多时候,特殊方法是隐式的,比如&lt;code class=&quot;highlighter-rouge&quot;&gt;for i in x:&lt;/code&gt;这个语句,背后其实用的是&lt;code class=&quot;highlighter-rouge&quot;&gt;iter(x)&lt;/code&gt;,而这个函数的背后则是
-&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__iter__()&lt;/code&gt;方法,当然前提是这个方法在x中被实现了&lt;/p&gt;
-
-&lt;p&gt;5.Python有个内置函数&lt;code class=&quot;highlighter-rouge&quot;&gt;repr&lt;/code&gt;,它能把一个对象用字符串的形式表达出来以便辨认,这就是”字符串表示形式”,repr就是通过
-&lt;code class=&quot;highlighter-rouge&quot;&gt;__repr__&lt;/code&gt;这个特殊方法来得到一个对象的字符表示形式的,如果没有实现&lt;code class=&quot;highlighter-rouge&quot;&gt;__repr__&lt;/code&gt;,当我们在控制台里打印一个向量的实例时,
-得到的字符串可能会是&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Vector object at 0x10e100070&amp;gt;&lt;/code&gt;.通常eval(repr(obj))和obj是等同的.&lt;code class=&quot;highlighter-rouge&quot;&gt;%r&lt;/code&gt;可获取对象各个属性的标
-准字符串表示形式.&lt;/p&gt;
-
-&lt;p&gt;6.&lt;code class=&quot;highlighter-rouge&quot;&gt;repr()&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;str()&lt;/code&gt;的对比:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;repr()得到的结果是给python看的,方便调试和记录日志
-str()得到的结果是用户看的,方便给终端用户看
-如果一个对象没有__str__函数,而python又需要调用它时,解释器会用__repr__作为替代
-
-import datetime
-d=datetime.date.today()
-print(&quot;%s&quot; % d)
-print(&quot;%r&quot; % d)
-
-输出:
-2017-11-20
-datetime.date(2017,11,20)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;7.bool(x)的背后是调用&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__bool__()&lt;/code&gt;的结果;如果不存在&lt;code class=&quot;highlighter-rouge&quot;&gt;__bool__&lt;/code&gt;方法,那么bool(x)会尝试调用&lt;code class=&quot;highlighter-rouge&quot;&gt;x.__len__()&lt;/code&gt;,若返回0,则
-bool会返回False,否则返回True.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;None==[]==()=={}==False?    ====&amp;gt; 不是的
-而是:
-bool(None)==bool([])=bool(())==bool({})==False
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;8.在python中,输入import this会弹出python之禅&lt;/p&gt;
-
-&lt;p&gt;9.len之所以不是一个普通的方法,是为了让python自带的数据结构可以走后门,因为如果x是一个内置类型的实例,那么len(x)会通
-过CPython直接从一个C结构体里读取对象的长度得到,完全不会调用任何方法,获取一个集合中元素的数量是一个很常见的操作,在
-str,list,memoryview等类型上,这个操作必须高效&lt;/p&gt;
-
-&lt;p&gt;10.通过实现特殊方法,自定义数据类型可以表现得跟内置类型一样,从而让我们写出更具表达力的代码.如:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class FrenchDeck:
-    ranks=[str(n) for n in range(2,11)]+list('JQKA')
-    suits='spades diamonds clubs hearts'.split()
-
-    def __init__(self):
-        self.cards=...
-
-    def __len__(self):
-        return len(self._cards)
-
-    def __getitem__(self,position):
-        return self._cards[position]
-    
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;11.python的&lt;a href=&quot;http://blog.csdn.net/yuan_j_y/article/details/9317817&quot;&gt;四个魔法方法&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 20 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2017/11/20/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC1%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>python</category>
         
