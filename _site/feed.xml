@@ -5,19 +5,21 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 19 Dec 2017 15:41:02 +0800</pubDate>
-    <lastBuildDate>Tue, 19 Dec 2017 15:41:02 +0800</lastBuildDate>
+    <pubDate>Tue, 19 Dec 2017 15:48:58 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Dec 2017 15:48:58 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>vim写markdown</title>
         <description>&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html&quot;&gt;Better Writing Markdown Experience on Vim&lt;/a&gt;
-&lt;a href=&quot;http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping&quot;&gt;Move cursor by display lines when wrapping&lt;/a&gt;
-&lt;a href=&quot;https://www.swamphogg.com/2015/vim-setup/&quot;&gt;Vim Setup for Markdown&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html&quot;&gt;Better Writing Markdown Experience on Vim&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping&quot;&gt;Move cursor by display lines when wrapping&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.swamphogg.com/2015/vim-setup/&quot;&gt;Vim Setup for Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h3 id=&quot;why&quot;&gt;Why&lt;/h3&gt;
+&lt;h1 id=&quot;why&quot;&gt;Why&lt;/h1&gt;
 
 &lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;em&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/em&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
 

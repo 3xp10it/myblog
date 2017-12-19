@@ -386,11 +386,11 @@ ul {
     font-family: '文泉驿等宽正黑';
     margin-bottom: 15px; }
   .single h1 {
-    font-size: 30px; }
+    font-size: 36px; }
   .single h2 {
-    font-size: 25px; }
+    font-size: 28px; }
   .single h3 {
-    font-size: 20px; }
+    font-size: 24px; }
   .single p {
     margin-bottom: 10px; }
     @media (min-width: 768px) {
@@ -465,7 +465,7 @@ ul {
       /*width: 980px;*/ }
       @media (min-width: 768px) {
         .single .article .content {
-          font-size: 15px;
+          font-size: 16px;
           /*padding-left: 30px;
           padding-right: 30px;*/
           padding-top: 40px;
