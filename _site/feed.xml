@@ -5,18 +5,105 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 19 Dec 2017 08:17:09 +0800</pubDate>
-    <lastBuildDate>Tue, 19 Dec 2017 08:17:09 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Tue, 19 Dec 2017 15:41:02 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Dec 2017 15:41:02 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>vim写markdown</title>
+        <description>&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html&quot;&gt;Better Writing Markdown Experience on Vim&lt;/a&gt;
+&lt;a href=&quot;http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping&quot;&gt;Move cursor by display lines when wrapping&lt;/a&gt;
+&lt;a href=&quot;https://www.swamphogg.com/2015/vim-setup/&quot;&gt;Vim Setup for Markdown&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;why&quot;&gt;Why&lt;/h3&gt;
+
+&lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;em&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/em&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png&quot; alt=&quot;换行变成空格&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等&lt;/p&gt;
+
+&lt;h3 id=&quot;how&quot;&gt;How&lt;/h3&gt;
+
+&lt;p&gt;为解决vim开启wrap写markdown时的一些”不适”,设置如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;markdown setting
+au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
+&quot;au FileType markdown setlocal spell        &quot; Spellchecking for Markdown
+au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
+au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
+&quot;au FileType markdown setlocal showbreak=↳\ &quot; Know where we're
+au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
+
+&quot; for wrap is on
+noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; k gk
+&quot; for wrap is on
+noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; j gj
+&quot; for wrap is on
+noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; 0 g0
+&quot; for wrap is on
+noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; $ g$
+
+inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
+&quot; for wrap is on
+inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
+&quot; for wrap is on
+inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
+inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
+cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
+cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
+cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
+cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 19 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/vim/2017/12/19/vim%E5%86%99markdown/</link>
+        <guid isPermaLink="true">http://localhost:4000/vim/2017/12/19/vim%E5%86%99markdown/</guid>
+        
+        <category>markdown</category>
+        
+        <category>vim</category>
+        
+        
+        <category>vim</category>
+        
+      </item>
     
       <item>
         <title>ios应用逆向工程1-4章笔记</title>
         <description>&lt;h3 id=&quot;概念篇工具篇&quot;&gt;概念篇+工具篇&lt;/h3&gt;
 
-&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资
-源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个
-dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口
-来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度&lt;/p&gt;
+&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目,若
+中包含了多少事情呢中的是的是为什么呆呢本野的时电器城是遥的流口水打飞机lkjs回村
+是的中蝗的呆是的城中村唱票嘌螵的地的是楞时呆时顶起嘌蜗杆只要在一起只要在一起器
+材城器材城器材城器材城只要在一起只要在一起靠山山倒发嘌杏嘌嘌嘌器材城器材城器材
+城嘌&lt;/p&gt;
+</description>
+        <pubDate>Mon, 18 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0bak/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0bak/</guid>
+        
+        <category>ios</category>
+        
+        <category>reverse</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+      <item>
+        <title>ios应用逆向工程1-4章笔记</title>
+        <description>&lt;h3 id=&quot;概念篇工具篇&quot;&gt;概念篇+工具篇&lt;/h3&gt;
+
+&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过
+调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都
+可以在bundle内找到,这大大降低了逆向工程的复杂度&lt;/p&gt;
 
 &lt;p&gt;2.Xcode自带的plutil工具可查看plist文件,命令为&lt;code class=&quot;highlighter-rouge&quot;&gt;plutil -p xxx.plist&lt;/code&gt;&lt;/p&gt;
 
@@ -1502,83 +1589,6 @@ eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>kali linux安装源的问题</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;p&gt;新下载的kali linux 3在安装pd的paralles tools时需要安装&lt;code class=&quot;highlighter-rouge&quot;&gt;linux-headers-$(uname -r)&lt;/code&gt;,于是apt-get update,出现了经典的
-基于debain的系统的安装源的问题,如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kali3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-必读link&quot;&gt;0x01 必读link&lt;/h3&gt;
-
-&lt;p&gt;debain安装源地址语法&lt;a href=&quot;http://www.cnblogs.com/beanmoon/p/3387652.html&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt; Hash 校验和不符等错误的原因&lt;br /&gt;
-&lt;a href=&quot;http://www.kali.org.cn/thread-23272-1-1.html&quot;&gt;1&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;http://forum.ubuntu.org.cn/viewtopic.php?t=473765&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x02-解决方法&quot;&gt;0x02 解决方法&lt;/h3&gt;
-
-&lt;p&gt;1.理解debain安装源地址格式语法后,设置正确的源&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kali官方debain源:
-http://http.kali.org/
-
-需要在sources.list文件中如下设置:
-deb http://http.kali.org/ kali-rolling main contrib non-free
-其中main contrib non-free的顺序可变
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/theonegis/article/details/59142193&quot;&gt;这里&lt;/a&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update -o Acquire-by-hash=yes -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;3.手机开个热点或换个wifi或开vpn之后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;即可&lt;/p&gt;
-
-&lt;p&gt;4.解决安装源的问题后如果再安装paralles tools还有问题可按照&lt;a href=&quot;http://kb.parallels.com/en/123968&quot;&gt;这里&lt;/a&gt;解决&lt;/p&gt;
-
-&lt;p&gt;5.如果上面4中的链接没有成功安装,则升级paralleles desktop,实际安装中,由paralleles12升级为paralleles13.2.0后再按照上面3中的链接可成功安装&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 27 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-        <guid isPermaLink="true">http://localhost:4000/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-        
-        <category>kali</category>
-        
-        <category>debain</category>
-        
-        <category>sources.list</category>
-        
-        
-        <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>流畅的python第2章笔记</title>
-        <description>&lt;h3 id=&quot;序列构成的数组&quot;&gt;序列构成的数组&lt;/h3&gt;
-
-&lt;p&gt;1.列表推导是一种构建列表的方法,它异常强大,掌握列表推导还可以为我们打开生成器表达式的大门,后者具有生成各种类型的元
-素并用它们来填充序列的功能&lt;/p&gt;
-
-&lt;p&gt;2.通常的原则是,只用列表推导来创建新的列表,并且尽量保持简短.如果列表推导的代码超过了两行,你可能就要考虑是不是利用
-for循环重写了&lt;/p&gt;
-
-&lt;p&gt;3.列表推导示例:&lt;code class=&quot;highlighter-rouge&quot;&gt;tshirts=[(color,size) for color in colors for size in sizes]&lt;/code&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 21 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/python/2017/11/21/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2017/11/21/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC2%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
         
       </item>
     

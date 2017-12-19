@@ -115,10 +115,9 @@
 
         <span itemprop="articleBody"><h3 id="概念篇工具篇">概念篇+工具篇</h3>
 
-<p>1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资
-源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个
-dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口
-来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度</p>
+<p>1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过
+调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都
+可以在bundle内找到,这大大降低了逆向工程的复杂度</p>
 
 <p>2.Xcode自带的plutil工具可查看plist文件,命令为<code class="highlighter-rouge">plutil -p xxx.plist</code></p>
 
