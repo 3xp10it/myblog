@@ -115,15 +115,49 @@
 
         <span itemprop="articleBody"><p>###</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.免去.vimrc中写set pastetoggle=&lt;f7&gt;,(:set paste或:set unpaste)粘贴原文的时候直接用"+寄存器
-2.复制内容时可这样:(这样可免去进入可视模式)
-    1&gt;在要复制的起始处ma(标记为a)
-    2&gt;s跳转到要复制的结尾处(已经将s设置为easymotion插件的触发键的情况下)
-    3&gt;在已经跳转到的结尾处y'a(表示复制到a标记处)
-    4&gt;s跳转到要粘贴的地方,然后p即可
+<p>1.免去.vimrc中写set pastetoggle=<f7>,(:set paste或:set unpaste)粘贴原文的时候直接用"+寄存器</f7></p>
 
+<p>2.复制内容时可这样:(这样可免去进入可视模式)</p>
+<ul>
+  <li>在要复制的起始处ma(标记为a)</li>
+  <li>s跳转到要复制的结尾处(已经将s设置为easymotion插件的触发键的情况下)</li>
+  <li>在已经跳转到的结尾处y’a(表示复制到a标记处)</li>
+  <li>s跳转到要粘贴的地方,然后p即可</li>
+</ul>
+
+<p>3.wrap开启时<code class="highlighter-rouge">j/k/0/$</code>的效果可通过<code class="highlighter-rouge">gj/gk/g0/g$</code>实现</p>
+
+<p>4.<code class="highlighter-rouge">vi{/[/(/p</code>可快速选中一段内容,使用上面2中的标记法也可起到和这里的vi的效果,也即<code class="highlighter-rouge">ma+v'a</code></p>
+<ul>
+  <li><code class="highlighter-rouge">vi{</code>:选中{}里面的内容</li>
+  <li><code class="highlighter-rouge">vi[</code>:选中[]</li>
+  <li><code class="highlighter-rouge">vi()</code>:选中()里面的内容</li>
+  <li><code class="highlighter-rouge">vip</code>:选中一个段落中的内容</li>
+</ul>
+
+<p>5.<a href="https://github.com/tpope/vim-surround">vim-surround</a>可快速添加/替换/删除成对符号</p>
+<ul>
+  <li><code class="highlighter-rouge">ysiw'</code>:将一个单词加上<code class="highlighter-rouge">''</code>括起来</li>
+  <li><code class="highlighter-rouge">cs'"</code>:将当前周围的<code class="highlighter-rouge">""</code>变成<code class="highlighter-rouge">''</code></li>
+  <li><code class="highlighter-rouge">ds'</code>:将当前周围的<code class="highlighter-rouge">''</code>去除</li>
+  <li><code class="highlighter-rouge">cst'</code>:将当前周围的tag(如<code class="highlighter-rouge"><span class="nt">&lt;html&gt;&lt;/html&gt;</span></code>)替换成<code class="highlighter-rouge">''</code></li>
+  <li>更多详情在<a href="https://github.com/tpope/vim-surround">这里</a></li>
+</ul>
+
+<p>例如,将下面的header变成dict</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Set-Cookie: pssid=1111
+
+vim操作(光标在S处):yst:'
+'Set-Cookie': pssid=1111
+
+vim操作(光标在p处):ys$'
+'Set-Cookie': 'pssid=1111'
 </code></pre>
 </div>
+
+<p>6.bo be continue…</p>
+
 </span>
 
         
