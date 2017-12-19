@@ -22,20 +22,18 @@ tags:
 
 ![换行变成空格][3]
 
-所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有"不适",如j/k的使用,0/$的使用等
+所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有"不适",如j/k的使用,0/$的使用等.
 
 ### How
 
-为解决vim开启wrap写markdown时的一些"不适",设置如下
+为解决vim开启wrap写markdown时的一些"不适",可在vimrc中设置如下
 
 ```
 "markdown setting
 au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-"au FileType markdown setlocal spell        " Spellchecking for Markdown
 au FileType markdown setlocal linebreak    " Avoid wrap breaking words
 au FileType markdown setlocal nolist       " Make sure linebreak work as expected
-"au FileType markdown setlocal showbreak=↳\ " Know where we're
 au FileType markdown setlocal textwidth=0 " Remove text width limit
 
 " for wrap is on
@@ -59,8 +57,42 @@ cnoremap <c-k> <up>
 cnoremap <c-l> <right>
 ```
 
+上面是不用插件的方法,也可使用[vim-pencil[6]插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成`gj/gk/g0/g$`的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中
+
+```
+Plugin 'reedes/vim-pencil'  "安装这个插件,放在较靠前位置
+...
+...
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+
+"markdown setting
+au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
+au FileType markdown setlocal linebreak    " Avoid wrap breaking words
+au FileType markdown setlocal nolist       " Make sure linebreak work as expected
+au FileType markdown setlocal textwidth=0 " Remove text width limit
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END
+
+inoremap <c-h> <left>
+" for wrap is on
+inoremap <c-j> <esc>gjli
+" for wrap is on
+inoremap <c-k> <esc>gkli
+inoremap <c-l> <right>
+cnoremap <c-h> <left>
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
+cnoremap <c-l> <right>
+```
+
 [1]: https://www.swamphogg.com/2015/vim-setup/
 [2]: https://github.com/iamcco/markdown-preview.vim/issues/54
 [3]: https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png
 [4]: https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html
 [5]: http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
+[6]: https://github.com/reedes/vim-pencil

@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 19 Dec 2017 18:01:20 +0800</pubDate>
-    <lastBuildDate>Tue, 19 Dec 2017 18:01:20 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 19 Dec 2017 23:03:26 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Dec 2017 23:03:26 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>vim写markdown</title>
@@ -25,19 +25,17 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png&quot; alt=&quot;换行变成空格&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等&lt;/p&gt;
+&lt;p&gt;所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等.&lt;/p&gt;
 
 &lt;h3 id=&quot;how&quot;&gt;How&lt;/h3&gt;
 
-&lt;p&gt;为解决vim开启wrap写markdown时的一些”不适”,设置如下&lt;/p&gt;
+&lt;p&gt;为解决vim开启wrap写markdown时的一些”不适”,可在vimrc中设置如下&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;markdown setting
 au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-&quot;au FileType markdown setlocal spell        &quot; Spellchecking for Markdown
 au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
 au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
-&quot;au FileType markdown setlocal showbreak=↳\ &quot; Know where we're
 au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
 
 &quot; for wrap is on
@@ -48,6 +46,39 @@ noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; j gj
 noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; 0 g0
 &quot; for wrap is on
 noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; $ g$
+
+inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
+&quot; for wrap is on
+inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
+&quot; for wrap is on
+inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
+inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
+cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
+cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
+cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
+cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面是不用插件的方法,也可使用[vim-pencil&lt;a href=&quot;https://github.com/reedes/vim-pencil&quot;&gt;6&lt;/a&gt;插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成&lt;code class=&quot;highlighter-rouge&quot;&gt;gj/gk/g0/g$&lt;/code&gt;的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plugin 'reedes/vim-pencil'  &quot;安装这个插件,放在较靠前位置
+...
+...
+let g:pencil#wrapModeDefault = 'soft'   &quot; default is 'hard'
+
+&quot;markdown setting
+au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
+au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
+au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
+au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END
 
 inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
 &quot; for wrap is on

@@ -127,19 +127,17 @@
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png" alt="换行变成空格" /></p>
 
-<p>所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等</p>
+<p>所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等.</p>
 
 <h3 id="how">How</h3>
 
-<p>为解决vim开启wrap写markdown时的一些”不适”,设置如下</p>
+<p>为解决vim开启wrap写markdown时的一些”不适”,可在vimrc中设置如下</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>"markdown setting
 au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-"au FileType markdown setlocal spell        " Spellchecking for Markdown
 au FileType markdown setlocal linebreak    " Avoid wrap breaking words
 au FileType markdown setlocal nolist       " Make sure linebreak work as expected
-"au FileType markdown setlocal showbreak=↳\ " Know where we're
 au FileType markdown setlocal textwidth=0 " Remove text width limit
 
 " for wrap is on
@@ -150,6 +148,39 @@ noremap  &lt;buffer&gt; &lt;silent&gt; j gj
 noremap  &lt;buffer&gt; &lt;silent&gt; 0 g0
 " for wrap is on
 noremap  &lt;buffer&gt; &lt;silent&gt; $ g$
+
+inoremap &lt;c-h&gt; &lt;left&gt;
+" for wrap is on
+inoremap &lt;c-j&gt; &lt;esc&gt;gjli
+" for wrap is on
+inoremap &lt;c-k&gt; &lt;esc&gt;gkli
+inoremap &lt;c-l&gt; &lt;right&gt;
+cnoremap &lt;c-h&gt; &lt;left&gt;
+cnoremap &lt;c-j&gt; &lt;down&gt;
+cnoremap &lt;c-k&gt; &lt;up&gt;
+cnoremap &lt;c-l&gt; &lt;right&gt;
+</code></pre>
+</div>
+
+<p>上面是不用插件的方法,也可使用[vim-pencil<a href="https://github.com/reedes/vim-pencil">6</a>插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成<code class="highlighter-rouge">gj/gk/g0/g$</code>的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Plugin 'reedes/vim-pencil'  "安装这个插件,放在较靠前位置
+...
+...
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+
+"markdown setting
+au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
+au FileType markdown setlocal linebreak    " Avoid wrap breaking words
+au FileType markdown setlocal nolist       " Make sure linebreak work as expected
+au FileType markdown setlocal textwidth=0 " Remove text width limit
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END
 
 inoremap &lt;c-h&gt; &lt;left&gt;
 " for wrap is on
