@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 19 Dec 2017 23:03:26 +0800</pubDate>
-    <lastBuildDate>Tue, 19 Dec 2017 23:03:26 +0800</lastBuildDate>
+    <pubDate>Wed, 20 Dec 2017 08:19:43 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Dec 2017 08:19:43 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -60,7 +60,7 @@ cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;上面是不用插件的方法,也可使用[vim-pencil&lt;a href=&quot;https://github.com/reedes/vim-pencil&quot;&gt;6&lt;/a&gt;插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成&lt;code class=&quot;highlighter-rouge&quot;&gt;gj/gk/g0/g$&lt;/code&gt;的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中&lt;/p&gt;
+&lt;p&gt;上面是不用插件的方法,也可使用&lt;a href=&quot;https://github.com/reedes/vim-pencil&quot;&gt;vim-pencil&lt;/a&gt;插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成&lt;code class=&quot;highlighter-rouge&quot;&gt;gj/gk/g0/g$&lt;/code&gt;的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plugin 'reedes/vim-pencil'  &quot;安装这个插件,放在较靠前位置
 ...

@@ -57,7 +57,7 @@ cnoremap <c-k> <up>
 cnoremap <c-l> <right>
 ```
 
-上面是不用插件的方法,也可使用[vim-pencil[6]插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成`gj/gk/g0/g$`的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中
+上面是不用插件的方法,也可使用[vim-pencil][6]插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成`gj/gk/g0/g$`的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中
 
 ```
 Plugin 'reedes/vim-pencil'  "安装这个插件,放在较靠前位置
