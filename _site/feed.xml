@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 20 Dec 2017 16:05:16 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Dec 2017 16:05:16 +0800</lastBuildDate>
+    <pubDate>Wed, 20 Dec 2017 16:18:05 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Dec 2017 16:18:05 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -43,38 +43,17 @@ iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
 &lt;p&gt;使用ios上的safari真机调试css,具体步骤如下&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;在macOS&lt;/td&gt;
-          &lt;td&gt;safari&lt;/td&gt;
-          &lt;td&gt;偏好设置&lt;/td&gt;
-          &lt;td&gt;高级选项&lt;/td&gt;
-          &lt;td&gt;打开在菜单栏中显示开发功能&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;在ios上打开设置&lt;/td&gt;
-          &lt;td&gt;safari&lt;/td&gt;
-          &lt;td&gt;高级&lt;/td&gt;
-          &lt;td&gt;web检查器&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;macOS|safari|偏好设置|高级选项|打开在菜单栏中显示开发功能&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ios上打开设置|safari|高级|web检查器&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,打开它&lt;/li&gt;
   &lt;li&gt;然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;方法二&quot;&gt;方法二&lt;/h4&gt;
 
-&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css,css需要用对应ios设备的标准显示对应的media query,也即用portrait对应的media query&lt;/p&gt;
+&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;css需要用对应ios设备的标准显示对应的media query,也即用portrait对应的media query&lt;/em&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 20 Dec 2017 00:00:00 +0800</pubDate>
