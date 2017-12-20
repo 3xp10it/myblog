@@ -563,7 +563,7 @@ pre code {
     border-radius: 0;
     color: inherit;
     /*font-size: inherit;*/
-    font-size: 16px;
+    font-size: 100%;
     /*padding: 0;*/
     padding-left: 35px;
     padding-right: 35px;
