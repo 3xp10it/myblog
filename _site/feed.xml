@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 20 Dec 2017 15:58:00 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Dec 2017 15:58:00 +0800</lastBuildDate>
+    <pubDate>Wed, 20 Dec 2017 16:05:16 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Dec 2017 16:05:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -18,7 +18,7 @@
 &lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/35221839&quot;&gt;现在手机分辨率这么大，如何写响应式布局&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/35221839&quot;&gt;现在手机分辨率这么大,如何写响应式布局&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://stephen.io/mediaqueries/&quot;&gt;CSS Media Queries for 
 iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://gist.github.com/needim/d15fdc2ac133d8078f7c&quot;&gt;Device Specific CSS Media Queries Collection&lt;/a&gt;&lt;/li&gt;
@@ -27,7 +27,9 @@ iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
 &lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-/* iPhone 6 portrait,iphone6标准视图*/
+/* porttrait是标准显示 */
+/* landscape是放大显示 */
+/* 这里用的是iPhone 6 portrait,iphone6标准显示*/
 @media only screen and (min-device-width: 375px)
   and (max-device-width: 667px)
   and (orientation: portrait)
@@ -66,12 +68,13 @@ iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;
   &lt;/li&gt;
-  &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
+  &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,打开它&lt;/li&gt;
+  &lt;li&gt;然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;方法二&quot;&gt;方法二&lt;/h4&gt;
 
-&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css&lt;/p&gt;
+&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css,css需要用对应ios设备的标准显示对应的media query,也即用portrait对应的media query&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 20 Dec 2017 00:00:00 +0800</pubDate>
