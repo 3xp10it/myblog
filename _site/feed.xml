@@ -5,9 +5,87 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 20 Dec 2017 15:00:38 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Dec 2017 15:00:38 +0800</lastBuildDate>
+    <pubDate>Wed, 20 Dec 2017 15:58:00 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Dec 2017 15:58:00 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>ios的css调试</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;css调试中,ios设备比较特殊(具备高清显示屏),物理像素和css像素值不相同,调试css时方法特殊&lt;/p&gt;
+
+&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/35221839&quot;&gt;现在手机分辨率这么大，如何写响应式布局&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stephen.io/mediaqueries/&quot;&gt;CSS Media Queries for 
+iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/needim/d15fdc2ac133d8078f7c&quot;&gt;Device Specific CSS Media Queries Collection&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+/* iPhone 6 portrait,iphone6标准视图*/
+@media only screen and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (orientation: portrait)
+  and (-webkit-min-device-pixel-ratio: 2)
+{...}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;方法一&quot;&gt;方法一&lt;/h4&gt;
+
+&lt;p&gt;使用ios上的safari真机调试css,具体步骤如下&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;在macOS&lt;/td&gt;
+          &lt;td&gt;safari&lt;/td&gt;
+          &lt;td&gt;偏好设置&lt;/td&gt;
+          &lt;td&gt;高级选项&lt;/td&gt;
+          &lt;td&gt;打开在菜单栏中显示开发功能&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;在ios上打开设置&lt;/td&gt;
+          &lt;td&gt;safari&lt;/td&gt;
+          &lt;td&gt;高级&lt;/td&gt;
+          &lt;td&gt;web检查器&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;方法二&quot;&gt;方法二&lt;/h4&gt;
+
+&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 20 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</guid>
+        
+        <category>css</category>
+        
+        <category>ios</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>vim写markdown</title>
@@ -1599,60 +1677,6 @@ eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>kali linux安装源的问题</title>
-        <description>&lt;h3 id=&quot;0x00-about&quot;&gt;0x00 About&lt;/h3&gt;
-
-&lt;p&gt;新下载的kali linux 3在安装pd的paralles tools时需要安装&lt;code class=&quot;highlighter-rouge&quot;&gt;linux-headers-$(uname -r)&lt;/code&gt;,于是apt-get update,出现了经典的
-基于debain的系统的安装源的问题,如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kali3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x01-必读link&quot;&gt;0x01 必读link&lt;/h3&gt;
-
-&lt;p&gt;debain安装源地址语法&lt;a href=&quot;http://www.cnblogs.com/beanmoon/p/3387652.html&quot;&gt;理解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt; Hash 校验和不符等错误的原因&lt;br /&gt;
-&lt;a href=&quot;http://www.kali.org.cn/thread-23272-1-1.html&quot;&gt;1&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;http://forum.ubuntu.org.cn/viewtopic.php?t=473765&quot;&gt;2&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x02-解决方法&quot;&gt;0x02 解决方法&lt;/h3&gt;
-
-&lt;p&gt;1.理解debain安装源地址格式语法后,设置正确的源&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kali官方debain源:
-http://http.kali.org/
-
-需要在sources.list文件中如下设置:
-deb http://http.kali.org/ kali-rolling main contrib non-free
-其中main contrib non-free的顺序可变
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/theonegis/article/details/59142193&quot;&gt;这里&lt;/a&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update -o Acquire-by-hash=yes -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;3.手机开个热点或换个wifi或开vpn之后重新&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;即可&lt;/p&gt;
-
-&lt;p&gt;4.解决安装源的问题后如果再安装paralles tools还有问题可按照&lt;a href=&quot;http://kb.parallels.com/en/123968&quot;&gt;这里&lt;/a&gt;解决&lt;/p&gt;
-
-&lt;p&gt;5.如果上面4中的链接没有成功安装,则升级paralleles desktop,实际安装中,由paralleles12升级为paralleles13.2.0后再按照上面3中的链接可成功安装&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 27 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-        <guid isPermaLink="true">http://localhost:4000/linux/2017/11/27/kali-linux%E5%AE%89%E8%A3%85%E6%BA%90%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-        
-        <category>kali</category>
-        
-        <category>debain</category>
-        
-        <category>sources.list</category>
-        
-        
-        <category>linux</category>
         
       </item>
     

@@ -706,13 +706,13 @@ ul {
 			padding-bottom: 10px;
             /*width: 980px;*/
 
-            /* iPhone 6 landscape */
+            /* iPhone 6 portrait,iphone6标准视图*/
             @media only screen and (min-device-width: 375px)
               and (max-device-width: 667px)
-              and (orientation: landscape)
+              and (orientation: portrait)
               and (-webkit-min-device-pixel-ratio: 2)
             {
-                font-size: 8px;
+                font-size: 14px;
             }
 
 			@media (min-width: $screen-sm-min) {
