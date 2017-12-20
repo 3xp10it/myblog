@@ -699,7 +699,7 @@ ul {
 
 		.content {
 			font-size: 18px;
-			line-height: 170%;
+			line-height: 1.6;
 			/*padding-left: 15px;*/
 			/*padding-right: 15px;*/
 			padding-top: 10px;
@@ -836,13 +836,18 @@ ul {
 
 				code {
 					font-family: '文泉驿等宽正黑';
-					font-size: 18px;
-					background-color: $green;
+					font-size: 85%;
+					background-color: #cc6699;
 					color: $darker;
-					padding: 0.18em;
-                    padding-top: 0px;
-                    padding-bottom: 0px;
+					padding: 0px;
+                    padding-top: 0.2em;
+                    padding-bottom: 0.2em;
 					vertical-align: middle;
+                    code:before,code:after {
+                              letter-spacing: -0.2em;
+                              content: "\00a0";
+
+                    }
 				}
 
 			}

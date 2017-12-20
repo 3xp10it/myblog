@@ -531,7 +531,7 @@ code, kbd, pre, samp {
 }
 code {
     background-color: #f9f2f4;
-    border-radius: 4px;
+    border-radius: 3px;
     color: #c7254e;
     font-size: 90%;
     /*padding: 15px 0px;*/

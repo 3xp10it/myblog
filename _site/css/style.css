@@ -457,7 +457,7 @@ ul {
           margin-bottom: 40px; } }
     .single .article .content {
       font-size: 18px;
-      line-height: 170%;
+      line-height: 1.6;
       /*padding-left: 15px;*/
       /*padding-right: 15px;*/
       padding-top: 10px;
@@ -557,13 +557,16 @@ ul {
               font-size: 15px; } }
       .single .article .content p code, .single .article .content ul code, .single .article .content ol code {
         font-family: '文泉驿等宽正黑';
-        font-size: 18px;
-        background-color: #92C7A3;
+        font-size: 85%;
+        background-color: #cc6699;
         color: #212120;
-        padding: 0.18em;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding: 0px;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
         vertical-align: middle; }
+        .single .article .content p code code:before, .single .article .content p code code:after, .single .article .content ul code code:before, .single .article .content ul code code:after, .single .article .content ol code code:before, .single .article .content ol code code:after {
+          letter-spacing: -0.2em;
+          content: "\00a0"; }
       .single .article .content .tags {
         margin-top: 10px;
         margin-bottom: 10px;
