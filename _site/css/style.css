@@ -462,7 +462,11 @@ ul {
       /*padding-right: 15px;*/
       padding-top: 10px;
       padding-bottom: 10px;
-      /*width: 980px;*/ }
+      /*width: 980px;*/
+      /* iPhone 6 landscape */ }
+      @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+        .single .article .content {
+          font-size: 8px; } }
       @media (min-width: 768px) {
         .single .article .content {
           font-size: 16px;

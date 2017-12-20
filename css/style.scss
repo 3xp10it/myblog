@@ -706,6 +706,15 @@ ul {
 			padding-bottom: 10px;
             /*width: 980px;*/
 
+            /* iPhone 6 landscape */
+            @media only screen and (min-device-width: 375px)
+              and (max-device-width: 667px)
+              and (orientation: landscape)
+              and (-webkit-min-device-pixel-ratio: 2)
+            {
+                font-size: 8px;
+            }
+
 			@media (min-width: $screen-sm-min) {
 				font-size:16px;
 				/*padding-left: 30px;
