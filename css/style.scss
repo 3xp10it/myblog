@@ -586,14 +586,40 @@ ul {
     
     h1 {
         font-size: 36px;
+        /* 这里用的是iPhone 6 portrait,iphone6标准显示*/
+        @media only screen and (min-device-width: 375px)
+          and (max-device-width: 667px)
+          and (orientation: portrait)
+          and (-webkit-min-device-pixel-ratio: 2)
+        {
+            font-size: 2.25em;
+        }
     }
 
 	h2 {
 		font-size: 28px;
+
+        /* 这里用的是iPhone 6 portrait,iphone6标准显示*/
+        @media only screen and (min-device-width: 375px)
+          and (max-device-width: 667px)
+          and (orientation: portrait)
+          and (-webkit-min-device-pixel-ratio: 2)
+        {
+            font-size: 1.75em;
+        }
 	}
 
 	h3 {
 		font-size: 24px;
+
+        /* 这里用的是iPhone 6 portrait,iphone6标准显示*/
+        @media only screen and (min-device-width: 375px)
+          and (max-device-width: 667px)
+            and (orientation: portrait)
+              and (-webkit-min-device-pixel-ratio: 2)
+              {
+                  font-size: 1.5em;
+              }
 	}
 
 	p {
@@ -837,14 +863,14 @@ ul {
 				code {
 					font-family: '文泉驿等宽正黑';
 					font-size: 85%;
-					background-color: #cc6699;
+					background-color: #996699;
 					color: $darker;
-					padding: 0px;
+					padding: 4px;
                     padding-top: 0.2em;
                     padding-bottom: 0.2em;
 					vertical-align: middle;
-                    code:before,code:after {
-                              letter-spacing: -0.2em;
+                    code:after {
+                              letter-spacing: -0.4em;
                               content: "\00a0";
 
                     }

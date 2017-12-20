@@ -386,11 +386,23 @@ ul {
     font-family: '文泉驿等宽正黑';
     margin-bottom: 15px; }
   .single h1 {
-    font-size: 36px; }
+    font-size: 36px;
+    /* 这里用的是iPhone 6 portrait,iphone6标准显示*/ }
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+      .single h1 {
+        font-size: 2.25em; } }
   .single h2 {
-    font-size: 28px; }
+    font-size: 28px;
+    /* 这里用的是iPhone 6 portrait,iphone6标准显示*/ }
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+      .single h2 {
+        font-size: 1.75em; } }
   .single h3 {
-    font-size: 24px; }
+    font-size: 24px;
+    /* 这里用的是iPhone 6 portrait,iphone6标准显示*/ }
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+      .single h3 {
+        font-size: 1.5em; } }
   .single p {
     margin-bottom: 10px; }
     @media (min-width: 768px) {
@@ -558,14 +570,14 @@ ul {
       .single .article .content p code, .single .article .content ul code, .single .article .content ol code {
         font-family: '文泉驿等宽正黑';
         font-size: 85%;
-        background-color: #cc6699;
+        background-color: #996699;
         color: #212120;
-        padding: 0px;
+        padding: 4px;
         padding-top: 0.2em;
         padding-bottom: 0.2em;
         vertical-align: middle; }
-        .single .article .content p code code:before, .single .article .content p code code:after, .single .article .content ul code code:before, .single .article .content ul code code:after, .single .article .content ol code code:before, .single .article .content ol code code:after {
-          letter-spacing: -0.2em;
+        .single .article .content p code code:after, .single .article .content ul code code:after, .single .article .content ol code code:after {
+          letter-spacing: -0.4em;
           content: "\00a0"; }
       .single .article .content .tags {
         margin-top: 10px;
