@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 21 Dec 2017 10:13:06 +0800</pubDate>
-    <lastBuildDate>Thu, 21 Dec 2017 10:13:06 +0800</lastBuildDate>
+    <pubDate>Thu, 21 Dec 2017 11:12:10 +0800</pubDate>
+    <lastBuildDate>Thu, 21 Dec 2017 11:12:10 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -55,16 +55,7 @@ print(&quot;after for loop&quot;)
         <description>&lt;h3 id=&quot;0x0-预备知识&quot;&gt;0x0 预备知识&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;之所以能用到xargs这个命令,是由于很多命令不支持&lt;/td&gt;
-          &lt;td&gt;管道来传递参数&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;之所以能用到xargs这个命令,是由于很多命令不支持&lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt;管道来传递参数&lt;/li&gt;
   &lt;li&gt;ack中:
     &lt;ul&gt;
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-r&lt;/code&gt;代表在当前目录的子目录中递归查找&lt;/li&gt;
@@ -74,6 +65,19 @@ print(&quot;after for loop&quot;)
   &lt;/li&gt;
   &lt;li&gt;for用法:
 &lt;code class=&quot;highlighter-rouge&quot;&gt;for each in $(command1);do command2;done&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;find中:
+    &lt;ul&gt;
+      &lt;li&gt;正则查找文件名时查找的文件名是包含完整路径的,也即正则表达式要匹配完整路径&lt;/li&gt;
+      &lt;li&gt;macOS下的正则查找文件名和普通linux下的正则查找文件名用法不同
+        &lt;ul&gt;
+          &lt;li&gt;macOS中正则查找文件名用法为&lt;code class=&quot;highlighter-rouge&quot;&gt;find -E . -regex &quot;正则&quot;&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;普通linux中正则查找文件名用法为&lt;code class=&quot;highlighter-rouge&quot;&gt;find . -regextype posix-extended -regex &quot;正则&quot;&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;find查找时不想显示Permission denied的信息可这样&lt;code class=&quot;highlighter-rouge&quot;&gt;find ... 2&amp;gt;&amp;amp;1 | grep -v &quot;Permission denied&quot;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;find正则查找文件名时忽略大小写用法为:将&lt;code class=&quot;highlighter-rouge&quot;&gt;-regex&lt;/code&gt;替换成&lt;code class=&quot;highlighter-rouge&quot;&gt;-iregex&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;0x1-items&quot;&gt;0x1 Items&lt;/h3&gt;
@@ -90,7 +94,17 @@ for file in $(find . -name &quot;*.py&quot;);do ack -il 'def' $file;doen | xargs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;2.to be continue…&lt;/p&gt;
+&lt;p&gt;2.查找当前目录下包括子目录内所有的临时文件(.swp,.swm,.swn,.swo等,但不包括.swf),并删除这些文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;macOS下:
+find -E . -regex &quot;.+\.sw[^f]$&quot; 2&amp;gt;&amp;amp;1 | grep -v &quot;Permission denied&quot; | xargs rm
+
+普通linux下:
+find . -regextype posix-extended -regex &quot;.+\.sw[^f]$&quot; | grep -v &quot;Permission denied&quot; | xargs rm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.to be continue…&lt;/p&gt;
 </description>
         <pubDate>Thu, 21 Dec 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/linux/2017/12/21/%E5%AE%9E%E7%94%A8shell%E5%91%BD%E4%BB%A4/</link>

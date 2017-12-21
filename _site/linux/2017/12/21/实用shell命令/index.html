@@ -116,16 +116,7 @@
         <span itemprop="articleBody"><h3 id="0x0-预备知识">0x0 预备知识</h3>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>之所以能用到xargs这个命令,是由于很多命令不支持</td>
-          <td>管道来传递参数</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>之所以能用到xargs这个命令,是由于很多命令不支持<code class="highlighter-rouge">|</code>管道来传递参数</li>
   <li>ack中:
     <ul>
       <li><code class="highlighter-rouge">-r</code>代表在当前目录的子目录中递归查找</li>
@@ -135,6 +126,19 @@
   </li>
   <li>for用法:
 <code class="highlighter-rouge">for each in $(command1);do command2;done</code></li>
+  <li>find中:
+    <ul>
+      <li>正则查找文件名时查找的文件名是包含完整路径的,也即正则表达式要匹配完整路径</li>
+      <li>macOS下的正则查找文件名和普通linux下的正则查找文件名用法不同
+        <ul>
+          <li>macOS中正则查找文件名用法为<code class="highlighter-rouge">find -E . -regex "正则"</code></li>
+          <li>普通linux中正则查找文件名用法为<code class="highlighter-rouge">find . -regextype posix-extended -regex "正则"</code></li>
+        </ul>
+      </li>
+      <li>find查找时不想显示Permission denied的信息可这样<code class="highlighter-rouge">find ... 2&gt;&amp;1 | grep -v "Permission denied"</code></li>
+      <li>find正则查找文件名时忽略大小写用法为:将<code class="highlighter-rouge">-regex</code>替换成<code class="highlighter-rouge">-iregex</code></li>
+    </ul>
+  </li>
 </ul>
 
 <h3 id="0x1-items">0x1 Items</h3>
@@ -151,7 +155,17 @@ for file in $(find . -name "*.py");do ack -il 'def' $file;doen | xargs rm
 </code></pre>
 </div>
 
-<p>2.to be continue…</p>
+<p>2.查找当前目录下包括子目录内所有的临时文件(.swp,.swm,.swn,.swo等,但不包括.swf),并删除这些文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>macOS下:
+find -E . -regex ".+\.sw[^f]$" 2&gt;&amp;1 | grep -v "Permission denied" | xargs rm
+
+普通linux下:
+find . -regextype posix-extended -regex ".+\.sw[^f]$" | grep -v "Permission denied" | xargs rm
+</code></pre>
+</div>
+
+<p>3.to be continue…</p>
 </span>
 
         
