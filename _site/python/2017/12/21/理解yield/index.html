@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>理解yield</title>
+<title>快速理解yield</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,7 +93,7 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">理解yield</h1>
+      <h1 class="header" itemprop="name">快速理解yield</h1>
 
       <div class="author">
         <small><i>
@@ -113,7 +113,15 @@
 
         
 
-        <span itemprop="articleBody"><div class="highlighter-rouge"><pre class="highlight"><code>def a():
+        <span itemprop="articleBody"><h3 id="0x0-必读link">0x0 必读link</h3>
+
+<p><a href="http://www.deeplearn.me/231.html">Python-yield理解篇</a></p>
+
+<h3 id="0x1-理解">0x1 理解</h3>
+
+<p>理解下面2个脚本的运行结果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def a():
     print(111)
 
 def b():
@@ -138,6 +146,53 @@ for i in f2:
 print("after for loop")
 </code></pre>
 </div>
+
+<p>运行结果如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>111
+before for loop
+test
+1 &lt;class 'int'&gt;
+666
+nihao
+2 &lt;class 'int'&gt;
+666
+wohao
+ida
+after for loop
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def h():
+    print('Wen Chuan')
+    m = yield 5  # Fighting!
+    print(999999999999)
+    d = yield 12
+    print('We are together!')
+
+c = h()
+tmp=next(c)  #相当于c.send(None)
+print(11111111111)
+print(tmp)
+print(222)
+tmp=c.send('Fighting!')  #(yield 5)表达式被赋予了'Fighting!'
+print(3333)
+print(tmp)
+</code></pre>
+</div>
+
+<p>运行结果如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Wen Chuan
+11111111111
+5
+222
+999999999999
+3333
+12
+</code></pre>
+</div>
+
 </span>
 
         
