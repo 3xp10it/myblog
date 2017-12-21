@@ -9,6 +9,14 @@
     } ,
     
   {
+    "title"    : "实用shell命令",
+    "category" : "",
+    "tags"     : "shell",
+    "url"      : "/linux/2017/12/21/%E5%AE%9E%E7%94%A8shell%E5%91%BD%E4%BB%A4/",
+    "date"     : "2017-12-21 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "ios的css调试",
     "category" : "",
     "tags"     : "css, ios",
