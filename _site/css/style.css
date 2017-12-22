@@ -509,7 +509,7 @@ ul {
         color: white;
         box-sizing: content-box;
         border: none;
-        font-size: 28px; }
+        font-size: 16px; }
         @media (min-width: 768px) {
           .single .article .content blockquote {
             margin-left: -30px;
