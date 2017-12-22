@@ -776,16 +776,16 @@ ul {
 				width: 100%;
 				margin-left: -15px;
 				padding-right: 10px;
-				background-color: $darker;
-				color: white;
+				background-color: #303030;
+				color: $word-color;
 				box-sizing: content-box;
 				border: none;
 				font-size: 16px;
 
 				@media (min-width: $screen-sm-min) {
-					margin-left: -30px;
-					padding-left: 45px;
-					padding-right: 15px;
+					margin-left: 0px;
+					padding-left: 0px;
+					padding-right: 0px;
 				}
 
 				p {
@@ -797,7 +797,7 @@ ul {
 				:before {
     		    font-family: "文泉驿等宽正黑";
 			    color: $light-medium;
-			    content: "“";
+			    /*content: "“";*/
 			    position: absolute;
 			    top: 15px;
 			    left: 15px;

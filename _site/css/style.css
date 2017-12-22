@@ -505,16 +505,16 @@ ul {
         width: 100%;
         margin-left: -15px;
         padding-right: 10px;
-        background-color: #212120;
-        color: white;
+        background-color: #303030;
+        color: #CCCCCC;
         box-sizing: content-box;
         border: none;
         font-size: 16px; }
         @media (min-width: 768px) {
           .single .article .content blockquote {
-            margin-left: -30px;
-            padding-left: 45px;
-            padding-right: 15px; } }
+            margin-left: 0px;
+            padding-left: 0px;
+            padding-right: 0px; } }
         .single .article .content blockquote p {
           margin: 0;
           padding: 15px;
@@ -522,7 +522,7 @@ ul {
         .single .article .content blockquote :before {
           font-family: "文泉驿等宽正黑";
           color: #969696;
-          content: "“";
+          /*content: "“";*/
           position: absolute;
           top: 15px;
           left: 15px;
