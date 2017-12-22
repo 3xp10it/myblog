@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 21 Dec 2017 18:05:17 +0800</pubDate>
-    <lastBuildDate>Thu, 21 Dec 2017 18:05:17 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Fri, 22 Dec 2017 08:15:59 +0800</pubDate>
+    <lastBuildDate>Fri, 22 Dec 2017 08:15:59 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>快速理解yield</title>
@@ -140,6 +140,16 @@ print(tmp)
       &lt;li&gt;find正则查找文件名时忽略大小写用法为:将&lt;code class=&quot;highlighter-rouge&quot;&gt;-regex&lt;/code&gt;替换成&lt;code class=&quot;highlighter-rouge&quot;&gt;-iregex&lt;/code&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt;中:
+    &lt;ul&gt;
+      &lt;li&gt;0,1,2分别代表标准输入,标准输出,标准错误&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;amp;1&lt;/code&gt;的写法是为了区别&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;1&lt;/code&gt;这个重定向到文件名为1的文件,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;amp;1&lt;/code&gt;表示重定向到标准输出&lt;/li&gt;
+      &lt;li&gt;find命令查找文件名时会在终端中显示标准输出和标准错误的信息,也即&lt;code class=&quot;highlighter-rouge&quot;&gt;find ... == find ... 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;find命令遇到没有权限的文件会显示权限不足,显示权限不足的信息是标准错误&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;2&amp;gt;/dev/null&lt;/code&gt;的功能是将标准错误重定向到/dev/null&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;grep -v&lt;/code&gt;中&lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt;表示查找不匹配的&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;0x1-items&quot;&gt;0x1 Items&lt;/h3&gt;
@@ -159,7 +169,13 @@ for file in $(find . -name &quot;*.py&quot;);do ack -il 'def' $file;doen | xargs
 &lt;p&gt;2.查找当前目录下包括子目录内所有的临时文件(.swp,.swm,.swn,.swo等,但不包括.swf),并删除这些文件&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;macOS下:
+
+find -E . -regex &quot;.+\.sw[^f]$&quot; 2&amp;gt;/dev/null | xargs rm
+或
+find -E . -regex &quot;.+\.sw[^f]$&quot; | grep -v &quot;Permission denied&quot; | xargs rm
+或
 find -E . -regex &quot;.+\.sw[^f]$&quot; 2&amp;gt;&amp;amp;1 | grep -v &quot;Permission denied&quot; | xargs rm
+
 
 普通linux下:
 find . -regextype posix-extended -regex &quot;.+\.sw[^f]$&quot; | grep -v &quot;Permission denied&quot; | xargs rm
@@ -346,12 +362,33 @@ cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
         <title>ios应用逆向工程1-4章笔记</title>
         <description>&lt;h3 id=&quot;概念篇工具篇&quot;&gt;概念篇+工具篇&lt;/h3&gt;
 
-&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过
-调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都
-可以在bundle内找到,这大大降低了逆向工程的复杂度&lt;/p&gt;
+&lt;p&gt;1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度&lt;/p&gt;
 
 &lt;p&gt;2.Xcode自带的plutil工具可查看plist文件,命令为&lt;code class=&quot;highlighter-rouge&quot;&gt;plutil -p xxx.plist&lt;/code&gt;&lt;/p&gt;
 
+&lt;p&gt;3.ios的app目录中的lproj目录下存放的是各种本地化的字符串(.strings),是ios逆向工程的重要线索,也可以用plutil查看&lt;/p&gt;
+
+&lt;p&gt;4.storeapp的数据目录在&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/mobile/Containers/Data&lt;/code&gt;下,以mobile权限运行的系统app的数据目录在&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/mobile/&lt;/code&gt;下,而以root权限运行的系统app的数据目录在&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/root/&lt;/code&gt;下&lt;/p&gt;
+
+&lt;p&gt;5.cydia app的安装包格式一般是deb,storeapp的安装包格式一般是ipa,其中deb的属主属组是root:admin,能够以root权限运行,而ipa是苹果为ios推出的专属app安装包格式,属主用户和属组都是mobile,只能以mobile权限运行&lt;/p&gt;
+
+&lt;p&gt;6.通俗地说,ios中的沙盒就是一种访问限制机制,我们可以把它看作是权限的一种表现形式,授权文件也是沙盒的一部分.总的来说,沙盒会将app的文件访问范围限制在这个app内部,一个app一般不知道其他app的存在,更别说访问它们了,沙盒还会限制app的功能,例如对icloud接口的调用就必须经过沙盒的允许.越狱本身已经破除了ios的绝大多数安全限制,并对沙盒进行了一定程度的扩充,因此我们往往很容易忽略sandbox的存在,从而碰到一些看似很奇怪的问题.比如某个tweak不能写文件,调用了某个函数却没有出现应有的效果,在确保自己的代码没有问题的前提下,就要回过头来检查这些问题是不是因为权限不够,或者沙盒限制造成的&lt;/p&gt;
+
+&lt;p&gt;7.cydia里的各种tweak无一不是以dylib的形式工作的&lt;/p&gt;
+
+&lt;p&gt;8.ios实际上存在真正的后台多任务,如接听电话时ios会第一时间将接听电话界面呈现在我们面前.不过,对于storeapp来说,当用户按下home键时,进程就进入后台了,大多数功能都会被暂停&lt;/p&gt;
+
+&lt;p&gt;9.在theos新建的工程目录文件夹中,可以创建一个名为&lt;code class=&quot;highlighter-rouge&quot;&gt;layout&lt;/code&gt;的文件夹,然后把工程打包成deb并安装到ios中,此时&lt;code class=&quot;highlighter-rouge&quot;&gt;layout&lt;/code&gt;中的所有文件会被解包到ios文件系统的相同位置(这里的&lt;code class=&quot;highlighter-rouge&quot;&gt;layout&lt;/code&gt;相当于ios中的根目录&lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt;),这极大扩充了deb包的什么用范围&lt;/p&gt;
+
+&lt;p&gt;10.命令行安装theos生成的deb到手机的方法:在makefile的最上一行加上本机ip地址&lt;code class=&quot;highlighter-rouge&quot;&gt;THEOS_DEVICE_IP=...&lt;/code&gt;,然后调用&lt;code class=&quot;highlighter-rouge&quot;&gt;make package install&lt;/code&gt;命令完成编译打包安装一条龙服务&lt;/p&gt;
+
+&lt;p&gt;11.免ssh输密码&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;删除本机~/.ssh/known_hosts中目标ip对应条目&lt;/li&gt;
+  &lt;li&gt;在本机生成ida_rsa.pub文件:&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa&lt;/code&gt;,生成的文件为&lt;code class=&quot;highlighter-rouge&quot;&gt;~/.ssh/id_rsa.pub&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;在目标机器终端中&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;在本机中执行&lt;code class=&quot;highlighter-rouge&quot;&gt;scp ~/.ssh/id_rsa.pub user@目标ip:~/.ssh/authorized_keys&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Mon, 18 Dec 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
