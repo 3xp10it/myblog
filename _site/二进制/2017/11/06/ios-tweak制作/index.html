@@ -226,6 +226,22 @@ integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是�
 </code></pre>
 </div>
 
+<p>或者用cycript更快地调用这个函数:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone_ip
+cycript
+ps aux | grep PALife*
+cycript -p process_id
+choose(PARSPedometerInfo)
+    这里的PARSPedometerInfo是setIntegratedSteps函数所在的类名
+[#0x147a0d450 setIntegratedSteps:99998]
+    这里的0x147a0d450是cycript找到的一个PARSPedometerInfo类的对象的地址,如果没有找到PARSPedometerInfo的对象可手动创建一个对象,
+    创建方法:myobj=[PARSPedometerInfo alloc]
+    然后再[myobj setIntegratedSteps:99998]
+然后在手机上点击上传步数即可
+</code></pre>
+</div>
+
 <h3 id="0x02-注意事项">0x02 注意事项</h3>
 
 <p>1.在运行nic.pl新建tweak项目时在输入bundleid时默认值为com.apple.springboard,这里要修改,且要修改成要hook的app的
@@ -313,15 +329,15 @@ hook原理
 
 <p>3.ios逆向工具汇总</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>flex(cydia),patch app的函数参数和返回值
-[flex_injected][6],找到app中的按钮对应的类
-reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal
-syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同[需要执行cat /dev/null &gt; /var/log/syslog]
-[frida][8]
-class-dump,脱壳工具
-dumpdecrypted,脱壳工具
-</code></pre>
-</div>
+<ul>
+  <li>flex(cydia),patch app的函数参数和返回值</li>
+  <li><a href="https://github.com/dtrukr/FLEX_injected">flex_injected</a>,找到app中的按钮对应的类</li>
+  <li>reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal</li>
+  <li>syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同[需要执行cat /dev/null &gt; /var/log/syslog]</li>
+  <li><a href="https://github.com/frida/frida">frida</a></li>
+  <li>class-dump,脱壳工具</li>
+  <li>dumpdecrypted,脱壳工具</li>
+</ul>
 
 </span>
 
