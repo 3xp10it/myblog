@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>ios应用逆向工程1-4章笔记</title>
+<title>ida通过usb调试ios下的app</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,12 +93,12 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">ios应用逆向工程1-4章笔记</h1>
+      <h1 class="header" itemprop="name">ida通过usb调试ios下的app</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">December 18, 2017</span>
+          on <span itemprop="datePublished" content="2014-08-28">December 25, 2017</span>
            under 二进制
         </i></small>
       </div>
@@ -113,38 +113,31 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="概念篇工具篇">概念篇+工具篇</h3>
+        <span itemprop="articleBody"><h3 id="0x0-about">0x0 About</h3>
 
-<p>1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度</p>
-
-<p>2.Xcode自带的plutil工具可查看plist文件,命令为<code class="highlighter-rouge">plutil -p xxx.plist</code></p>
-
-<p>3.ios的app目录中的lproj目录下存放的是各种本地化的字符串(.strings),是ios逆向工程的重要线索,也可以用plutil查看</p>
-
-<p>4.storeapp的数据目录在<code class="highlighter-rouge">/var/mobile/Containers/Data</code>下,以mobile权限运行的系统app的数据目录在<code class="highlighter-rouge">/var/mobile/</code>下,而以root权限运行的系统app的数据目录在<code class="highlighter-rouge">/var/root/</code>下</p>
-
-<p>5.cydia app的安装包格式一般是deb,storeapp的安装包格式一般是ipa,其中deb的属主属组是root:admin,能够以root权限运行,而ipa是苹果为ios推出的专属app安装包格式,属主用户和属组都是mobile,只能以mobile权限运行</p>
-
-<p>6.通俗地说,ios中的沙盒就是一种访问限制机制,我们可以把它看作是权限的一种表现形式,授权文件也是沙盒的一部分.总的来说,沙盒会将app的文件访问范围限制在这个app内部,一个app一般不知道其他app的存在,更别说访问它们了,沙盒还会限制app的功能,例如对icloud接口的调用就必须经过沙盒的允许.越狱本身已经破除了ios的绝大多数安全限制,并对沙盒进行了一定程度的扩充,因此我们往往很容易忽略sandbox的存在,从而碰到一些看似很奇怪的问题.比如某个tweak不能写文件,调用了某个函数却没有出现应有的效果,在确保自己的代码没有问题的前提下,就要回过头来检查这些问题是不是因为权限不够,或者沙盒限制造成的</p>
-
-<p>7.cydia里的各种tweak无一不是以dylib的形式工作的</p>
-
-<p>8.ios实际上存在真正的后台多任务,如接听电话时ios会第一时间将接听电话界面呈现在我们面前.不过,对于storeapp来说,当用户按下home键时,进程就进入后台了,大多数功能都会被暂停</p>
-
-<p>9.在theos新建的工程目录文件夹中,可以创建一个名为<code class="highlighter-rouge">layout</code>的文件夹,然后把工程打包成deb并安装到ios中,此时<code class="highlighter-rouge">layout</code>中的所有文件会被解包到ios文件系统的相同位置(这里的<code class="highlighter-rouge">layout</code>相当于ios中的根目录<code class="highlighter-rouge">/</code>),这极大扩充了deb包的什么用范围</p>
-
-<p>10.命令行安装theos生成的deb到手机的方法:在makefile的最上一行加上本机ip地址<code class="highlighter-rouge">THEOS_DEVICE_IP=...</code>,然后调用<code class="highlighter-rouge">make package install</code>命令完成编译打包安装一条龙服务</p>
-
-<p>11.免ssh输密码</p>
+<h4 id="实验环境">实验环境</h4>
 <ul>
-  <li>删除本机~/.ssh/known_hosts中目标ip对应条目</li>
-  <li>在本机生成ida_rsa.pub文件:<code class="highlighter-rouge">ssh-keygen -t rsa</code>,生成的文件为<code class="highlighter-rouge">~/.ssh/id_rsa.pub</code></li>
-  <li>在目标机器终端中<code class="highlighter-rouge">ssh-keygen</code></li>
-  <li>在本机中执行<code class="highlighter-rouge">scp ~/.ssh/id_rsa.pub user@目标ip:~/.ssh/authorized_keys</code></li>
-  <li>如果希望多台机器ssh到同一目标机器免密码可将多台机器<code class="highlighter-rouge">ssh-keygen -t rsa</code>生成的id_rsa.pub内容追加到目标机器的authorized_keys文件中</li>
+  <li>iphone6s</li>
+  <li>ios9.0</li>
+  <li>macOS sierra</li>
+  <li>ida7.0</li>
 </ul>
 
-<p>12.to be continue..</p>
+<h4 id="why">why</h4>
+<ul>
+  <li>对于ida来说,lldb不怎么样(lldb用户体验笔者认为极差)</li>
+  <li>wifi调试很慢,ida通过wifi调试不现实</li>
+  <li>ios9以上的<a href="http://www.newosxbook.com/src.jl?tree=listings&amp;file=12-1-vmmap.c">这个vmmap</a>不工作</li>
+</ul>
+
+<h4 id="准备">准备</h4>
+
+<ul>
+  <li>可用的vmmap</li>
+</ul>
+
+<h3 id="0x1-detail">0x1 Detail</h3>
+
 </span>
 
         
@@ -154,7 +147,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            ios, reverse
+            ida, ipa, usbmuxd
           </small>
         </div>
         
