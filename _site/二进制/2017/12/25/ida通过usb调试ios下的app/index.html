@@ -199,7 +199,7 @@ vmmap target_app_pid
 
 macOS
 ida加载ipa中的可执行文件PALxxx
-    ida需要分析一段时间,大概10分钟(不分析完时很多函数无法找到)
+    ida需要分析一段时间,大概10分钟(不分析完时很多函数无法找到),如果想尝试加速分析过程,可参考:https://reverseengineering.stackexchange.com/questions/12485/ida-slow-on-70mb-executable,也即将所有窗口关闭,只保留output窗口
 在ida|edit|segments|program rebase中重新设置加载基址为0x1000c8000
     rebase需要一段时间,大概10分钟,如果考虑等的时间太长可尝试去除app的aslr属性,然后重新安装到手机上再调试,去除aslr属性未尝试
 iphone连接电脑上的usb
