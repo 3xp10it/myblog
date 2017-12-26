@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 25 Dec 2017 18:04:17 +0800</pubDate>
-    <lastBuildDate>Mon, 25 Dec 2017 18:04:17 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 26 Dec 2017 08:09:32 +0800</pubDate>
+    <lastBuildDate>Tue, 26 Dec 2017 08:09:32 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>lldb命令</title>
@@ -49,7 +49,14 @@ breakpoint set --selector &amp;lt;selector-name&amp;gt;
     
       <item>
         <title>ida通过usb调试ios下的app</title>
-        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x0-必读&quot;&gt;0x0 必读&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://zhoulingyu.com/2016/07/11/iOS攻防——（一）ssh登陆与交叉编译/&quot;&gt;macOS上编译ios程序&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/proteas/article/details/78083512&quot;&gt;使用IDA调试iOS程序的步骤&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/u011661836/article/details/61921308&quot;&gt;ios usb调试&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h3&gt;
 
 &lt;h4 id=&quot;实验环境&quot;&gt;实验环境&lt;/h4&gt;
 &lt;ul&gt;
@@ -61,7 +68,7 @@ breakpoint set --selector &amp;lt;selector-name&amp;gt;
 
 &lt;h4 id=&quot;why&quot;&gt;why&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;对于ida来说,lldb不怎么样(lldb用户体验笔者认为极差)&lt;/li&gt;
+  &lt;li&gt;对于ida来说,lldb不怎么样(lldb用户体验很一般)&lt;/li&gt;
   &lt;li&gt;wifi调试很慢,ida通过wifi调试不现实&lt;/li&gt;
   &lt;li&gt;ios9以上的&lt;a href=&quot;http://www.newosxbook.com/src.jl?tree=listings&amp;amp;file=12-1-vmmap.c&quot;&gt;这个vmmap&lt;/a&gt;不工作&lt;/li&gt;
 &lt;/ul&gt;
@@ -69,10 +76,66 @@ breakpoint set --selector &amp;lt;selector-name&amp;gt;
 &lt;h4 id=&quot;准备&quot;&gt;准备&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;可用的vmmap&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/comex/myvmmap/blob/master/myvmmap.c&quot;&gt;可用的vmmap&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;0x1-detail&quot;&gt;0x1 Detail&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;用上面这个链接中的源文件通过&lt;code class=&quot;highlighter-rouge&quot;&gt;xcrun -sdk iphoneos clang -arch armv7 -o [目标文件名] [源文件名]&lt;/code&gt;生成iphone下可执行文件vmmap,编译后文件可在&lt;a href=&quot;https://github.com/3xp10it/mytools/vmmap&quot;&gt;这里&lt;/a&gt;下载&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;usbmuxd&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;brew install usbmuxd&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;目的&quot;&gt;目的&lt;/h4&gt;
+
+&lt;p&gt;使用ida调试一个ios下的app,找到关键上传步数的函数&lt;/p&gt;
+
+&lt;h3 id=&quot;0x2-detail&quot;&gt;0x2 Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;手机上运行目标app:PALxxx
+ssh root@iphone
+Cluth -i
+Cluth -d target_app_index
+scp xxx.ipa user@macOS
+ps aux | grep PAL*
+vmmap target_app_pid
+    iPhone:/share root# vmmap 2331
+    2331: /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+    DYLD all image info: 0000000120098000+130 format=1
+    read_from_task(0x16fdfbc78, 0x401): kr=1
+    0000000100004000-0000000100008000 [    16K ] r-x/r-x SM=COW
+        (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+
+    由此得出PALxxx的加载基址为0x100040000
+
+macOS
+ida加载ipa中的可执行文件PALxxx
+    ida需要分析一段时间,大概10分钟(不分析完时很多函数无法找到)
+在ida|edit|segments|program rebase中重新设置加载基址为0x1000c8000
+    rebase需要一段时间,大概10分钟
+iproxy 2222 2008
+
+ssh root@iphone
+debugserver *:2008 -a PALxxx
+iphone连接电脑上的usb
+
+ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;7&quot; alt=&quot;远程gdb server设置&quot; /&gt;
+&lt;img src=&quot;8&quot; alt=&quot;远程gdb server设置&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;开始在ida中调试
+在setIntegratedSteps函数上下断点
+运行
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 25 Dec 2017 00:00:00 +0800</pubDate>
@@ -472,7 +535,49 @@ cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
   &lt;li&gt;如果希望多台机器ssh到同一目标机器免密码可将多台机器&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa&lt;/code&gt;生成的id_rsa.pub内容追加到目标机器的authorized_keys文件中&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;12.to be continue..&lt;/p&gt;
+&lt;p&gt;12.reveal的使用&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;cydia中搜索安装reveal loader&lt;/li&gt;
+  &lt;li&gt;在手机的设置中打开要分析的app的enabled applications开关&lt;/li&gt;
+  &lt;li&gt;在macOS中中打开reveal,确保macOS和ios在同一网段内,重启ios中的目标app&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;13.ida中main windows有两种显示模式,分别是graph view和text view,它们之间可以通过空格键切换.grahp view把被分析的程序逻辑用方块的形式表现出来,当执行遇到分支时,满足判断条件分支的线是绿色的,否则是红色的;当执行没有分支时,线是蓝色的&lt;/p&gt;
+
+&lt;p&gt;14.ida中”jump to xref to operand”(快捷键x),点击后出现的窗口罗列了这个文件中显式引用这个符号的所有信息.”xref from”则显示这个符号引用的所有符号&lt;/p&gt;
+
+&lt;p&gt;15.越狱ios必须安装”apple file conduit2”,简称afc2,这样才可以浏览ios全系统文件&lt;/p&gt;
+
+&lt;p&gt;16.dyld_decache&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;从ios3.1开始,包括frameworks在内的许多库文件被存进了一个大cache里,这个cache文件位于”/System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”(名为dyld_shared_cache_arm7,dyld_shared_cache_armv7s或dyld_shared_cache_arm64),可以使用KennyTM开发的dyld_decache将其中的二进制文件提取出来.这样做的好处是确保分析的文件来自本机&lt;/li&gt;
+  &lt;li&gt;使用dyld_decache之前,要将”System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”从ios拷贝到macOS,然后再用&lt;a href=&quot;https://github.com/kennytm/Miscellaneous/releases&quot;&gt;这个工具&lt;/a&gt;提取二进制文件.arm64如果出错可google:&lt;code class=&quot;highlighter-rouge&quot;&gt;site:iosre.com dsc_extractor&lt;/code&gt;来解决&lt;/li&gt;
+  &lt;li&gt;可用ios_deploy来从dyld_shared_cache提取ida的符号文件,ida很依赖这些符号文件(有了它们才能快速和准确的反编译),命令如下
+    &lt;ul&gt;
+      &lt;li&gt;ios_deploy symbols&lt;/li&gt;
+      &lt;li&gt;详细命令在&lt;a href=&quot;https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;17.CydiaSubstrate是绝大部分tweak正常工作的基础,它由MobileHooker,MobileLoader和Safe mode组成&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;MobileHooker的作用是替换系统函数,也就是所谓的hook,它主要包含以下两个函数
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;void MSHookMessageEx(Class class,SEL selector,IMP replacement,IMP *result);&lt;/code&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;其中MSHookMessageEx作用于Objective-C函数,通过调用method_setImplementation函数将[class selector]的实现改为replacement,达到hook的目的.Logos语法主要是对此函数作了一层封装,让编写针对Object-C函数的hook代码变得更简单直观了,但其底层实现仍完全基于MSHookMessageEx&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;void MSHookFunction(void* function,void* replacement,void** p_original);&lt;/code&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 </description>
         <pubDate>Mon, 18 Dec 2017 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/18/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B1-4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>

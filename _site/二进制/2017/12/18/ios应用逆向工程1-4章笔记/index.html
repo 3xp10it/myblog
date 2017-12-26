@@ -144,7 +144,49 @@
   <li>如果希望多台机器ssh到同一目标机器免密码可将多台机器<code class="highlighter-rouge">ssh-keygen -t rsa</code>生成的id_rsa.pub内容追加到目标机器的authorized_keys文件中</li>
 </ul>
 
-<p>12.to be continue..</p>
+<p>12.reveal的使用</p>
+<ul>
+  <li>cydia中搜索安装reveal loader</li>
+  <li>在手机的设置中打开要分析的app的enabled applications开关</li>
+  <li>在macOS中中打开reveal,确保macOS和ios在同一网段内,重启ios中的目标app</li>
+</ul>
+
+<p>13.ida中main windows有两种显示模式,分别是graph view和text view,它们之间可以通过空格键切换.grahp view把被分析的程序逻辑用方块的形式表现出来,当执行遇到分支时,满足判断条件分支的线是绿色的,否则是红色的;当执行没有分支时,线是蓝色的</p>
+
+<p>14.ida中”jump to xref to operand”(快捷键x),点击后出现的窗口罗列了这个文件中显式引用这个符号的所有信息.”xref from”则显示这个符号引用的所有符号</p>
+
+<p>15.越狱ios必须安装”apple file conduit2”,简称afc2,这样才可以浏览ios全系统文件</p>
+
+<p>16.dyld_decache</p>
+<ul>
+  <li>从ios3.1开始,包括frameworks在内的许多库文件被存进了一个大cache里,这个cache文件位于”/System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”(名为dyld_shared_cache_arm7,dyld_shared_cache_armv7s或dyld_shared_cache_arm64),可以使用KennyTM开发的dyld_decache将其中的二进制文件提取出来.这样做的好处是确保分析的文件来自本机</li>
+  <li>使用dyld_decache之前,要将”System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”从ios拷贝到macOS,然后再用<a href="https://github.com/kennytm/Miscellaneous/releases">这个工具</a>提取二进制文件.arm64如果出错可google:<code class="highlighter-rouge">site:iosre.com dsc_extractor</code>来解决</li>
+  <li>可用ios_deploy来从dyld_shared_cache提取ida的符号文件,ida很依赖这些符号文件(有了它们才能快速和准确的反编译),命令如下
+    <ul>
+      <li>ios_deploy symbols</li>
+      <li>详细命令在<a href="https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf">这里</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>17.CydiaSubstrate是绝大部分tweak正常工作的基础,它由MobileHooker,MobileLoader和Safe mode组成</p>
+<ul>
+  <li>MobileHooker的作用是替换系统函数,也就是所谓的hook,它主要包含以下两个函数
+    <ul>
+      <li><code class="highlighter-rouge">void MSHookMessageEx(Class class,SEL selector,IMP replacement,IMP *result);</code>
+        <blockquote>
+          <p>其中MSHookMessageEx作用于Objective-C函数,通过调用method_setImplementation函数将[class selector]的实现改为replacement,达到hook的目的.Logos语法主要是对此函数作了一层封装,让编写针对Object-C函数的hook代码变得更简单直观了,但其底层实现仍完全基于MSHookMessageEx</p>
+        </blockquote>
+      </li>
+      <li><code class="highlighter-rouge">void MSHookFunction(void* function,void* replacement,void** p_original);</code>
+        <blockquote>
+          <p>MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
 </span>
 
         

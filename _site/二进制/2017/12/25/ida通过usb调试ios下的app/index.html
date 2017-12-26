@@ -113,7 +113,14 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="0x0-about">0x0 About</h3>
+        <span itemprop="articleBody"><h3 id="0x0-必读">0x0 必读</h3>
+<ul>
+  <li><a href="http://zhoulingyu.com/2016/07/11/iOS攻防——（一）ssh登陆与交叉编译/">macOS上编译ios程序</a></li>
+  <li><a href="http://blog.csdn.net/proteas/article/details/78083512">使用IDA调试iOS程序的步骤</a></li>
+  <li><a href="http://blog.csdn.net/u011661836/article/details/61921308">ios usb调试</a></li>
+</ul>
+
+<h3 id="0x1-about">0x1 About</h3>
 
 <h4 id="实验环境">实验环境</h4>
 <ul>
@@ -125,7 +132,7 @@
 
 <h4 id="why">why</h4>
 <ul>
-  <li>对于ida来说,lldb不怎么样(lldb用户体验笔者认为极差)</li>
+  <li>对于ida来说,lldb不怎么样(lldb用户体验很一般)</li>
   <li>wifi调试很慢,ida通过wifi调试不现实</li>
   <li>ios9以上的<a href="http://www.newosxbook.com/src.jl?tree=listings&amp;file=12-1-vmmap.c">这个vmmap</a>不工作</li>
 </ul>
@@ -133,10 +140,66 @@
 <h4 id="准备">准备</h4>
 
 <ul>
-  <li>可用的vmmap</li>
+  <li><a href="https://github.com/comex/myvmmap/blob/master/myvmmap.c">可用的vmmap</a></li>
 </ul>
 
-<h3 id="0x1-detail">0x1 Detail</h3>
+<blockquote>
+  <p>用上面这个链接中的源文件通过<code class="highlighter-rouge">xcrun -sdk iphoneos clang -arch armv7 -o [目标文件名] [源文件名]</code>生成iphone下可执行文件vmmap,编译后文件可在<a href="https://github.com/3xp10it/mytools/vmmap">这里</a>下载</p>
+</blockquote>
+
+<ul>
+  <li>usbmuxd</li>
+</ul>
+
+<blockquote>
+  <p><code class="highlighter-rouge">brew install usbmuxd</code></p>
+</blockquote>
+
+<h4 id="目的">目的</h4>
+
+<p>使用ida调试一个ios下的app,找到关键上传步数的函数</p>
+
+<h3 id="0x2-detail">0x2 Detail</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>手机上运行目标app:PALxxx
+ssh root@iphone
+Cluth -i
+Cluth -d target_app_index
+scp xxx.ipa user@macOS
+ps aux | grep PAL*
+vmmap target_app_pid
+    iPhone:/share root# vmmap 2331
+    2331: /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+    DYLD all image info: 0000000120098000+130 format=1
+    read_from_task(0x16fdfbc78, 0x401): kr=1
+    0000000100004000-0000000100008000 [    16K ] r-x/r-x SM=COW
+        (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+
+    由此得出PALxxx的加载基址为0x100040000
+
+macOS
+ida加载ipa中的可执行文件PALxxx
+    ida需要分析一段时间,大概10分钟(不分析完时很多函数无法找到)
+在ida|edit|segments|program rebase中重新设置加载基址为0x1000c8000
+    rebase需要一段时间,大概10分钟
+iproxy 2222 2008
+
+ssh root@iphone
+debugserver *:2008 -a PALxxx
+iphone连接电脑上的usb
+
+ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
+</code></pre>
+</div>
+
+<p><img src="7" alt="远程gdb server设置" />
+<img src="8" alt="远程gdb server设置" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>开始在ida中调试
+在setIntegratedSteps函数上下断点
+运行
+</code></pre>
+</div>
 
 </span>
 
