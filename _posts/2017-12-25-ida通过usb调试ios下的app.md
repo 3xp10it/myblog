@@ -519,7 +519,7 @@ cy# [#0x146fe33e0 startDate]
 退出app
 用第2个上传步数失败的帐户登录app
 cycript -p PALxxx
-
+...
 ```
 
 然后再尝试上传其他帐户的步数,操作如下:
