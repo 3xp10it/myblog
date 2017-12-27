@@ -443,5 +443,5 @@ tmp=[PARSHealthPedometer10thHomeViewController alloc]
 [9]: https://github.com/deresz/funcap
 [10]: http://blakespot.com/ios_device_specifications_grid.html
 [11]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex1.jpg
-[12]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.jpg
-[13]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.jpg
+[12]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.png
+[13]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.png

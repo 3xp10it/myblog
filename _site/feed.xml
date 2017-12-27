@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Dec 2017 14:26:12 +0800</pubDate>
-    <lastBuildDate>Wed, 27 Dec 2017 14:26:12 +0800</lastBuildDate>
+    <pubDate>Wed, 27 Dec 2017 14:34:39 +0800</pubDate>
+    <lastBuildDate>Wed, 27 Dec 2017 14:34:39 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -231,9 +231,9 @@ vmmap target_app_pid
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex1.jpg&quot; alt=&quot;上传按钮&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.jpg&quot; alt=&quot;按钮对应类&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.png&quot; alt=&quot;按钮对应类&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.jpg&quot; alt=&quot;按钮对应函数&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.png&quot; alt=&quot;按钮对应函数&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;从ida中查看walkUploadBtnClick函数的具体实现,内容如下:&lt;/p&gt;
 
