@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Dec 2017 14:13:35 +0800</pubDate>
-    <lastBuildDate>Wed, 27 Dec 2017 14:13:35 +0800</lastBuildDate>
+    <pubDate>Wed, 27 Dec 2017 14:21:01 +0800</pubDate>
+    <lastBuildDate>Wed, 27 Dec 2017 14:21:01 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -181,9 +181,9 @@ ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;7&quot; alt=&quot;远程gdb server设置&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb1.png&quot; alt=&quot;远程gdb server设置&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;8&quot; alt=&quot;远程gdb server设置&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb2.png&quot; alt=&quot;远程gdb server设置&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;开始在ida中调试
 在setIntegratedSteps函数上下断点
@@ -225,15 +225,15 @@ vmmap target_app_pid
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;尝试用&lt;a href=&quot;https://github.com/deresz/funcap&quot;&gt;funcap&lt;/a&gt;插件获得parseStepCountStatistics函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,说明关键函数不是这个函数,也即ida没有成功记录到关键的上传步数的函数,目前不理解为什么ida的trace功能为什么没有记录到这个关键函数.现在只好通过flex_injected来通过UI来分析出关键函数&lt;/p&gt;
+&lt;p&gt;尝试用&lt;a href=&quot;https://github.com/deresz/funcap&quot;&gt;funcap&lt;/a&gt;插件获得&lt;code class=&quot;highlighter-rouge&quot;&gt;parseStepCountStatistics&lt;/code&gt;函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,说明关键函数不是这个函数,也即ida没有成功记录到关键的上传步数的函数,目前不理解为什么ida的trace功能为什么没有记录到这个关键函数.现在只好通过flex_injected来通过UI来分析出关键函数&lt;/p&gt;
 
 &lt;p&gt;flex_injected查看关键上传按钮对应的UI类,如下图依次找到对应按钮的类(PARSHealthPedometer10thHomeViewController)与点击按钮对应的函数(walkUploadBtnClick)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;11&quot; alt=&quot;上传按钮&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex1.jpg&quot; alt=&quot;上传按钮&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;12&quot; alt=&quot;按钮对应类&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.jpg&quot; alt=&quot;按钮对应类&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;13&quot; alt=&quot;按钮对应函数&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.jpg&quot; alt=&quot;按钮对应函数&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;从ida中查看walkUploadBtnClick函数的具体实现,内容如下:&lt;/p&gt;
 

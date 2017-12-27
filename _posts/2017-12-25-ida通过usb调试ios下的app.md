@@ -88,9 +88,9 @@ debugserver *:2008 -a PALxxx
 ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
 ```
 
-![远程gdb server设置](7)
+![远程gdb server设置][7]
 
-![远程gdb server设置](8)
+![远程gdb server设置][8]
 
 ```
 开始在ida中调试
@@ -132,15 +132,15 @@ vmmap target_app_pid
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+388	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 ```
 
-尝试用[funcap][9]插件获得parseStepCountStatistics函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在[这里][10]于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,说明关键函数不是这个函数,也即ida没有成功记录到关键的上传步数的函数,目前不理解为什么ida的trace功能为什么没有记录到这个关键函数.现在只好通过flex_injected来通过UI来分析出关键函数
+尝试用[funcap][9]插件获得`parseStepCountStatistics`函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在[这里][10]于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,说明关键函数不是这个函数,也即ida没有成功记录到关键的上传步数的函数,目前不理解为什么ida的trace功能为什么没有记录到这个关键函数.现在只好通过flex_injected来通过UI来分析出关键函数
 
 flex_injected查看关键上传按钮对应的UI类,如下图依次找到对应按钮的类(PARSHealthPedometer10thHomeViewController)与点击按钮对应的函数(walkUploadBtnClick)
 
-![上传按钮](11)
+![上传按钮][11]
 
-![按钮对应类](12)
+![按钮对应类][12]
 
-![按钮对应函数](13)
+![按钮对应函数][13]
 
 从ida中查看walkUploadBtnClick函数的具体实现,内容如下:
 
