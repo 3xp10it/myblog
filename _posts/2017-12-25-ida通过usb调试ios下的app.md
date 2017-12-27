@@ -65,11 +65,11 @@ Cluth -d target_app_index
 scp xxx.ipa user@macOS
 ps aux | grep PAL*
 vmmap target_app_pid
-    2771: /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+    2771: /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALxxx.app/PALxxx
     DYLD all image info: 0000000120034000+130 format=1
     read_from_task(0x16fd3bc78, 0x401): kr=1
     00000001000c4000-00000001000c8000 [    16K ] r-x/r-x SM=COW
-        (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
+        (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALxxx.app/PALxxx
 
     由此得出PALxxx此次加载基址为0x1000c4000
 
@@ -89,6 +89,7 @@ ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
 ```
 
 ![远程gdb server设置](7)
+
 ![远程gdb server设置](8)
 
 ```
@@ -136,7 +137,9 @@ vmmap target_app_pid
 flex_injected查看关键上传按钮对应的UI类,如下图依次找到对应按钮的类(PARSHealthPedometer10thHomeViewController)与点击按钮对应的函数(walkUploadBtnClick)
 
 ![上传按钮](11)
+
 ![按钮对应类](12)
+
 ![按钮对应函数](13)
 
 从ida中查看walkUploadBtnClick函数的具体实现,内容如下:
