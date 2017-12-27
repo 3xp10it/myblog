@@ -5,9 +5,41 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 26 Dec 2017 18:09:43 +0800</pubDate>
-    <lastBuildDate>Tue, 26 Dec 2017 18:09:43 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Wed, 27 Dec 2017 08:11:31 +0800</pubDate>
+    <lastBuildDate>Wed, 27 Dec 2017 08:11:31 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>ida插件使用备忘录</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;记录ida插件使用&lt;/p&gt;
+
+&lt;h3 id=&quot;items&quot;&gt;Items&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/deresz/funcap&quot;&gt;funcap&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;funcap是一个分析函数参数和函数返回值的插件&lt;/li&gt;
+      &lt;li&gt;支持的cpu架构:x86,amd64,arm(32)&lt;/li&gt;
+      &lt;li&gt;不支持64位的arm(现在的ios设备几乎都是arm64,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 27 Dec 2017 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/27/ida%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/27/ida%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+        
+        <category>ida</category>
+        
+        <category>plugin</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>lldb命令</title>
@@ -131,7 +163,7 @@ vmmap target_app_pid
     00000001000c4000-00000001000c8000 [    16K ] r-x/r-x SM=COW
         (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
 
-    由此得出PALxxx的加载基址为0x1000c4000
+    由此得出PALxxx此次加载基址为0x1000c4000
 
 macOS
 ida加载ipa中的可执行文件PALxxx
@@ -168,7 +200,10 @@ ida加载PALxxx
     symbols可在~/ Library / Developer / Xcode / iOS DeviceSupport / &amp;lt;iOS version&amp;gt; / Symbols或通过ios_deploy获得
     app可执行文件路径可在iphone中通过find / -name &quot;PALxxx&quot;获得
 开始在ida中调试
-
+ssh root@iphone_ip
+ps aux | grep PAL*
+vmmap target_app_pid
+找到加载基址后在ida|edit|segments|program rebase中重新设置加载基址
 在setIntegratedSteps函数上下断点
 运行
 命中断点后设置trace functions
@@ -188,6 +223,8 @@ ida加载PALxxx
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+388	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;尝试用&lt;a href=&quot;https://github.com/deresz/funcap&quot;&gt;funcap&lt;/a&gt;插件获得parseStepCountStatistics函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,目前无法理解这点,猜测是theos或是logify或是class-dump的问题,现在只好通过ida来分析&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 25 Dec 2017 00:00:00 +0800</pubDate>
@@ -624,12 +661,65 @@ cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;void MSHookFunction(void* function,void* replacement,void** p_original);&lt;/code&gt;
         &lt;blockquote&gt;
-          &lt;p&gt;MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行&lt;/p&gt;
+          &lt;p&gt;MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行.MSHookFunction的有一个参数的什么用分别是:替换的原函数,替换函数,以及被MobileHooker保存的原函数.单独的一个MSHookFunction函数是没有意义的,需要有一套固定的体系来承载它,这个体系写法如下.由于Theos仅提供了MSHookMessageEx的封装,掌握这套体系的用法就显得尤为重要了&lt;/p&gt;
         &lt;/blockquote&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#import &amp;lt;substrate.h&amp;gt;
+
+returnType (*old_symbol)(args);
+
+returnType new_symbol(args)
+{
+//Whatever
+}
+
+void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.e.constructor
+{
+    MSImageRef image=MSGetImageByName(&quot;/path/to/binary/who/contains/the/implementation/of/symbol&quot;);
+    //MSFindSymbol的作用是查找待钩住(hook)的symbol
+    void *symbol=MSFindSymbol(image,&quot;symbol&quot;);
+    if (symbol)MSHookFunction((void *)symbol,(void *)&amp;amp;new_symbol,(void **)&amp;amp;old_symbol);
+    else NSLog(@&quot;Symbol not found!&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MobileLoader
+    &lt;blockquote&gt;
+      &lt;p&gt;MobileLoader的作用是加载第三方dylib.在ios启动时,会由launchd将MobileLoader载入内存,然后MobileLoader会根据dylib的同名plist文件指定的作用范围,有选择地在不同进程里通过dlopen函数打开目录/Library/MobileSubstrate/SynamicLibraries/下的所有dylib.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Safe mode
+    &lt;blockquote&gt;
+      &lt;p&gt;因为tweak的本质是dylib,寄生在别的进程里,一旦出错,可能会导致整个进程崩溃,而一旦崩溃的是SpringBoard等系统进程,则会造成iOS瘫痪,所以CydiaSubstrate引入了Safe mode,它会的捕获SIGTRAP,SIGABRT,SIGILL,SIGBUS,SIGSEGV,SIGSYS这6种信号,然后进入安全模式.在安全模式里,所有基于CydiaSubstrate的第三方dylib均会禁用,便于查错与修复&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;19.Cycript是由saurik推出的一款脚本语言,可以看作是Objective-JavaScript.cycript通过cydia在iphone中安装.笔者认为,cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果,效果十分显著,比通过theos生成deb来log记录方便很多.一般来说,选择注入哪个进程,要依测试的具体函数而定,这个函数所属的类存在于哪些进程,则注入这些进程,从而保证这个类是存在的.因为需要用cycript测试的一般都是私有函数,所以一个总的准则是从哪个进程逆向出的函数,就注入这个进程来测试;从哪个库逆向出的函数,就注入链接这个库的进程来测试.与Objective-c相比,cycript不需要声明对象类型,也不需要结尾的分号,常见用法如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#注入SpringBoard进程
+cycript -p SpringBoard
+
+#在内存中找一个PARSPedometerInfo类的实例对象
+choose(PARSPedometerInfo)
+
+#调用0x166b4fb0处的对象的show函数
+[#0x166b4fb0 show]
+
+#对show函数传入参数为3344
+[#0x166b4fb0 show:3344]
+
+#新建一个PARSPedometerInfo类的对象实例,并调用它的setIntergratedSteps函数,传入参数99998
+myobj=[PARSPedometerInfo alloc]
+[myobj setIntegratedSteps:99998]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 18 Dec 2017 00:00:00 +0800</pubDate>
@@ -972,85 +1062,6 @@ def scrapy_splash_crawl_url(url):
         
         
         <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>Android软件安全与逆向分析第3章笔记</title>
-        <description>&lt;h3 id=&quot;进入android-dalvik虚拟机&quot;&gt;进入Android Dalvik虚拟机&lt;/h3&gt;
-
-&lt;p&gt;1.虽然Android平台使用了Java语言来开发应用程序,但Android程序却不是运行在标准Java虚拟机上的,可能是为了解决移动设备
-上软件运行效率的问题,也可能是为了规避与Oracle公司的版权纠纷.Google为Android平台专门设计了一套虚拟机来运行Android
-程序,它就是Dalvik Virtual Machine(Dalvik虚拟机)&lt;/p&gt;
-
-&lt;p&gt;2.Dalvik虚拟机作为Android平台的核心组件,拥有如下几个特点:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;体积小,占用内存空间小&lt;/li&gt;
-  &lt;li&gt;专有的DEX可执行文件格式,体积更小,执行速度更快&lt;/li&gt;
-  &lt;li&gt;常量池采用32位索引值,寻址类方法名,字段名,常量更快&lt;/li&gt;
-  &lt;li&gt;基于寄存器架构,并拥有一套完整的指令系统&lt;/li&gt;
-  &lt;li&gt;提供了对象生命周期管理,堆栈管理,线程管理,安全和异常管理以及垃圾回收等重要功能&lt;/li&gt;
-  &lt;li&gt;所有的Android程序都运行在Android系统进程里,每个进程对应着一个Dalvik虚拟机实例&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;3.Dalvik虚拟机与Java虚拟机的区别&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;java虚拟机运行的是Java字节码,Dalvik虚拟机运行的是Dalvik字节码&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;传统的Java程序经过编译,生成Java字节码保存在class文件中,Java虚拟机通过解码class文件中的内容来运行程序.而Dalvik虚拟机运行的是Dalvik字节码,所有的Dalvik字节码由Java字节码转换而来,并被打包到一个DEX(Dalvik Executable)可执行文件中.Dalvik虚拟机通过解释DEX文件来执行这些字节码&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dalvik可执行文件体积更小&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Android SDK中有一个叫dx的工具负责将Java字节码转换为Dalvik字节码.dx工具对Java类文件重新排列,消除在类文件中出现的所有冗余信息,避免虚拟机在初始化时出现反复的文件加载与解析过程.dx将所有的Java类文件中的常量池进行分解,消除其中的冗余信息,重新组合形成一个常量池,所有的类文件共享同一个常量池&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Java虚拟机与Dalvik虚拟机虚拟机架构不同&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Java虚拟机基于栈架构.程序在运行时虚拟机需要频繁的从栈上读取或写入数据.Dalvik虚拟机基于寄存器架构,数据的访问通过寄存器直接传递,这样的访问方式比基于栈方式要快很多,基于寄存器架构的Dalvik虚拟机与基于栈架构的Java虚拟机相比,由于生成的代码指令减少了,程序执行速度会更快一些&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;4.Android系统由Linux内核,函数库,Android运行时,应用程序框架以及应用程序组成.Dalvik虚拟机属于Android运行时环境,它与
-一些核心库共同承担Android应用程序的运行工作&lt;/p&gt;
-
-&lt;p&gt;5.JIT(Just-in-time Compilation,即时编译),双称为动态编译,是一种在运行时将字节码翻译为机器码的技术,使得程序的执行速
-度更快.主流的JIT包含两种字节码编译方式:&lt;/p&gt;
-
-&lt;p&gt;method方式:以函数或方法为单位进行编译,耗费更多的内存
-trace方式:以trace为单位进行编译,耗费内存少,目前Dalvik虚拟机默认采用trace方式编译代码&lt;/p&gt;
-
-&lt;p&gt;6.Dalvik虚拟机基于寄存器架构,在代码中大量地使用到了寄存器,Dalvik中用到的寄存器都是32位的,支持任何类型,64位类型用2
-个相信寄存器表示,Dalvik支持2^16-1=65535个寄存器,寄存器采用v0作起始值,因此它的取值范围是v0~v65535.Dalvik虚拟机为每
-个进程维护一个调用栈,这个调用栈其中一个作用就是用来”虚拟”寄存器,每个函数都在函数头部使用.registers指令指定函数用
-到的寄存器数目,当虚拟机执行到这个函数时,会可以接收寄存器的数目分配适当的栈空间,这些栈空间就是用来存放寄存器实际的
-值的.虚拟机通过处理字节码,对寄存器进入读与写的操作&lt;/p&gt;
-
-&lt;p&gt;7.在Android4.0系统以前,每个指令的字节码只占用一个字节,范围是0x0~0xff.在Android4.0系统中,又扩充了一部分指令,这些指
-令被称为扩展指令&lt;/p&gt;
-
-&lt;p&gt;8.编译smali文件命令:&lt;code class=&quot;highlighter-rouge&quot;&gt;java -jar smali.jar -o output.dex input.smali&lt;/code&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 08 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/08/Android%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E4%B8%8E%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/08/Android%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E4%B8%8E%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>Android</category>
-        
-        <category>reverse</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     

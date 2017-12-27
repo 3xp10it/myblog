@@ -71,7 +71,7 @@ vmmap target_app_pid
     00000001000c4000-00000001000c8000 [    16K ] r-x/r-x SM=COW
         (offset 3190000) /private/var/mobile/Containers/Bundle/Application/08C3D11A-82ED-42AA-A975-089E825B7E29/PALifeApp.app/PALifeApp
 
-    由此得出PALxxx的加载基址为0x1000c4000
+    由此得出PALxxx此次加载基址为0x1000c4000
 
 macOS
 ida加载ipa中的可执行文件PALxxx
@@ -108,7 +108,10 @@ ida加载PALxxx
     symbols可在~/ Library / Developer / Xcode / iOS DeviceSupport / <iOS version> / Symbols或通过ios_deploy获得
     app可执行文件路径可在iphone中通过find / -name "PALxxx"获得
 开始在ida中调试
-
+ssh root@iphone_ip
+ps aux | grep PAL*
+vmmap target_app_pid
+找到加载基址后在ida|edit|segments|program rebase中重新设置加载基址
 在setIntegratedSteps函数上下断点
 运行
 命中断点后设置trace functions
@@ -128,6 +131,7 @@ ida加载PALxxx
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+388	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 ```
 
+尝试用[funcap][9]插件获得parseStepCountStatistics函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在[这里][10]于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,目前无法理解这点,猜测是theos或是logify或是class-dump的问题,现在只好通过ida来分析
 
 [1]: http://www.newosxbook.com/src.jl?tree=listings&file=12-1-vmmap.c
 [2]: https://github.com/comex/myvmmap/blob/master/myvmmap.c
@@ -137,3 +141,5 @@ ida加载PALxxx
 [6]: https://github.com/3xp10it/mytools/vmmap
 [7]: https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb1.png
 [8]: https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb2.png
+[9]: https://github.com/deresz/funcap
+[10]: http://blakespot.com/ios_device_specifications_grid.html

@@ -181,12 +181,65 @@
       </li>
       <li><code class="highlighter-rouge">void MSHookFunction(void* function,void* replacement,void** p_original);</code>
         <blockquote>
-          <p>MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行</p>
+          <p>MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行.MSHookFunction的有一个参数的什么用分别是:替换的原函数,替换函数,以及被MobileHooker保存的原函数.单独的一个MSHookFunction函数是没有意义的,需要有一套固定的体系来承载它,这个体系写法如下.由于Theos仅提供了MSHookMessageEx的封装,掌握这套体系的用法就显得尤为重要了</p>
         </blockquote>
       </li>
     </ul>
   </li>
 </ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#import &lt;substrate.h&gt;
+
+returnType (*old_symbol)(args);
+
+returnType new_symbol(args)
+{
+//Whatever
+}
+
+void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.e.constructor
+{
+    MSImageRef image=MSGetImageByName("/path/to/binary/who/contains/the/implementation/of/symbol");
+    //MSFindSymbol的作用是查找待钩住(hook)的symbol
+    void *symbol=MSFindSymbol(image,"symbol");
+    if (symbol)MSHookFunction((void *)symbol,(void *)&amp;new_symbol,(void **)&amp;old_symbol);
+    else NSLog(@"Symbol not found!");
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>MobileLoader
+    <blockquote>
+      <p>MobileLoader的作用是加载第三方dylib.在ios启动时,会由launchd将MobileLoader载入内存,然后MobileLoader会根据dylib的同名plist文件指定的作用范围,有选择地在不同进程里通过dlopen函数打开目录/Library/MobileSubstrate/SynamicLibraries/下的所有dylib.</p>
+    </blockquote>
+  </li>
+  <li>Safe mode
+    <blockquote>
+      <p>因为tweak的本质是dylib,寄生在别的进程里,一旦出错,可能会导致整个进程崩溃,而一旦崩溃的是SpringBoard等系统进程,则会造成iOS瘫痪,所以CydiaSubstrate引入了Safe mode,它会的捕获SIGTRAP,SIGABRT,SIGILL,SIGBUS,SIGSEGV,SIGSYS这6种信号,然后进入安全模式.在安全模式里,所有基于CydiaSubstrate的第三方dylib均会禁用,便于查错与修复</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>19.Cycript是由saurik推出的一款脚本语言,可以看作是Objective-JavaScript.cycript通过cydia在iphone中安装.笔者认为,cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果,效果十分显著,比通过theos生成deb来log记录方便很多.一般来说,选择注入哪个进程,要依测试的具体函数而定,这个函数所属的类存在于哪些进程,则注入这些进程,从而保证这个类是存在的.因为需要用cycript测试的一般都是私有函数,所以一个总的准则是从哪个进程逆向出的函数,就注入这个进程来测试;从哪个库逆向出的函数,就注入链接这个库的进程来测试.与Objective-c相比,cycript不需要声明对象类型,也不需要结尾的分号,常见用法如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#注入SpringBoard进程
+cycript -p SpringBoard
+
+#在内存中找一个PARSPedometerInfo类的实例对象
+choose(PARSPedometerInfo)
+
+#调用0x166b4fb0处的对象的show函数
+[#0x166b4fb0 show]
+
+#对show函数传入参数为3344
+[#0x166b4fb0 show:3344]
+
+#新建一个PARSPedometerInfo类的对象实例,并调用它的setIntergratedSteps函数,传入参数99998
+myobj=[PARSPedometerInfo alloc]
+[myobj setIntegratedSteps:99998]
+</code></pre>
+</div>
 
 </span>
 
