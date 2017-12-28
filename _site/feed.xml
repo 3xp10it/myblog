@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Dec 2017 15:53:56 +0800</pubDate>
-    <lastBuildDate>Wed, 27 Dec 2017 15:53:56 +0800</lastBuildDate>
+    <pubDate>Thu, 28 Dec 2017 18:05:22 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Dec 2017 18:05:22 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -143,7 +143,7 @@ breakpoint set --selector &amp;lt;selector-name&amp;gt;
     &lt;ul&gt;
       &lt;li&gt;通过usb调试&lt;/li&gt;
       &lt;li&gt;通过加载(app未运行时)未运行的ios app来调试&lt;/li&gt;
-      &lt;li&gt;调试前需人工rebase program&lt;/li&gt;
+      &lt;li&gt;调试前不用人工rebase program,ida会自动修改加载基址(要保证用方法二调试前ios app是关闭的,如果用方法二调试前,ios app已经是正在运行的,这种情况下ida不会自动rebase program,这种情况需要手动rebase program.最好每次调试前检查下ida有没有自行修改好加载基址)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -211,6 +211,29 @@ vmmap target_app_pid
 在手机上点击上传步数
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;注意&lt;/em&gt;
+1.使用方法二时最好在&lt;code class=&quot;highlighter-rouge&quot;&gt;debugger|debugger options&lt;/code&gt;中的如下窗口中的&lt;code class=&quot;highlighter-rouge&quot;&gt;launch debuger automaticly&lt;/code&gt;选项钩上(默认是钩上的)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option1.png&quot; alt=&quot;launch debuger automaticly&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;钩上后在&lt;code class=&quot;highlighter-rouge&quot;&gt;debugger|process options&lt;/code&gt;中只需要填写远程待调试的可执行文件的在远程设备上的物理路径,如下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option2.png&quot; alt=&quot;process options&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果不钩上&lt;code class=&quot;highlighter-rouge&quot;&gt;launch debuger automaticly&lt;/code&gt;选项,有时候ida会在上图中要求填入远程debug server的ip地址和端口&lt;/p&gt;
+
+&lt;p&gt;2.使用方法二时,有时候ida会提示无法找到远程手机上的指定路径的可执行文件,在ida的output窗口也会显示debugserver服务出错,这种情况可通过下面2步解决&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在macOS中打开xcode(保证手机通过usb连接macOS)&lt;/li&gt;
+  &lt;li&gt;如果上一步没解决则查看iphone上是否正在运行待调试的app,如果是,则关闭这个app&lt;/li&gt;
+  &lt;li&gt;检测是否开了虚拟机,如果开了检测是否手机已经连接到了虚拟机上,如果连接到虚拟机了则要在虚拟机中设置断开iphone的连接&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3.在方法一或方法二中提到使用trace functions来尝试记录出关键上传函数,在ida(7.0)中远程调试ios app时发现有时设置trace后会导致ios app卡住而无法继续运行,原来以为是有哪些线程卡住了,后来发现不是,原因是trace导致ios app在手机中卡住,这里在ida中暂关闭trace即可让ios app继续正常运行,这应该是ida的bug.&lt;/p&gt;
+
+&lt;h4 id=&quot;分析&quot;&gt;分析&lt;/h4&gt;
 
 &lt;p&gt;上面2种方法trace到关键函数如下:&lt;/p&gt;
 

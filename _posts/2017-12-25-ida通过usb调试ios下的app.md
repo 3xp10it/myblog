@@ -53,7 +53,7 @@ ida调试ios app有两种方法
 + 方法二:ida设置使用remote ios debug server
     + 通过usb调试
     + 通过加载(app未运行时)未运行的ios app来调试
-    + 调试前需人工rebase program
+    + 调试前不用人工rebase program,ida会自动修改加载基址(要保证用方法二调试前ios app是关闭的,如果用方法二调试前,ios app已经是正在运行的,这种情况下ida不会自动rebase program,这种情况需要手动rebase program.最好每次调试前检查下ida有没有自行修改好加载基址)
 
 #### 方法一
 
@@ -118,6 +118,27 @@ vmmap target_app_pid
 命中断点后设置trace functions
 在手机上点击上传步数
 ```
+
+*注意*
+1.使用方法二时最好在`debugger|debugger options`中的如下窗口中的`launch debuger automaticly`选项钩上(默认是钩上的)
+
+![launch debuger automaticly][14]
+
+钩上后在`debugger|process options`中只需要填写远程待调试的可执行文件的在远程设备上的物理路径,如下图:
+
+![process options][15]
+
+如果不钩上`launch debuger automaticly`选项,有时候ida会在上图中要求填入远程debug server的ip地址和端口
+
+2.使用方法二时,有时候ida会提示无法找到远程手机上的指定路径的可执行文件,在ida的output窗口也会显示debugserver服务出错,这种情况可通过下面2步解决
+
++ 在macOS中打开xcode(保证手机通过usb连接macOS)
++ 如果上一步没解决则查看iphone上是否正在运行待调试的app,如果是,则关闭这个app
++ 检测是否开了虚拟机,如果开了检测是否手机已经连接到了虚拟机上,如果连接到虚拟机了则要在虚拟机中设置断开iphone的连接
+
+3.在方法一或方法二中提到使用trace functions来尝试记录出关键上传函数,在ida(7.0)中远程调试ios app时发现有时设置trace后会导致ios app卡住而无法继续运行,原来以为是有哪些线程卡住了,后来发现不是,原因是trace导致ios app在手机中卡住,这里在ida中暂关闭trace即可让ios app继续正常运行,这应该是ida的bug.
+
+#### 分析
 
 上面2种方法trace到关键函数如下:
 
@@ -529,8 +550,6 @@ cycript -p PALxxx
 ```
 
 
-
-
 [1]: http://www.newosxbook.com/src.jl?tree=listings&file=12-1-vmmap.c
 [2]: https://github.com/comex/myvmmap/blob/master/myvmmap.c
 [3]: http://zhoulingyu.com/2016/07/11/iOS攻防——(一)ssh登陆与交叉编译/
@@ -544,3 +563,5 @@ cycript -p PALxxx
 [11]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex1.jpg
 [12]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex2.png
 [13]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.png
+[14]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option1.png
+[15]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option2.png
