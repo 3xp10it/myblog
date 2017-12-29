@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "frida用法",
+    "category" : "",
+    "tags"     : "frida, inject, js",
+    "url"      : "/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/29/frida%E7%94%A8%E6%B3%95/",
+    "date"     : "2017-12-29 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "ida插件使用备忘录",
     "category" : "",
     "tags"     : "ida, plugin",
