@@ -30,6 +30,9 @@ body {
   height: 100%;
   width: 100%; }
 
+strong {
+  color: #558000; }
+
 a, a:active {
   color: #3CA2A2;
   text-decoration: none; }

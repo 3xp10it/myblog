@@ -5,15 +5,15 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 29 Dec 2017 17:56:36 +0800</pubDate>
-    <lastBuildDate>Fri, 29 Dec 2017 17:56:36 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 02 Jan 2018 07:38:07 +0800</pubDate>
+    <lastBuildDate>Tue, 02 Jan 2018 07:38:07 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>frida用法</title>
         <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
 
-&lt;p&gt;记录frida的用法&lt;/p&gt;
+&lt;p&gt;记录适用于ios的objective-c的类中函数的frida的用法&lt;/p&gt;
 
 &lt;h3 id=&quot;0x1-必读&quot;&gt;0x1 必读&lt;/h3&gt;
 
@@ -25,13 +25,15 @@
 
 &lt;p&gt;&lt;a href=&quot;https://www.anquanke.com/post/id/85759&quot;&gt;利用FRIDA攻击Android应用程序2&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/articles/web/125260.html&quot;&gt;如何在iOS应用程序中用Frida来绕过“越狱检测”&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/articles/web/125260.html&quot;&gt;如何在iOS应用程序中用Frida来绕过”越狱检测”&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/articles/web/125260.html&quot;&gt;使用Frida配合Burp Suite追踪API调用&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/sectool/142928.html&quot;&gt;利用Frida从TeamViewer内存中提取密码&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/sectool/143360.html&quot;&gt;Brida：使用Frida进行移动应用渗透测试&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/sectool/143360.html&quot;&gt;Brida:使用Frida进行移动应用渗透测试&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/24020686&quot;&gt;Object-C测试工具与Frida&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-安装&quot;&gt;0x2 安装&lt;/h3&gt;
 
@@ -41,7 +43,366 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;0x3&quot;&gt;0x3&lt;/h3&gt;
+&lt;h3 id=&quot;0x3-frida的常见用法&quot;&gt;0x3 frida的常见用法&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;0xa hook函数(ios中theos具备的功能)&lt;/li&gt;
+  &lt;li&gt;0xb 记录函数执行日志(ios中theos具备的功能)&lt;/li&gt;
+  &lt;li&gt;0xc 调用函数(ios中&lt;a href=&quot;http://www.cycript.org/&quot;&gt;cycript&lt;/a&gt;具备的功能)&lt;/li&gt;
+  &lt;li&gt;0xd 读写内存(类似于调试器的功能)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用frida有两种方法&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;命令行[实现简单功能推荐]:
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;frida -U -p pid -l xxx.js&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;api调用[实现复杂功能推荐]:
+  例如使用python调用frida的python api来写python脚本实现相应功能,使用python调用api时,推荐阅读api实现细节&lt;a href=&quot;https://github.com/frida/frida-python/blob/master/src/frida/core.py&quot;&gt;frida/core.py&lt;/a&gt;,&lt;a href=&quot;https://github.com/frida/frida-python/blob/master/src/frida/tracer.py&quot;&gt;frida/tracer.py&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上面的4种用法可能会涉及到如下js&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/classes.js&quot;&gt;classes.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for (var className in ObjC.classes)
+    {
+        if (ObjC.classes.hasOwnProperty(className))
+        {
+            console.log(className);
+        }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/methodsofclass.js&quot;&gt;methodofclass.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;console.log(&quot;[*] Started: Find All Methods of a Specific Class&quot;);
+if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;xxx&quot;;
+        var methods = eval('ObjC.classes.' + className + '.$methods');
+        for (var i = 0; i &amp;lt; methods.length; i++)
+        {
+            try
+            {
+                console.log(&quot;[-] &quot;+methods[i]);
+            }
+            catch(err)
+            {
+                console.log(&quot;[!] Exception1: &quot; + err.message);
+            }
+        }
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+console.log(&quot;[*] Completed: Find All Methods of a Specific Class&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/record.js&quot;&gt;record.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;xxx&quot;;
+        var funcName = &quot;- xxx&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        console.log(&quot;[*] Class Name: &quot; + className);
+        console.log(&quot;[*] Method Name: &quot; + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log(&quot;param:&quot;+args[0]+&quot; type:&quot;+typeof args[0]);
+          },
+          onLeave: function(retval) {
+            console.log(&quot;retval:&quot;+retval+&quot; type:&quot;+typeof retval);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/overwrite.js&quot;&gt;overwrite.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;PARSPedometerInfo&quot;;
+        var funcName = &quot;- integratedSteps&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log(&quot;Original args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0])
+
+            newargs0=ptr('xxx')
+            args[0]=newargs0
+            console.log(&quot;New args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0]&quot;)
+          },
+          onLeave: function(retval) {
+            console.log(&quot;Original retval-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0])
+
+            newretval=ptr(&quot;xxxx&quot;)
+            retval.replace(newretval)
+            console.log(&quot;New retval-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+newretval)
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xa-hook函数&quot;&gt;0xa hook函数&lt;/h4&gt;
+
+&lt;p&gt;frida的hook函数功能在ios逆向中相当于theos的hook函数时修改函数的功能(theos相当于打补丁),但是比theos更方便,不用打包成deb安装,缺点是hook函数的语法没有theos简单.hook函数可通过命令行实现(可通过js热切换功能),也可通过其他语言调用frida的api来实现,通过其他语言(如python)调用api来实现时可做到更加”自动化”.在hook函数前要先找到要hook的函数名,可以通过frida枚举类中所有方法来查找或是通过ida反汇编后查看&lt;code class=&quot;highlighter-rouge&quot;&gt;functions窗口&lt;/code&gt;得到,其中&lt;strong&gt;通过frida得到的类中的函数名比通过ida得到的类中的函数名更全&lt;/strong&gt;,因为frida会得到父类的函数,而ida的functions窗口看不到父类的函数名,如果只看ida中类的函数则会错失很多从父类继承的函数名.为了hook一个类中的函数,首先要找到这个类名和函数名,一般找类名是通过ida来分析得出,找到类名后再找未知的函数名时建议通过frida查找(这里是指静态分析时根据函数名猜测实现的对应功能,如果是动态调试则不用根据函数名来猜测对应功能).&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;找类&lt;code class=&quot;highlighter-rouge&quot;&gt;frida -U -p pid -l classes.js&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;找类函数&lt;code class=&quot;highlighter-rouge&quot;&gt;frida -U -p pid -l methodofclass.js&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;hook函数&lt;code class=&quot;highlighter-rouge&quot;&gt;frida -U -p pid -l overwrite.js&lt;/code&gt;,也可通过python api如下实现,其中js通过&lt;code class=&quot;highlighter-rouge&quot;&gt;send()&lt;/code&gt;传递内容到python中&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之前由于在测试时发现ios objective-c的函数如果有参数,打印参数发现不是真的参数,在hook时修改函数参数也会不成功,&lt;a href=&quot;https://github.com/frida/frida/issues/399&quot;&gt;详情&lt;/a&gt;,于是以为frida有bug,后来发现是参数序号写错了,ida中该函数如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void __cdecl -[PARSPedometerInfo setIntegratedSteps:](PARSPedometerInfo *self, SEL a2, signed __int64 a3)
+{
+  self-&amp;gt;_integratedSteps = a3;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[ObjC: args[0] = self, args&lt;a href=&quot;https://www.frida.re/docs/home/&quot;&gt;1&lt;/a&gt; = selector, args[2-n] = arguments]),最后代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+import sys
+
+session = frida.get_usb_device().attach(797)
+script_string = &quot;&quot;&quot;
+if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;PARSPedometerInfo&quot;;
+        var funcName = &quot;- integratedSteps&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log(&quot;Original args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0])
+
+            newargs0=ptr('xxx')
+            args[0]=newargs0
+            console.log(&quot;New args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0]&quot;)
+            send(args[0]);
+          },
+          onLeave: function(retval) {
+            console.log(&quot;Original retval-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0])
+
+            newretval=ptr(&quot;xxxx&quot;)
+            retval.replace(newretval)
+            console.log(&quot;New retval-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+newretval)
+            send(newretval)
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&quot;&quot;&quot;
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print(&quot;[!] &quot; + message['stack'])
+    elif message['type'] == 'send':
+        print(&quot;[i] &quot; + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xb-记录函数执行日志&quot;&gt;0xb 记录函数执行日志&lt;/h4&gt;
+
+&lt;p&gt;frida的记录函数执行日志功能在ios逆向中相当于theos的hook函数时记录函数参数和返回值的功能(theos相当于打补丁),优缺点同上面的&lt;code class=&quot;highlighter-rouge&quot;&gt;0xa hook函数&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;`frida -U -p pid -l record.js,或用如下python脚本&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+import sys
+
+session = frida.get_usb_device().attach(797)
+script_string = &quot;&quot;&quot;
+
+if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;xxx&quot;;
+        var funcName = &quot;- xxx&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        console.log(&quot;[*] Class Name: &quot; + className);
+        console.log(&quot;[*] Method Name: &quot; + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log(&quot;param:&quot;+args[0]+&quot; type:&quot;+typeof args[0]);
+          },
+          onLeave: function(retval) {
+            console.log(&quot;retval:&quot;+retval+&quot; type:&quot;+typeof retval);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&quot;&quot;&quot;
+
+script = session.create_script(script_string)
+script.load()
+sys.stdin.read()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xc-调用函数&quot;&gt;0xc 调用函数&lt;/h4&gt;
+
+&lt;p&gt;如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj[&quot;- requestUploadWithSure&quot;]()&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;alloc()&lt;/code&gt;的作用是生成一个类的对象&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+import sys
+
+session = frida.get_usb_device().attach(897)
+script_string = &quot;&quot;&quot;
+
+if (ObjC.available)
+{
+    try
+    {
+        var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
+        my_obj[&quot;- requestUploadWithSure:&quot;](1)
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&quot;&quot;&quot;
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print(&quot;[!] &quot; + message['stack'])
+    elif message['type'] == 'send':
+        print(&quot;[i] &quot; + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
+&quot;&quot;&quot;
+
+
+script = session.create_script(script_string)
+
+script.load()
+sys.stdin.read()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;0xd-读写内存&quot;&gt;0xd 读写内存&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;获取模块加载基址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可在ida调试ios app时替代vmmap获取加载基址.获取ios app加载基址用法如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+#session = frida.get_usb_device().attach(pid_int_value)
+session = frida.get_usb_device().attach(&quot;PALxxx&quot;)
+print(session.enumerate_modules())
+
+或者
+
+import frida
+#session = frida.get_usb_device().attach(pid_int_value)
+session = frida.get_usb_device().attach(&quot;PALxxx&quot;)
+base_addr=session.find_base_address(&quot;PALxxx&quot;)
+print('0x%x' % base_addr)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;枚举内存范围&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;s.enumerate_ranges('rw-')&lt;/code&gt;:可找出可读可写的内存
+&lt;code class=&quot;highlighter-rouge&quot;&gt;s.enumerate_ranges('rwx')&lt;/code&gt;:可找出可读可写可执行的内存&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;read/write memory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;s.read_bytes(4468416512, 5)&lt;/code&gt;,等同于&lt;code class=&quot;highlighter-rouge&quot;&gt;s.read_bytes(0x10a56a000, 5)&lt;/code&gt;:在0x10a56a000上读5个字节
+&lt;code class=&quot;highlighter-rouge&quot;&gt;s.write_bytes(4468416512, &quot;frida&quot;)&lt;/code&gt;:在0x10a56a000上写入”frida”&lt;/p&gt;
+
+&lt;p&gt;一个读内存应用实例&lt;a href=&quot;http://www.freebuf.com/sectool/142928.html&quot;&gt;利用Frida从TeamViewer内存中提取密码&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x4-实战&quot;&gt;0x4 实战&lt;/h3&gt;
 
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>
@@ -95,23 +456,25 @@
         <title>lldb命令</title>
         <description>&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://lldb.llvm.org/lldb-gdb.html&quot;&gt;lldb与gdb对照&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29687504/lldb-breakpoint-on-all-methods-in-class-objective-c&quot;&gt;lldb在object-c类对象所有函数上设置断点&lt;/a&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set -r '\[ClassName .*\]$'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;lldb在object-c类对象具体函数上设置断点(未验证)
-&lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set [ClassName functionName]&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/alanzeino/82713016fd6229ea43a8&quot;&gt;lldb常用命令&lt;/a&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;breakpoint set --name &amp;lt;method-name&amp;gt;
-  &quot;sets a breakpoint on a given function name, globally. e.g., 
-  breakpoint set --name viewDidLoad 
-  or 
-  breakpoint set --name &quot;-[UIView setFrame:]&quot;
-breakpoint set --selector &amp;lt;selector-name&amp;gt;
-  &quot;sets a breakpoint on a selector, globally. e.g., 
-  breakpoint set --selector dealloc
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29687504/lldb-breakpoint-on-all-methods-in-class-objective-c&quot;&gt;lldb在object-c类对象所有函数上设置断点&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set -r '\[ClassName .*\]$'&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;lldb在object-c类对象具体函数上设置断点(未验证) &lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set [ClassName functionName]&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/alanzeino/82713016fd6229ea43a8&quot;&gt;lldb常用命令&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;breakpoint set --name &amp;lt;method-name&amp;gt;
+    &quot;sets a breakpoint on a given function name, globally. e.g., 
+    breakpoint set --name viewDidLoad 
+    or 
+    breakpoint set --name &quot;-[UIView setFrame:]&quot;
+breakpoint set --selector &amp;lt;selector-name&amp;gt;
+    &quot;sets a breakpoint on a selector, globally. e.g., 
+    breakpoint set --selector dealloc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 25 Dec 2017 00:00:00 +0800</pubDate>
@@ -972,7 +1335,7 @@ iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
 
 &lt;h3 id=&quot;why&quot;&gt;Why&lt;/h3&gt;
 
-&lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;em&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/em&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
+&lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;strong&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/strong&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png&quot; alt=&quot;换行变成空格&quot; /&gt;&lt;/p&gt;
 

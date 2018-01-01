@@ -115,23 +115,25 @@
 
         <span itemprop="articleBody"><ul>
   <li><a href="https://lldb.llvm.org/lldb-gdb.html">lldb与gdb对照</a></li>
-  <li><a href="https://stackoverflow.com/questions/29687504/lldb-breakpoint-on-all-methods-in-class-objective-c">lldb在object-c类对象所有函数上设置断点</a>
-<code class="highlighter-rouge">breakpoint set -r '\[ClassName .*\]$'</code></li>
-  <li>lldb在object-c类对象具体函数上设置断点(未验证)
-<code class="highlighter-rouge">breakpoint set [ClassName functionName]</code></li>
-  <li><a href="https://gist.github.com/alanzeino/82713016fd6229ea43a8">lldb常用命令</a>
-    <div class="highlighter-rouge"><pre class="highlight"><code>breakpoint set --name &lt;method-name&gt;
-  "sets a breakpoint on a given function name, globally. e.g., 
-  breakpoint set --name viewDidLoad 
-  or 
-  breakpoint set --name "-[UIView setFrame:]"
-breakpoint set --selector &lt;selector-name&gt;
-  "sets a breakpoint on a selector, globally. e.g., 
-  breakpoint set --selector dealloc
-</code></pre>
-    </div>
+  <li>
+    <p><a href="https://stackoverflow.com/questions/29687504/lldb-breakpoint-on-all-methods-in-class-objective-c">lldb在object-c类对象所有函数上设置断点</a> <code class="highlighter-rouge">breakpoint set -r '\[ClassName .*\]$'</code></p>
   </li>
+  <li>
+    <p>lldb在object-c类对象具体函数上设置断点(未验证) <code class="highlighter-rouge">breakpoint set [ClassName functionName]</code></p>
+  </li>
+  <li><a href="https://gist.github.com/alanzeino/82713016fd6229ea43a8">lldb常用命令</a></li>
 </ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>breakpoint set --name &lt;method-name&gt;
+    "sets a breakpoint on a given function name, globally. e.g., 
+    breakpoint set --name viewDidLoad 
+    or 
+    breakpoint set --name "-[UIView setFrame:]"
+breakpoint set --selector &lt;selector-name&gt;
+    "sets a breakpoint on a selector, globally. e.g., 
+    breakpoint set --selector dealloc
+</code></pre>
+</div>
 
 </span>
 

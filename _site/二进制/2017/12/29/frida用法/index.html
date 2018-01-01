@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          1 minute read
+          4 minute read
         </small>
       </div>
 
@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x0-about">0x0 About</h3>
 
-<p>记录frida的用法</p>
+<p>记录适用于ios的objective-c的类中函数的frida的用法</p>
 
 <h3 id="0x1-必读">0x1 必读</h3>
 
@@ -127,13 +127,15 @@
 
 <p><a href="https://www.anquanke.com/post/id/85759">利用FRIDA攻击Android应用程序2</a></p>
 
-<p><a href="http://www.freebuf.com/articles/web/125260.html">如何在iOS应用程序中用Frida来绕过“越狱检测”</a></p>
+<p><a href="http://www.freebuf.com/articles/web/125260.html">如何在iOS应用程序中用Frida来绕过”越狱检测”</a></p>
 
 <p><a href="http://www.freebuf.com/articles/web/125260.html">使用Frida配合Burp Suite追踪API调用</a></p>
 
 <p><a href="http://www.freebuf.com/sectool/142928.html">利用Frida从TeamViewer内存中提取密码</a></p>
 
-<p><a href="http://www.freebuf.com/sectool/143360.html">Brida：使用Frida进行移动应用渗透测试</a></p>
+<p><a href="http://www.freebuf.com/sectool/143360.html">Brida:使用Frida进行移动应用渗透测试</a></p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/24020686">Object-C测试工具与Frida</a></p>
 
 <h3 id="0x2-安装">0x2 安装</h3>
 
@@ -143,7 +145,366 @@
 </code></pre>
 </div>
 
-<h3 id="0x3">0x3</h3>
+<h3 id="0x3-frida的常见用法">0x3 frida的常见用法</h3>
+
+<ul>
+  <li>0xa hook函数(ios中theos具备的功能)</li>
+  <li>0xb 记录函数执行日志(ios中theos具备的功能)</li>
+  <li>0xc 调用函数(ios中<a href="http://www.cycript.org/">cycript</a>具备的功能)</li>
+  <li>0xd 读写内存(类似于调试器的功能)</li>
+</ul>
+
+<p>使用frida有两种方法</p>
+<ul>
+  <li>命令行[实现简单功能推荐]:
+  <code class="highlighter-rouge">frida -U -p pid -l xxx.js</code></li>
+  <li>api调用[实现复杂功能推荐]:
+  例如使用python调用frida的python api来写python脚本实现相应功能,使用python调用api时,推荐阅读api实现细节<a href="https://github.com/frida/frida-python/blob/master/src/frida/core.py">frida/core.py</a>,<a href="https://github.com/frida/frida-python/blob/master/src/frida/tracer.py">frida/tracer.py</a>.</li>
+</ul>
+
+<p>上面的4种用法可能会涉及到如下js</p>
+
+<p><a href="https://github.com/3xp10it/mytools/blob/master/classes.js">classes.js</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for (var className in ObjC.classes)
+    {
+        if (ObjC.classes.hasOwnProperty(className))
+        {
+            console.log(className);
+        }
+}
+</code></pre>
+</div>
+
+<p><a href="https://github.com/3xp10it/mytools/blob/master/methodsofclass.js">methodofclass.js</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>console.log("[*] Started: Find All Methods of a Specific Class");
+if (ObjC.available)
+{
+    try
+    {
+        var className = "xxx";
+        var methods = eval('ObjC.classes.' + className + '.$methods');
+        for (var i = 0; i &lt; methods.length; i++)
+        {
+            try
+            {
+                console.log("[-] "+methods[i]);
+            }
+            catch(err)
+            {
+                console.log("[!] Exception1: " + err.message);
+            }
+        }
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+console.log("[*] Completed: Find All Methods of a Specific Class");
+</code></pre>
+</div>
+
+<p><a href="https://github.com/3xp10it/mytools/blob/master/record.js">record.js</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if (ObjC.available)
+{
+    try
+    {
+        var className = "xxx";
+        var funcName = "- xxx";
+        var hook = eval('ObjC.classes.' + className + '["' + funcName + '"]');
+        console.log("[*] Class Name: " + className);
+        console.log("[*] Method Name: " + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log("param:"+args[0]+" type:"+typeof args[0]);
+          },
+          onLeave: function(retval) {
+            console.log("retval:"+retval+" type:"+typeof retval);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+
+</code></pre>
+</div>
+
+<p><a href="https://github.com/3xp10it/mytools/blob/master/overwrite.js">overwrite.js</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if (ObjC.available)
+{
+    try
+    {
+        var className = "PARSPedometerInfo";
+        var funcName = "- integratedSteps";
+        var hook = eval('ObjC.classes.' + className + '["' + funcName + '"]');
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log("Original args0-&gt; type:"+typeof args[0]+" value:"+args[0])
+
+            newargs0=ptr('xxx')
+            args[0]=newargs0
+            console.log("New args0-&gt; type:"+typeof args[0]+" value:"+args[0]")
+          },
+          onLeave: function(retval) {
+            console.log("Original retval-&gt; type:"+typeof args[0]+" value:"+args[0])
+
+            newretval=ptr("xxxx")
+            retval.replace(newretval)
+            console.log("New retval-&gt; type:"+typeof args[0]+" value:"+newretval)
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+
+</code></pre>
+</div>
+
+<h4 id="0xa-hook函数">0xa hook函数</h4>
+
+<p>frida的hook函数功能在ios逆向中相当于theos的hook函数时修改函数的功能(theos相当于打补丁),但是比theos更方便,不用打包成deb安装,缺点是hook函数的语法没有theos简单.hook函数可通过命令行实现(可通过js热切换功能),也可通过其他语言调用frida的api来实现,通过其他语言(如python)调用api来实现时可做到更加”自动化”.在hook函数前要先找到要hook的函数名,可以通过frida枚举类中所有方法来查找或是通过ida反汇编后查看<code class="highlighter-rouge">functions窗口</code>得到,其中<strong>通过frida得到的类中的函数名比通过ida得到的类中的函数名更全</strong>,因为frida会得到父类的函数,而ida的functions窗口看不到父类的函数名,如果只看ida中类的函数则会错失很多从父类继承的函数名.为了hook一个类中的函数,首先要找到这个类名和函数名,一般找类名是通过ida来分析得出,找到类名后再找未知的函数名时建议通过frida查找(这里是指静态分析时根据函数名猜测实现的对应功能,如果是动态调试则不用根据函数名来猜测对应功能).</p>
+
+<ul>
+  <li>找类<code class="highlighter-rouge">frida -U -p pid -l classes.js</code></li>
+  <li>找类函数<code class="highlighter-rouge">frida -U -p pid -l methodofclass.js</code></li>
+  <li>hook函数<code class="highlighter-rouge">frida -U -p pid -l overwrite.js</code>,也可通过python api如下实现,其中js通过<code class="highlighter-rouge">send()</code>传递内容到python中</li>
+</ul>
+
+<p>之前由于在测试时发现ios objective-c的函数如果有参数,打印参数发现不是真的参数,在hook时修改函数参数也会不成功,<a href="https://github.com/frida/frida/issues/399">详情</a>,于是以为frida有bug,后来发现是参数序号写错了,ida中该函数如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>void __cdecl -[PARSPedometerInfo setIntegratedSteps:](PARSPedometerInfo *self, SEL a2, signed __int64 a3)
+{
+  self-&gt;_integratedSteps = a3;
+}
+</code></pre>
+</div>
+
+<p>在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[ObjC: args[0] = self, args<a href="https://www.frida.re/docs/home/">1</a> = selector, args[2-n] = arguments]),最后代码如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+import sys
+
+session = frida.get_usb_device().attach(797)
+script_string = """
+if (ObjC.available)
+{
+    try
+    {
+        var className = "PARSPedometerInfo";
+        var funcName = "- integratedSteps";
+        var hook = eval('ObjC.classes.' + className + '["' + funcName + '"]');
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log("Original args0-&gt; type:"+typeof args[0]+" value:"+args[0])
+
+            newargs0=ptr('xxx')
+            args[0]=newargs0
+            console.log("New args0-&gt; type:"+typeof args[0]+" value:"+args[0]")
+            send(args[0]);
+          },
+          onLeave: function(retval) {
+            console.log("Original retval-&gt; type:"+typeof args[0]+" value:"+args[0])
+
+            newretval=ptr("xxxx")
+            retval.replace(newretval)
+            console.log("New retval-&gt; type:"+typeof args[0]+" value:"+newretval)
+            send(newretval)
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+"""
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print("[!] " + message['stack'])
+    elif message['type'] == 'send':
+        print("[i] " + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
+</code></pre>
+</div>
+
+<h4 id="0xb-记录函数执行日志">0xb 记录函数执行日志</h4>
+
+<p>frida的记录函数执行日志功能在ios逆向中相当于theos的hook函数时记录函数参数和返回值的功能(theos相当于打补丁),优缺点同上面的<code class="highlighter-rouge">0xa hook函数</code>.</p>
+
+<p>`frida -U -p pid -l record.js,或用如下python脚本</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+import sys
+
+session = frida.get_usb_device().attach(797)
+script_string = """
+
+if (ObjC.available)
+{
+    try
+    {
+        var className = "xxx";
+        var funcName = "- xxx";
+        var hook = eval('ObjC.classes.' + className + '["' + funcName + '"]');
+        console.log("[*] Class Name: " + className);
+        console.log("[*] Method Name: " + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log("param:"+args[0]+" type:"+typeof args[0]);
+          },
+          onLeave: function(retval) {
+            console.log("retval:"+retval+" type:"+typeof retval);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+"""
+
+script = session.create_script(script_string)
+script.load()
+sys.stdin.read()
+</code></pre>
+</div>
+
+<h4 id="0xc-调用函数">0xc 调用函数</h4>
+
+<p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,其中<code class="highlighter-rouge">alloc()</code>的作用是生成一个类的对象</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+import sys
+
+session = frida.get_usb_device().attach(897)
+script_string = """
+
+if (ObjC.available)
+{
+    try
+    {
+        var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
+        my_obj["- requestUploadWithSure:"](1)
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+"""
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print("[!] " + message['stack'])
+    elif message['type'] == 'send':
+        print("[i] " + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
+"""
+
+
+script = session.create_script(script_string)
+
+script.load()
+sys.stdin.read()
+</code></pre>
+</div>
+
+<h4 id="0xd-读写内存">0xd 读写内存</h4>
+
+<ul>
+  <li>获取模块加载基址</li>
+</ul>
+
+<p>可在ida调试ios app时替代vmmap获取加载基址.获取ios app加载基址用法如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+#session = frida.get_usb_device().attach(pid_int_value)
+session = frida.get_usb_device().attach("PALxxx")
+print(session.enumerate_modules())
+
+或者
+
+import frida
+#session = frida.get_usb_device().attach(pid_int_value)
+session = frida.get_usb_device().attach("PALxxx")
+base_addr=session.find_base_address("PALxxx")
+print('0x%x' % base_addr)
+</code></pre>
+</div>
+
+<ul>
+  <li>枚举内存范围</li>
+</ul>
+
+<p><code class="highlighter-rouge">s.enumerate_ranges('rw-')</code>:可找出可读可写的内存
+<code class="highlighter-rouge">s.enumerate_ranges('rwx')</code>:可找出可读可写可执行的内存</p>
+
+<ul>
+  <li>read/write memory</li>
+</ul>
+
+<p><code class="highlighter-rouge">s.read_bytes(4468416512, 5)</code>,等同于<code class="highlighter-rouge">s.read_bytes(0x10a56a000, 5)</code>:在0x10a56a000上读5个字节
+<code class="highlighter-rouge">s.write_bytes(4468416512, "frida")</code>:在0x10a56a000上写入”frida”</p>
+
+<p>一个读内存应用实例<a href="http://www.freebuf.com/sectool/142928.html">利用Frida从TeamViewer内存中提取密码</a></p>
+
+<h3 id="0x4-实战">0x4 实战</h3>
 
 </span>
 
