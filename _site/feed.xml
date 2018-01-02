@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 02 Jan 2018 07:38:07 +0800</pubDate>
-    <lastBuildDate>Tue, 02 Jan 2018 07:38:07 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Tue, 02 Jan 2018 18:31:11 +0800</pubDate>
+    <lastBuildDate>Tue, 02 Jan 2018 18:31:11 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>frida用法</title>
@@ -18,6 +18,8 @@
 &lt;h3 id=&quot;0x1-必读&quot;&gt;0x1 必读&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.frida.re/docs/home/&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.frida.re/docs/javascript-api/&quot;&gt;API&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.voidcn.com/article/p-cuytgsnz-w.html&quot;&gt;官方文档部分翻译&lt;/a&gt;&lt;/p&gt;
 
@@ -199,7 +201,7 @@ else
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[ObjC: args[0] = self, args&lt;a href=&quot;https://www.frida.re/docs/home/&quot;&gt;1&lt;/a&gt; = selector, args[2-n] = arguments]),最后代码如下:&lt;/p&gt;
+&lt;p&gt;在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[&lt;code class=&quot;highlighter-rouge&quot;&gt;ObjC: args[0] = self, args[1] = selector, args[2-n] = arguments&lt;/code&gt;]),最后代码如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
 import sys
@@ -266,7 +268,7 @@ sys.stdin.read()
 
 &lt;p&gt;frida的记录函数执行日志功能在ios逆向中相当于theos的hook函数时记录函数参数和返回值的功能(theos相当于打补丁),优缺点同上面的&lt;code class=&quot;highlighter-rouge&quot;&gt;0xa hook函数&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;`frida -U -p pid -l record.js,或用如下python脚本&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;frida -U -p pid -l record.js&lt;/code&gt;,或用如下python脚本&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
 import sys
@@ -311,7 +313,19 @@ sys.stdin.read()
 
 &lt;h4 id=&quot;0xc-调用函数&quot;&gt;0xc 调用函数&lt;/h4&gt;
 
-&lt;p&gt;如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj[&quot;- requestUploadWithSure&quot;]()&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;alloc()&lt;/code&gt;的作用是生成一个类的对象&lt;/p&gt;
+&lt;p&gt;如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj[&quot;- requestUploadWithSure&quot;]()&lt;/code&gt;,如果要调用一个类的函数,有2种情况:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在内存中还没有类的一个实例(对象)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这种情况需要手动生成一个实例,用法为&lt;code class=&quot;highlighter-rouge&quot;&gt;ObjC.classes.类名.alloc()&lt;/code&gt;,在下面的代码中对应&lt;code class=&quot;highlighter-rouge&quot;&gt;var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;alloc()&lt;/code&gt;的作用是生成一个类的对象&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在内存中已经有类的实例(对象)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这种情况需要先找出一个类的实例,使用&lt;code class=&quot;highlighter-rouge&quot;&gt;var tmp=ObjC.chooseSync(ObjC.classes.类名)&lt;/code&gt;,在下面的代码中对应&lt;code class=&quot;highlighter-rouge&quot;&gt;var tmp=ObjC.chooseSync(ObjC.classes.PARSHealthPedometer10thHomeViewController)[0]&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;[0]&lt;/code&gt;表示取找到的实例中的第一个实例,可根据实际情况换成其他的实例&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
 import sys
@@ -323,6 +337,7 @@ if (ObjC.available)
 {
     try
     {
+        //var my_obj=ObjC.chooseSync(ObjC.classes.PARSHealthPedometer10thHomeViewController)[0]
         var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
         my_obj[&quot;- requestUploadWithSure:&quot;](1)
     }
@@ -403,6 +418,8 @@ print('0x%x' % base_addr)
 &lt;p&gt;一个读内存应用实例&lt;a href=&quot;http://www.freebuf.com/sectool/142928.html&quot;&gt;利用Frida从TeamViewer内存中提取密码&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x4-实战&quot;&gt;0x4 实战&lt;/h3&gt;
+
+&lt;p&gt;to be continue…&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>
@@ -940,7 +957,7 @@ vmmap target_app_pid
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是&lt;code class=&quot;highlighter-rouge&quot;&gt;healthWalkUploadTodayPedometer&lt;/code&gt;,但由于&lt;code class=&quot;highlighter-rouge&quot;&gt;healthWalkUploadTodayPedometer&lt;/code&gt;函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入”1”即可,用requestUploadWithSure函数更方法用cycript测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:&lt;/p&gt;
+&lt;p&gt;从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是&lt;code class=&quot;highlighter-rouge&quot;&gt;healthWalkUploadTodayPedometer&lt;/code&gt;,但由于&lt;code class=&quot;highlighter-rouge&quot;&gt;healthWalkUploadTodayPedometer&lt;/code&gt;函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入”1”即可,用requestUploadWithSure函数更方法用&lt;a href=&quot;http://www.cycript.org/&quot;&gt;cycript&lt;/a&gt;测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@iphone_ip
 cycript -p PALxxx
@@ -971,7 +988,53 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
+&lt;p&gt;上面是使用cycript给其他用户上传步数,也可通过frida如下实现(执行代码前需要用其他用户的帐号登陆本机app)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+import sys
+
+session = frida.get_usb_device().attach(1535)
+script_string = &quot;&quot;&quot;
+
+if (ObjC.available)
+{
+    try
+    {
+        var my_obj1=ObjC.chooseSync(ObjC.classes.PARSPedometerInfo)[0]
+        var my_obj2=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
+        my_obj1[&quot;- setIntegratedSteps:&quot;](66666)
+        my_obj2[&quot;- requestUploadWithSure:&quot;](1)
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&quot;&quot;&quot;
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print(&quot;[!] &quot; + message['stack'])
+    elif message['type'] == 'send':
+        print(&quot;[i] &quot; + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 

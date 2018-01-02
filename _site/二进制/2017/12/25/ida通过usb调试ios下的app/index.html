@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          9 minute read
+          10 minute read
         </small>
       </div>
 
@@ -559,7 +559,7 @@ vmmap target_app_pid
 </code></pre>
 </div>
 
-<p>从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>,但由于<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入”1”即可,用requestUploadWithSure函数更方法用cycript测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:</p>
+<p>从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>,但由于<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入”1”即可,用requestUploadWithSure函数更方法用<a href="http://www.cycript.org/">cycript</a>测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone_ip
 cycript -p PALxxx
@@ -590,7 +590,53 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
+</code></pre>
+</div>
 
+<p>上面是使用cycript给其他用户上传步数,也可通过frida如下实现(执行代码前需要用其他用户的帐号登陆本机app)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+import sys
+
+session = frida.get_usb_device().attach(1535)
+script_string = """
+
+if (ObjC.available)
+{
+    try
+    {
+        var my_obj1=ObjC.chooseSync(ObjC.classes.PARSPedometerInfo)[0]
+        var my_obj2=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
+        my_obj1["- setIntegratedSteps:"](66666)
+        my_obj2["- requestUploadWithSure:"](1)
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+"""
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print("[!] " + message['stack'])
+    elif message['type'] == 'send':
+        print("[i] " + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
 </code></pre>
 </div>
 

