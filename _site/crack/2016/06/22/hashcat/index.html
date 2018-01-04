@@ -209,7 +209,7 @@ hashcat掩码字符所代表的含义及掩码具体的使用方法:
     3)https://github.com/wpatoolkit/Cap-Converter.git
     4)上面几个都不好用下直接进kali,用kali下的aircrack-ng input.cap -J output.hccap(macOS下的aircrack-ng无此功能)
       或者如果数据量太大(eg,macOS下由于不能aireplay主动攻击需要sniff较长时间会导致数据量较大):
-          这时可直接指定bssid可快速转成hccap文件，命令如下:
+          这时可直接指定bssid可快速转成hccap文件,命令如下:
           eg.aircrack-ng input.cap -J output.hccap -b 50:bd:5f:6e:3f:44
 
     最后破解命令:
@@ -402,6 +402,10 @@ john运行以后会在当前目录产生一个john.pot文件,用来缓存数据,
 	# ./rar2john /root/Desktop/rar.rar &gt; /root/Desktop/rarhash.txt
 	# ./john /root/Desktop/rarhash.txt --format=rar --incremental
 	# ./john /root/Desktop/rar5hash.txt --format=rar5 --incremental
+
+    hashcat破解rar(需要先参考这里https://hashcat.net/forum/thread-4619.html)
+        rar3-hp     hashcat --force -m 12500 hash.txt -a 3 ?d?d?d?d?d?d
+        rar5        hashcat --force -m 13000 hash.txt -a 3 ?d?d?d?d?d?d
 	
 破解zip密码hash:
 	# ./zip2john /root/Desktop/zip.zip &gt; /root/Desktop/ziphash.txt

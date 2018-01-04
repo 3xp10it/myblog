@@ -121,6 +121,8 @@
 
 <p><a href="https://www.frida.re/docs/home/">官方文档</a></p>
 
+<p><a href="https://www.frida.re/docs/javascript-api/">API</a></p>
+
 <p><a href="http://www.voidcn.com/article/p-cuytgsnz-w.html">官方文档部分翻译</a></p>
 
 <p><a href="https://www.anquanke.com/post/id/85758">利用FRIDA攻击Android应用程序1</a></p>
@@ -134,6 +136,8 @@
 <p><a href="http://www.freebuf.com/sectool/142928.html">利用Frida从TeamViewer内存中提取密码</a></p>
 
 <p><a href="http://www.freebuf.com/sectool/143360.html">Brida:使用Frida进行移动应用渗透测试</a></p>
+
+<p><a href="https://www.anquanke.com/post/id/86567">联合Frida和BurpSuite的强大扩展–Brida</a></p>
 
 <p><a href="https://zhuanlan.zhihu.com/p/24020686">Object-C测试工具与Frida</a></p>
 
@@ -301,7 +305,7 @@ else
 </code></pre>
 </div>
 
-<p>在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[ObjC: args[0] = self, args<a href="https://www.frida.re/docs/home/">1</a> = selector, args[2-n] = arguments]),最后代码如下:</p>
+<p>在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[<code class="highlighter-rouge">ObjC: args[0] = self, args[1] = selector, args[2-n] = arguments</code>]),最后代码如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
@@ -368,7 +372,7 @@ sys.stdin.read()
 
 <p>frida的记录函数执行日志功能在ios逆向中相当于theos的hook函数时记录函数参数和返回值的功能(theos相当于打补丁),优缺点同上面的<code class="highlighter-rouge">0xa hook函数</code>.</p>
 
-<p>`frida -U -p pid -l record.js,或用如下python脚本</p>
+<p><code class="highlighter-rouge">frida -U -p pid -l record.js</code>,或用如下python脚本</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
@@ -413,7 +417,19 @@ sys.stdin.read()
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
-<p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,其中<code class="highlighter-rouge">alloc()</code>的作用是生成一个类的对象</p>
+<p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,如果要调用一个类的函数,有2种情况:</p>
+
+<ul>
+  <li>在内存中还没有类的一个实例(对象)</li>
+</ul>
+
+<p>这种情况需要手动生成一个实例,用法为<code class="highlighter-rouge">ObjC.classes.类名.alloc()</code>,在下面的代码中对应<code class="highlighter-rouge">var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()</code>,其中<code class="highlighter-rouge">alloc()</code>的作用是生成一个类的对象</p>
+
+<ul>
+  <li>在内存中已经有类的实例(对象)</li>
+</ul>
+
+<p>这种情况需要先找出一个类的实例,使用<code class="highlighter-rouge">var tmp=ObjC.chooseSync(ObjC.classes.类名)</code>,在下面的代码中对应<code class="highlighter-rouge">var tmp=ObjC.chooseSync(ObjC.classes.PARSHealthPedometer10thHomeViewController)[0]</code>,其中<code class="highlighter-rouge">[0]</code>表示取找到的实例中的第一个实例,可根据实际情况换成其他的实例</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
@@ -425,6 +441,7 @@ if (ObjC.available)
 {
     try
     {
+        //var my_obj=ObjC.chooseSync(ObjC.classes.PARSHealthPedometer10thHomeViewController)[0]
         var my_obj=ObjC.classes.PARSHealthPedometer10thHomeViewController.alloc()
         my_obj["- requestUploadWithSure:"](1)
     }
@@ -505,6 +522,8 @@ print('0x%x' % base_addr)
 <p>一个读内存应用实例<a href="http://www.freebuf.com/sectool/142928.html">利用Frida从TeamViewer内存中提取密码</a></p>
 
 <h3 id="0x4-实战">0x4 实战</h3>
+
+<p>to be continue…</p>
 
 </span>
 
