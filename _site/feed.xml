@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 04 Jan 2018 08:01:53 +0800</pubDate>
-    <lastBuildDate>Thu, 04 Jan 2018 08:01:53 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Thu, 04 Jan 2018 18:47:50 +0800</pubDate>
+    <lastBuildDate>Thu, 04 Jan 2018 18:47:50 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>frida用法</title>
@@ -315,7 +315,26 @@ sys.stdin.read()
 
 &lt;h4 id=&quot;0xc-调用函数&quot;&gt;0xc 调用函数&lt;/h4&gt;
 
-&lt;p&gt;如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj[&quot;- requestUploadWithSure&quot;]()&lt;/code&gt;,如果要调用一个类的函数,有2种情况:&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;号开头的函数要&lt;a href=&quot;https://www.frida.re/docs/javascript-api/#objc&quot;&gt;这样&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
+{
+  __int64 v3; // x20
+  void *v4; // x0
+  void *v5; // x19
+    ...
+}
+
+
+[NSString stringWithString:@&quot;Hello World&quot;] 
+becomes 
+var NSString = ObjC.classes.NSString; NSString.stringWithString_(&quot;Hello World&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;号开头的函数要这样:&lt;/p&gt;
+
+&lt;p&gt;如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,这里的requestUploadWithSure函数是&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;号开头的函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为&lt;code class=&quot;highlighter-rouge&quot;&gt;my_obj[&quot;- requestUploadWithSure&quot;]()&lt;/code&gt;,如果要调用一个&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;号开头的类的函数,有2种情况:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;在内存中还没有类的一个实例(对象)&lt;/li&gt;
@@ -421,7 +440,32 @@ print('0x%x' % base_addr)
 
 &lt;h3 id=&quot;0x4-实战&quot;&gt;0x4 实战&lt;/h3&gt;
 
-&lt;p&gt;to be continue…&lt;/p&gt;
+&lt;h4 id=&quot;0xa-理解brida&quot;&gt;0xa 理解brida&lt;/h4&gt;
+
+&lt;p&gt;为了理解brida,需要理解pyro,参考这两个个连接(&lt;a href=&quot;http://blog.csdn.net/xiaolewennofollow/article/details/52155457&quot;&gt;1&lt;/a&gt;,&lt;a href=&quot;http://python.blog.163.com/blog/static/183010453201201145855429/&quot;&gt;2&lt;/a&gt;)可理解pyro.理解pyro后再理解brida,理解brida后再看看brida中用到的pyro与&lt;a href=&quot;http://5alt.me/2017/11/我是如何用hrida自动生成签名的/&quot;&gt;这里的hrida&lt;/a&gt;,发现只是区别如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brida:通过pyro开启rpc
+hrida:通过http服务开rpc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这里brida和hrida开rpc的意义在于可以给网络上的其他用户使用本地的frida提供的的调用app中函数的的接口,但是frida已经有了rpc,为什么brida和hrida还要重新开rpc呢?因为frida的rpc只能给本地的其他程序使用,不能给网络上的其他程序使用,brida开rpc的意义不是很大,因为brida开rpc后是给本地的安全人员写的burp插件使用的,除非安全人员有几个好友,这样这些好友之间就可只要求其中一个人开启brida的rpc服务,其他人使用这个人的brida的rpc即可.frida注入app后可通过开rpc给网络上的其他用户提供调用app函数的接口,例如可通过本地frida注入某上传步数的App后将上传步数的接口通过rpc提供给网络上的人使用&lt;/p&gt;
+
+&lt;p&gt;brida工作原理如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/brida.png&quot; alt=&quot;brida原理图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也即,brida调用frida的rpc后通过pyro开启一个rpc给安全人员写的burp插件用,目前笔者认为brida只能用于辅助对称加密(如aes)的加密后的数据,也即brida工作时,人工调用brida的解密功能解密数据后再修改数据,然后将修改后的数据再用brida的加密功能加密好,加密好之后再通过burpsuite发送给正常的远程服务器.如果要通过burpsuite来修改非对称加密(如rsa)的加密后的数据需要使用下面的方法&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.freebuf.com/articles/web/125260.html&quot;&gt;使用Frida配合Burp Suite追踪API调用&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上面这个链接里的思路是这样的:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;App(frida)在数据加密前将明文发给burp,burp在人为修改数据后发给回显服务程序,回显服务程序打印burp发来的修改后的数据后,将这个数据发给App(frida).App(frida)收到回显服务程序发来的数据后看看这个数据是哪来的,如果是app没加密之前的数据就发给burp,如果是回显服务程序发来的数据就进行加密,然后再发给正常的服务器进行正常的请求.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0xb-实战绕过rsa&quot;&gt;0xb 实战”绕过rsa”&lt;/h4&gt;
+
+&lt;p&gt;暂未找到场景,to be continue…&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>
@@ -969,6 +1013,12 @@ choose(PARSEPedometerInfo)
     也即找到两个PARSPedometerInfo类的对象,随便用其中一个即可
 [#0x12f22cd60 setIntegratedSteps:66666]
     这里设置上传步数为66666,但是还没有上传
+
+    **注意:这里的setIntegratedSteps函数是-号开头的函数,如果是+号开头的函数则用法为[className funcName:66666],如下面的函数是+号开头的(加号的意思就是其他函数可以直接调用这个类中的这个函数,而不用创建这个类的实例),用法如下:
+    cy# [PARSCryptDataUtils encryptWithServerTimestamp:&quot;18013790233&quot;]
+        结果为:
+        @&quot;VF8ITErCt6L7HE0aG8/dBKFIokGahl57ulg6zGfpsMFHahc88SlPqW+ZHp5H9dKht3LSDsxR0asc/gy5phkqUMWCGhYNXsxDz1MVDxGfPW0B5tnOMiFEV5XnuKAw2SkpqafI5d86zrgDKR4JeD8FUtK6Cmv1eB3DvofPOJVj7js=&quot;
+
 tmp=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp requestUploadWithSure:1]
@@ -990,6 +1040,7 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
+    或者将上传的动作合成1步[[PARSHealthPedometer10thHomeViewController alloc] setIntegratedSteps:66666]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 

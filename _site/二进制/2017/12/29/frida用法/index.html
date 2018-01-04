@@ -417,7 +417,26 @@ sys.stdin.read()
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
-<p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,如果要调用一个类的函数,有2种情况:</p>
+<p><code class="highlighter-rouge">+</code>号开头的函数要<a href="https://www.frida.re/docs/javascript-api/#objc">这样</a>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
+{
+  __int64 v3; // x20
+  void *v4; // x0
+  void *v5; // x19
+    ...
+}
+
+
+[NSString stringWithString:@"Hello World"] 
+becomes 
+var NSString = ObjC.classes.NSString; NSString.stringWithString_("Hello World");
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">-</code>号开头的函数要这样:</p>
+
+<p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,这里的requestUploadWithSure函数是<code class="highlighter-rouge">-</code>号开头的函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,如果要调用一个<code class="highlighter-rouge">-</code>号开头的类的函数,有2种情况:</p>
 
 <ul>
   <li>在内存中还没有类的一个实例(对象)</li>
@@ -523,7 +542,32 @@ print('0x%x' % base_addr)
 
 <h3 id="0x4-实战">0x4 实战</h3>
 
-<p>to be continue…</p>
+<h4 id="0xa-理解brida">0xa 理解brida</h4>
+
+<p>为了理解brida,需要理解pyro,参考这两个个连接(<a href="http://blog.csdn.net/xiaolewennofollow/article/details/52155457">1</a>,<a href="http://python.blog.163.com/blog/static/183010453201201145855429/">2</a>)可理解pyro.理解pyro后再理解brida,理解brida后再看看brida中用到的pyro与<a href="http://5alt.me/2017/11/我是如何用hrida自动生成签名的/">这里的hrida</a>,发现只是区别如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>brida:通过pyro开启rpc
+hrida:通过http服务开rpc
+</code></pre>
+</div>
+
+<p>这里brida和hrida开rpc的意义在于可以给网络上的其他用户使用本地的frida提供的的调用app中函数的的接口,但是frida已经有了rpc,为什么brida和hrida还要重新开rpc呢?因为frida的rpc只能给本地的其他程序使用,不能给网络上的其他程序使用,brida开rpc的意义不是很大,因为brida开rpc后是给本地的安全人员写的burp插件使用的,除非安全人员有几个好友,这样这些好友之间就可只要求其中一个人开启brida的rpc服务,其他人使用这个人的brida的rpc即可.frida注入app后可通过开rpc给网络上的其他用户提供调用app函数的接口,例如可通过本地frida注入某上传步数的App后将上传步数的接口通过rpc提供给网络上的人使用</p>
+
+<p>brida工作原理如下图</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/brida.png" alt="brida原理图" /></p>
+
+<p>也即,brida调用frida的rpc后通过pyro开启一个rpc给安全人员写的burp插件用,目前笔者认为brida只能用于辅助对称加密(如aes)的加密后的数据,也即brida工作时,人工调用brida的解密功能解密数据后再修改数据,然后将修改后的数据再用brida的加密功能加密好,加密好之后再通过burpsuite发送给正常的远程服务器.如果要通过burpsuite来修改非对称加密(如rsa)的加密后的数据需要使用下面的方法</p>
+
+<p><a href="http://www.freebuf.com/articles/web/125260.html">使用Frida配合Burp Suite追踪API调用</a></p>
+
+<p>上面这个链接里的思路是这样的:</p>
+
+<p><strong>App(frida)在数据加密前将明文发给burp,burp在人为修改数据后发给回显服务程序,回显服务程序打印burp发来的修改后的数据后,将这个数据发给App(frida).App(frida)收到回显服务程序发来的数据后看看这个数据是哪来的,如果是app没加密之前的数据就发给burp,如果是回显服务程序发来的数据就进行加密,然后再发给正常的服务器进行正常的请求.</strong></p>
+
+<h4 id="0xb-实战绕过rsa">0xb 实战”绕过rsa”</h4>
+
+<p>暂未找到场景,to be continue…</p>
 
 </span>
 

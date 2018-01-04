@@ -569,6 +569,12 @@ choose(PARSEPedometerInfo)
     也即找到两个PARSPedometerInfo类的对象,随便用其中一个即可
 [#0x12f22cd60 setIntegratedSteps:66666]
     这里设置上传步数为66666,但是还没有上传
+
+    **注意:这里的setIntegratedSteps函数是-号开头的函数,如果是+号开头的函数则用法为[className funcName:66666],如下面的函数是+号开头的(加号的意思就是其他函数可以直接调用这个类中的这个函数,而不用创建这个类的实例),用法如下:
+    cy# [PARSCryptDataUtils encryptWithServerTimestamp:"18013790233"]
+        结果为:
+        @"VF8ITErCt6L7HE0aG8/dBKFIokGahl57ulg6zGfpsMFHahc88SlPqW+ZHp5H9dKht3LSDsxR0asc/gy5phkqUMWCGhYNXsxDz1MVDxGfPW0B5tnOMiFEV5XnuKAw2SkpqafI5d86zrgDKR4JeD8FUtK6Cmv1eB3DvofPOJVj7js="
+
 tmp=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp requestUploadWithSure:1]
@@ -590,6 +596,7 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
+    或者将上传的动作合成1步[[PARSHealthPedometer10thHomeViewController alloc] setIntegratedSteps:66666]
 </code></pre>
 </div>
 
