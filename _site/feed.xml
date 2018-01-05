@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 05 Jan 2018 08:13:28 +0800</pubDate>
-    <lastBuildDate>Fri, 05 Jan 2018 08:13:28 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Fri, 05 Jan 2018 18:04:41 +0800</pubDate>
+    <lastBuildDate>Fri, 05 Jan 2018 18:04:41 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>frida用法</title>
@@ -128,7 +128,10 @@ console.log(&quot;[*] Completed: Find All Methods of a Specific Class&quot;);
             console.log(&quot;param:&quot;+args[0]+&quot; type:&quot;+typeof args[0]);
           },
           onLeave: function(retval) {
-            console.log(&quot;retval:&quot;+retval+&quot; type:&quot;+typeof retval);
+            //注意:retval永远是一个对象,如果函数返回值是字符串类型,为了更好理解则要这样写
+            //string_value=ObjC.classes.NSString.stringWithString_(retval)
+            //console.log(&quot;Return value-&amp;gt; (type:&quot;+typeof string_value+&quot;,value:&quot;+string_value+&quot;)&quot;);
+            console.log(&quot;Return value-&amp;gt; (type:&quot;+typeof retval+&quot;,value:&quot;+retval+&quot;)&quot;);
           }
         });
     }
@@ -156,18 +159,23 @@ else
         var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
         Interceptor.attach(hook.implementation, {
           onEnter: function(args) {
-            console.log(&quot;Original args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0])
-
+            console.log(&quot;Original args0-&amp;gt; (type:&quot;+typeof args[0]+&quot;,value:&quot;+args[0]+&quot;)&quot;);
             newargs0=ptr('xxx')
             args[0]=newargs0
-            console.log(&quot;New args0-&amp;gt; type:&quot;+typeof args[0]+&quot; value:&quot;+args[0]&quot;)
+            console.log(&quot;New args0-&amp;gt; (type:&quot;+typeof args[0]+&quot;,value:&quot;+args[0]+&quot;)&quot;);
           },
           onLeave: function(retval) {
-            console.log(&quot;Original retval-&amp;gt; type:&quot;+typeof retval+&quot; value:&quot;+retval)
+            //注意:retval永远是一个对象,如果函数返回值是字符串类型,为了更好理解则要这样写
+            //string_value=ObjC.classes.NSString.stringWithString_(retval)
+            //console.log(&quot;Original return value-&amp;gt; (type:&quot;+typeof string_value+&quot;,value:&quot;+string_value+&quot;)&quot;);
+            //newretval=ObjC.classes.NSString.stringWithString_(&quot;xxxx&quot;)
+            //retval.replace(newretval)
+            //console.log(&quot;New return value-&amp;gt; (type:&quot;+typeof newretval+&quot;,value:&quot;+newretval+&quot;)&quot;);
 
+            console.log(&quot;Origin return value-&amp;gt; (type:&quot;+typeof retval&quot;,value:&quot;+retval+&quot;)&quot;);
             newretval=ptr(&quot;xxxx&quot;)
             retval.replace(newretval)
-            console.log(&quot;New retval-&amp;gt; type:&quot;+typeof newretval+&quot; value:&quot;+newretval)
+            console.log(&quot;New return value-&amp;gt; (type:&quot;+typeof newretval&quot;,value:&quot;+newretval+&quot;)&quot;);
           }
         });
     }
@@ -449,7 +457,7 @@ hrida:通过http服务开rpc
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;这里brida和hrida开rpc的意义在于可以给网络上的其他用户使用本地的frida提供的的调用app中函数的的接口,但是frida已经有了rpc,为什么brida和hrida还要重新开rpc呢?因为frida的rpc只能给本地的其他程序使用,不能给网络上的其他程序使用,brida开rpc的意义不是很大,因为brida开rpc后是给本地的安全人员写的burp插件使用的,除非安全人员有几个好友,这样这些好友之间就可只要求其中一个人开启brida的rpc服务,其他人使用这个人的brida的rpc即可.frida注入app后可通过开rpc给网络上的其他用户提供调用app函数的接口,例如可通过本地frida注入某上传步数的App后将上传步数的接口通过rpc提供给网络上的人使用&lt;/p&gt;
+&lt;p&gt;这里brida和hrida开rpc的意义在于可以给网络上的其他用户使用本地的frida提供的的调用app中函数的的接口,但是frida已经有了rpc,为什么brida和hrida还要重新开rpc呢?因为frida的rpc只能给本地的其他程序使用(frida的rpc功能也可通过动态修改js内容和send修改后的js的执行结果给python来实现,因为frida加载js会热更新,这样修改js时可修改函数调用,并将函数执行结果发送给python),不能给网络上的其他程序使用,brida开rpc的意义不是很大,因为brida开rpc后是给本地的安全人员写的burp插件使用的,除非安全人员有几个好友,这样这些好友之间就可只要求其中一个人开启brida的rpc服务,其他人使用这个人的brida的rpc即可.frida注入app后可通过开rpc给网络上的其他用户提供调用app函数的接口,例如可通过本地frida注入某上传步数的App后将上传步数的接口通过rpc提供给网络上的人使用&lt;/p&gt;
 
 &lt;p&gt;brida工作原理如下图&lt;/p&gt;
 
