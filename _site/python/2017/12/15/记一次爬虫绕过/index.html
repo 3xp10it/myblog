@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>记一次爬虫绕过</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
+
+
+
+
+
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">记一次爬虫绕过</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 15, 2017</span>
+           under python
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<p>在一次数据采集(爬虫)中,目标服务器比较特殊,似乎是数据库服务器设置了一定时间内有查询次数上限,导致多次尝试没有成功爬
+取大量数据.目标网站防爬虫特点:</p>
+
+<p>1.关键的元素页数(下面的pageNo)用的是js动态生成再显示到网页上的</p>
+
+<p>2.没带cookie请求时,请求不同页数(下面的pageNo)的html内容时,返回的html相同</p>
+
+<p>3.一个cookie似乎查询5000项数据次以后就不能再请求了,要过10min或更多的时间才可以访问</p>
+
+<p>4.换ip不换cookie的情况下查询次数也是5000项左右</p>
+
+<h3 id="0x01-solution">0x01 Solution</h3>
+
+<p>1.用phantomjs(通过js脚本)发送请求,使目标的js可在phantomjs中运行成功</p>
+
+<p>2.用ip代理池(IPProxyPool)</p>
+
+<p>3.每次请求带cookie且每个不同的请求用不同的cookie</p>
+
+<p>4.多线程查询,下面代码中涉及多线程写同一个文件时要事先加锁</p>
+
+<h3 id="0x02-code">0x02 Code</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import requests
+import re
+import random
+import os
+from exp10it import get_string_from_command
+
+IPProxyPoolUrl = "http://192.168.8.240:8000/?types=0&amp;count=100"
+
+
+def get_random_proxy():
+    IPPOOL = eval(requests.get(IPProxyPoolUrl).text)
+    random_choose = random.choice(IPPOOL)
+    proxy_addr = "http://" + \
+        str(random_choose[0]) + ":" + str(random_choose[1])
+    return proxy_addr
+
+
+qihao_list = [
+    '201502',
+    '201503',
+    '201504',
+    '201505',
+    '201506',
+    '201507',
+    '201508',
+    '201509',
+    '201510',
+    '201511',
+    '201512',
+    '201601',
+    '201602',
+    '201603',
+    '201604',
+    '201605',
+    '201606',
+    '201607',
+    '201608',
+    '201609',
+    '201610',
+    '201611',
+    '201612',
+    '201701',
+    '201702',
+    '201703',
+    '201704',
+    '201705',
+    '201706',
+    '201707',
+    '201708',
+    '201709',
+    '201710',
+    '201711'
+]
+
+url = "http://xxx.xxx.xxx"
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:51.0) Gecko/20100101 Firefox/51.0',
+           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+           'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
+           'Cookie': 'JSESSIONID=EA6DCEF9BA7D4ED7EA25B0377C20C092-n2.Tomcat1',
+           'Connection': 'close',
+           'Upgrade-Insecure-Requests': '1',
+           'Content-Type': 'application/x-www-form-urlencoded',
+           'Content-Length': '38'
+           }
+import threading
+mutex = threading.Lock()
+for qihao in qihao_list:
+    i = 0
+    post_js_content = '''
+"use strict";
+var page = require('webpage').create(),
+    server = 'http://xxx.xxx.xxx',
+    data = 'pageNo=1&amp;issueNumber=%s&amp;applyCode=';
+
+page.settings.resourceTimeout = 9999999999999;
+page.settings.userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.%s Safari/537.36";
+
+page.open(server, 'post', data, function (status) {
+    if (status !== 'success') {
+        console.log('Unable to post!');
+    } else {
+        console.log(page.content);
+    }
+    phantom.exit();
+});
+    ''' % (qihao, ++i)
+    while True:
+        os.system("rm post.js")
+        with open("post.js", "a+") as f:
+            f.write(post_js_content)
+        proxy_addr = get_random_proxy()
+        print(proxy_addr)
+        html = get_string_from_command(
+            "phantomjs post.js --proxy=%s" % proxy_addr)
+        has_page_no = re.search(r"/(\d+)页", html)
+        if has_page_no:
+            break
+        else:
+            print("没有获取到页数,尝试再次获取...")
+            continue
+
+    pageNo = has_page_no.group(1)
+    print("期号:%s,页数:%s" % (qihao, pageNo))
+    page_list = []
+    for page in range(1, int(pageNo) + 1):
+        page_list.append(str(page))
+
+    def get_page_content(page):
+        data = "pageNo=%s&amp;issueNumber=%s&amp;applyCode=" % (page, qihao)
+        print("正在请求第%s期,第%s页..." % (qihao, page))
+        rsp = requests.get(url, timeout=60)
+        cookie = rsp.headers['Set-Cookie']
+        # print(cookie)
+        headers['Cookie'] = cookie
+        proxy_addr = get_random_proxy()
+        proxies = {}
+        proxies_1 = proxy_addr.split(":")[0]
+        proxies[proxies_1] = proxy_addr
+        # print(proxies)
+        html = requests.post(url, data.encode("utf-8"),
+                             headers=headers, proxies=proxies, timeout=60).text
+        a = re.findall(
+            r'''class="content_data"[\s\S]*?&lt;td\s*&gt;(\d+)&lt;/td&gt;[\s\S]*?&lt;td\s*&gt;(.+)&lt;/td&gt;''', html)
+        mutex.acquire()
+        for each in a:
+            with open("x.txt", "a+") as f:
+                string_to_write = qihao + "    " + \
+                    each[0] + "    " + each[1] + "\n"
+                print(string_to_write)
+                f.write(string_to_write)
+        mutex.release()
+
+    from concurrent import futures
+    with futures.ThreadPoolExecutor(max_workers=20) as executor:
+        executor.map(get_page_content, page_list)
+</code></pre>
+</div>
+
+<p>code can be download <a href="https://raw.githubusercontent.com/3xp10it/mytools/master/xban.py">here</a></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            spider, phantomjs, IPProxyPool
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+
+
+    </body>
+</html>
