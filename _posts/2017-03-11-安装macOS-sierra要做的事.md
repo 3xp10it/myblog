@@ -177,7 +177,7 @@ Serial: APZP-103-97-215-111
       <string>macosbak.plist</string>
       <key>ProgramArguments</key>
       <array>
-          <string>/usr/share/mytools/macosbak.sh</string>
+          <string>~/mytools/macosbak.sh</string>
       </array>
       <key>StartCalendarInterval</key>
       <dict>
@@ -196,10 +196,10 @@ Serial: APZP-103-97-215-111
     launchctl load macosbak.plist
 
     表示每天22:15备份系统文件,有两个要注意的地方:
-    1.运行脚本的地方不能直接写命令,不能写/bin/bash/usr/share/mytools/macosbak.sh,
+    1.运行脚本的地方不能直接写命令,不能写/bin/bash~/mytools/macosbak.sh,
     要写文件路径(也即/usr/shrae/mytools/macosbak.sh)
     2.这个文件事先要:
-    chmod +x /usr/share/mytools/macosbak.sh
+    chmod +x ~/mytools/macosbak.sh
     3.更多细节可参考:
     http://honglu.me/2014/09/20/OSX系统添加定时任务/
 
