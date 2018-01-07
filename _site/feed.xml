@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 05 Jan 2018 19:21:47 +0800</pubDate>
-    <lastBuildDate>Fri, 05 Jan 2018 19:21:47 +0800</lastBuildDate>
+    <pubDate>Sun, 07 Jan 2018 11:58:52 +0800</pubDate>
+    <lastBuildDate>Sun, 07 Jan 2018 11:58:52 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -471,9 +471,52 @@ hrida:通过http服务开rpc
 
 &lt;p&gt;&lt;strong&gt;App(frida)在数据加密前将明文发给burp,burp在人为修改数据后发给回显服务程序,回显服务程序打印burp发来的修改后的数据后,将这个数据发给App(frida).App(frida)收到回显服务程序发来的数据后看看这个数据是哪来的,如果是app没加密之前的数据就发给burp,如果是回显服务程序发来的数据就进行加密,然后再发给正常的服务器进行正常的请求.&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;上面链接里的方法看上去只能用于&lt;code class=&quot;highlighter-rouge&quot;&gt;整个post的data部分被加密&lt;/code&gt;的情况,不能用于&lt;code class=&quot;highlighter-rouge&quot;&gt;部分get或post的参数值被加密&lt;/code&gt;的情况,后来笔者写了一个工具&lt;a href=&quot;https://github.com/3xp10it/xenc&quot;&gt;xenc&lt;/a&gt;,可用于2种情况下的加密测试&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.get或post内容形如&lt;code class=&quot;highlighter-rouge&quot;&gt;mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8id=1&amp;amp;a=2&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;2.post的整个data部分内容形如&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ÜñCHÁ*'-»84}_9Óûû84}_9Óûû884}_9Óûû84}_9Óû_9Óûû&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h4 id=&quot;0xb-实战绕过rsa&quot;&gt;0xb 实战”绕过rsa”&lt;/h4&gt;
 
-&lt;p&gt;暂未找到场景,to be continue…&lt;/p&gt;
+&lt;p&gt;这里用&lt;a href=&quot;https://github.com/3xp10it/xenc&quot;&gt;xenc&lt;/a&gt;来测试&lt;code class=&quot;highlighter-rouge&quot;&gt;部分get或post的参数值被加密&lt;/code&gt;的情况&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意:手机不要黑屏,app要保证在前台不能在后台运行,黑屏或app进了后台会导致python调用ios app中的加密函数会超时,超时后可将手机打开可继续使用app的加密函数,最好保持手机不自动黑屏并保证app不进后台&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;js文件如下,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;函数是一个rsa加密函数:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'use strict';
+
+rpc.exports = {
+    encrypt: function (plain) {
+        var result=ObjC.classes.PARSCryptDataUtils.encryptWithServerTimestamp_(plain)
+        return result.toString()
+    },
+    add: function (a, b) {
+            return a + b;
+        }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;request文件如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /xxx.do HTTP/1.1
+Host: xxx.xxx.xxx
+Connection: close
+Accept: */*
+User-Agent: PALifeApp/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
+Accept-Language: zh-Hans-CN;q=1
+X-Tingyun-Id: s8-utloiNb8;c=2;r=736688779
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 993
+
+mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8pg%2bWLBhjowZ1YjAB1627pTOPdRN1VoGkI82XEU6V9mr12OT%2b75PrrEKOJogt0RtATPZ9v59kxmsCjsPyf3WNEHlA1JlZheec26WM1qEqEcwaoNV0v4EHDfnmnUQWYSHw%2fwS0YDE%3d2&amp;amp;a=1&amp;amp;b=2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;运行xenc.py后设置mobilePhone参数的加密函数为&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;函数(在上面的js中有两个加密函数&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;),将xenc.py打印的红色字体的request包用burpsuite测试.&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>

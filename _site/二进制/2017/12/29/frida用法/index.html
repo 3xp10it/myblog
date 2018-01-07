@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          4 minute read
+          5 minute read
         </small>
       </div>
 
@@ -573,9 +573,52 @@ hrida:通过http服务开rpc
 
 <p><strong>App(frida)在数据加密前将明文发给burp,burp在人为修改数据后发给回显服务程序,回显服务程序打印burp发来的修改后的数据后,将这个数据发给App(frida).App(frida)收到回显服务程序发来的数据后看看这个数据是哪来的,如果是app没加密之前的数据就发给burp,如果是回显服务程序发来的数据就进行加密,然后再发给正常的服务器进行正常的请求.</strong></p>
 
+<p>上面链接里的方法看上去只能用于<code class="highlighter-rouge">整个post的data部分被加密</code>的情况,不能用于<code class="highlighter-rouge">部分get或post的参数值被加密</code>的情况,后来笔者写了一个工具<a href="https://github.com/3xp10it/xenc">xenc</a>,可用于2种情况下的加密测试</p>
+
+<ul>
+  <li>1.get或post内容形如<code class="highlighter-rouge">mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8id=1&amp;a=2</code></li>
+  <li>2.post的整个data部分内容形如<code class="highlighter-rouge">&lt;ÜñCHÁ*'-»84}_9Óûû84}_9Óûû884}_9Óûû84}_9Óû_9Óûû</code></li>
+</ul>
+
 <h4 id="0xb-实战绕过rsa">0xb 实战”绕过rsa”</h4>
 
-<p>暂未找到场景,to be continue…</p>
+<p>这里用<a href="https://github.com/3xp10it/xenc">xenc</a>来测试<code class="highlighter-rouge">部分get或post的参数值被加密</code>的情况</p>
+
+<p><strong>注意:手机不要黑屏,app要保证在前台不能在后台运行,黑屏或app进了后台会导致python调用ios app中的加密函数会超时,超时后可将手机打开可继续使用app的加密函数,最好保持手机不自动黑屏并保证app不进后台</strong></p>
+
+<p>js文件如下,其中<code class="highlighter-rouge">encrypt</code>函数是一个rsa加密函数:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>'use strict';
+
+rpc.exports = {
+    encrypt: function (plain) {
+        var result=ObjC.classes.PARSCryptDataUtils.encryptWithServerTimestamp_(plain)
+        return result.toString()
+    },
+    add: function (a, b) {
+            return a + b;
+        }
+};
+</code></pre>
+</div>
+
+<p>request文件如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>POST /xxx.do HTTP/1.1
+Host: xxx.xxx.xxx
+Connection: close
+Accept: */*
+User-Agent: PALifeApp/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
+Accept-Language: zh-Hans-CN;q=1
+X-Tingyun-Id: s8-utloiNb8;c=2;r=736688779
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 993
+
+mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8pg%2bWLBhjowZ1YjAB1627pTOPdRN1VoGkI82XEU6V9mr12OT%2b75PrrEKOJogt0RtATPZ9v59kxmsCjsPyf3WNEHlA1JlZheec26WM1qEqEcwaoNV0v4EHDfnmnUQWYSHw%2fwS0YDE%3d2&amp;a=1&amp;b=2
+</code></pre>
+</div>
+
+<p>运行xenc.py后设置mobilePhone参数的加密函数为<code class="highlighter-rouge">encrypt</code>函数(在上面的js中有两个加密函数<code class="highlighter-rouge">encrypt</code>和<code class="highlighter-rouge">add</code>),将xenc.py打印的红色字体的request包用burpsuite测试.</p>
 
 </span>
 
