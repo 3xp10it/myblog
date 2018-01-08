@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 07 Jan 2018 11:58:52 +0800</pubDate>
-    <lastBuildDate>Sun, 07 Jan 2018 11:58:52 +0800</lastBuildDate>
+    <pubDate>Mon, 08 Jan 2018 08:18:32 +0800</pubDate>
+    <lastBuildDate>Mon, 08 Jan 2018 08:18:32 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -506,7 +506,7 @@ rpc.exports = {
 Host: xxx.xxx.xxx
 Connection: close
 Accept: */*
-User-Agent: PALifeApp/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
+User-Agent: PALxxx/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
 Accept-Language: zh-Hans-CN;q=1
 X-Tingyun-Id: s8-utloiNb8;c=2;r=736688779
 Content-Type: application/x-www-form-urlencoded
@@ -1151,7 +1151,7 @@ Accept-Encoding: gzip, deflate
 Cookie: 111
 Connection: close
 Accept: */*
-User-Agent: PALifeApp/4.9.0 (iPhone; iOS 8.1.1; Scale/2.00)
+User-Agent: PALxxx/4.9.0 (iPhone; iOS 8.1.1; Scale/2.00)
 Accept-Language: zh-Hans;q=1
 Content-Length: 1663
 X-Tingyun-Id: s8-utloiNb8;c=2;r=2140640508
