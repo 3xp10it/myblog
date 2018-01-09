@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 09 Jan 2018 17:58:59 +0800</pubDate>
-    <lastBuildDate>Tue, 09 Jan 2018 17:58:59 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 09 Jan 2018 21:41:31 +0800</pubDate>
+    <lastBuildDate>Tue, 09 Jan 2018 21:41:31 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>frida用法</title>
@@ -505,10 +505,11 @@ rpc.exports = {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;request文件如下:&lt;/p&gt;
+&lt;p&gt;burpsuite的repeater中的request内容如下(其中mobilePhone在正常通信时被加密):&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /xxx.do HTTP/1.1
-Host: xxx.xxx.xxx
+Host: 127.0.0.1:8888
+Real-Host: xxx.xxx.xxx
 Connection: close
 Accept: */*
 User-Agent: PALxxx/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
@@ -517,11 +518,11 @@ X-Tingyun-Id: s8-utloiNb8;c=2;r=736688779
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 993
 
-mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8pg%2bWLBhjowZ1YjAB1627pTOPdRN1VoGkI82XEU6V9mr12OT%2b75PrrEKOJogt0RtATPZ9v59kxmsCjsPyf3WNEHlA1JlZheec26WM1qEqEcwaoNV0v4EHDfnmnUQWYSHw%2fwS0YDE%3d2&amp;amp;a=1&amp;amp;b=2
+mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;运行xenc.py后设置mobilePhone参数的加密函数为&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;函数(在上面的js中有两个加密函数&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;),将xenc.py打印的红色字体的request包用burpsuite测试.&lt;/p&gt;
+&lt;p&gt;运行xenc.py后设置要加密的参数为mobilePhone,且它的加密函数为&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;函数(在上面的js中有两个加密函数&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;),运行完python3 xenc.py后从burpsuite的repeater中发上面的包并右键通过burpsuite测试有没有漏洞,或者将上面的request内容提供给sqlmap等工具进行测试&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>

@@ -607,10 +607,11 @@ rpc.exports = {
 </code></pre>
 </div>
 
-<p>request文件如下:</p>
+<p>burpsuite的repeater中的request内容如下(其中mobilePhone在正常通信时被加密):</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>POST /xxx.do HTTP/1.1
-Host: xxx.xxx.xxx
+Host: 127.0.0.1:8888
+Real-Host: xxx.xxx.xxx
 Connection: close
 Accept: */*
 User-Agent: PALxxx/4.11.0 (iPhone; iOS 9.0; Scale/2.00)
@@ -619,11 +620,11 @@ X-Tingyun-Id: s8-utloiNb8;c=2;r=736688779
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 993
 
-mobilePhone=Nns7415cyOT0FkzwbjiXmahxvFt6tfw1Dda8pg%2bWLBhjowZ1YjAB1627pTOPdRN1VoGkI82XEU6V9mr12OT%2b75PrrEKOJogt0RtATPZ9v59kxmsCjsPyf3WNEHlA1JlZheec26WM1qEqEcwaoNV0v4EHDfnmnUQWYSHw%2fwS0YDE%3d2&amp;a=1&amp;b=2
+mobilePhone=17634526787&amp;id=1&amp;b=2
 </code></pre>
 </div>
 
-<p>运行xenc.py后设置mobilePhone参数的加密函数为<code class="highlighter-rouge">encrypt</code>函数(在上面的js中有两个加密函数<code class="highlighter-rouge">encrypt</code>和<code class="highlighter-rouge">add</code>),将xenc.py打印的红色字体的request包用burpsuite测试.</p>
+<p>运行xenc.py后设置要加密的参数为mobilePhone,且它的加密函数为<code class="highlighter-rouge">encrypt</code>函数(在上面的js中有两个加密函数<code class="highlighter-rouge">encrypt</code>和<code class="highlighter-rouge">add</code>),运行完python3 xenc.py后从burpsuite的repeater中发上面的包并右键通过burpsuite测试有没有漏洞,或者将上面的request内容提供给sqlmap等工具进行测试</p>
 
 </span>
 
