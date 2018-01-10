@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>ios应用逆向工程5-6章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,110 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">ios应用逆向工程5-6章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">January 10, 2018</span>
+           under 二进制
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="理论篇">理论篇</h3>
+
+<p>1.依据维基百科的定义,tweak指的是对电子系统进行轻微调整来增强其功能的工具;在iOS中,tweak特指那些能够增强基他进程功能的dylib,是越狱iOS的最重要组成部分.这种增强原有工具功能的方法是通过<code class="highlighter-rouge">进程注入</code>实现的,就像书籍的知识注入大脑的,让大脑变得更强</p>
+
+<p>2.一般来说,编写tweak会用到C,C++和Objective-C三种语言</p>
+
+<p>3.iOS是个封闭的系统,它暴露给我们的中是冰山一角,有太多太多的功能还有待我们进一步挖掘.每次越狱发布后,都会有人把最新的头文件发布出来,google一下<code class="highlighter-rouge">iOS private headers</code>即可轻松找到下载链接,省去了自己class-dump的麻烦</p>
+
+<p>4.定位目标文件
+我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:</p>
+<ul>
+  <li>基于CydiaSubstrate的dylib全部位于<code class="highlighter-rouge">/Library/MobileSubstrate/DynamicLibraries/</code>下,几乎不费吹灰之力就可以轻松定位</li>
+  <li>bundle主要分为App和framework两类,其中Appstore App全部位于<code class="highlighter-rouge">/var/mobile/Containers/Bundle/Application</code>下,系统App全部位于<code class="highlighter-rouge">/Applications</code>下,framework全部位于<code class="highlighter-rouge">/System/Library/Frameworks</code>或<code class="highlighter-rouge">/System/Library/PrivateFrameworks</code>下</li>
+  <li>daemon的配置文件均位于<code class="highlighter-rouge">/System/Library/LaunchDaemons/</code>,<code class="highlighter-rouge">/Library/LaunchDaemons</code>或<code class="highlighter-rouge">/Library/LaunchAgents/</code>下,是一个plist格式的文件.其中的<code class="highlighter-rouge">ProgramArguments</code>字段,即是daemon可执行文件的绝对路径</li>
+</ul>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            ios, reverse
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/10/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B5-6%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/10/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B5-6%E7%AB%A0%E7%AC%94%E8%AE%B0/">ios应用逆向工程5-6章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          ios应用逆向工程5-6章笔记
-         
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/10/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B5-6%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

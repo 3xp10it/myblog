@@ -224,7 +224,7 @@ void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.
 <p>19.Cycript是由saurik推出的一款脚本语言,可以看作是Objective-JavaScript.cycript通过cydia在iphone中安装.笔者认为,cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果,效果十分显著,比通过theos生成deb来log记录方便很多.一般来说,选择注入哪个进程,要依测试的具体函数而定,这个函数所属的类存在于哪些进程,则注入这些进程,从而保证这个类是存在的.因为需要用cycript测试的一般都是私有函数,所以一个总的准则是从哪个进程逆向出的函数,就注入这个进程来测试;从哪个库逆向出的函数,就注入链接这个库的进程来测试.与Objective-c相比,cycript不需要声明对象类型,也不需要结尾的分号,常见用法如下</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#注入SpringBoard进程
-cycript -p SpringBoard
+cycript -p SpringBoard或cycript -p pid
 
 #在内存中找一个PARSPedometerInfo类的实例对象
 choose(PARSPedometerInfo)
@@ -240,6 +240,42 @@ myobj=[PARSPedometerInfo alloc]
 [myobj setIntegratedSteps:99998]
 </code></pre>
 </div>
+
+<p>20.<code class="highlighter-rouge">LLDB</code>全称为”low level debugger”.是由苹果出口,内置于Xcode中的动态调试工具,不但能吃C,C++,Objective-C,还全盘支持OSX,iOS,以及iOS模拟器,lldb是运行在OSX中的,要想测试iOS,还需要debugserver的配合</p>
+
+<p>21.<code class="highlighter-rouge">debugserver</code>最常用的2种场景</p>
+<ul>
+  <li>启动进程
+<code class="highlighter-rouge">debugserver -x backboard IP:port /path/to/excuteable</code></li>
+  <li>附加进程
+<code class="highlighter-rouge">debugserver IP:port -a "ProcessName"</code></li>
+</ul>
+
+<p>22.<code class="highlighter-rouge">lldb</code>中的<code class="highlighter-rouge">image list -o -f</code>命令可查看加载基址
+<code class="highlighter-rouge">0x.....a    /path/to/excuteable(0x....b)</code>,其中后面的括号里的地址是加载基址,前面的地址是aslr偏移,根据函数地址下断点时需要通过ida中查看相对偏移+这里的括号里的加载基址,或者通过可执行文件的期望加载基址+aslr偏移+ida中相对偏移.(这里的括号里的加载基址-这里的前面的aslr偏移=可执行文件的期望加载基址)</p>
+
+<p>23.lldb相对于gdb的一个重大改进是可以在进程运行的过程中输入lldb命令.需要注意的是,部分进程(如SpringBoard)在停止一段时间后会因响应超时而自动重启,对于这类进程,要尽量让它维持在运行状态,避免因自动重启而导致调试信息丢失的悲剧发生</p>
+
+<p>24.lldb在某个断点得到触发的时候执行预先设置的指令的用法如下:
+<code class="highlighter-rouge">br com add 1</code>(假设1号断点)
+执行这条命令后,lldb会要求我们设置一系列指令,以<code class="highlighter-rouge">DONE</code>结束</p>
+
+<p>25.在Objective-C中,[someObject someMethod]的底层实现,实际是objc_msgSend(someObject,someMethod),其中,前者是一个Objective-C对象,后者则可以强制转换成一个字符串</p>
+
+<p>26.有时lldb的解析后的注释的符号不对,这种情况下,需以IDA为准</p>
+
+<p>27.使用dumpdecrypted.dylib脱壳过程:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>cp dumpdecrypted.dylib /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
+cd /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
+DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/xxx-xxx-xxx-xxx../TargetApp.app/TargetApp
+</code></pre>
+</div>
+<p>这里把dumpdecrypted.dylib拷贝到Documents目录下操作的原因是:
+StoreAPP对沙盒以外的绝大数目录没有写权限,dumpdecrypted.dylib要写一个decrypted文件,但它是运行在StoreApp中的,与StoreApp的权限相同,于是它的写操作就必须发生在StoreApp拥有写权限的路径下才能成功</p>
+
+<p>28.iOS越狱社区的知名人士Nikias Bassen(@pimskeks)开发了一款可以把本地OSX/Windows端口转发到远程iOS端口的工具usbmuxd,使我们能够通过USB连接线ssh到iOS中,大大增加了ssh连接的速度,也方便了没有wifi的情况,用法为<code class="highlighter-rouge">brew install usbmuxd &amp;&amp; iproxy local_port remote_port</code></p>
+
+<p>29.syslogd是iOS中记录系统日志的守护进程,cydia中的<code class="highlighter-rouge">syslogd to /var/log/syslog</code>的作用是把日志写入”/var/log/syslog”文件中,在iOS运行的全过程中这个文件会变得越来越大,可以通过<code class="highlighter-rouge">cat /dev/null &gt; /var/log/syslog</code>来将它清空</p>
 
 </span>
 
