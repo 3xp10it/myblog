@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 10 Jan 2018 18:19:16 +0800</pubDate>
-    <lastBuildDate>Wed, 10 Jan 2018 18:19:16 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Thu, 11 Jan 2018 08:16:15 +0800</pubDate>
+    <lastBuildDate>Thu, 11 Jan 2018 08:16:15 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>ios应用逆向工程5-6章笔记</title>
@@ -19,12 +19,64 @@
 
 &lt;p&gt;3.iOS是个封闭的系统,它暴露给我们的中是冰山一角,有太多太多的功能还有待我们进一步挖掘.每次越狱发布后,都会有人把最新的头文件发布出来,google一下&lt;code class=&quot;highlighter-rouge&quot;&gt;iOS private headers&lt;/code&gt;即可轻松找到下载链接,省去了自己class-dump的麻烦&lt;/p&gt;
 
-&lt;p&gt;4.定位目标文件
-我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:&lt;/p&gt;
+&lt;p&gt;4.定位目标文件&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;基于CydiaSubstrate的dylib全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/MobileSubstrate/DynamicLibraries/&lt;/code&gt;下,几乎不费吹灰之力就可以轻松定位&lt;/li&gt;
-  &lt;li&gt;bundle主要分为App和framework两类,其中Appstore App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/mobile/Containers/Bundle/Application&lt;/code&gt;下,系统App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications&lt;/code&gt;下,framework全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/Frameworks&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/PrivateFrameworks&lt;/code&gt;下&lt;/li&gt;
-  &lt;li&gt;daemon的配置文件均位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/LaunchDaemons/&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchDaemons&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchAgents/&lt;/code&gt;下,是一个plist格式的文件.其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;ProgramArguments&lt;/code&gt;字段,即是daemon可执行文件的绝对路径&lt;/li&gt;
+  &lt;li&gt;固定位置
+  我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:
+    &lt;ul&gt;
+      &lt;li&gt;基于CydiaSubstrate的dylib全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/MobileSubstrate/DynamicLibraries/&lt;/code&gt;下,几乎不费吹灰之力就可以轻松定位&lt;/li&gt;
+      &lt;li&gt;bundle主要分为App和framework两类,其中Appstore App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/mobile/Containers/Bundle/Application&lt;/code&gt;下,系统App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications&lt;/code&gt;下,framework全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/Frameworks&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/PrivateFrameworks&lt;/code&gt;下&lt;/li&gt;
+      &lt;li&gt;daemon的配置文件均位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/LaunchDaemons/&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchDaemons&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchAgents/&lt;/code&gt;下,是一个plist格式的文件.其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;ProgramArguments&lt;/code&gt;字段,即是daemon可执行文件的绝对路径&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;cydia
+  通过&lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg -i&lt;/code&gt;安装的的deb包,内容会被cydia如实记录,可在cydia中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Filesystem Content&lt;/code&gt;中找到路径&lt;/li&gt;
+  &lt;li&gt;PreferenceBundle
+  PreferenceBundle是寄生在Settings应用里的App,它的功能界定有些模糊,既可以作为单纯的配置文件,由别的进程读取后执行,也可以估计有实际功能,自己来执行一些操作.来自AppStore的第三方PreferenceBundle仅可作为配置文件存在,不会含有实际功能;来自Cydia的也不是问题,可通过上面的定位方式找到路径;但对于iOS自带的PreferenceBundle来说,定位的过程就要复杂一些.PreferenceBundle的界面可以用代码编写,也可以用固定格式的plist文件构造.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;5.使用&lt;code class=&quot;highlighter-rouge&quot;&gt;cycript&lt;/code&gt;可快速测试函数功能,比theos方便&lt;/p&gt;
+
+&lt;p&gt;6.解析函数参数&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;getClassName&lt;/code&gt;函数能够把对象的类名表示成一个&lt;code class=&quot;highlighter-rouge&quot;&gt;char*&lt;/code&gt;,如&lt;code class=&quot;highlighter-rouge&quot;&gt;object_getClassName(arg1)&lt;/code&gt;获取arg1这个对象的的对象类名&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;description&lt;/code&gt;函数能够把对象的内容表示成一个NSString,如&lt;code class=&quot;highlighter-rouge&quot;&gt;[arg1 description]&lt;/code&gt;获取arg1这个对象的对象内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%hook SBScreenFlash
+- (void)flashColor:(id)arg1 withCompletion:(id)arg2
+{
+    %orig;
+    NSLog(@&quot;iOSRE: flashColor: %s, %@&quot;, object_getClassName(arg1),arg1);//[arg1 description]可以直接写成arg1
+}
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面的示例中打印的结果为&lt;code class=&quot;highlighter-rouge&quot;&gt;iOSRE: flashColor: UICachedDeviceWhiteColor, UIDeviceWhiteColorSpace 1 1&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;UICachedDeviceWhiteColor&lt;/code&gt;是对象类名,&lt;code class=&quot;highlighter-rouge&quot;&gt;UIDeviceWhiteColorSpace 1 1&lt;/code&gt;是对象内容&lt;/p&gt;
+
+&lt;p&gt;7.书籍作者强烈建议大家通览class-dump出的头文件,把那些语义明显,自己感兴趣的函数放到iOS上实测一下,这个过程能极大地增加对iOS底层的熟悉程度&lt;/p&gt;
+
+&lt;p&gt;8.ARM处理器中的特殊用途的寄存器&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;R0-R3     传递参数与返回值&lt;/li&gt;
+  &lt;li&gt;R7        帧指针,指向母函数与被调用子函数在栈中的交界(相当于ebp?)&lt;/li&gt;
+  &lt;li&gt;R9        在ios3.0以前被系统保留&lt;/li&gt;
+  &lt;li&gt;R12       内部过程调用寄存器,dynamic linker会用到它&lt;/li&gt;
+  &lt;li&gt;R13       SP寄存器(相当于esp?)&lt;/li&gt;
+  &lt;li&gt;R14       LR寄存器,保存函数返回地址(居然有一个单独的寄存器用来保存函数返回地址)&lt;/li&gt;
+  &lt;li&gt;R15       PC寄存器(相当于eip?)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;9.ARM处理器用到的指令集分为ARM和THUMB两种;ARM指令长度均为32bit,THUMB指令长度均为16bit.THUMB指令比ARM指令更节省空间,且在16位数据总线上的传输效率更高,相对于ARM指令,THUMB指令的缺点如下&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;指令数量减少&lt;/li&gt;
+  &lt;li&gt;没有条件执行&lt;/li&gt;
+  &lt;li&gt;所有指令默认附带”s”&lt;/li&gt;
+  &lt;li&gt;桶式移位无法结合其他指令执行&lt;/li&gt;
+  &lt;li&gt;寄存器使用受限&lt;/li&gt;
+  &lt;li&gt;立即数和第二操作数使用受限&lt;/li&gt;
+  &lt;li&gt;不支持数据写回&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 10 Jan 2018 00:00:00 +0800</pubDate>

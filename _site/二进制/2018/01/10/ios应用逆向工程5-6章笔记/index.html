@@ -121,12 +121,64 @@
 
 <p>3.iOS是个封闭的系统,它暴露给我们的中是冰山一角,有太多太多的功能还有待我们进一步挖掘.每次越狱发布后,都会有人把最新的头文件发布出来,google一下<code class="highlighter-rouge">iOS private headers</code>即可轻松找到下载链接,省去了自己class-dump的麻烦</p>
 
-<p>4.定位目标文件
-我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:</p>
+<p>4.定位目标文件</p>
 <ul>
-  <li>基于CydiaSubstrate的dylib全部位于<code class="highlighter-rouge">/Library/MobileSubstrate/DynamicLibraries/</code>下,几乎不费吹灰之力就可以轻松定位</li>
-  <li>bundle主要分为App和framework两类,其中Appstore App全部位于<code class="highlighter-rouge">/var/mobile/Containers/Bundle/Application</code>下,系统App全部位于<code class="highlighter-rouge">/Applications</code>下,framework全部位于<code class="highlighter-rouge">/System/Library/Frameworks</code>或<code class="highlighter-rouge">/System/Library/PrivateFrameworks</code>下</li>
-  <li>daemon的配置文件均位于<code class="highlighter-rouge">/System/Library/LaunchDaemons/</code>,<code class="highlighter-rouge">/Library/LaunchDaemons</code>或<code class="highlighter-rouge">/Library/LaunchAgents/</code>下,是一个plist格式的文件.其中的<code class="highlighter-rouge">ProgramArguments</code>字段,即是daemon可执行文件的绝对路径</li>
+  <li>固定位置
+  我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:
+    <ul>
+      <li>基于CydiaSubstrate的dylib全部位于<code class="highlighter-rouge">/Library/MobileSubstrate/DynamicLibraries/</code>下,几乎不费吹灰之力就可以轻松定位</li>
+      <li>bundle主要分为App和framework两类,其中Appstore App全部位于<code class="highlighter-rouge">/var/mobile/Containers/Bundle/Application</code>下,系统App全部位于<code class="highlighter-rouge">/Applications</code>下,framework全部位于<code class="highlighter-rouge">/System/Library/Frameworks</code>或<code class="highlighter-rouge">/System/Library/PrivateFrameworks</code>下</li>
+      <li>daemon的配置文件均位于<code class="highlighter-rouge">/System/Library/LaunchDaemons/</code>,<code class="highlighter-rouge">/Library/LaunchDaemons</code>或<code class="highlighter-rouge">/Library/LaunchAgents/</code>下,是一个plist格式的文件.其中的<code class="highlighter-rouge">ProgramArguments</code>字段,即是daemon可执行文件的绝对路径</li>
+    </ul>
+  </li>
+  <li>cydia
+  通过<code class="highlighter-rouge">dpkg -i</code>安装的的deb包,内容会被cydia如实记录,可在cydia中的<code class="highlighter-rouge">Filesystem Content</code>中找到路径</li>
+  <li>PreferenceBundle
+  PreferenceBundle是寄生在Settings应用里的App,它的功能界定有些模糊,既可以作为单纯的配置文件,由别的进程读取后执行,也可以估计有实际功能,自己来执行一些操作.来自AppStore的第三方PreferenceBundle仅可作为配置文件存在,不会含有实际功能;来自Cydia的也不是问题,可通过上面的定位方式找到路径;但对于iOS自带的PreferenceBundle来说,定位的过程就要复杂一些.PreferenceBundle的界面可以用代码编写,也可以用固定格式的plist文件构造.</li>
+</ul>
+
+<p>5.使用<code class="highlighter-rouge">cycript</code>可快速测试函数功能,比theos方便</p>
+
+<p>6.解析函数参数</p>
+<ul>
+  <li><code class="highlighter-rouge">getClassName</code>函数能够把对象的类名表示成一个<code class="highlighter-rouge">char*</code>,如<code class="highlighter-rouge">object_getClassName(arg1)</code>获取arg1这个对象的的对象类名</li>
+  <li><code class="highlighter-rouge">description</code>函数能够把对象的内容表示成一个NSString,如<code class="highlighter-rouge">[arg1 description]</code>获取arg1这个对象的对象内容</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%hook SBScreenFlash
+- (void)flashColor:(id)arg1 withCompletion:(id)arg2
+{
+    %orig;
+    NSLog(@"iOSRE: flashColor: %s, %@", object_getClassName(arg1),arg1);//[arg1 description]可以直接写成arg1
+}
+end
+</code></pre>
+</div>
+
+<p>上面的示例中打印的结果为<code class="highlighter-rouge">iOSRE: flashColor: UICachedDeviceWhiteColor, UIDeviceWhiteColorSpace 1 1</code>,其中<code class="highlighter-rouge">UICachedDeviceWhiteColor</code>是对象类名,<code class="highlighter-rouge">UIDeviceWhiteColorSpace 1 1</code>是对象内容</p>
+
+<p>7.书籍作者强烈建议大家通览class-dump出的头文件,把那些语义明显,自己感兴趣的函数放到iOS上实测一下,这个过程能极大地增加对iOS底层的熟悉程度</p>
+
+<p>8.ARM处理器中的特殊用途的寄存器</p>
+<ul>
+  <li>R0-R3     传递参数与返回值</li>
+  <li>R7        帧指针,指向母函数与被调用子函数在栈中的交界(相当于ebp?)</li>
+  <li>R9        在ios3.0以前被系统保留</li>
+  <li>R12       内部过程调用寄存器,dynamic linker会用到它</li>
+  <li>R13       SP寄存器(相当于esp?)</li>
+  <li>R14       LR寄存器,保存函数返回地址(居然有一个单独的寄存器用来保存函数返回地址)</li>
+  <li>R15       PC寄存器(相当于eip?)</li>
+</ul>
+
+<p>9.ARM处理器用到的指令集分为ARM和THUMB两种;ARM指令长度均为32bit,THUMB指令长度均为16bit.THUMB指令比ARM指令更节省空间,且在16位数据总线上的传输效率更高,相对于ARM指令,THUMB指令的缺点如下</p>
+<ul>
+  <li>指令数量减少</li>
+  <li>没有条件执行</li>
+  <li>所有指令默认附带”s”</li>
+  <li>桶式移位无法结合其他指令执行</li>
+  <li>寄存器使用受限</li>
+  <li>立即数和第二操作数使用受限</li>
+  <li>不支持数据写回</li>
 </ul>
 </span>
 
