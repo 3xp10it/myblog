@@ -236,7 +236,7 @@ ida加载PALxxx
 ssh root@iphone_ip
 ps aux | grep PAL*
 vmmap target_app_pid
-找到加载基址后在ida|edit|segments|program rebase中重新设置加载基址
+找到加载基址后在ida|edit|segments|program rebase中检查下是否要重定位,这里一般是不要重定位的
 在setIntegratedSteps函数上下断点
 运行
 命中断点后设置trace functions

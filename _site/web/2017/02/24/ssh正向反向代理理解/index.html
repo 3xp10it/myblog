@@ -137,6 +137,33 @@ A能访问B,B能访问C,A不能访问C
 </div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/反向代理.png" /></p>
+
+<h3 id="反向代理实例">反向代理实例</h3>
+
+<p>公网ip:1.1.1.1
+内网ip:192.168.1.5
+想把192.168.1.5的8888端口的web服务通过1.1.1.1的80端口开放到internet上,操作如下</p>
+
+<ul>
+  <li>在1.1.1.1上先进行端口转发,将本地的80端口的数据转发到4444端口上</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install rinetd 
+vim /etc/rinetd.conf
+    添加一条0.0.0.0 80 0.0.0.0 4444
+</code></pre>
+</div>
+
+<ul>
+  <li>在192.168.1.5上进行反向代理设置,通过ssh连接来进行端口映射</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh -R 4444:localhost:8888 &lt;user&gt;@1.1.1.1
+</code></pre>
+</div>
+
+<p>此时internet上的用户访问<code class="highlighter-rouge">http://1.1.1.1:80</code>时会获得<code class="highlighter-rouge">http://192.168.1.5:8888</code>的数据,这里ssh如果断开会导致端口映射失效,解决方法和更多详情在<a href="https://www.jianshu.com/p/7d0c1c7daeca">这里1</a>,<a href="https://www.datarelab.com/blog/Technical_literature/520.html">这里2</a></p>
+
 </span>
 
         
