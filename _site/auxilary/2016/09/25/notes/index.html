@@ -3331,13 +3331,49 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 282.</span>支持arm处理器的assemble patch的ida插件
     http://blog.csdn.net/fjh658/article/details/52268907
+    似乎将立即数写入内存地址中无法一步完成,需要先mov register,#0x立即数,再STR register,<span class="p">[</span><span class="nv">Rn{,#offset}</span><span class="p">]</span>
 <span class="p">
 283.</span>破解ios app时
     越狱设备可直接安装破解后的app
+        只有在越狱之后,iOS 才能运行没有签名的代码
     未越狱设置需要这样才能安装
-        https://bbs.feng.com/read-htm-tid-11039652.html
+        使用cydia impact
+            https://bbs.feng.com/read-htm-tid-11039652.html
+                需要关闭手机的二次验证,否则会出错,不关闭的解决办法在这里
+                    https://sspai.com/post/38758
+        或者用iOS APP Signer
+            https://www.wxz.name/2017/05/28/ios-resign/
+            http://www.hangge.com/blog/cache/detail_1219.html
+        或者命令行这样操作
+            http://www.freebuf.com/articles/terminal/127200.html
+            https://yq.aliyun.com/articles/54417
+            https://www.jianshu.com/p/5f51685c98aa
+        或者使用testflight
+            https://www.jianshu.com/p/27545c2d4d8b
+            https://sspai.com/post/27311
+        或者使用第三方的收费版(蒲公英)的企业签名
+            https://www.pgyer.com/app/signature<span class="sb">
 
-</code></pre>
+    或许会用到ldid签名
+        http://www.it610.com/article/2187732.htm
+        ldid签名如果出错则chmod +aw appname再签名
+            http://blog.csdn.net/u011156012/article/details/40655597#reply
+                
+    破解deb时
+    ar -x Fakelocation8.deb可解包,然后在data.tar.lzma中可找到程序
+
+    ios签名机制
+    https://www.zhihu.com/question/20490711
+    https://objccn.io/issue-17-2/
+    https://cloud.tencent.com/developer/article/1013244
+    http://www.uml.org.cn/mobiledev/201703205.asp
+    http://kittenyang.com/pokemongocrack/
+    https://bbs.pediy.com/thread-218961.htm
+    https://mrmad.com.tw/cydia-impactor
+    http://www.enkichen.com/2016/01/15/ios-certification-and-code-sign-note/
+
+
+</span></code></pre>
 </div>
 
 </span>
