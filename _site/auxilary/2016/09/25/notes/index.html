@@ -3372,8 +3372,8 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     https://mrmad.com.tw/cydia-impactor
     http://www.enkichen.com/2016/01/15/ios-certification-and-code-sign-note/
 
-
-</span></code></pre>
+</span><span class="p">284.</span>cycript设置查看ui对应函数时用到的?expand命令失效时可以这样弥补<span class="p">[</span><span class="nv">[UIApp keyWindow</span><span class="p">]</span> recursiveDescription].toString(),cycript查找ui对应的元素可通过找几个主要的大树枝,如果大树枝<span class="p">[</span><span class="nv">#0x... setHidden:YES</span><span class="p">]</span>后发现要找的UI不显示了则说明要找的UI在这个大树枝里面,然后再大树枝里通过<span class="p">[</span><span class="nv">#0x... setHidden:YES</span><span class="p">]</span>逐渐找到最终的小树枝.通过cycript找UI这条路一般不用,除非用flex_injected找不到(有些app无法使用flex_injected) https://www.jianshu.com/p/e802b8b76e92
+</code></pre>
 </div>
 
 </span>
