@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 17 Jan 2018 15:50:42 +0800</pubDate>
-    <lastBuildDate>Wed, 17 Jan 2018 15:50:42 +0800</lastBuildDate>
+    <pubDate>Wed, 17 Jan 2018 15:55:12 +0800</pubDate>
+    <lastBuildDate>Wed, 17 Jan 2018 15:55:12 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -343,10 +343,11 @@ v46 = objc_msgSend(v45, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&q
 
 &lt;p&gt;在start函数里&lt;code class=&quot;highlighter-rouge&quot;&gt;step over&lt;/code&gt;单步调试,发现运行到&lt;code class=&quot;highlighter-rouge&quot;&gt;sub_2e3686&lt;/code&gt;函数中有个&lt;code class=&quot;highlighter-rouge&quot;&gt;ptrace&lt;/code&gt;调用,这是一种反调试方法(其他反调试方法可参考&lt;a href=&quot;http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%E5%BA%93/&quot;&gt;这里&lt;/a&gt;).于是将ptrace的调用nop掉,然后patch原可执行文件后重新远程调试&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;
-1.这里由于是远程调试,ida可能在将patch内容写入到原文件时有个bug.因为远程调试时在调试设置中的可执行文件的路径是远程手机上的路径,如这里的路径是&lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications/xxx.app/xxx&lt;/code&gt;,在ida中&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;时无法将修改的内容写入到远程手机上的app,需要在patch前将input file的路径设置为ida所在pc本地的已经存在的可执行文件,但是这个设置不能在&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;弹出的对话框中设置,在这里设置后发现没有成功path,需要在&lt;code class=&quot;highlighter-rouge&quot;&gt;debugger|process option&lt;/code&gt;这里设置,设置好后再去&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;可成功patch到IDA所在pc的可执行文件,patch完成后再将本地所在的可执行文件拷贝到远程手机中,再重新进行远程调试&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;2.在远程调试时,ida默认不勾选下图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on debugging start&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on process entry point&lt;/code&gt;,这两个选项要手动勾上,因为如果被调试的程序有&lt;code class=&quot;highlighter-rouge&quot;&gt;反调试机制&lt;/code&gt;而没有勾选这两个选项,则不能在反调试代码运行前将被调试程序中断下来,因为这里是远程调试,一般需要rebase program,只有rebase program后断点才会正常中断.如果没有勾选这两个选项则会在人工rebase program前(也即正常调试目标程序前)就发生了反调试代码的运行,这样就无法调试了&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.这里由于是远程调试,ida可能在将patch内容写入到原文件时有个bug.因为远程调试时在调试设置中的可执行文件的路径是远程手机上的路径,如这里的路径是&lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications/xxx.app/xxx&lt;/code&gt;,在ida中&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;时无法将修改的内容写入到远程手机上的app,需要在patch前将input file的路径设置为ida所在pc本地的已经存在的可执行文件,但是这个设置不能在&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;弹出的对话框中设置,在这里设置后发现没有成功path,需要在&lt;code class=&quot;highlighter-rouge&quot;&gt;debugger|process option&lt;/code&gt;这里设置,设置好后再去&lt;code class=&quot;highlighter-rouge&quot;&gt;edit|patch program|apply patches to input file&lt;/code&gt;可成功patch到IDA所在pc的可执行文件,patch完成后再将本地所在的可执行文件拷贝到远程手机中,再重新进行远程调试&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.在远程调试时,ida默认不勾选下图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on debugging start&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on process entry point&lt;/code&gt;,这两个选项要手动勾上,因为如果被调试的程序有&lt;code class=&quot;highlighter-rouge&quot;&gt;反调试机制&lt;/code&gt;而没有勾选这两个选项,则不能在反调试代码运行前将被调试程序中断下来,因为这里是远程调试,一般需要rebase program,只有rebase program后断点才会正常中断.如果没有勾选这两个选项则会在人工rebase program前(也即正常调试目标程序前)就发生了反调试代码的运行,这样就无法调试了&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/anti_anti_debug.png&quot; alt=&quot;反调试要勾选&quot; /&gt;&lt;/p&gt;
 
