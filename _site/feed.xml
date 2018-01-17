@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 17 Jan 2018 11:17:53 +0800</pubDate>
-    <lastBuildDate>Wed, 17 Jan 2018 11:17:53 +0800</lastBuildDate>
+    <pubDate>Wed, 17 Jan 2018 11:22:00 +0800</pubDate>
+    <lastBuildDate>Wed, 17 Jan 2018 11:22:00 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -21,7 +21,7 @@
   &lt;li&gt;&lt;a href=&quot;http://www.tk4479.net/whklhhhh/article/details/78787596&quot;&gt;逆向-高级反调试技术&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-212371.htm&quot;&gt;基础反调试技术总结&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://paper.seebug.org/204/&quot;&gt;深度分析使用高级反调试和反hook的Android Rootnik Malware,Part I:在Native层调试&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;[去除ios反调试][10[]&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/iamonion/p/7119085.html&quot;&gt;去除ios反调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/android逆向之旅-应用的反调试方案解析附加修改ida调试/&quot;&gt;Android逆向之旅—应用的”反调试”方案解析(附加修改IDA调试端口和修改内核信息)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
