@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 17 Jan 2018 11:24:07 +0800</pubDate>
-    <lastBuildDate>Wed, 17 Jan 2018 11:24:07 +0800</lastBuildDate>
+    <pubDate>Wed, 17 Jan 2018 11:25:15 +0800</pubDate>
+    <lastBuildDate>Wed, 17 Jan 2018 11:25:15 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -14,8 +14,8 @@
         <description>&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.pediy.com/kssd/pediy06/pediy6713.htm&quot;&gt;反(调试/跟踪/脱壳) 技术集锦&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/qq_32400847/article/details/52798050&quot;&gt;详解反调试技术&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;[&lt;逆向工程核心原理&gt; 静态反调试技术总结][3]&lt;/逆向工程核心原理&gt;&lt;/li&gt;
-  &lt;li&gt;[&lt;逆向工程核心原理&gt; 动态反调试技术总结][4]&lt;/逆向工程核心原理&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhangmiaoping23/article/details/44564781&quot;&gt;逆向工程核心原理-静态反调试技术总结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhangmiaoping23/article/details/44593407&quot;&gt;逆向工程核心原理-动态反调试技术总结&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/trap0D/article/details/45697607&quot;&gt;一个android反调试的学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.lolopop.cn/2017/anti-debug-in-malware/&quot;&gt;恶意代码反调试技术总结&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.tk4479.net/whklhhhh/article/details/78787596&quot;&gt;逆向-高级反调试技术&lt;/a&gt;&lt;/li&gt;
