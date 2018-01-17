@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>ida插件使用备忘录</title>
+<title>ida用法</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,12 +93,12 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">ida插件使用备忘录</h1>
+      <h1 class="header" itemprop="name">ida用法</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">December 27, 2017</span>
+          on <span itemprop="datePublished" content="2014-08-28">January 17, 2018</span>
            under 二进制
         </i></small>
       </div>
@@ -115,25 +115,33 @@
 
         <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<p>记录ida插件使用</p>
+<ul>
+  <li>记录ida的实用功能</li>
+</ul>
 
 <h3 id="items">Items</h3>
 
 <ul>
-  <li><a href="https://github.com/deresz/funcap">funcap</a>
-    <ul>
-      <li>funcap是一个分析函数参数和函数返回值的插件</li>
-      <li>支持的cpu架构:x86,amd64,arm(32)</li>
-      <li>不支持64位的arm(现在的ios设备几乎都是arm64,ios设备cpu类型在<a href="http://blakespot.com/ios_device_specifications_grid.html">这里</a>)</li>
-    </ul>
+  <li>查看当前函数被哪些地方调用了
+    <blockquote>
+      <p>在ida view窗口的函数首部或在pseudocode窗口的函数首部右键点击x/^x对应的选项可找出所有调用当前函数的地方</p>
+    </blockquote>
   </li>
-  <li><a href="http://blog.csdn.net/fjh658/article/details/52268907">keypatch</a>
-    <ul>
-      <li>支持arm处理器的assemble patch(ida默认不支持),一般用于手机app的patch</li>
-    </ul>
+  <li>查看当前函数调用了哪些地方
+    <blockquote>
+      <table>
+        <tbody>
+          <tr>
+            <td>查看当前函数调用了哪些函数可在functions window中选中函数,然后通过菜单栏</td>
+            <td>view</td>
+            <td>sub views</td>
+            <td>function calls找到</td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
   </li>
 </ul>
-
 </span>
 
         
@@ -143,7 +151,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            ida, plugin
+            ida
           </small>
         </div>
         

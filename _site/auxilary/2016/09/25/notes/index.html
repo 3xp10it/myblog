@@ -170,6 +170,12 @@
   sed -i "s/&lt;?php/&lt;?php<span class="se">\n</span>echo 666;/g" test.php
   在python中要这样写:
   os.system('''sed -i "s/&lt;?php/&lt;?php<span class="se">\\</span>necho 666;/g" test.php''')
+
+  linux中批量替换目录文件中的字符串:
+    sed -i "s/xinghuacai/3xp10it/g" <span class="sb">`grep xinghuacai -rl .`</span>
+    or:
+    sed -i "s#http://3xp10it.cc#http://3xp10it.cc#g" <span class="sb">`grep xinghuacai -rl .`</span>
+    -i是直接修改,而不在屏幕输出的选项
 <span class="p">
 10.</span>加了vpn就相当于vpn强制给通信链路加了个限制:所有数据只能通过vpn进出.
 (正常联网的功能只是给系统加了连接其他地址的各种道路,必须先保证可以联网,然后可以保证加了vpn后的效果会是这样&gt;&gt;
@@ -1404,15 +1410,10 @@ https://www.goenitz.xyz/post/ubuntu-install-fcitx-rime-and-wubi
         http://blog.sina.com.cn/s/blog_4b5039210100froh.html
 <span class="p">
 129.</span>my_sulley学习资料
-    http://pan.baidu.com/s/1c1Y6kVY
-<span class="p">
-130.</span>linux中批量替换目录文件中的字符串:
-    sed -i "s/xinghuacai/3xp10it/g" <span class="sb">`grep xinghuacai -rl .`</span>
-    or:
-    sed -i "s#http://3xp10it.cc#http://3xp10it.cc#g" <span class="sb">`grep xinghuacai -rl .`</span>
-    -i是直接修改,而不在屏幕输出的选项
-<span class="p">
-131.</span>github在push时免输入用户名密码:
+    http://pan.baidu.com/s/1c1Y6kVY<span class="sb">
+
+
+</span><span class="p">131.</span>github在push时免输入用户名密码:
     http://www.cnblogs.com/ballwql/p/3462104.html
 <span class="p">
 132.</span>mysql中表名为关键字的处理方法,<span class="sb">`table_name`</span>
@@ -3328,6 +3329,9 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 281.</span>arm指令速查
     http://blog.csdn.net/u010071291/article/details/50685757
+    比较指令
+        http://blog.csdn.net/marc07/article/details/62885832
+        http://blog.csdn.net/qq1084283172/article/details/47296931
 <span class="p">
 282.</span>支持arm处理器的assemble patch的ida插件
     http://blog.csdn.net/fjh658/article/details/52268907
@@ -3346,6 +3350,7 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
             http://www.hangge.com/blog/cache/detail_1219.html
         或者命令行这样操作
             http://www.freebuf.com/articles/terminal/127200.html
+            http://www.swiftyper.com/2016/12/26/wechat-redenvelop-tweak-for-non-jailbroken-iphone/
             https://yq.aliyun.com/articles/54417
             https://www.jianshu.com/p/5f51685c98aa
         或者使用testflight
@@ -3359,8 +3364,8 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
         ldid签名如果出错则chmod +aw appname再签名
             http://blog.csdn.net/u011156012/article/details/40655597#reply
                 
-    破解deb时
-    ar -x Fakelocation8.deb可解包,然后在data.tar.lzma中可找到程序
+    破解deb时,需要解包和重新打包
+        http://blog.csdn.net/yygydjkthh/article/details/36695243
 
     ios签名机制
     https://www.zhihu.com/question/20490711
@@ -3373,6 +3378,8 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     http://www.enkichen.com/2016/01/15/ios-certification-and-code-sign-note/
 
 </span><span class="p">284.</span>cycript设置查看ui对应函数时用到的?expand命令失效时可以这样弥补<span class="p">[</span><span class="nv">[UIApp keyWindow</span><span class="p">]</span> recursiveDescription].toString(),cycript查找ui对应的元素可通过找几个主要的大树枝,如果大树枝<span class="p">[</span><span class="nv">#0x... setHidden:YES</span><span class="p">]</span>后发现要找的UI不显示了则说明要找的UI在这个大树枝里面,然后再大树枝里通过<span class="p">[</span><span class="nv">#0x... setHidden:YES</span><span class="p">]</span>逐渐找到最终的小树枝.通过cycript找UI这条路一般不用,除非用flex_injected找不到(有些app无法使用flex_injected) https://www.jianshu.com/p/e802b8b76e92
+<span class="p">
+285.</span>macOS上的ida需要root权限才允许本地调试,可在shell的配置中加上/Applications/IDA Pro 7.0/ida64.app/Contents/MacOS/ida64的alias,alias ida64="/Applications/IDA Pro 7.0/ida64.app/Contents/MacOS/ida64",alias ida="/Applications/IDA Pro 7.0/ida64.app/Contents/MacOS/ida"
 </code></pre>
 </div>
 

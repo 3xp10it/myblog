@@ -5,9 +5,52 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Jan 2018 08:16:07 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Jan 2018 08:16:07 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Wed, 17 Jan 2018 09:43:25 +0800</pubDate>
+    <lastBuildDate>Wed, 17 Jan 2018 09:43:25 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>ida用法</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;记录ida的实用功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;items&quot;&gt;Items&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看当前函数被哪些地方调用了
+    &lt;blockquote&gt;
+      &lt;p&gt;在ida view窗口的函数首部或在pseudocode窗口的函数首部右键点击x/^x对应的选项可找出所有调用当前函数的地方&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看当前函数调用了哪些地方
+    &lt;blockquote&gt;
+      &lt;table&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;查看当前函数调用了哪些函数可在functions window中选中函数,然后通过菜单栏&lt;/td&gt;
+            &lt;td&gt;view&lt;/td&gt;
+            &lt;td&gt;sub views&lt;/td&gt;
+            &lt;td&gt;function calls找到&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ida%E7%94%A8%E6%B3%95/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ida%E7%94%A8%E6%B3%95/</guid>
+        
+        <category>ida</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>实战ios破解--通过UI找关键函数</title>
@@ -38,11 +81,201 @@
 
 &lt;h4 id=&quot;step1-找到ui对应的元素&quot;&gt;step1 找到ui对应的元素&lt;/h4&gt;
 
-&lt;p&gt;本文要破解的app是cydia里安装的,可能有一些反破解机制,导致无法直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;ida&lt;/code&gt;调试,也无法使用&lt;code class=&quot;highlighter-rouge&quot;&gt;flex_injected&lt;/code&gt;分析ui,于是使用上面的第2种方法,也即通过&lt;code class=&quot;highlighter-rouge&quot;&gt;cycript&lt;/code&gt;注入目标进程来通过排除法查找上图中&lt;code class=&quot;highlighter-rouge&quot;&gt;权限&lt;/code&gt;这个ui对应的函数&lt;/p&gt;
+&lt;p&gt;本文要破解的app是cydia里安装的,可能有一些反破解机制,导致无法直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;ida&lt;/code&gt;调试,也无法使用&lt;code class=&quot;highlighter-rouge&quot;&gt;flex_injected&lt;/code&gt;分析ui,于是使用上面的第2种方法,也即通过&lt;code class=&quot;highlighter-rouge&quot;&gt;cycript&lt;/code&gt;注入目标进程来通过排除法查找上图中&lt;code class=&quot;highlighter-rouge&quot;&gt;权限&lt;/code&gt;这个ui对应的函数.&lt;/p&gt;
+
+&lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;[[UIApp keyWindow] recursiveDescription]&lt;/code&gt;得到结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UIWindow: 0x1763dd20; frame = (0 0; 375 667); gestureRecognizers = &amp;lt;NSArray: 0x1763d390&amp;gt;; layer = &amp;lt;UIWindowLayer: 0x175c9d90&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITextEffectsWindow: 0x1766ac70; frame = (0 0; 375 667); opaque = NO; autoresize = W+H; layer = &amp;lt;UIWindowLayer: 0x17779950&amp;gt;&amp;gt;&quot;]
+cy# [[UIApp keyWindow] recursiveDescription].toString()
+`&amp;lt;UIWindow: 0x1763dd20; frame = (0 0; 375 667); gestureRecognizers = &amp;lt;NSArray: 0x1763d390&amp;gt;; layer = &amp;lt;UIWindowLayer: 0x175c9d90&amp;gt;&amp;gt;
+   | &amp;lt;UIView: 0x188ca2f0; frame = (0 0; 375 667); autoresize = W+H; gestureRecognizers = &amp;lt;NSArray: 0x188c9dd0&amp;gt;; layer = &amp;lt;CALayer: 0x188ca290&amp;gt;&amp;gt;
+      |    | &amp;lt;UIView: 0x188caeb0; frame = (0 0; 375 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x188caf70&amp;gt;&amp;gt;
+         |    |    | &amp;lt;UILayoutContainerView: 0x1776c2c0; frame = (0 0; 270 667); hidden = YES; autoresize = RM+H; gestureRecognizers = &amp;lt;NSArray: 0x188c8590&amp;gt;; layer = &amp;lt;CALayer: 0x188a3de0&amp;gt;&amp;gt;
+            |    |    |    | &amp;lt;UINavigationTransitionView: 0x17690e60; frame = (0 0; 270 667); clipsToBounds = YES; autoresize = W+H; layer = &amp;lt;CALayer: 0x17690f40&amp;gt;&amp;gt;
+               |    |    |    |    | &amp;lt;UIViewControllerWrapperView: 0x17618e30; frame = (0 0; 270 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x177a19d0&amp;gt;&amp;gt;
+                  |    |    |    |    |    | &amp;lt;UITableView: 0x18509c00; frame = (0 0; 270 667); clipsToBounds = YES; autoresize = W+H; gestureRecognizers = &amp;lt;NSArray: 0x18854560&amp;gt;; layer = &amp;lt;CALayer: 0x188cca20&amp;gt;; contentOffset: {0, 0}; contentSize: {270, 0}&amp;gt;
+                     |    |    |    |    |    |    | &amp;lt;UITableViewWrapperView: 0x18509800; frame = (0 0; 270 667); gestureRecognizers = &amp;lt;NSArray: 0x188ca6b0&amp;gt;; layer = &amp;lt;CALayer: 0x1776f3b0&amp;gt;; contentOffset: {0, 0}; contentSize: {270, 667}&amp;gt;
+                        |    |    |    |    |    |    | &amp;lt;UIImageView: 0x17650ce0; frame = (264.5 657; 2.5 7); alpha = 0; opaque = NO; autoresize = LM; userInteractionEnabled = NO; layer = &amp;lt;CALayer: 0x188d37b0&amp;gt;&amp;gt;
+                           |    |    |    |    |    |    | &amp;lt;UIImageView: 0x17653de0; frame = (260 661.5; 7 2.5); alpha = 0; opaque = NO; autoresize = TM; userInteractionEnabled = NO; layer = &amp;lt;CALayer: 0x17643050&amp;gt;&amp;gt;
+                              |    |    |    | &amp;lt;UINavigationBar: 0x188be470; frame = (0 20; 270 44); opaque = NO; autoresize = W; gestureRecognizers = &amp;lt;NSArray: 0x17607230&amp;gt;; layer = &amp;lt;CALayer: 0x188c8380&amp;gt;&amp;gt;
+                                 |    |    |    |    | &amp;lt;_UINavigationBarBackground: 0x17693b10; frame = (0 -20; 270 64); opaque = NO; autoresize = W; userInteractionEnabled = NO; layer = &amp;lt;CALayer: 0x188c36
+                                 `
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x1763dd20 setHidden:YES]&lt;/code&gt;之后发现看不到看不到要找的UI(&lt;code class=&quot;highlighter-rouge&quot;&gt;权限&lt;/code&gt;对应的ui)了,说明目标ui在&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1763dd20&lt;/code&gt;的子视图中&lt;/p&gt;
+
+&lt;p&gt;3.查看&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1763dd20&lt;/code&gt;的子视图&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188ca2f0&lt;/code&gt;设置隐藏后的效果,&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188ca2f0 setHidden:YES]&lt;/code&gt;后发现看不到目标UI,说明目标UI还在&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188ca2f0&lt;/code&gt;的子视图中&lt;/p&gt;
+
+&lt;p&gt;4.查看&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188ca2f0&lt;/code&gt;的子视图设置隐藏后的效果,&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188caeb0 setHidden:YES]&lt;/code&gt;后发现看不到目标UI,说明目标UI还在&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188caeb0&lt;/code&gt;子视图中&lt;/p&gt;
+
+&lt;p&gt;5.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x1776c2c0 setHidden:YES]&lt;/code&gt;之后发现目标UI没有被隐藏,说明目标UI不在&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1776c2c0&lt;/code&gt;这条树枝中,但是上面&lt;code class=&quot;highlighter-rouge&quot;&gt;[[UIApp keyWindow] recursiveDescription]&lt;/code&gt;的结果中可以看出&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188caeb0&lt;/code&gt;的子树枝中只有&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1776c2c0&lt;/code&gt;,而&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1776c2c0&lt;/code&gt;的确不是目标UI的父树枝,也许是目标app做了什么隐藏手段导致这样的结果(通过&lt;code class=&quot;highlighter-rouge&quot;&gt;[[UIApp keyWindow] recursiveDescription]&lt;/code&gt;中不能直接看到目标UI)&lt;/p&gt;
+
+&lt;p&gt;6.于是通过&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188caeb0 subviews]&lt;/code&gt;查看,看看能不能看到除了&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1776c2c0&lt;/code&gt;之外的子树枝,结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UILayoutContainerView: 0x1776c2c0; frame = (0 0; 270 667); autoresize = RM+H; gestureRecognizers = &amp;lt;NSArray: 0x188c8590&amp;gt;; layer = &amp;lt;CALayer: 0x188a3de0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;JhAAAYzaNsFTriWR: 0x188cb0c0; frame = (0 0; 375 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x188cb2e0&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;说明&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188caeb0&lt;/code&gt;除了&lt;code class=&quot;highlighter-rouge&quot;&gt;0x1776c2c0&lt;/code&gt;之外还有&lt;code class=&quot;highlighter-rouge&quot;&gt;0x188cb0c0&lt;/code&gt;这个子树枝&lt;/p&gt;
+
+&lt;p&gt;7.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188cb0c0 subviews]&lt;/code&gt;结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UILayoutContainerView: 0x1763c960; frame = (0 0; 375 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x1763c7d0&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;8.上面只有一个子视图,肯定不是目标UI(&lt;code class=&quot;highlighter-rouge&quot;&gt;权限&lt;/code&gt;对应UI),继续查看它的子视图,&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x1763c960 subviews]&lt;/code&gt;,结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UITransitionView: 0x1763be80; frame = (0 0; 375 667); clipsToBounds = YES; autoresize = W+H; layer = &amp;lt;CALayer: 0x1763bcf0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITabBar: 0x1763c450; frame = (0 618; 375 49); autoresize = W+TM; tintColor = UIDeviceRGBColorSpace 0 0.733333 0.223529 1; layer = &amp;lt;CALayer: 0x1763c2a0&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;9.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x1763be80 setHidden:YES]&lt;/code&gt;之后看不到目标UI&lt;/p&gt;
+
+&lt;p&gt;10.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x1763be80 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UIViewControllerWrapperView: 0x18e19dc0; frame = (0 0; 375 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x18e26d30&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;11.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x18e19dc0 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UILayoutContainerView: 0x188ba100; frame = (0 0; 375 667); autoresize = W+H; gestureRecognizers = &amp;lt;NSArray: 0x188bb900&amp;gt;; layer = &amp;lt;CALayer: 0x188ba1d0&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;12.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188ba100 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UINavigationTransitionView: 0x188bac60; frame = (0 0; 375 667); clipsToBounds = YES; autoresize = W+H; layer = &amp;lt;CALayer: 0x188bb2b0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UINavigationBar: 0x188ba200; frame = (0 20; 375 44); opaque = NO; autoresize = W; gestureRecognizers = &amp;lt;NSArray: 0x188ba9b0&amp;gt;; layer = &amp;lt;CALayer: 0x188ba320&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;13.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188bac60 setHidden:YES]&lt;/code&gt;后发现看不到目标UI&lt;/p&gt;
+
+&lt;p&gt;14.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188bac60 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UIViewControllerWrapperView: 0x188c2c00; frame = (0 0; 375 667); autoresize = W+H; layer = &amp;lt;CALayer: 0x17604980&amp;gt;&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;15.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x188c2c00 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UITableView: 0x17c0a600; frame = (0 0; 375 667); clipsToBounds = YES; autoresize = W+H; gestureRecognizers = &amp;lt;NSArray: 0x188d56d0&amp;gt;; layer = &amp;lt;CALayer: 0x18980810&amp;gt;; contentOffset: {0, -64}; contentSize: {375, 921}&amp;gt;&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;16.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x17c0a600 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UITableViewWrapperView: 0x184f6c00; frame = (0 0; 375 603); gestureRecognizers = &amp;lt;NSArray: 0x177716e0&amp;gt;; layer = &amp;lt;CALayer: 0x177a05b0&amp;gt;; contentOffset: {0, 0}; contentSize: {375, 603}&amp;gt;&quot;,#&quot;&amp;lt;UIImageView: 0x18e64bd0; frame = (3 548.5; 369 2.5); alpha = 0; opaque = NO; autoresize = TM; userInteractionEnabled = NO; layer = &amp;lt;CALayer: 0x18e64ba0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UILabel: 0x1892a0f0; frame = (0 871; 375 50); text = '\xc2\xa9 361\xe4\xb8\x80\xe9\x94\xae\xe6\x96\xb0\xe6\x9c\xba'; userInteractionEnabled = NO; layer = &amp;lt;_UILabelLayer: 0x1892a200&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewHeaderFooterView: 0x1894ea80; frame = (0 639.5; 375 38); text = '\xe5\xb8\xae\xe5\x8a\xa9'; hidden = YES; autoresize = W; layer = &amp;lt;CALayer: 0x18980ab0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewHeaderFooterView: 0x18f05eb0; frame = (0 276; 375 38); text = '\xe8\xae\xbe\xe7\xbd\xae'; autoresize = W; layer = &amp;lt;CALayer: 0x18f060e0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewHeaderFooterView: 0x18f08bb0; frame = (0 96.5; 375 74); text = '\xe6\x9d\x83\xe9\x99\x90(\xe7\xbd\x91\xe7\xbb\x9c\xe4\xb8\x80\xe7\x9b\xb4\xe5\xa4\x84\xe4\xba\x8e[\xe5\x8a\xa0\xe8\xbd\xbd\xe4\xb8\xad]\xe7\x9a\x84\xe8\xa7\xa3\xe5\x86\xb3\xe6\x96\xb9\xe6\xb3\x95\xef\xbc\x9a1. \xe5\x88\x87\xe6\x8d\xa2...'; autoresize = W; layer = &amp;lt;CALayer: 0x18f08b80&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UIImageView: 0x18e646f0; frame = (369.5 3; 2.5 353.5); alpha = 0; opaque = NO; autoresize = LM; userInteractionEnabled = NO; layer = &amp;lt;CALayer: 0x18e64960&amp;gt;&amp;gt;&quot;]&quot;')'&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;17.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x184f6c00 setHidden:YES]&lt;/code&gt;发现看不到目标UI&lt;/p&gt;
+
+&lt;p&gt;18.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x184f6c00 subviews]&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@[#&quot;&amp;lt;UITableViewCell: 0x18f37a20; frame = (0 578; 375 44); text = '\xe5\xa4\x87\xe4\xbb\xbd\xe8\xbf\x81\xe7\xa7\xbb'; autoresize = W; layer = &amp;lt;CALayer: 0x18f379f0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x18f3a5a0; frame = (0 534; 375 44); text = 'VPN\xe4\xbb\xa3\xe7\x90\x86'; autoresize = W; layer = &amp;lt;CALayer: 0x18f3a570&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;taNoXRDjKPBbiCJk: 0x18f4d750; baseClass = UITableViewCell; frame = (0 35; 375 44); text = '\xe7\x83\xad\xe9\x97\xa8\xe6\x8e\xa8\xe8\x8d\x90'; autoresize = W; layer = &amp;lt;CALayer: 0x18fbeac0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x18f49aa0; frame = (0 170.5; 375 44); text = '\xe6\x9c\xba\xe5\x99\xa8\xe7\xa0\x81'; autoresize = W; layer = &amp;lt;CALayer: 0x18f49a70&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x17531390; frame = (0 214.5; 375 44); text = '\xe6\x9d\x83\xe9\x99\x90'; autoresize = W; layer = &amp;lt;CALayer: 0x17531580&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x189d7520; frame = (0 314; 375 44); text = '\xe6\x96\xb0\xe6\x9c\xba\xe6\x97\xb6\xe8\x87\xaa\xe5\x8a\xa8\xe5\xa4\x87\xe4\xbb\xbd'; autoresize = W; layer = &amp;lt;CALayer: 0x189d7710&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x189e1250; frame = (0 358; 375 44); text = '\xe6\x96\xb0\xe6\x9c\xba\xe6\x97\xb6\xe6\xb8\x85\xe7\xa9\xba\xe5\x89\xaa\xe8\xb4\xb4\xe6\x9d\xbf'; autoresize = W; layer = &amp;lt;CALayer: 0x189e1440&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x189013c0; frame = (0 809.5; 375 44); text = 'Tinyapps.cn'; hidden = YES; autoresize = W; layer = &amp;lt;CALayer: 0x189186f0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x18e18960; frame = (0 765.5; 375 44); text = '\xe6\xa3\x80\xe6\x9f\xa5\xe6\x96\xb0\xe7\x89\x88\xe6\x9c\xac'; hidden = YES; autoresize = W; layer = &amp;lt;CALayer: 0x18eb08d0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x17530760; frame = (0 721.5; 375 44); text = '\xe8\x84\x9a\xe6\x9c\xac\xe8\xb0\x83\xe7\x94\xa8\xe6\x8c\x87\xe5\x8d\x97'; hidden = YES; autoresize = W; layer = &amp;lt;CALayer: 0x1908b2d0&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x18f3f990; frame = (0 677.5; 375 44); text = '\xe4\xbd\xbf\xe7\x94\xa8\xe8\xaf\xb4\xe6\x98\x8e'; hidden = YES; autoresize = W; layer = &amp;lt;CALayer: 0x18e2b090&amp;gt;&amp;gt;&quot;,#&quot;&amp;lt;UITableViewCell: 0x189e6d40; frame = (0 446; 375 44); text = '\xe8\x87\xaa\xe5\x8a\xa8\xe6\x9b\xb4\xe6\x8d\xa2IP(\)'&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;19.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x18f37a20 setHidden:YES]&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x18f4d750 setHidden:YES]&lt;/code&gt;发现目标UI没有被隐藏&lt;/p&gt;
+
+&lt;p&gt;20.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x18f49aa0 setHidden:YES]&lt;/code&gt;发现待破解app截图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;机器码&lt;/code&gt;对应UI被隐藏&lt;/p&gt;
+
+&lt;p&gt;21.&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0x17531390 setHidden:YES]&lt;/code&gt;发现待破解app截图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;权限&lt;/code&gt;对应UI被隐藏,说明这就是要找的UI元素&lt;/p&gt;
 
 &lt;h4 id=&quot;step2-找到ui元素对应的函数&quot;&gt;step2 找到ui元素对应的函数&lt;/h4&gt;
 
-&lt;h4 id=&quot;step3-ida分析函数&quot;&gt;step3 ida分析函数&lt;/h4&gt;
+&lt;p&gt;1.尝试通过&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;lt;ios应用逆向工程&amp;gt;&amp;gt;&lt;/code&gt;或&lt;a href=&quot;https://www.jianshu.com/p/e802b8b76e92&quot;&gt;这里&lt;/a&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;[button_object allTargets]&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;[button_object allControlEvent]&lt;/code&gt;的方法没有找到对应的UI函数&lt;/p&gt;
+
+&lt;p&gt;2.于是尝试通过&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;找出关键类&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对于一个view调用nextResponder,要么返回对应的C,要么返回其superview.我们可以通过recursiveDescription拿到所有view,遍历一遍则必定为出现C&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;对目标UI元素&lt;code class=&quot;highlighter-rouge&quot;&gt;0x17531390&lt;/code&gt;调用&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;,结果是superview,不是Controller,继续调用&lt;code class=&quot;highlighter-rouge&quot;&gt;0x17531390&lt;/code&gt;的superview的&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;,结果不是Controller,继续这样,大概第三次调用&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;时得到Controller,结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#&quot;&amp;lt;DfzeGXHoBCzYUNyG: 0x1884b8c0&amp;gt;&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.在&lt;code class=&quot;highlighter-rouge&quot;&gt;ida&lt;/code&gt;中查看这个类有什么函数,内容如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-[DfzeGXHoBCzYUNyG initWithTitle:]	__text	0028DC58	0000006C	00000018	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG viewDidLoad]	__text	0028DCC4	00000386	0000003C	00000050	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG viewWillAppear:]	__text	0028E076	0000020C	00000028	00000020	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG YnDNWxqNaCCuowFk]	__text	0028E282	00000186	00000028	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG qtuIqLxznDvYaGTr]	__text	0028E408	00000186	00000028	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG getIPAddresses]	__text	0028E58E	000001F2	0000004C	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG DtFVEldRKFDYPxLj]	__text	0028E780	0000013A	00000034	FFFFFFF9	.	.	.	.	.	T	.
+sub_28E8BA	__text	0028E8BA	0000017E	00000028	FFFFFFF9	.	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG TAKrPPOSDHgLhdlg:]	__text	0028F054	0000005C	00000018	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG CjBOqjnWPaaJQnAu:]	__text	0028F0B0	0000005C	00000018	FFFFFFF9	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG UNTxpTxBxJoWIeZP:]	__text	0028F10C	0000017E	00000038	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG TVOkxTgmPvvUQgyG]	__text	0028F28A	000000E6	00000014	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG ByPwWewvzRduvJAZ:]	__text	0028F370	000006D0	00000050	0000015C	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG lMMzCjtHIpwhEYDe]	__text	0028FA40	0000008A	00000010	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG lFgomfELMhFbEmAP]	__text	0028FACA	0000045A	00000038	000000A0	.	.	.	.	.	T	.
+sub_28FF28	__text	0028FF28	000000EE	00000020	FFFFFFF9	.	.	.	.	.	.	.
+sub_290126	__text	00290126	000000EE	00000020	FFFFFFF9	.	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG TsKjfpgzwErnqaRz]	__text	00290326	000003A6	00000088	00000050	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG dFslcfROBneVXIcP]	__text	002906CC	000000F4	00000028	FFFFFFF9	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG gvUiVteWORiIBItH]	__text	002908C2	000001F2	00000030	FFFFFFF9	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG dvgqYNRRWfWlzrMR]	__text	00290AB4	000001F2	00000024	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG cYPTTHyfdZrmlGeJ]	__text	00290CA6	00000442	0000003C	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG qmBOCGqdppELEuhx:]	__text	002910FC	000006AE	00000064	00000014	.	.	.	.	.	T	.
+sub_2917AA	__text	002917AA	00000014			.	.	.	.	.	.	.
+sub_2917BE	__text	002917BE	00000014			R	.	.	.	.	.	.
+sub_2917D2	__text	002917D2	00000002			R	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG xkbtCZfVnlokDiQQ]	__text	002917DE	0000023C	00000058	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG actionSheet:didDismissWithButtonIndex:]	__text	00291A1A	000000B2	0000002C	FFFFFFF9	R	.	.	.	.	T	.
+sub_291ACC	__text	00291ACC	00000030			R	.	.	.	.	.	.
+sub_291AFC	__text	00291AFC	00000006			R	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG QKcrTsEUijhKlYkK]	__text	00291B08	00000362	00000044	FFFFFFF9	.	.	.	.	.	T	.
+sub_291E6A	__text	00291E6A	0000061C	00000068	FFFFFFF9	R	.	.	.	.	.	.
+sub_292486	__text	00292486	00000078	00000010	FFFFFFF9	.	.	.	.	.	.	.
+sub_2924FE	__text	002924FE	00000008			R	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG numberOfSectionsInTableView:]	__text	00292506	00000004			R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG tableView:numberOfRowsInSection:]	__text	0029250A	00000018			R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG tableView:titleForHeaderInSection:]	__text	00292522	0000037E	00000070	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG tableView:cellForRowAtIndexPath:]	__text	002928A0	00002022	00000060	000005A4	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG OhUMmGPeGwZZDBtc]	__text	002950D6	00000198	00000014	00000034	R	.	.	.	.	T	.
+sub_29526E	__text	0029526E	00000028			R	.	.	.	.	.	.
+sub_295296	__text	00295296	00000008			R	.	.	.	.	.	.
+-[DfzeGXHoBCzYUNyG jmkaknJHAflckoIm]	__text	002952A2	000003BC	00000018	00000008	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG rOOryYkvHSZTcyEr]	__text	002956CC	00000092	00000018	FFFFFFF9	R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG PeRitUKptnhtvumt]	__text	00295762	0000009C	00000014	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG WEGZcpPXhqEpYzTJ:]	__text	0029605E	000000FC	00000018	FFFFFFF9	.	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG VbuxthvxmYrmdAnn]	__text	002962E6	00000012			R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG FtJrvgWmZdeEYCrm]	__text	00296308	00000010			R	.	.	.	.	T	.
+-[DfzeGXHoBCzYUNyG setFtJrvgWmZdeEYCrm:]	__text	00296318	00000010			R	.	.	.	.	T	.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;发现类名和大部分类函数都没有具体的意义,可能是都被混淆了,一个一个函数查看有没有线索,在&lt;code class=&quot;highlighter-rouge&quot;&gt;DfzeGXHoBCzYUNyG tableView:cellForRowAtIndexPath&lt;/code&gt;函数中发现一些字符串&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;v25 = objc_msgSend(v24, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&quot;License&quot;), &amp;amp;stru_657918, 0);
+v46 = objc_msgSend(v45, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&quot;valid till %@&quot;), &amp;amp;stru_657918, 0);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以及一些其他的在截图中被打码部分的对应字符串,到这里,想到应该把手机的系统语言设置成&lt;code class=&quot;highlighter-rouge&quot;&gt;English&lt;/code&gt;,这样破解起来更清晰,将手机系统语言设置成英文后,app截图如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/crack_deb2.png&quot; alt=&quot;English&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step3-暴破&quot;&gt;step3 暴破&lt;/h4&gt;
+
+&lt;p&gt;上图可看到对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;License&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Unauthorized&lt;/code&gt;,由于这里的函数大多被混淆了,现在尝试通过关键字进行破解,在&lt;code class=&quot;highlighter-rouge&quot;&gt;ida&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;strings&lt;/code&gt;窗口中搜索Unauthorized,找到后双击,在&lt;code class=&quot;highlighter-rouge&quot;&gt;IDA view&lt;/code&gt;窗口中右键查看调用了此处的代码,没有找到什么有用的信息.后来通过在app中点击使用正常功能的对应按钮,弹出警告窗口如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alert.png&quot; alt=&quot;alert&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图中显示”License not activated,please purchase”,在strings窗口中搜索这串字符,找到调用这串字符相关的代码,如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/purchase_ref.png&quot; alt=&quot;purchase_ref&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;涉及3个函数,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;sub_ACB60&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]&lt;/code&gt;,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx)&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 16 Jan 2018 00:00:00 +0800</pubDate>
@@ -807,6 +1040,11 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
       &lt;li&gt;funcap是一个分析函数参数和函数返回值的插件&lt;/li&gt;
       &lt;li&gt;支持的cpu架构:x86,amd64,arm(32)&lt;/li&gt;
       &lt;li&gt;不支持64位的arm(现在的ios设备几乎都是arm64,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;keypatch&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;支持arm处理器的assemble patch(ida默认不支持),一般用于手机app的patch&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -1746,104 +1984,6 @@ iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>vim写markdown</title>
-        <description>&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html&quot;&gt;Better Writing Markdown Experience on Vim&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping&quot;&gt;Move cursor by display lines when wrapping&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.swamphogg.com/2015/vim-setup/&quot;&gt;Vim Setup for Markdown&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;why&quot;&gt;Why&lt;/h3&gt;
-
-&lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;strong&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/strong&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png&quot; alt=&quot;换行变成空格&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等.&lt;/p&gt;
-
-&lt;h3 id=&quot;how&quot;&gt;How&lt;/h3&gt;
-
-&lt;p&gt;为解决vim开启wrap写markdown时的一些”不适”,可在vimrc中设置如下&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;markdown setting
-au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
-au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
-au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
-
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; k gk
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; j gj
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; 0 g0
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; $ g$
-
-inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-&quot; for wrap is on
-inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
-&quot; for wrap is on
-inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
-inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
-cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
-cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上面是不用插件的方法,也可使用&lt;a href=&quot;https://github.com/reedes/vim-pencil&quot;&gt;vim-pencil&lt;/a&gt;插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成&lt;code class=&quot;highlighter-rouge&quot;&gt;gj/gk/g0/g$&lt;/code&gt;的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plugin 'reedes/vim-pencil'  &quot;安装这个插件,放在较靠前位置
-...
-...
-let g:pencil#wrapModeDefault = 'soft'   &quot; default is 'hard'
-
-&quot;markdown setting
-au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
-au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
-au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
-
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init({'wrap': 'hard'})
-augroup END
-
-inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-&quot; for wrap is on
-inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
-&quot; for wrap is on
-inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
-inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
-cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
-cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Tue, 19 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/vim/2017/12/19/vim%E5%86%99markdown/</link>
-        <guid isPermaLink="true">http://localhost:4000/vim/2017/12/19/vim%E5%86%99markdown/</guid>
-        
-        <category>markdown</category>
-        
-        <category>vim</category>
-        
-        
-        <category>vim</category>
         
       </item>
     
