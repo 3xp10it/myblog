@@ -5,9 +5,37 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 17 Jan 2018 09:43:25 +0800</pubDate>
-    <lastBuildDate>Wed, 17 Jan 2018 09:43:25 +0800</lastBuildDate>
+    <pubDate>Wed, 17 Jan 2018 11:17:53 +0800</pubDate>
+    <lastBuildDate>Wed, 17 Jan 2018 11:17:53 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>反调试技术库</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.pediy.com/kssd/pediy06/pediy6713.htm&quot;&gt;反(调试/跟踪/脱壳) 技术集锦&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/qq_32400847/article/details/52798050&quot;&gt;详解反调试技术&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;[&lt;逆向工程核心原理&gt; 静态反调试技术总结][3]&lt;/逆向工程核心原理&gt;&lt;/li&gt;
+  &lt;li&gt;[&lt;逆向工程核心原理&gt; 动态反调试技术总结][4]&lt;/逆向工程核心原理&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/trap0D/article/details/45697607&quot;&gt;一个android反调试的学习&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.lolopop.cn/2017/anti-debug-in-malware/&quot;&gt;恶意代码反调试技术总结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.tk4479.net/whklhhhh/article/details/78787596&quot;&gt;逆向-高级反调试技术&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-212371.htm&quot;&gt;基础反调试技术总结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://paper.seebug.org/204/&quot;&gt;深度分析使用高级反调试和反hook的Android Rootnik Malware,Part I:在Native层调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;[去除ios反调试][10[]&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/android逆向之旅-应用的反调试方案解析附加修改ida调试/&quot;&gt;Android逆向之旅—应用的”反调试”方案解析(附加修改IDA调试端口和修改内核信息)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%E5%BA%93/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%E5%BA%93/</guid>
+        
+        <category>反调试</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>ida用法</title>
@@ -275,7 +303,9 @@ v46 = objc_msgSend(v45, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&q
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/purchase_ref.png&quot; alt=&quot;purchase_ref&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;涉及3个函数,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;sub_ACB60&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]&lt;/code&gt;,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx)&lt;/p&gt;
+&lt;p&gt;涉及3个函数,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;sub_ACB60&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]&lt;/code&gt;,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx),将patch后的文件替换手机中的对应文件(&lt;code class=&quot;highlighter-rouge&quot;&gt;find / -name &quot;appname&quot;&lt;/code&gt;),重新在手机中运行app,验证成功破解&lt;/p&gt;
+
+&lt;p&gt;如果需要将破解后的app保留以备后用,可将deb文件重新打包,可参考&lt;a href=&quot;http://blog.csdn.net/yygydjkthh/article/details/36695243&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 16 Jan 2018 00:00:00 +0800</pubDate>
@@ -1919,71 +1949,6 @@ find . -regextype posix-extended -regex &quot;.+\.sw[^f]$&quot; | grep -v &quot;
         
         
         <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>ios的css调试</title>
-        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
-
-&lt;p&gt;css调试中,ios设备比较特殊(具备高清显示屏),物理像素和css像素值不相同,调试css时方法特殊&lt;/p&gt;
-
-&lt;h3 id=&quot;0x1-必读link&quot;&gt;0x1 必读link&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/35221839&quot;&gt;现在手机分辨率这么大,如何写响应式布局&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stephen.io/mediaqueries/&quot;&gt;CSS Media Queries for 
-iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/needim/d15fdc2ac133d8078f7c&quot;&gt;Device Specific CSS Media Queries Collection&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x2-solution&quot;&gt;0x2 Solution&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/* porttrait是标准显示 */
-/* landscape是放大显示 */
-/* 这里用的是iPhone 6 portrait,iphone6标准显示*/
-@media only screen and (min-device-width: 375px)
-  and (max-device-width: 667px)
-  and (orientation: portrait)
-  and (-webkit-min-device-pixel-ratio: 2)
-{...}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;方法一&quot;&gt;方法一&lt;/h4&gt;
-
-&lt;p&gt;使用ios上的safari真机调试css,具体步骤如下&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;macOS|safari|偏好设置|高级选项|打开在菜单栏中显示开发功能&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ios上打开设置|safari|高级|web检查器&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,打开它&lt;/li&gt;
-  &lt;li&gt;然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;方法二&quot;&gt;方法二&lt;/h4&gt;
-
-&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;css需要用对应ios设备的标准显示对应的media query,也即用portrait对应的media query&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x3-其它&quot;&gt;0x3 其它&lt;/h3&gt;
-
-&lt;p&gt;jekyll的css调试可参考如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/css.png&quot; alt=&quot;调试图&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 20 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</guid>
-        
-        <category>css</category>
-        
-        <category>ios</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     

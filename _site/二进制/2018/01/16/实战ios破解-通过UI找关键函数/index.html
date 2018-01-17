@@ -334,7 +334,9 @@ v46 = objc_msgSend(v45, "localizedStringForKey:value:table:", CFSTR("valid till 
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/purchase_ref.png" alt="purchase_ref" /></p>
 
-<p>涉及3个函数,分别是<code class="highlighter-rouge">+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]</code>,<code class="highlighter-rouge">sub_ACB60</code>,<code class="highlighter-rouge">-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]</code>,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx)</p>
+<p>涉及3个函数,分别是<code class="highlighter-rouge">+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]</code>,<code class="highlighter-rouge">sub_ACB60</code>,<code class="highlighter-rouge">-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]</code>,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx),将patch后的文件替换手机中的对应文件(<code class="highlighter-rouge">find / -name "appname"</code>),重新在手机中运行app,验证成功破解</p>
+
+<p>如果需要将破解后的app保留以备后用,可将deb文件重新打包,可参考<a href="http://blog.csdn.net/yygydjkthh/article/details/36695243">这里</a></p>
 
 </span>
 
