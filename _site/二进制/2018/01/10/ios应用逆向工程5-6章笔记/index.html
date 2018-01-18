@@ -294,10 +294,13 @@ ARM内存操作只有2个基础指令,<code class="highlighter-rouge">LDR</code>
   LE                  ;Z=1 | N!=V
 </code></pre>
         </div>
+        <p>例如<a href="http://blog.csdn.net/marc07/article/details/62885832">这里</a>和<a href="http://blog.csdn.net/qq1084283172/article/details/47296931">这里</a></p>
       </li>
     </ul>
   </li>
 </ul>
+
+<p>13.函数和UI之间的关联非常紧密,如果能拿到感兴趣的UI对象,就可以找到它所对应的函数,我们称该函数为UI函数.这个过程,一般是利用cycript,结合UIView中的神奇私有函数<code class="highlighter-rouge">recursiveDescription</code>和<code class="highlighter-rouge">UIResponder</code>中的<code class="highlighter-rouge">nextResponder</code>来实现的.注意,游戏一般不是采用UIKit来构建UI的,recursiveDescription和nextResponder不适用于游戏.</p>
 
 </span>
 

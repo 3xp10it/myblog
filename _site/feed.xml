@@ -5,9 +5,60 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Jan 2018 08:16:07 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Jan 2018 08:16:07 +0800</lastBuildDate>
+    <pubDate>Thu, 18 Jan 2018 08:15:01 +0800</pubDate>
+    <lastBuildDate>Thu, 18 Jan 2018 08:15:01 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>炒股观点</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;买资讯中的股票,不可全买,小公司只有较少股票在短期(1-3天)内会有较小(1%-4%)上升.资讯可在”钠镁股票”或”平安证券”中找到.&lt;/li&gt;
+  &lt;li&gt;分析各个股票找抄底股买&lt;/li&gt;
+  &lt;li&gt;买最热股前几名(如2017年的最热的茅台)&lt;/li&gt;
+  &lt;li&gt;买龙头企业在低价时的股票&lt;/li&gt;
+  &lt;li&gt;买股份很低的大公司(如当前农业银行价格很低,3-4块每股)的股票&lt;/li&gt;
+  &lt;li&gt;只买信心最大的股票&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Thu, 18 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2018/01/18/%E7%82%92%E8%82%A1%E8%A7%82%E7%82%B9/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%82%92%E8%82%A1/2018/01/18/%E7%82%92%E8%82%A1%E8%A7%82%E7%82%B9/</guid>
+        
+        <category>炒股</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
+    
+      <item>
+        <title>ios应用逆向工程7-10章笔记</title>
+        <description>&lt;h3 id=&quot;实战篇&quot;&gt;实战篇&lt;/h3&gt;
+
+&lt;p&gt;1.制作一个app的tweak一般是通过分析这个app的已经的函数的功能和加上自己想实现的一些功能,两者整合得到一个tweak,其中分析app已有的函数功能在制作整个tweak所花的时间上占比较大.一般通过找相关UI的类(controller),分析类中的函数功能,然后再hook相关函数,并在hook时加入自己想实现的功能.分析类中的函数时,一般是分析从View中看到的数据背后可能存在的函数,如分析邮件app时,View中有收件人,则可通过分析找出获取收件人邮箱地址的函数名,这样在写tweak时可人工调用这个函数来获取收件人的邮箱地址&lt;/p&gt;
+
+&lt;p&gt;2.”拿到所有邮件”可以分为2步:一是捕获”刷新完成”事件;二是读取收件箱.其中,”刷新完成”的响应函数一般是定义在protocol里的,在分析class-dump头文件的时候,要留意各种protocol里有没有出现&lt;code class=&quot;highlighter-rouge&quot;&gt;didRefresh&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;didUpdate&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;didReload&lt;/code&gt;之类名字中含有完成时态动词的函数&lt;/p&gt;
+
+&lt;p&gt;3.理解Objective-C中的delegate,&lt;a href=&quot;http://blog.csdn.net/jymn_chen/article/details/9058725&quot;&gt;1st&lt;/a&gt;,&lt;a href=&quot;https://www.zhihu.com/question/19827157&quot;&gt;2nd&lt;/a&gt;.MVC模式中,V(view,也即UI)的delegate(助手,秘书)是C(controller).&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0xUI_obj_address delegate]&lt;/code&gt;可得到一个UI的被委托要实现的功能(function)&lt;/p&gt;
+
+&lt;p&gt;4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开关&lt;code class=&quot;highlighter-rouge&quot;&gt;#import 人工编写的头文件.h&lt;/code&gt;,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告&lt;/p&gt;
+
+&lt;p&gt;5.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B7-10%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B7-10%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>ios</category>
+        
+        <category>reverse</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>实战ios破解--通过UI找关键函数</title>
@@ -243,10 +294,13 @@ ARM内存操作只有2个基础指令,&lt;code class=&quot;highlighter-rouge&quo
   LE                  ;Z=1 | N!=V
 &lt;/code&gt;&lt;/pre&gt;
         &lt;/div&gt;
+        &lt;p&gt;例如&lt;a href=&quot;http://blog.csdn.net/marc07/article/details/62885832&quot;&gt;这里&lt;/a&gt;和&lt;a href=&quot;http://blog.csdn.net/qq1084283172/article/details/47296931&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;13.函数和UI之间的关联非常紧密,如果能拿到感兴趣的UI对象,就可以找到它所对应的函数,我们称该函数为UI函数.这个过程,一般是利用cycript,结合UIView中的神奇私有函数&lt;code class=&quot;highlighter-rouge&quot;&gt;recursiveDescription&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;UIResponder&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;来实现的.注意,游戏一般不是采用UIKit来构建UI的,recursiveDescription和nextResponder不适用于游戏.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 10 Jan 2018 00:00:00 +0800</pubDate>
@@ -1681,169 +1735,6 @@ find . -regextype posix-extended -regex &quot;.+\.sw[^f]$&quot; | grep -v &quot;
         
         
         <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>ios的css调试</title>
-        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
-
-&lt;p&gt;css调试中,ios设备比较特殊(具备高清显示屏),物理像素和css像素值不相同,调试css时方法特殊&lt;/p&gt;
-
-&lt;h3 id=&quot;0x1-必读link&quot;&gt;0x1 必读link&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/35221839&quot;&gt;现在手机分辨率这么大,如何写响应式布局&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stephen.io/mediaqueries/&quot;&gt;CSS Media Queries for 
-iPads &amp;amp; iPhones&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/needim/d15fdc2ac133d8078f7c&quot;&gt;Device Specific CSS Media Queries Collection&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x2-solution&quot;&gt;0x2 Solution&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/* porttrait是标准显示 */
-/* landscape是放大显示 */
-/* 这里用的是iPhone 6 portrait,iphone6标准显示*/
-@media only screen and (min-device-width: 375px)
-  and (max-device-width: 667px)
-  and (orientation: portrait)
-  and (-webkit-min-device-pixel-ratio: 2)
-{...}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;方法一&quot;&gt;方法一&lt;/h4&gt;
-
-&lt;p&gt;使用ios上的safari真机调试css,具体步骤如下&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;macOS|safari|偏好设置|高级选项|打开在菜单栏中显示开发功能&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ios上打开设置|safari|高级|web检查器&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;手机usb连接上mac,点mac上的safari的菜单栏上的开发,里面有手机子选项,打开它&lt;/li&gt;
-  &lt;li&gt;然后在mac上的safari中修改css文件并查看手机上safari的显示效果&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;方法二&quot;&gt;方法二&lt;/h4&gt;
-
-&lt;p&gt;chrome手机模式中选择iphone,并在chrome中直接调试css&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;css需要用对应ios设备的标准显示对应的media query,也即用portrait对应的media query&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;0x3-其它&quot;&gt;0x3 其它&lt;/h3&gt;
-
-&lt;p&gt;jekyll的css调试可参考如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/css.png&quot; alt=&quot;调试图&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 20 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2017/12/20/ios%E7%9A%84css%E8%B0%83%E8%AF%95/</guid>
-        
-        <category>css</category>
-        
-        <category>ios</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>vim写markdown</title>
-        <description>&lt;h3 id=&quot;必读link&quot;&gt;必读link&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lequochung.me/2016/11/11/better-markdown-writing-experience-on-vim.html&quot;&gt;Better Writing Markdown Experience on Vim&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping&quot;&gt;Move cursor by display lines when wrapping&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.swamphogg.com/2015/vim-setup/&quot;&gt;Vim Setup for Markdown&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;why&quot;&gt;Why&lt;/h3&gt;
-
-&lt;p&gt;几乎所有markdown编辑器在编辑markdown的一个段落时都是不换行的,也即一段不换行,一段就是一行,不过在这些编辑器中眼睛看到的是”换行的”,实际上是没有换行的,可通过使用记事本等文本工具打开来验证这一点.为什么这些markdown编辑器不将一个段落的内容进行换行呢?&lt;strong&gt;在markdown中,可通过连续的两个空格加上换行符实现段内换行&lt;/strong&gt;,笔者认为只有不进行换行才能达到自适应不同屏幕的好的显示效果,如果在段落中按照每行一个合理的固定长度(如79个字符长度)进行自动换行,那么在不同大小的屏幕上显示这个markdown的段落时会有一些多余的空格符,因为markdown在渲染成html后将一个单独的换行符(\n)变成一个空格符,这样写出的markdown不是最好的markdown,这种情况的详情在&lt;a href=&quot;https://github.com/iamcco/markdown-preview.vim/issues/54&quot;&gt;这里&lt;/a&gt;,渲染后的效果如下图&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/markdown.png&quot; alt=&quot;换行变成空格&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以在用vim写markdown时要向markdown编辑器学习,一段不换行.可通过vim的set wrap实现,不过这样设置后vim编辑的时候用默认的设置会有”不适”,如j/k的使用,0/$的使用等.&lt;/p&gt;
-
-&lt;h3 id=&quot;how&quot;&gt;How&lt;/h3&gt;
-
-&lt;p&gt;为解决vim开启wrap写markdown时的一些”不适”,可在vimrc中设置如下&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;markdown setting
-au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
-au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
-au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
-
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; k gk
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; j gj
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; 0 g0
-&quot; for wrap is on
-noremap  &amp;lt;buffer&amp;gt; &amp;lt;silent&amp;gt; $ g$
-
-inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-&quot; for wrap is on
-inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
-&quot; for wrap is on
-inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
-inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
-cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
-cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上面是不用插件的方法,也可使用&lt;a href=&quot;https://github.com/reedes/vim-pencil&quot;&gt;vim-pencil&lt;/a&gt;插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成&lt;code class=&quot;highlighter-rouge&quot;&gt;gj/gk/g0/g$&lt;/code&gt;的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plugin 'reedes/vim-pencil'  &quot;安装这个插件,放在较靠前位置
-...
-...
-let g:pencil#wrapModeDefault = 'soft'   &quot; default is 'hard'
-
-&quot;markdown setting
-au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-au FileType markdown setlocal linebreak    &quot; Avoid wrap breaking words
-au FileType markdown setlocal nolist       &quot; Make sure linebreak work as expected
-au FileType markdown setlocal textwidth=0 &quot; Remove text width limit
-
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init({'wrap': 'hard'})
-augroup END
-
-inoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-&quot; for wrap is on
-inoremap &amp;lt;c-j&amp;gt; &amp;lt;esc&amp;gt;gjli
-&quot; for wrap is on
-inoremap &amp;lt;c-k&amp;gt; &amp;lt;esc&amp;gt;gkli
-inoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-cnoremap &amp;lt;c-h&amp;gt; &amp;lt;left&amp;gt;
-cnoremap &amp;lt;c-j&amp;gt; &amp;lt;down&amp;gt;
-cnoremap &amp;lt;c-k&amp;gt; &amp;lt;up&amp;gt;
-cnoremap &amp;lt;c-l&amp;gt; &amp;lt;right&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Tue, 19 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/vim/2017/12/19/vim%E5%86%99markdown/</link>
-        <guid isPermaLink="true">http://localhost:4000/vim/2017/12/19/vim%E5%86%99markdown/</guid>
-        
-        <category>markdown</category>
-        
-        <category>vim</category>
-        
-        
-        <category>vim</category>
         
       </item>
     
