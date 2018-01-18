@@ -286,6 +286,12 @@ c.调试
 <div class="highlighter-rouge"><pre class="highlight"><code>http://www.jianshu.com/p/bc63492e4847
 http://www.swiftyper.com/2016/01/25/ios-tweak-install-guide/
 
+破解加密
+    ssl
+        flex搜索evaluate server trust,hook可过强校验
+    破解CCCrypt加密 
+        http://rexq.me/2017/05/19/破解非对等加密/
+
 lldb与gdb命令对照:
     http://lldb.llvm.org/lldb-gdb.html
 
@@ -306,6 +312,7 @@ make出错时尝试这样:
 免越狱tweak开发
     https://juejin.im/entry/58931dd5128fe10065441717
     http://www.chinapyg.com/thread-88593-1-1.html
+    http://dev.qq.com/topic/5791da152168f2690e72daa4
 
 动态调试(在ida中要设置基址)
     http://www.cnblogs.com/ludashi/p/5730338.html
@@ -335,11 +342,11 @@ hook原理
 <ul>
   <li>flex(cydia),patch app的函数参数和返回值</li>
   <li><a href="https://github.com/dtrukr/FLEX_injected">flex_injected</a>,找到app中的按钮对应的类</li>
-  <li>reveal loader(cydia),和flex_injected功能相同,需要电脑上安装reveal</li>
   <li>syslogd to /var/log/syslog(cydia),和xcode中日志面板功能相同[需要执行cat /dev/null &gt; /var/log/syslog]</li>
   <li><a href="https://github.com/frida/frida">frida</a></li>
   <li>class-dump,脱壳工具</li>
   <li>dumpdecrypted,脱壳工具</li>
+  <li>app admin(cydia插件),够下载APP任意版本的插件</li>
 </ul>
 
 </span>
