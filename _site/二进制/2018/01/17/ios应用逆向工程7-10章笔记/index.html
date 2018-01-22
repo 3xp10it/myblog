@@ -121,9 +121,7 @@
 
 <p>3.理解Objective-C中的delegate,<a href="http://blog.csdn.net/jymn_chen/article/details/9058725">1st</a>,<a href="https://www.zhihu.com/question/19827157">2nd</a>.MVC模式中,V(view,也即UI)的delegate(助手,秘书)是C(controller).<code class="highlighter-rouge">[#0xUI_obj_address delegate]</code>可得到一个UI的被委托要实现的功能(function)</p>
 
-<p>4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开关<code class="highlighter-rouge">#import 人工编写的头文件.h</code>,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告</p>
-
-<p>5.</p>
+<p>4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开头<code class="highlighter-rouge">#import 人工编写的头文件.h</code>,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告</p>
 
 </span>
 

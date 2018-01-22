@@ -192,7 +192,11 @@ end
   </li>
 </ul>
 
-<p>10.函数调用时,函数的前4个参数存放在R0到R3中,其他参数存放在栈中;返回值放在R0中</p>
+<p>10.函数调用</p>
+<ul>
+  <li>32位ARM函数调用时,函数的前4个参数存放在R0到R3中,其他参数存放在栈中;返回值放在R0中</li>
+  <li>ARM64汇编语言函数前8个参数使用x0-x7寄存器(或w0-w7寄存器)传递,多于8个的参数均通过堆栈传递,并且返回值通过x0寄存器(或w0寄存器)返回</li>
+</ul>
 
 <p>11.ARM处理器用到的指令集分为ARM和THUMB两种;ARM指令长度均为32bit,THUMB指令长度均为16bit.THUMB指令比ARM指令更节省空间,且在16位数据总线上的传输效率更高,相对于ARM指令,THUMB指令的缺点如下</p>
 <ul>
@@ -205,7 +209,7 @@ end
   <li>不支持数据写回</li>
 </ul>
 
-<p>12.ARM处理器的所有指令可大致分为3类,分别是<code class="highlighter-rouge">数据操作指令</code>,<code class="highlighter-rouge">内存操作指令</code>和<code class="highlighter-rouge">分支指令</code></p>
+<p>12.ARM32位处理器的所有指令可大致分为3类,分别是<code class="highlighter-rouge">数据操作指令</code>,<code class="highlighter-rouge">内存操作指令</code>和<code class="highlighter-rouge">分支指令</code></p>
 <ul>
   <li>数据操作指令
 所有操作数均为32位,所有的结果均为32位,且只能存放在寄存器中

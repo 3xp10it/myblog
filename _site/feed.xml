@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 19 Jan 2018 18:29:09 +0800</pubDate>
-    <lastBuildDate>Fri, 19 Jan 2018 18:29:09 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Mon, 22 Jan 2018 08:17:06 +0800</pubDate>
+    <lastBuildDate>Mon, 22 Jan 2018 08:17:06 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>炒股观点</title>
@@ -16,7 +16,7 @@
   &lt;li&gt;分析各个股票找抄底股买&lt;/li&gt;
   &lt;li&gt;买最热股前几名(如2017年的最热的茅台)&lt;/li&gt;
   &lt;li&gt;买龙头企业在低价时的股票&lt;/li&gt;
-  &lt;li&gt;买股份很低的大公司(如当前农业银行价格很低,3-4块每股)的股票&lt;/li&gt;
+  &lt;li&gt;买股价很低的大公司(如当前农业银行价格很低,3-4块每股)的股票&lt;/li&gt;
   &lt;li&gt;只买信心最大的股票&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -46,6 +46,7 @@
   &lt;li&gt;&lt;a href=&quot;https://paper.seebug.org/204/&quot;&gt;深度分析使用高级反调试和反hook的Android Rootnik Malware,Part I:在Native层调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/iamonion/p/7119085.html&quot;&gt;去除ios反调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/android逆向之旅-应用的反调试方案解析附加修改ida调试/&quot;&gt;Android逆向之旅—应用的”反调试”方案解析(附加修改IDA调试端口和修改内核信息)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/a2ed798a7f62&quot;&gt;iOS 应用加固方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
@@ -70,9 +71,7 @@
 
 &lt;p&gt;3.理解Objective-C中的delegate,&lt;a href=&quot;http://blog.csdn.net/jymn_chen/article/details/9058725&quot;&gt;1st&lt;/a&gt;,&lt;a href=&quot;https://www.zhihu.com/question/19827157&quot;&gt;2nd&lt;/a&gt;.MVC模式中,V(view,也即UI)的delegate(助手,秘书)是C(controller).&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0xUI_obj_address delegate]&lt;/code&gt;可得到一个UI的被委托要实现的功能(function)&lt;/p&gt;
 
-&lt;p&gt;4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开关&lt;code class=&quot;highlighter-rouge&quot;&gt;#import 人工编写的头文件.h&lt;/code&gt;,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告&lt;/p&gt;
-
-&lt;p&gt;5.&lt;/p&gt;
+&lt;p&gt;4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开头&lt;code class=&quot;highlighter-rouge&quot;&gt;#import 人工编写的头文件.h&lt;/code&gt;,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
@@ -118,6 +117,7 @@
       &lt;/table&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
+  &lt;li&gt;ida搜索中文时要在&lt;code class=&quot;highlighter-rouge&quot;&gt;IDA View&lt;/code&gt;中搜索,在&lt;code class=&quot;highlighter-rouge&quot;&gt;strings&lt;/code&gt;窗口中搜索不到中文,应该是个bug&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
@@ -400,7 +400,7 @@ v46 = objc_msgSend(v45, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&q
 
 &lt;p&gt;&lt;strong&gt;2.在远程调试时,ida默认不勾选下图中的&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on debugging start&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;suspend on process entry point&lt;/code&gt;,这两个选项要手动勾上,因为如果被调试的程序有&lt;code class=&quot;highlighter-rouge&quot;&gt;反调试机制&lt;/code&gt;而没有勾选这两个选项,则不能在反调试代码运行前将被调试程序中断下来,因为这里是远程调试,一般需要rebase program,只有rebase program后断点才会正常中断.如果没有勾选这两个选项则会在人工rebase program前(也即正常调试目标程序前)就发生了反调试代码的运行,这样就无法调试了&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;3.cydia中的deb大多是32位的,逆向时要用32位的ida,如果用64位的ida,&lt;code class=&quot;highlighter-rouge&quot;&gt;hex-rays decompiler&lt;/code&gt;插件会不起作用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.cydia中的deb有些是32位的,要根据具体情况选择用32位的ida还是用64位的ida,如果app的位数与ida的位数不一致会导致&lt;code class=&quot;highlighter-rouge&quot;&gt;hex-rays decompiler&lt;/code&gt;插件会不起作用&lt;/strong&gt;,或者在rebase program时出问题.如果发现ida使用remote ios debugger+usb调试时ida还经常是”卡”的状态,很有可能是因为app的位数与ida位数不一致造成(如64位的app用到了32位的ida调试)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/anti_anti_debug.png&quot; alt=&quot;反调试要勾选&quot; /&gt;&lt;/p&gt;
 
@@ -501,7 +501,11 @@ end
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;10.函数调用时,函数的前4个参数存放在R0到R3中,其他参数存放在栈中;返回值放在R0中&lt;/p&gt;
+&lt;p&gt;10.函数调用&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;32位ARM函数调用时,函数的前4个参数存放在R0到R3中,其他参数存放在栈中;返回值放在R0中&lt;/li&gt;
+  &lt;li&gt;ARM64汇编语言函数前8个参数使用x0-x7寄存器(或w0-w7寄存器)传递,多于8个的参数均通过堆栈传递,并且返回值通过x0寄存器(或w0寄存器)返回&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;11.ARM处理器用到的指令集分为ARM和THUMB两种;ARM指令长度均为32bit,THUMB指令长度均为16bit.THUMB指令比ARM指令更节省空间,且在16位数据总线上的传输效率更高,相对于ARM指令,THUMB指令的缺点如下&lt;/p&gt;
 &lt;ul&gt;
@@ -514,7 +518,7 @@ end
   &lt;li&gt;不支持数据写回&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;12.ARM处理器的所有指令可大致分为3类,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;数据操作指令&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;内存操作指令&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;分支指令&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;12.ARM32位处理器的所有指令可大致分为3类,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;数据操作指令&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;内存操作指令&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;分支指令&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;数据操作指令
 所有操作数均为32位,所有的结果均为32位,且只能存放在寄存器中
@@ -1175,6 +1179,13 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;keypatch&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;支持arm处理器的assemble patch(ida默认不支持),一般用于手机app的patch&lt;/li&gt;
+      &lt;li&gt;使用方法在&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/joxeankoret/mynav&quot;&gt;mynav&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;类似binnavi的函数追踪功能,可快速找到一个操作对应的函数,功能详情在&lt;a href=&quot;http://joxeankoret.com/blog/2010/05/02/mynav-a-python-plugin-for-ida-pro/&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;使用方法是在ida分析完成后直接在ida中运行mynav.py&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;

@@ -380,7 +380,7 @@ v46 = objc_msgSend(v45, "localizedStringForKey:value:table:", CFSTR("valid till 
 
 <p><strong>2.在远程调试时,ida默认不勾选下图中的<code class="highlighter-rouge">suspend on debugging start</code>和<code class="highlighter-rouge">suspend on process entry point</code>,这两个选项要手动勾上,因为如果被调试的程序有<code class="highlighter-rouge">反调试机制</code>而没有勾选这两个选项,则不能在反调试代码运行前将被调试程序中断下来,因为这里是远程调试,一般需要rebase program,只有rebase program后断点才会正常中断.如果没有勾选这两个选项则会在人工rebase program前(也即正常调试目标程序前)就发生了反调试代码的运行,这样就无法调试了</strong></p>
 
-<p><strong>3.cydia中的deb大多是32位的,逆向时要用32位的ida,如果用64位的ida,<code class="highlighter-rouge">hex-rays decompiler</code>插件会不起作用</strong></p>
+<p><strong>3.cydia中的deb有些是32位的,要根据具体情况选择用32位的ida还是用64位的ida,如果app的位数与ida的位数不一致会导致<code class="highlighter-rouge">hex-rays decompiler</code>插件会不起作用</strong>,或者在rebase program时出问题.如果发现ida使用remote ios debugger+usb调试时ida还经常是”卡”的状态,很有可能是因为app的位数与ida位数不一致造成(如64位的app用到了32位的ida调试)</p>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/anti_anti_debug.png" alt="反调试要勾选" /></p>
 
