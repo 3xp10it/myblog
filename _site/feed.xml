@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 Jan 2018 18:17:04 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Jan 2018 18:17:04 +0800</lastBuildDate>
+    <pubDate>Mon, 22 Jan 2018 18:22:40 +0800</pubDate>
+    <lastBuildDate>Mon, 22 Jan 2018 18:22:40 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -1216,10 +1216,10 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
       &lt;li&gt;使用方法在&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/joxeankoret/mynav&quot;&gt;mynav&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/3xp10it/mynav&quot;&gt;mynav&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;类似binnavi的函数追踪功能,可快速找到一个操作对应的函数,功能详情在&lt;a href=&quot;http://joxeankoret.com/blog/2010/05/02/mynav-a-python-plugin-for-ida-pro/&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;使用方法是在ida分析完成后直接在ida中运行mynav.py&lt;/li&gt;
+      &lt;li&gt;使用方法是在ida分析完成后直接在ida中&lt;code class=&quot;highlighter-rouge&quot;&gt;File|Script File&lt;/code&gt;,选择&lt;code class=&quot;highlighter-rouge&quot;&gt;mynav.py&lt;/code&gt;,然后可在&lt;code class=&quot;highlighter-rouge&quot;&gt;Edit|Plugins|MyNav&lt;/code&gt;中得到需要功能&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
