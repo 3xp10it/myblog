@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Jan 2018 18:16:51 +0800</pubDate>
-    <lastBuildDate>Tue, 23 Jan 2018 18:16:51 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Wed, 24 Jan 2018 08:19:12 +0800</pubDate>
+    <lastBuildDate>Wed, 24 Jan 2018 08:19:12 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>ida插件mynav</title>
@@ -20,6 +20,21 @@
 &lt;p&gt;在ida完成对一个目标文件的分析后,&lt;code class=&quot;highlighter-rouge&quot;&gt;File|Script File&lt;/code&gt;选择&lt;code class=&quot;highlighter-rouge&quot;&gt;mynav.py&lt;/code&gt;(或&lt;code class=&quot;highlighter-rouge&quot;&gt;mybrowser.py&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;myexport.py&lt;/code&gt;),然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;Edit|Plugins|MyNav&lt;/code&gt;中可看到如下子菜单&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mynav.png&quot; alt=&quot;mynav&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中最重要的功能用法如下:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.new session,取一个名字,单击ok后ida会自动从暂停状态变成运行状态,在运行的程序中作一些不想记录的操作(或者什么也不做,只是等待2s),然后将运行的程序关闭(不是通过ida关闭)&lt;/li&gt;
+  &lt;li&gt;2.new session,取另一个名字,单击ok后ida会自动从暂停状态变成运行状态,在运行的程序中作关键的操作(如点击某个想知道背后运行了什么函数的重要的按键),然后将运行的程序关闭(不是通过ida关闭)&lt;/li&gt;
+  &lt;li&gt;3.trace session,选择2中的session名字,之后和2中的”取另一个名字”之后的操作一样,也即重现2中的操作&lt;/li&gt;
+  &lt;li&gt;4.show trace session,选择3中的session名字&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其实前2步的功能就差不多够用了,有3和4更好.上面4个步骤原理如下:&lt;/p&gt;
+
+&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
 
 &lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
 
@@ -1217,8 +1232,16 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;keypatch&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;支持arm处理器的assemble patch(ida默认不支持),一般用于手机app的patch&lt;/li&gt;
-      &lt;li&gt;使用方法在&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;使用方法在&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;这里&lt;/a&gt;,也即如下&lt;/li&gt;
     &lt;/ul&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  brew install cmake
+  pip install keystone-engine
+  git clone https://github.com/keystone-engine/keypatch.git
+  cp -r /usr/local/lib/python2.7/site-packages/keystone /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/python/
+  cp keypatch/keypatch.py /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/plugins/
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/3xp10it/mynav&quot;&gt;mynav&lt;/a&gt;
     &lt;ul&gt;
