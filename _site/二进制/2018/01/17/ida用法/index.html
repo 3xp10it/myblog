@@ -150,9 +150,10 @@
   <li>有两种方法可快速定位到关键函数的调用
     <ul>
       <li>查看函数调用栈:<code class="highlighter-rouge">debugger|debugger windows|stack trace</code></li>
-      <li>使用<a href="https://github.com/3xp10it/mynav">mynav</a>插件快速定位关键操作对应的函数
-  <strong>注意</strong>:mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看<code class="highlighter-rouge">stack trace</code>即可,<code class="highlighter-rouge">stack trace</code>以看到动态链接库中的函数调用</li>
+      <li>使用<a href="https://github.com/3xp10it/mynav">mynav</a>插件快速定位关键操作对应的函数</li>
     </ul>
+
+    <p><strong>注意</strong>:mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看<code class="highlighter-rouge">stack trace</code>即可,<code class="highlighter-rouge">stack trace</code>以看到动态链接库中的函数调用</p>
   </li>
   <li>
     <p>有时候在一个函数中却无法F5,这时候你需要先按一下”p”键,程序会将这段代码作为函数分析,然后再按一下”F5”,这种情况一般出现在目标程序加载的动态链接文件中</p>
