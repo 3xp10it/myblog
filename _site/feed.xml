@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Jan 2018 18:53:04 +0800</pubDate>
-    <lastBuildDate>Thu, 25 Jan 2018 18:53:04 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Jan 2018 07:50:55 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Jan 2018 07:50:55 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -113,19 +113,60 @@
     
       <item>
         <title>反调试技术库</title>
-        <description>&lt;ul&gt;
+        <description>&lt;h3 id=&quot;all&quot;&gt;All&lt;/h3&gt;
+
+&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.pediy.com/kssd/pediy06/pediy6713.htm&quot;&gt;反(调试/跟踪/脱壳) 技术集锦&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;windows&quot;&gt;Windows&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/Nightsay/article/details/45034787&quot;&gt;去除各种反调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/qq_32400847/article/details/52798050&quot;&gt;详解反调试技术&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhangmiaoping23/article/details/44564781&quot;&gt;逆向工程核心原理-静态反调试技术总结&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhangmiaoping23/article/details/44593407&quot;&gt;逆向工程核心原理-动态反调试技术总结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/trap0D/article/details/45697607&quot;&gt;一个android反调试的学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.lolopop.cn/2017/anti-debug-in-malware/&quot;&gt;恶意代码反调试技术总结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.tk4479.net/whklhhhh/article/details/78787596&quot;&gt;逆向-高级反调试技术&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-212371.htm&quot;&gt;基础反调试技术总结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://paper.seebug.org/204/&quot;&gt;深度分析使用高级反调试和反hook的Android Rootnik Malware,Part I:在Native层调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.codeproject.com/Articles/1090943/Anti-Debug-Protection-Techniques-Implementation-an&quot;&gt;Anti-Debug Protection Techniques: Implementation and Neutralization&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/whatday/article/details/8604646&quot;&gt;反调试技巧总结-原理和实现&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/kfy2011/article/details/43154659&quot;&gt;软件反调试技术解析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhuhuibeishadiao/article/details/51027181&quot;&gt;反调试与反反调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/super_mimi/article/details/40425347&quot;&gt;反调试跟踪的一点心得&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ios&quot;&gt;IOS&lt;/h3&gt;
+
+&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/iamonion/p/7119085.html&quot;&gt;去除ios反调试&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/android逆向之旅-应用的反调试方案解析附加修改ida调试/&quot;&gt;Android逆向之旅—应用的”反调试”方案解析(附加修改IDA调试端口和修改内核信息)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/a2ed798a7f62&quot;&gt;iOS 应用加固方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.alonemonkey.com/2017/05/25/antiantidebug/&quot;&gt;关于反调试&amp;amp;反反调试那些事&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-220795.htm&quot;&gt;利用 HookZz 实现反调试与绕过的奇淫技巧&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jmpews/HookZz&quot;&gt;HookZz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://codedigging.com/blog/2016-03-07-bypassing-anti-debug-musically-for-ios/&quot;&gt;Bypassing an anti-debug protection in Musical.ly 4.7.2 for iOS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/langzxz/article/details/17116301&quot;&gt;Anti-Debug 小试牛刀&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitlog.it/re/a-short-introduction-to-anti-anti-debugging-on-os-x/&quot;&gt;A short introduction to anti-anti-debugging on OS X&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.sig-switzerland.ch/wp-content/uploads/2017/05/SIGS-TechCon2017_Kudelski-Bypassing_iOS_App.pdf&quot;&gt;Bypassing iOS anti-debugging protections &amp;amp; jailbreak detection mechanisms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://breaking-the-system.blogspot.com/2014/08/ios-mywi-reversing-and-anti-debugging.html&quot;&gt;iOS MyWi Reversing And Anti-Debugging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://everettjf.com/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/&quot;&gt;Simple antidebugging and antiantidebugging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-220795.htm&quot;&gt;动手写一个简单的Mac内核反反调试扩展&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;android&quot;&gt;Android&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-223460.htm&quot;&gt;17种安卓native反调试收集&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/StnqWtZMFCu09snIEGi1RQ&quot;&gt;企业壳反调试及hook检测分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/feibabeibei_beibei/article/details/60956307&quot;&gt;Android反调试方法总结以及源码实现之检测篇&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/trap0D/article/details/45697607&quot;&gt;一个android反调试的学习&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://pwn4.fun/2017/04/15/Android逆向之反调试/&quot;&gt;Android逆向之反调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/android逆向之旅-应用的反调试方案解析附加修改ida调试/&quot;&gt;Android逆向之旅—应用的”反调试”方案解析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/apk脱壳圣战之-脱掉360加固的壳/&quot;&gt;脱掉”360加固”的壳&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.wjdiankong.cn/apk脱壳圣战之-脱掉爱加密家的壳/&quot;&gt;脱掉”爱加密”家的壳&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://paper.seebug.org/204/&quot;&gt;深度分析使用高级反调试和反hook的Android Rootnik Malware,Part I:在Native层调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.freebuf.com/articles/terminal/80996.html&quot;&gt;Android应用方法隐藏及反调试技术浅析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://sevenline.me/2017/04/16/Android反调试方法总结/&quot;&gt;Android反调试方法总结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jaq.alibaba.com/community/art/show?articleid=365&quot;&gt;安卓动态调试七种武器之孔雀翎&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
