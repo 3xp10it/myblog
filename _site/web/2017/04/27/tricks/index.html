@@ -121,18 +121,32 @@
 
 <h3 id="detail">Detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.phpinfo页面+lfi漏洞可getshell
-2.sqli可load_file时可利用smb重放反弹shell[未验证]
-3.php代码审计时全文搜索unserilize函数的调用,分析这个unserilize有没有漏洞
-    如果有unserialize客户端输入则危害很大,可远程代码执行(cve-2014-8142,cve-2015-0231等)
-4.phpmyadmin的root用户没有写权限时可将general log设置为on,并把日志文件设置为php文件(t00ls)
-    https://www.t00ls.net/articles-38892.html
-5.smb叠加利用提权(利用ms17-010)
-    https://www.t00ls.net/thread-39703-1-1.html
-6.获取网站隐藏后台地址
-    https://www.t00ls.net/viewthread.php?tid=34239&amp;extra=page=1&amp;amp;filter=type&amp;amp;typeid=39
+<p>1.phpinfo页面+lfi漏洞可getshell</p>
+
+<p>2.sqli可load_file时可利用smb重放反弹shell[未验证]</p>
+
+<p>3.php代码审计时全文搜索unserilize函数的调用,分析这个unserilize有没有漏洞
+    如果有unserialize客户端输入则危害很大,可远程代码执行(cve-2014-8142,cve-2015-0231等)</p>
+
+<p>4.phpmyadmin的root用户没有写权限时可将general log设置为on,并把日志文件设置为php文件(t00ls)
+    https://www.t00ls.net/articles-38892.html</p>
+
+<p>5.smb叠加利用提权(利用ms17-010)
+    https://www.t00ls.net/thread-39703-1-1.html</p>
+
+<p>6.获取网站隐藏后台地址
+    https://www.t00ls.net/viewthread.php?tid=34239&amp;extra=page=1&amp;filter=type&amp;typeid=39</p>
+
+<p>7.<code class="highlighter-rouge">select ... into outfile 'shell.php'</code>文件不用单引号的方法,应该也可用于其他特殊字符的替代</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>set @sql=concat(0x73,0x65,0x6c,0x65,0x63,0x74,0x20,0x31,0x31,0x31,0x20,0x69,0x6e,0x74,0x6f,0x20,0x6f,0x75,0x74,0x66,0x69,0x6c,0x65,0x20,0x27,0x2f,0x74,0x6d,0x70,0x2f,0x31,0x2e,0x70,0x68,0x70,0x27);
+PREPARE Sql_Text FROM @sql;
+EXECUTE Sql_Text;
 </code></pre>
 </div>
+
+<p>其中concat里面的内容是:<code class="highlighter-rouge">select 111 into outfile '/tmp/1.php'</code>,要sqlmap中测试时说要支持stacked queries查询的注入点才可以这么用.在mysql终端可成功执行</p>
+
 </span>
 
         
