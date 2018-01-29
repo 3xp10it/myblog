@@ -163,8 +163,8 @@
   <li>第1步操作之前需要确保安全人员没有自行设置断点,如果在使用第1步的功能前已经有断点会导致使用这个功能失败(应该是由于mynav认为如果已经有断点则认为不是在第1步的操作)</li>
   <li>有时通过usb远程以attach的方式调试app时ida在加载远程手机中的进程列表时会crash,遇到这种情况需要每次重新attach调试app时将usb重新拔插后再attach</li>
   <li>使用mynav的这种在所有函数下断点的方法在目标可执行文件比较大的时候(&gt;500M)不合适,因为在所有函数下断点可能要下很久,500M以上的文件下断点估计要花2个小时以上.如果是调试ios app,遇到这种情况直接用根据UI找函数的方法较合适</li>
-  <li>mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看<code class="highlighter-rouge">stack trace</code>即可,<code class="highlighter-rouge">stack trace</code>以看到动态链接库中的函数调用</li>
-  <li>ida调试可以以加载或附加的方式调试,如果以加载的方式调试,在第2步新建session后如果剩下的断点(所有的函数中除去第1步中触发过的函数外的剩下的函数)较多,有可能会影响目标程序的正常启动(有时候会这样),如果有影响则可考虑在第1步后第2步前先将剩下的断点全部先disable,等目标程序启动后再将剩下的断点enable,然后再开始第2步的<code class="highlighter-rouge">plugin|mynav|new session</code>.或者不使用附加的方式调试,而使用加载的方式调试.</li>
+  <li>mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip的函数)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看<code class="highlighter-rouge">stack trace</code>即可,<code class="highlighter-rouge">stack trace</code>以看到动态链接库中的函数调用</li>
+  <li>ida调试可以以加载或附加的方式调试,如果以加载的方式调试,在第2步新建session后如果剩下的断点(所有的函数中除去第1步中触发过的函数外的剩下的函数)较多,有可能会影响目标程序的正常启动(有时候会这样),如果有影响则可考虑在第1步后第2步前先将剩下的断点全部先disable,等目标程序启动后再将剩下的断点enable,然后再开始第2步的<code class="highlighter-rouge">plugin|mynav|new session</code>.或者不使用加载的方式调试,而使用附加的方式调试.</li>
 </ul>
 
 <h3 id="refer">Refer</h3>

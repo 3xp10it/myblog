@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Jan 2018 18:36:03 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Jan 2018 18:36:03 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Mon, 29 Jan 2018 08:07:43 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Jan 2018 08:07:43 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>ida插件mynav</title>
@@ -61,8 +61,8 @@
   &lt;li&gt;第1步操作之前需要确保安全人员没有自行设置断点,如果在使用第1步的功能前已经有断点会导致使用这个功能失败(应该是由于mynav认为如果已经有断点则认为不是在第1步的操作)&lt;/li&gt;
   &lt;li&gt;有时通过usb远程以attach的方式调试app时ida在加载远程手机中的进程列表时会crash,遇到这种情况需要每次重新attach调试app时将usb重新拔插后再attach&lt;/li&gt;
   &lt;li&gt;使用mynav的这种在所有函数下断点的方法在目标可执行文件比较大的时候(&amp;gt;500M)不合适,因为在所有函数下断点可能要下很久,500M以上的文件下断点估计要花2个小时以上.如果是调试ios app,遇到这种情况直接用根据UI找函数的方法较合适&lt;/li&gt;
-  &lt;li&gt;mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;即可,&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;以看到动态链接库中的函数调用&lt;/li&gt;
-  &lt;li&gt;ida调试可以以加载或附加的方式调试,如果以加载的方式调试,在第2步新建session后如果剩下的断点(所有的函数中除去第1步中触发过的函数外的剩下的函数)较多,有可能会影响目标程序的正常启动(有时候会这样),如果有影响则可考虑在第1步后第2步前先将剩下的断点全部先disable,等目标程序启动后再将剩下的断点enable,然后再开始第2步的&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin|mynav|new session&lt;/code&gt;.或者不使用附加的方式调试,而使用加载的方式调试.&lt;/li&gt;
+  &lt;li&gt;mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip的函数)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;即可,&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;以看到动态链接库中的函数调用&lt;/li&gt;
+  &lt;li&gt;ida调试可以以加载或附加的方式调试,如果以加载的方式调试,在第2步新建session后如果剩下的断点(所有的函数中除去第1步中触发过的函数外的剩下的函数)较多,有可能会影响目标程序的正常启动(有时候会这样),如果有影响则可考虑在第1步后第2步前先将剩下的断点全部先disable,等目标程序启动后再将剩下的断点enable,然后再开始第2步的&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin|mynav|new session&lt;/code&gt;.或者不使用加载的方式调试,而使用附加的方式调试.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
@@ -122,6 +122,8 @@
 &lt;h3 id=&quot;windows&quot;&gt;Windows&lt;/h3&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-50119.htm&quot;&gt;脱壳的艺术&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-70470.htm&quot;&gt;反调试技巧总结-原理和实现&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/Nightsay/article/details/45034787&quot;&gt;去除各种反调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/qq_32400847/article/details/52798050&quot;&gt;详解反调试技术&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhangmiaoping23/article/details/44564781&quot;&gt;逆向工程核心原理-静态反调试技术总结&lt;/a&gt;&lt;/li&gt;
@@ -133,9 +135,12 @@
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/kfy2011/article/details/43154659&quot;&gt;软件反调试技术解析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/zhuhuibeishadiao/article/details/51027181&quot;&gt;反调试与反反调试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/super_mimi/article/details/40425347&quot;&gt;反调试跟踪的一点心得&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-96020.htm&quot;&gt;关于如何反 int 2d 反调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-94440.htm&quot;&gt;基于堆的反调试技术&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-183301.htm&quot;&gt;TLS反调试的前世今生&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;ios&quot;&gt;IOS&lt;/h3&gt;
+&lt;h3 id=&quot;ios&quot;&gt;iOS&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/iamonion/p/7119085.html&quot;&gt;去除ios反调试&lt;/a&gt;&lt;/li&gt;
@@ -167,6 +172,7 @@
   &lt;li&gt;&lt;a href=&quot;http://www.freebuf.com/articles/terminal/80996.html&quot;&gt;Android应用方法隐藏及反调试技术浅析&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://sevenline.me/2017/04/16/Android反调试方法总结/&quot;&gt;Android反调试方法总结&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://jaq.alibaba.com/community/art/show?articleid=365&quot;&gt;安卓动态调试七种武器之孔雀翎&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bbs.pediy.com/thread-218938.htm&quot;&gt;分析绑绑反调试&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
