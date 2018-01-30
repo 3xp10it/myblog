@@ -5,16 +5,17 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jan 2018 13:50:55 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jan 2018 13:50:55 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jan 2018 13:54:33 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jan 2018 13:54:33 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
         <title>高效学习</title>
         <description>&lt;h3 id=&quot;必读&quot;&gt;必读&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/386f38ef0c13&quot;&gt;从”被动学习”到”主动学习”,只需这一个技巧&lt;/a&gt;
-&lt;a href=&quot;https://www.jianshu.com/p/b061510789f4&quot;&gt;费曼四步学习法vs哈佛大学 “学习吸收率金字塔”&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/386f38ef0c13&quot;&gt;从”被动学习”到”主动学习”,只需这一个技巧&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/b061510789f4&quot;&gt;费曼四步学习法vs哈佛大学 “学习吸收率金字塔”&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/learning_pyramid.png&quot; alt=&quot;学习金字塔&quot; /&gt;&lt;/p&gt;
 
@@ -22,29 +23,39 @@
 
 &lt;p&gt;带着问题去学习,为了找到答案而学习.内心拒绝的事不做,做内心想做的事.如果一件事&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,这件事又必须做,则把它变成内心想做的事.例如,此时有时间却不知该学习什么(事先做好学习计划也能让做事变得更内心想做些),于是想想下面2点可做的方向:&lt;/p&gt;
 
-&lt;p&gt;a)有没有什么感兴趣的问题可做的[如对ida怎么脱壳的问题感兴趣],如果有则直接做这件事即可
-b)认为此时该做的事情(如学习书籍的知识)比想做的事(如挖浏览器漏洞)更重要时,但是担心自己学习当前书籍[如书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;老码识途&lt;/code&gt;]是&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,但是这件事又必须做,那么找出内心更多想做它的理由,如自己原来就想把它的重要知识点写成博客记录下来,想到这里,内心想做的程度就又比开始更多了,如果此时内心不想做还是大于内心想做,而这件事又是必须做的,则找找其他更多的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;内心想做&amp;gt;内心不想做&lt;/code&gt;.例如:在决定下次组内分享时就分享今天的必须要做的事的内容,这样,内心想做的程度又多了.再如:写下做了这件事情的好处(越多越好)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;a)有没有什么感兴趣的问题可做的[如对ida怎么脱壳的问题感兴趣],如果有则直接做这件事即可&lt;/li&gt;
+  &lt;li&gt;b)认为此时该做的事情(如学习书籍的知识)比想做的事(如挖浏览器漏洞)更重要时,但是担心自己学习当前书籍[如书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;老码识途&lt;/code&gt;]是&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,但是这件事又必须做,那么找出内心更多想做它的理由,如自己原来就想把它的重要知识点写成博客记录下来,想到这里,内心想做的程度就又比开始更多了,如果此时内心不想做还是大于内心想做,而这件事又是必须做的,则找找其他更多的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;内心想做&amp;gt;内心不想做&lt;/code&gt;.例如:在决定下次组内分享时就分享今天的必须要做的事的内容,这样,内心想做的程度又多了.再如:写下做了这件事情的好处(越多越好)&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;小结:&lt;/p&gt;
 
-&lt;p&gt;1.做好学习计划
-2.直接做想做的事
-3.做&lt;code class=&quot;highlighter-rouge&quot;&gt;不想做&amp;gt;想做&lt;/code&gt;的事时要让它变成&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;,方法为:找出更多想做的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1.做好学习计划&lt;/li&gt;
+  &lt;li&gt;2.直接做想做的事&lt;/li&gt;
+  &lt;li&gt;3.做&lt;code class=&quot;highlighter-rouge&quot;&gt;不想做&amp;gt;想做&lt;/code&gt;的事时要让它变成&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;,方法为:找出更多想做的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;学习中&quot;&gt;学习中&lt;/h3&gt;
 
-&lt;p&gt;1.追究所学知识背后原理
-2.抽象出所学具体内容,将它提炼成生成形象的描述
-3.提取重点,加以小结&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1.追究所学知识背后原理&lt;/li&gt;
+  &lt;li&gt;2.抽象出所学具体内容,将它提炼成生成形象的描述&lt;/li&gt;
+  &lt;li&gt;3.提取重点,加以小结&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;学习后&quot;&gt;学习后&lt;/h3&gt;
 
-&lt;p&gt;1.分享所学,例如
-a.写文章
-b.在知乎回答问题
-c.假设自己有个学生&lt;/p&gt;
-
-&lt;p&gt;2.立即应用&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1.分享所学,例如
+    &lt;ul&gt;
+      &lt;li&gt;a.写文章&lt;/li&gt;
+      &lt;li&gt;b.在知乎回答问题&lt;/li&gt;
+      &lt;li&gt;c.假设自己有个学生&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2.立即应用&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Tue, 30 Jan 2018 00:00:00 +0800</pubDate>
