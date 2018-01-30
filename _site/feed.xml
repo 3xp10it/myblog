@@ -5,9 +5,58 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jan 2018 10:54:53 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jan 2018 10:54:53 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jan 2018 13:50:55 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jan 2018 13:50:55 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>高效学习</title>
+        <description>&lt;h3 id=&quot;必读&quot;&gt;必读&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/386f38ef0c13&quot;&gt;从”被动学习”到”主动学习”,只需这一个技巧&lt;/a&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/b061510789f4&quot;&gt;费曼四步学习法vs哈佛大学 “学习吸收率金字塔”&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/learning_pyramid.png&quot; alt=&quot;学习金字塔&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;学习前&quot;&gt;学习前&lt;/h3&gt;
+
+&lt;p&gt;带着问题去学习,为了找到答案而学习.内心拒绝的事不做,做内心想做的事.如果一件事&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,这件事又必须做,则把它变成内心想做的事.例如,此时有时间却不知该学习什么(事先做好学习计划也能让做事变得更内心想做些),于是想想下面2点可做的方向:&lt;/p&gt;
+
+&lt;p&gt;a)有没有什么感兴趣的问题可做的[如对ida怎么脱壳的问题感兴趣],如果有则直接做这件事即可
+b)认为此时该做的事情(如学习书籍的知识)比想做的事(如挖浏览器漏洞)更重要时,但是担心自己学习当前书籍[如书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;老码识途&lt;/code&gt;]是&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,但是这件事又必须做,那么找出内心更多想做它的理由,如自己原来就想把它的重要知识点写成博客记录下来,想到这里,内心想做的程度就又比开始更多了,如果此时内心不想做还是大于内心想做,而这件事又是必须做的,则找找其他更多的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;内心想做&amp;gt;内心不想做&lt;/code&gt;.例如:在决定下次组内分享时就分享今天的必须要做的事的内容,这样,内心想做的程度又多了.再如:写下做了这件事情的好处(越多越好)&lt;/p&gt;
+
+&lt;p&gt;小结:&lt;/p&gt;
+
+&lt;p&gt;1.做好学习计划
+2.直接做想做的事
+3.做&lt;code class=&quot;highlighter-rouge&quot;&gt;不想做&amp;gt;想做&lt;/code&gt;的事时要让它变成&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;,方法为:找出更多想做的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;学习中&quot;&gt;学习中&lt;/h3&gt;
+
+&lt;p&gt;1.追究所学知识背后原理
+2.抽象出所学具体内容,将它提炼成生成形象的描述
+3.提取重点,加以小结&lt;/p&gt;
+
+&lt;h3 id=&quot;学习后&quot;&gt;学习后&lt;/h3&gt;
+
+&lt;p&gt;1.分享所学,例如
+a.写文章
+b.在知乎回答问题
+c.假设自己有个学生&lt;/p&gt;
+
+&lt;p&gt;2.立即应用&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 30 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2018/01/30/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/01/30/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/</guid>
+        
+        <category>主动学习</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>理解编码</title>
@@ -1416,58 +1465,6 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
         <category>inject</category>
         
         <category>js</category>
-        
-        
-        <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>ida插件使用备忘录</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;p&gt;记录ida插件使用&lt;/p&gt;
-
-&lt;h3 id=&quot;items&quot;&gt;Items&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/deresz/funcap&quot;&gt;funcap&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;funcap是一个分析函数参数和函数返回值的插件&lt;/li&gt;
-      &lt;li&gt;支持的cpu架构:x86,amd64,arm(32)&lt;/li&gt;
-      &lt;li&gt;不支持64位的arm(现在的ios设备几乎都是arm64,ios设备cpu类型在&lt;a href=&quot;http://blakespot.com/ios_device_specifications_grid.html&quot;&gt;这里&lt;/a&gt;)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;keypatch&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;支持arm处理器的assemble patch(ida默认不支持),一般用于手机app的patch&lt;/li&gt;
-      &lt;li&gt;使用方法在&lt;a href=&quot;http://blog.csdn.net/fjh658/article/details/52268907&quot;&gt;这里&lt;/a&gt;,也即如下&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  brew install cmake
-  pip install keystone-engine
-  git clone https://github.com/keystone-engine/keypatch.git
-  cp -r /usr/local/lib/python2.7/site-packages/keystone /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/python/
-  cp keypatch/keypatch.py /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/plugins/
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/3xp10it/mynav&quot;&gt;mynav&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;类似binnavi的函数追踪功能,可快速找到一个操作对应的函数,功能详情在&lt;a href=&quot;http://joxeankoret.com/blog/2010/05/02/mynav-a-python-plugin-for-ida-pro/&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;使用方法是在ida分析完成后直接在ida中&lt;code class=&quot;highlighter-rouge&quot;&gt;File|Script File&lt;/code&gt;,选择&lt;code class=&quot;highlighter-rouge&quot;&gt;mynav.py&lt;/code&gt;,然后可在&lt;code class=&quot;highlighter-rouge&quot;&gt;Edit|Plugins|MyNav&lt;/code&gt;中得到需要功能&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Wed, 27 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/27/ida%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/27/ida%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
-        
-        <category>ida</category>
-        
-        <category>plugin</category>
         
         
         <category>二进制</category>
