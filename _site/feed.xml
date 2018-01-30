@@ -5,9 +5,125 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Jan 2018 18:36:03 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Jan 2018 18:36:03 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jan 2018 10:30:04 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jan 2018 10:30:04 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>理解编码</title>
+        <description>&lt;h3 id=&quot;编码&quot;&gt;编码&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;编码种类
+编码的种类有多种,如
+    &lt;ul&gt;
+      &lt;li&gt;ascii&lt;/li&gt;
+      &lt;li&gt;gbk&lt;/li&gt;
+      &lt;li&gt;utf-8&lt;/li&gt;
+      &lt;li&gt;…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;编码实质
+编码的实质是一张人与计算机之间信息的对照表,如下ascii这种编码,部分内容如下图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ascii码表.png&quot; alt=&quot;ascii码表&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为什么需要编码
+人只认识字符串,如”你好”,”hello”这样的形式的信息.计算机只”认识”二进制内容,如”001010101010101”这样的信息
+    &lt;ul&gt;
+      &lt;li&gt;人与人之间:通过字符串交流&lt;/li&gt;
+      &lt;li&gt;计算机与计算机之间:通过二进制交流&lt;/li&gt;
+      &lt;li&gt;人与计算机之间:通过&lt;strong&gt;翻译&lt;/strong&gt;来交流&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;strong&gt;编码&lt;/strong&gt;(这张人与计算机之间信息的对照表)就是这个翻译,编码就是翻译,编码就是翻译&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/人机交流.png&quot; alt=&quot;人机交流&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;理解编码翻译&quot;&gt;理解编码(翻译)&lt;/h3&gt;
+
+&lt;h4 id=&quot;人与计算机交流&quot;&gt;人与计算机交流&lt;/h4&gt;
+
+&lt;p&gt;计算机在本地存储和通过网络发送的都是二进制的数据(0101010串),人要将信息存储在计算机则需要将人想存的”字符串”通过编辑软件如notepad.exe进行编码后进行存储,notepad.exe等编辑工具会自动进行编码,人也可告诉notepad.exe用什么编码种类(如ascii,gbk)进行编码.人若想读取计算机存储好的内容(二进制数据),需要通过编辑软件如notepad.exe进行解码成”字符串”,人才能读懂自己原来存储的信息.&lt;/p&gt;
+
+&lt;h4 id=&quot;最弱的ascii码&quot;&gt;“最弱”的ascii码&lt;/h4&gt;
+
+&lt;p&gt;ascii编码只懂得英文字符(键盘上的符号)与0101串之间的翻译,其他的编码都”具备”ascii编码这个翻译员的知识,如果英国人将英文编码成0101串后中国人通过gbk编码来翻译是可以翻译成功的,因为gbk编码这个翻译员具备ascii编码这个翻译员的知识,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: &quot;hello&quot;.encode(&quot;ascii&quot;)
+Out[2]: b'hello'
+
+In [3]: &quot;hello&quot;.encode(&quot;ascii&quot;).decode(&quot;gbk&quot;)
+Out[3]: 'hello'
+
+In [4]: &quot;hello&quot;.encode(&quot;ascii&quot;).decode(&quot;gbk&quot;)
+Out[4]: 'hello'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;编码的专一&quot;&gt;编码的”专一”&lt;/h4&gt;
+&lt;p&gt;ascii码和gbk码就像英国人的翻译和中国人的翻译(这里的翻译指的是人与计算机之间的交流,而不是英国人和中国人之间的交流),如果中国人通过gbk码(不能将中文通过ascii进行编码,因为ascii编码这个翻译员不知道中文该怎么翻译)将他们的信息进行编码后通过计算机发送给英国人,英国人想通过ascii码将这个信息解码,结果会失败,因为ascii码这个翻译人员的能力有限,ascii码这个翻译员只懂得英文和0101,英国人尝试通过ascii码这个翻译员来将计算机发来的信息(这个信息是通过gbk码翻译员翻译成0101的结果)翻译成英文时,由于ascii码这个翻译员的脑子里不知道看到的0101串对应的是什么英文,于是翻译不来,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [5]: &quot;你好&quot;.encode('ascii')
+---------------------------------------------------------------------------
+UnicodeEncodeError                        Traceback (most recent call last)
+&amp;lt;ipython-input-5-f2b92576099c&amp;gt; in &amp;lt;module&amp;gt;()
+----&amp;gt; 1 &quot;你好&quot;.encode('ascii')
+
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;特殊的utf-8编码&quot;&gt;“特殊”的utf-8编码&lt;/h4&gt;
+
+&lt;p&gt;utf-8编码这个翻译员能力比较强大,能将中文,日文和其他语言都翻译成0101串,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [7]: &quot;你好&quot;.encode(&quot;utf-8&quot;)
+Out[7]: b'\xe4\xbd\xa0\xe5\xa5\xbd'
+
+In [8]: &quot;こんにちは&quot;.encode(&quot;utf-8&quot;)
+Out[8]: b'\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf'
+
+In [9]: &quot;你好&quot;.encode(&quot;utf-8&quot;).decode(&quot;utf-8&quot;)
+Out[9]: '你好'
+
+In [10]: &quot;こんにちは&quot;.encode(&quot;utf-8&quot;).decode(&quot;utf-8&quot;)
+Out[10]: 'こんにちは'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;不过,虽然utf-8编码这个翻译员能力比较强,但是如果想把gbk编码的内容通过utf-8来解码,是不行的,因为gbk编码和utf-8编码是两种不同的编码,也即两个不同的翻译员(这两个翻译员能力不同),这两个翻译员除了对英文的知识的掌握是相同的以外,其他各自具备的知识是不同的,utf-8编码这个翻译员只懂得将utf-8自己编码过的内容解码,gbk翻译员也只懂得将gbk自己编码过的内容解码,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [11]: &quot;你好&quot;.encode(&quot;gbk&quot;).decode(&quot;utf-8&quot;)
+---------------------------------------------------------------------------
+UnicodeDecodeError                        Traceback (most recent call last)
+&amp;lt;ipython-input-11-161972ecc108&amp;gt; in &amp;lt;module&amp;gt;()
+----&amp;gt; 1 &quot;你好&quot;.encode(&quot;gbk&quot;).decode(&quot;utf-8&quot;)
+
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc4 in position 0: invalid continuation byte
+
+In [12]: &quot;你好&quot;.encode(&quot;utf-8&quot;).decode(&quot;gbk&quot;)
+Out[12]: '浣犲ソ'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 30 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2018/01/30/%E7%90%86%E8%A7%A3%E7%BC%96%E7%A0%81/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/01/30/%E7%90%86%E8%A7%A3%E7%BC%96%E7%A0%81/</guid>
+        
+        <category>encode</category>
+        
+        <category>decode</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>ida插件mynav</title>
@@ -1344,46 +1460,6 @@ mobilePhone=17634526787&amp;amp;id=1&amp;amp;b=2
         <category>ida</category>
         
         <category>plugin</category>
-        
-        
-        <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>lldb命令</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://lldb.llvm.org/lldb-gdb.html&quot;&gt;lldb与gdb对照&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29687504/lldb-breakpoint-on-all-methods-in-class-objective-c&quot;&gt;lldb在object-c类对象所有函数上设置断点&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set -r '\[ClassName .*\]$'&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;lldb在object-c类对象具体函数上设置断点(未验证) &lt;code class=&quot;highlighter-rouge&quot;&gt;breakpoint set [ClassName functionName]&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/alanzeino/82713016fd6229ea43a8&quot;&gt;lldb常用命令&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;breakpoint set --name &amp;lt;method-name&amp;gt;
-    &quot;sets a breakpoint on a given function name, globally. e.g., 
-    breakpoint set --name viewDidLoad 
-    or 
-    breakpoint set --name &quot;-[UIView setFrame:]&quot;
-breakpoint set --selector &amp;lt;selector-name&amp;gt;
-    &quot;sets a breakpoint on a selector, globally. e.g., 
-    breakpoint set --selector dealloc
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Mon, 25 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/25/lldb%E5%91%BD%E4%BB%A4/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2017/12/25/lldb%E5%91%BD%E4%BB%A4/</guid>
-        
-        <category>lldb</category>
-        
-        <category>ios</category>
-        
-        <category>debug</category>
         
         
         <category>二进制</category>
