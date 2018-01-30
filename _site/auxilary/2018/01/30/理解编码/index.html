@@ -116,16 +116,15 @@
         <span itemprop="articleBody"><h3 id="编码">编码</h3>
 
 <ul>
-  <li>编码种类</li>
-</ul>
-
-<p>编码的种类有多种,如
-    + ascii
-    + gbk
-    + utf-8
-    + …</p>
-
-<ul>
+  <li>编码种类<br />
+编码的种类有多种,如
+    <ul>
+      <li>ascii</li>
+      <li>gbk</li>
+      <li>utf-8</li>
+      <li>…</li>
+    </ul>
+  </li>
   <li>编码实质</li>
 </ul>
 
@@ -134,17 +133,16 @@
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/ascii码表.png" alt="ascii码表" /></p>
 
 <ul>
-  <li>为什么需要编码</li>
+  <li>为什么需要编码<br />
+人只认识字符串,如”你好”,”hello”这样的形式的信息.计算机只”认识”二进制内容,如”001010101010101”这样的信息
+    <ul>
+      <li>人与人之间:通过字符串交流</li>
+      <li>计算机与计算机之间:通过二进制交流</li>
+      <li>人与计算机之间:通过<strong>翻译</strong>来交流
+  <strong>编码</strong>(这张人与计算机之间信息的对照表)就是这个翻译,编码就是翻译,编码就是翻译</li>
+    </ul>
+  </li>
 </ul>
-
-<p>人只认识字符串,如”你好”,”hello”这样的形式的信息.计算机只”认识”二进制内容,如”001010101010101”这样的信息
-    + 人与人之间:通过字符串交流
-    + 计算机与计算机之间:通过二进制交流
-    + 人与计算机之间:通过<strong>翻译</strong>来交流</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>**编码**(这张人与计算机之间信息的对照表)就是这个翻译,编码就是翻译,编码就是翻译
-</code></pre>
-</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/人机交流.png" alt="人机交流" /></p>
 
@@ -170,6 +168,7 @@ Out[4]: 'hello'
 </div>
 
 <h4 id="编码的专一">编码的”专一”</h4>
+
 <p>ascii码和gbk码就像英国人的翻译和中国人的翻译(这里的翻译指的是人与计算机之间的交流,而不是英国人和中国人之间的交流),如果中国人通过gbk码(不能将中文通过ascii进行编码,因为ascii编码这个翻译员不知道中文该怎么翻译)将他们的信息进行编码后通过计算机发送给英国人,英国人想通过ascii码将这个信息解码,结果会失败,因为ascii码这个翻译人员的能力有限,ascii码这个翻译员只懂得英文和0101,英国人尝试通过ascii码这个翻译员来将计算机发来的信息(这个信息是通过gbk码翻译员翻译成0101的结果)翻译成英文时,由于ascii码这个翻译员的脑子里不知道看到的0101串对应的是什么英文,于是翻译不来,如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>In [5]: "你好".encode('ascii')
