@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jan 2018 10:40:46 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jan 2018 10:40:46 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jan 2018 10:43:30 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jan 2018 10:43:30 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
     
       <item>
@@ -14,33 +14,35 @@
         <description>&lt;h3 id=&quot;编码&quot;&gt;编码&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;编码种类
-编码的种类有多种,如
-    &lt;ul&gt;
-      &lt;li&gt;ascii&lt;/li&gt;
-      &lt;li&gt;gbk&lt;/li&gt;
-      &lt;li&gt;utf-8&lt;/li&gt;
-      &lt;li&gt;…&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;编码实质
-编码的实质是一张人与计算机之间信息的对照表,如下ascii这种编码,部分内容如下图&lt;/li&gt;
+  &lt;li&gt;编码种类&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;编码的种类有多种,如
+    + ascii
+    + gbk
+    + utf-8
+    + …&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;编码实质&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;编码的实质是一张人与计算机之间信息的对照表,如下ascii这种编码,部分内容如下图&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ascii码表.png&quot; alt=&quot;ascii码表&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;为什么需要编码
-人只认识字符串,如”你好”,”hello”这样的形式的信息.计算机只”认识”二进制内容,如”001010101010101”这样的信息
-    &lt;ul&gt;
-      &lt;li&gt;人与人之间:通过字符串交流&lt;/li&gt;
-      &lt;li&gt;计算机与计算机之间:通过二进制交流&lt;/li&gt;
-      &lt;li&gt;人与计算机之间:通过&lt;strong&gt;翻译&lt;/strong&gt;来交流&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;strong&gt;编码&lt;/strong&gt;(这张人与计算机之间信息的对照表)就是这个翻译,编码就是翻译,编码就是翻译&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;为什么需要编码&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;人只认识字符串,如”你好”,”hello”这样的形式的信息.计算机只”认识”二进制内容,如”001010101010101”这样的信息
+    + 人与人之间:通过字符串交流
+    + 计算机与计算机之间:通过二进制交流
+    + 人与计算机之间:通过&lt;strong&gt;翻译&lt;/strong&gt;来交流&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;**编码**(这张人与计算机之间信息的对照表)就是这个翻译,编码就是翻译,编码就是翻译
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/人机交流.png&quot; alt=&quot;人机交流&quot; /&gt;&lt;/p&gt;
 
