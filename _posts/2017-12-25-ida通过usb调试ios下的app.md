@@ -524,7 +524,7 @@ sys.stdin.read()
 
 ```
 POST /elis_smp_eco_dmz/ecology/elis.eco.web.healthPedomeSTQ.visit HTTP/1.1
-Host: elis-smp-eco.pingan.com.cn
+Host: elis-smp-eco.xxx.xxx.cn
 Content-Type: application/x-www-form-urlencoded
 Accept-Encoding: gzip, deflate
 Cookie: 111
