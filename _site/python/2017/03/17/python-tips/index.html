@@ -128,6 +128,8 @@
 
 2.python以"a+"模式读文件读出的内容为空,要将文件指针移到开关再读,f=open("..","a+") &amp;&amp; f.seek(0) &amp;&amp; f.read()
 http://stackoverflow.com/questions/14639936/how-to-read-from-file-opened-in-a-mode
+
+3.python正则匹配`r".+"`时会匹配到`\r`,win下的换行符为`\r\n`,如果用`r".+"`来匹配不包含`\r\n`换行符的的内容会匹配到`\r`,一般情况下`\r`是不希望被匹配到的
 </code></pre>
 </div>
 
