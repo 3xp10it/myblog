@@ -122,6 +122,61 @@
 for循环重写了</p>
 
 <p>3.列表推导示例:<code class="highlighter-rouge">tshirts=[(color,size) for color in colors for size in sizes]</code></p>
+
+<p>4.生成器表达式示例:<code class="highlighter-rouge">tshirts=((color,size) for color in colors for size in sizes)</code>,只是将列表推导的方括号换成圆括号了.虽然可以用列表推导来初始化元组,数组或其他序列类型,但是生成器表达式是更好的选择.这是因为生成器表达式背后遵守了迭代器协议,可以逐个地产出元素,而不是先建立一个完整的列表,解码后再把这个列表传递到某个构造函数里.显然生成器表达式更节省内存.如果生成器表达式是一个函数调用过程中的唯一参数,那么不需要额外再用括号把它围起来.生成器表达式逐个产出元素,从来不会一次性产出一个列表.</p>
+
+<p>5.一般称元组为”不可变的列表”.元组其实是对数据的记录:元组中的第个元素都存放了记录中的一个字段的数据,外加这个字段的位置.正是这个位置信息给数据赋予了意义.如果在任何的表达式里我们在元组内对元素排序,这些元素所携带的信息就会丢失,因为这些信息是跟它们的位置有关的.</p>
+
+<p>6.元组拆包示例:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>city,year,pop,chg,area=('tokyo',2003,32450,0.66,8014)
+passport=('usa','31195855')
+print('%s/%s' % passport)
+在拆包的时候,我们不总是对元组里所有的数据都感兴趣,_占位符能帮助处理这种情况
+</code></pre>
+</div>
+
+<p>7.可以用<code class="highlighter-rouge">*</code>运算符把一个可迭代对象拆开作为函数的参数,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [8]: divmod(20,8)
+Out[8]: (2, 4)
+
+In [9]: t=(20,8)
+
+In [10]: divmod(*t)
+Out[10]: (2, 4)
+
+In [11]: t=[20,8]
+
+In [12]: divmod(*t)
+Out[12]: (2, 4)
+</code></pre>
+</div>
+
+<p>在python中,函数用<code class="highlighter-rouge">*args</code>来获取不确定数量的参数是一种经典写法,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def test(*args):
+    print(args)
+test(1,2,[3,4,5])
+
+output:
+(1, 2, [3, 4, 5])
+</code></pre>
+</div>
+
+<p>在python3里,这个概念被扩展到了平行赋值中,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [14]: a,b,*c=range(5)
+
+In [15]: a,b,c
+Out[15]: (0, 1, [2, 3, 4])
+
+In [1]: a,*b,c,d=range(5)
+In [2]: a,b,c,d
+Out[2]: (0, [1, 2], 3, 4)
+</code></pre>
+</div>
+
 </span>
 
         
