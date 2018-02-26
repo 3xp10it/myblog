@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          1 minute read
+          3 minute read
         </small>
       </div>
 
@@ -176,6 +176,212 @@ In [2]: a,b,c,d
 Out[2]: (0, [1, 2], 3, 4)
 </code></pre>
 </div>
+
+<p>8.在python3之前,元组可以作为形参放在函数声明中,例如<code class="highlighter-rouge">def fn(a,(b,c),d):</code>.然而python3不再支持这种格式.</p>
+
+<p>9.具名元组</p>
+
+<p><code class="highlighter-rouge">collections.namedtuple</code>是一个工厂函数,它可以用来构建一个带字段名的元组和一个有名字的类–这个带名字的类对调试程序有很大帮助</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [1]: from collections import namedtuple
+
+In [2]: City=namedtuple('City','name country population coordinates')
+
+In [3]: tokyo=City('Tokyo','JP',36.933,(35.689722,139.691667))
+
+In [4]: tokey
+Out[5]: City(name='Tokyo', country='JP', population=36.933, coordinates=(35.689722, 139.691667))
+
+In [6]: tokyo.population
+Out[6]: 36.933
+
+In [7]: tokyo[0]
+Out[7]: 'Tokyo'
+
+In [8]: tokyo[1]
+Out[8]: 'JP'
+
+In [9]: tokyo[2]
+Out[9]: 36.933
+</code></pre>
+</div>
+
+<p>10.对对象进行切片</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [10]: s='bicycle'
+
+In [11]: s[::3]
+Out[11]: 'bye'
+
+In [12]: s[::-1]
+Out[12]: 'elcycib'
+
+In [13]: s[::-2]
+Out[13]: 'eccb'
+
+
+In [14]: a=slice(2,4)
+
+In [15]: l='nihaoma'
+
+In [16]: l[a]
+Out[16]: 'ha'
+</code></pre>
+</div>
+
+<p>11.给切片赋值时,如果赋值的对象是一个切片,那么赋值语句的右侧必须是个可迭代对象,即使只有单独一个值,也要把它转换成可迭代的序列</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [17]: l=list(range(10))
+
+In [18]: l
+Out[18]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [19]: l[2:5]=[20,30]
+
+In [20]: l
+Out[20]: [0, 1, 20, 30, 5, 6, 7, 8, 9]
+
+In [21]: del l[5:7]
+
+In [22]: l
+Out[22]: [0, 1, 20, 30, 5, 8, 9]
+
+In [23]: l[3::2]=[11,22]
+
+In [24]: l
+Out[24]: [0, 1, 20, 11, 5, 22, 9]
+
+In [25]: l[2:5]=100
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-25-06d25bd9a130&gt; in &lt;module&gt;()
+----&gt; 1 l[2:5]=100
+
+TypeError: can only assign an iterable
+
+In [26]: l[2:5]=[100]
+
+In [27]: l
+Out[27]: [0, 1, 100, 22, 9]
+</code></pre>
+</div>
+
+<p>12.如果在a*n这个语句中,序列a里的元素是对其他可变对象的引用的话,需要格外注意,因为这个式子中的结果可能会出乎意料.比如,你想用<code class="highlighter-rouge">my_list=[[]]*3</code>来初始化一个由列表组成的列表,但是你得到的列表里包含3个元素其实是3个引用,而且这3个引用指向的都是同一个列表.这可能不是你想要的效果.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [30]: weird_board=[['_','_','_']]*3
+
+In [31]: weird_board
+Out[31]: [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
+
+In [32]: weird_board[1][2]='0'
+
+In [33]: weird_board
+Out[33]: [['_', '_', '0'], ['_', '_', '0'], ['_', '_', '0']]
+</code></pre>
+</div>
+
+<p>13.元组是不可变序列,列表是可变序列</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [4]: l=[1,2,3]
+
+In [5]: id(l)
+Out[5]: 4559571080
+
+In [6]: l*=2
+
+In [7]: l
+Out[7]: [1, 2, 3, 1, 2, 3]
+
+In [8]: id(l)
+Out[8]: 4559571080
+
+In [9]: t=(1,2,3)
+
+In [10]: id(t)
+Out[10]: 4557464488
+
+In [11]: t*=2
+
+In [12]: t
+Out[12]: (1, 2, 3, 1, 2, 3)
+
+In [13]: id(t)
+Out[13]: 4558895624
+</code></pre>
+</div>
+
+<p>对不可变序列进行重复拼接操作的话,效率会很低,因为每次都有一个新对象,而解释器需要把原来对象中的元素先复制到新的对象里,然后再追加新的元素</p>
+
+<p>14.元组tuple是不可变序列,不支持对它的元素赋值,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [16]: t
+Out[16]: (1, 2, 3, 1, 2, 3)
+
+In [17]: t[0]=4
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-17-5ff19d8aa7e5&gt; in &lt;module&gt;()
+----&gt; 1 t[0]=4
+
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+</div>
+
+<p>但是如果是给元组里面的列表元素进行赋值是可以成功的,虽然会报错,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [21]: t
+Out[21]: (1, 2, [3, 4])
+
+In [22]: t[2]+=[5]
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-22-95fba4cdeb9b&gt; in &lt;module&gt;()
+----&gt; 1 t[2]+=[5]
+
+TypeError: 'tuple' object does not support item assignment
+
+In [23]: t
+Out[23]: (1, 2, [3, 4, 5])
+</code></pre>
+</div>
+
+<p>15.查看python字节码的方法如下,更多可参考<a href="https://www.cnblogs.com/hello2764/p/5459758.html">这里</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [25]: import dis
+
+In [26]: dis.dis('a=1')
+  1           0 LOAD_CONST               0 (1)
+              2 STORE_NAME               0 (a)
+              4 LOAD_CONST               1 (None)
+              6 RETURN_VALUE
+
+In [27]: def b():
+    ...:     c=2
+    ...:     return c
+    ...:
+
+In [28]: dis.dis(b)
+  2           0 LOAD_CONST               1 (2)
+              2 STORE_FAST               0 (c)
+
+  3           4 LOAD_FAST                0 (c)
+              6 RETURN_VALUE
+</code></pre>
+</div>
+
+<p>16.<code class="highlighter-rouge">list.sort</code>方法会就地排序列表,也就是说不会把原列表复制一份.这也是这个方法的返回值是None的原因,返回None会被控制台忽略,提醒你本方法不会新建一个列表.在这种情况下返回None是Python的一个惯例:如果一个函数或者方法对对象进行的是就地改动,那它就应该返回None,好让调用者知道传入的参数发生了变动,而且并未产生新的对象.例如,random.shuffle函数也遵守了这个惯例.与list.sort相反的是内置函数sorted,它会新建一个列表作为返回值.</p>
+
+<p>17.<code class="highlighter-rouge">bisect</code>模块包含两个主要函数,<code class="highlighter-rouge">bisect</code>和<code class="highlighter-rouge">insort</code>,两个函数都利用二分查找算法来在有序序列中查找或插入元素</p>
+
+<p>18.有时候因为列表实在是太方便了,所以python程序员可能会过度使用它,反正我知道我犯过这个毛病.而如果你只需要处理数字列表的话,数组可能是个更好的选择.如果我们需要一个只包含数字的列表,那么<code class="highlighter-rouge">array.array</code>比<code class="highlighter-rouge">list</code>更高效.数组支持所有跟可变序列有关的操作,包括<code class="highlighter-rouge">.pip .insert .extend</code>.另外,数组还提供从文件读取和存入文件的更快的方法,如<code class="highlighter-rouge">.frombytes</code>和<code class="highlighter-rouge">.tofile</code>.用<code class="highlighter-rouge">array.fromfile</code>从一个二进制文件里读出1000万个双精度浮点数只需要0.1秒,这比从文本文件里读取的速度要快60倍,因为后者会使用内置的float方法把每一行文字加载的成浮点数.另外,使用<code class="highlighter-rouge">array.tofile</code>写入到二进制文件,比以每行一个浮点数的方式把所有数字写入到文本文件要快7倍.</p>
+
+<p>19.<code class="highlighter-rouge">NumPy</code>和<code class="highlighter-rouge">SciPy</code></p>
+
+<p>凭借着NumPy和SciPy提供的高阶数组和矩阵操作,python成为科学计算应用的主流语言.NumPy实现了多维同质数组和矩阵,这些数据结构不但能处理数字,还能存放其他由用户定义的记录.通过NumPy,用户能对这些数据结构里的元素进行高效的操作.</p>
+
+<p>SciPy是基于NumPy的另一个库,它提供了很多跟科学计算有关的算法,专为线性代数,数值积分和统计学而设计.</p>
+
+<p>NumPy和SciPy都是异常强大的库,也是其他一些很有用的工具的基石.<code class="highlighter-rouge">Pandas</code>和<code class="highlighter-rouge">Blaze</code>数据分析库就以它们为基础,提供了高效的且能存储非数值类数据的类型,和读写常见数据文件格式(如csv,xls,sql和hdf5)的功能.</p>
 
 </span>
 
