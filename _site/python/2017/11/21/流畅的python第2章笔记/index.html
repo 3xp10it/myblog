@@ -383,6 +383,8 @@ In [28]: dis.dis(b)
 
 <p>NumPy和SciPy都是异常强大的库,也是其他一些很有用的工具的基石.<code class="highlighter-rouge">Pandas</code>和<code class="highlighter-rouge">Blaze</code>数据分析库就以它们为基础,提供了高效的且能存储非数值类数据的类型,和读写常见数据文件格式(如csv,xls,sql和hdf5)的功能.</p>
 
+<p>20.利用<code class="highlighter-rouge">.append</code>和<code class="highlighter-rouge">.pop</code>方法可以把列表当作栈或者队列来用(比如,把<code class="highlighter-rouge">.append</code>和<code class="highlighter-rouge">.pop(0)</code>合起来用就能模拟队列的”先进先出”的特点),但是删除列表的第一个元素或是在第一个元素之前添加一个元素之类的操作是很耗时的,因为这些操作会牵到移动列表里的所有元素.<code class="highlighter-rouge">collections.deque</code>类(双向队列)是一个线程安全(原子操作),可以快速从两端添加或删除元素的数据类型</p>
+
 </span>
 
         
