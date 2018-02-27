@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>流畅的python第3章笔记</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,151 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">流畅的python第3章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">February 26, 2018</span>
+           under python
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="字典和集合">字典和集合</h3>
+
+<p>1.散列表是字典类型性能出众的根本原因</p>
+
+<p>2.字典推导</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
+
+In [3]: country_code={country: code for code,country in dial_codes}
+
+In [4]: country_code
+Out[4]: {'US': 1, 'china': 86, 'india': 91}
+
+In [5]: country_code={country.upper(): code for code,country in dial_codes}
+
+In [6]: country_code
+Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
+</code></pre>
+</div>
+
+<p>3.dict的setdefault用法</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
+
+In [19]: a.setdefault('test','lalala')
+Out[19]: 'lalala'
+
+In [20]: a
+Out[20]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+
+In [21]: a.setdefault('runoob','lalala')
+Out[21]: '菜鸟教程'
+
+In [22]: a
+Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+</code></pre>
+</div>
+
+<p>4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.</p>
+<ul>
+  <li>a.通过<code class="highlighter-rouge">collections.defaultdict</code>这个类型而不是普通的dict</li>
+  <li>b.给自己定义一个dict的子类,然后在子类中实现<code class="highlighter-rouge">__missing__</code>方法,如:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class StrKeyDict0(dict):
+
+    def __missing__(self,key):
+        if isinstance(key,str):
+            raise KeyError(key)
+        return self[str(key)]
+</code></pre>
+</div>
+
+<p>所有的映射类型在处理找不到的键的时候,都会牵扯到<code class="highlighter-rouge">__missing__</code>方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.<code class="highlighter-rouge">__missing__</code>方法只会被<code class="highlighter-rouge">__getitem__</code>调用(比如在表达式<code class="highlighter-rouge">d[k]</code>中)</p>
+
+<p>5.to be continue…</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            python
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/">流畅的python第3章笔记</a>
-      </div>
-      <div class="excerpt">
-         
-          流畅的python第3章笔记
-         
-        <a href="/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>

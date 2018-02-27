@@ -5,9 +5,79 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Feb 2018 20:12:27 +0800</pubDate>
-    <lastBuildDate>Mon, 26 Feb 2018 20:12:27 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Feb 2018 08:13:48 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Feb 2018 08:13:48 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>流畅的python第3章笔记</title>
+        <description>&lt;h3 id=&quot;字典和集合&quot;&gt;字典和集合&lt;/h3&gt;
+
+&lt;p&gt;1.散列表是字典类型性能出众的根本原因&lt;/p&gt;
+
+&lt;p&gt;2.字典推导&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
+
+In [3]: country_code={country: code for code,country in dial_codes}
+
+In [4]: country_code
+Out[4]: {'US': 1, 'china': 86, 'india': 91}
+
+In [5]: country_code={country.upper(): code for code,country in dial_codes}
+
+In [6]: country_code
+Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.dict的setdefault用法&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
+
+In [19]: a.setdefault('test','lalala')
+Out[19]: 'lalala'
+
+In [20]: a
+Out[20]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+
+In [21]: a.setdefault('runoob','lalala')
+Out[21]: '菜鸟教程'
+
+In [22]: a
+Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;a.通过&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.defaultdict&lt;/code&gt;这个类型而不是普通的dict&lt;/li&gt;
+  &lt;li&gt;b.给自己定义一个dict的子类,然后在子类中实现&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法,如:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class StrKeyDict0(dict):
+
+    def __missing__(self,key):
+        if isinstance(key,str):
+            raise KeyError(key)
+        return self[str(key)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;所有的映射类型在处理找不到的键的时候,都会牵扯到&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法只会被&lt;code class=&quot;highlighter-rouge&quot;&gt;__getitem__&lt;/code&gt;调用(比如在表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;d[k]&lt;/code&gt;中)&lt;/p&gt;
+
+&lt;p&gt;5.to be continue…&lt;/p&gt;
+</description>
+        <pubDate>Mon, 26 Feb 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>python</category>
+        
+        
+        <category>python</category>
+        
+      </item>
     
       <item>
         <title>老码识途第3章笔记</title>
@@ -759,215 +829,6 @@ v46 = objc_msgSend(v45, &quot;localizedStringForKey:value:table:&quot;, CFSTR(&q
         <category>UI</category>
         
         <category>cycript</category>
-        
-        
-        <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>ios应用逆向工程5-6章笔记</title>
-        <description>&lt;h3 id=&quot;理论篇&quot;&gt;理论篇&lt;/h3&gt;
-
-&lt;p&gt;1.依据维基百科的定义,tweak指的是对电子系统进行轻微调整来增强其功能的工具;在iOS中,tweak特指那些能够增强基他进程功能的dylib,是越狱iOS的最重要组成部分.这种增强原有工具功能的方法是通过&lt;code class=&quot;highlighter-rouge&quot;&gt;进程注入&lt;/code&gt;实现的,就像书籍的知识注入大脑的,让大脑变得更强&lt;/p&gt;
-
-&lt;p&gt;2.一般来说,编写tweak会用到C,C++和Objective-C三种语言&lt;/p&gt;
-
-&lt;p&gt;3.iOS是个封闭的系统,它暴露给我们的中是冰山一角,有太多太多的功能还有待我们进一步挖掘.每次越狱发布后,都会有人把最新的头文件发布出来,google一下&lt;code class=&quot;highlighter-rouge&quot;&gt;iOS private headers&lt;/code&gt;即可轻松找到下载链接,省去了自己class-dump的麻烦&lt;/p&gt;
-
-&lt;p&gt;4.定位目标文件&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;固定位置
-  我们的逆向目标一般是dylib,bundle或daemon,它们在系统中的位置几乎是固定的:
-    &lt;ul&gt;
-      &lt;li&gt;基于CydiaSubstrate的dylib全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/MobileSubstrate/DynamicLibraries/&lt;/code&gt;下,几乎不费吹灰之力就可以轻松定位&lt;/li&gt;
-      &lt;li&gt;bundle主要分为App和framework两类,其中Appstore App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/var/mobile/Containers/Bundle/Application&lt;/code&gt;下,系统App全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications&lt;/code&gt;下,framework全部位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/Frameworks&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/PrivateFrameworks&lt;/code&gt;下&lt;/li&gt;
-      &lt;li&gt;daemon的配置文件均位于&lt;code class=&quot;highlighter-rouge&quot;&gt;/System/Library/LaunchDaemons/&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchDaemons&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;/Library/LaunchAgents/&lt;/code&gt;下,是一个plist格式的文件.其中的&lt;code class=&quot;highlighter-rouge&quot;&gt;ProgramArguments&lt;/code&gt;字段,即是daemon可执行文件的绝对路径&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;cydia
-  通过&lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg -i&lt;/code&gt;安装的的deb包,内容会被cydia如实记录,可在cydia中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Filesystem Content&lt;/code&gt;中找到路径&lt;/li&gt;
-  &lt;li&gt;PreferenceBundle
-  PreferenceBundle是寄生在Settings应用里的App,它的功能界定有些模糊,既可以作为单纯的配置文件,由别的进程读取后执行,也可以估计有实际功能,自己来执行一些操作.来自AppStore的第三方PreferenceBundle仅可作为配置文件存在,不会含有实际功能;来自Cydia的也不是问题,可通过上面的定位方式找到路径;但对于iOS自带的PreferenceBundle来说,定位的过程就要复杂一些.PreferenceBundle的界面可以用代码编写,也可以用固定格式的plist文件构造.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;5.使用&lt;code class=&quot;highlighter-rouge&quot;&gt;cycript&lt;/code&gt;可快速测试函数功能,比theos方便&lt;/p&gt;
-
-&lt;p&gt;6.解析函数参数&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;getClassName&lt;/code&gt;函数能够把对象的类名表示成一个&lt;code class=&quot;highlighter-rouge&quot;&gt;char*&lt;/code&gt;,如&lt;code class=&quot;highlighter-rouge&quot;&gt;object_getClassName(arg1)&lt;/code&gt;获取arg1这个对象的的对象类名&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;description&lt;/code&gt;函数能够把对象的内容表示成一个NSString,如&lt;code class=&quot;highlighter-rouge&quot;&gt;[arg1 description]&lt;/code&gt;获取arg1这个对象的对象内容&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%hook SBScreenFlash
-- (void)flashColor:(id)arg1 withCompletion:(id)arg2
-{
-    %orig;
-    NSLog(@&quot;iOSRE: flashColor: %s, %@&quot;, object_getClassName(arg1),arg1);//[arg1 description]可以直接写成arg1
-}
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上面的示例中打印的结果为&lt;code class=&quot;highlighter-rouge&quot;&gt;iOSRE: flashColor: UICachedDeviceWhiteColor, UIDeviceWhiteColorSpace 1 1&lt;/code&gt;,其中&lt;code class=&quot;highlighter-rouge&quot;&gt;UICachedDeviceWhiteColor&lt;/code&gt;是对象类名,&lt;code class=&quot;highlighter-rouge&quot;&gt;UIDeviceWhiteColorSpace 1 1&lt;/code&gt;是对象内容&lt;/p&gt;
-
-&lt;p&gt;7.书籍作者强烈建议大家通览class-dump出的头文件,把那些语义明显,自己感兴趣的函数放到iOS上实测一下,这个过程能极大地增加对iOS底层的熟悉程度&lt;/p&gt;
-
-&lt;p&gt;8.ARM处理器中的特殊用途的寄存器&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;R0-R3     传递参数与返回值&lt;/li&gt;
-  &lt;li&gt;R7        帧指针,指向母函数与被调用子函数在栈中的交界(相当于ebp?)&lt;/li&gt;
-  &lt;li&gt;R9        在ios3.0以前被系统保留&lt;/li&gt;
-  &lt;li&gt;R12       内部过程调用寄存器,dynamic linker会用到它&lt;/li&gt;
-  &lt;li&gt;R13       SP寄存器(相当于esp?)&lt;/li&gt;
-  &lt;li&gt;R14       LR寄存器,保存函数返回地址(居然有一个单独的寄存器用来保存函数返回地址)&lt;/li&gt;
-  &lt;li&gt;R15       PC寄存器(相当于eip?)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;9.ARM调用规则
-在执行一块代码时,其前后栈地址应该是不变的.这个操作是通过被执行代码块的前言和后记完成的.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;前言
-    &lt;ul&gt;
-      &lt;li&gt;将LR入栈&lt;/li&gt;
-      &lt;li&gt;将R7入栈(push ebp)&lt;/li&gt;
-      &lt;li&gt;R7=SP&lt;/li&gt;
-      &lt;li&gt;将需要保留的寄存器原始值入栈&lt;/li&gt;
-      &lt;li&gt;为本地变量开辟空间&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;后记
-    &lt;ul&gt;
-      &lt;li&gt;释放本地变量占用的空间&lt;/li&gt;
-      &lt;li&gt;将需要保留的原始值出栈&lt;/li&gt;
-      &lt;li&gt;将R7出栈&lt;/li&gt;
-      &lt;li&gt;将LR出栈,PC=LR&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;10.函数调用&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;32位ARM函数调用时,函数的前4个参数存放在R0到R3中,其他参数存放在栈中;返回值放在R0中&lt;/li&gt;
-  &lt;li&gt;ARM64汇编语言函数前8个参数使用x0-x7寄存器(或w0-w7寄存器)传递,多于8个的参数均通过堆栈传递,并且返回值通过x0寄存器(或w0寄存器)返回&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;11.ARM处理器用到的指令集分为ARM和THUMB两种;ARM指令长度均为32bit,THUMB指令长度均为16bit.THUMB指令比ARM指令更节省空间,且在16位数据总线上的传输效率更高,相对于ARM指令,THUMB指令的缺点如下&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;指令数量减少&lt;/li&gt;
-  &lt;li&gt;没有条件执行&lt;/li&gt;
-  &lt;li&gt;所有指令默认附带”s”&lt;/li&gt;
-  &lt;li&gt;桶式移位无法结合其他指令执行&lt;/li&gt;
-  &lt;li&gt;寄存器使用受限&lt;/li&gt;
-  &lt;li&gt;立即数和第二操作数使用受限&lt;/li&gt;
-  &lt;li&gt;不支持数据写回&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;12.ARM32位处理器的所有指令可大致分为3类,分别是&lt;code class=&quot;highlighter-rouge&quot;&gt;数据操作指令&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;内存操作指令&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;分支指令&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;数据操作指令
-所有操作数均为32位,所有的结果均为32位,且只能存放在寄存器中
-    &lt;ul&gt;
-      &lt;li&gt;算术操作
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ADD R0,R1,R2        ;R0=R1+R2
-  ADC R0,R1,R2        ;R0=R1+R2+C(arry)
-  SUB R0,R1,R2        ;R0=R1-R2
-  SBC R0,R1,R2        ;R0=R1-R2-!C
-  RSB R0,R1,R2        ;R0=R2-R1
-  RSC R0,R1,R2        ;R0=R2-R1-!C
-  以&quot;C&quot;(即Carry)结尾的变种代表有进位和借位的加减法,当产生进位或没有借位时,将Carry flag置1
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;逻辑操作
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  AND R0,R1,R2        ;R0=R1&amp;amp;R2
-  ORR R0,R1,R2        ;R0=R1|R2
-  EOR R0,R1,R2        ;R0=R1^R2
-  BIC R0,R1,R2        ;R0=R1&amp;amp;~R2
-  MOV R0,R2           ;R0=R2
-  MVN R0,R2           ;R0=~R2
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;比较操作
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  CMP R1,R2           ;执行R1-R2并依据结果设置flag
-  CMN R1,R2           ;执行R1+R2并依据结果设置flag
-  TST R1,R2           ;执行R1&amp;amp;R2并依据结果设置flag
-  TEQ R1,R2           ;执行R1^R2并依据结果设置flag
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;乘法操作
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  MUL R4,R3,R2        ;R4=R3*R2
-  MLA R4,R3,R2,R1     ;R4=R3*R2+R1
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;内存操作指令
-ARM内存操作只有2个基础指令,&lt;code class=&quot;highlighter-rouge&quot;&gt;LDR&lt;/code&gt;(load register)将内存中的数据存到寄存器(cpu),&lt;code class=&quot;highlighter-rouge&quot;&gt;STR&lt;/code&gt;(store register)将寄存器(cpu)中的数据保存到内存.除了LDR和STR外,还可以通过&lt;code class=&quot;highlighter-rouge&quot;&gt;LDM(load multiple)&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;STM(store multiple)&lt;/code&gt;进行块传输,一次性操作多个寄存器.需要特别注意的是,LDM和STM的操作方向与LDR和STR完全相反:LDM是把从Rd开始,地址连续的内存数据存入reglist中,STM是把reglist中的值存入从Rd开始,地址连续的内存中.
-    &lt;ul&gt;
-      &lt;li&gt;LDR
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  LDR Rt,[Rn{,#offset}]       ;Rt=*(Rn{+offset}),{}代表可选
-  LDR Rt,[Rn,#offset]!        ;Rt=*(Rn+offset);Rn=Rn+offset
-  LDR Rt,[Rn,#offset]         ;Rt=*Rn;Rn=Rn+offset
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;STR
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  STR Rt,[Rn{,#offset}]       ;*(Rn{+offset})=Rt
-  STR Rt,[Rn,#offset]!        ;*(Rn{+offset})=Rt;Rn=Rn+offset
-  STR Rt,[Rn],#offset         ;*Rn=Rt;Rn=Rn+offset
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;分支指令
-    &lt;ul&gt;
-      &lt;li&gt;无条件分支
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  B label             ;PC=label
-  BL label            ;LR=PC-4;PC=label
-  BX Rd               ;PC=Rd并切换指令集
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;条件分支
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  EQ                  ;Z=1
-  NE                  ;Z=0
-  CS                  ;C=1
-  HS                  ;C=1
-  CC                  ;C=0
-  LO                  ;C=0
-  MI                  ;N=1
-  PL                  ;N=0
-  VS                  ;V=1
-  VC                  ;V=0
-  HI                  ;C=1 &amp;amp; Z=0
-  LS                  ;C=0 | Z=1
-  GE                  ;N=V
-  LT                  ;N!=V
-  GT                  ;Z=0 &amp;amp; n=V
-  LE                  ;Z=1 | N!=V
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-        &lt;p&gt;例如&lt;a href=&quot;http://blog.csdn.net/marc07/article/details/62885832&quot;&gt;这里&lt;/a&gt;和&lt;a href=&quot;http://blog.csdn.net/qq1084283172/article/details/47296931&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;13.函数和UI之间的关联非常紧密,如果能拿到感兴趣的UI对象,就可以找到它所对应的函数,我们称该函数为UI函数.这个过程,一般是利用cycript,结合UIView中的神奇私有函数&lt;code class=&quot;highlighter-rouge&quot;&gt;recursiveDescription&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;UIResponder&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;nextResponder&lt;/code&gt;来实现的.注意,游戏一般不是采用UIKit来构建UI的,recursiveDescription和nextResponder不适用于游戏.&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 10 Jan 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/10/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B5-6%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/10/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B5-6%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>ios</category>
-        
-        <category>reverse</category>
         
         
         <category>二进制</category>
