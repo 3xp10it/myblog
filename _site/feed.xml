@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 28 Feb 2018 18:45:19 +0800</pubDate>
-    <lastBuildDate>Wed, 28 Feb 2018 18:45:19 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Wed, 28 Feb 2018 20:50:04 +0800</pubDate>
+    <lastBuildDate>Wed, 28 Feb 2018 20:50:04 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>流畅的python第3章笔记</title>
@@ -248,6 +248,9 @@ Out[71]: {'A', 'B', 'C'}
       &lt;/li&gt;
       &lt;li&gt;2) 字典在内存上的开销巨大
   由于字典使用了散列表,而散列表又必须是稀疏的,这导致它在空间上的效率低下.举例而言,如果你需要存放数量巨大的记录,那么放在由元组或具名元组构成的列表中会是比较好的选择;最好不要根据json风格,用由字典组成的列表来存放这些记录.用元组取代字典就能节省空间的原因有两个:其一是避免了散列表所耗费的空间,其二是无需把记录中字段的名字在每个元素里都存一遍.不过,如果机器的内存足够用,还是用字典吧.&lt;/li&gt;
+      &lt;li&gt;3) 键查询很快.dict的实现是典型的空间换时间(内存换查询速度),字典类型有关巨大的内存开销,但它们提供了无视数据量大小的快速访问–只要字典能被装在内存里&lt;/li&gt;
+      &lt;li&gt;4) 键的次序取决于添加顺序.由dict([key1,value1],[key2,value2])和dict([key2,value2],[key1,value1])得到的两个字典,在进行比较的时候,它们是相等的&lt;/li&gt;
+      &lt;li&gt;5) 往字典里添加关机键可能会改变已有键的顺序.无论何时往字典里添加新的键,python解释器都可能做出为字典扩容的决定.扩容导致的结果就是要新建一个更大的散列表,并把字典里已有的元素添加到新表里.这个过程可能会发生新的散列冲突,导致新散列表中键的次序变化.如果你在迭代一个字典的所有键的过程中同时对字典进行修改,那么这个循环很有可能会跳过一些键–甚至是跳过那些字典中已经有的键.由此可知,不要对字典同时进行迭代和修改,如果想扫描并修改一个字典,最好分成不同步来进行:首先对字典迭代,以得出需要添加的内容,把这些内容放在一个新字典里;迭代结束之后再对原有字典进行更新.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
