@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          44 minute read
+          45 minute read
         </small>
       </div>
 
@@ -3401,6 +3401,13 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
 <span class="p">
 289.</span>最新kali3由于是php7环境,无法直接使用sqli-labs,其中的mysql_connect被php7废弃,可用docker
     https://github.com/tuxotron/Audi_SQLi_lamp_container/tree/master/Audi_SQLi_lamp_container
+<span class="p">
+290.</span>python写二进制到文件
+    str(<span class="p">[</span><span class="nv">hex(ord(c)) for c in '&lt;?php phpinfo();?&gt;'</span><span class="p">]</span>)
+    Out<span class="p">[</span><span class="nv">19</span><span class="p">]</span>: "<span class="p">[</span><span class="nv">'0x3c', '0x3f', '0x70', '0x68', '0x70', '0x20', '0x70', '0x68', '0x70', '0x69', '0x6e', '0x66', '0x6f', '0x28', '0x29', '0x3b', '0x3f', '0x3e'</span><span class="p">]</span>"
+    with open('/tmp/1.png','a+') as f:
+        f.write('<span class="se">\x</span>6e<span class="se">\x</span>66<span class="se">\x</span>6f...')
+
 </code></pre>
 </div>
 
