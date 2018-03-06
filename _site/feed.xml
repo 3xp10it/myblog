@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Mar 2018 18:02:44 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Mar 2018 18:02:44 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 06 Mar 2018 08:19:51 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Mar 2018 08:19:51 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>流畅的python第5-7章笔记</title>
@@ -15,7 +15,67 @@
 
 &lt;h3 id=&quot;第5章-一等函数&quot;&gt;第5章 一等函数&lt;/h3&gt;
 
-&lt;p&gt;1.&lt;/p&gt;
+&lt;p&gt;1.在函数式编程范式中,最为人熟知的高阶函数有&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;.函数式语言通常会提供map,filter和reduce三个高阶函数(有时使用不同的名称).在python3中,map和filter还是内置函数,但是由于引入了列表推导和生成器表达式,它们变得没那么重要了.列表推导和生成器表达式具有map和filter两个函数的功能.而且更易于阅读.&lt;/p&gt;
+
+&lt;p&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;sum&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;函数用于求和.最好使用sum函数,可读性更好.sum和reduce的通用思想是把某个操作连续应用到序列的元素上,累计之前的结果,把一系列值&lt;code class=&quot;highlighter-rouge&quot;&gt;归约&lt;/code&gt;成一个值.&lt;code class=&quot;highlighter-rouge&quot;&gt;all&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;any&lt;/code&gt;也是内置的归约函数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: from functools import reduce
+
+In [3]: from operator import add
+
+In [4]: reduce(add,range(100))
+Out[4]: 4950
+
+In [5]: sum(range(100))
+Out[5]: 4950
+
+
+In [6]: all('niaho')
+Out[6]: True
+
+In [7]: all('niaho',['wohao'])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&amp;lt;ipython-input-7-663ce7255241&amp;gt; in &amp;lt;module&amp;gt;()
+----&amp;gt; 1 all('niaho',['wohao'])
+
+TypeError: all() takes exactly one argument (2 given)
+
+In [8]: all(('niaho',['wohao']))
+Out[8]: True
+
+In [9]: all(('niaho',['wohao'],''))
+Out[9]: False
+
+In [10]: any('niaho')
+Out[10]: True
+
+In [12]: any('niaho',['wohao'])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&amp;lt;ipython-input-12-3e515d3dba5a&amp;gt; in &amp;lt;module&amp;gt;()
+----&amp;gt; 1 any('niaho',['wohao'])
+
+TypeError: any() takes exactly one argument (2 given)
+
+In [13]: any(('niaho',['wohao'],''))
+Out[13]: True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.为了使用高阶函数,有时创建一次性的小型函数更便利.这便是匿名函数存在的原因.lambda关键字在python表达式内创建匿名函数.然而,python简单的句法限制了lambda函数的定义体只能使用纯表达式.换句话说,lambda函数的定义体中不能赋值,也不能使用while和try等python语句.eval函数好像也是这样.除了作为参数传给高阶函数之外,python很少使用匿名函数.由于句法上的限制,非平凡的lambda表达式要么难以阅读,要么无法写出.lambda句法只是语法糖:与def语句一样,lambda表达式会创建函数对象&lt;/p&gt;
+
+&lt;p&gt;4.python数据模型文档列出了7种可调用对象&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用户定义的函数.使用def或lambda表达式创建&lt;/li&gt;
+  &lt;li&gt;内置函数.使用c语言(cpython)实现的函数,如len或time.strftime&lt;/li&gt;
+  &lt;li&gt;内置方法.使用c语言实现的方法,如dict.get&lt;/li&gt;
+  &lt;li&gt;方法.在类的定义体中定义的函数&lt;/li&gt;
+  &lt;li&gt;类.调用类时会运行类的&lt;code class=&quot;highlighter-rouge&quot;&gt;__new__&lt;/code&gt;方法创建一个实例,然后运行__init__方法,初始化实例,最后把实例返回给调用方&lt;/li&gt;
+  &lt;li&gt;类的实例.如果类定义了&lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt;方法,那么它的实例可以作为函数调用&lt;/li&gt;
+  &lt;li&gt;生成器函数.使用&lt;code class=&quot;highlighter-rouge&quot;&gt;yield&lt;/code&gt;关键字的函数或方法.调用生成器函数返回的是生成器对象,生成器函数还可以作为协程&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;第6章-使用一等函数实现设计模式&quot;&gt;第6章 使用一等函数实现设计模式&lt;/h3&gt;
 

@@ -117,7 +117,67 @@
 
 <h3 id="第5章-一等函数">第5章 一等函数</h3>
 
-<p>1.</p>
+<p>1.在函数式编程范式中,最为人熟知的高阶函数有<code class="highlighter-rouge">map</code>,<code class="highlighter-rouge">filter</code>,<code class="highlighter-rouge">reduce</code>和<code class="highlighter-rouge">apply</code>.函数式语言通常会提供map,filter和reduce三个高阶函数(有时使用不同的名称).在python3中,map和filter还是内置函数,但是由于引入了列表推导和生成器表达式,它们变得没那么重要了.列表推导和生成器表达式具有map和filter两个函数的功能.而且更易于阅读.</p>
+
+<p>2.<code class="highlighter-rouge">sum</code>和<code class="highlighter-rouge">reduce</code>函数用于求和.最好使用sum函数,可读性更好.sum和reduce的通用思想是把某个操作连续应用到序列的元素上,累计之前的结果,把一系列值<code class="highlighter-rouge">归约</code>成一个值.<code class="highlighter-rouge">all</code>和<code class="highlighter-rouge">any</code>也是内置的归约函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: from functools import reduce
+
+In [3]: from operator import add
+
+In [4]: reduce(add,range(100))
+Out[4]: 4950
+
+In [5]: sum(range(100))
+Out[5]: 4950
+
+
+In [6]: all('niaho')
+Out[6]: True
+
+In [7]: all('niaho',['wohao'])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-7-663ce7255241&gt; in &lt;module&gt;()
+----&gt; 1 all('niaho',['wohao'])
+
+TypeError: all() takes exactly one argument (2 given)
+
+In [8]: all(('niaho',['wohao']))
+Out[8]: True
+
+In [9]: all(('niaho',['wohao'],''))
+Out[9]: False
+
+In [10]: any('niaho')
+Out[10]: True
+
+In [12]: any('niaho',['wohao'])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-12-3e515d3dba5a&gt; in &lt;module&gt;()
+----&gt; 1 any('niaho',['wohao'])
+
+TypeError: any() takes exactly one argument (2 given)
+
+In [13]: any(('niaho',['wohao'],''))
+Out[13]: True
+</code></pre>
+</div>
+
+<p>3.为了使用高阶函数,有时创建一次性的小型函数更便利.这便是匿名函数存在的原因.lambda关键字在python表达式内创建匿名函数.然而,python简单的句法限制了lambda函数的定义体只能使用纯表达式.换句话说,lambda函数的定义体中不能赋值,也不能使用while和try等python语句.eval函数好像也是这样.除了作为参数传给高阶函数之外,python很少使用匿名函数.由于句法上的限制,非平凡的lambda表达式要么难以阅读,要么无法写出.lambda句法只是语法糖:与def语句一样,lambda表达式会创建函数对象</p>
+
+<p>4.python数据模型文档列出了7种可调用对象</p>
+
+<ul>
+  <li>用户定义的函数.使用def或lambda表达式创建</li>
+  <li>内置函数.使用c语言(cpython)实现的函数,如len或time.strftime</li>
+  <li>内置方法.使用c语言实现的方法,如dict.get</li>
+  <li>方法.在类的定义体中定义的函数</li>
+  <li>类.调用类时会运行类的<code class="highlighter-rouge">__new__</code>方法创建一个实例,然后运行__init__方法,初始化实例,最后把实例返回给调用方</li>
+  <li>类的实例.如果类定义了<code class="highlighter-rouge">__call__</code>方法,那么它的实例可以作为函数调用</li>
+  <li>生成器函数.使用<code class="highlighter-rouge">yield</code>关键字的函数或方法.调用生成器函数返回的是生成器对象,生成器函数还可以作为协程</li>
+</ul>
 
 <h3 id="第6章-使用一等函数实现设计模式">第6章 使用一等函数实现设计模式</h3>
 
