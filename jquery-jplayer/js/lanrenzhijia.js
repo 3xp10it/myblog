@@ -211,6 +211,30 @@ $(document).ready(function(){
       mp3:"http://oiqwnrsx4.bkt.clouddn.com/Dan%20Dan%E5%BF%83%E9%AD%85%E3%81%8B%E3%82%8C%E3%81%A6%E3%81%8F.mp3",
       //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"灌篮高手--捕捉闪耀的瞬间",
+      artist:"灌篮高手",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E6%8D%95%E6%8D%89%E9%97%AA%E8%80%80%E7%9A%84%E7%9E%AC%E9%97%B4.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"灌篮高手--直到世界的尽头",
+      artist:"灌篮高手",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E7%9B%B4%E5%88%B0%E4%B8%96%E7%95%8C%E7%9A%84%E5%B0%BD%E5%A4%B4.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"灌篮高手--只凝视着你",
+      artist:"灌篮高手",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E5%8F%AA%E5%87%9D%E8%A7%86%E7%9D%80%E4%BD%A0.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
+    },{
+      title:"灌篮高手--好想大声说喜欢你",
+      artist:"灌篮高手",
+      mp3:"http://oiqwnrsx4.bkt.clouddn.com/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E5%A5%BD%E6%83%B3%E5%A4%A7%E5%A3%B0%E8%AF%B4%E5%96%9C%E6%AC%A2%E4%BD%A0.mp3",
+      //oga:"https://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
+      poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     }];
 
   var cssSelector = {
