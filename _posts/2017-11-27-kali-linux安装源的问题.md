@@ -38,13 +38,19 @@ deb http://http.kali.org/ kali-rolling main contrib non-free
 其中main contrib non-free的顺序可变
 ```
 
-2.[这里][5]的`apt-get update -o Acquire-by-hash=yes -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True`
+2.如果出现`下列签名无效： EXPKEYSIG ED444FF07D8D0BF6 Kali Linux Repository <devel@kali.org>`的问题,如下解决
 
-3.手机开个热点或换个wifi或开vpn之后重新`apt-get update`即可
+```
+wget -q -O - https://archive.kali.org/archive-key.asc  | apt-key add
+```
 
-4.解决安装源的问题后如果再安装paralles tools还有问题可按照[这里][4]解决
+3.[这里][5]的`apt-get update -o Acquire-by-hash=yes -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True`
 
-5.如果上面4中的链接没有成功安装,则升级paralleles desktop,实际安装中,由paralleles12升级为paralleles13.2.0后再按照上面3中的链接可成功安装
+4.手机开个热点或换个wifi或开vpn之后重新`apt-get update`即可
+
+5.解决安装源的问题后如果再安装paralles tools还有问题可按照[这里][4]解决
+
+6.如果上面4中的链接没有成功安装,则升级paralleles desktop,实际安装中,由paralleles12升级为paralleles13.2.0后再按照上面3中的链接可成功安装
 
 [1]: http://www.cnblogs.com/beanmoon/p/3387652.html
 [2]: http://www.kali.org.cn/thread-23272-1-1.html
