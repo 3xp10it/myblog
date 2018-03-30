@@ -5,9 +5,51 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 29 Mar 2018 18:00:54 +0800</pubDate>
-    <lastBuildDate>Thu, 29 Mar 2018 18:00:54 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Fri, 30 Mar 2018 08:17:40 +0800</pubDate>
+    <lastBuildDate>Fri, 30 Mar 2018 08:17:40 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>alfred--快速切换至目标应用程序</title>
+        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
+
+&lt;p&gt;本文介绍通过使用alfred的workflows功能快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app1.png&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在使用iterm2时想切换至pd的kali机上(图中第6个图标),或者在pd的kali机上想切换到firefox上,或者当前在任意app中想切换到另一个指定的app时直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+tab&lt;/code&gt;效率较低,可通过alfred的workflows功能实现&lt;code class=&quot;highlighter-rouge&quot;&gt;一键切换&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+
+&lt;p&gt;最终实现3个应用程序的快速切换快捷键:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;firefox 对应 &lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+f&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;pd的kali机 对应 &lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+p&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;pd的iterm2 对应 &lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+i&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;alfred完成如下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app2.png&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;以其中pd的kali机为例,&lt;code class=&quot;highlighter-rouge&quot;&gt;Hotkey&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Launch App/Files&lt;/code&gt;详情分别如下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app3.png&quot; alt=&quot;3&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app4.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 29 Mar 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</guid>
+        
+        <category>alfred</category>
+        
+        <category>效率</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>流畅的python第5-7章笔记</title>
@@ -798,32 +840,6 @@ Out[12]: '浣犲ソ'
         <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%E5%BA%93/</guid>
         
         <category>反调试</category>
-        
-        
-        <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>ios应用逆向工程7-10章笔记</title>
-        <description>&lt;h3 id=&quot;实战篇&quot;&gt;实战篇&lt;/h3&gt;
-
-&lt;p&gt;1.制作一个app的tweak一般是通过分析这个app的已经的函数的功能和加上自己想实现的一些功能,两者整合得到一个tweak,其中分析app已有的函数功能在制作整个tweak所花的时间上占比较大.一般通过找相关UI的类(controller),分析类中的函数功能,然后再hook相关函数,并在hook时加入自己想实现的功能.分析类中的函数时,一般是分析从View中看到的数据背后可能存在的函数,如分析邮件app时,View中有收件人,则可通过分析找出获取收件人邮箱地址的函数名,这样在写tweak时可人工调用这个函数来获取收件人的邮箱地址&lt;/p&gt;
-
-&lt;p&gt;2.”拿到所有邮件”可以分为2步:一是捕获”刷新完成”事件;二是读取收件箱.其中,”刷新完成”的响应函数一般是定义在protocol里的,在分析class-dump头文件的时候,要留意各种protocol里有没有出现&lt;code class=&quot;highlighter-rouge&quot;&gt;didRefresh&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;didUpdate&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;didReload&lt;/code&gt;之类名字中含有完成时态动词的函数&lt;/p&gt;
-
-&lt;p&gt;3.理解Objective-C中的delegate,&lt;a href=&quot;http://blog.csdn.net/jymn_chen/article/details/9058725&quot;&gt;1st&lt;/a&gt;,&lt;a href=&quot;https://www.zhihu.com/question/19827157&quot;&gt;2nd&lt;/a&gt;.MVC模式中,V(view,也即UI)的delegate(助手,秘书)是C(controller).&lt;code class=&quot;highlighter-rouge&quot;&gt;[#0xUI_obj_address delegate]&lt;/code&gt;可得到一个UI的被委托要实现的功能(function)&lt;/p&gt;
-
-&lt;p&gt;4.在使用theos编写tweak时,如果要调用class-dump出的头文件中的类中的函数,则需要在Tweak.xm的开头&lt;code class=&quot;highlighter-rouge&quot;&gt;#import 人工编写的头文件.h&lt;/code&gt;,这个人工编写的头文件中的所有内容均摘自类对应的头文件,构造它的目的仅仅是通过编译,避免出现任何报错信息和警告&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 17 Jan 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B7-10%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/17/ios%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B7-10%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>ios</category>
-        
-        <category>reverse</category>
         
         
         <category>二进制</category>

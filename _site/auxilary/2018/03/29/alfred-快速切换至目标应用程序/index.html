@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>alfred--快速切换至目标应用程序</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -85,51 +85,121 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">alfred--快速切换至目标应用程序</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">March 29, 2018</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x0-about">0x0 About</h3>
+
+<p>本文介绍通过使用alfred的workflows功能快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app1.png" alt="1" /></p>
+
+<p>在使用iterm2时想切换至pd的kali机上(图中第6个图标),或者在pd的kali机上想切换到firefox上,或者当前在任意app中想切换到另一个指定的app时直接使用<code class="highlighter-rouge">cmd+tab</code>效率较低,可通过alfred的workflows功能实现<code class="highlighter-rouge">一键切换</code>.</p>
+
+<h3 id="0x01-detail">0x01 Detail</h3>
+
+<p>最终实现3个应用程序的快速切换快捷键:</p>
+<ul>
+  <li>firefox 对应 <code class="highlighter-rouge">cmd+f</code></li>
+  <li>pd的kali机 对应 <code class="highlighter-rouge">cmd+p</code></li>
+  <li>pd的iterm2 对应 <code class="highlighter-rouge">cmd+i</code></li>
+</ul>
+
+<p>alfred完成如下图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app2.png" alt="2" /></p>
+
+<p>以其中pd的kali机为例,<code class="highlighter-rouge">Hotkey</code>和<code class="highlighter-rouge">Launch App/Files</code>详情分别如下图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app3.png" alt="3" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app4.png" alt="4" /></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            alfred, 效率
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+      <div class="content-panel feedback">
+        I <i class="fa fa-heart"></i> feedback.<br />
+        Let me know what you think of this article on twitter <a href="https://www.twitter.com/quanyechavshuo">@quanyechavshuo</a>!
+      </div>
+      
+
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" style="width:980px"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyt1tnTcP'; 
+var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/">alfred--快速切换至目标应用程序</a>
-      </div>
-      <div class="excerpt">
-         
-          alfred--快速切换至目标应用程序
-         
-        <a href="/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
+
 
       </div>
     </div>
