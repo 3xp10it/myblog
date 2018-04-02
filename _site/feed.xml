@@ -5,9 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 02 Apr 2018 18:06:51 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Apr 2018 18:06:51 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Tue, 03 Apr 2018 07:17:36 +0800</pubDate>
+    <lastBuildDate>Tue, 03 Apr 2018 07:17:36 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>alfred--快速切换至目标应用程序</title>
@@ -118,6 +118,70 @@ Out[13]: True
   &lt;li&gt;类的实例.如果类定义了&lt;code class=&quot;highlighter-rouge&quot;&gt;__call__&lt;/code&gt;方法,那么它的实例可以作为函数调用&lt;/li&gt;
   &lt;li&gt;生成器函数.使用&lt;code class=&quot;highlighter-rouge&quot;&gt;yield&lt;/code&gt;关键字的函数或方法.调用生成器函数返回的是生成器对象,生成器函数还可以作为协程&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;5.从定位参数到仅限关键字参数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+
+In [18]: tag(**my_tag)
+name is:img
+content is:()
+cls is:framed
+attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
+
+In [19]: def tag(name,*content,cls=None,**attrs):
+    ...:     print(&quot;name is:&quot;+name)
+    ...:     print(&quot;content is:&quot;+str(content))
+    ...:     print(&quot;cls is:&quot;+str(cls))
+    ...:     print(&quot;attrs is:&quot;+str(attrs))
+    ...:
+    ...:
+
+In [20]: tag('p','hello')
+name is:p
+content is:('hello',)
+cls is:None
+attrs is:{}
+
+In [21]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+
+In [22]: tag(**my_tag)
+name is:img
+content is:()
+cls is:framed
+attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;调用&lt;code class=&quot;highlighter-rouge&quot;&gt;tag('p','hello')&lt;/code&gt;时,第一个参数后面的任意个参数会被&lt;code class=&quot;highlighter-rouge&quot;&gt;*content&lt;/code&gt;捕获,存入一个元组
+调用&lt;code class=&quot;highlighter-rouge&quot;&gt;tag(**my_tag)&lt;/code&gt;时,在my_tag前面加上&lt;code class=&quot;highlighter-rouge&quot;&gt;**&lt;/code&gt;,字典中的所有元素作为单个参数传入,同名键会绑定到对应的具名参数上,余下的则被&lt;code class=&quot;highlighter-rouge&quot;&gt;**attrs&lt;/code&gt;捕获&lt;/p&gt;
+
+&lt;p&gt;6.函数对象有个&lt;code class=&quot;highlighter-rouge&quot;&gt;__defaults__&lt;/code&gt;属性,它的值是一个元组,里面保存着定位参数和关键字参数的默认值.仅限关键字参数的默认值在&lt;code class=&quot;highlighter-rouge&quot;&gt;__kwdefaults__&lt;/code&gt;属性中.然而,参数的名称在&lt;code class=&quot;highlighter-rouge&quot;&gt;__code__&lt;/code&gt;属性中,它的值是一个code对象引用,自身也有很多属性如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [31]: def tag(name,*content,cls=666,**attrs):
+    ...:     print(&quot;name is:&quot;+name)
+
+In [32]: tag.__defaults__
+
+In [33]: tag.__kwdefaults__
+Out[33]: {'cls': 666}
+
+In [34]: tag.__code__
+Out[34]: &amp;lt;code object tag at 0x102288540, file &quot;&amp;lt;ipython-input-31-7396c504e34a&amp;gt;&quot;, line 1&amp;gt;
+
+In [35]: tag.__code__.co_name
+Out[35]: 'tag'
+
+In [36]: tag.__code__.co_names
+Out[36]: ('print',)
+
+In [37]: tag.__code__.co_varnames
+Out[37]: ('name', 'cls', 'content', 'attrs')
+
+In [38]: tag.__code__.co_argcount
+Out[38]: 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&quot;第6章-使用一等函数实现设计模式&quot;&gt;第6章 使用一等函数实现设计模式&lt;/h3&gt;
 

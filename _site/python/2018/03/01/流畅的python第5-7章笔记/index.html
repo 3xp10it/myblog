@@ -179,6 +179,70 @@ Out[13]: True
   <li>生成器函数.使用<code class="highlighter-rouge">yield</code>关键字的函数或方法.调用生成器函数返回的是生成器对象,生成器函数还可以作为协程</li>
 </ul>
 
+<p>5.从定位参数到仅限关键字参数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+
+In [18]: tag(**my_tag)
+name is:img
+content is:()
+cls is:framed
+attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
+
+In [19]: def tag(name,*content,cls=None,**attrs):
+    ...:     print("name is:"+name)
+    ...:     print("content is:"+str(content))
+    ...:     print("cls is:"+str(cls))
+    ...:     print("attrs is:"+str(attrs))
+    ...:
+    ...:
+
+In [20]: tag('p','hello')
+name is:p
+content is:('hello',)
+cls is:None
+attrs is:{}
+
+In [21]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+
+In [22]: tag(**my_tag)
+name is:img
+content is:()
+cls is:framed
+attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
+</code></pre>
+</div>
+
+<p>调用<code class="highlighter-rouge">tag('p','hello')</code>时,第一个参数后面的任意个参数会被<code class="highlighter-rouge">*content</code>捕获,存入一个元组
+调用<code class="highlighter-rouge">tag(**my_tag)</code>时,在my_tag前面加上<code class="highlighter-rouge">**</code>,字典中的所有元素作为单个参数传入,同名键会绑定到对应的具名参数上,余下的则被<code class="highlighter-rouge">**attrs</code>捕获</p>
+
+<p>6.函数对象有个<code class="highlighter-rouge">__defaults__</code>属性,它的值是一个元组,里面保存着定位参数和关键字参数的默认值.仅限关键字参数的默认值在<code class="highlighter-rouge">__kwdefaults__</code>属性中.然而,参数的名称在<code class="highlighter-rouge">__code__</code>属性中,它的值是一个code对象引用,自身也有很多属性如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [31]: def tag(name,*content,cls=666,**attrs):
+    ...:     print("name is:"+name)
+
+In [32]: tag.__defaults__
+
+In [33]: tag.__kwdefaults__
+Out[33]: {'cls': 666}
+
+In [34]: tag.__code__
+Out[34]: &lt;code object tag at 0x102288540, file "&lt;ipython-input-31-7396c504e34a&gt;", line 1&gt;
+
+In [35]: tag.__code__.co_name
+Out[35]: 'tag'
+
+In [36]: tag.__code__.co_names
+Out[36]: ('print',)
+
+In [37]: tag.__code__.co_varnames
+Out[37]: ('name', 'cls', 'content', 'attrs')
+
+In [38]: tag.__code__.co_argcount
+Out[38]: 1
+</code></pre>
+</div>
+
 <h3 id="第6章-使用一等函数实现设计模式">第6章 使用一等函数实现设计模式</h3>
 
 <p>1.</p>
