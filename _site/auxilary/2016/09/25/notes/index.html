@@ -3440,6 +3440,15 @@ $_POST<span class="p">[</span><span class="nv">b</span><span class="p">]</span>=
     GhostSKB
 <span class="p">
 296.</span>HxD是一个认真设计的快捷16进制编辑器.还提供直接磁盘编辑、内存修改和处理任何大小的文件.
+<span class="p">
+297.</span>django在设置密码时有时回车无效,这时应该是系统的python进程|线程过多导致的混乱,可通过pkill python3后重新运行python3 web.py解决
+<span class="p">
+298.</span>猜测:
+    select column_name from information_schema.columns where table_name='targets' and column_name regexp '.<span class="ge">*scaned' and column_name not regexp '(pang)|(sub).*</span>' order by table_name"
+    这种从information_scchema表中查内容的sql语句执行得到的结果不一定任何时候都准确,如上面这句sql中,如果曾经的column_name有BruteCrack_scaned列,而后来删除了这个列,但是由于mysql的文件缓存存在,导致现在执行上面的语句会得到包含BruteCrack_scaned列的结果,重启系统后仍然有,猜测要删除对应的mysql的文件缓存才可得到正确的没有BruteCrack_scaned列的结果.
+
+导盲犬小Q
+零下八度
 </code></pre>
 </div>
 
