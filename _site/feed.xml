@@ -5,9 +5,54 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 24 Apr 2018 07:59:24 +0800</pubDate>
-    <lastBuildDate>Tue, 24 Apr 2018 07:59:24 +0800</lastBuildDate>
+    <pubDate>Wed, 25 Apr 2018 22:21:25 +0800</pubDate>
+    <lastBuildDate>Wed, 25 Apr 2018 22:21:25 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>caps键按住时映射为ctrl,按下一次时映射为esc</title>
+        <description>&lt;h3 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h3&gt;
+
+&lt;p&gt;使用vim和使用常用快捷键时这样设置会带来极大的便利:&lt;/p&gt;
+
+&lt;p&gt;**caps键按住时映射为ctrl,按下一次时映射为esc&lt;/p&gt;
+
+&lt;h3 id=&quot;0x2-detail&quot;&gt;0x2 Detail&lt;/h3&gt;
+
+&lt;h4 id=&quot;macos&quot;&gt;macOS&lt;/h4&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;http://3xp10it.cc/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;linux&quot;&gt;linux&lt;/h4&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;https://askubuntu.com/questions/177824/remapping-caps-lock-to-control-and-escape-not-the-usual-way/228379&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;1.Under System Preferences &amp;gt; Keyboard Layout &amp;gt; Options… &amp;gt; Ctrl key position, I checked ‘Caps Lock as Ctrl’.
+2.&lt;code class=&quot;highlighter-rouge&quot;&gt;xcape -e 'Control_L=Escape'&lt;/code&gt;
+或
+&lt;code class=&quot;highlighter-rouge&quot;&gt;setxkbmap -option 'caps:ctrl_modifier'  xcape -e 'Caps_Lock=Escape'&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;windows&quot;&gt;windows&lt;/h4&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;http://vim.wikia.com/wiki/Map_caps_lock_to_escape_in_Windows&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 25 Apr 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/vim/2018/04/25/caps%E9%94%AE%E6%8C%89%E4%BD%8F%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BActrl,%E6%8C%89%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BAesc/</link>
+        <guid isPermaLink="true">http://localhost:4000/vim/2018/04/25/caps%E9%94%AE%E6%8C%89%E4%BD%8F%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BActrl,%E6%8C%89%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BAesc/</guid>
+        
+        <category>caps</category>
+        
+        <category>ctrl</category>
+        
+        <category>esc</category>
+        
+        <category>vim</category>
+        
+        
+        <category>vim</category>
+        
+      </item>
     
       <item>
         <title>港股基础概念</title>
@@ -827,29 +872,6 @@ Out[12]: '浣犲ソ'
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>炒股观点</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;买资讯中的股票,不可全买,小公司只有较少股票在短期(1-3天)内会有较小(1%-4%)上升.资讯可在”钠镁股票”或”平安证券”中找到.&lt;/li&gt;
-  &lt;li&gt;分析各个股票找抄底股买&lt;/li&gt;
-  &lt;li&gt;买最热股前几名(如2017年的最热的茅台)&lt;/li&gt;
-  &lt;li&gt;买龙头企业在低价时的股票&lt;/li&gt;
-  &lt;li&gt;买股价很低的大公司(如当前农业银行价格很低,3-4块每股)的股票&lt;/li&gt;
-  &lt;li&gt;只买信心最大的股票&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Thu, 18 Jan 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2018/01/18/%E7%82%92%E8%82%A1%E8%A7%82%E7%82%B9/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E7%82%92%E8%82%A1/2018/01/18/%E7%82%92%E8%82%A1%E8%A7%82%E7%82%B9/</guid>
-        
-        <category>炒股</category>
-        
-        
-        <category>炒股</category>
         
       </item>
     

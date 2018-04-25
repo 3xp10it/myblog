@@ -410,7 +410,9 @@
     
 	<a href="/crack/2016/06/22/hashcat/" style="background-color: rgb(25, 25, 25);">2016-06-22 hashcat&john</a><br>
      
-    vim ---------->6<br>
+    vim ---------->7<br>
+    
+	<a href="/vim/2018/04/25/caps%E9%94%AE%E6%8C%89%E4%BD%8F%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BActrl,%E6%8C%89%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BAesc/" style="background-color: rgb(25, 25, 25);">2018-04-25 caps键按住时映射为ctrl,按下一次时映射为esc</a><br>
     
 	<a href="/vim/2017/12/19/vim%E5%86%99markdown/" style="background-color: rgb(25, 25, 25);">2017-12-19 vim写markdown</a><br>
     

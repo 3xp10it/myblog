@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>内网渗透流程</title>
+<title>caps键按住时映射为ctrl,按下一次时映射为esc</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,13 +93,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">内网渗透流程</h1>
+      <h1 class="header" itemprop="name">caps键按住时映射为ctrl,按下一次时映射为esc</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">February 18, 2017</span>
-           under web
+          on <span itemprop="datePublished" content="2014-08-28">April 25, 2018</span>
+           under vim
         </i></small>
       </div>
 
@@ -113,58 +113,30 @@
 
         
 
-        <span itemprop="articleBody"><p>假设已有webshell,无本地管理员权限</p>
+        <span itemprop="articleBody"><h3 id="0x1-about">0x1 About</h3>
 
-<h3 id="step0-获取本地管理员权限">Step0 获取本地管理员权限</h3>
+<p>使用vim和使用常用快捷键时这样设置会带来极大的便利:</p>
 
-<ul>
-  <li>各种exp尝试,如果失败免杀再试</li>
-  <li>本机配置文件,敏感文件查找
-    <ul>
-      <li>win下:
-        <ul>
-          <li>数据库等配置文件,脚本在<a href="https://github.com/3xp10it/bat/tree/master/get_web_config_bat">这里</a></li>
-          <li>psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]</li>
-          <li>cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]</li>
-          <li>mimikatz.exe[找mimikatz.txt]</li>
-          <li>win下找文件可参考<a href="http://3xp10it.cc/web/2016/05/20/%E6%96%87%E4%BB%B6%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85/">这里</a></li>
-        </ul>
-      </li>
-      <li>linux下:</li>
-    </ul>
+<p>**caps键按住时映射为ctrl,按下一次时映射为esc</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  for suffix in  *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do locate $suffix|xargs grep -r -E “(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)” &gt;&gt; /tmp/log.log;done
+<h3 id="0x2-detail">0x2 Detail</h3>
 
-  无locate时:
-  for suffix in *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do find / -name $suffix|xargs grep -r -E “(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)” &gt;&gt; /tmp/log.log;done
+<h4 id="macos">macOS</h4>
 
-  (grep中有-r是因为find也会找出符合条件的文件夹名,-r表示递归查找文件夹中文件，用于在find找到文件夹名时的情况）
-</code></pre>
-    </div>
-  </li>
-  <li>内网机器扫描开放端口情况,弱口令爆破
-  (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan,
-  或者用scanline,或者用superscan命令行,优选scanline)
-  eg.扫到一台1433 sa空口令,可用:
-    <ul>
-      <li>菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面3种</li>
-      <li>sqltools在proxyfier+reGeorg下执行命令,参考<a href="http://www.moonsec.com/post-322.html">这里</a>,(用前要谨慎,或许有毒)</li>
-      <li>navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令</li>
-      <li>ssh反向代理[需要有一台公网ip机器开ssh服务,可在目标机器不能使用reGeorg等socket转发脚本时使用],参考<a href="https://github.com/louchaooo/louchaooo.github.io/issues/44">这里</a>
-  (win开ssh服务参考<a href="http://www.cnblogs.com/xred/archive/2012/04/21/2461627.html">这里</a>)</li>
-    </ul>
-  </li>
-</ul>
+<p>参考<a href="http://3xp10it.cc/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/">这里</a></p>
 
-<h3 id="step-1-获取域控管理员权限">Step 1 获取域控管理员权限</h3>
+<h4 id="linux">linux</h4>
 
-<ul>
-  <li>1.找域控</li>
-  <li>2.找域控登录过的机器</li>
-  <li>3.抓密码</li>
-  <li>4.嗅探口令</li>
-  <li>5.dns+arp欺骗布置网马</li>
-</ul>
+<p>参考<a href="https://askubuntu.com/questions/177824/remapping-caps-lock-to-control-and-escape-not-the-usual-way/228379">这里</a></p>
+
+<p>1.Under System Preferences &gt; Keyboard Layout &gt; Options… &gt; Ctrl key position, I checked ‘Caps Lock as Ctrl’.
+2.<code class="highlighter-rouge">xcape -e 'Control_L=Escape'</code>
+或
+<code class="highlighter-rouge">setxkbmap -option 'caps:ctrl_modifier'  xcape -e 'Caps_Lock=Escape'</code></p>
+
+<h4 id="windows">windows</h4>
+
+<p>参考<a href="http://vim.wikia.com/wiki/Map_caps_lock_to_escape_in_Windows">这里</a></p>
 
 </span>
 
@@ -175,7 +147,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            域渗透, 内网渗透
+            caps, ctrl, esc, vim
           </small>
         </div>
         
