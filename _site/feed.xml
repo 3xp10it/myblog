@@ -5,9 +5,70 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 25 Apr 2018 22:21:25 +0800</pubDate>
-    <lastBuildDate>Wed, 25 Apr 2018 22:21:25 +0800</lastBuildDate>
+    <pubDate>Wed, 25 Apr 2018 22:32:23 +0800</pubDate>
+    <lastBuildDate>Wed, 25 Apr 2018 22:32:23 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>自动测试上传功能是否可上传webshell</title>
+        <description>&lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
+
+&lt;p&gt;xupload是一个用于自动测试上传功能是否可上传webshell的工具&lt;/p&gt;
+
+&lt;h2 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h2&gt;
+
+&lt;p&gt;[!] legal disclaimer: Usage of xupload.py for attacking targets without prior mutual consent is illegal.It is the end user’s responsibility to obey all applicable local, state and federal laws.Developers assume no liability and are not responsible for any misuse or damage caused by this program.&lt;/p&gt;
+
+&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 xupload.py -h
+
+usage: xupload.py [-h] [-u URL] [--cookie COOKIE] --suffix SUFFIX [--batch]
+                  [--delay DELAY] [--force-ssl] [-r R]
+
+xupload.py is a program that automates the testing of uploading functionality.
+If xupload.py does not successfully upload webshell, try more tips at:
+1.http://3xp10it.cc/web/2016/08/12/fckeditor各版本绕过/
+2.https://paper.seebug.org/219/
+3.http://www.owasp.org.cn/OWASP_Training/Upload_Attack_Framework.pdf
+4.https://thief.one/2016/09/22/上传木马姿势汇总-欢迎补充/
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -u URL, --url URL  The target url which has upload function
+  --cookie COOKIE    HTTP Cookie header value
+  --suffix SUFFIX    The web server's script type: 'php','asp','aspx','jsp'
+  --batch            Never ask for user input, use the default behavior
+  --delay DELAY      Delay in seconds between each HTTP request
+  --force-ssl        Force usage of SSL/HTTPS
+  -r R               Load HTTP request from a file
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;eg.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python3 -u http://192.168.8.190/vulnerabilities/upload/ --cookie &quot;PHPSESSID=v7rebkn2dn8ln1ebuqfhjf00s4;security=low&quot; --batch&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;attention&quot;&gt;Attention&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-r&lt;/code&gt;参数是在xupload.py无法自动识别url对应的html中上传表单时要用到的参数(一般通过插件实现上传功能的url无法通过xupload.py自动获取上传表单),用于指定一个http上传文件时拦截到的请求包,如果url是https开头则需要指定&lt;code class=&quot;highlighter-rouge&quot;&gt;--force-ssl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://oiqwnrsx4.bkt.clouddn.com/xupload.mov&quot;&gt;视频示例&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 25 Apr 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2018/04/25/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%B8%8A%E4%BC%A0webshell/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/04/25/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%B8%8A%E4%BC%A0webshell/</guid>
+        
+        <category>upload</category>
+        
+        <category>python</category>
+        
+        <category>webshell</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>caps键按住时映射为ctrl,按下一次时映射为esc</title>
@@ -15,7 +76,7 @@
 
 &lt;p&gt;使用vim和使用常用快捷键时这样设置会带来极大的便利:&lt;/p&gt;
 
-&lt;p&gt;**caps键按住时映射为ctrl,按下一次时映射为esc&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;caps键按住时映射为ctrl,按下一次时映射为esc&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-detail&quot;&gt;0x2 Detail&lt;/h3&gt;
 
@@ -793,85 +854,6 @@ Out[12]: '浣犲ソ'
         
         
         <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>ida插件mynav</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;p&gt;原mynav插件详情在&lt;a href=&quot;http://joxeankoret.com/blog/2010/05/02/mynav-a-python-plugin-for-ida-pro/&quot;&gt;这里&lt;/a&gt;,github项目在&lt;a href=&quot;https://github.com/joxeankoret/mynav&quot;&gt;这里&lt;/a&gt;,由于原项目的代码无法在IDA 7.0中运行,笔者将&lt;code class=&quot;highlighter-rouge&quot;&gt;mynav.py&lt;/code&gt;进行了部分修改,使可运行在&lt;code class=&quot;highlighter-rouge&quot;&gt;IDA 7.0&lt;/code&gt;中.修改后的github项目在&lt;a href=&quot;https://github.com/3xp10it/mynav&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
-
-&lt;p&gt;在ida完成对一个目标文件的分析后,&lt;code class=&quot;highlighter-rouge&quot;&gt;File|Script File&lt;/code&gt;选择&lt;code class=&quot;highlighter-rouge&quot;&gt;mynav.py&lt;/code&gt;(或&lt;code class=&quot;highlighter-rouge&quot;&gt;mybrowser.py&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;myexport.py&lt;/code&gt;),然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;Edit|Plugins|MyNav&lt;/code&gt;中可看到如下子菜单&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mynav.png&quot; alt=&quot;mynav&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中最重要的功能用法如下:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;第1步:&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins|mynav|new session&lt;/code&gt;,取一个名字,单击ok后会提示要在所有函数下断点,单击ok,然后ida会自动从暂停状态变成运行状态,在运行的程序中做一些不想记录的操作(或者什么也不做,只是等待2s),然后将运行的程序关闭(不是通过ida关闭)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第2步:&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins|mynav|new session&lt;/code&gt;,取另一个名字,单击ok后ida会自动从暂停状态变成运行状态,在运行的程序中做关键的操作(如点击某个想知道背后运行了什么函数的重要的按键),然后将运行的程序关闭(不是通过ida关闭)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第3步:&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins|mynav|trace session&lt;/code&gt;,选择2中的session名字,之后和2中的”取另一个名字”之后的操作一样,也即重现2中的操作&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第4步:&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins|mynav|show trace session&lt;/code&gt;,选择3中的session名字&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上面前2步的功能就差不多够用了,有3和4更好.笔者认为上面4个步骤对应mynav实现的原理如下:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;第1步中通过在所有函数上下断点,并且设置断点被触发后自动删除,这样在第1步完成后会将所有函数中的非关键操作对应的函数的断点删除,mynav每触发一个函数的断点都会记录这个函数被运行了.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第2步不会在第1步的基础上再设置新的断点,第2步在安全人员进行了关键的操作后会触发这个关键操作对应的函数,mynav会将在第2步中触发的函数记录下来,并将触发的断点删除,第2步完成后即可得到关键操作对应的函数,到这里需要的东西差不多够了,有后面的3和4更好&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第3步中mynav会将第2步中的记录的session(每个session记录了运行过的函数,也即触发过的断点)中的函数的断点重新生效,然后安全人员重新做关键操作后ida会再次触发第2步中的相关断点,mynav会再次记录这一步触发的函数,并将触发后的断点删除,这一步可以对运行过的函数流程看地更细&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;第4步中可以辅助记录不同的关键操作对应的函数,可用于对比不同关键操作对应的函数流程&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;注意:&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;第1步操作之前需要确保安全人员没有自行设置断点,如果在使用第1步的功能前已经有断点会导致使用这个功能失败(应该是由于mynav认为如果已经有断点则认为不是在第1步的操作)&lt;/li&gt;
-  &lt;li&gt;有时通过usb远程以attach的方式调试app时ida在加载远程手机中的进程列表时会crash,遇到这种情况需要每次重新attach调试app时将usb重新拔插后再attach&lt;/li&gt;
-  &lt;li&gt;使用mynav的这种在所有函数下断点的方法在目标可执行文件比较大的时候(&amp;gt;500M)不合适,因为在所有函数下断点可能要下很久,500M以上的文件下断点估计要花2个小时以上.如果是调试ios app,遇到这种情况直接用根据UI找函数的方法较合适&lt;/li&gt;
-  &lt;li&gt;mynav可能不会在动态链接库的函数中下断点(这一结论暂未验证),如果关键函数(如判断软件使用者是否是vip的函数)是在动态链接库中(如android的so文件,ios的dylib文件,win的dll文件)则不会被mynav追踪到,这种情况查看&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;即可,&lt;code class=&quot;highlighter-rouge&quot;&gt;stack trace&lt;/code&gt;以看到动态链接库中的函数调用&lt;/li&gt;
-  &lt;li&gt;ida调试可以以加载或附加的方式调试,如果以加载的方式调试,在第2步新建session后如果剩下的断点(所有的函数中除去第1步中触发过的函数外的剩下的函数)较多,有可能会影响目标程序的正常启动(有时候会这样),如果有影响则可考虑在第1步后第2步前先将剩下的断点全部先disable,等目标程序启动后再将剩下的断点enable,然后再开始第2步的&lt;code class=&quot;highlighter-rouge&quot;&gt;plugin|mynav|new session&lt;/code&gt;.或者不使用加载的方式调试,而使用附加的方式调试.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.hex-rays.com/products/ida/support/idapython_docs/&quot;&gt;idapython docs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/idapython/src/blob/d99a89369741ce272ba792d6f087d0739a2f8ac7/api_contents.txt&quot;&gt;idapython api&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/keystone-engine/keypatch/blob/master/keypatch.py&quot;&gt;keypatch.py&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/idapython/src/search?utf8=%E2%9C%93&amp;amp;q=replaceAPIhere&amp;amp;type=&quot;&gt;idapython api example&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Mon, 22 Jan 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/22/ida%E6%8F%92%E4%BB%B6mynav/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/01/22/ida%E6%8F%92%E4%BB%B6mynav/</guid>
-        
-        <category>ida</category>
-        
-        <category>mynav</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     

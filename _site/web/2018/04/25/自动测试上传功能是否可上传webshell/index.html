@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>caps键按住时映射为ctrl,按下一次时映射为esc</title>
+<title>自动测试上传功能是否可上传webshell</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,13 +93,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">caps键按住时映射为ctrl,按下一次时映射为esc</h1>
+      <h1 class="header" itemprop="name">自动测试上传功能是否可上传webshell</h1>
 
       <div class="author">
         <small><i>
           
           on <span itemprop="datePublished" content="2014-08-28">April 25, 2018</span>
-           under vim
+           under web
         </i></small>
       </div>
 
@@ -113,31 +113,49 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="0x1-about">0x1 About</h3>
+        <span itemprop="articleBody"><h2 id="about">About</h2>
 
-<p>使用vim和使用常用快捷键时这样设置会带来极大的便利:</p>
+<p>xupload是一个用于自动测试上传功能是否可上传webshell的工具</p>
 
-<p><strong>caps键按住时映射为ctrl,按下一次时映射为esc</strong></p>
+<h2 id="disclaimer">Disclaimer</h2>
 
-<h3 id="0x2-detail">0x2 Detail</h3>
+<p>[!] legal disclaimer: Usage of xupload.py for attacking targets without prior mutual consent is illegal.It is the end user’s responsibility to obey all applicable local, state and federal laws.Developers assume no liability and are not responsible for any misuse or damage caused by this program.</p>
 
-<h4 id="macos">macOS</h4>
+<h2 id="usage">Usage</h2>
 
-<p>参考<a href="http://3xp10it.cc/linux/2017/03/11/%E5%AE%89%E8%A3%85macOS-sierra%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B/">这里</a></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>python3 xupload.py -h
 
-<h4 id="linux">linux</h4>
+usage: xupload.py [-h] [-u URL] [--cookie COOKIE] --suffix SUFFIX [--batch]
+                  [--delay DELAY] [--force-ssl] [-r R]
 
-<p>参考<a href="https://askubuntu.com/questions/177824/remapping-caps-lock-to-control-and-escape-not-the-usual-way/228379">这里</a></p>
+xupload.py is a program that automates the testing of uploading functionality.
+If xupload.py does not successfully upload webshell, try more tips at:
+1.http://3xp10it.cc/web/2016/08/12/fckeditor各版本绕过/
+2.https://paper.seebug.org/219/
+3.http://www.owasp.org.cn/OWASP_Training/Upload_Attack_Framework.pdf
+4.https://thief.one/2016/09/22/上传木马姿势汇总-欢迎补充/
 
-<p>1.Under System Preferences &gt; Keyboard Layout &gt; Options… &gt; Ctrl key position, I checked ‘Caps Lock as Ctrl’.
-2.<code class="highlighter-rouge">xcape -e 'Control_L=Escape'</code>
-或
-<code class="highlighter-rouge">setxkbmap -option 'caps:ctrl_modifier'  xcape -e 'Caps_Lock=Escape'</code></p>
+optional arguments:
+  -h, --help         show this help message and exit
+  -u URL, --url URL  The target url which has upload function
+  --cookie COOKIE    HTTP Cookie header value
+  --suffix SUFFIX    The web server's script type: 'php','asp','aspx','jsp'
+  --batch            Never ask for user input, use the default behavior
+  --delay DELAY      Delay in seconds between each HTTP request
+  --force-ssl        Force usage of SSL/HTTPS
+  -r R               Load HTTP request from a file
+</code></pre>
+</div>
 
-<h4 id="windows">windows</h4>
+<p>eg.</p>
 
-<p>参考<a href="http://vim.wikia.com/wiki/Map_caps_lock_to_escape_in_Windows">这里</a></p>
+<p><code class="highlighter-rouge">python3 -u http://192.168.8.190/vulnerabilities/upload/ --cookie "PHPSESSID=v7rebkn2dn8ln1ebuqfhjf00s4;security=low" --batch</code></p>
 
+<h2 id="attention">Attention</h2>
+
+<p><code class="highlighter-rouge">-r</code>参数是在xupload.py无法自动识别url对应的html中上传表单时要用到的参数(一般通过插件实现上传功能的url无法通过xupload.py自动获取上传表单),用于指定一个http上传文件时拦截到的请求包,如果url是https开头则需要指定<code class="highlighter-rouge">--force-ssl</code>.</p>
+
+<p><a target="_blank" href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov">视频示例</a></p>
 </span>
 
         
@@ -147,7 +165,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            caps, ctrl, esc, vim
+            upload, python, webshell
           </small>
         </div>
         
