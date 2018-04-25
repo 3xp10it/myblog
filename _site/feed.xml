@@ -5,15 +5,15 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 25 Apr 2018 22:32:23 +0800</pubDate>
-    <lastBuildDate>Wed, 25 Apr 2018 22:32:23 +0800</lastBuildDate>
+    <pubDate>Wed, 25 Apr 2018 22:35:16 +0800</pubDate>
+    <lastBuildDate>Wed, 25 Apr 2018 22:35:16 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>自动测试上传功能是否可上传webshell</title>
         <description>&lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;xupload是一个用于自动测试上传功能是否可上传webshell的工具&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/xupload&quot;&gt;xupload&lt;/a&gt;是一个用于自动测试上传功能是否可上传webshell的工具&lt;/p&gt;
 
 &lt;h2 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h2&gt;
 
@@ -54,6 +54,7 @@ optional arguments:
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-r&lt;/code&gt;参数是在xupload.py无法自动识别url对应的html中上传表单时要用到的参数(一般通过插件实现上传功能的url无法通过xupload.py自动获取上传表单),用于指定一个http上传文件时拦截到的请求包,如果url是https开头则需要指定&lt;code class=&quot;highlighter-rouge&quot;&gt;--force-ssl&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://oiqwnrsx4.bkt.clouddn.com/xupload.mov&quot;&gt;视频示例&lt;/a&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Wed, 25 Apr 2018 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2018/04/25/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%B8%8A%E4%BC%A0webshell/</link>
