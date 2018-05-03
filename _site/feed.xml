@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 01 May 2018 15:57:33 +0800</pubDate>
-    <lastBuildDate>Tue, 01 May 2018 15:57:33 +0800</lastBuildDate>
+    <pubDate>Thu, 03 May 2018 08:36:10 +0800</pubDate>
+    <lastBuildDate>Thu, 03 May 2018 08:36:10 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -15,6 +15,16 @@
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://stock.quote.stockstar.com/tech_601318.shtml&quot;&gt;快速指标分析&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://m.stock.pingan.com/omm/mobile/zixun/m.html?id=1000052297&amp;amp;t=22493765&amp;amp;unionId=a696c392e1444ee7a9ba8a5d95d84414&quot;&gt;ene指标应用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gupang.com/201606/39839.html&quot;&gt;kdj指标应用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360doc.com/content/16/0204/09/11492064_532629892.shtml&quot;&gt;macd指标应用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.yingjia360.com/rsi/2016-07-08/30905.html&quot;&gt;rsi指标应用&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;其他&quot;&gt;其他&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wenku.baidu.com/view/75724ae05ff7ba0d4a7302768e9951e79b8969a1.html&quot;&gt;格兰维尔八大买卖法则&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
