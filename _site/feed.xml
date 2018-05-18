@@ -5,13 +5,20 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 May 2018 08:36:10 +0800</pubDate>
-    <lastBuildDate>Thu, 03 May 2018 08:36:10 +0800</lastBuildDate>
+    <pubDate>Fri, 18 May 2018 08:37:05 +0800</pubDate>
+    <lastBuildDate>Fri, 18 May 2018 08:37:05 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>炒股</title>
-        <description>&lt;h3 id=&quot;指标&quot;&gt;指标&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;k线&quot;&gt;k线&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ricequant.com/community/topic/2393/&quot;&gt;talib-K线模式识别&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/32470289&quot;&gt;关于蜡烛图,看完这一篇文章就够了&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;指标&quot;&gt;指标&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://stock.quote.stockstar.com/tech_601318.shtml&quot;&gt;快速指标分析&lt;/a&gt;&lt;/li&gt;
@@ -19,12 +26,21 @@
   &lt;li&gt;&lt;a href=&quot;http://www.gupang.com/201606/39839.html&quot;&gt;kdj指标应用&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.360doc.com/content/16/0204/09/11492064_532629892.shtml&quot;&gt;macd指标应用&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.yingjia360.com/rsi/2016-07-08/30905.html&quot;&gt;rsi指标应用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;交易量应用
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://zhidao.baidu.com/question/30738506.html&quot;&gt;1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://guba.eastmoney.com/news,gssz,720380626.html&quot;&gt;2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://wenku.baidu.com/view/14b3b8be7f1922791788e815.html&quot;&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;其他&quot;&gt;其他&lt;/h3&gt;
+&lt;h3 id=&quot;买卖点&quot;&gt;买卖点&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://wenku.baidu.com/view/75724ae05ff7ba0d4a7302768e9951e79b8969a1.html&quot;&gt;格兰维尔八大买卖法则&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://baijiahao.baidu.com/s?id=1561500866945671&amp;amp;wfr=spider&amp;amp;for=pc&quot;&gt;红三兵买入&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360doc.com/content/15/1027/16/7180626_508769390.shtml&quot;&gt;江恩买卖十二法则&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
