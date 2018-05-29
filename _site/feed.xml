@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 29 May 2018 08:17:41 +0800</pubDate>
-    <lastBuildDate>Tue, 29 May 2018 08:17:41 +0800</lastBuildDate>
+    <pubDate>Tue, 29 May 2018 08:20:57 +0800</pubDate>
+    <lastBuildDate>Tue, 29 May 2018 08:20:57 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -17,9 +17,11 @@
 
 &lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
 
-&lt;p&gt;1.通过修改域名的A记录来进行域名劫持
-2.在域名的新A记录主机上安装mitmproxy:&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install mitmproxy&lt;/code&gt;
-3.在域名的新A记录主机上运行:
+&lt;p&gt;1.通过修改域名的A记录来进行域名劫持&lt;/p&gt;
+
+&lt;p&gt;2.在域名的新A记录主机上安装mitmproxy:&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install mitmproxy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.在域名的新A记录主机上运行:
     &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump —set allow_remote=true —listen-host 0.0.0.0 -s xdomain.py —mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;—listen-host代表本地监听ip
@@ -61,9 +63,8 @@ def response(flow):
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;[download][1]&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/xdomain.py&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[1]:&lt;/p&gt;
 </description>
         <pubDate>Tue, 29 May 2018 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</link>

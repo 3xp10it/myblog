@@ -119,9 +119,11 @@
 
 <h3 id="usage">Usage</h3>
 
-<p>1.通过修改域名的A记录来进行域名劫持
-2.在域名的新A记录主机上安装mitmproxy:<code class="highlighter-rouge">pip3 install mitmproxy</code>
-3.在域名的新A记录主机上运行:
+<p>1.通过修改域名的A记录来进行域名劫持</p>
+
+<p>2.在域名的新A记录主机上安装mitmproxy:<code class="highlighter-rouge">pip3 install mitmproxy</code></p>
+
+<p>3.在域名的新A记录主机上运行:
     <code class="highlighter-rouge">mitmdump —set allow_remote=true —listen-host 0.0.0.0 -s xdomain.py —mode reverse:http://xxx.xxx.xxx:80 -p 80</code></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>—listen-host代表本地监听ip
@@ -163,9 +165,8 @@ def response(flow):
 </code></pre>
 </div>
 
-<p>[download][1]</p>
+<p><a href="https://raw.githubusercontent.com/3xp10it/mytools/master/xdomain.py">download</a></p>
 
-<p>[1]:</p>
 </span>
 
         
