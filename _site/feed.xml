@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 29 May 2018 08:20:57 +0800</pubDate>
-    <lastBuildDate>Tue, 29 May 2018 08:20:57 +0800</lastBuildDate>
+    <pubDate>Tue, 29 May 2018 08:24:38 +0800</pubDate>
+    <lastBuildDate>Tue, 29 May 2018 08:24:38 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -22,11 +22,11 @@
 &lt;p&gt;2.在域名的新A记录主机上安装mitmproxy:&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install mitmproxy&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;3.在域名的新A记录主机上运行:
-    &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump —set allow_remote=true —listen-host 0.0.0.0 -s xdomain.py —mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump --set allow_remote=true -—listen-host 0.0.0.0 -s xdomain.py --mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;—listen-host代表本地监听ip
-—mode reverse代表以反向代理的模式进行工作
-—set allow_remote=true代表支持客户端访问的时候是通过代理访问的
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--listen-host代表本地监听ip
+--mode reverse代表以反向代理的模式进行工作
+--set allow_remote=true代表支持客户端访问的时候是通过代理访问的
 运行时需要需要上面命令中的http://xxx.xxx.xxx:80为目标网站地址,且修改下面代码中的http://xxx.xxx.xxx为目标网站地址
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
