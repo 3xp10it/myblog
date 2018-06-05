@@ -118,8 +118,8 @@
 <div class="highlighter-rouge"><pre class="highlight"><code>目的:实现一个自动将截图上传至github并获取对应uri
 用途:方便博客md文件中截图的处理
 使用方法:
-    初次运行时,在linxu系统中新建/root/githubpic目录,并将github上对应的图片目录下载到本地
-    以后运行时,将需要上传的图片人工拷贝到/root/githubpic目录,运行该脚本可实现自动将新图片上传并获取uri
+    初次运行时,在linxu系统中新建/root/pic目录,并将github上对应的图片目录下载到本地
+    以后运行时,将需要上传的图片人工拷贝到/root/pic目录,运行该脚本可实现自动将新图片上传并获取uri
 快捷运行:
     cp mysnippingtool.py /usr/share
     vi ~/.zshrc
@@ -169,18 +169,18 @@
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">'/root/githubpic'</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">"this is the first time you use me,or you have deleted /root/githubpic,I will mkdir /root/githubpic and git pull the github's pic.git,please put pngs to /root/githubpic when needed,and don't delet any png file in this folder"</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"mkdir /root/githubpic &amp;&amp; cd /root/githubpic &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/pic.git &amp;&amp; git remote add origin https://github.com/3xp10it/pic.git &amp;&amp; git status"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">'/root/pic'</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"this is the first time you use me,or you have deleted /root/pic,I will mkdir /root/pic and git pull the github's pic.git,please put pngs to /root/pic when needed,and don't delet any png file in this folder"</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"mkdir /root/pic &amp;&amp; cd /root/pic &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/pic.git &amp;&amp; git remote add origin https://github.com/3xp10it/pic.git &amp;&amp; git status"</span><span class="p">)</span>
 
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"cd /root/githubpic &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m 'update' &amp;&amp; git push -u origin master"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"cd /root/pic &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m 'update' &amp;&amp; git push -u origin master"</span><span class="p">)</span>
 
-    <span class="n">all_png_list</span><span class="o">=</span><span class="n">get_all_file_name</span><span class="p">(</span><span class="s">"/root/githubpic"</span><span class="p">)</span>
+    <span class="n">all_png_list</span><span class="o">=</span><span class="n">get_all_file_name</span><span class="p">(</span><span class="s">"/root/pic"</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">all_png_list</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">each</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">==</span><span class="s">'png'</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">"/root/githubpic/address.txt"</span><span class="p">,</span><span class="s">"a+"</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">"/root/pic/address.txt"</span><span class="p">,</span><span class="s">"a+"</span><span class="p">)</span>
                 <span class="nb">all</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
                 <span class="n">each_addr</span><span class="o">=</span><span class="s">"https://raw.githubusercontent.com/3xp10it/pic/master/</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">each</span>
                 <span class="k">if</span> <span class="n">each_addr</span><span class="o">+</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">all</span><span class="p">:</span>
@@ -188,7 +188,7 @@
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">each_addr</span><span class="o">+</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="s">"open /root/githubpic/address.txt wrong"</span>
+                <span class="k">print</span> <span class="s">"open /root/pic/address.txt wrong"</span>
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -203,7 +203,7 @@ print os.path.abspath(each) is not good function,
 it will get /root/桌面/spider_wooyun when I put this py script file in /root/桌面,and run:
 (cd 桌面)
 python mysnippingtool.py
-it will get "/root/桌面/spider_wooyun" as a result,but the true result should be "/root/githubpic/spider_wooyun"
+it will get "/root/桌面/spider_wooyun" as a result,but the true result should be "/root/pic/spider_wooyun"
 so I use:
         each_abspath=os.path.join(folder,each)
 to get the current file's abspath
