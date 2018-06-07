@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 07 Jun 2018 08:20:35 -0400</pubDate>
-    <lastBuildDate>Thu, 07 Jun 2018 08:20:35 -0400</lastBuildDate>
+    <pubDate>Thu, 07 Jun 2018 08:38:50 -0400</pubDate>
+    <lastBuildDate>Thu, 07 Jun 2018 08:38:50 -0400</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
@@ -249,16 +249,20 @@ optional arguments:
       </item>
     
       <item>
-        <title>alfred--快速切换至目标应用程序</title>
+        <title>快速切换至目标应用程序</title>
         <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
 
-&lt;p&gt;本文介绍通过使用alfred的workflows功能快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图&lt;/p&gt;
+&lt;p&gt;本文介绍macOS和windows下实现快速切换至后台中的目标应用程序的方法&lt;/p&gt;
+
+&lt;h4 id=&quot;0xa-macos&quot;&gt;0xa macOS&lt;/h4&gt;
+
+&lt;p&gt;alfred的workflows功能可实现快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app1.png&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在使用iterm2时想切换至pd的kali机上(图中第6个图标),或者在pd的kali机上想切换到firefox上,或者当前在任意app中想切换到另一个指定的app时直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+tab&lt;/code&gt;效率较低,可通过alfred的workflows功能实现&lt;code class=&quot;highlighter-rouge&quot;&gt;一键切换&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;0x01-detail&quot;&gt;0x01 Detail&lt;/h3&gt;
+&lt;h5 id=&quot;detail&quot;&gt;Detail&lt;/h5&gt;
 
 &lt;p&gt;最终实现3个应用程序的快速切换快捷键:&lt;/p&gt;
 &lt;ul&gt;
@@ -276,10 +280,48 @@ optional arguments:
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app3.png&quot; alt=&quot;3&quot; /&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app4.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
 
+&lt;h4 id=&quot;0xb-windows&quot;&gt;0xb windows&lt;/h4&gt;
+
+&lt;p&gt;autohotkey是一个win下的效率神器,可通过autohotkey来实现macOS下的相同功能,本文只涉及&lt;code class=&quot;highlighter-rouge&quot;&gt;firefox|explorer&lt;/code&gt;的快速切换,其他应用程序对应的autohotkey脚本的写法可能不同&lt;/p&gt;
+
+&lt;h5 id=&quot;detail-1&quot;&gt;Detail&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#f::switchToFirefox()
+switchToFirefox(){
+sendinput, {SC0E8} ;scan code of an unassigned key. Do I NEED this?
+IfWinNotExist, ahk_class MozillaWindowClass
+	Run, firefox.exe
+if WinActive(&quot;ahk_exe firefox.exe&quot;)
+	Send ^{tab}
+else
+	{
+	;WinRestore ahk_exe firefox.exe
+	WinActivate ahk_exe firefox.exe
+	;sometimes winactivate is not enough. the window is brought to the foreground, but not put into FOCUS.
+	;the below code should fix that.
+	WinGet, hWnd, ID, ahk_class MozillaWindowClass
+	DllCall(&quot;SetForegroundWindow&quot;, UInt, hWnd) 
+	}
+}
+
+#e::switchToExplorer()
+switchToExplorer(){
+IfWinNotExist, ahk_class CabinetWClass
+	Run, explorer.exe
+GroupAdd, taranexplorers, ahk_class CabinetWClass
+if WinActive(&quot;ahk_exe explorer.exe&quot;)
+	GroupActivate, taranexplorers, r
+else
+	WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ahk脚本代码地址在&lt;a href=&quot;https://github.com/3xp10it/ahk&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 29 Mar 2018 00:00:00 -0400</pubDate>
-        <link>http://3xp10it.cc/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</link>
-        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/03/29/alfred-%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</guid>
+        <link>http://3xp10it.cc/auxilary/2018/03/29/%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/03/29/%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</guid>
         
         <category>alfred</category>
         

@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>alfred--快速切换至目标应用程序</title>
+<title>快速切换至目标应用程序</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,7 +93,7 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">alfred--快速切换至目标应用程序</h1>
+      <h1 class="header" itemprop="name">快速切换至目标应用程序</h1>
 
       <div class="author">
         <small><i>
@@ -115,13 +115,17 @@
 
         <span itemprop="articleBody"><h3 id="0x0-about">0x0 About</h3>
 
-<p>本文介绍通过使用alfred的workflows功能快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图</p>
+<p>本文介绍macOS和windows下实现快速切换至后台中的目标应用程序的方法</p>
+
+<h4 id="0xa-macos">0xa macOS</h4>
+
+<p>alfred的workflows功能可实现快速切换至后台中的目标应用程序的方法.在使用macOS时,一般会使用到多个app,如下图</p>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app1.png" alt="1" /></p>
 
 <p>在使用iterm2时想切换至pd的kali机上(图中第6个图标),或者在pd的kali机上想切换到firefox上,或者当前在任意app中想切换到另一个指定的app时直接使用<code class="highlighter-rouge">cmd+tab</code>效率较低,可通过alfred的workflows功能实现<code class="highlighter-rouge">一键切换</code>.</p>
 
-<h3 id="0x01-detail">0x01 Detail</h3>
+<h5 id="detail">Detail</h5>
 
 <p>最终实现3个应用程序的快速切换快捷键:</p>
 <ul>
@@ -138,6 +142,44 @@
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app3.png" alt="3" />
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/alfred_quick_switch_app4.png" alt="4" /></p>
+
+<h4 id="0xb-windows">0xb windows</h4>
+
+<p>autohotkey是一个win下的效率神器,可通过autohotkey来实现macOS下的相同功能,本文只涉及<code class="highlighter-rouge">firefox|explorer</code>的快速切换,其他应用程序对应的autohotkey脚本的写法可能不同</p>
+
+<h5 id="detail-1">Detail</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#f::switchToFirefox()
+switchToFirefox(){
+sendinput, {SC0E8} ;scan code of an unassigned key. Do I NEED this?
+IfWinNotExist, ahk_class MozillaWindowClass
+	Run, firefox.exe
+if WinActive("ahk_exe firefox.exe")
+	Send ^{tab}
+else
+	{
+	;WinRestore ahk_exe firefox.exe
+	WinActivate ahk_exe firefox.exe
+	;sometimes winactivate is not enough. the window is brought to the foreground, but not put into FOCUS.
+	;the below code should fix that.
+	WinGet, hWnd, ID, ahk_class MozillaWindowClass
+	DllCall("SetForegroundWindow", UInt, hWnd) 
+	}
+}
+
+#e::switchToExplorer()
+switchToExplorer(){
+IfWinNotExist, ahk_class CabinetWClass
+	Run, explorer.exe
+GroupAdd, taranexplorers, ahk_class CabinetWClass
+if WinActive("ahk_exe explorer.exe")
+	GroupActivate, taranexplorers, r
+else
+	WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
+}
+</code></pre></div></div>
+
+<p>ahk脚本代码地址在<a href="https://github.com/3xp10it/ahk">这里</a></p>
 
 </span>
 
