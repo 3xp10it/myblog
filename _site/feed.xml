@@ -5,17 +5,16 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Jun 2018 08:30:31 +0800</pubDate>
-    <lastBuildDate>Mon, 11 Jun 2018 08:30:31 +0800</lastBuildDate>
-    <generator>Jekyll v3.5.2</generator>
+    <pubDate>Mon, 11 Jun 2018 07:02:40 -0400</pubDate>
+    <lastBuildDate>Mon, 11 Jun 2018 07:02:40 -0400</lastBuildDate>
+    <generator>Jekyll v3.7.3</generator>
     
       <item>
         <title>利弗莫尔操盘规则</title>
         <description>&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;股票大作手操盘术&lt;/code&gt;中利弗莫尔操盘规则内容有些繁杂冗余,笔者认为可用一句话小结:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当价格突破最近一次相同方向的关键点3个点时是交易点,可按20%,20%,20%,40%分批次加仓
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当价格突破最近一次相同方向的关键点3个点时是交易点,可按20%,20%,20%,40%分批次加仓
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如下图:&lt;/p&gt;
 
@@ -24,7 +23,7 @@
 &lt;p&gt;graffle文件在&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/livermore.graffle&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 07 Jun 2018 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 07 Jun 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2018/06/07/%E5%88%A9%E5%BC%97%E8%8E%AB%E5%B0%94%E6%93%8D%E7%9B%98%E8%A7%84%E5%88%99/</link>
         <guid isPermaLink="true">http://localhost:4000/%E7%82%92%E8%82%A1/2018/06/07/%E5%88%A9%E5%BC%97%E8%8E%AB%E5%B0%94%E6%93%8D%E7%9B%98%E8%A7%84%E5%88%99/</guid>
         
@@ -52,16 +51,15 @@
 &lt;p&gt;3.在域名的新A记录主机上运行:
     &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump --set allow_remote=true -—listen-host 0.0.0.0 -s xdomain.py --mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--listen-host代表本地监听ip
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--listen-host代表本地监听ip
 --mode reverse代表以反向代理的模式进行工作
 --set allow_remote=true代表支持客户端访问的时候是通过代理访问的
 运行时需要需要上面命令中的http://xxx.xxx.xxx:80为目标网站地址,且修改下面代码中的http://xxx.xxx.xxx为目标网站地址
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import os
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import os
 import re
 import chardet
 
@@ -88,13 +86,12 @@ def response(flow):
         return_value = {'ip': ip, 'url': url, 'cookie': cookie}
         with open(&quot;mitm.log&quot;, &quot;a+&quot;) as f:
             f.write(str(return_value) + &quot;\n&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/xdomain.py&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 29 May 2018 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 29 May 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</link>
         <guid isPermaLink="true">http://localhost:4000/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</guid>
         
@@ -142,7 +139,7 @@ def response(flow):
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Tue, 01 May 2018 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 01 May 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2018/05/01/%E7%82%92%E8%82%A1/</link>
         <guid isPermaLink="true">http://localhost:4000/%E7%82%92%E8%82%A1/2018/05/01/%E7%82%92%E8%82%A1/</guid>
         
@@ -165,7 +162,7 @@ def response(flow):
 
 &lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 xupload.py -h
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 xupload.py -h
 
 usage: xupload.py [-h] [-u URL] [--cookie COOKIE] --suffix SUFFIX [--batch]
                   [--delay DELAY] [--force-ssl] [-r R]
@@ -186,8 +183,7 @@ optional arguments:
   --delay DELAY      Delay in seconds between each HTTP request
   --force-ssl        Force usage of SSL/HTTPS
   -r R               Load HTTP request from a file
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;eg.&lt;/p&gt;
 
@@ -200,7 +196,7 @@ optional arguments:
 &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://oiqwnrsx4.bkt.clouddn.com/xupload.mov&quot;&gt;视频示例&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 25 Apr 2018 00:00:00 +0800</pubDate>
+        <pubDate>Wed, 25 Apr 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/web/2018/04/25/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%B8%8A%E4%BC%A0webshell/</link>
         <guid isPermaLink="true">http://localhost:4000/web/2018/04/25/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%B8%8A%E4%BC%A0webshell/</guid>
         
@@ -243,7 +239,7 @@ optional arguments:
 &lt;p&gt;参考&lt;a href=&quot;http://vim.wikia.com/wiki/Map_caps_lock_to_escape_in_Windows&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 25 Apr 2018 00:00:00 +0800</pubDate>
+        <pubDate>Wed, 25 Apr 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/vim/2018/04/25/caps%E9%94%AE%E6%8C%89%E4%BD%8F%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BActrl,%E6%8C%89%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BAesc/</link>
         <guid isPermaLink="true">http://localhost:4000/vim/2018/04/25/caps%E9%94%AE%E6%8C%89%E4%BD%8F%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BActrl,%E6%8C%89%E4%B8%8B%E4%B8%80%E6%AC%A1%E6%97%B6%E6%98%A0%E5%B0%84%E4%B8%BAesc/</guid>
         
@@ -268,7 +264,7 @@ optional arguments:
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Sat, 07 Apr 2018 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 07 Apr 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2018/04/07/%E6%B8%AF%E8%82%A1%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</link>
         <guid isPermaLink="true">http://localhost:4000/%E7%82%92%E8%82%A1/2018/04/07/%E6%B8%AF%E8%82%A1%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</guid>
         
@@ -317,7 +313,7 @@ optional arguments:
 
 &lt;h5 id=&quot;detail-1&quot;&gt;Detail&lt;/h5&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#f::switchToFirefox()
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#f::switchToFirefox()
 switchToFirefox(){
 sendinput, {SC0E8} ;scan code of an unassigned key. Do I NEED this?
 IfWinNotExist, ahk_class MozillaWindowClass
@@ -345,13 +341,12 @@ if WinActive(&quot;ahk_exe explorer.exe&quot;)
 else
 	WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;ahk脚本代码地址在&lt;a href=&quot;https://github.com/3xp10it/ahk&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 29 Mar 2018 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 29 Mar 2018 00:00:00 -0400</pubDate>
         <link>http://3xp10it.cc/auxilary/2018/03/29/%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</link>
         <guid isPermaLink="true">http://localhost:4000/auxilary/2018/03/29/%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E8%87%B3%E7%9B%AE%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</guid>
         
@@ -374,7 +369,7 @@ else
 
 &lt;p&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;sum&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;函数用于求和.最好使用sum函数,可读性更好.sum和reduce的通用思想是把某个操作连续应用到序列的元素上,累计之前的结果,把一系列值&lt;code class=&quot;highlighter-rouge&quot;&gt;归约&lt;/code&gt;成一个值.&lt;code class=&quot;highlighter-rouge&quot;&gt;all&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;any&lt;/code&gt;也是内置的归约函数&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: from functools import reduce
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: from functools import reduce
 
 In [3]: from operator import add
 
@@ -415,8 +410,7 @@ TypeError: any() takes exactly one argument (2 given)
 
 In [13]: any(('niaho',['wohao'],''))
 Out[13]: True
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;3.为了使用高阶函数,有时创建一次性的小型函数更便利.这便是匿名函数存在的原因.lambda关键字在python表达式内创建匿名函数.然而,python简单的句法限制了lambda函数的定义体只能使用纯表达式.换句话说,lambda函数的定义体中不能赋值,也不能使用while和try等python语句.eval函数好像也是这样.除了作为参数传给高阶函数之外,python很少使用匿名函数.由于句法上的限制,非平凡的lambda表达式要么难以阅读,要么无法写出.lambda句法只是语法糖:与def语句一样,lambda表达式会创建函数对象&lt;/p&gt;
 
@@ -434,7 +428,7 @@ Out[13]: True
 
 &lt;p&gt;5.从定位参数到仅限关键字参数&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
 
 In [18]: tag(**my_tag)
 name is:img
@@ -463,15 +457,14 @@ name is:img
 content is:()
 cls is:framed
 attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;调用&lt;code class=&quot;highlighter-rouge&quot;&gt;tag('p','hello')&lt;/code&gt;时,第一个参数后面的任意个参数会被&lt;code class=&quot;highlighter-rouge&quot;&gt;*content&lt;/code&gt;捕获,存入一个元组
 调用&lt;code class=&quot;highlighter-rouge&quot;&gt;tag(**my_tag)&lt;/code&gt;时,在my_tag前面加上&lt;code class=&quot;highlighter-rouge&quot;&gt;**&lt;/code&gt;,字典中的所有元素作为单个参数传入,同名键会绑定到对应的具名参数上,余下的则被&lt;code class=&quot;highlighter-rouge&quot;&gt;**attrs&lt;/code&gt;捕获&lt;/p&gt;
 
 &lt;p&gt;6.函数对象有个&lt;code class=&quot;highlighter-rouge&quot;&gt;__defaults__&lt;/code&gt;属性,它的值是一个元组,里面保存着定位参数和关键字参数的默认值.仅限关键字参数的默认值在&lt;code class=&quot;highlighter-rouge&quot;&gt;__kwdefaults__&lt;/code&gt;属性中.然而,参数的名称在&lt;code class=&quot;highlighter-rouge&quot;&gt;__code__&lt;/code&gt;属性中,它的值是一个code对象引用,自身也有很多属性如下&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [31]: def tag(name,*content,cls=666,**attrs):
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [31]: def tag(name,*content,cls=666,**attrs):
     ...:     print(&quot;name is:&quot;+name)
 
 In [32]: tag.__defaults__
@@ -493,8 +486,7 @@ Out[37]: ('name', 'cls', 'content', 'attrs')
 
 In [38]: tag.__code__.co_argcount
 Out[38]: 1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;第6章-使用一等函数实现设计模式&quot;&gt;第6章 使用一等函数实现设计模式&lt;/h3&gt;
 
@@ -504,7 +496,7 @@ Out[38]: 1
 
 &lt;p&gt;1.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 01 Mar 2018 00:00:00 -0500</pubDate>
         <link>http://3xp10it.cc/python/2018/03/01/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC5-7%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2018/03/01/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC5-7%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
@@ -524,7 +516,7 @@ UTF-8就是在互联网上使用最广的一种unicode的实现方式(80%的网�
 
 &lt;p&gt;2.struct模块提供了一些函数,把字节序列转换成不同类型字段组成的元组(&lt;code class=&quot;highlighter-rouge&quot;&gt;struct.unpack&lt;/code&gt;),还有一些函数用于执行反向转换,把元组转换成字节序列(&lt;code class=&quot;highlighter-rouge&quot;&gt;struct.pack&lt;/code&gt;).struct模块能处理bytes,bytearray和memoryview对象&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
 Out[62]: (12, 13)
 
 In [63]: struct.pack('ii',12,13)
@@ -555,19 +547,17 @@ Out[77]: (b'GIF', b'89a', 400, 400)
 In [78]: del header
 
 In [79]: del img
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;3.python自带了超过100种编解码器,用于在文本和字节之间相互转换.每个编解码器都有一个名称,如’utf_8’,而且经常有几个别名,如’utf8’,’utf-8’,’U8’.&lt;/p&gt;
 
 &lt;p&gt;4.python3允许在源码中使用非ascii标识符.有些人不喜欢这么做.支持始终使用ascii标识符的人认为,这样便于所有人阅读和编辑代码.这些人没切中要害:源码应该便于目标群体阅读和编辑,而不是”所有人”.如果代码属于跨国公司,或者是开源的,想让来自世界各地的人作贡献,那么标识符应该使用英语,也就是说只能使用ascii字符.但是,如果你是巴西的一位老师,那么使用葡萄牙语正确拼写变量和函数名更便于学生阅读代码&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [81]: 笔='钢笔'
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [81]: 笔='钢笔'
 
 In [82]: print(笔)
 钢笔
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;5.utf8的一在优势是,不管设备使用哪种字节序(大端或小端),生成的字节序列始终一致,因此不需要BOM(在文件头部的字节序标记,一些编辑器会给文件加BOM,如notepad).尽管如此,某些windows应用(如notepad)还是会在utf8编码的文件中添加BOM;而且,EXCEL会根据有没有BOM确定文件是不是UTF8编码&lt;/p&gt;
 
@@ -575,19 +565,18 @@ In [82]: print(笔)
 
 &lt;p&gt;7.&lt;code class=&quot;highlighter-rouge&quot;&gt;eval&lt;/code&gt;会把string表达的内容当作代码执行&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [89]: eval('print(111)')
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [89]: eval('print(111)')
 111
 
 In [90]: a='[1,2]'
 In [91]: eval(a)
 Out[91]: [1, 2]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;8.windows中,&lt;code class=&quot;highlighter-rouge&quot;&gt;locale.getpreferredencoding()&lt;/code&gt;返回的编码是最重要的:这是打开文件的默认编码,也是重定向到文件的sys.stdout/stdin/stderr的默认编码.关于编码默认值的最佳建议是:别依赖默认值&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 28 Feb 2018 00:00:00 +0800</pubDate>
+        <pubDate>Wed, 28 Feb 2018 00:00:00 -0500</pubDate>
         <link>http://3xp10it.cc/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
@@ -606,7 +595,7 @@ Out[91]: [1, 2]
 
 &lt;p&gt;2.字典推导&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
 
 In [3]: country_code={country: code for code,country in dial_codes}
 
@@ -617,8 +606,7 @@ In [5]: country_code={country.upper(): code for code,country in dial_codes}
 
 In [6]: country_code
 Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;3.大多数映射类型都提供了两个很强大的方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;setdefault&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;.setdefault方法可以用来更新字典里存放的可变值(比如列表),从而避免了重复的键搜索.&lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;方法则让批量更新成为可能,它可以用来插入新值或者更新已有键值对,它的参数可以是包含(key,value)这种键值对的可迭代对象,或者关键字参数.&lt;/p&gt;
 
@@ -626,7 +614,7 @@ Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
   &lt;li&gt;dict的setdefault用法&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
 
 In [19]: a.setdefault('test','lalala')
 Out[19]: 'lalala'
@@ -639,14 +627,13 @@ Out[21]: '菜鸟教程'
 
 In [22]: a
 Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;dict的update用法&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [37]: a
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [37]: a
 Out[37]: {'dajiahao': 'shide', 'nihao': 'wohao'}
 
 In [38]: b={'nihao':'lala'}
@@ -662,8 +649,7 @@ In [42]: a.update(b)
 
 In [43]: a
 Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.&lt;/p&gt;
 &lt;ul&gt;
@@ -671,14 +657,13 @@ Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
   &lt;li&gt;b.给自己定义一个dict的子类,然后在子类中实现&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法,如:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class StrKeyDict0(dict):
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class StrKeyDict0(dict):
 
     def __missing__(self,key):
         if isinstance(key,str):
             raise KeyError(key)
         return self[str(key)]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;所有的映射类型在处理找不到的键的时候,都会牵扯到&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法只会被&lt;code class=&quot;highlighter-rouge&quot;&gt;__getitem__&lt;/code&gt;调用(比如在表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;d[k]&lt;/code&gt;中)&lt;/p&gt;
 
@@ -695,7 +680,7 @@ Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
 
 &lt;p&gt;标准库里所有的映射类型都是可变的,但有时候你会有这样的需求,比如不能让用户错误地修改某个映射.从python3.3开始,types模块中引入了一个封装类名叫&lt;code class=&quot;highlighter-rouge&quot;&gt;MappingProxyType&lt;/code&gt;,如果给这个类一个映射,它会返回一个只读的映射视图.虽然是个只读视图,但是它是动态的.如下:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [44]: from types import MappingProxyType
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [44]: from types import MappingProxyType
 
 In [45]: d={1:'A'}
 
@@ -722,8 +707,7 @@ Out[51]: mappingproxy({1: 'A', 2: 'B'})
 
 In [52]: d_proxy[2]
 Out[52]: 'B'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;7.集合&lt;/p&gt;
 
@@ -732,23 +716,22 @@ Out[52]: 'B'
   &lt;li&gt;b.集合的本质是许多唯一对象的聚集.因此,集合可以用于去重:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [58]: a=[1,2,3,2]
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [58]: a=[1,2,3,2]
 
 In [59]: set(a)
 Out[59]: {1, 2, 3}
 
 In [60]: list(set(a))
 Out[60]: [1, 2, 3]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;c.给定两个集合a和b,&lt;code class=&quot;highlighter-rouge&quot;&gt;a|b&lt;/code&gt;返回的是它们的合集,&lt;code class=&quot;highlighter-rouge&quot;&gt;a&amp;amp;b&lt;/code&gt;得到的交集,而&lt;code class=&quot;highlighter-rouge&quot;&gt;a-b&lt;/code&gt;得到的是差集.合理地利用这些操作,不仅能够让代码的行数变少,不能减少python程序的运行时间.这样做同时也是为了让代码更易读,从而更容易判断程序的正确性,因为利用这些运算符可以省去不必要的循环和逻辑操作&lt;/li&gt;
-  &lt;li&gt;d.如果要创建一个空集,必须用不带任何参数的构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set()&lt;/code&gt;.如果写成&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;的形式,跟以前一样,你创建的其实是个空字典.&lt;/li&gt;
-  &lt;li&gt;e.像&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,2,3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;这种字面量句法相比于构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set([1,2,3])&lt;/code&gt;要更快且更易读,原因如下:&lt;/li&gt;
+  &lt;li&gt;d.如果要创建一个空集,必须用不带任何参数的构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set()&lt;/code&gt;.如果写成&lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt;的形式,跟以前一样,你创建的其实是个空字典.&lt;/li&gt;
+  &lt;li&gt;e.像&lt;code class=&quot;highlighter-rouge&quot;&gt;{1,2,3}&lt;/code&gt;这种字面量句法相比于构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set([1,2,3])&lt;/code&gt;要更快且更易读,原因如下:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [61]: from dis import dis
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [61]: from dis import dis
 
 In [62]: dis('{1,2,3}')
   1           0 LOAD_CONST               0 (1)
@@ -765,14 +748,13 @@ In [63]: dis('set([1,2,3])')
               8 BUILD_LIST               3
              10 CALL_FUNCTION            1
              12 RETURN_VALUE
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;f.python里没有针对frozenset的特殊字面量句法,只能采用构造方法,如下:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [64]: frozenset([1,2,3])
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [64]: frozenset([1,2,3])
 Out[64]: frozenset({1, 2, 3})
 
 In [69]: frozenset(range(10))
@@ -784,20 +766,18 @@ Out[67]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 In [68]: set(range(10))
 Out[68]: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;集合推导用法,如下:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [70]: {i.upper() for i in 'abc'}
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [70]: {i.upper() for i in 'abc'}
 Out[70]: {'A', 'B', 'C'}
 
 In [71]: {i.upper() for i in ['a','b','c']}
 Out[71]: {'A', 'B', 'C'}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;8.dict和set的速度很快,如果在你的程序里有任何的磁盘输入/输出,那么不管查询有多少个元素的字典或集合,所耗费的时间都能忽略不计(前提是字典或集合不超过内存大小)&lt;/p&gt;
 
@@ -833,7 +813,7 @@ Out[71]: {'A', 'B', 'C'}
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Mon, 26 Feb 2018 00:00:00 +0800</pubDate>
+        <pubDate>Mon, 26 Feb 2018 00:00:00 -0500</pubDate>
         <link>http://3xp10it.cc/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
