@@ -139,11 +139,10 @@
 
 <p><a href="https://stackoverflow.com/questions/21736970/using-requests-module-how-to-handle-set-cookie-in-request-response">python中自动处理cookie的方法</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>with requests.Session() as s:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with requests.Session() as s:
     r = s.get(URL1)
     r = s.post(URL2, data="username and password data payload")
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

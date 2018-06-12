@@ -149,7 +149,7 @@
 
 <h5 id="detail-1">Detail</h5>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#f::switchToFirefox()
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#f::switchToFirefox()
 switchToFirefox(){
 sendinput, {SC0E8} ;scan code of an unassigned key. Do I NEED this?
 IfWinNotExist, ahk_class MozillaWindowClass
@@ -177,8 +177,7 @@ if WinActive("ahk_exe explorer.exe")
 else
 	WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>ahk脚本代码地址在<a href="https://github.com/3xp10it/ahk">这里</a></p>
 

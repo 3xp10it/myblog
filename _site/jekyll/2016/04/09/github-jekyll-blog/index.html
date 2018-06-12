@@ -119,7 +119,7 @@
 
         <span itemprop="articleBody"><h1 id="0x01-useful-links-to-learn">0x01 useful links to learn</h1>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>https://www.zhihu.com/question/20223939
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.zhihu.com/question/20223939
 https://github.com/jacobtomlinson/carte-noire
 https://www.tuicool.com/articles/RZbEV3
 https://help.github.com/articles/configuring-jekyll/
@@ -133,8 +133,7 @@ https://pikipity.github.io/blog/kramdown-syntax-chinese-2.html   kramdown语法
 https://platinhom.gitcafe.io/2015/11/06/Kramdown-note/           kramdown语法
 https://ruby-china.org/topics/14005                     web中文字体应用指南(i use 文泉驿等宽正黑 )
 https://platinhom.github.io/2015/06/06/Markdown-note/    kramdown-note
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>From those links,I learned those steps(assume with jekyll installed):</p>
 
@@ -149,10 +148,9 @@ https://platinhom.github.io/2015/06/06/Markdown-note/    kramdown-note
 <h4 id="4cp-carte-noire-myblog">4&gt;cp carte-noire/*/ myblog</h4>
 
 <h4 id="5vim-myblogcssstylescssmy-modified-stylescss-file-in-the-below">5&gt;vim myblog/css/style.scss(my modified style.scss file in the below)</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>https://raw.githubusercontent.com/3xp10it/blog_backup/master/css/style.scss
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://raw.githubusercontent.com/3xp10it/blog_backup/master/css/style.scss
 &gt;however,I do not know how to change highlight code block's font,I tried to make it by modifying css file,it did not work,till now the font of code block looks ugly.  
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="6vim-myblog_posts2016-04-09-github-jekyll-blogmd">6&gt;vim myblog/_posts/2016-04-09-github-jekyll-blog.md</h4>
 
@@ -173,7 +171,7 @@ https://platinhom.github.io/2015/06/06/Markdown-note/    kramdown-note
 <p><em>Notice</em>,we need not to checkout --orphan gh-pages like some blogs telled us to ,a master branch is enough to do it.There is a .gitignore file in myblog/.gitignore (copied from carte-noire) which ignores _sites folder when git myblog/ to github as a blog_backup
 (https://github.com/3xp10it/blog_backup).From then on,when I update new articles,I could only update 3xp10it.github.io repository,and take blog_badkup repository as a backup on github.So,later if I need add new article to 3xp10it.github.io,I will do:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>vim myblog/_posts/newarticle.md(file name in 201x-0x-0x-xxx-xxx.md format)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim myblog/_posts/newarticle.md(file name in 201x-0x-0x-xxx-xxx.md format)
 cd myblog
 rm -r _site
 jekyll serve --watch(or jekyll build,jekyll serve contains jekyll build function)
@@ -188,8 +186,7 @@ git commit -a -m "update articles"
 git remote add origin https://github.com/3xp10it/3xp10it.github.io.git
 git push -u origin master
 rm -r ../tmp
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="0x04-update">0x04 Update</h1>
 <h2>16-04-13</h2>
@@ -205,27 +202,24 @@ rm -r ../tmp
 <p><br />
 1&gt;@media:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>in css/style.scss file,when my screen is large screen,if there is no lg attribute in @media parameters but has sm(small) attribute or other attribute belongs to @media,the result will follow sm value or other attribute of @media  
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>in css/style.scss file,when my screen is large screen,if there is no lg attribute in @media parameters but has sm(small) attribute or other attribute belongs to @media,the result will follow sm value or other attribute of @media  
+</code></pre></div></div>
 <p><br />
 2&gt;css/style.scss:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> .index -&gt; 1000px -&gt; decide index.html's width
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> .index -&gt; 1000px -&gt; decide index.html's width
  .article -&gt; @media -&gt; width:50% margin-left:25%   -&gt; decide post.html's width
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>3&gt;to modify html:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>the best way is: use firebug to view element and find css file belongs to the html,then modify it  
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the best way is: use firebug to view element and find css file belongs to the html,then modify it  
+</code></pre></div></div>
 
 <p>4&gt;col-md-12,col-md-6 col-md-6,col-md-1 col-md-11</p>
 <h2>16-04-17</h2>
 <h4>1&gt;添加背景音乐并实现切换页面时音乐连续不重播</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>to achieve this function:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>to achieve this function:
 cd myblog
 cp index.html index_bak.html
 jekyll serve --watch
@@ -258,12 +252,11 @@ vi index.html
    <span class="nt">&lt;/html&gt;</span>
 --------------content-------------
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4>2&gt;update blog command</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cd myblog
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd myblog
 vi _posts/newblog.md(filename format eg.2016-01-01-xx.md)
 mv index.html tmp.html
 cp index_bak.html index.html
@@ -280,24 +273,22 @@ cd myblog
 vi _posts/newblog.md(filename format eg.2016-01-01-xx.md)
 pkill jekyll
 cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><em>notice</em>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>main command:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main command:
 cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html
 in main command start a sh subcommond: 
 sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" 
 1.this subcommond is started by the main commond in the gnome-terminal,"exit" only means exit the main command from a gnome-terminal
 2.though the gnome-terminal is closed,the "jekyll serve --watch" in the subcommand still works.This may be caused by the special command of jekyll,jekyll command may start a system background commnad.So after the main commnd,there is always a "jekyll serve --watch" running in the background
 3.if I need to update some articles,I should exucete "pkill jekyll" and then execute the main command again,otherwise I will get a address and port bind twice error
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>so the final update comannds are:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cd myblog
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd myblog
 vi _posts/newblog.md
 
 A plan:
@@ -322,22 +313,20 @@ A plan:
 B plan!!!:
 mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; cp -r ../myblog/_site/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update articles" &amp;&amp; git remote add origin https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo ok
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2>16-04-19</h2>
 <h4 style="color:red">实现每次进入主页后循环随机播放背景音乐</h4>
 <p>1&gt;原来bgmusic.html代码如下:</p>
 
-<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;embed</span> <span class="na">src=</span><span class="s">"list.m3u"</span> <span class="na">autostart=</span><span class="s">"true"</span> <span class="na">volume=</span><span class="s">"50"</span> <span class="na">loop=</span><span class="s">"true"</span> <span class="na">height=</span><span class="s">"1"</span> <span class="na">width=</span><span class="s">"1"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2&gt;换成如下代码,将原bgmusic.html废弃,另存为bgmusic.html.version1,同目录下list.m3u文件也废弃</p>
 
-<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;audio</span> <span class="na">id=</span><span class="s">"myaudio"</span><span class="nt">&gt;&lt;/audio&gt;</span>
 <span class="nt">&lt;script </span><span class="na">language=</span><span class="s">"javascript"</span><span class="nt">&gt;</span>
 <span class="kd">var</span> <span class="nx">list</span><span class="o">=</span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
@@ -377,53 +366,46 @@ mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https:
 <span class="p">}</span>
 <span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3&gt;<em>Notice</em></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> 1&gt;&gt;经过试验发现:上面的javascript中只能用&lt;audio&gt;标签,不能用&lt;embed&gt;标签
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 1&gt;&gt;经过试验发现:上面的javascript中只能用&lt;audio&gt;标签,不能用&lt;embed&gt;标签
  2&gt;&gt;document.write方法似乎只能用一次,所以最后不用document.write的代码(上面/*...*/中的代码)
  3&gt;&gt;上面的javascript中可firefox,chrome都实现播放音乐列表功能,且可以实现随机播放,原来的&lt;embed&gt;标签加m3u文件的代码只能firefox下播音乐列表,且不能随机播放
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2>16-05-21</h2>
 <h4 style="color:red">简化每次更新操作</h4>
 <p>1&gt;在本地myblog目录下新建updatelocal.sh实现本地文件更新:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pkill jekyll;sleep 3 &amp;&amp; cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html &amp;&amp; echo congratulations! commands execute ok to here!
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkill jekyll;sleep 3 &amp;&amp; cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html &amp;&amp; echo congratulations! commands execute ok to here!
+</code></pre></div></div>
 
 <p>2&gt;在本地myblog目录下新建updateremote.sh实现git远程文件文件更新:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; cp -r ../myblog/_site/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update articles" &amp;&amp; git remote add origin https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo congratulations! commands execute ok to here!
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; cp -r ../myblog/_site/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update articles" &amp;&amp; git remote add origin https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo congratulations! commands execute ok to here!
+</code></pre></div></div>
 
 <p>3&gt;在本地myblog目录下新建updateall.sh实现本地和远程的文件更新</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pkill jekyll;sleep 3 &amp;&amp; cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html &amp;&amp; echo congratulations! commands execute ok to here!
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkill jekyll;sleep 3 &amp;&amp; cp index.html tmp.html &amp;&amp; cp index_bak.html index.html &amp;&amp; sh -c "rm -r _site/ &amp; jekyll serve --watch &amp; sleep 3 &amp;&amp; exit" &amp;&amp; cp _site/index.html index2.html &amp;&amp; cp tmp.html index.html &amp;&amp; echo congratulations! commands execute ok to here!
 mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; cp -r ../myblog/_site/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update articles" &amp;&amp; git remote add origin https://github.com/3xp10it/3xp10it.github.io.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo congratulations! commands execute ok to here!
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2>16-07-28</h2>
 <h4 style="color:red">简化每次更新操作</h4>
 <p>4&gt;在本地myblog目录下新建updatebak.sh实现远程博客备份</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/blog_backup.git &amp;&amp; cp -r ../myblog/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update blog_backup" &amp;&amp; git remote add origin https://github.com/3xp10it/blog_backup.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo congratulations! commands execute ok to here!
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ../tmp &amp;&amp; cd ../tmp &amp;&amp; git init &amp;&amp; git pull https://github.com/3xp10it/blog_backup.git &amp;&amp; cp -r ../myblog/* . &amp;&amp; git status &amp;&amp; git add . &amp;&amp; git status &amp;&amp; git commit -a -m "update blog_backup" &amp;&amp; git remote add origin https://github.com/3xp10it/blog_backup.git &amp;&amp; git push -u origin master &amp;&amp; rm -r ../tmp &amp;&amp; echo congratulations! commands execute ok to here!
+</code></pre></div></div>
 
 <h2>16-07-30</h2>
 <h4 style="color:red">简化每次更新操作</h4>
 <p>5&gt;简化以上所有更新操作并实现换电脑快速还原github上博客至本地</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>最新更新方法见下面文章链接
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>最新更新方法见下面文章链接
+</code></pre></div></div>
 <p><a href="http://3xp10it.github.io/jekyll/2016/07/30/update-blog-update-script/">文章链接</a></p>
 
 </span>
