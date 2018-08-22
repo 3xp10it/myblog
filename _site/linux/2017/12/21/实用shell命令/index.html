@@ -156,18 +156,19 @@
 
 <p>1.查找当前目录下包括子目录内所有的包含’def’字符串的python文件,并删除这些文件</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name "*.py" | xargx ack -ri 'def' | xargs rm
+<div class="highlighter-rouge"><pre class="highlight"><code>find . -name "*.py" | xargx ack -ri 'def' | xargs rm
 或者
 for file in $(find . -name "*.py");do ack -il 'def' $file &amp;&amp; rm $file;done
 或者
 for file in $(find . -name "*.py" | xargs ack -li 'def');do rm $file;done
 或者
 for file in $(find . -name "*.py");do ack -il 'def' $file;doen | xargs rm
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.查找当前目录下包括子目录内所有的临时文件(.swp,.swm,.swn,.swo等,但不包括.swf),并删除这些文件</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>macOS下:
+<div class="highlighter-rouge"><pre class="highlight"><code>macOS下:
 
 find -E . -regex ".+\.sw[^f]$" 2&gt;/dev/null | xargs rm
 或
@@ -178,14 +179,16 @@ find -E . -regex ".+\.sw[^f]$" 2&gt;&amp;1 | grep -v "Permission denied" | xargs
 
 普通linux下:
 find . -regextype posix-extended -regex ".+\.sw[^f]$" | grep -v "Permission denied" | xargs rm
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3.将godseyedb数据库中的targets表名中的所有可以匹配’.*scaned$’正则的列名所在的列的值全部修改为’0’</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for colname in $(mysql -uroot -proot -e "select column_name from information_schema.columns where table_name='targets' and column_name regexp '.*scaned$'" | ack '\S+scaned$');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
+<div class="highlighter-rouge"><pre class="highlight"><code>for colname in $(mysql -uroot -proot -e "select column_name from information_schema.columns where table_name='targets' and column_name regexp '.*scaned$'" | ack '\S+scaned$');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
 或者
 for colname in $(mysql -uroot -proot -e "use godseyedb;desc targets" | ack -o '\S+scaned(?=\s)');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

