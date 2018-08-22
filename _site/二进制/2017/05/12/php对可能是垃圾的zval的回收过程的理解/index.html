@@ -115,18 +115,17 @@
 
         <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;本文记录对php的对可能是垃圾的zval的回收过程的理解
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;本文记录对php的对可能是垃圾的zval的回收过程的理解
 2&gt;必读link:
     http://www.freebuf.com/vuls/122938.html
 3&gt;测试环境:php5.4.34(php5.3之后的垃圾回收机制)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="detail">Detail</h3>
 
 <h4 id="0x01-不同的说法">0x01 不同的说法</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>认为上面link中的以下说法不对:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>认为上面link中的以下说法不对:
 ------------refer-----------
 首先用zval_mark_grey把外部数组标记为灰色.
 对外部数组的子节点即ArrayObject对象标记为灰色refcount减一,此时ArrayObject的refcount为0.
@@ -165,12 +164,11 @@ D:遍历zval节点,将C中标记成白色的节点zval释放掉.
 单独的一条链.深度优先搜索沿着HTML文件上的超链走到不能再深入为止,然后返回到某一个HTML文件,再继续选择该HTML文件中的
 其他超链.当不再有其他超链可选择时,说明搜索已经结束.
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x02-处理过程">0x02 处理过程</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>上面link(http://www.freebuf.com/vuls/122938.html)中的代码如下:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>上面link(http://www.freebuf.com/vuls/122938.html)中的代码如下:
 
 &lt;?php
 $serialized_string = 'a:1:{i:1;C:11:"ArrayObject":37:{x:i:0;a:2:{i:1;R:4;i:2;r:1;};m:a:0:{}}}';
@@ -251,8 +249,7 @@ array(2)[也即inner_array]对应的zval是不是一个垃圾zval的流程,易�
 
 本文讲的主要是gc_collect_cycles()的意图流程,http://www.freebuf.com/vuls/122938.html中的漏洞成因是因为相关php版本
 的实际处理细节与这里讲的意图流程不同导致.
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
