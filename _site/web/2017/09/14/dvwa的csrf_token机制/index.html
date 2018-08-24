@@ -119,7 +119,7 @@
 
 <p>dvwa设置level为impossible后服务端验证(由form action中的地址对应的页面进行验证)客户端传来的csrf_token的过程如下:(以xss[reflected]和login页面为例,dvwa中的login.php和xss_r中的form action中的url都是当前页面)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;body&gt;</span>
     加载impossible.php
     impossible.php执行内容流程:
@@ -129,19 +129,17 @@
     取出新的csrf_token到html的body
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>其中刷新服务器存储的csrf_token的代码如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
      if( isset( $_SESSION[ 'session_token'  ]  )  ) {                                                                                                         
          destroySessionToken();                                                                                                                            
      }                                                                                                                                                     
      $_SESSION[ 'session_token'  ] = md5( uniqid()  );                                                                                                       
 } 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在上面的验证csrf_token中,xss[reflected]是先判断是否传入name参数,也即如果
 在url中出现name参数,无论是否为空都将进行csrf_token验证(服务器中用的isset($_POST[‘name’])来判断)
