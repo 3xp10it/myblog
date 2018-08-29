@@ -5,9 +5,29 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Aug 2018 05:14:36 -0400</pubDate>
-    <lastBuildDate>Tue, 28 Aug 2018 05:14:36 -0400</lastBuildDate>
+    <pubDate>Tue, 28 Aug 2018 21:25:37 -0400</pubDate>
+    <lastBuildDate>Tue, 28 Aug 2018 21:25:37 -0400</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>web安全测试常规流程</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;[新手篇，老鸟飞]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/paper/blob/master/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 28 Aug 2018 00:00:00 -0400</pubDate>
+        <link>http://3xp10it.cc/web/2018/08/28/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/08/28/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B/</guid>
+        
+        <category>安全测试</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>利弗莫尔操盘规则</title>
@@ -579,243 +599,6 @@ Out[91]: [1, 2]
         <pubDate>Wed, 28 Feb 2018 00:00:00 -0500</pubDate>
         <link>http://3xp10it.cc/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>流畅的python第3章笔记</title>
-        <description>&lt;h3 id=&quot;字典和集合&quot;&gt;字典和集合&lt;/h3&gt;
-
-&lt;p&gt;1.散列表是字典类型性能出众的根本原因&lt;/p&gt;
-
-&lt;p&gt;2.字典推导&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
-
-In [3]: country_code={country: code for code,country in dial_codes}
-
-In [4]: country_code
-Out[4]: {'US': 1, 'china': 86, 'india': 91}
-
-In [5]: country_code={country.upper(): code for code,country in dial_codes}
-
-In [6]: country_code
-Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;3.大多数映射类型都提供了两个很强大的方法:&lt;code class=&quot;highlighter-rouge&quot;&gt;setdefault&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;.setdefault方法可以用来更新字典里存放的可变值(比如列表),从而避免了重复的键搜索.&lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;方法则让批量更新成为可能,它可以用来插入新值或者更新已有键值对,它的参数可以是包含(key,value)这种键值对的可迭代对象,或者关键字参数.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;dict的setdefault用法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
-
-In [19]: a.setdefault('test','lalala')
-Out[19]: 'lalala'
-
-In [20]: a
-Out[20]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
-
-In [21]: a.setdefault('runoob','lalala')
-Out[21]: '菜鸟教程'
-
-In [22]: a
-Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;dict的update用法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [37]: a
-Out[37]: {'dajiahao': 'shide', 'nihao': 'wohao'}
-
-In [38]: b={'nihao':'lala'}
-
-In [39]: a.update(b)
-
-In [40]: a
-Out[40]: {'dajiahao': 'shide', 'nihao': 'lala'}
-
-In [41]: b={'sho':'lll'}
-
-In [42]: a.update(b)
-
-In [43]: a
-Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;a.通过&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.defaultdict&lt;/code&gt;这个类型而不是普通的dict&lt;/li&gt;
-  &lt;li&gt;b.给自己定义一个dict的子类,然后在子类中实现&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法,如:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class StrKeyDict0(dict):
-
-    def __missing__(self,key):
-        if isinstance(key,str):
-            raise KeyError(key)
-        return self[str(key)]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;所有的映射类型在处理找不到的键的时候,都会牵扯到&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.&lt;code class=&quot;highlighter-rouge&quot;&gt;__missing__&lt;/code&gt;方法只会被&lt;code class=&quot;highlighter-rouge&quot;&gt;__getitem__&lt;/code&gt;调用(比如在表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;d[k]&lt;/code&gt;中)&lt;/p&gt;
-
-&lt;p&gt;5.字典的变种&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.OrderdDict&lt;/code&gt;:这个类型在添加键的时候会保持顺序,因此键的迭代次序问题一致的.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.ChainMap&lt;/code&gt;:该类型可以容纳数个不同的映射对象,然后在进行键查找操作的时候,这些对象会被当作一个整体被逐个查找,直到键被找到为止.这个功能在给有嵌套作用域的语言做解释器的时候很有用,可以用一个映射对象来代表一个作用域的上下文&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.Counter&lt;/code&gt;:这个映射类型会给键准备一个整数计数器.每次更新一个键的时候都会增加这个计数器&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;collections.UserDict&lt;/code&gt;:这个类其实就是把标准dict用纯python又实现了一遍.就创造自定义映射类型来说,以UserDict为基类,总比普通的dict为基类要来得方便,更倾向于从UserDict而不是从dict继承的主要原因是,后者有时会在某些方法的实现上走一些捷径,导致我们不得不在它的子类中重写这些方法,但是UserDict就不会带来这些问题&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;6.不可变的字典类型&lt;/p&gt;
-
-&lt;p&gt;标准库里所有的映射类型都是可变的,但有时候你会有这样的需求,比如不能让用户错误地修改某个映射.从python3.3开始,types模块中引入了一个封装类名叫&lt;code class=&quot;highlighter-rouge&quot;&gt;MappingProxyType&lt;/code&gt;,如果给这个类一个映射,它会返回一个只读的映射视图.虽然是个只读视图,但是它是动态的.如下:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [44]: from types import MappingProxyType
-
-In [45]: d={1:'A'}
-
-In [46]: d_proxy=MappingProxyType(d)
-
-In [47]: d_proxy
-Out[47]: mappingproxy({1: 'A'})
-
-In [48]: d_proxy[1]
-Out[48]: 'A'
-
-In [49]: d_proxy[2]='x'
----------------------------------------------------------------------------
-TypeError                                 Traceback (most recent call last)
-&amp;lt;ipython-input-49-cb84dba8e1f4&amp;gt; in &amp;lt;module&amp;gt;()
-----&amp;gt; 1 d_proxy[2]='x'
-
-TypeError: 'mappingproxy' object does not support item assignment
-
-In [50]: d[2]='B'
-
-In [51]: d_proxy
-Out[51]: mappingproxy({1: 'A', 2: 'B'})
-
-In [52]: d_proxy[2]
-Out[52]: 'B'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;7.集合&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;a.&lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt;是可变集合,&lt;code class=&quot;highlighter-rouge&quot;&gt;frozenset&lt;/code&gt;是不可变集合,区别在&lt;a href=&quot;http://blog.csdn.net/monkeyduck/article/details/18036381&quot;&gt;这里&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;b.集合的本质是许多唯一对象的聚集.因此,集合可以用于去重:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [58]: a=[1,2,3,2]
-
-In [59]: set(a)
-Out[59]: {1, 2, 3}
-
-In [60]: list(set(a))
-Out[60]: [1, 2, 3]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;c.给定两个集合a和b,&lt;code class=&quot;highlighter-rouge&quot;&gt;a|b&lt;/code&gt;返回的是它们的合集,&lt;code class=&quot;highlighter-rouge&quot;&gt;a&amp;amp;b&lt;/code&gt;得到的交集,而&lt;code class=&quot;highlighter-rouge&quot;&gt;a-b&lt;/code&gt;得到的是差集.合理地利用这些操作,不仅能够让代码的行数变少,不能减少python程序的运行时间.这样做同时也是为了让代码更易读,从而更容易判断程序的正确性,因为利用这些运算符可以省去不必要的循环和逻辑操作&lt;/li&gt;
-  &lt;li&gt;d.如果要创建一个空集,必须用不带任何参数的构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set()&lt;/code&gt;.如果写成&lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt;的形式,跟以前一样,你创建的其实是个空字典.&lt;/li&gt;
-  &lt;li&gt;e.像&lt;code class=&quot;highlighter-rouge&quot;&gt;{1,2,3}&lt;/code&gt;这种字面量句法相比于构造方法&lt;code class=&quot;highlighter-rouge&quot;&gt;set([1,2,3])&lt;/code&gt;要更快且更易读,原因如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [61]: from dis import dis
-
-In [62]: dis('{1,2,3}')
-  1           0 LOAD_CONST               0 (1)
-              2 LOAD_CONST               1 (2)
-              4 LOAD_CONST               2 (3)
-              6 BUILD_SET                3
-              8 RETURN_VALUE
-
-In [63]: dis('set([1,2,3])')
-  1           0 LOAD_NAME                0 (set)
-              2 LOAD_CONST               0 (1)
-              4 LOAD_CONST               1 (2)
-              6 LOAD_CONST               2 (3)
-              8 BUILD_LIST               3
-             10 CALL_FUNCTION            1
-             12 RETURN_VALUE
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;f.python里没有针对frozenset的特殊字面量句法,只能采用构造方法,如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [64]: frozenset([1,2,3])
-Out[64]: frozenset({1, 2, 3})
-
-In [69]: frozenset(range(10))
-Out[69]: frozenset({0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
-
-In [67]: list(range(10))
-Out[67]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-In [68]: set(range(10))
-Out[68]: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;集合推导用法,如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [70]: {i.upper() for i in 'abc'}
-Out[70]: {'A', 'B', 'C'}
-
-In [71]: {i.upper() for i in ['a','b','c']}
-Out[71]: {'A', 'B', 'C'}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;8.dict和set的速度很快,如果在你的程序里有任何的磁盘输入/输出,那么不管查询有多少个元素的字典或集合,所耗费的时间都能忽略不计(前提是字典或集合不超过内存大小)&lt;/p&gt;
-
-&lt;p&gt;9.相比之下,列表慢,列表的背后没有散列表来支持in运算符,每次搜索都需要扫描一次完整的列表,所以慢&lt;/p&gt;
-
-&lt;p&gt;10.字典中的散列表
- python用散列表实现dict类型.散列表其实是一个稀疏数组(总是有空白元素的数组猜测为稀疏数组).在一般的数据结构教材中,散列表里的单元通常叫作表元.在dict的散列表中,每个键值对都占用一个表元,每个表元都有两个部分,一个是对键的引用,另一个是值的引用.因为所有表元的大小一致,所以可以通过偏移量来读取某个表元.如果要把一个对象放入散列表,那么首先要计算这个元素键的散列值.在插入新值时,python可能会按照散列表的拥挤程度来决定是不要重新分配内存为它扩容,如果增加了散列表的大小,那散列值所占的位数和用作索引的位数都会随之增加,这样做的目的是为了减少发生散列冲突的概率&lt;/p&gt;
-
-&lt;p&gt;11.dict的实现及其导致的结果&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1) 键必须是可散列的.一个或散列的对象必须满足以下要求:
-    &lt;ul&gt;
-      &lt;li&gt;a) 支持hash()函数,并且通过__hash__()方法所得到的散列值是不变的&lt;/li&gt;
-      &lt;li&gt;b) 支持通过__eq__()方法来检测相等性&lt;/li&gt;
-      &lt;li&gt;c) 若a==b为真,则hash(a)==hash(b)也为真
-  所有由用户自定义的对象默认都是可散列的,因为它们的散列值由id()来获取,而且它们都是不相等的&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2) 字典在内存上的开销巨大
-  由于字典使用了散列表,而散列表又必须是稀疏的,这导致它在空间上的效率低下.举例而言,如果你需要存放数量巨大的记录,那么放在由元组或具名元组构成的列表中会是比较好的选择;最好不要根据json风格,用由字典组成的列表来存放这些记录.用元组取代字典就能节省空间的原因有两个:其一是避免了散列表所耗费的空间,其二是无需把记录中字段的名字在每个元素里都存一遍.不过,如果机器的内存足够用,还是用字典吧.&lt;/li&gt;
-  &lt;li&gt;3) 键查询很快.dict的实现是典型的空间换时间(内存换查询速度),字典类型有关巨大的内存开销,但它们提供了无视数据量大小的快速访问–只要字典能被装在内存里&lt;/li&gt;
-  &lt;li&gt;4) 键的次序取决于添加顺序.由dict([key1,value1],[key2,value2])和dict([key2,value2],[key1,value1])得到的两个字典,在进行比较的时候,它们是相等的&lt;/li&gt;
-  &lt;li&gt;5) 往字典里添加关机键可能会改变已有键的顺序.无论何时往字典里添加新的键,python解释器都可能做出为字典扩容的决定.扩容导致的结果就是要新建一个更大的散列表,并把字典里已有的元素添加到新表里.这个过程可能会发生新的散列冲突,导致新散列表中键的次序变化.如果你在迭代一个字典的所有键的过程中同时对字典进行修改,那么这个循环很有可能会跳过一些键–甚至是跳过那些字典中已经有的键.由此可知,不要对字典同时进行迭代和修改,如果想扫描并修改一个字典,最好分成不同步来进行:首先对字典迭代,以得出需要添加的内容,把这些内容放在一个新字典里;迭代结束之后再对原有字典进行更新.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;12.set和frozenset的实现也依赖散列表,但在它们的散列表里存放的只有元素的引用(就像在字典里只存放键而没有相应的值).字典和散列表的特点对集合来说几乎都是适用的,如下:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;集合里的元素必须是可散列的&lt;/li&gt;
-  &lt;li&gt;集合很消耗内存&lt;/li&gt;
-  &lt;li&gt;可以很高效地判断元素是不存在于某个集合&lt;/li&gt;
-  &lt;li&gt;元素的次序取决于被添加到集合里的次序&lt;/li&gt;
-  &lt;li&gt;往集合里添加元素,可能会改变集合里已有元素的次序&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Mon, 26 Feb 2018 00:00:00 -0500</pubDate>
-        <link>http://3xp10it.cc/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2018/02/26/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC3%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>python</category>
         
