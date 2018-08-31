@@ -139,6 +139,20 @@
 								
 
 
+								<li><a href="/web/2018/08/31/%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E6%9D%80%E5%8D%A1%E5%B7%B4%E6%96%AF%E5%9F%BA%E8%BF%9B%E7%A8%8B/" ><font color=#C08040><small>2018-08-31</small></font>
+												<font color=#C04040>管理员权限杀卡巴斯基进程</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/web/2018/08/28/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B/" ><font color=#C08040><small>2018-08-28</small></font>
 												<font color=#C04040>web安全测试常规流程</font></a></li>
 								
@@ -157,7 +171,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "1";
+document.getElementById("my_month_article_num_Span1").innerHTML = "2";
 								</script>
 								
 
@@ -505,7 +519,7 @@ document.getElementById("my_month_article_num_Span7").innerHTML = "8";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "20";
+document.getElementById("my_year_article_num_Span1").innerHTML = "21";
 						</script>
 
 
@@ -523,7 +537,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "20";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2017 <span
-									   id="my_year_article_num_Span2">20</span>
+									   id="my_year_article_num_Span2">21</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
