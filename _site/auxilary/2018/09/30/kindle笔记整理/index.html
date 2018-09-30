@@ -113,23 +113,27 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="env">Env</h3>
+        <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<ul>
-  <li>macOS</li>
-</ul>
+<p>kindle的笔记在导出时有重复内容,本文解决去重问题</p>
 
 <h3 id="detail">Detail</h3>
 
 <p>1.在macOS上下载klib用于提取和初步整理kindle设备上的笔记,usb连接kindle和macOS后打开klib并将kindle中的笔记导入klib</p>
 
-<p>2.由于kindle中的笔记不能自动识别重复的内容，通过<a href="https://github.com/3xp10it/mytools/blob/master/tidy_kindle_note.py">tidy_kindle_note.py</a>来进一步整理去重，用法为<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,详细步骤如下：</p>
+<p>2.由于kindle中的笔记不能自动识别重复的内容,通过<a href="https://github.com/3xp10it/mytools/blob/master/tidy_kindle_note.py">tidy_kindle_note.py</a>来进一步整理去重,用法为<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,详细步骤如下:</p>
 
 <ul>
-  <li>在klib中的对应的要使用tidy_kindle_note.py来进行去重的书名上右键，选择复制,如下图：
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/klib.png" alt="klib" /></li>
-  <li>将复制后的内容保存到<code class="highlighter-rouge">/tmp/1</code></li>
-  <li>运行<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,整理好的文件为<code class="highlighter-rouge">/tmp/2</code></li>
+  <li>
+    <p>在klib中,在要整理的笔记对应书名上右键,选择复制,如下图:
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/klib.png" alt="klib" /></p>
+  </li>
+  <li>
+    <p>将复制后的内容保存到<code class="highlighter-rouge">/tmp/1</code></p>
+  </li>
+  <li>
+    <p>运行<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,整理好的文件为<code class="highlighter-rouge">/tmp/2</code>(markdown格式)</p>
+  </li>
 </ul>
 
 </span>
