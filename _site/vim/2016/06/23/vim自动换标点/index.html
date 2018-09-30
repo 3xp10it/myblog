@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><p>将下面复制到vimrc文件中,f2快捷键可将当前文件中标点符号换成英文符号,打开md文件时自动将全文的中文标点符号换成英文符号,用于写md文件时中文标点符号不美观的问题</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>au BufRead *.md call Biaodian() &lt;CR&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>au BufRead *.md call Biaodian() &lt;CR&gt;
 
 map &lt;F2&gt; :call Biaodian() &lt;CR&gt;
 function Biaodian()
@@ -134,7 +134,8 @@ function Biaodian()
     %s/’/'/g
     %s/！/!/g
     endfunction
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         
