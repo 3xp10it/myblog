@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0xff-better">0xff better</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://blog.csdn.net/gqtcgq/article/details/49255995
+<div class="highlighter-rouge"><pre class="highlight"><code>http://blog.csdn.net/gqtcgq/article/details/49255995
 
 http://blog.useasp.net/archive/2014/09/09/packaging-python-libraries-and-upload-to-pypi-python-package-index.aspx
 
@@ -124,22 +124,24 @@ https://stackoverflow.com/questions/7522250/how-to-include-package-data-with-set
 
 制作的模块有其他模块的依赖时
 http://blog.topspeedsnail.com/archives/7380
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x00-about">0x00 about</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>目的:便于关键常用代码的可重用性
+<div class="highlighter-rouge"><pre class="highlight"><code>目的:便于关键常用代码的可重用性
 用法:
     pip3 install exp10it
     from exp10it import *
 说明:最新模块见如下链接
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://github.com/3xp10it/exp10it.git">最新代码</a></p>
 
 <h3 id="0x01-api">0x01 api</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def figlet2file(logo_str,file_abs_path,print_or_not):
+<div class="highlighter-rouge"><pre class="highlight"><code>def figlet2file(logo_str,file_abs_path,print_or_not):
     #输出随机的logo文字到文件或屏幕,第二个参数为任意非文件的参数时(eg.0,1,2),只输出到屏幕
     #apt-get install figlet
     #man figlet
@@ -198,11 +200,12 @@ def newscript():
     #快速写脚本,加logo,写完后可选上传到github
 def blog():
     #便捷写博客(jekyll+github)函数
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-source">0x02 source</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#############################################################</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#############################################################</span>
 <span class="c">### ___ /           _ |  _ \ _) |</span>
 <span class="c">###   _ \\ \  / __ \  | |   | | __|</span>
 <span class="c">###    ) |`  &lt;  |   | | |   | | |</span>
@@ -499,11 +502,12 @@ def blog():
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-模块发布">0x03 模块发布</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;pypi register
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;pypi register
 2&gt;eg.
 mkdir /root/mypypi
 cd /root/mypypi
@@ -575,11 +579,12 @@ vi setup.py
 python setup.py sdist upload
 (upload时会有warning提示没有找到__init__.py文件等,经测试通过pip install exp10it可完美利用,也即此warning可忽略)
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-attention">0x04 Attention</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;python打包模块上传时,打包其他文件夹或文件:
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;python打包模块上传时,打包其他文件夹或文件:
 	新建MANIFEST.in文件,eg.内容如下[graft是包含文件夹]
 		include *.md design.jpg
 		graft cms_identify
@@ -603,7 +608,8 @@ python setup.py sdist upload
 	pip install 无法安装最新python包的时候:pip3 install exp10it -U --no-cache-dir
 3&gt;换了一台机器重新上传模块到pypi时会由于没有用户名密码而错误,解决方法:
 	https://my.oschina.net/letiantian/blog/788056
-</code></pre></div></div>
+</code></pre>
+</div>
 
 </span>
 

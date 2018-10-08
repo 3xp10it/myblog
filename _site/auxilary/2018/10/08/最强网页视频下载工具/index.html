@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>od命令</title>
+<title>最强网页视频下载工具</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -93,13 +93,13 @@
     <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
       
 
-      <h1 class="header" itemprop="name">od命令</h1>
+      <h1 class="header" itemprop="name">最强网页视频下载工具</h1>
 
       <div class="author">
         <small><i>
           
-          on <span itemprop="datePublished" content="2014-08-28">December 25, 2016</span>
-           under crack
+          on <span itemprop="datePublished" content="2014-08-28">October 8, 2018</span>
+           under auxilary
         </i></small>
       </div>
 
@@ -113,23 +113,36 @@
 
         
 
-        <span itemprop="articleBody"><h3 id="0x01-od知识">0x01 OD知识</h3>
+        <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;od调试常见断点及原理
-    http://blog.csdn.net/qq_20977145/article/details/52687730
-2&gt;条件断点,条件记录断点
-    http://blog.csdn.net/hgy413/article/details/7711925
-    条件断点:shift+f2
-    条件记录断点:shift+f4
-</code></pre>
-</div>
+<p>很多网页视频不提供下载功能,如收费视频,流视频(1个视频分成很多份)等,本文记录几乎可以下载任意这种不支持下载的网页视频的工具及方法</p>
 
-<h3 id="0x02-od技巧">0x02 OD技巧</h3>
+<h3 id="detail">Detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;如果有aslr,要调试某个exe,漏洞函数在某个dll中,可以先加载dll,然后在dll中的漏洞函数下断点,然后再加载要调试的exe
-主程序,这样或许可以避开aslr对dll模块基址改变带来的问题从而更好地下断点,未实践.
-</code></pre>
-</div>
+<p>最强下载工具应该是getflv(windows平台),在mac下叫mac video downloader,是个收费软件,比较贵,终身授权版大约2000RMB.目前网上流传的各种破解版的getflv都是没有真正破解的.最强的下载功能就当属于getflv或mac video downloader的video capture功能,也即内置浏览器的视频录制功能(支持后台录制和高清录制),这个功能几乎可以下载网页视频.如下图是mac video downloader3.5.4的截图：</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/mvd1.jpeg" alt="mvd" /></p>
+
+<p>如果资金充足可考虑直接购买终身授权版,本文记录mac video downloader两个破解版本的联合使用来达到下载视频功能的过程。</p>
+
+<h4 id="env">env</h4>
+
+<p>macOS
+mac video downloader3.5.4破解版(未完美破解，只能下载50M视频,Browser功能支持切换user-agent)
+mav video downloader3.3.12.29破解版(未完美破解，Browser功能不支持切换user-agent,但Downloader功能功能没有下载50M的限制)</p>
+
+<p>这两个破解版可在macpeers.com上下载,都不是完美破解版(mac video downloader的video capture功能没有getflv的video capture功能强，主要是mac video downloader的内置浏览器没有做好视频播放的功能，试了下正式版的试用版都不能正常的试用video capture功能，而getflv的试用版可以正常使用).</p>
+
+<h4 id="step1">step1</h4>
+
+<p>使用mac video downloader3.3.12.29的Browser功能打开要下载的视频url,然后切换user-agent为ipad模式(如下截图)，这样就可成功嗅探到下载地址，但是由于不是完美破解版，只能下载50M就不让下了,下载了50M后退出mac video downloader3.3.12.29</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/mvd2.png" alt="mvd2" /></p>
+
+<h4 id="step2">step2</h4>
+
+<p>打开mac video downloader3.5.4破解版,并使用它的Downloader功能继续下载step1中没有下载完的视频，可顺利下载完成</p>
+
 </span>
 
         
@@ -139,7 +152,7 @@
         <div class="tags">
           <small>
           <i class="fa fa-tags"></i>
-            od
+            网页视频下载
           </small>
         </div>
         
