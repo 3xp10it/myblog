@@ -119,7 +119,7 @@
 
 <p>2.字典推导</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
 
 In [3]: country_code={country: code for code,country in dial_codes}
 
@@ -130,8 +130,7 @@ In [5]: country_code={country.upper(): code for code,country in dial_codes}
 
 In [6]: country_code
 Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3.大多数映射类型都提供了两个很强大的方法:<code class="highlighter-rouge">setdefault</code>和<code class="highlighter-rouge">update</code>.setdefault方法可以用来更新字典里存放的可变值(比如列表),从而避免了重复的键搜索.<code class="highlighter-rouge">update</code>方法则让批量更新成为可能,它可以用来插入新值或者更新已有键值对,它的参数可以是包含(key,value)这种键值对的可迭代对象,或者关键字参数.</p>
 
@@ -139,7 +138,7 @@ Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
   <li>dict的setdefault用法</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
 
 In [19]: a.setdefault('test','lalala')
 Out[19]: 'lalala'
@@ -152,14 +151,13 @@ Out[21]: '菜鸟教程'
 
 In [22]: a
 Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>dict的update用法</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [37]: a
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [37]: a
 Out[37]: {'dajiahao': 'shide', 'nihao': 'wohao'}
 
 In [38]: b={'nihao':'lala'}
@@ -175,8 +173,7 @@ In [42]: a.update(b)
 
 In [43]: a
 Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.</p>
 <ul>
@@ -184,14 +181,13 @@ Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
   <li>b.给自己定义一个dict的子类,然后在子类中实现<code class="highlighter-rouge">__missing__</code>方法,如:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class StrKeyDict0(dict):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class StrKeyDict0(dict):
 
     def __missing__(self,key):
         if isinstance(key,str):
             raise KeyError(key)
         return self[str(key)]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>所有的映射类型在处理找不到的键的时候,都会牵扯到<code class="highlighter-rouge">__missing__</code>方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.<code class="highlighter-rouge">__missing__</code>方法只会被<code class="highlighter-rouge">__getitem__</code>调用(比如在表达式<code class="highlighter-rouge">d[k]</code>中)</p>
 
@@ -208,7 +204,7 @@ Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
 
 <p>标准库里所有的映射类型都是可变的,但有时候你会有这样的需求,比如不能让用户错误地修改某个映射.从python3.3开始,types模块中引入了一个封装类名叫<code class="highlighter-rouge">MappingProxyType</code>,如果给这个类一个映射,它会返回一个只读的映射视图.虽然是个只读视图,但是它是动态的.如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [44]: from types import MappingProxyType
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [44]: from types import MappingProxyType
 
 In [45]: d={1:'A'}
 
@@ -235,8 +231,7 @@ Out[51]: mappingproxy({1: 'A', 2: 'B'})
 
 In [52]: d_proxy[2]
 Out[52]: 'B'
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>7.集合</p>
 
@@ -245,23 +240,22 @@ Out[52]: 'B'
   <li>b.集合的本质是许多唯一对象的聚集.因此,集合可以用于去重:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [58]: a=[1,2,3,2]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [58]: a=[1,2,3,2]
 
 In [59]: set(a)
 Out[59]: {1, 2, 3}
 
 In [60]: list(set(a))
 Out[60]: [1, 2, 3]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>c.给定两个集合a和b,<code class="highlighter-rouge">a|b</code>返回的是它们的合集,<code class="highlighter-rouge">a&amp;b</code>得到的交集,而<code class="highlighter-rouge">a-b</code>得到的是差集.合理地利用这些操作,不仅能够让代码的行数变少,不能减少python程序的运行时间.这样做同时也是为了让代码更易读,从而更容易判断程序的正确性,因为利用这些运算符可以省去不必要的循环和逻辑操作</li>
-  <li>d.如果要创建一个空集,必须用不带任何参数的构造方法<code class="highlighter-rouge">set()</code>.如果写成<code class="highlighter-rouge"><span class="p">{}</span></code>的形式,跟以前一样,你创建的其实是个空字典.</li>
-  <li>e.像<code class="highlighter-rouge"><span class="p">{</span><span class="err">1,2,3</span><span class="p">}</span></code>这种字面量句法相比于构造方法<code class="highlighter-rouge">set([1,2,3])</code>要更快且更易读,原因如下:</li>
+  <li>d.如果要创建一个空集,必须用不带任何参数的构造方法<code class="highlighter-rouge">set()</code>.如果写成<code class="highlighter-rouge">{}</code>的形式,跟以前一样,你创建的其实是个空字典.</li>
+  <li>e.像<code class="highlighter-rouge">{1,2,3}</code>这种字面量句法相比于构造方法<code class="highlighter-rouge">set([1,2,3])</code>要更快且更易读,原因如下:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [61]: from dis import dis
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [61]: from dis import dis
 
 In [62]: dis('{1,2,3}')
   1           0 LOAD_CONST               0 (1)
@@ -278,14 +272,13 @@ In [63]: dis('set([1,2,3])')
               8 BUILD_LIST               3
              10 CALL_FUNCTION            1
              12 RETURN_VALUE
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>f.python里没有针对frozenset的特殊字面量句法,只能采用构造方法,如下:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [64]: frozenset([1,2,3])
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [64]: frozenset([1,2,3])
 Out[64]: frozenset({1, 2, 3})
 
 In [69]: frozenset(range(10))
@@ -297,20 +290,18 @@ Out[67]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 In [68]: set(range(10))
 Out[68]: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>集合推导用法,如下:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [70]: {i.upper() for i in 'abc'}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [70]: {i.upper() for i in 'abc'}
 Out[70]: {'A', 'B', 'C'}
 
 In [71]: {i.upper() for i in ['a','b','c']}
 Out[71]: {'A', 'B', 'C'}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>8.dict和set的速度很快,如果在你的程序里有任何的磁盘输入/输出,那么不管查询有多少个元素的字典或集合,所耗费的时间都能忽略不计(前提是字典或集合不超过内存大小)</p>
 
