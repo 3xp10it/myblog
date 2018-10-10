@@ -115,13 +115,12 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>About python tips on "bugs"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>About python tips on "bugs"
+</code></pre></div></div>
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.python2/3在os.path.exists("~/...")时,无法自动识别当前系统的~目录,eg.macOS下的~为/var/root,ubuntu下的~为
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.python2/3在os.path.exists("~/...")时,无法自动识别当前系统的~目录,eg.macOS下的~为/var/root,ubuntu下的~为
 /root,os.path.exists("~/1.txt")不认识~.
 
 后来发现这不是bug,os.path.expanduser("~")可以认识~,http://www.cnblogs.com/xupeizhi/archive/2013/02/20/2918243.html
@@ -130,8 +129,7 @@
 http://stackoverflow.com/questions/14639936/how-to-read-from-file-opened-in-a-mode
 
 3.python正则匹配`r".+"`时会匹配到`\r`,win下的换行符为`\r\n`,如果用`r".+"`来匹配不包含`\r\n`换行符的的内容会匹配到`\r`,一般情况下`\r`是不希望被匹配到的
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

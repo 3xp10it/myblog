@@ -119,19 +119,17 @@
 
 <h3 id="0x01-detail">0x01 detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
 否定顺序环视(?!...)     negtive lookahead   (中文也有翻译成:后向非界定)
 肯定逆序环视(?&lt;=...)    positive lookbehind (中文也有翻译成:前向界定)
 否定逆序环视(?&lt;!...)    negtive lookbehind  (中文也有翻译成:前向非界定)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>从上看出:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>是      =
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>是      =
 不是    !
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在用正则表达式匹配时将待匹配的字符串变量看作是有隐藏位置的字符串,也即将abcd看作|a|b|c|d|,其中|表示一个隐藏位置.
 如果正则表达式中没有上面4种用法则不考虑隐藏的位置,如果有4种任意一种则要考虑隐藏位置,以上4种在匹配时匹配的结果为
@@ -167,10 +165,9 @@
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/vim%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D.png" />
 注意</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.其中上图的倒数第2个应该是:`...\@&lt;!`
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.其中上图的倒数第2个应该是:`...\@&lt;!`
 2.匹配时是正常匹配,不是\v(very magic)模式匹配
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x04-attention">0x04 attention</h3>
 
