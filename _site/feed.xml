@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 08 Oct 2018 20:32:09 +0800</pubDate>
-    <lastBuildDate>Mon, 08 Oct 2018 20:32:09 +0800</lastBuildDate>
+    <pubDate>Wed, 10 Oct 2018 19:30:25 +0800</pubDate>
+    <lastBuildDate>Wed, 10 Oct 2018 19:30:25 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -17,7 +17,7 @@
 
 &lt;h3 id=&quot;detail&quot;&gt;Detail&lt;/h3&gt;
 
-&lt;p&gt;最强下载工具应该是getflv(windows平台),在mac下叫mac video downloader,是个收费软件,比较贵,终身授权版大约2000RMB.目前网上流传的各种破解版的getflv都是没有真正破解的.最强的下载功能就当属于getflv或mac video downloader的video capture功能,也即内置浏览器的视频录制功能(支持后台录制和高清录制),这个功能几乎可以下载网页视频.如下图是mac video downloader3.5.4的截图:&lt;/p&gt;
+&lt;p&gt;最强下载工具应该是getflv(windows平台),在mac下叫mac video downloader,是个收费软件,比较贵,终身授权版大约2000RMB.目前网上流传的各种破解版的getflv都是没有真正破解的.最强的下载功能应当属于getflv或mac video downloader的video capture功能,也即内置浏览器的视频录制功能(支持后台录制和高清录制),这个功能几乎可以下载任意网页视频.如下图是mac video downloader3.5.4的截图:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mvd1.jpeg&quot; alt=&quot;mvd&quot; /&gt;&lt;/p&gt;
 
@@ -27,7 +27,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;mac video downloader3.5.4破解版(未完美破解,只能下载50M视频,Browser功能支持切换user-agent)&lt;/li&gt;
-  &lt;li&gt;mav video downloader3.3.12.29破解版(未完美破解,Browser功能不支持切换user-agent,但Downloader功能功能没有下载50M的限制)&lt;/li&gt;
+  &lt;li&gt;mac video downloader3.3.12.29破解版(未完美破解,Browser功能不支持切换user-agent,但Downloader功能功能没有下载50M的限制)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;这两个破解版可在macpeers.com上下载,都不是完美破解版(mac video downloader的video capture功能没有getflv的video capture功能强,主要是mac video downloader的内置浏览器没有做好视频播放的功能,试了下正式版的试用版都不能正常的试用video capture功能,而getflv的试用版可以正常使用).&lt;/p&gt;
