@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 10 Oct 2018 19:30:25 +0800</pubDate>
-    <lastBuildDate>Wed, 10 Oct 2018 19:30:25 +0800</lastBuildDate>
+    <pubDate>Wed, 10 Oct 2018 19:31:21 +0800</pubDate>
+    <lastBuildDate>Wed, 10 Oct 2018 19:31:21 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -41,6 +41,12 @@
 &lt;h4 id=&quot;step2&quot;&gt;step2&lt;/h4&gt;
 
 &lt;p&gt;打开mac video downloader3.5.4破解版,并使用它的Downloader功能继续下载step1中没有下载完的视频,可顺利下载完成&lt;/p&gt;
+
+&lt;h3 id=&quot;update&quot;&gt;Update&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2018/10/10 后来发现不用上面的2个mac video downloader联合下载的方法,可通过chrome直接用ipad模式联合chrome插件video downloader professional或Video DownloadHelper实现大多数的网页视频下载,但最强的下载功能依然是getflv或mac vedio downloader的video capture功能&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Mon, 08 Oct 2018 00:00:00 +0800</pubDate>
