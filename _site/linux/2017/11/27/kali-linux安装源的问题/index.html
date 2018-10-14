@@ -132,18 +132,20 @@
 
 <p>1.理解debain安装源地址格式语法后,设置正确的源</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali官方debain源:
+<div class="highlighter-rouge"><pre class="highlight"><code>kali官方debain源:
 http://http.kali.org/
 
 需要在sources.list文件中如下设置:
 deb http://http.kali.org/ kali-rolling main contrib non-free
 其中main contrib non-free的顺序可变
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.如果出现<code class="highlighter-rouge">下列签名无效： EXPKEYSIG ED444FF07D8D0BF6 Kali Linux Repository &lt;devel@kali.org&gt;</code>的问题,如下解决</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -q -O - https://archive.kali.org/archive-key.asc  | apt-key add
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>wget -q -O - https://archive.kali.org/archive-key.asc  | apt-key add
+</code></pre>
+</div>
 
 <p>3.<a href="http://blog.csdn.net/theonegis/article/details/59142193">这里</a>的<code class="highlighter-rouge">apt-get update -o Acquire-by-hash=yes -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True</code></p>
 

