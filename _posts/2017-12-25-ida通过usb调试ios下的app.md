@@ -38,6 +38,8 @@ tags:
 
 >`brew install usbmuxd`
 
+附:windows下可参考[这里][17]和[这里][18]
+
 #### 目的
 
 使用ida调试一个ios下的app,找到关键上传步数的函数
@@ -55,7 +57,7 @@ ida调试ios app有两种方法
     + 通过加载(app未运行时)未运行的ios app来调试
     + 调试前不用人工rebase program,ida会自动修改加载基址(要保证用方法二调试前ios app是关闭的,如果用方法二调试前,ios app已经是正在运行的,这种情况下ida不会自动rebase program,这种情况需要手动rebase program.最好每次调试前检查下ida有没有自行修改好加载基址)
 
-#### 方法一
+#### 方法一(pc可为windows或macOS)
 
 ```
 手机上运行目标app:PALxxx
@@ -100,7 +102,7 @@ ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
 在手机上点击上传步数
 ```
 
-#### 方法二
+#### 方法二(要求pc是macOS)
 
 ```
 iphone连上macOS的usb
@@ -619,3 +621,5 @@ cycript -p PALxxx
 [14]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option1.png
 [15]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_debug_option2.png
 [16]: http://www.cycript.org/
+[17]: http://iphonedevwiki.net/index.php/SSH_Over_USB
+[18]: https://blog.csdn.net/dangyalingengjia/article/details/77651737
