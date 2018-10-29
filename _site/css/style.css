@@ -22,7 +22,7 @@ html {
   overflow-x: hidden; }
 
 body {
-  font-family: '文泉驿等宽正黑';
+  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
   font-weight: 300;
   background-color: #1E1E1E;
   color: #CCCCCC;
