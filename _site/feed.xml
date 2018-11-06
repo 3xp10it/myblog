@@ -5,24 +5,9 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Nov 2018 04:19:02 -0500</pubDate>
-    <lastBuildDate>Tue, 06 Nov 2018 04:19:02 -0500</lastBuildDate>
+    <pubDate>Tue, 06 Nov 2018 04:19:45 -0500</pubDate>
+    <lastBuildDate>Tue, 06 Nov 2018 04:19:45 -0500</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
-    
-      <item>
-        <title>tttt</title>
-        <description>&lt;p&gt;test,tttt&lt;/p&gt;
-</description>
-        <pubDate>Tue, 06 Nov 2018 00:00:00 -0500</pubDate>
-        <link>http://3xp10it.cc/auxilary/2018/11/06/tttt/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2018/11/06/tttt/</guid>
-        
-        <category>auxilary</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
     
       <item>
         <title>最强网页视频下载工具</title>
@@ -2522,6 +2507,26 @@ goto start
         <guid isPermaLink="true">http://3xp10it.cc/web/2018/08/31/%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E6%9D%80%E5%8D%A1%E5%B7%B4%E6%96%AF%E5%9F%BA%E8%BF%9B%E7%A8%8B/</guid>
         
         <category>kaspersky</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>web安全测试常规流程</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;[新手篇，老鸟飞]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/3xp10it/paper/blob/master/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 28 Aug 2018 00:00:00 -0400</pubDate>
+        <link>http://3xp10it.cc/web/2018/08/28/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/web/2018/08/28/web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B/</guid>
+        
+        <category>安全测试</category>
         
         
         <category>web</category>
