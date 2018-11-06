@@ -133,11 +133,12 @@
 
 <p>call指令的偏移量计算方法:偏移量=跳转到的地址-call指令后一条指令的起始地址</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
+<div class="highlighter-rouge"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
 0041376b    ...                 ...
 
 e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b+(-0x2586)=0x00411e5
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+装载时重定位(上面必读link中叫load time
 relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
@@ -156,9 +157,10 @@ plt+got来实现pic(pie).plt表中的内容是代码,got表中的内容是数据
 
 <p>7.查看elf有没有开pie可简单通过readelf -l elffile看出,对应如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Elf 文件类型为 DYN (共享目标文件)       ===&gt;对应开启了pie
+<div class="highlighter-rouge"><pre class="highlight"><code>Elf 文件类型为 DYN (共享目标文件)       ===&gt;对应开启了pie
 Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>8.实际情况中,对有PIE保护的elf,ida静态分析时会以加载基址=0加载,angr在加载这样的elf时会以加载基址=0x400000加载到虚
 拟内存中进行符号执行,也即angr会强制将有pie保护的elf加载到0x400000处去,这样就相当于去掉了pie的每次加载基址不同
@@ -173,7 +175,7 @@ Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
 
 <p>printf函数的plt表中内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:080483C0
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:080483C0
 .plt:080483C0 ; =============== S U B R O U T I N E =======================================
 .plt:080483C0
 .plt:080483C0 ; Attributes: thunk
@@ -186,7 +188,8 @@ Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
 .plt:080483C0                 jmp     ds:off_804A000
 .plt:080483C0 _printf         endp
 .plt:080483C0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>printf函数对应的got表中内容如下:</p>
 
@@ -198,8 +201,9 @@ Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
 
 <p>也即在0x804A000这个地址中的值为0x804A030,也即got表中对应内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x804A000:0x804A030
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>0x804A000:0x804A030
+</code></pre>
+</div>
 
 <p>这个0x804A030在运行后会被因为重定位被修改成其他值,因为实际运行时printf函数的地址应该会变成不再是0x404A030了</p>
 
@@ -207,7 +211,7 @@ Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
 
 <p>如果没涉及so函数调用,则只通过链接时重定位即可完成重定位,不需要装载时重定位,由链接器单独完成重定位,下面进入操作</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>works in x86 kali linux
+<div class="highlighter-rouge"><pre class="highlight"><code>works in x86 kali linux
 
 vi a.c
 
@@ -402,11 +406,12 @@ objdump -r a.o
 
     由上看出shared和swap是不同的重定位类型,下面是不同重定位类型的不同计算重定位值的方法.
     容易想到,变量和函数的计算重定位值的算法是不同的,因为函数一般用相对地址,变量用绝对地址.
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc4.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab文件不涉及so的调用,所以链接时重定位就可以完成重定位的工作了,证明如下,在gdb加载ab文件后,分别查看main的地址
+<div class="highlighter-rouge"><pre class="highlight"><code>ab文件不涉及so的调用,所以链接时重定位就可以完成重定位的工作了,证明如下,在gdb加载ab文件后,分别查看main的地址
 ,main+0x28,main+0x34中的内容发现与运行前(链接后)链接器认为的地址一致,具体如下:
 
 gdb ab
@@ -418,7 +423,8 @@ x main+0x28
 x main+0x34
     (gdb) x main+0x34
     0x80480c8 &lt;main+52&gt;:	0x00000016
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-装载时重定位">0x03 装载时重定位</h3>
 
@@ -430,7 +436,7 @@ so符号相关代码的重定位工作,因为在可执行文件加载so前是不
 
 <p>实例:(works in kali x64)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* test.c */
+<div class="highlighter-rouge"><pre class="highlight"><code>/* test.c */
 #include &lt;stdio.h&gt;
 
 void print_banner()
@@ -452,7 +458,8 @@ int main(void)
 
 编译:gcc -Wall -g -o test.o -c test.c -m32
 链接:gcc -o test test.o -m32
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.普通的装载时重定位</p>
 
@@ -470,12 +477,13 @@ int main(void)
 
 <p>在test.c得到的test文件,查看test文件有没有使用到pie(现在gcc一般默认开启了pie选项):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./checksec -f test
+<div class="highlighter-rouge"><pre class="highlight"><code>./checksec -f test
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FORTIFY Fortified Fortifiable  FILE
 Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RUNPATH   No      0       0test
 
 说明开启了pie
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>用ida打开test,双击print_banner函数,可以看到对应的反汇编代码如下:</p>
 
@@ -499,7 +507,7 @@ Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RU
 需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址.如下在test文件中的
 <code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>函数,作用是将下一条指令的地址放到ax中.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>push    ebp
+<div class="highlighter-rouge"><pre class="highlight"><code>push    ebp
 mov     ebp, esp
 push    ebx
 sub     esp, 4
@@ -511,18 +519,20 @@ push    edx             ; s
 mov     ebx, eax
 call    _puts
 add     esp, 10h
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>的实现很简单,如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public __x86_get_pc_thunk_ax
+<div class="highlighter-rouge"><pre class="highlight"><code>public __x86_get_pc_thunk_ax
 __x86_get_pc_thunk_ax proc near
 ; __unwind {
 mov     eax, [esp+0]
 retn
 ; } // starts at 576
 __x86_get_pc_thunk_ax endp
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>c)模块间数据访问</p>
 
@@ -543,13 +553,14 @@ __x86_get_pc_thunk_ax endp
 
 <p>在运行test前,test文件的put函数的plt内容很简单,直接jmp,内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:000003B0                 jmp     ds:off_200C     ; PIC mode
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:000003B0                 jmp     ds:off_200C     ; PIC mode
 .plt:000003B0 _puts           endp
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>实际运行test时,put函数的plt内容会发生变化,变成下面的样子:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:565843B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565843B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565843B0 _puts endp
 .plt:565843B0
 .plt:565843B6
@@ -563,27 +574,29 @@ __x86_get_pc_thunk_ax endp
 
 .plt:565843A0 push    dword ptr [ebx+4]
 .plt:565843A6 jmp     dword ptr [ebx+8]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>也即由jmp ds:off_200c变成jmp dword ptr [ebx+0ch],对应的机器码的变化是:
 由ff 25 0c 20 00 00变成ff a3 0c 00 00 00
 现在感到迷惑了,怎么会这样,plt表中的内容按道理不会变才对(plt表中的内容是代码),按理只有got表中的内容才会改变,使用
 objdump查看下,发现与ida不同</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>objdump -D test
+<div class="highlighter-rouge"><pre class="highlight"><code>objdump -D test
     其中puts函数反汇编内容如下:
     000003b0 &lt;puts@plt&gt;:                                 
      3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
      3b6:   68 00 00 00 00          push   $0x0
      3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;     
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>说明puts函数的plt表项内容没变,而ida中却在test运行前解析成其他内容了,这应该是ida的bug吧(实验中用的是macOS下的ida加
 载的test文件,动态调试时用的是ida远程调试kali x64下的test),但是ida怎么会将[ebx+0ch]解析成ds:off_200c呢?用readelf查
 看下test文件的重定位表如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>readelf -r test
+<div class="highlighter-rouge"><pre class="highlight"><code>readelf -r test
 
 重定位节 '.rel.dyn' 位于偏移量 0x328 含有 8 个条目:
  偏移量     信息    类型              符号值      符号名称
@@ -600,7 +613,8 @@ objdump查看下,发现与ida不同</p>
  偏移量     信息    类型              符号值      符号名称
 0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
 00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>可以看出,其中puts函数的重定位项的偏移量是200c,猜测由于这个elf文件(test文件)有pie属性,而ida加载有pie属性的elf时是以
 <code class="highlighter-rouge">加载基址=0</code>加载的,于是ida解析出这个具有pie属性文件test的代码jmp [ebx+0ch]实际在运行时是jmp到与文件头初始处偏移
@@ -614,7 +628,7 @@ jmp [ebx+0ch]实际上是跳到下一条汇编指令的地址,而重定位后,jm
 <p>动态调试时ida的内容没问题.上面的plt中内容由于是在test未运行时在ida中加载看出的,这种情况”有误”,需要重新查看真实的
 plt表中内容,直接查看运行后的ida中的test文件的plt表的内容:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:565CC3A0 ; ===========================================================================
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 ; ===========================================================================
 .plt:565CC3A0
 .plt:565CC3A0 ; Segment type: Pure code
 .plt:565CC3A0 ; Segment permissions: Read/Execute
@@ -662,11 +676,12 @@ plt表中内容,直接查看运行后的ida中的test文件的plt表的内容:</
 .plt:565CC3C6 push    8
 .plt:565CC3CB jmp     sub_565CC3A0
 .plt:565CC3CB _plt ends
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>objdump -D test中查看更简洁,如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disassembly of section .plt:               
+<div class="highlighter-rouge"><pre class="highlight"><code>Disassembly of section .plt:               
                                                 
 000003a0 &lt;.plt&gt;:                                                  
  3a0:   ff b3 04 00 00 00       pushl  0x4(%ebx)   
@@ -683,16 +698,18 @@ plt表中内容,直接查看运行后的ida中的test文件的plt表的内容:</
  3c0:   ff a3 10 00 00 00       jmp    *0x10(%ebx)
  3c6:   68 08 00 00 00          push   $0x8
  3cb:   e9 d0 ff ff ff          jmp    3a0 &lt;.plt&gt;    
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>在PLT(延迟绑定)中,so中的函数只有在调用时才做重定位,运行时调用so中的函数时一般plt表项内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bar@plt:
+<div class="highlighter-rouge"><pre class="highlight"><code>bar@plt:
 jmp *(bar@GOT)
 push n
 push moduleID
 jmp _dl_runtime_resolve
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
 在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
@@ -713,12 +730,13 @@ jmp _dl_runtime_resolve
 
 <p>a)跳转到plt表之前内容如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.text:565CC53A call    _puts
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>.text:565CC53A call    _puts
+</code></pre>
+</div>
 
 <p>b)上面的<code class="highlighter-rouge">call _puts</code>在ida中f7之后跳转到.plt表,内容如下(eip=0x565cc3b0),对应指令为jmp dword ptr [ebx+0ch]</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>===&gt;EIP=0x565cc3b0
+<div class="highlighter-rouge"><pre class="highlight"><code>===&gt;EIP=0x565cc3b0
 
 .plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565CC3B0 _puts endp
@@ -738,31 +756,34 @@ jmp _dl_runtime_resolve
 .plt:565CC3C6 push    8
 .plt:565CC3CB jmp     sub_565CC3A0
 .plt:565CC3CB _plt ends
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>c)上一步动态调试发现jmp dword ptr [ebx+0xch]实际上就是跳到下一条指令处,也即跳到0x565cc3b6处的push 0,执行完
 0x565cc3b6处的push 0之后会jmp到0x565cc3a0,而这个地址是plt表的起始地址,内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:565CC3A0 push    dword ptr [ebx+4]
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 push    dword ptr [ebx+4]
 .plt:565CC3A6 jmp     dword ptr [ebx+8]
 .plt:565CC3A6 sub_565CC3A0 endp
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>d)在上面c中0x565cc3a6处的ebx+8在ida中的值为0x565ce008,0x565ce008处的内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.got.plt:565CE008 db    0
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
 .got.plt:565CE009 db 0B7h
 .got.plt:565CE00A db 0F5h
 .got.plt:565CE00B db 0F7h
 .got.plt:565CE00C dd offset sub_565CC3B6
 .got.plt:565CE010 dd offset __libc_start_main
 .got.plt:565CE010 _got_plt ends
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>这里是got表项,重定位将修改got表项中的值,目前0x565ce008这个got表项的内容是0xf7f5b700,也即0x565cc3a6处的jmp将跳转到
 0xf7f5b700,0xf7f5b700处的内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ld_2.24.so:F7F5B700 push    eax
+<div class="highlighter-rouge"><pre class="highlight"><code>ld_2.24.so:F7F5B700 push    eax
 ld_2.24.so:F7F5B701 push    ecx
 ld_2.24.so:F7F5B702 push    edx
 ld_2.24.so:F7F5B703 mov     edx, [esp+10h]
@@ -773,7 +794,8 @@ ld_2.24.so:F7F5B711 mov     ecx, [esp]
 ld_2.24.so:F7F5B714 mov     [esp], eax
 ld_2.24.so:F7F5B717 mov     eax, [esp+4]
 ld_2.24.so:F7F5B71B retn    0Ch
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>这应该就是<code class="highlighter-rouge">_dl_runtime_resolve</code>函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
 正在进行puts函数(符号)的重定位,重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址(这是
@@ -781,35 +803,38 @@ ld_2.24.so:F7F5B71B retn    0Ch
 
 <p>e)执行到上面0xf7f5b71b处的retn 0ch后,查看0x565ce008这个got表项内容有没有改变,内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.got.plt:565CE008 db    0
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
 .got.plt:565CE009 db 0B7h
 .got.plt:565CE00A db 0F5h
 .got.plt:565CE00B db 0F7h
 .got.plt:565CE00C dd offset _IO_puts
 .got.plt:565CE010 dd offset __libc_start_main
 .got.plt:565CE010 _got_plt ends
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
 <code class="highlighter-rouge">IOputs</code>,回忆下puts函数的重定位表:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
+<div class="highlighter-rouge"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
  偏移量     信息    类型              符号值      符号名称
 0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
 00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>0x565ce00c实际是test在运行后的200c偏移(test在这次运行中实际加载基址为0x565ce00c-0x200c=0x565cc000),这
 里的sub_565cc3b6实际上是上面c)中的plt表项中的jmp [ebx+0xc]的下一条指令的地址,如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565CC3B6 push    0
 .plt:565CC3BB jmp     sub_565CC3A0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>在上面<code class="highlighter-rouge">_dl_runtime_resolve</code>函数中0xf7f5b71b处的retn 0ch后进入到_<code class="highlighter-rouge">IO_puts</code>函数,内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>libc_2.24.so:F7DB8890 _IO_puts:
+<div class="highlighter-rouge"><pre class="highlight"><code>libc_2.24.so:F7DB8890 _IO_puts:
 libc_2.24.so:F7DB8890 push    ebp
 libc_2.24.so:F7DB8891 mov     ebp, esp
 libc_2.24.so:F7DB8893 push    edi
@@ -822,14 +847,16 @@ libc_2.24.so:F7DB88A4 push    dword ptr [ebp+8]
 libc_2.24.so:F7DB88A7 call    near ptr unk_F7DCECB0
 libc_2.24.so:F7DB88AC mov     edx, [edi+0DFCh]
 libc_2.24.so:F7DB88B2 mov     esi, eax
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>也即<code class="highlighter-rouge">_IO_puts</code>函数的地址为0xf7db8890,也即got表项中0x565ce008+4处的内容由0x565cc3b6变成了0xf7db8890,至此,完成了
 puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
 .plt:565CC3B0 _puts endp
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>只是此时,ebx+0xch的值为0x565ce00c,而0x565ce00c中的内容已经由原来的0x565cc3b6变成了<code class="highlighter-rouge">_IO_puts</code>函数的地址0xf7db8890,
 也就是第一次调用puts函数后,以后从plt表项中的代码jmp到的地方不再会经过<code class="highlighter-rouge">_dl_runtime_resolve</code>函数,而是直接的
@@ -848,7 +875,7 @@ puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,�
 
 <p>查看上面4中跟踪完puts函数的重定位后的.got.plt的内容如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.got.plt:565CE000 assume cs:_got_plt
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE000 assume cs:_got_plt
 .got.plt:565CE000 ;org 565CE000h
 .got.plt:565CE000 _GLOBAL_OFFSET_TABLE_ dd 1EFCh
 .got.plt:565CE004 db  20h
@@ -862,7 +889,8 @@ puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,�
 .got.plt:565CE00C dd offset _IO_puts
 .got.plt:565CE010 dd offset __libc_start_main
 .got.plt:565CE010 _got_plt ends
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>第一项的值为0x565ce000,第二项的值为0xf7f6a920,第三项的值为0xf7f5b700(前3项为公共项),第四项开始为第一个函数项
 (puts函数的地址)</p>

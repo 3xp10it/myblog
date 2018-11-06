@@ -135,7 +135,7 @@
 
 <h4 id="实现一个app上传步数大于5000">实现一个app上传步数大于5000</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@iphone.ip
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone.ip
 wget https://github.com/KJCracks/Clutch/releases/download/2.0.4/Clutch-2.0.4 -O /usr/bin/Cluth
 Cluth -i
 Cluth -d index_number_of_target_app
@@ -161,8 +161,9 @@ dpkg -i xxxx.deb
 运行目标app并点击上传步数
 查看xcode中函数的调用日志如下
 
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nov  6 12:05:32 iPhone PALxxx[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x1708d8f70&gt;: 
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>Nov  6 12:05:32 iPhone PALxxx[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:20[m [0;30;46mDEBUG:[m  = PARSPedometerInfo&lt;0x1708d8f70&gt;: 
 	 integration=0 
 	 iPhone=0 
 	 watch=0 
@@ -191,43 +192,48 @@ Nov  6 12:05:32 iPhone PALxxx[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mT
 	 heartRat=0
 	 at:2017-11-05 16:00:00 +0000
 Nov  6 12:05:32 iPhone PALxxx[4494] &lt;Notice&gt;: [1;36m[xupload] [m[0;36mTweak.xm:12[m [0;30;46mDEBUG:[m -[&lt;PARSPedometerInfo: 0x174ad8100&gt; setIntegratedSteps:2305]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>从上面日志中发现关键函数及参数setIntegratedSteps:2305,于是要hook这个函数并设置参数为大于5000的值.
 回到Tweak.xm中查看这个函数</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig; }
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig; }
+</code></pre>
+</div>
 
 <p>从中看出setIntergratedSteps函数传入了一个参数,参数类型是long long,这也是一种int类型,大小范围是int类型的4倍,直接修改
 成</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%hook PARSPedometerInfo
+<div class="highlighter-rouge"><pre class="highlight"><code>%hook PARSPedometerInfo
 - (void)setIntegratedSteps:(long long )integratedSteps { %log; %orig(15347);  }
 %end
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+<div class="highlighter-rouge"><pre class="highlight"><code>make clean
 make 
 make package
 scp packages/xxx.deb root@iphone.ip:
 ssh root@iphone.ip
 dpkg -P com.yourcompany.xupload
 dpkg -i xxx.deb
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>重新运行目标app并点击上传步数,成功上传,后来分析上面setIntegratedSteps函数调用的参数为integratedSteps函数,也即
 integratedSteps参数的返回值作为setIntegratedSteps函数的参数,也即同样可通过hook integratedSteps函数来实现,分析认为
 integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是上传本地步数.hook integratedSteps函数可如下修改</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>将
+<div class="highlighter-rouge"><pre class="highlight"><code>将
 - (long long )integratedSteps { %log; long long  r = %orig; HBLogDebug(@" = %lld", r); return r; }
 修改为:
 - (long long )integratedSteps { %log; long long  r =15347; return r; }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>或者用cycript更快地调用这个函数:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@iphone_ip
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone_ip
 cycript
 ps aux | grep PALife*
 cycript -p process_id
@@ -238,7 +244,8 @@ choose(PARSPedometerInfo)
     创建方法:myobj=[PARSPedometerInfo alloc]
     然后再[myobj setIntegratedSteps:99998]
 然后在手机上点击上传步数即可
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-注意事项">0x02 注意事项</h3>
 
@@ -247,9 +254,10 @@ bundleid,查看bundleid可在app的安装包的Info.plist文件中得到</p>
 
 <p>2.hook原理理解</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
+<div class="highlighter-rouge"><pre class="highlight"><code>http://blog.l4ys.tw/2017/06/tmctf-2017-rev400/
 https://www.oschina.net/question/565065_68287
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3.如果使用ida pro动态调试ios app,需要设置使用远程gdb server(使用ios debugsever失败),在mac上用ida加载脱壳后的
 mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安装的app应该也可以,未尝试],需要在ida中重新设置加载基址,
@@ -264,7 +272,7 @@ mach-o文件[在iphone上运行的是未脱壳的app,运行脱壳后的重新安
 
 <p>1.ida远程调试ios程序</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a.debugserver
+<div class="highlighter-rouge"><pre class="highlight"><code>a.debugserver
     http://blog.csdn.net/u013538542/article/details/72853521
     http://bbs.iosre.com/t/debugserver-lldb-gdb/65
 b.ios安装gcc,ldid,make
@@ -272,11 +280,12 @@ b.ios安装gcc,ldid,make
 c.调试
     1)http://blog.csdn.net/proteas/article/details/78083512
     2)https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.ios越狱应用开发</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.jianshu.com/p/bc63492e4847
+<div class="highlighter-rouge"><pre class="highlight"><code>http://www.jianshu.com/p/bc63492e4847
 http://www.swiftyper.com/2016/01/25/ios-tweak-install-guide/
 
 破解加密
@@ -327,7 +336,8 @@ hook原理
 
     http://gslab.qq.com/article-164-1.html
     http://www.jianshu.com/p/4f6d20076922
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3.ios逆向工具汇总</p>
 

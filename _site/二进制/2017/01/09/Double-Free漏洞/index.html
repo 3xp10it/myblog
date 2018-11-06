@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-link">0x00 Link</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.Double Free浅析
+<div class="highlighter-rouge"><pre class="highlight"><code>1.Double Free浅析
 http://php.ph/wydrops/drops/Double%20Free%E6%B5%85%E6%9E%90.pdf
 2.freenote_x64堆漏洞double free利用
 http://fanrong1992.github.io/2016/05/26/freenote-x64%E5%A0%86%E6%BC%8F%E6%B4%9Edouble-free%E5%88%A9%E7%94%A8/
@@ -128,13 +128,14 @@ https://www.corelan.be/index.php/security/corelan-ropdb/
 5.目前认为:
     alloc(HeapAlloc,malloc)对应unlink
     free对应link
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-free对应link">0x01 free对应link</h3>
 
 <p><a href="https://github.com/shellphish/how2heap/blob/master/fastbin_dup.c">一个doble free的例子</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------start of fastbin_dup.c-----------------
+<div class="highlighter-rouge"><pre class="highlight"><code>-----------------start of fastbin_dup.c-----------------
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -199,7 +200,8 @@ Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times,
      |______________________________________________________________|
   在第2次free(a)的时候系统看了下最近的在空表上的空闲堆块不是自己,所以情况正常,不会是Double Free,所以第2次
   free(a)正常没有出错
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>上面这个例子放在这里是要说明free对应link,以及野指针的用处,malloc后再free,而free之后没有置Null的指针是野指针,详情可见下面链接,这里
 的代码并没有直观的看出Double Free是如何被利用在控制代码执行流程的
@@ -210,7 +212,7 @@ Now the free list has [ 0x2209420, 0x2209440, 0x2209420 ]. If we malloc 3 times,
 
 <h3 id="0x02-double-free漏洞的利用方法">0x02 Double Free漏洞的利用方法</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>上面Doubl Free栈析链接中对应如下操作:
+<div class="highlighter-rouge"><pre class="highlight"><code>上面Doubl Free栈析链接中对应如下操作:
 
 1.malloc(504)分配第1个堆块,实际分配504+8=512B大小的堆块,在下面标记为504堆块
 2.p=malloc(512)分配第2个堆块,实际分配512+8=520大小的堆块,在下面标记为512堆块
@@ -260,7 +262,8 @@ chunk chunk的指针ptr                                                        c
     空闲的堆块
 
     Double Free可以利用的根源来自于野指针,可以将Double Free看作一种UAF,UAF可以利用的根源也是野指针
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

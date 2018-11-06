@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>about:
+<div class="highlighter-rouge"><pre class="highlight"><code>about:
     解决vim下的中英文输入法切换的问题
 
 测试环境:
@@ -125,11 +125,12 @@
     应用:MacVim(同样适用于vim)
     键盘:HHKB PRO BT(同样适用于普通键盘)
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="highlighter-rouge"><pre class="highlight"><code>
 使用squirrel输入法(笔者使用输入法轨迹:squirrel-&gt;百度五笔-&gt;squirrel)
     在squirrel的配置文件(~/Library/Rime/default.custom.yaml)中设置一个按键绑定为按了esc后使用英文输入:
     {accept: Escape, toggle: ascii_mode, when: always}
@@ -146,11 +147,12 @@ tip:例如笔者的~/Library/Rime/default.custom.yaml文件内容如下设置:
       key_binder:
         bindings:
           - {accept: Escape, toggle: ascii_mode, when: always}
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-tips">0x02 Tips</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---&gt;建议将control键设置为按一下为esc,按住为control&lt;---
+<div class="highlighter-rouge"><pre class="highlight"><code>---&gt;建议将control键设置为按一下为esc,按住为control&lt;---
 
 hint:这样设置的好处太多,macOS下设置方法为使用keyboard maestro设置,如果不会可参考
 http://3xp10it.cc/web/2017/05/20/HHKB-BT键盘设置/
@@ -162,11 +164,12 @@ windows及linux下由于没有keyboard maestro软件所以需要找到替代的�
 的英文输入模式
 2.control的组合键不受影响
 3.这里的建议也可不参考,不影响自动切换中英文输入法的效果
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-快速通道macos-only">0x03 快速通道(macOS only)</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>普通非root用户
+<div class="highlighter-rouge"><pre class="highlight"><code>普通非root用户
 登录进操作系统后运行(图形界面登录)
 wget https://raw.githubusercontent.com/3xp10it/mytools/master/autoSquirrel.py -O /tmp/autoSquirrel.py &amp;&amp; python3 /tmp/autoSquirrel.py
 
@@ -184,15 +187,17 @@ b)再切换成root用户登录进操作系统后(图形界面登录):
 wget https://raw.githubusercontent.com/3xp10it/AutoIM/master/default.custom.yaml -O ~/Library/Rime/default.custom.yaml
 
 c)重新部署squirrel
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-update">0x04 Update</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>由于squirrel突然不好用了，突然变得在中文输入的insert模式下要按2次esc才可到英文输入的normal模式，后来试用了
+<div class="highlighter-rouge"><pre class="highlight"><code>由于squirrel突然不好用了，突然变得在中文输入的insert模式下要按2次esc才可到英文输入的normal模式，后来试用了
 fcitx-vim-osx,效果很好:
 https://github.com/CodeFalling/fcitx-vim-osx
 https://github.com/CodeFalling/fcitx-remote-for-osx
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

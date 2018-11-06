@@ -147,14 +147,15 @@
   <li><code class="highlighter-rouge">description</code>函数能够把对象的内容表示成一个NSString,如<code class="highlighter-rouge">[arg1 description]</code>获取arg1这个对象的对象内容</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%hook SBScreenFlash
+<div class="highlighter-rouge"><pre class="highlight"><code>%hook SBScreenFlash
 - (void)flashColor:(id)arg1 withCompletion:(id)arg2
 {
     %orig;
     NSLog(@"iOSRE: flashColor: %s, %@", object_getClassName(arg1),arg1);//[arg1 description]可以直接写成arg1
 }
 end
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>上面的示例中打印的结果为<code class="highlighter-rouge">iOSRE: flashColor: UICachedDeviceWhiteColor, UIDeviceWhiteColorSpace 1 1</code>,其中<code class="highlighter-rouge">UICachedDeviceWhiteColor</code>是对象类名,<code class="highlighter-rouge">UIDeviceWhiteColorSpace 1 1</code>是对象内容</p>
 
@@ -216,35 +217,39 @@ end
 所有操作数均为32位,所有的结果均为32位,且只能存放在寄存器中
     <ul>
       <li>算术操作
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ADD R0,R1,R2        ;R0=R1+R2
+        <div class="highlighter-rouge"><pre class="highlight"><code>  ADD R0,R1,R2        ;R0=R1+R2
   ADC R0,R1,R2        ;R0=R1+R2+C(arry)
   SUB R0,R1,R2        ;R0=R1-R2
   SBC R0,R1,R2        ;R0=R1-R2-!C
   RSB R0,R1,R2        ;R0=R2-R1
   RSC R0,R1,R2        ;R0=R2-R1-!C
   以"C"(即Carry)结尾的变种代表有进位和借位的加减法,当产生进位或没有借位时,将Carry flag置1
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
       <li>逻辑操作
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  AND R0,R1,R2        ;R0=R1&amp;R2
+        <div class="highlighter-rouge"><pre class="highlight"><code>  AND R0,R1,R2        ;R0=R1&amp;R2
   ORR R0,R1,R2        ;R0=R1|R2
   EOR R0,R1,R2        ;R0=R1^R2
   BIC R0,R1,R2        ;R0=R1&amp;~R2
   MOV R0,R2           ;R0=R2
   MVN R0,R2           ;R0=~R2
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
       <li>比较操作
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  CMP R1,R2           ;执行R1-R2并依据结果设置flag
+        <div class="highlighter-rouge"><pre class="highlight"><code>  CMP R1,R2           ;执行R1-R2并依据结果设置flag
   CMN R1,R2           ;执行R1+R2并依据结果设置flag
   TST R1,R2           ;执行R1&amp;R2并依据结果设置flag
   TEQ R1,R2           ;执行R1^R2并依据结果设置flag
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
       <li>乘法操作
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  MUL R4,R3,R2        ;R4=R3*R2
+        <div class="highlighter-rouge"><pre class="highlight"><code>  MUL R4,R3,R2        ;R4=R3*R2
   MLA R4,R3,R2,R1     ;R4=R3*R2+R1
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
     </ul>
   </li>
@@ -252,29 +257,32 @@ end
 ARM内存操作只有2个基础指令,<code class="highlighter-rouge">LDR</code>(load register)将内存中的数据存到寄存器(cpu),<code class="highlighter-rouge">STR</code>(store register)将寄存器(cpu)中的数据保存到内存.除了LDR和STR外,还可以通过<code class="highlighter-rouge">LDM(load multiple)</code>和<code class="highlighter-rouge">STM(store multiple)</code>进行块传输,一次性操作多个寄存器.需要特别注意的是,LDM和STM的操作方向与LDR和STR完全相反:LDM是把从Rd开始,地址连续的内存数据存入reglist中,STM是把reglist中的值存入从Rd开始,地址连续的内存中.
     <ul>
       <li>LDR
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  LDR Rt,[Rn{,#offset}]       ;Rt=*(Rn{+offset}),{}代表可选
+        <div class="highlighter-rouge"><pre class="highlight"><code>  LDR Rt,[Rn{,#offset}]       ;Rt=*(Rn{+offset}),{}代表可选
   LDR Rt,[Rn,#offset]!        ;Rt=*(Rn+offset);Rn=Rn+offset
   LDR Rt,[Rn,#offset]         ;Rt=*Rn;Rn=Rn+offset
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
       <li>STR
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  STR Rt,[Rn{,#offset}]       ;*(Rn{+offset})=Rt
+        <div class="highlighter-rouge"><pre class="highlight"><code>  STR Rt,[Rn{,#offset}]       ;*(Rn{+offset})=Rt
   STR Rt,[Rn,#offset]!        ;*(Rn{+offset})=Rt;Rn=Rn+offset
   STR Rt,[Rn],#offset         ;*Rn=Rt;Rn=Rn+offset
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
     </ul>
   </li>
   <li>分支指令
     <ul>
       <li>无条件分支
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  B label             ;PC=label
+        <div class="highlighter-rouge"><pre class="highlight"><code>  B label             ;PC=label
   BL label            ;LR=PC-4;PC=label
   BX Rd               ;PC=Rd并切换指令集
-</code></pre></div>        </div>
+</code></pre>
+        </div>
       </li>
       <li>条件分支
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  EQ                  ;Z=1
+        <div class="highlighter-rouge"><pre class="highlight"><code>  EQ                  ;Z=1
   NE                  ;Z=0
   CS                  ;C=1
   HS                  ;C=1
@@ -290,7 +298,8 @@ ARM内存操作只有2个基础指令,<code class="highlighter-rouge">LDR</code>
   LT                  ;N!=V
   GT                  ;Z=0 &amp; n=V
   LE                  ;Z=1 | N!=V
-</code></pre></div>        </div>
+</code></pre>
+        </div>
         <p>例如<a href="http://blog.csdn.net/marc07/article/details/62885832">这里</a>和<a href="http://blog.csdn.net/qq1084283172/article/details/47296931">这里</a></p>
       </li>
     </ul>

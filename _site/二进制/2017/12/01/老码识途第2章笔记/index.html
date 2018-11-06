@@ -123,7 +123,7 @@
 
 <p>3.下面的代码会死循环?</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void main(){
+<div class="highlighter-rouge"><pre class="highlight"><code>void main(){
 int i;
 int a[10];
 for (i=0;i&lt;=10;++i){
@@ -131,7 +131,8 @@ a[i]=0;
 printf("%d\n",i);
 }
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>在debug版本的可执行文件中,i在ebp-4中,而a[10]也在ebp-4中,因为a只定义了长度为10,a[10]为第11个元素,将存放在i相同的位
 置发生:a[10]=0导致i=0,i=0导致无限循环.</p>
@@ -146,12 +147,13 @@ printf("%d\n",i);
 
 <p>4.下面的代码应该怎么改才对?</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void allocateInt(int *i){
+<div class="highlighter-rouge"><pre class="highlight"><code>void allocateInt(int *i){
 int *pi=(int *)malloc(sizeof(int));
 *pi=3;
 *i=pi;
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>在函数内部中看到pi是<code class="highlighter-rouge">int *</code>类型的指针(<code class="highlighter-rouge">*pi=3</code>),而最后的<code class="highlighter-rouge">*i=pi</code>意味着i是<code class="highlighter-rouge">int **</code>类型的指针,也即指向<code class="highlighter-rouge">int *</code>类型指针
 的指针,但是函数的参数声明中声明的是<code class="highlighter-rouge">int *i</code>,即声明i是<code class="highlighter-rouge">int *</code>类型的指针,与函数内部的i的类型不同,于是这个函数有误,

@@ -122,14 +122,15 @@
 
 <h3 id="disclaimer">Disclaimer</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
+<div class="highlighter-rouge"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
 illegal.It is the end user's responsibility to obey all applicable local, state and federal laws.Developers
 assume no liability and are not responsible for any misuse or damage caused by this program.
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="requirement">Requirement</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3
+<div class="highlighter-rouge"><pre class="highlight"><code>python3
 pip3
 works on linux(test on ubuntu and kali2.0,others not test)
 
@@ -151,19 +152,21 @@ kali linux2安装pip3可参考如下步骤:
     echo "deb-src http://security.kali.org/kali-security kali/updates main contrib non-free" &gt;&gt; /etc/apt/sources.list
     apt-get update
     apt-get install python3-pip
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="usage">Usage</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eg:
+<div class="highlighter-rouge"><pre class="highlight"><code>eg:
 1.python3 xwaf.py -u "http://www.baidu.com/1.php?id=1"
 2.python3 xwaf.py -u "http://www.baidu.com/1.php" --data="postdata" -p xxx
 3.python3 xwaf.py -r /tmp/headerfile -p xxx --level 5
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="attention">Attention</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.xwaf支持除-m/-l外的所有sqlmap参数,用法和sqlmap一样即可,-m/-l为批量功能,暂不支持,如果需要批量,请自行code实现
+<div class="highlighter-rouge"><pre class="highlight"><code>1.xwaf支持除-m/-l外的所有sqlmap参数,用法和sqlmap一样即可,-m/-l为批量功能,暂不支持,如果需要批量,请自行code实现
 2.由于xwaf已经有比较好的参数方案,一般情况下尽量少用参数,如果有必须要用的参数除外[如--data/-p/-r等参数]
 3.普通get类型注入点,这样用即可:
   python3 xwaf.py -u "http://www.baidu.com/1.php?id=1&amp;page=2" -p id
@@ -179,11 +182,12 @@ kali linux2安装pip3可参考如下步骤:
   c)使用代理有防封的优点,但网络连接速度不一定能保证
 7.need python3
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="代码流程图">代码流程图</h3>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>以<span class="p">[</span><span class="nv">127.0.0.1/1.php?id=1为例</span><span class="p">]</span>
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>以<span class="p">[</span><span class="nv">127.0.0.1/1.php?id=1为例</span><span class="p">]</span>
 <span class="p">
 1.</span>start
 <span class="p">2.</span>检测系统/root/.sqlmap/output/127.0.0.1/log文件是否存在
@@ -209,11 +213,12 @@ kali linux2安装pip3可参考如下步骤:
 <span class="p">9.</span>获取entries<span class="p">[</span><span class="nv">column对应的真实数据</span><span class="p">]</span>
 	调用get_entries_need_tamper函数,执行完get_entries_need_tamper函数后,waf成功绕过,从上面的步骤一直到
 	这个步骤,逐步获得最佳绕过waf的脚本组合
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="about">About</h3>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">1.</span>xwaf支持记忆,运行中断后下次继续运行时会在中断时的最后一个命令附近继续跑,不会重新经历上面的所有函数的处理
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">1.</span>xwaf支持记忆,运行中断后下次继续运行时会在中断时的最后一个命令附近继续跑,不会重新经历上面的所有函数的处理
 <span class="p">2.</span>xwaf支持sqlmap除-m/-l外的所有参数用法
 <span class="p">3.</span>各个get_xxx_need_tamper函数的处理采用针对当前url的数据库类型(eg.MySQL)的所有过waf的脚本
   (在sqlmap的tamper目录中)的排列组合的结果与--hex或--no-cast选项进行暴力破解如果--hex起作用了则不再使用
@@ -223,11 +228,12 @@ kali linux2安装pip3可参考如下步骤:
 <span class="p">5.</span>在tamper组合中,先用到的tamper会加入到上面的ini文件中,在以后的每个tamper组合中,综合已经得到的有用的
   tamper再组合,在上面的ini文件中的tamper_list即为不断完善的tamper组合
 <span class="p">6.</span>支持自动更新升级,当前版本为1.1
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="changelog">Changelog</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2017-02-13]
+<div class="highlighter-rouge"><pre class="highlight"><code>[2017-02-13]
 更新支持代替sqlmap跑普通没有waf的注入点,之前版本要求只能跑有waf的注入点
 
 [2017-02-13]
@@ -250,14 +256,16 @@ fix line128处的db_name未定义错误
 [2016-11-01]
 get_db_type_need_tamper之后的数据库类型获取由之前的get_db_type_from_log_file改成
 eval(get_key_value_from_config_file(self.log_config_file,'default','db_type'))
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="todo">Todo</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.特殊的access的entries获取的判断及退出[finished]
+<div class="highlighter-rouge"><pre class="highlight"><code>1.特殊的access的entries获取的判断及退出[finished]
 2.代理切换防封[finished]
 3.目前只支持get类型注入的爆破,准备年后支持所有sqlmap参数[finished]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 </span>
 

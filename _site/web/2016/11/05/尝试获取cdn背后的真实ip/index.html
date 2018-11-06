@@ -107,7 +107,7 @@
 
       <div class="read-time">
         <small>
-          11 minute read
+          12 minute read
         </small>
       </div>
 
@@ -121,8 +121,9 @@
 2.linux,ubuntu best,flushdns func test on ubuntu only<br />
 3.usage:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eg.python3 xcdn.py www.baidu.com
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>eg.python3 xcdn.py www.baidu.com
+</code></pre>
+</div>
 
 <p>4.need vpn on[some domain will be blocked by GFW,and this will make the result wrong]</p>
 
@@ -130,7 +131,7 @@
 
 <p>download:<a href="https://raw.githubusercontent.com/3xp10it/mytools/master/xcdn.py">xcdn.py</a></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code>
 <span class="c">#############################################################</span>
 <span class="c">###                                                  </span>
 <span class="c">###   ▄▄▄▄                ▄▄▄     ▄▄▄▄    ▀      ▄   </span>
@@ -217,7 +218,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c"># 下面通过a记录个数来判断,如果a记录个数&gt;1个,认为有cdn</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">get_string_from_command</span><span class="p">(</span><span class="s">"dig a </span><span class="si">%</span><span class="s">s +short"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span>
-            <span class="n">find_a_record_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"((\d{1,3}\.){3}\d{1,3})"</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="n">find_a_record_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"((</span><span class="err">\</span><span class="s">d{1,3}</span><span class="err">\</span><span class="s">.){3}</span><span class="err">\</span><span class="s">d{1,3})"</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">find_a_record_pattern</span><span class="p">:</span>
                 <span class="n">ip_count</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">find_a_record_pattern</span><span class="p">:</span>
@@ -241,7 +242,7 @@
             <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">r"remote_addr"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-                <span class="n">actual_ip</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r"REMOTE_ADDR[^\.\d]+([\d\.]{7,15})[^\.\d]+"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">actual_ip</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r"REMOTE_ADDR[^</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d]+([</span><span class="err">\</span><span class="s">d</span><span class="err">\</span><span class="s">.]{7,15})[^</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d]+"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">actual_ip</span>
         <span class="c"># return 0代表没有通过phpinfo页面得到真实ip</span>
         <span class="k">return</span> <span class="mi">0</span>
@@ -307,7 +308,7 @@
             <span class="n">strings</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="c">#os.system("rm /tmp/masscan.out")</span>
         <span class="kn">import</span> <span class="nn">re</span>
-        <span class="n">allIP</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"((\d{1,3}\.){3}\d{1,3})"</span><span class="p">,</span><span class="n">strings</span><span class="p">)</span>
+        <span class="n">allIP</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"((</span><span class="err">\</span><span class="s">d{1,3}</span><span class="err">\</span><span class="s">.){3}</span><span class="err">\</span><span class="s">d{1,3})"</span><span class="p">,</span><span class="n">strings</span><span class="p">)</span>
         <span class="n">ipList</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">allIP</span><span class="p">:</span>
             <span class="n">ipList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -334,7 +335,7 @@
         <span class="n">root_domain</span> <span class="o">=</span> <span class="n">get_root_domain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span>
         <span class="kn">from</span> <span class="nn">exp10it</span> <span class="kn">import</span> <span class="n">get_string_from_command</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">get_string_from_command</span><span class="p">(</span><span class="s">"dig </span><span class="si">%</span><span class="s">s +short mx"</span> <span class="o">%</span> <span class="n">root_domain</span><span class="p">)</span>
-        <span class="n">sub_domains_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"\d{1,} (.*\.</span><span class="si">%</span><span class="s">s)\."</span> <span class="o">%</span> <span class="n">root_domain</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"."</span><span class="p">,</span> <span class="s">"</span><span class="err">\</span><span class="s">."</span><span class="p">),</span> <span class="n">result</span><span class="p">)</span>
+        <span class="n">sub_domains_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"</span><span class="err">\</span><span class="s">d{1,} (.*</span><span class="err">\</span><span class="s">.</span><span class="si">%</span><span class="s">s)</span><span class="err">\</span><span class="s">."</span> <span class="o">%</span> <span class="n">root_domain</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"."</span><span class="p">,</span> <span class="s">"</span><span class="err">\</span><span class="s">."</span><span class="p">),</span> <span class="n">result</span><span class="p">)</span>
         <span class="n">ip_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">sub_domains_list</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
@@ -366,7 +367,7 @@
         <span class="n">url</span> <span class="o">=</span> <span class="s">"http://www.crimeflare.com/cgi-bin/cfsearch.cgi"</span>
         <span class="n">post_data</span> <span class="o">=</span> <span class="s">'cfS=</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">post_request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_data</span><span class="p">)</span>
-        <span class="n">findIp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r"((\d{1,3}\.){3}\d{1,3})"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+        <span class="n">findIp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r"((</span><span class="err">\</span><span class="s">d{1,3}</span><span class="err">\</span><span class="s">.){3}</span><span class="err">\</span><span class="s">d{1,3})"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">findIp</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">findIp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="mi">0</span>
@@ -412,7 +413,8 @@
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">domain</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">Xcdn</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

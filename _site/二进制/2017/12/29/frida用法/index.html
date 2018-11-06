@@ -145,10 +145,11 @@
 
 <h3 id="0x2-安装">0x2 安装</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install frida
+<div class="highlighter-rouge"><pre class="highlight"><code>pip3 install frida
 或
 从这里下载 https://build.frida.re/frida/
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x3-frida的常见用法">0x3 frida的常见用法</h3>
 
@@ -171,18 +172,19 @@
 
 <p><a href="https://github.com/3xp10it/mytools/blob/master/classes.js">classes.js</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (var className in ObjC.classes)
+<div class="highlighter-rouge"><pre class="highlight"><code>for (var className in ObjC.classes)
     {
         if (ObjC.classes.hasOwnProperty(className))
         {
             console.log(className);
         }
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://github.com/3xp10it/mytools/blob/master/methodsofclass.js">methodofclass.js</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>console.log("[*] Started: Find All Methods of a Specific Class");
+<div class="highlighter-rouge"><pre class="highlight"><code>console.log("[*] Started: Find All Methods of a Specific Class");
 if (ObjC.available)
 {
     try
@@ -211,11 +213,12 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 console.log("[*] Completed: Find All Methods of a Specific Class");
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://github.com/3xp10it/mytools/blob/master/record.js">record.js</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (ObjC.available)
+<div class="highlighter-rouge"><pre class="highlight"><code>if (ObjC.available)
 {
     try
     {
@@ -251,11 +254,12 @@ else
 }
 
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://github.com/3xp10it/mytools/blob/master/overwrite.js">overwrite.js</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (ObjC.available)
+<div class="highlighter-rouge"><pre class="highlight"><code>if (ObjC.available)
 {
     try
     {
@@ -294,7 +298,8 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xa-hook函数">0xa hook函数</h4>
 
@@ -308,15 +313,16 @@ else
 
 <p>之前由于在测试时发现ios objective-c的函数如果有参数,打印参数发现不是真的参数,在hook时修改函数参数也会不成功,<a href="https://github.com/frida/frida/issues/399">详情</a>,于是以为frida有bug,后来发现是参数序号写错了,ida中该函数如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void __cdecl -[PARSPedometerInfo setIntegratedSteps:](PARSPedometerInfo *self, SEL a2, signed __int64 a3)
+<div class="highlighter-rouge"><pre class="highlight"><code>void __cdecl -[PARSPedometerInfo setIntegratedSteps:](PARSPedometerInfo *self, SEL a2, signed __int64 a3)
 {
   self-&gt;_integratedSteps = a3;
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>在上面函数中,a3参数正确的序号是2,(虽然在theos中hook这个函数时只需填写一个参数,[<code class="highlighter-rouge">ObjC: args[0] = self, args[1] = selector, args[2-n] = arguments</code>]),最后代码如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import frida
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
 
 session = frida.get_usb_device().attach(797)
@@ -374,7 +380,8 @@ def on_message(message, data):
 script.on('message', on_message)
 script.load()
 sys.stdin.read()
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xb-记录函数执行日志">0xb 记录函数执行日志</h4>
 
@@ -382,7 +389,7 @@ sys.stdin.read()
 
 <p><code class="highlighter-rouge">frida -U -p pid -l record.js</code>,或用如下python脚本</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import frida
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
 
 session = frida.get_usb_device().attach(797)
@@ -420,13 +427,14 @@ else
 script = session.create_script(script_string)
 script.load()
 sys.stdin.read()
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
 <p><code class="highlighter-rouge">+</code>号开头的函数要<a href="https://www.frida.re/docs/javascript-api/#objc">这样</a>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
+<div class="highlighter-rouge"><pre class="highlight"><code>id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
 {
   __int64 v3; // x20
   void *v4; // x0
@@ -438,7 +446,8 @@ sys.stdin.read()
 [NSString stringWithString:@"Hello World"] 
 becomes 
 var NSString = ObjC.classes.NSString; NSString.stringWithString_("Hello World");
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><code class="highlighter-rouge">-</code>号开头的函数要这样:</p>
 
@@ -456,7 +465,7 @@ var NSString = ObjC.classes.NSString; NSString.stringWithString_("Hello World");
 
 <p>这种情况需要先找出一个类的实例,使用<code class="highlighter-rouge">var tmp=ObjC.chooseSync(ObjC.classes.类名)</code>,在下面的代码中对应<code class="highlighter-rouge">var tmp=ObjC.chooseSync(ObjC.classes.PARSHealthPedometer10thHomeViewController)[0]</code>,其中<code class="highlighter-rouge">[0]</code>表示取找到的实例中的第一个实例,可根据实际情况换成其他的实例</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import frida
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
 import sys
 
 session = frida.get_usb_device().attach(897)
@@ -504,7 +513,8 @@ script = session.create_script(script_string)
 
 script.load()
 sys.stdin.read()
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xd-读写内存">0xd 读写内存</h4>
 
@@ -514,7 +524,7 @@ sys.stdin.read()
 
 <p>可在ida调试ios app时替代vmmap获取加载基址.获取ios app加载基址用法如下:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import frida
+<div class="highlighter-rouge"><pre class="highlight"><code>import frida
 #session = frida.get_usb_device().attach(pid_int_value)
 session = frida.get_usb_device().attach("PALxxx")
 print(session.enumerate_modules())
@@ -526,7 +536,8 @@ import frida
 session = frida.get_usb_device().attach("PALxxx")
 base_addr=session.find_base_address("PALxxx")
 print('0x%x' % base_addr)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>枚举内存范围</li>
@@ -550,9 +561,10 @@ print('0x%x' % base_addr)
 
 <p>为了理解brida,需要理解pyro,参考这两个个连接(<a href="http://blog.csdn.net/xiaolewennofollow/article/details/52155457">1</a>,<a href="http://python.blog.163.com/blog/static/183010453201201145855429/">2</a>)可理解pyro.理解pyro后再理解brida,理解brida后再看看brida中用到的pyro与<a href="http://5alt.me/2017/11/我是如何用hrida自动生成签名的/">这里的hrida</a>,发现只是区别如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brida:通过pyro开启rpc
+<div class="highlighter-rouge"><pre class="highlight"><code>brida:通过pyro开启rpc
 hrida:通过http服务开rpc
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>这里brida和hrida开rpc的意义在于可以给网络上的其他用户使用本地的frida提供的的调用app中函数的的接口,但是frida已经有了rpc,为什么brida和hrida还要重新开rpc呢?因为frida的rpc只能给本地的其他程序使用(frida的rpc功能也可通过动态修改js内容和send修改后的js的执行结果给python来实现,因为frida加载js会热更新,这样修改js时可修改函数调用,并将函数执行结果发送给python),不能给网络上的其他程序使用,brida开rpc的意义不是很大,因为brida开rpc后是给本地的安全人员写的burp插件使用的,除非安全人员有几个好友,这样这些好友之间就可只要求其中一个人开启brida的rpc服务,其他人使用这个人的brida的rpc即可.frida注入app后可通过开rpc给网络上的其他用户提供调用app函数的接口,例如可通过本地frida注入某上传步数的App后将上传步数的接口通过rpc提供给网络上的人使用</p>
 
@@ -583,7 +595,7 @@ hrida:通过http服务开rpc
 
 <p>js文件如下,其中<code class="highlighter-rouge">encrypt</code>函数是一个rsa加密函数:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+<div class="highlighter-rouge"><pre class="highlight"><code>'use strict';
 
 rpc.exports = {
     encrypt: function (plain) {
@@ -594,11 +606,12 @@ rpc.exports = {
             return a + b;
         }
 };
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>burpsuite的repeater中的request内容如下(其中mobilePhone在正常通信时被加密):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /xxx.do HTTP/1.1
+<div class="highlighter-rouge"><pre class="highlight"><code>POST /xxx.do HTTP/1.1
 Host: 127.0.0.1:8888
 Real-Host: xxx.xxx.xxx
 Connection: close
@@ -610,7 +623,8 @@ Content-Type: application/x-www-form-urlencoded
 Content-Length: 993
 
 mobilePhone=17634526787&amp;id=1&amp;b=2
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>运行xenc.py后设置要加密的参数为mobilePhone,且它的加密函数为<code class="highlighter-rouge">encrypt</code>函数(在上面的js中有两个加密函数<code class="highlighter-rouge">encrypt</code>和<code class="highlighter-rouge">add</code>),运行完python3 xenc.py后从burpsuite的repeater中发上面的包并右键通过burpsuite测试有没有漏洞,或者将上面的request内容提供给sqlmap等工具进行测试</p>
 

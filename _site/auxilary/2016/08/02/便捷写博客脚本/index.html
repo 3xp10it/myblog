@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-方便写博客并浏览脚本">0x00 方便写博客并浏览脚本</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------blog.py------------------
+<div class="highlighter-rouge"><pre class="highlight"><code>---------------blog.py------------------
 # -*- coding: utf-8 -*-
 import sys
 reload(sys)
@@ -168,18 +168,20 @@ else:
         os.system("firefox %s" % "http://3xp10it.github.io")
 -----------------end--------------------
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-alias">0x01 alias</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp blog.py /usr/share/
+<div class="highlighter-rouge"><pre class="highlight"><code>cp blog.py /usr/share/
 vi .zshrc
 +alias bl="python /usr/share/blog.py"
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-attention">0x02 attention</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内含sed用多行替换一行的代码：
+<div class="highlighter-rouge"><pre class="highlight"><code>内含sed用多行替换一行的代码：
 os.system("sed '/ - webshell/c\\\n%s' %s &gt; /tmp/1" % (tags_write_to_file,file_abs_path))
 其中tags_list为：
 eg.
@@ -190,7 +192,8 @@ for each in tags_list:
     tags_write_to_file+=(' - '+each+'\\\n')
 tags_write_to_file=tags_write_to_file[:-2]
 
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

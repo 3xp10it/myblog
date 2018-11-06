@@ -117,26 +117,29 @@
 
         <span itemprop="articleBody"><h3 id="disclaimer">Disclaimer</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
+<div class="highlighter-rouge"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
 illegal.It is the end user's responsibility to obey all applicable local, state and federal laws.Developers
 assume no liability and are not responsible for any misuse or damage caused by this program.
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="install">Install</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/3xp10it/3xp10it.git
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/3xp10it/3xp10it.git
+</code></pre>
+</div>
 
 <h3 id="usage">Usage</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash beforeWork.sh[这一步安装相关依赖,第一次使用本工具时需要运行,以后不用再运行]
+<div class="highlighter-rouge"><pre class="highlight"><code>bash beforeWork.sh[这一步安装相关依赖,第一次使用本工具时需要运行,以后不用再运行]
 python3 3xp10it.py[主程序,工作时运行,第一次运行时需要先运行上面的beforeWork.sh]
 python3 web.py[可选,如果运行则要新开一个终端运行以便于查看相关输出信息,该工具为web后台]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="requirement">Requirement</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>need python3
+<div class="highlighter-rouge"><pre class="highlight"><code>need python3
 need pip3
 mysql
 works on linux(test on ubuntu and kali2.0,others not test)
@@ -160,7 +163,8 @@ kali linux2安装pip3可参考如下步骤:
 /etc/apt/sources.list
 	apt-get update
 	apt-get install python3-pip
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="about">About</h3>
 
@@ -183,12 +187,13 @@ kali linux2安装pip3可参考如下步骤:
   <li>webshell自动查找与爆破,支持asp,php,aspx,jsp,支持chopper一句话webshell和大马类型webshell</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)apache,iis,nginx,lighttpd在phpstudy中测试默认可接收1000个post参数  
+<div class="highlighter-rouge"><pre class="highlight"><code>a)apache,iis,nginx,lighttpd在phpstudy中测试默认可接收1000个post参数  
 b)一句话类型webshell根据上面的特点可以正常情况下(单线程)的1000倍速度来爆破,可用大字典爆破,但是不能用多线程,
   可能是因为用多线程会太快而让web server觉得每次的参数不止1000个  
 c)其他类型web server未测试,暂用多线程1倍速爆破,用最常用的webshell较小字典,17659个左右  
 d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆破,于是也用和c)中一样的小字典多线程1倍速爆破  
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>资源文件收集</li>
@@ -203,10 +208,11 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
 模式三:扫描目标和目标的所有旁站和所有子站<br />
 模式四:只扫描目标</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>默认使用模式一扫描[在运行3xp10it后可自选],上面四种模式中的[扫描目标]里的目标支持批量导入多个目标和手工录入多个
+<div class="highlighter-rouge"><pre class="highlight"><code>默认使用模式一扫描[在运行3xp10it后可自选],上面四种模式中的[扫描目标]里的目标支持批量导入多个目标和手工录入多个
 目标.四种工作模式中与旁站和子站相关的由程序自动完成[eg.选择模式三工作时,将自动获取导入的目标的所有旁站和所有子
 站,并对这些旁站和子站依次遍历上面的各个扫描模块]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>d)特点</p>
 
@@ -252,7 +258,7 @@ d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆�
 
 <h3 id="detail">Detail</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.3xp10it需要用到bingapi,需要先申请好bingapi
+<div class="highlighter-rouge"><pre class="highlight"><code>1.3xp10it需要用到bingapi,需要先申请好bingapi
 2.上面的web.py不一定要运行,核心功能在3xp10it.py文件中
 3.如果要后台功能需运行python3 web.py
 4.如果要使用web.py,重新开机后需要重新运行web.py
@@ -295,22 +301,25 @@ c)重新运行python3 web.py
 ├── log[日志文件夹]
 ├── tools[web后台中的各个工具]
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="faq">FAQ</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Q0:config.ini 这个文件怎么没有找到?
+<div class="highlighter-rouge"><pre class="highlight"><code>Q0:config.ini 这个文件怎么没有找到?
 A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bing API key,发邮件的帐号,数据库连接配置,扫描模式
    等信息,一般会在/usr/local/lib/python3.5/dist-packages/config.ini这里,与python3的安装路径有关
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="todo">Todo</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code></code></pre>
+</div>
 
 <h3 id="changelog">Changelog</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[+] 修改exp10it.py中create table %s为create table `%s`[包括其他关于表名处的%s全部换成`%s`],如果没有``将会在表名
+<div class="highlighter-rouge"><pre class="highlight"><code>[+] 修改exp10it.py中create table %s为create table `%s`[包括其他关于表名处的%s全部换成`%s`],如果没有``将会在表名
     为abc-def格式(中间有-符号)情况下建表失败
 [+] 在与获取旁站有关的功能上自动尝试获取cdn后真实ip再获取旁站,如果确定有cdn但是没有获取到真实ip则不再获取假的旁
     站
@@ -321,7 +330,8 @@ A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bin
 [+] 2017-01-08 whois信息收集模块完善
 [+] 2017-01-08 添加端口扫描模块
 [+] 2017-01-08 cdn模块调整
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

