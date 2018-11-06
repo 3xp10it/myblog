@@ -136,31 +136,34 @@ movl表示传送双字(eg,对应eax/ebx)</p>
 
 <p>5.movsbl:将b符号扩展(s)成l格式后再mov到l,movzwl:将w零扩展(z)成l后再mov到l,eg:假设%dh=CD(1100 1101),%eax=98765432</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>movb %dh,%al        %al=%dh=CD,%eax=987654CD
+<div class="highlighter-rouge"><pre class="highlight"><code>movb %dh,%al        %al=%dh=CD,%eax=987654CD
 movsbl %dh,%eax     sbl:%dh-&gt;FFFFCD,%eax=FFFFCD
 movzbl %dh,%eax     zbl:%dh-&gt;0000CD,%eax=0000CD
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>6.左移右移汇编指令</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sal:算术左移
+<div class="highlighter-rouge"><pre class="highlight"><code>sal:算术左移
 shl:逻辑左移
 sar:算术右移
 shr:逻辑右移
 sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0,这个特性使得补码运算
 成为实现有符号整数运算的一种比较好的方法
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>7.c/c++中的goto与汇编中的jmp addr等同,条件数据传送指令比条件控制转移的性能好</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>条件数据传送,eg:
+<div class="highlighter-rouge"><pre class="highlight"><code>条件数据传送,eg:
 cmp %edx,%ecx
 cmovl %ebx,%eax(此处的l代表less,不是att中的movl中的long)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>8.leave+ret恢复栈的状态到调用函数前</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>leave=mov esp,ebp+pop ebp[执行pop ebp后此时esp指向的是old_eip]
+<div class="highlighter-rouge"><pre class="highlight"><code>leave=mov esp,ebp+pop ebp[执行pop ebp后此时esp指向的是old_eip]
 retn n==pop eip+mov esp,esp+4*n+jmp eip
 
 (栈中大地址)
@@ -171,35 +174,39 @@ old_eip     &lt;--对应--&gt;      push old_eip
 old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
 被保存的寄存器,本地变量和临时变量
 (栈中小地地)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>9.寄存器使用惯例</p>
 
 <p>a)eax,edx,ecx被划分为<code class="highlighter-rouge">调用者保存</code>寄存器  [x86-64中变成r10和r11两个寄存器]</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
+<div class="highlighter-rouge"><pre class="highlight"><code>过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
 也即调用者在调用其它函数前会自行保存这些寄存器在调用者的栈桢中,调用完成后会恢复(pop)这些保存过的寄存器
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>b)ebx,esi,edi被划分为<code class="highlighter-rouge">被调用者保存</code>寄存器   [x86-64中变成:rbx,rbp,r12-r15]</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
+<div class="highlighter-rouge"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
 也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>10.被调用的函数的参数在被调用的函数当前栈桢中的位置如下,其中ebp是被调用函数当前栈桢中的ebp,old_eip是在调用被调用
 函数的调用函数中的call xxx(xxx表示被调用函数的名称)所在汇编语句的下一句汇编语句的内存地址</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>old_eip:ebp+0x4
+<div class="highlighter-rouge"><pre class="highlight"><code>old_eip:ebp+0x4
 第1个参数:ebp+0x8
 第2个参数:ebp+0xc
 第n个参数:ebp+0x4(n+1)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
 数据的指针,p的值为<script type="math/tex">X{i}</script>,那么表达式p+i的值为<script type="math/tex">X{p}+l\ast i</script>,这里l是数据类型t的大小</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
 
 int main(){
 
@@ -218,19 +225,21 @@ int main(){
     return 0;
 
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>上面运行结果为</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a:0x7fff508f85c8
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff508f85c8
 b=a+1:0x7fff508f85c9
 c=a-1:0x7fff508f85c7
 b-a:0x1#
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>将其中的<code class="highlighter-rouge">void *</code>换成<code class="highlighter-rouge">int *</code>后代码如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
 
 int main(){
 
@@ -249,19 +258,21 @@ int main(){
     return 0;
 
 }
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>运行结果变成如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a:0x7fff506ab5c8
+<div class="highlighter-rouge"><pre class="highlight"><code>a:0x7fff506ab5c8
 b=a+1:0x7fff506ab5cc
 c=a-1:0x7fff506ab5c4
 b-a:0x1#
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>12.类似于数组的实现,结构的所有组成部分都存放在存储器中一段连续的区域内,python中没有结构体,可用类来代替</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class mystruct:
+<div class="highlighter-rouge"><pre class="highlight"><code>class mystruct:
 
     def __init__(self):
         self.name=""
@@ -272,7 +283,8 @@ a=mystruct()
 a.name='cup'
 a.size=8
 a.list.append('water')
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>13.一个联合(union类型)的总的大小等于它最大字段的大小,联合中的每个元素的偏移都是0</p>
 
@@ -280,24 +292,26 @@ a.list.append('water')
 
 <p>15.x86-64下寄存器比IA32的寄存器:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>寄存器数量翻倍至16个,新增加的寄存器命名为%r8-%r15
+<div class="highlighter-rouge"><pre class="highlight"><code>寄存器数量翻倍至16个,新增加的寄存器命名为%r8-%r15
 可直接访问每个寄存器的低32位(%eax,%ecx,%edx...,%r8d-%r15d)
 可直接访问每个寄存器的低16位(%ax,%cx,%dx...,%r8w-%r15w)
 可直接访问每个寄存器的低8位
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-2.png" /></p>
 
 <p>16.x86-64与栈相关的特性</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)将函数参数保存在寄存器上,不保存在栈上(参数&gt;6个除外)
+<div class="highlighter-rouge"><pre class="highlight"><code>a)将函数参数保存在寄存器上,不保存在栈上(参数&gt;6个除外)
 b)程序不再需要信赖栈来存储和获取过程信息,极大地减少了过程调用和返回的开销
 c)最多可以有6个整型(整数和指针)参数可以通过寄存器进行传递,寄存器名对应于所传递的数据的大小,如下图
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-3.png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
+<div class="highlighter-rouge"><pre class="highlight"><code>d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
 e)函数过程的栈帧通常有固定的大小,在过程开始时通过减小栈指针(rsp)来设置(如某函数的开始就是subq $32,%rsp)
 f)使得函数可能需要栈帧的原因如下:
     1)局部变量大多,不能都放在寄存器中
@@ -311,16 +325,18 @@ i)在函数开始没有push ebp(32位下为push ebp+mov ebp,esp)了,变成了sub
 j)函数最多可以访问超过当前栈指针(rsp)128个字节的栈上存储空间(address&lt;rsp的内存地址空间)
 k)x86-64 ABI将j中的这个区域称为红色地带,必须保持当rsp移动时,红色地带可读可写
 l)阅读64位反汇编代码可参考如下链接
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="http://download.csdn.net/download/lpangbing/4237727">x86-64 ABI文档</a></p>
 
 <p>17.为什么IA32中ebp+0的下一个(高地址)栈单元的地址是ebp+4而不是ebp+0x20? [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
+<div class="highlighter-rouge"><pre class="highlight"><code>IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
 那么0x10000001中存放的内容为b,也即1个内存地址差对应8位(1字节)的内存容量,如下图od截图中左下角的数据窗口中内存
 地址与内容数据的对应关系.
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/od1.png" /></p>
 

@@ -115,13 +115,14 @@
 
         <span itemprop="articleBody"><h3 id="0x00-good-knowledge">0x00 good knowledge:</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.xitongzhijia.net/xtjc/20141208/32106.html
+<div class="highlighter-rouge"><pre class="highlight"><code>https://www.xitongzhijia.net/xtjc/20141208/32106.html
 https://www.linuxidc.com/Linux/2015-05/117031.htm
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-etcfstab-wrong">0x01 /etc/fstab wrong</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;安装linux系统到u盘
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;安装linux系统到u盘
 eg.ubuntu: use yumi
 eg.kali linux2: use win32diskimager
 
@@ -177,11 +178,12 @@ to
 shutdown -r 0
 
 或者用df -h,blkid /dev/sda1,blkid /dev/sda6,blkid /dev/sda5分别查看uuid后修改
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-boot-wrong">0x02 boot wrong</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;start os from usb with linux system
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;start os from usb with linux system
 2&gt;fdisk -l
     output is the same as upon fdisk -l
 3&gt;mkdir /mnt/tmp
@@ -199,7 +201,8 @@ shutdown -r 0
 14&gt;exit
 15&gt;umount /mnt/tmp/dev &amp;&amp; umout /mnt/tmp/proc &amp;&amp; umount /mnt/tmp/sys &amp;&amp; umount /mnt/tmp/boot &amp;&amp;  umount /mnt/tmp(this step15 is not a must step)
 16&gt;shutdow -r 0
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x03-system-backup-automatically">0x03 system backup automatically</h3>
 
@@ -208,7 +211,7 @@ first mount another disk(for bakup store) to /media/root/files</p>
 
 <p>2&gt;ubuntubak.sh</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ ! -d /media/root/files ]; then
+<div class="highlighter-rouge"><pre class="highlight"><code>if [ ! -d /media/root/files ]; then
     echo "bak folder not exist,the bakup device is not ready,check it"
 elif [ -d /media/root/files/ -a -d /media/root/files/ubuntubak/ ]; then
     tar cvpzf /media/root/files/ubuntubak/ubuntubak.tgz --exclude=/proc --exclude=/lost+found --exclude=/ubuntubak.tgz --exclude=/mnt --exclude=/sys --exclude=/media --exclude=/root/.cache /
@@ -216,18 +219,20 @@ elif [ -d /media/root/files/ -a ! -d /media/root/files/ubuntubak ]; then
     mkdir /media/root/files/ubuntubak
     tar cvpzf /media/root/files/ubuntubak/ubuntubak.tgz --exclude=/proc --exclude=/lost+found --exclude=/ubuntubak.tgz --exclude=/mnt --exclude=/sys --exclude=/media --exclude=/root/.cache /
 fi
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3&gt;alias</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ubuntubak.sh /usr/share
+<div class="highlighter-rouge"><pre class="highlight"><code>cp ubuntubak.sh /usr/share
 vi .zshrc
 +alias ubuntubak="bash /usr/share/ubuntubak.sh"
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>4&gt;auto backup every month</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>in ubuntu 16.04:
+<div class="highlighter-rouge"><pre class="highlight"><code>in ubuntu 16.04:
 如果cron没有开机自启动:
     vi /etc/rc.local
     service cron start
@@ -238,11 +243,12 @@ add one line:
 0  0    9 * *   root    rm /media/root/files/ubuntubak/ubuntubak.tgz;bash ~/mytools/ubuntubak.sh
 :wq
 实现每个月9号备份系统
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-system-restore">0x04 system restore</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>实验环境:
+<div class="highlighter-rouge"><pre class="highlight"><code>实验环境:
     ubuntu 16.04 live-usb
 
 1&gt;用live-cd或live-usb安装一个同样的新的操作系统
@@ -309,7 +315,8 @@ add one line:
     /boot被/dev/sda1占据了,这时/dev/sda6中的boot文件夹是被屏蔽的,无法访问的
 
 
-</code></pre></div></div>
+</code></pre>
+</div>
 </span>
 
         

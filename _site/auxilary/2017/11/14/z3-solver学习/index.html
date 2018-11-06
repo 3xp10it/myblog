@@ -117,8 +117,9 @@
 
 <p>z3是个解题神器,可用于ctf中的加解密和逆向和pwn类型的题目.安装方法为:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install z3-solver
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>pip3 install z3-solver
+</code></pre>
+</div>
 
 <h3 id="0x01-解题">0x01 解题</h3>
 
@@ -128,7 +129,7 @@
 
 <p>解法:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from z3 import *
+<div class="highlighter-rouge"><pre class="highlight"><code>from z3 import *
 s=[Int('serial%d' % i) for i in range(20)]
 solver = Solver()
 solver.add(s[15] + s[4] == 10)
@@ -161,7 +162,8 @@ answer=solver.model()
 print(answer)
 tidy_answer="".join([str(answer[each]) for each in s])
 print(tidy_answer)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x0b-未涉及bitvec类型">0x0b 未涉及BitVec类型</h4>
 
@@ -169,7 +171,7 @@ print(tidy_answer)
 
 <p>解法:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env python2</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/usr/bin/env python2</span>
 <span class="kn">from</span> <span class="nn">z3</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">Solver</span><span class="p">()</span>
 <span class="n">ciphertext</span> <span class="o">=</span> <span class="s">"7c153a474b6a2d3f7d3f7328703e6c2d243a083e2e773c45547748667c1511333f4f745e"</span>
@@ -201,7 +203,8 @@ print(tidy_answer)
 <span class="n">answer</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
 <span class="n">flag</span> <span class="o">=</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">answer</span><span class="p">[</span><span class="n">each</span><span class="p">]</span><span class="o">.</span><span class="n">as_long</span><span class="p">())</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">])</span>
 <span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0x0c-bitvec类型">0x0c BitVec类型</h4>
 
@@ -209,31 +212,34 @@ print(tidy_answer)
 
 <p>1.只有BitVec变量可以进行异或</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>solver.add(Int('x')^Int('y')==5)不被允许
+<div class="highlighter-rouge"><pre class="highlight"><code>solver.add(Int('x')^Int('y')==5)不被允许
 只能solver.add(BitVec('x',8)^BitVec('y',8)==5)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.BitVecVal值之间不能进行<code class="highlighter-rouge">&gt;或&lt;</code>比较,只能转换成python认识的类型才可以比较</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>不允许:if BitVecVal(98,8)&gt;BitVecVal(97,8)
+<div class="highlighter-rouge"><pre class="highlight"><code>不允许:if BitVecVal(98,8)&gt;BitVecVal(97,8)
 允许:if BitVecVal(98,8)==98:
 允许:if BitVecVal(98,8).as_long()&gt;97
 允许:if BitVecVal(98,8).as_long()&gt;BitVecVal(97,8).as_long()
 z3重载了==符号,但是没有重载&gt;和&lt;号,在int类型与bit-vector类型进行"=="比较时会将int常量当作bit-vector类型来比较
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>3.BitVec变量值之间可进行<code class="highlighter-rouge">&gt;或&lt;或=或&gt;=或&lt;=</code>的比较</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>允许:BitVec('a',8)&gt;=BitVec('b',8)
+<div class="highlighter-rouge"><pre class="highlight"><code>允许:BitVec('a',8)&gt;=BitVec('b',8)
 允许:BitVec('a',8)&lt;=BitVec('b',8)
 允许:BitVec('a',8)&lt;=9
 允许:BitVec('a',8)==9
 不允许:BitVec('a',8).as_long(),而允许BitVecVal(98,8).as_long()
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>4.z3中不允许列表与列表之间添加<code class="highlighter-rouge">==</code>约束条件</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>允许对列表中的每个元素分开进行==的条件限定约束:
+<div class="highlighter-rouge"><pre class="highlight"><code>允许对列表中的每个元素分开进行==的条件限定约束:
 
 from z3 import *
 prefix=[ord(each) for each in "flag{"]
@@ -265,7 +271,8 @@ s.add(plain_line[z:z+5]==prefix)
 #s.add(plain_line[z+4]==prefix[4])
 s.check()
 print(s.model())
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><a href="https://github.com/3xp10it/ctf/blob/master/babyxor.md">题目地址</a></p>
 
@@ -273,7 +280,7 @@ print(s.model())
 
 <p>解法:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from z3 import *
+<div class="highlighter-rouge"><pre class="highlight"><code>from z3 import *
 import base64
 
 def encrypt(plaintext, key):
@@ -335,7 +342,8 @@ for y in range(1,length-7+1):
             print("try key len:%d,'flag{' index:%d" % (y,z))
             continue
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/babyxor_answer.png" /></p>
 
