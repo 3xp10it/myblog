@@ -133,16 +133,14 @@ images specified in <code class="highlighter-rouge">_data/thumbnails.yml</code> 
 location (I use <a href="https://imgur.com/">Imgur</a>) and then you need to add the url to <code class="highlighter-rouge">_data/thumbnail.yml</code>
 with an associated keyword.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jekyll: "https://i.imgur.com/aRQcGSi.png"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll: "https://i.imgur.com/aRQcGSi.png"
+</code></pre></div></div>
 
 <p>You then add a <code class="highlighter-rouge">thumbnail</code> option to the article’s frontmatter and provide the keyword
 for that thumbnail.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>thumbnail: jekyll
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thumbnail: jekyll
+</code></pre></div></div>
 
 <p>This allows you to re-use thumbnails across multiple articles without having to
 specify the url each time.</p>
@@ -156,9 +154,8 @@ list of Font Awesome icons <a href="https://fortawesome.github.io/Font-Awesome/i
 <p>So for example if your article is about android and you want to use the <a href="https://fortawesome.github.io/Font-Awesome/icon/android/">android icon</a>
 from font awesome you can just specify the following in your frontmatter.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>thumbnail: android
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thumbnail: android
+</code></pre></div></div>
 
 <p>Then in the future if you decide you want to use your own android icon you can just
 add it to <code class="highlighter-rouge">_data/thumbnails.yml</code> which will override it for all articles using
@@ -201,16 +198,6 @@ the android thumbnail.</p>
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

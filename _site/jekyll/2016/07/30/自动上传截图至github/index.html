@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 about</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>目的:实现一个自动将截图上传至github并获取对应uri
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>目的:实现一个自动将截图上传至github并获取对应uri
 用途:方便博客md文件中截图的处理
 使用方法:
     初次运行时,在linxu系统中新建/root/pic目录,并将github上对应的图片目录下载到本地
@@ -126,12 +126,11 @@
     cp mysnippingtool.py /usr/share
     vi ~/.zshrc
     +alias jt="python /usr/share/mysnippingtool.py"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-code">0x01 code</h3>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -194,12 +193,11 @@
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-attention">0x02 attention</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>os.path.abspath()函数的问题
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>os.path.abspath()函数的问题
 
 print os.path.abspath(each) is not good function,
 it will get /root/桌面/spider_wooyun when I put this py script file in /root/桌面,and run:
@@ -210,8 +208,7 @@ so I use:
         each_abspath=os.path.join(folder,each)
 to get the current file's abspath
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><a href="https://raw.githubusercontent.com/3xp10it/mytools/master/mysnippingtool.py"><small>代码链接</small></a></p>
 
@@ -252,16 +249,6 @@ to get the current file's abspath
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

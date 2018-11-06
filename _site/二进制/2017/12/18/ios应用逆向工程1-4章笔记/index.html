@@ -190,7 +190,7 @@
   </li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#import &lt;substrate.h&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;substrate.h&gt;
 
 returnType (*old_symbol)(args);
 
@@ -207,8 +207,7 @@ void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.
     if (symbol)MSHookFunction((void *)symbol,(void *)&amp;new_symbol,(void **)&amp;old_symbol);
     else NSLog(@"Symbol not found!");
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>MobileLoader
@@ -225,7 +224,7 @@ void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.
 
 <p>19.Cycript是由saurik推出的一款脚本语言,可以看作是Objective-JavaScript.cycript通过cydia在iphone中安装.笔者认为,cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果,效果十分显著,比通过theos生成deb来log记录方便很多.一般来说,选择注入哪个进程,要依测试的具体函数而定,这个函数所属的类存在于哪些进程,则注入这些进程,从而保证这个类是存在的.因为需要用cycript测试的一般都是私有函数,所以一个总的准则是从哪个进程逆向出的函数,就注入这个进程来测试;从哪个库逆向出的函数,就注入链接这个库的进程来测试.与Objective-c相比,cycript不需要声明对象类型,也不需要结尾的分号,常见用法如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#注入SpringBoard进程
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#注入SpringBoard进程
 cycript -p SpringBoard或cycript -p pid
 
 #在内存中找一个PARSPedometerInfo类的实例对象
@@ -240,8 +239,7 @@ choose(PARSPedometerInfo)
 #新建一个PARSPedometerInfo类的对象实例,并调用它的setIntergratedSteps函数,传入参数99998
 myobj=[PARSPedometerInfo alloc]
 [myobj setIntegratedSteps:99998]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>20.<code class="highlighter-rouge">LLDB</code>全称为”low level debugger”.是由苹果出口,内置于Xcode中的动态调试工具,不但能吃C,C++,Objective-C,还全盘支持OSX,iOS,以及iOS模拟器,lldb是运行在OSX中的,要想测试iOS,还需要debugserver的配合</p>
 
@@ -267,11 +265,10 @@ myobj=[PARSPedometerInfo alloc]
 <p>26.有时lldb的解析后的注释的符号不对,这种情况下,需以IDA为准</p>
 
 <p>27.使用dumpdecrypted.dylib脱壳过程:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>cp dumpdecrypted.dylib /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp dumpdecrypted.dylib /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
 cd /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
 DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/xxx-xxx-xxx-xxx../TargetApp.app/TargetApp
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>这里把dumpdecrypted.dylib拷贝到Documents目录下操作的原因是:
 StoreAPP对沙盒以外的绝大数目录没有写权限,dumpdecrypted.dylib要写一个decrypted文件,但它是运行在StoreApp中的,与StoreApp的权限相同,于是它的写操作就必须发生在StoreApp拥有写权限的路径下才能成功</p>
 
@@ -316,16 +313,6 @@ StoreAPP对沙盒以外的绝大数目录没有写权限,dumpdecrypted.dylib要�
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

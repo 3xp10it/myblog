@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x01-windbg知识">0x01 windbg知识</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://www.yiiyee.cn/Blog/windbg/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.yiiyee.cn/Blog/windbg/
 http://www.cppblog.com/weiym/archive/2012/06/07/177958.aspx
 
 1&gt;db esi:查看esi地址中的内容
@@ -214,12 +214,11 @@ new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new
             ...
 
    也即当前ebp中存放的是上一函数帧的ebp,且当前ebp的下一栈单元的内容为当前函数的retn地址
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-windbg技巧">0x02 windbg技巧</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;用windbg附加要调试的程序时,在调试之前用gflag.exe开启了+hpa,但是在调试时,程序崩溃了而windbg没有断下来,这种情况
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;用windbg附加要调试的程序时,在调试之前用gflag.exe开启了+hpa,但是在调试时,程序崩溃了而windbg没有断下来,这种情况
 主要原因是被调试的程序衍生出子进程,而windbg默认情况下是不支持子进程调试的,可以使用如下命令开启子进程调试:
 	.childdbg 1
 2&gt;windbg找不到符号表时可用命令行添加符号表路径,eg:
@@ -227,8 +226,7 @@ new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new
     .reload
 3&gt;windbg设置条件记录断点,eg.
     bu 55ea6514 ".if(1){.echo 'replen = ';dd ebx l1;gc}"
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -266,16 +264,6 @@ new ebp --&gt; old ebp(old ebp为上一函数帧的ebp,此处的old ebp代表new
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

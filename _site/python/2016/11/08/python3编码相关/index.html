@@ -117,17 +117,16 @@
 
         <span itemprop="articleBody"><h3 id="0x01-byte-string-和-character-string">0x01 byte string 和 character string</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;byte string是如01010110110010的序列,计算机可读,人不可读
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;byte string是如01010110110010的序列,计算机可读,人不可读
 2&gt;character string是如"您好,world"的序列,计算机不可读,人可读
 3&gt;character string要encode("eg.utf8|cp1252")之后才可被计算机认识和存储
 4&gt;文件存储时实际上是byte string,要想读出这个byte string对应的character string则要以文件在存储时的编码方式解码[decode]之后才会显示成人可读的character string
 5&gt;猜测python3中的open函数默认用utf8解码文件,这样的话在python3想要读其他编码方式存储的文件的时候直接用open函数就
 会出错
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>eg.python3读以cp1252编码存储的文件</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import sys
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sys
 import codecs
 import re
 count=0
@@ -140,10 +139,9 @@ with codecs.open(sys.argv[1], "r",encoding='cp1252', errors='replace') as f:
             sys.stdout.flush()
         print(type(each))
 print("\n")
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>上面的python代码中用来读取以cp1252编码的文件中有多少条Insert into的语句,如果其中换成是下面的打开方式会出错
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>上面的python代码中用来读取以cp1252编码的文件中有多少条Insert into的语句,如果其中换成是下面的打开方式会出错
 	with open(sys.argv[1],"r+") as f:
 正确打开方式中的encoding='cp1252'应该理解成"这个文件是用cp1252的编码方式encode之后存储的byte string,现在告诉计算机,计算机
 在读取的时候会以cp1252来decode成人可读的character string",在上面的正则匹配时,r"Insert into"表示的是character
@@ -159,29 +157,26 @@ string类型的Insert into字符串,each表示的是被open解码后的也正好
 人可读的character string其实不是真的character string,例如打印byte string时会显示b"xxx...",表示这个是个byte
 string,只是为了要让人更明白这个byte string代表的是什么才这样
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-python3正则匹配中文">0x01 python3正则匹配中文</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import re
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import re
 string="Hello,World! 你好世界"
 if re.search("你好.*",string):
     print("good,matched")
 else:
     print("bad,no matched")
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-knowledge">0x02 knowledge</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.文件编码识别
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.文件编码识别
 	pip3 install chardet
 	chardet file
 2.ascii,unicode,utf8...
 	http://blog.csdn.net/xiongxiao/article/details/3741731
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -219,16 +214,6 @@ else:
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

@@ -123,19 +123,17 @@
 
 <h4 id="332位系统中一个栈单元为32位">3&gt;32位系统中,一个栈单元为32位</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>esp+0x4代表下一个栈单元
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esp+0x4代表下一个栈单元
 esp+0x1c代表esp下面第[16+12=28(/4=7)] 7个栈单元
 eg.
     esp[ss:0x00000000]         |ab221245|   --&gt;  一个栈单元
     esp+0x4[ss:0x00000004]     |2348sko9|   --&gt;  一个栈单元
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="4call-addrpush-eip--jmp-addr">4&gt;call addr===&gt;push eip + jmp addr</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>执行call addr时,由于call addr已经执行,所以call addr=push eip+jmp addr中的eip为call addr汇编指令当前所在帧中的下一条指令的地址,这里说的当前所在帧是如下图frame所示在当前图片看到的一片汇编指令代码,如执行0xff77b8d02处的call 0xf77bc2e0时,eip为当前帧的下一条指令的地址为f77b8d07
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>执行call addr时,由于call addr已经执行,所以call addr=push eip+jmp addr中的eip为call addr汇编指令当前所在帧中的下一条指令的地址,这里说的当前所在帧是如下图frame所示在当前图片看到的一片汇编指令代码,如执行0xff77b8d02处的call 0xf77bc2e0时,eip为当前帧的下一条指令的地址为f77b8d07
+</code></pre></div></div>
 
 <p>图frame
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/eip.png" /></p>
@@ -144,24 +142,22 @@ eg.
 
 <h4 id="6retnpop-eip--jmp-eip----eipespespesp4">6&gt;retn===&gt;pop eip + jmp eip    (eip=[esp],esp=esp+4)</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>分析ret汇编语句时,最好不要把ret分开当作两句汇编指令,这样容易因为人脑习惯逐句解析两句,会和计算机的解析一句汇编指令错乱
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>分析ret汇编语句时,最好不要把ret分开当作两句汇编指令,这样容易因为人脑习惯逐句解析两句,会和计算机的解析一句汇编指令错乱
 特别是影响esp,eip的寄存器的分析时,要按照计算机的解析模式--&gt;ret只是一句指令,执行完ret指令后,eip=[esp],esp=esp+4
 分析ret指令时,先分析eip,再分析esp
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="7retn-0xnretn--espesp0xneipesp--espesp40xn">7&gt;retn 0xn===&gt;retn &amp;&amp; esp=esp+0xn===&gt;eip=[esp] &amp;&amp; esp=esp+4+0xn</h4>
 
 <h4 id="8call-esp">8&gt;call esp:</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jmp esp
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmp esp
 call esp
 push esp+ret
 这些汇编指令的地址放入存放函数返回地址的位置处都可以达到跳转到它后面的shellcode
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>由于call addr等同于push eip+jmp addr,执行call esp时,esp是个地址,系统将这里的esp翻译成一个普通地址,假设值为addr,call esp即相当于上面的call addr=push eip+jmp addr
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>由于call addr等同于push eip+jmp addr,执行call esp时,esp是个地址,系统将这里的esp翻译成一个普通地址,假设值为addr,call esp即相当于上面的call addr=push eip+jmp addr
       代码段:                                    栈段:          
                       ..                                                
                       ..                                  | addr1 |
@@ -171,12 +167,11 @@ push esp+ret
 当eip=addr0时,esp=addr
 当eip=addr1时,正在执行addr0处的call esp,也即call addr=push eip+jmp addr=push addr1+jmp addr
 执行完call esp后栈段如上图右部所示
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="9pop-pop-retjmp-esp16">9&gt;pop pop ret=jmp <a href="条件:pop pop ret的地址在栈中且马上要执行">esp+16</a></h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>栈段:                          代码段:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>栈段:                          代码段:
 
     addr0     | addr1 |                 addr1:  pop1
     addr0+4   |       |                         pop2
@@ -190,20 +185,18 @@ push esp+ret
 执行完pop1后,eip=addr1+4,esp=addr0+8,然后执行addr1+4处的pop2
 执行完pop2后,eip=addr1+8,esp=addr0+12,然后执行addr1+8处的ret
 执行完ret后,eip=[addr0+16],esp=addr0+16,然后执行[add0+16]处的代码
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-gdb动态调试">0x02 gdb动态调试</h3>
 
 <h4 id="1gdb常用调试命令">1&gt;gdb常用调试命令</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>https://wenku.baidu.com/link?url=W1u-DTrFwMreJsYavwKcI_yDzJsJglUJ4yfcXXXxWOkGTlJSSqXm-4zohcUYxGciOIeFRcSY0gr2qn-K5pnqGRU6nGbgQvW6XVfaRMCdmKq
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://wenku.baidu.com/link?url=W1u-DTrFwMreJsYavwKcI_yDzJsJglUJ4yfcXXXxWOkGTlJSSqXm-4zohcUYxGciOIeFRcSY0gr2qn-K5pnqGRU6nGbgQvW6XVfaRMCdmKq
+</code></pre></div></div>
 
 <h4 id="2提炼命令">2&gt;提炼命令:</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   --------terminal-----------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   --------terminal-----------
    gdb
    help
    help data
@@ -241,8 +234,7 @@ push esp+ret
    layout regs:显示源代码/反汇编和CPU寄存器窗口
    layout split:显示源代码和反汇编窗口
    Ctrl + L:刷新窗口
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-实例分析">0x03 实例分析</h3>
 
@@ -250,7 +242,7 @@ push esp+ret
 
 <p>源码如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>--------stack0.c----------
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------stack0.c----------
 1       #include &lt;stdlib.h&gt;
 2       #include &lt;unistd.h&gt;
 3       #include &lt;stdio.h&gt;
@@ -270,14 +262,13 @@ push esp+ret
 17        }
 18      }
 -----------end------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>该题要求溢出变量modified,也即覆盖栈中的modified所在的内在地址里的值,在终端中执行如下命令,下面为实时操作与对输出的相应理解</p>
 
 <p>on kali:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cd /root/桌面
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /root/桌面
 vi stack0.c with upon source code
 gcc -g -o stack0 stack0.c
 gdb stack0
@@ -371,13 +362,12 @@ line7,lin8代码:
 4.只要修改了0xffffd4ec处(存放了modified变量)的值,将其改成非0就可以完成这一题的要求了
 5.上面3中说的非0是内存中的非0,如果是键盘上的0键并不是内存中的0,如下图ascii所示
 --------------end--------------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>图ascii
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/ascii.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>line10:(line9是空格行)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line10:(line9是空格行)
 -----------------汇编跟踪:line10----------------------
 10        modified = 0;
 =&gt; 0x080483fd &lt;+9&gt;:     movl   $0x0,0x5c(%esp)      #0x5c=92(/4=23)=23个栈单元,将esp下面第23个栈单元置0,对应图中序号5,在下一步可可发现是将0xffffd4ec处的32位空间置0
@@ -505,13 +495,12 @@ print '1234567898123456789812345678981234567898123456789812345678981234\x00\x00\
 echo '1234567898123456789812345678981234567898123456789812345678981234\x00\x00\x00\x00' | ./stack0
 
 原题中要求改变modified位,直接输入键盘上的任意大于64位的一串字符即可,因为键盘上的数字0在内存中是0x30,如果将键盘上的0键输入到对应的modified位上,会改变modified
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>图stack0
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/stack0.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>该题要求溢出变量modified,也即覆盖栈中的modified所在的内在地址里的值,这里进行扩展,通过栈溢出反弹shell.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>该题要求溢出变量modified,也即覆盖栈中的modified所在的内在地址里的值,这里进行扩展,通过栈溢出反弹shell.
 该题中ASLR(地址随机化) 和 NX(栈不可执行)已禁用
 由上图stack0及分析易知:
 1.栈中如果将一个函数展开,一般从push ebp+mov ebp,esp+sub esp,0x??开始到leave+ret结束,将这些看作是该函数的帧,该函数的上一帧中有调用该函数的汇编语句,该函数的返回地址在栈中的位置为该函数帧的下面一个栈单元内(保存在该函数帧的下面一个栈单元内)
@@ -764,12 +753,11 @@ Looking gadgets, please wait...
 没有找到jmp esp,rop gadget这个功能主要是搜索用来获得ret2libc构造链中的子语句的功能,特点是每个gadget都是以ret结尾的一条或几条汇编小指令
 换工具edb-debugger,kali自带,将stack0拖入edb,快捷键ctrl+o,或者从plugins选项中选择opcodesearcher工具(里面也有roptool,功能类似上面的rop-tool工具的功能,edb-debugger中的toptool功能可以看到系统内存已经加载的动态链接库列表,而上面freebuf中提到的rop-tool不能)
 搜到jmp esp地址如下(由于本机kali为64位,所以显示成下图中样式,取其中32位的地址即可)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/opcodesearcher.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>取其中的0xf773813b,替换exploit.py中jmp_esp="\x3b\x81\x73\xf7",上图中选择的/lib/i386-linux-gnu/ld-2.19.so应该是随着操作系统启动加载到系统内存中的可用动态链接库文件
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>取其中的0xf773813b,替换exploit.py中jmp_esp="\x3b\x81\x73\xf7",上图中选择的/lib/i386-linux-gnu/ld-2.19.so应该是随着操作系统启动加载到系统内存中的可用动态链接库文件
 
 运行exploit.py,结果依然不行,这个jmp_esp还是没有被执行,可能是没有找到这个地址,不理解,暂且不管这个问题
 python exploit.py
@@ -1165,8 +1153,7 @@ x/10x $esp
 
 从中发现这时shellcode的内存地址又变成了0xffa14160(上面[esp]后紧接的9个90证明了这点),不再是0xffd26180,可以看出kali的内存中没有固定的shellcode地址,每次shellcode地址都会变化,这应该是由于kali的内核版本高,安全性好造成的
 
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -1204,16 +1191,6 @@ x/10x $esp
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

@@ -116,46 +116,41 @@
         
 
         <span itemprop="articleBody"><h2 id="1本工具包括6个模块">1.本工具包括6个模块:</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code>  easy_search.py,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  easy_search.py,
   my_bing_domains_v1_alone.py,
   my_GoogleScraper_bing_domain.py,
   mysqlmap.py,
   MyToolKit.py,
   mail.py
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="2各模块介绍">2.各模块介绍:</h2>
 
 <h3 id="1easy_searchpy">1&gt;easy_search.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>google关键字搜索相关网页结果,并对结果通过sqlmap注入,类似啊D里的搜索注入功能,但比啊D里强大,因为这里用sqlmap检测注入并注入,其中google搜索的功能采用完全模仿浏览器方式,可得到所有通过浏览器Google搜索的结果,通过GoogleScraper模块实现,其中GoogleScraper利用 Selenium模块模拟 浏览器人工访问功能.
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google关键字搜索相关网页结果,并对结果通过sqlmap注入,类似啊D里的搜索注入功能,但比啊D里强大,因为这里用sqlmap检测注入并注入,其中google搜索的功能采用完全模仿浏览器方式,可得到所有通过浏览器Google搜索的结果,通过GoogleScraper模块实现,其中GoogleScraper利用 Selenium模块模拟 浏览器人工访问功能.
+</code></pre></div></div>
 
 <h3 id="2my_bing_domains_v1_alonepy">2&gt;my_bing_domains_v1_alone.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>通过bing的api接口原理实现,需要注册bing的api_key,每个月免费5000次.
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>通过bing的api接口原理实现,需要注册bing的api_key,每个月免费5000次.
+</code></pre></div></div>
 
 <h3 id="3my_googlescraper_bing_domainpy">3&gt;my_GoogleScraper_bing_domain.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>通过GoogleScraper的浏览器模拟人工访问bing,关键字ip:111.111.111.111,获取所有
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>通过GoogleScraper的浏览器模拟人工访问bing,关键字ip:111.111.111.111,获取所有
 结果,当只有一页结果 时,GoogleScraper不能得到该查询结果,调用上面的my_bing_dom
 ains_v1_alone.py模块继续查询.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="4mysqlmappy">4&gt;mysqlmap.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap自动化sqli模块,详情见代码.
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap自动化sqli模块,详情见代码.
+</code></pre></div></div>
 
 <h3 id="5mytoolkitpy">5&gt;MyToolKit.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>综合入口模块,选择不同需求,实现不同功能.共包括8个功能,分别为:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>综合入口模块,选择不同需求,实现不同功能.共包括8个功能,分别为:
 --exp:
   批量使用exp功能 
 --mygoogle 
@@ -179,49 +174,43 @@ ains_v1_alone.py模块继续查询.
 --easy_search:
   相当于--mygoogle下的--sqlmap-g-human功能的子功能,但灵活性更强,可任意关键字google搜索并利用sqlmap注入. 最常用功能
   应该是--mygoogle下的--sqlmap-g-human及--easy_search这两个.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="6mailpy">6&gt;mail.py:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>自动发送邮件,内嵌在MytoolKit.py中.
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>自动发送邮件,内嵌在MytoolKit.py中.
+</code></pre></div></div>
 
 <h2 id="3环境要求">3.环境要求:</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code>安装GoogleScraper(python3下),并修改部分GoogleScraper中第三方模块selenium中代码(绕过验证码)可参考以前一篇写的关于google search api for python的文章90sec
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>安装GoogleScraper(python3下),并修改部分GoogleScraper中第三方模块selenium中代码(绕过验证码)可参考以前一篇写的关于google search api for python的文章90sec
 链接:https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=9024 百度网盘链接
 https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="2016126部分代码更新">2016.1.26部分代码更新</h3>
 
 <h3 id="2016128部分代码更新">2016.1.28部分代码更新</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.添加tor匿名功能,可自由选择tor或不用tor
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.添加tor匿名功能,可自由选择tor或不用tor
+</code></pre></div></div>
 
 <h3 id="2016128部分代码更新增加功能">2016.1.28部分代码更新,增加功能:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.绕过"多次错误访问后屏蔽所有请求"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.绕过"多次错误访问后屏蔽所有请求"
 2.请求延时
 3.尝试绕过waf
 4.支持post注入
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="2016129部分代码更新增加功能">2016.1.29部分代码更新,增加功能:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.定位旁站的sqli所在主站
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.定位旁站的sqli所在主站
 2.发送邮件通知功能,将可用sqli的url发送邮件通知(smtp用163)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="201632部分代码更新">2016.3.2部分代码更新:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.easy_search.py line:116 添加自动结束冗余firefox进程功能 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.easy_search.py line:116 添加自动结束冗余firefox进程功能 
 2.修改mysqlmap.py中line:131-161的逻辑错误 
 3.修改其它py中fp=open()以后没有fp.close()的错误 
 4.修改MyToolKit.py中对easy_search.py调用的逻辑错误 
@@ -230,14 +219,13 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
   作的域名解析异常使全局出错的错误 line:21-22
 7.自动处理output目录移动,使得运行前不必清空output目录
 8.修改my_bing_domains_v1_alone.py中get_the_one_targe_domains函数
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="4相应代码">4.相应代码:</h2>
 
 <p>1&gt;easy_search.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#need py3 coz GoogleScraper need py3 with selenium module changed to make it possible</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#need py3 coz GoogleScraper need py3 with selenium module changed to make it possible</span>
 <span class="c">#to supass yanzhengma</span>
 <span class="c">#easy_search.py is stronger than combineGoogleScraper_myurlhandle.py</span>
 <span class="c">#coz the latter can get the https_url only while easy_search.py can get </span>
@@ -423,12 +411,11 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 
 
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2&gt;my_bing_domains_v1_alone.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
 <span class="c">#need python2(my system is py2.7 by default)</span>
 <span class="c">#</span>
 <span class="c">#</span>
@@ -551,7 +538,7 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 <span class="k">def</span> <span class="nf">get_pure_list</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="n">pure_list</span><span class="o">=</span><span class="p">[]</span>
     <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(</span><span class="err">\</span><span class="s">s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+        <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(\s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
         <span class="n">pure_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
         <span class="c">#re.sub(r'\r\n',"",each)</span>
         <span class="c">#re.sub(r'\n',"",each)</span>
@@ -635,12 +622,11 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
     <span class="k">print</span> <span class="s">"-----------------------------------------------------------"</span>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3&gt;my_GoogleScraper_bing_domain.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#need python3 coz GoogleScraper require it.</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#need python3 coz GoogleScraper require it.</span>
 <span class="c">#and python3 with GoogleScraper unchanged selenium version python environment,</span>
 <span class="c">#coz bing does not need supass yanzhengma</span>
 <span class="c">#on this computer is "workon virtualenv2"</span>
@@ -668,7 +654,7 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 <span class="k">def</span> <span class="nf">get_pure_list</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="n">pure_list</span><span class="o">=</span><span class="p">[]</span>
     <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(</span><span class="err">\</span><span class="s">s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+        <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(\s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
         <span class="n">pure_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
         <span class="c">#re.sub(r'\r\n',"",each)</span>
         <span class="c">#re.sub(r'\n',"",each)</span>
@@ -900,12 +886,11 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
     <span class="n">myGoogleScraperbingdomains</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>4&gt;mysqlmap.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#works in python 3(selenium changed version,that's myenv)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#works in python 3(selenium changed version,that's myenv)</span>
 <span class="c">#coz line53 &amp; line73 use a function from a py3 module,but</span>
 <span class="c">#that is not necessary</span>
 <span class="c">#in this script file in sqlmap_string,added --tor --tor-type=socks5 --check-tor ,</span>
@@ -975,7 +960,7 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 <span class="k">def</span> <span class="nf">sqlmap_craw</span><span class="p">(</span><span class="n">origin_https_url_or_file</span><span class="p">,</span><span class="n">tor_or_not</span><span class="p">,</span><span class="n">post_or_not</span><span class="p">):</span>
 	<span class="c">#this function use sqlmap's "--crawl" option to find sqli urls.</span>
 	<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">"(https://)|(https://)"</span><span class="p">,</span><span class="n">origin_https_url_or_file</span><span class="p">):</span>
-		<span class="n">origin_https_url</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(</span><span class="err">\</span><span class="s">s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">origin_https_url_or_file</span><span class="p">)</span>
+		<span class="n">origin_https_url</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(\s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">origin_https_url_or_file</span><span class="p">)</span>
 		<span class="n">sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
 		<span class="n">forms_sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3 --forms'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
 		<span class="n">tor_sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py --tor --tor-type=socks5 --check-tor -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
@@ -999,7 +984,7 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 		<span class="n">all_urls</span><span class="o">=</span><span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
 		<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 		<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">all_urls</span><span class="p">:</span>
-			<span class="n">origin_https_url</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(</span><span class="err">\</span><span class="s">s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>		
+			<span class="n">origin_https_url</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(\s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>		
 			<span class="n">sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
 			<span class="n">forms_sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3 --forms'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
 			<span class="n">tor_sqlmap_string</span><span class="o">=</span><span class="s">'''/usr/share/sqlmap/sqlmap.py --tor --tor-type=socks5 --check-tor -u "</span><span class="si">%</span><span class="s">s" --crawl=3 --delay 2 --smart -v 4 --threads 4 --batch --random-agent --safe-url "</span><span class="si">%</span><span class="s">s" --safe-freq 1 --tamper=between,space2randomblank,randomcase,xforwardedfor,charencode --level 3'''</span> <span class="o">%</span> <span class="p">(</span><span class="n">origin_https_url</span><span class="p">,</span><span class="n">origin_https_url</span><span class="p">)</span>
@@ -1091,12 +1076,11 @@ https://pan.baidu.com/s/1kUklzZD 密码: 4cpn
 	<span class="n">sqlmap_g_human</span><span class="p">(</span><span class="s">"targets.txt"</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
 	<span class="n">main</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>5&gt;MyToolKit.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#works in py3,coz mysqlmap module need py3</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#works in py3,coz mysqlmap module need py3</span>
 <span class="c">#works in py2 with selenium not changed best,coz</span>
 <span class="c">#the mysqlmap module will use os.system function </span>
 <span class="c">#to use the selenium changed version itself</span>
@@ -1381,12 +1365,11 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 
 	<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">'/usr/bin/python2.7 mail.py'</span><span class="p">)</span>
 	<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">'''mv -f /root/.sqlmap/output_bak/* /root/.sqlmap/output'''</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>6&gt;mail.py</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
 <span class="c"># make sure your MyToolKit folder has only target file,and make its</span>
 <span class="c"># ext 'targets.txt',otherwise you should change the source code to make it </span>
 <span class="c"># good to use.</span>
@@ -1459,7 +1442,7 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 		<span class="n">matchobj</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r'https'</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
 		<span class="k">if</span> <span class="n">matchobj</span><span class="p">:</span>
 			<span class="c">#print each</span>
-			<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(</span><span class="err">\</span><span class="s">s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+			<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(\s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
 			<span class="n">return_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>      
         <span class="c">#print return_list</span>
         <span class="k">return</span> <span class="n">return_list</span>
@@ -1471,7 +1454,7 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 	<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"rm csv_file_list.txt"</span><span class="p">)</span>
 	<span class="n">final_list</span><span class="o">=</span><span class="p">[]</span>
 	<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-		<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(</span><span class="err">\</span><span class="s">s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+		<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(\s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
 		<span class="c">#print each</span>
 		<span class="n">list_from_single_file</span><span class="o">=</span><span class="n">read_save_msg_from_csv</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
 		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_from_single_file</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
@@ -1495,7 +1478,7 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 <span class="k">def</span> <span class="nf">get_source_domain_of_target_sqli_urls</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
 	<span class="kn">import</span> <span class="nn">socket</span>
 	<span class="kn">import</span> <span class="nn">re</span>
-	<span class="n">sqli_url_domain</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(</span><span class="err">\</span><span class="s">s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">url</span><span class="p">)</span>
+	<span class="n">sqli_url_domain</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(\s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">url</span><span class="p">)</span>
 	<span class="c">#print sqli_url_domain</span>
 
 	<span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">"targets.txt"</span><span class="p">,</span><span class="s">"r+"</span><span class="p">)</span>
@@ -1503,7 +1486,7 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 	<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 	<span class="n">all_list</span><span class="o">=</span><span class="p">[]</span>
 	<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">targets_list</span><span class="p">:</span>
-		<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(</span><span class="err">\</span><span class="s">s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+		<span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(https://)|(https://)|(\s)|(/.*)|(:.*)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
 		<span class="n">domain</span><span class="o">=</span><span class="p">[]</span>
 		<span class="n">domain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
 		<span class="k">try</span><span class="p">:</span>
@@ -1549,8 +1532,7 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
 	<span class="n">main</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 
@@ -1589,16 +1571,6 @@ input your number here:'''</span><span class="p">,</span><span class="n">end</sp
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

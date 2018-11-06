@@ -158,19 +158,18 @@
 
 <p>1.查找当前目录下包括子目录内所有的包含’def’字符串的python文件,并删除这些文件</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>find . -name "*.py" | xargx ack -ri 'def' | xargs rm
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name "*.py" | xargx ack -ri 'def' | xargs rm
 或者
 for file in $(find . -name "*.py");do ack -il 'def' $file &amp;&amp; rm $file;done
 或者
 for file in $(find . -name "*.py" | xargs ack -li 'def');do rm $file;done
 或者
 for file in $(find . -name "*.py");do ack -il 'def' $file;doen | xargs rm
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2.查找当前目录下包括子目录内所有的临时文件(.swp,.swm,.swn,.swo等,但不包括.swf),并删除这些文件</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>macOS下:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>macOS下:
 
 find -E . -regex ".+\.sw[^f]$" 2&gt;/dev/null | xargs rm
 或
@@ -181,16 +180,14 @@ find -E . -regex ".+\.sw[^f]$" 2&gt;&amp;1 | grep -v "Permission denied" | xargs
 
 普通linux下:
 find . -regextype posix-extended -regex ".+\.sw[^f]$" | grep -v "Permission denied" | xargs rm
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3.将godseyedb数据库中的targets表名中的所有可以匹配’.*scaned$’正则的列名所在的列的值全部修改为’0’</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>for colname in $(mysql -uroot -proot -e "select column_name from information_schema.columns where table_name='targets' and column_name regexp '.*scaned$'" | ack '\S+scaned$');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for colname in $(mysql -uroot -proot -e "select column_name from information_schema.columns where table_name='targets' and column_name regexp '.*scaned$'" | ack '\S+scaned$');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
 或者
 for colname in $(mysql -uroot -proot -e "use godseyedb;desc targets" | ack -o '\S+scaned(?=\s)');do mysql -uroot -proot -e "use godseyedb;update targets set $colname='0'";done
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -228,16 +225,6 @@ for colname in $(mysql -uroot -proot -e "use godseyedb;desc targets" | ack -o '\
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

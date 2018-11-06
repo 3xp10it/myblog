@@ -122,7 +122,7 @@ UTF-8就是在互联网上使用最广的一种unicode的实现方式(80%的网�
 
 <p>2.struct模块提供了一些函数,把字节序列转换成不同类型字段组成的元组(<code class="highlighter-rouge">struct.unpack</code>),还有一些函数用于执行反向转换,把元组转换成字节序列(<code class="highlighter-rouge">struct.pack</code>).struct模块能处理bytes,bytearray和memoryview对象</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
 Out[62]: (12, 13)
 
 In [63]: struct.pack('ii',12,13)
@@ -153,19 +153,17 @@ Out[77]: (b'GIF', b'89a', 400, 400)
 In [78]: del header
 
 In [79]: del img
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3.python自带了超过100种编解码器,用于在文本和字节之间相互转换.每个编解码器都有一个名称,如’utf_8’,而且经常有几个别名,如’utf8’,’utf-8’,’U8’.</p>
 
 <p>4.python3允许在源码中使用非ascii标识符.有些人不喜欢这么做.支持始终使用ascii标识符的人认为,这样便于所有人阅读和编辑代码.这些人没切中要害:源码应该便于目标群体阅读和编辑,而不是”所有人”.如果代码属于跨国公司,或者是开源的,想让来自世界各地的人作贡献,那么标识符应该使用英语,也就是说只能使用ascii字符.但是,如果你是巴西的一位老师,那么使用葡萄牙语正确拼写变量和函数名更便于学生阅读代码</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [81]: 笔='钢笔'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [81]: 笔='钢笔'
 
 In [82]: print(笔)
 钢笔
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>5.utf8的一在优势是,不管设备使用哪种字节序(大端或小端),生成的字节序列始终一致,因此不需要BOM(在文件头部的字节序标记,一些编辑器会给文件加BOM,如notepad).尽管如此,某些windows应用(如notepad)还是会在utf8编码的文件中添加BOM;而且,EXCEL会根据有没有BOM确定文件是不是UTF8编码</p>
 
@@ -173,14 +171,13 @@ In [82]: print(笔)
 
 <p>7.<code class="highlighter-rouge">eval</code>会把string表达的内容当作代码执行</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [89]: eval('print(111)')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [89]: eval('print(111)')
 111
 
 In [90]: a='[1,2]'
 In [91]: eval(a)
 Out[91]: [1, 2]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>8.windows中,<code class="highlighter-rouge">locale.getpreferredencoding()</code>返回的编码是最重要的:这是打开文件的默认编码,也是重定向到文件的sys.stdout/stdin/stderr的默认编码.关于编码默认值的最佳建议是:别依赖默认值</p>
 
@@ -221,16 +218,6 @@ Out[91]: [1, 2]
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

@@ -131,16 +131,15 @@ for循环重写了</p>
 
 <p>6.元组拆包示例:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>city,year,pop,chg,area=('tokyo',2003,32450,0.66,8014)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>city,year,pop,chg,area=('tokyo',2003,32450,0.66,8014)
 passport=('usa','31195855')
 print('%s/%s' % passport)
 在拆包的时候,我们不总是对元组里所有的数据都感兴趣,_占位符能帮助处理这种情况
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>7.可以用<code class="highlighter-rouge">*</code>运算符把一个可迭代对象拆开作为函数的参数,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [8]: divmod(20,8)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [8]: divmod(20,8)
 Out[8]: (2, 4)
 
 In [9]: t=(20,8)
@@ -152,23 +151,21 @@ In [11]: t=[20,8]
 
 In [12]: divmod(*t)
 Out[12]: (2, 4)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在python中,函数用<code class="highlighter-rouge">*args</code>来获取不确定数量的参数是一种经典写法,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def test(*args):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def test(*args):
     print(args)
 test(1,2,[3,4,5])
 
 output:
 (1, 2, [3, 4, 5])
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在python3里,这个概念被扩展到了平行赋值中,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [14]: a,b,*c=range(5)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [14]: a,b,*c=range(5)
 
 In [15]: a,b,c
 Out[15]: (0, 1, [2, 3, 4])
@@ -176,8 +173,7 @@ Out[15]: (0, 1, [2, 3, 4])
 In [1]: a,*b,c,d=range(5)
 In [2]: a,b,c,d
 Out[2]: (0, [1, 2], 3, 4)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>8.在python3之前,元组可以作为形参放在函数声明中,例如<code class="highlighter-rouge">def fn(a,(b,c),d):</code>.然而python3不再支持这种格式.</p>
 
@@ -185,7 +181,7 @@ Out[2]: (0, [1, 2], 3, 4)
 
 <p><code class="highlighter-rouge">collections.namedtuple</code>是一个工厂函数,它可以用来构建一个带字段名的元组和一个有名字的类–这个带名字的类对调试程序有很大帮助</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [1]: from collections import namedtuple
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [1]: from collections import namedtuple
 
 In [2]: City=namedtuple('City','name country population coordinates')
 
@@ -205,12 +201,11 @@ Out[8]: 'JP'
 
 In [9]: tokyo[2]
 Out[9]: 36.933
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>10.对对象进行切片</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [10]: s='bicycle'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [10]: s='bicycle'
 
 In [11]: s[::3]
 Out[11]: 'bye'
@@ -228,12 +223,11 @@ In [15]: l='nihaoma'
 
 In [16]: l[a]
 Out[16]: 'ha'
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>11.给切片赋值时,如果赋值的对象是一个切片,那么赋值语句的右侧必须是个可迭代对象,即使只有单独一个值,也要把它转换成可迭代的序列</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [17]: l=list(range(10))
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [17]: l=list(range(10))
 
 In [18]: l
 Out[18]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -265,12 +259,11 @@ In [26]: l[2:5]=[100]
 
 In [27]: l
 Out[27]: [0, 1, 100, 22, 9]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>12.如果在a*n这个语句中,序列a里的元素是对其他可变对象的引用的话,需要格外注意,因为这个式子中的结果可能会出乎意料.比如,你想用<code class="highlighter-rouge">my_list=[[]]*3</code>来初始化一个由列表组成的列表,但是你得到的列表里包含3个元素其实是3个引用,而且这3个引用指向的都是同一个列表.这可能不是你想要的效果.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [30]: weird_board=[['_','_','_']]*3
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [30]: weird_board=[['_','_','_']]*3
 
 In [31]: weird_board
 Out[31]: [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
@@ -279,12 +272,11 @@ In [32]: weird_board[1][2]='0'
 
 In [33]: weird_board
 Out[33]: [['_', '_', '0'], ['_', '_', '0'], ['_', '_', '0']]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>13.元组是不可变序列,列表是可变序列</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [4]: l=[1,2,3]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [4]: l=[1,2,3]
 
 In [5]: id(l)
 Out[5]: 4559571080
@@ -309,14 +301,13 @@ Out[12]: (1, 2, 3, 1, 2, 3)
 
 In [13]: id(t)
 Out[13]: 4558895624
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>对不可变序列进行重复拼接操作的话,效率会很低,因为每次都有一个新对象,而解释器需要把原来对象中的元素先复制到新的对象里,然后再追加新的元素</p>
 
 <p>14.元组tuple是不可变序列,不支持对它的元素赋值,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [16]: t
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [16]: t
 Out[16]: (1, 2, 3, 1, 2, 3)
 
 In [17]: t[0]=4
@@ -326,12 +317,11 @@ TypeError                                 Traceback (most recent call last)
 ----&gt; 1 t[0]=4
 
 TypeError: 'tuple' object does not support item assignment
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>但是如果是给元组里面的列表元素进行赋值是可以成功的,虽然会报错,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [21]: t
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [21]: t
 Out[21]: (1, 2, [3, 4])
 
 In [22]: t[2]+=[5]
@@ -344,12 +334,11 @@ TypeError: 'tuple' object does not support item assignment
 
 In [23]: t
 Out[23]: (1, 2, [3, 4, 5])
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>15.查看python字节码的方法如下,更多可参考<a href="https://www.cnblogs.com/hello2764/p/5459758.html">这里</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [25]: import dis
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [25]: import dis
 
 In [26]: dis.dis('a=1')
   1           0 LOAD_CONST               0 (1)
@@ -368,8 +357,7 @@ In [28]: dis.dis(b)
 
   3           4 LOAD_FAST                0 (c)
               6 RETURN_VALUE
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>16.<code class="highlighter-rouge">list.sort</code>方法会就地排序列表,也就是说不会把原列表复制一份.这也是这个方法的返回值是None的原因,返回None会被控制台忽略,提醒你本方法不会新建一个列表.在这种情况下返回None是Python的一个惯例:如果一个函数或者方法对对象进行的是就地改动,那它就应该返回None,好让调用者知道传入的参数发生了变动,而且并未产生新的对象.例如,random.shuffle函数也遵守了这个惯例.与list.sort相反的是内置函数sorted,它会新建一个列表作为返回值.</p>
 
@@ -424,16 +412,6 @@ In [28]: dis.dis(b)
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

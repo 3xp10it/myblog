@@ -136,7 +136,7 @@
 
 <p>6.<code class="highlighter-rouge">repr()</code>和<code class="highlighter-rouge">str()</code>的对比:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>repr()得到的结果是给python看的,方便调试和记录日志
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repr()得到的结果是给python看的,方便调试和记录日志
 str()得到的结果是用户看的,方便给终端用户看
 如果一个对象没有__str__函数,而python又需要调用它时,解释器会用__repr__作为替代
 
@@ -148,17 +148,15 @@ print("%r" % d)
 输出:
 2017-11-20
 datetime.date(2017,11,20)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>7.bool(x)的背后是调用<code class="highlighter-rouge">x.__bool__()</code>的结果;如果不存在<code class="highlighter-rouge">__bool__</code>方法,那么bool(x)会尝试调用<code class="highlighter-rouge">x.__len__()</code>,若返回0,则
 bool会返回False,否则返回True.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>None==[]==()=={}==False?    ====&gt; 不是的
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>None==[]==()=={}==False?    ====&gt; 不是的
 而是:
 bool(None)==bool([])=bool(())==bool({})==False
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>8.在python中,输入import this会弹出python之禅</p>
 
@@ -168,7 +166,7 @@ str,list,memoryview等类型上,这个操作必须高效</p>
 
 <p>10.通过实现特殊方法,自定义数据类型可以表现得跟内置类型一样,从而让我们写出更具表达力的代码.如:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class FrenchDeck:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class FrenchDeck:
     ranks=[str(n) for n in range(2,11)]+list('JQKA')
     suits='spades diamonds clubs hearts'.split()
 
@@ -181,8 +179,7 @@ str,list,memoryview等类型上,这个操作必须高效</p>
     def __getitem__(self,position):
         return self._cards[position]
     
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>11.python的<a href="http://blog.csdn.net/yuan_j_y/article/details/9317817">四个魔法方法</a></p>
 
@@ -223,16 +220,6 @@ str,list,memoryview等类型上,这个操作必须高效</p>
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

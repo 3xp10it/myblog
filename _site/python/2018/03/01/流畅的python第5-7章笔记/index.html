@@ -123,7 +123,7 @@
 
 <p>2.<code class="highlighter-rouge">sum</code>和<code class="highlighter-rouge">reduce</code>函数用于求和.最好使用sum函数,可读性更好.sum和reduce的通用思想是把某个操作连续应用到序列的元素上,累计之前的结果,把一系列值<code class="highlighter-rouge">归约</code>成一个值.<code class="highlighter-rouge">all</code>和<code class="highlighter-rouge">any</code>也是内置的归约函数</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: from functools import reduce
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [2]: from functools import reduce
 
 In [3]: from operator import add
 
@@ -164,8 +164,7 @@ TypeError: any() takes exactly one argument (2 given)
 
 In [13]: any(('niaho',['wohao'],''))
 Out[13]: True
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3.为了使用高阶函数,有时创建一次性的小型函数更便利.这便是匿名函数存在的原因.lambda关键字在python表达式内创建匿名函数.然而,python简单的句法限制了lambda函数的定义体只能使用纯表达式.换句话说,lambda函数的定义体中不能赋值,也不能使用while和try等python语句.eval函数好像也是这样.除了作为参数传给高阶函数之外,python很少使用匿名函数.由于句法上的限制,非平凡的lambda表达式要么难以阅读,要么无法写出.lambda句法只是语法糖:与def语句一样,lambda表达式会创建函数对象</p>
 
@@ -183,7 +182,7 @@ Out[13]: True
 
 <p>5.从定位参数到仅限关键字参数</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [17]: my_tag={'name':'img','title':'Sunset Boulevard','src':'sunset.jpg','cls':'framed'}
 
 In [18]: tag(**my_tag)
 name is:img
@@ -212,15 +211,14 @@ name is:img
 content is:()
 cls is:framed
 attrs is:{'title': 'Sunset Boulevard', 'src': 'sunset.jpg'}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>调用<code class="highlighter-rouge">tag('p','hello')</code>时,第一个参数后面的任意个参数会被<code class="highlighter-rouge">*content</code>捕获,存入一个元组
 调用<code class="highlighter-rouge">tag(**my_tag)</code>时,在my_tag前面加上<code class="highlighter-rouge">**</code>,字典中的所有元素作为单个参数传入,同名键会绑定到对应的具名参数上,余下的则被<code class="highlighter-rouge">**attrs</code>捕获</p>
 
 <p>6.函数对象有个<code class="highlighter-rouge">__defaults__</code>属性,它的值是一个元组,里面保存着定位参数和关键字参数的默认值.仅限关键字参数的默认值在<code class="highlighter-rouge">__kwdefaults__</code>属性中.然而,参数的名称在<code class="highlighter-rouge">__code__</code>属性中,它的值是一个code对象引用,自身也有很多属性如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [31]: def tag(name,*content,cls=666,**attrs):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [31]: def tag(name,*content,cls=666,**attrs):
     ...:     print("name is:"+name)
 
 In [32]: tag.__defaults__
@@ -242,8 +240,7 @@ Out[37]: ('name', 'cls', 'content', 'attrs')
 
 In [38]: tag.__code__.co_argcount
 Out[38]: 1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="第6章-使用一等函数实现设计模式">第6章 使用一等函数实现设计模式</h3>
 
@@ -289,16 +286,6 @@ Out[38]: 1
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

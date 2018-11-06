@@ -121,7 +121,7 @@
 
 <p>dvwa设置level为impossible后服务端验证(由form action中的地址对应的页面进行验证)客户端传来的csrf_token的过程如下:(以xss[reflected]和login页面为例,dvwa中的login.php和xss_r中的form action中的url都是当前页面)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;body&gt;</span>
     加载impossible.php
     impossible.php执行内容流程:
@@ -131,19 +131,17 @@
     取出新的csrf_token到html的body
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>其中刷新服务器存储的csrf_token的代码如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function generateSessionToken() {  # Generate a brand new (CSRF) token                                                                                    
      if( isset( $_SESSION[ 'session_token'  ]  )  ) {                                                                                                         
          destroySessionToken();                                                                                                                            
      }                                                                                                                                                     
      $_SESSION[ 'session_token'  ] = md5( uniqid()  );                                                                                                       
 } 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在上面的验证csrf_token中,xss[reflected]是先判断是否传入name参数,也即如果
 在url中出现name参数,无论是否为空都将进行csrf_token验证(服务器中用的isset($_POST[‘name’])来判断)
@@ -203,16 +201,6 @@ csrf_token),且暴力破解时需要每次在请求时更新请求参数中的cs
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

@@ -119,7 +119,7 @@
 
 <p>1.c语言中嵌入的汇编能够识别高级语言中的符号,如变量address</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>int i,gi;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int i,gi;
 void * address{
     _asm {
     mov address,offset _lb1
@@ -134,8 +134,7 @@ _lb1:
 
                             jmp address
 004113C8 ff 25 cc 74 41 00  jmp dword ptr ds:[004174cch]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2.指针的类型信息(dword ptr,word ptr,byte ptr…)决定了赋值/读取时写/读多少字节.读/写多少字节的信息不是存放在指针
 变量中,而是放到了与该地址相关的赋值指令中,如<code class="highlighter-rouge">mov dword ptr [eax],0ch</code>中的dword指明了这个信息.不同类型指针,访问字
@@ -151,32 +150,29 @@ _lb1:
 <p>b)指针强制类型转换的影响不是在转换的时候发生,在转换时除了赋值地址没有多余动作,起效的时是在用转换后的身份去访问内
 存的时候,编译器会按转换后的指针类型产生相应代码,如下打印的结果是0xcccc000c而不是0c.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>int *pi;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int *pi;
 short si=12;
 pi=(int *)&amp;si;
 printf("%x",*pi);
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>4.计算负数值方法:取反加1</p>
 
 <p>5.call指令的偏移量计算方法:偏移量=跳转到的地址-call指令后一条指令的起始地址</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
 0041376b    ...                 ...
 
 e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b+(-0x2586)=0x00411e5
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>6.call指令相当于以下2条指令,在调用call之前要先push函数参数(x86),如push 1,push2,call 0x0402848,所以可以理解:在当前
 函数帧栈中,第1个参数的位置在ebp+8处,因为ebp+4处的内容是call之前push的返回地址.在使用了ebp寻址的函数中,ebp+偏移量
 是参数的地址,ebp-偏移量是局部变量的地址</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>push 返回地址
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>push 返回地址
 jmp 函数入口
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>7._cdecl是调用方清理栈,_pascal,_fastcall和_stdcall是被调用方清理栈.c语言缺省调用惯例是_cdecl,_stdcall通常用于
 win32 API.<a href="https://www.cnblogs.com/john-h/p/6276828.html">更多</a></p>
@@ -186,7 +182,7 @@ win32 API.<a href="https://www.cnblogs.com/john-h/p/6276828.html">更多</a></p>
 
 <p>9.数组的第1个元素的索引从0开始的原因</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>索引从1开始:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>索引从1开始:
 
 第1个元素的地址=首地址a
 第2个元素的地址=首地址a+1x元素大小
@@ -199,8 +195,7 @@ win32 API.<a href="https://www.cnblogs.com/john-h/p/6276828.html">更多</a></p>
 第1个元素的地址=首地址a+1x元素大小
 第2个元素的地址=首地址a+2x元素大小
 第i个元素的地址=首地址a+(i)x元素大小
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>10.从上面9中也理解了c语言为什么会发生数组越界错误,因为它只是拿到首部地址然后加偏移量,如果索引值超出范围,那么求得
 的元素地址也就超过了范围</p>
@@ -209,14 +204,13 @@ win32 API.<a href="https://www.cnblogs.com/john-h/p/6276828.html">更多</a></p>
 
 <p>12.内存中字节对齐的规律</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>首先选定一个盒子,然后依序将字段往盒子中放,当盒子放不下后,又用下一个盒子存放,直至所有字段都存放完毕.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>首先选定一个盒子,然后依序将字段往盒子中放,当盒子放不下后,又用下一个盒子存放,直至所有字段都存放完毕.
 
 相关限制条件:
 a)盒子长度=min{max{sizeof(成员变量)},对齐长度}
 b)字段放入盒子的可放置位置如下:
     离盒子头部偏移字节数=nxsizeof(成员变量)     (n=0,1,2,...)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>13.为了让结构体更整齐以便于在不同字节序程序间传递,我们就尽量调整结构体的字段顺序,在没办法的情况下,可考虑主动添加
 一些字段,防止计算机为了对齐而填充</p>
@@ -231,14 +225,13 @@ b)字段放入盒子的可放置位置如下:
 
 <p>18.重定位与模块绑定<a href="http://blog.csdn.net/ithzhang/article/details/7058576">理解</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>relocAddr=actualBase+a
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>relocAddr=actualBase+a
 * relocAddr=*relocAddr+actualBase-expectedAddr
 eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有重定位段的pe中,有多个a,如a=0x100,a=0x502,
 表示在pe的偏移0x100,0x502处的4字节值需要修改为原来的值+(实际加载基址与期望加载基址的差)
 
 一般elf的expectedAddr为0x8048000(约128M),linux共享库的expectedAddr为0x40000000(1G)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>上面的expectedAddr可通过ida加载一个elf,查看ida中的进度条最开始位置的地址,这个地址即是elf期望的加载基址,如下图期望
 加载基址为0x8048000</p>
@@ -298,16 +291,6 @@ eg.在exe中,一般expectedAddr为0x400000(4M),dll为0x1000000(16M),在一个有
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

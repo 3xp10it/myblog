@@ -119,27 +119,24 @@
 
 <p>1.apktool,<code class="highlighter-rouge">brew install apktool</code>[可得到关键smali文件]</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>apktool d target.apk -o target
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apktool d target.apk -o target
 与apktool相同功能的工具但更新更多的是[baksmali][3]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2.dex2jar(kali自带)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dex2jar target.apk[得到jar文件]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dex2jar target.apk[得到jar文件]
+</code></pre></div></div>
 
 <p>3.jd-gui,<code class="highlighter-rouge">brew cask install jd-gui</code>[可得到java源码]</p>
 
 <p>4.<a href="https://varaneckas.com/jad/">jad</a>,如果jd-gui看到的代码不全,可尝试jad看能否看到更多源代码</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jar -xvf target.jar[得到.class文件]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jar -xvf target.jar[得到.class文件]
 for each in $(find . -name "*.class");do echo y | jad $each;done
 for each in $(find . -name "*.jad");do copy $each /tmp/source;done
 其中.jad为jad将.class反编译得到的java代码文件
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-apk逆向好文">0x02 apk逆向好文</h3>
 
@@ -161,22 +158,19 @@ for each in $(find . -name "*.jad");do copy $each /tmp/source;done
 
 <p>c)<code class="highlighter-rouge">cd money &amp;&amp; ack -r '密码错误' .</code>得到如下结果</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>res/values/strings.xml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>res/values/strings.xml
 38:    &lt;string name="dialog_error_tips"&gt;密码错误,请继续破解&lt;/string&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>d)查看strings.xml文件发现关键字符串</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;string name="dialog_good_tips"&gt;密码正确但没钱!!!&lt;/string&gt;
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;string name="dialog_good_tips"&gt;密码正确但没钱!!!&lt;/string&gt;
+</code></pre></div></div>
 
 <p>e)<code class="highlighter-rouge">ack -r 'dialog_good_tips' .</code>得到关键id为0x7f060024</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>471:    &lt;public type="string" name="dialog_good_tips" id="0x7f060024" /&gt;
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>471:    &lt;public type="string" name="dialog_good_tips" id="0x7f060024" /&gt;
+</code></pre></div></div>
 
 <p>f)将apk中的classes.dex在ida中打开,搜索这个id,如下图</p>
 
@@ -190,7 +184,7 @@ for each in $(find . -name "*.jad");do copy $each /tmp/source;done
 
 <p>j)在jd-gui中搜索id=”0x7f060024”中对应的10进制值”2131099684”打开关键代码处逻辑如下</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span>
   <span class="kd">extends</span> <span class="n">c</span>
   <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span>
 <span class="o">{</span>
@@ -223,12 +217,11 @@ for each in $(find . -name "*.jad");do copy $each /tmp/source;done
         <span class="k">return</span><span class="o">;</span>
       <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>k)查看关键对比处的nosence的a函数</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">nosence</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">nosence</span>
 <span class="o">{</span>
   <span class="kd">static</span>
   <span class="o">{</span>
@@ -316,8 +309,7 @@ for each in $(find . -name "*.jad");do copy $each /tmp/source;done
   <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>相应可算出flag</p>
 
@@ -358,16 +350,6 @@ for each in $(find . -name "*.jad");do copy $each /tmp/source;done
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

