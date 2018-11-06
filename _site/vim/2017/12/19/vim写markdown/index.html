@@ -135,7 +135,7 @@
 
 <p>为解决vim开启wrap写markdown时的一些”不适”,可在vimrc中设置如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"markdown setting
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"markdown setting
 au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
 au FileType markdown setlocal linebreak    " Avoid wrap breaking words
@@ -161,12 +161,11 @@ cnoremap &lt;c-h&gt; &lt;left&gt;
 cnoremap &lt;c-j&gt; &lt;down&gt;
 cnoremap &lt;c-k&gt; &lt;up&gt;
 cnoremap &lt;c-l&gt; &lt;right&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>上面是不用插件的方法,也可使用<a href="https://github.com/reedes/vim-pencil">vim-pencil</a>插件实现这个功能,此外vim-pencil插件还有其他的功能,使用vim-pencil插件后适应markdown的wrap开启状态的编写设置如下,其中vim-pencil已具备jk0$自动换成<code class="highlighter-rouge">gj/gk/g0/g$</code>的功能,此外上面的设置中其他功能尚未测试,于是同样保留在vimrc中</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Plugin 'reedes/vim-pencil'  "安装这个插件,放在较靠前位置
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plugin 'reedes/vim-pencil'  "安装这个插件,放在较靠前位置
 ...
 ...
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
@@ -194,8 +193,7 @@ cnoremap &lt;c-h&gt; &lt;left&gt;
 cnoremap &lt;c-j&gt; &lt;down&gt;
 cnoremap &lt;c-k&gt; &lt;up&gt;
 cnoremap &lt;c-l&gt; &lt;right&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

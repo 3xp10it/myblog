@@ -117,45 +117,41 @@
 
         <span itemprop="articleBody"><h3 id="0x00-fckeditor上传漏洞总结">0x00 fckeditor上传漏洞总结</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://sec.chinabyte.com/206/13708206.shtml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://sec.chinabyte.com/206/13708206.shtml
 http://www.cnbraid.com/2015/07/09/fckeditor/
 http://www.it610.com/article/1842939.htm
 http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf &lt;=2.6.4
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-asp">0x01 asp</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;=2.6.4
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;=2.6.4
     http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf
 2.6.6
     http://www.hack80.com/thread-320-1-1.html
     http://www.qhwins.com/ShowNews/?11-20109214030542523.html
 2.6.8
     http://www.freebuf.com/vuls/6408.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-php">0x02 php</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;=2.6.4
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;=2.6.4
     http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-fckeditor经典尝试后缀">0x03 fckeditor经典尝试后缀</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;将后缀改成.php.pjpg
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;将后缀改成.php.pjpg
 2&gt;将后缀改成.html
 3&gt;将后缀改成.lnk
 4&gt;将后缀改成.inc
 5&gt;将后缀改成.phps
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x04-其它上传技巧">0x04 其它上传技巧</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>0&gt;其他关于上传技巧的汇总
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0&gt;其他关于上传技巧的汇总
     https://www.lshack.cn/?p=152
 
 1&gt;上传时,延迟一下再上传,有时能bypass admin,用到firefox tamper插件
@@ -184,13 +180,12 @@ http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf &lt;=2
     用法:x.php?0=system post data:1=whoami,上面链接中的payload见如下phppayload
     c)上面b中的条件限制为png且大小为32x32,jpg绕过方法
         http://www.blogs8.cn/posts/WiA3bxU
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><a href="https://www.idontplaydarts.com/images/phppng.png">phppayload</a>
 <a href="https://raw.githubusercontent.com/3xp10it/pic/master/phppng.png">phppayload_bak_link</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>5&gt;https://www.nds.rub.de/media/attachments/files/2012/11/File-in-the-hole.pdf
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5&gt;https://www.nds.rub.de/media/attachments/files/2012/11/File-in-the-hole.pdf
     多种上传技巧:
     a)将.htaccess本身作为webshell,解析本身.htaccess作为php
         http://www.justanotherhacker.com/2011/05/htaccess-based-attacks.html
@@ -249,8 +244,7 @@ http://secureyes.net/nw/assets/File-Upload-Vulnerability-in-FCKEditor.pdf &lt;=2
 
 8.对图片长宽有要求的尝试突破上传方法
     https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=10503&amp;extra=page%3D1
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

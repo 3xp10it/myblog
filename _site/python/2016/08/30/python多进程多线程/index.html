@@ -117,13 +117,12 @@
 
         <span itemprop="articleBody"><h3 id="0x00-python性能优化">0x00 python性能优化</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://pfmiles.github.io/blog/python-speed-performance-tips/
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://pfmiles.github.io/blog/python-speed-performance-tips/
+</code></pre></div></div>
 
 <h3 id="0x01-为什么有人说python的多线程是鸡肋">0x01 为什么有人说Python的多线程是鸡肋</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>差不多是这样子.多线程目前仅用于网络多线程采集, 以及性能测试.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>差不多是这样子.多线程目前仅用于网络多线程采集, 以及性能测试.
 其它的语言也有类似的情况,线程本身的特点导致线程的适用范围是受限的.只有CPU过剩,而其它的任务很慢,此时用线程才是有
 益的,可以很好平衡等待时间,提高并发性能.线程的问题主要是线程的安全稳定性.线程无法强制中止,同时线程与主进程共享内
 存,可能会影响主进程的内存管理.在python里线程出问题,可能会导致主进程崩溃. 虽然python里的线程是操作系统的真实线程
@@ -141,18 +140,16 @@ twisted等方式.如果是GUI方式,则要通过事件机制,或者是消息机�
                                                             --refer from baidu zhidao
 more:
     https://www.zhihu.com/question/23474039
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-经典多线程学习理解">0x02 经典多线程学习理解</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://blog.csdn.net/a921800467b/article/details/8579915
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://blog.csdn.net/a921800467b/article/details/8579915
+</code></pre></div></div>
 
 <h3 id="0x03-网络io-阻塞非阻塞-同步异步">0x03 网络io 阻塞|非阻塞 同步|异步</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://www.cnblogs.com/Anker/p/3254269.html
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.cnblogs.com/Anker/p/3254269.html
 
 例子:
 
@@ -178,12 +175,11 @@ more:
 异步是配合非阻塞使用的,这样才能发挥异步的效用.
 
 ——来源网络,作者不明. 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-实例">0x03 实例</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>good
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>good
     http://www.2cto.com/kf/201504/395330.html 
     https://mugglecoding.gitbooks.io/qa/content/poolzen_yao_shi_yong.html
 
@@ -194,12 +190,11 @@ http://www.jb51.net/article/71911.htm
 http://www.cnblogs.com/fnng/p/3670789.html
 http://5ydycm.blog.51cto.com/115934/1435042
 http://www.codexiu.cn/python/blog/939/
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x04-attention">0x04 attention</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;threadpool
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;threadpool
 
     threadpool线程池模块已经过时,官方如下说明,建议使用multiprocessing模块甚至是用asyncio这个模块来通过异步实现
 
@@ -238,12 +233,11 @@ pool.apply()和pool.apply_async()的区别是:apply_async是并行处理,apply�
     apply
     It blocks until the result is ready, so apply_async() is better suited for performing work in parallel.
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x05-important">0x05 important</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>multiprocessing模块是重点
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>multiprocessing模块是重点
 
 multiprocessing pool源码解读
 http://www.bingtel.wang/python%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B%E4%B9%8Bmultiprocessing-pool%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB.html
@@ -269,12 +263,11 @@ pool.terminate()
 
 pool.join()
     等待线程池中的工作线程退出,必须先使用pool.close()或者pool.terminate()才能调用join()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x06-concurrentfuturespython32新增模块">0x06 concurrent.futures(python3.2新增模块)</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>https://docs.python.org/3/library/concurrent.futures.html
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://docs.python.org/3/library/concurrent.futures.html
 官网的翻译如下
 https://www.bwangel.me/2016/09/23/concurrent-futures/
 ThreadPoolExecutor线程池
@@ -288,12 +281,11 @@ http://python3-cookbook.readthedocs.io/zh_CN/latest/c12/p08_perform_simple_paral
 
 python GIL
 https://www.youtube.com/watch?v=ph374fJqFPE
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x06-my-easy_crawl-code">0x06 my easy_crawl code</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def get_random_ua():
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def get_random_ua():
     #得到随机user-agent值
     f=open("dicts/user-agents.txt","r+")
     all_user_agents=f.readlines()
@@ -490,8 +482,7 @@ def crawl_uri(uri):
     #threads=20(pool_size=20,for_range=20) 9.2,16
     #threads=10(pool_size=10,for_range=20) 4.2,16
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

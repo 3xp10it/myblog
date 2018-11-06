@@ -127,7 +127,7 @@
 <p>2.如下为一个典型的ELF可重定位目标文件格式(与elf[可执行目标文件]的格式类似)
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp7-1.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>.text:已编译程序的机器码
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.text:已编译程序的机器码
 .rodata:只读数据,如printf语句中的格式串和开关语句的跳转表
 .data:已初始化的全局变量,局部变量保存在栈中
 .bss:未初始化的全局变量,在目标文件中这个节不占据实际的空间,它仅仅是一个点位符(better save space)
@@ -138,8 +138,7 @@
 选项调用编译驱动程序(gcc)才会得到这张表
 .line:源代码和.text节中机器指令之间的映射
 .strtab:一个字符串表,其内容包括.symtab和.debug节中的符号表,以及节头部中的节名字,也即反汇编中"查找字符串"的结果
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>3.符号:符号是函数名和变量名,本地链接器符号不包含对应于本地非静态程序变量的任何符号(局部变量)</p>
 

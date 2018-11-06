@@ -120,13 +120,13 @@ that is:<br />
 thunder://…  ==&gt;  ftp://… or something else<br />
 用于手机迅雷下载vedio时wifi下载速度不快,将手机迅雷中的相应下载link放到pc端下载.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="kn">import</span> <span class="nn">base64</span>
     <span class="k">def</span> <span class="nf">get_pure_list</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
         <span class="n">pure_list</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(</span><span class="err">\</span><span class="s">s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
+            <span class="n">each</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'(\s)'</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">each</span><span class="p">)</span>
             <span class="n">pure_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
             <span class="c">#re.sub(r'\r\n',"",each)</span>
             <span class="c">#re.sub(r'\n',"",each)</span>
@@ -147,8 +147,7 @@ thunder://…  ==&gt;  ftp://… or something else<br />
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

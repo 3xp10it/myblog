@@ -135,14 +135,13 @@
       <li>linux下:</li>
     </ul>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  for suffix in  *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do locate $suffix|xargs grep -r -E “(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)” &gt;&gt; /tmp/log.log;done
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  for suffix in  *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do locate $suffix|xargs grep -r -E “(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)” &gt;&gt; /tmp/log.log;done
 
   无locate时:
   for suffix in *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do find / -name $suffix|xargs grep -r -E “(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)” &gt;&gt; /tmp/log.log;done
 
   (grep中有-r是因为find也会找出符合条件的文件夹名,-r表示递归查找文件夹中文件，用于在find找到文件夹名时的情况）
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>内网机器扫描开放端口情况,弱口令爆破
   (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan,

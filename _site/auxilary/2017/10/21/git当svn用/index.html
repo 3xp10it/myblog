@@ -117,17 +117,16 @@
 
         <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.git pull相当于svn update
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.git pull相当于svn update
 2.git push相当于svn commit
 3.git有本地仓库,svn没有本地仓库,上面git push前要git commit -a -m 到本地仓库
 4.git多人协作  https://gist.github.com/suziewong/4378619
 5.同一个github帐号多台不同电脑时可用下面代码方便同步数据
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="code">Code</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># 每天第1次接触电脑时运行py3 gitTool.py --update
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 每天第1次接触电脑时运行py3 gitTool.py --update
 # 每天第-1次接触电脑时运行py3 gitTool.py --commit
 
 import sys
@@ -142,8 +141,7 @@ if sys.argv[1] == "--commit":
     for eachDir in dirList:
         os.system(
             "cd %s &amp;&amp; git add . &amp;&amp; git commit -a -m 'up' &amp;&amp; git push -u origin master" % eachDir)
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

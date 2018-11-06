@@ -116,21 +116,19 @@
         
 
         <span itemprop="articleBody"><h4 id="0x01-step1on-kali-linux">0x01 Step1:on kali linux</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>/usr/bin/rime_dic_manager -l
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/rime_dic_manager -l
 output:wubi86
 cd /root/桌面/
 /usr/bin/rime_dic_manager -e wubi86 kali.txt
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x02-step2on-win7">0x02 Step2:on win7</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>cd %appdata%\rime
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd %appdata%\rime
 copy wubi86.userdb.kct \\kali\桌面\
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="0x03-step3on-kali-linux">0x03 Step3:on kali linux</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>cd /root/.config/fcitx/rime
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /root/.config/fcitx/rime
 mv /root/.config/fcitx/rime/wubi86.userdb.kct wubi86.userdb.kct.bak
 cp /root/桌面/wubi86.userdb.kct .
 重新布置rime
@@ -160,18 +158,16 @@ or
 
 重新布置rime
 ---------------------end----------------------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="update">update</h3>
 
 <h4 id="16-05-25">16-05-25</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>win7:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>win7:
 程序-&gt;用户词库管理-&gt;导出词典快照(rime-&gt;rime)
                   -&gt;导出文本码表(dic-&gt;newdic)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>the difference between 词典快照 and 文本码表</p>
 
@@ -182,7 +178,7 @@ or
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/%E6%96%87%E6%9C%AC%E7%A0%81%E8%A1%A8.png" /></p>
 
 <h4 id="16-05-28">16-05-28</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>python script:(performs well on kali,but not on win7)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python script:(performs well on kali,but not on win7)
 
 download:
 https://raw.githubusercontent.com/3xp10it/mytools/master/rimedic_handle.py
@@ -270,8 +266,7 @@ make myown larger dic
             /usr/bin/rime_dict_manager -i wubi86 /root/newdic.txt
         win7:
             导入文本码表----&gt;\\kali\root\newdic.txt
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

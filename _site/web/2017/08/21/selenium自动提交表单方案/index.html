@@ -127,10 +127,9 @@
 
 <h3 id="0x01-about">0x01 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>利用selenium自动提交表单,要求能适应绝大多数的未知html情况下的提交,以便自动获取页面中的表单中的所有要提交的参
 数
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-detail">0x02 Detail</h3>
 
@@ -149,7 +148,7 @@ click()来提交</p>
 selenium对form元素的submit()调用来获得提交的post参数(get参数是可以得到的),在获取表单提交的参数时采用正则查找参数
 的方式来获取,相关具体处理如下</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    if proxyUrl == "" or proxyUrl == 0:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if proxyUrl == "" or proxyUrl == 0:
         service_args_value = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false']
     if proxyUrl != "" and proxyUrl != 0:
         proxyType = proxyUrl.split(":")[0]
@@ -260,8 +259,7 @@ selenium对form元素的submit()调用来获得提交的post参数(get参数是�
         # eg,https://www.baidu.com/?a=1&amp;b=2
         # 上面?表示formAction对应get请求,^表示formAction对应post请求
         'formActionValue': formActionValue}
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

