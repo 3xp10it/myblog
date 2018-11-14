@@ -131,14 +131,16 @@ images specified in <code class="highlighter-rouge">_data/thumbnails.yml</code> 
 location (I use <a href="https://imgur.com/">Imgur</a>) and then you need to add the url to <code class="highlighter-rouge">_data/thumbnail.yml</code>
 with an associated keyword.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll: "https://i.imgur.com/aRQcGSi.png"
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>jekyll: "https://i.imgur.com/aRQcGSi.png"
+</code></pre>
+</div>
 
 <p>You then add a <code class="highlighter-rouge">thumbnail</code> option to the article’s frontmatter and provide the keyword
 for that thumbnail.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thumbnail: jekyll
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>thumbnail: jekyll
+</code></pre>
+</div>
 
 <p>This allows you to re-use thumbnails across multiple articles without having to
 specify the url each time.</p>
@@ -152,8 +154,9 @@ list of Font Awesome icons <a href="https://fortawesome.github.io/Font-Awesome/i
 <p>So for example if your article is about android and you want to use the <a href="https://fortawesome.github.io/Font-Awesome/icon/android/">android icon</a>
 from font awesome you can just specify the following in your frontmatter.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thumbnail: android
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>thumbnail: android
+</code></pre>
+</div>
 
 <p>Then in the future if you decide you want to use your own android icon you can just
 add it to <code class="highlighter-rouge">_data/thumbnails.yml</code> which will override it for all articles using

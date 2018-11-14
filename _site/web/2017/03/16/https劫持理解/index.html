@@ -115,19 +115,21 @@
 
         <span itemprop="articleBody"><h3 id="0x00-link">0x00 Link</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.https://www.zhihu.com/question/22795329
+<div class="highlighter-rouge"><pre class="highlight"><code>1.https://www.zhihu.com/question/22795329
 2.http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x01-https与ssl">0x01 https与ssl</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssl:secure socket layer安全套接层,https,ftps等都是建立在ssl基础上
+<div class="highlighter-rouge"><pre class="highlight"><code>ssl:secure socket layer安全套接层,https,ftps等都是建立在ssl基础上
 https协议:建立在ssl协议之上的http协议[http over ssl](http协议建立在tcp协议之上)
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x02-ssltls协议握手过程">0x02 ssl/tls协议握手过程</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1)公钥私钥证书
+<div class="highlighter-rouge"><pre class="highlight"><code>1)公钥私钥证书
 
 一般来讲:
 证书文件后缀:.crt,.pem
@@ -146,14 +148,15 @@ http://www.fzb.me/2015-1-15-openssl-rsa.html
 https://www.zhihu.com/question/29620953
 
 2)ssl/tls协议握手过程
-</code></pre></div></div>
+</code></pre>
+</div>
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/dot/ssl/sslfinal.png" /></p>
 
 <h3 id="0x03-几种https会话劫持工具">0x03 几种https会话劫持工具</h3>
 
 <h4 id="0xa-sslstrip">0xa sslstrip</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>详情:https://software.intel.com/zh-cn/blogs/2011/10/11/ssl
+<div class="highlighter-rouge"><pre class="highlight"><code>详情:https://software.intel.com/zh-cn/blogs/2011/10/11/ssl
 
 用户输入www.baidu.com,通过arp欺骗使得browser不会访问到真正的http://www.baidu.com,而http://www.baidu.com的内容是
 跳转到https://www.baidu.com,也即通过arp欺骗将browser的会话由https劫持成http,并由中间人与www.baidu.com服务器正常
@@ -161,20 +164,22 @@ https通信
 
 缺点:使用有局限,要求用户输入url的时候没有输入https[一般用户不输入http或https,而是直接输入www.baidu.com]
 优点:受害用户在访问www.baidu.com的时候browser不会提示证书不可信
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xb-sslsplit">0xb sslsplit</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sslsplit与cain几乎相同,只是sslsplit的证书是攻击者通过如下命令手动创建的
+<div class="highlighter-rouge"><pre class="highlight"><code>sslsplit与cain几乎相同,只是sslsplit的证书是攻击者通过如下命令手动创建的
 openssl genrsa -out ca.key 4096
 openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
 
 而cain的证书是中间人向真实服务器主动获取并修改的
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="0xc-cain">0xc cain</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>中间人与browser和www.baidu.com服务器都进行正常ssl握手,中间人通过arp欺骗将自己伪装成www.baidu.com服务器,劫持受害
+<div class="highlighter-rouge"><pre class="highlight"><code>中间人与browser和www.baidu.com服务器都进行正常ssl握手,中间人通过arp欺骗将自己伪装成www.baidu.com服务器,劫持受害
 机器的browser的https://www.baidu.com/login.php的请求,中间人向www.baidu.com服务器请求证书,获取证书后将证书中的公
 钥修改成中间人自己设置的公钥(中间人一般无法得到www.baidu.com服务器的私钥,私钥保存在www.baidu.com服务器上),并将
 修改后的证书发给browser,browser看到证书可疑,提示用户证书可疑,用户不懂,选择将目标https://www.baidu.com添加到可信
@@ -191,11 +196,12 @@ www.baidu.com服务器进行正常的ssl握手(https通信)是因为中间人从
 
 缺点:欺骗过程中browser会提示受害用户证书不可信
 优点:一般用户会选择将要访问的网站加入到可信任列表,使得https劫持成功
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x04-私钥文件的用途">0x04 私钥文件的用途</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>私钥的用途1:
+<div class="highlighter-rouge"><pre class="highlight"><code>私钥的用途1:
 如果中间人通过web等手段进入了www.baidu.com服务器,取出www.baidu.com的私钥,然后再进行https劫持,这样brower在访问
 www.baidu.com的时候就不会发现证书有问题了,这样中间人也不用伪造证书,直接用www.baidu.com的证书,将证书发给
 browser,再与browser进行正常ssl握手即可,所有加密的数据都可以由中间人解密,因为中间人有www.baidu.com的公钥和私钥.
@@ -203,7 +209,8 @@ browser,再与browser进行正常ssl握手即可,所有加密的数据都可以�
 
 私钥的用途2:结合wireshark利用得到的私钥解密ssl/tls流量
 https://support.citrix.com/article/CTX135121
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="0x05-其他">0x05 其他</h3>
 
@@ -214,8 +221,9 @@ https://support.citrix.com/article/CTX135121
 
 <p>获取指定服务器公钥命令:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl s_client -connect the.host.name:443 | openssl x509 -pubkey -noout
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>openssl s_client -connect the.host.name:443 | openssl x509 -pubkey -noout
+</code></pre>
+</div>
 
 </span>
 
