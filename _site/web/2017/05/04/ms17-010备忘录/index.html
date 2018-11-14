@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>检测方法:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>检测方法:
 1.msf search ms17010
 2.https://github.com/RiskSense-Ops/MS17-010
 
@@ -134,26 +134,23 @@ https://www.youtube.com/watch?v=4OHLor9VaRI
 https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit
 
 3.python版https://www.t00ls.net/thread-39687-1-1.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-attention">0x01 Attention</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.win7 x86效果不好,不稳定,原因不明,考虑换成fuzzbunch的gui方法
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.win7 x86效果不好,不稳定,原因不明,考虑换成fuzzbunch的gui方法
 2.目标是win7 x86时用reverse_tcp时必须用lport=4444,本机的端口为4444(test in elevenpaths/eternalblue-doublepulsar-metasploit)
 3.目标是win7 x86时用bind_tcp时必须用lport=4444,目标的端口为4444(test in elevenpaths/eternalblue-doublepulsar-metasploit)
 2.fuzzbunch的命令行模式默认设置的注入的进程是lsass.exe,x86平台下会导致目标机器重启,换成explorer.exe(或wlms.exe)
 3.目标系统为x64位系统最好设置注入进程为lsass.exe
 4.有些有公网ip的云主机(vps)就算设置了打开一些端口也会被服务商过滤掉,这种情况要在vps上开不容易被过滤的端口,比如443,53,80等
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-special">0x02 Special</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>特殊利用方式,用这个漏洞来提权,smb叠加利用提权
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>特殊利用方式,用这个漏洞来提权,smb叠加利用提权
 https://www.t00ls.net/thread-39703-1-1.html
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
