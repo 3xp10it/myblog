@@ -115,32 +115,29 @@
 
         <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>目的:爆破某个http登录页面
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>目的:爆破某个http登录页面
+</code></pre></div></div>
 
 <h3 id="0x01-detail">0x01 Detail</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1.在登录页面填入123455提交后用burpsuite拦截,发现post数据如下:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.在登录页面填入123455提交后用burpsuite拦截,发现post数据如下:
     {"method":"do","login":{"password":"0KcgeXhc9TefbwK"}}
   说明浏览器加密表单中的密码字段后再提交,这样就不能直接用burpsuite等工具加载字典爆破了
 
 2.尝试找到加密的js
     a)用chrome打开http://192.168.1.1登录页面,发现右键被禁用
     b)打开开发者工具,按如下图1-5的顺序点击
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js1.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    c)在上一步最后的点击后看到的如下黄色高亮的那一行上单击左键(第2行)表示在这一行上下断点,下好断点后第2行会有蓝
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    c)在上一步最后的点击后看到的如下黄色高亮的那一行上单击左键(第2行)表示在这一行上下断点,下好断点后第2行会有蓝
       色箭头出现表示已经下好断点在这行
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js2.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    d)先将所有的4行(断点在第2行)js整理下格式,在线整理js格式:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    d)先将所有的4行(断点在第2行)js整理下格式,在线整理js格式:
         http://www.css88.com/tool/js_beautify/
 
         整理后的js内容如下:
@@ -234,31 +231,27 @@
         init();
         --------------end----------------
     e)输入密码为123456后点击如下图中的暂停js执行按钮后再点击确定按钮
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js4.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    f)上一步中的确定按钮点击完成后点击下图中的step into next function按钮,点了2下就点不动了,变成了灰色
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    f)上一步中的确定按钮点击完成后点击下图中的step into next function按钮,点了2下就点不动了,变成了灰色
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js5.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮,点了10几下突然出现local变量
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    g)继续点暂停js执行按钮后再点确定,然后一直点step into next function按钮,点了10几下突然出现local变量
     a:"123456",这个正是在密码输入框输入的密码,这时js执行到function(a){return $.securityEncode(...)}这里,如下图:
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js6.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量,如下图
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    h)这时再点step out of current function按钮再点step into next function突然出现a为加密后的变量,如下图
+</code></pre></div></div>
 
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/js7.png" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    i)说明关键的加密函数就是securityEncode,对应的局部代码为:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    i)说明关键的加密函数就是securityEncode,对应的局部代码为:
     ---------------------js----------------------
     securityEncode: function (a, b, c) {
                 var e = "",
@@ -358,20 +351,18 @@
                 print(each)
                 break
     ----------------crack.py----------------
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x02-attention">0x02 Attention</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a)这里有2个js转python的关键地方:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)这里有2个js转python的关键地方:
 1.js中的charCodeAt转成python为ord函数,eg:
     b.charCodeAt(p)转成python为ord(b[p])
 2.js中的charAt转成python为数组取下标,eg:
     c.charAt((l ^ n) % k)转成c[(l ^ n) % k]
 
 b)也可直接由python执行js,可参考:google.
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         

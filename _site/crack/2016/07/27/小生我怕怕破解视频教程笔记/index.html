@@ -115,13 +115,12 @@
 
         <span itemprop="articleBody"><h3 id="0x01-破解技巧1">0x01 破解技巧1<小生我怕怕第2课></小生我怕怕第2课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>右键同时查找文本并复制多个"未注册/注册"关键字附近的汇编代码到文本文件,比较它们,找出关键的与未注册相关的call调用、cmp处的相关比较(快速找出关键call)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>右键同时查找文本并复制多个"未注册/注册"关键字附近的汇编代码到文本文件,比较它们,找出关键的与未注册相关的call调用、cmp处的相关比较(快速找出关键call)
+</code></pre></div></div>
 
 <h3 id="0x02-破解技巧2">0x02 破解技巧2<小生我怕怕第3课></小生我怕怕第3课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;se和vm的壳有反调试功能,调试方法:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;se和vm的壳有反调试功能,调试方法:
      ctrl+f2后shift+f9
 2&gt;各语言入口特征及按钮事件查找方法:
 1&gt;&gt;c++
@@ -230,12 +229,11 @@ TMD2.10以后的版本和WL的版本入口都是一样
 
 6&gt;个人推荐这个保护自己的补丁Private exe Protector
 7&gt;SE调试技巧,就是在运行起来之后4-5分钟时在去调试,可以避免少被ANTI到,ANTI所指的是反调试
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x03-破解技巧3">0x03 破解技巧3<小生我怕怕第4课></小生我怕怕第4课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;回溯的方法
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;回溯的方法
 (a.并非所有程序的破解都可以用b.该方法可用于没有字符串可以查找的情况)
 
 1&gt;&gt;随意输入用户名+注册码后程序弹出对话框显示注册失败
@@ -250,39 +248,35 @@ TMD2.10以后的版本和WL的版本入口都是一样
 2&gt;&gt;随意输入用户名+注册码后点击确定注册,程序中断
 3&gt;&gt;在堆栈窗口中往下查找输入的用户名注册码等字符串
 4&gt;&gt;在堆栈窗口中3中找到的字符串的上面的最近几处的"返回到..."处右键在汇编窗口中显示,找出关键call
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x04-破解技巧4">0x04 破解技巧4<小生我怕怕第5课></小生我怕怕第5课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;在破解中合适地运用"所有常量"和"所有命令"会使破解轻松很多
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;在破解中合适地运用"所有常量"和"所有命令"会使破解轻松很多
 2&gt;vb和delphin中的"所有常量"几乎对破解没有帮助
 3&gt;vb破解时
 1&gt;&gt;右键查找所有模块调用---&gt;在所有rtcMsgBox下断
 2&gt;&gt;任意输入用户名和注册码,单击确定注册
 3&gt;&gt;排除明显不是关键断点的rtcMsgBox断点
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x05-破解技巧5">0x05 破解技巧5<小生我怕怕第6课></小生我怕怕第6课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;vb多采用0xffff做比较,判断是否是正式版
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;vb多采用0xffff做比较,判断是否是正式版
 2&gt;vb破解时,可在__vbaStrCmp的所有调用处下断
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x06-破解技巧6">0x06 破解技巧6<小生我怕怕第7课></小生我怕怕第7课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; bc++的按钮事件和delphin是一样的
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt; bc++的按钮事件和delphin是一样的
 2&gt;重启验证必须在程序还未完全初始化时,找到重启后的关键地址,进行破解
 3&gt;一般破解的关键跳转(je,jne)处会涉及到eax
 4&gt;一般与注册表有关时,RegCloseKey以下为关键验证的地方,结合3找出关键跳转,进行破解
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x07-破解技巧7">0x07 破解技巧7<小生我怕怕第9课></小生我怕怕第9课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;一般破解的关键在eax
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;一般破解的关键在eax
 2&gt;vb的程序,一般以-1(FFFF)和1进行比较
 3&gt;破解采用api下断的方法时,在api上下的断点是针对系统领域下的,需要alt+f9运行到用户代码方可继续进行调试
 4&gt;od死码
@@ -302,12 +296,11 @@ mov eax,[esp+30] 汇编里有ESP堆栈寄存器的不可以,后面跟的偏移+3
 
 3&gt;&gt;为什么要设立?
 因为游戏更新基址,较大的偏移会变化,为了方便,所以设立OD死码,方便快速获取游戏更新后的相关数据.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x08-破解技巧8">0x08 破解技巧8<小生我怕怕第10课></小生我怕怕第10课></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;一个程序脱壳以后不要直接运行它,要是有校验格盘那么就受伤了,可以查找字符串或在虚拟机中运行
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;一个程序脱壳以后不要直接运行它,要是有校验格盘那么就受伤了,可以查找字符串或在虚拟机中运行
 2&gt;易语言窗体事件
 004156A5   .  68 02000080   push 0x80000002
 004156AA   .  6A 00         push 0x0
@@ -375,12 +368,11 @@ CC网络验证
 当我们辨别出是那一款比较常见的网络验证之时,可以常试先找一份无壳版的跟一下,然后在套用思路即可
 
 4&gt;易语言的远跳转以及易语言的JE JNZ是非常需要关注的
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x09-破解技巧911-19课">0x09 破解技巧9&lt;11-19课&gt;</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>小生我怕怕第11课:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>小生我怕怕第11课:
      易原体讲解
 小生我怕怕第12课:
      delphin网络验证
@@ -452,8 +444,7 @@ CC网络验证
 
 小生我怕怕第19课:
      剖析网络验证之绑号风格
-</code></pre>
-</div>
+</code></pre></div></div>
 
 </span>
 

