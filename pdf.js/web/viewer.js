@@ -1702,6 +1702,8 @@ var validateFileURL;
           origin = _ref7.origin,
           protocol = _ref7.protocol;
 
+/*
+
       if (origin !== viewerOrigin && protocol !== 'blob:') {
         throw new Error('file origin does not match viewer\'s');
       }
@@ -1714,6 +1716,9 @@ var validateFileURL;
       });
       throw ex;
     }
+
+*/
+
   };
 }
 
