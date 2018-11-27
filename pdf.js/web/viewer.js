@@ -1707,8 +1707,9 @@ var validateFileURL;
       if (origin !== viewerOrigin && protocol !== 'blob:') {
         throw new Error('file origin does not match viewer\'s');
       }
-    } 
 */
+
+    } 
 
     catch (ex) {
       var message = ex && ex.message;
