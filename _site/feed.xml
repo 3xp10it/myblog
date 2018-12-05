@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 06 Dec 2018 00:05:35 +0800</pubDate>
-    <lastBuildDate>Thu, 06 Dec 2018 00:05:35 +0800</lastBuildDate>
+    <pubDate>Thu, 06 Dec 2018 07:32:38 +0800</pubDate>
+    <lastBuildDate>Thu, 06 Dec 2018 07:32:38 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;p&gt;书中指出一个交易系统重要性排序为:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;头寸规模&amp;gt;买点&amp;gt;卖点&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;`头寸规模&amp;gt;卖点&amp;gt;买点&lt;/p&gt;
 
 &lt;p&gt;本文介绍头寸规模和止损点的关系,这里的止损指卖出点,包括盈利时的卖出和亏损时的卖出&lt;/p&gt;
 
@@ -34,8 +34,7 @@
 
 &lt;h4 id=&quot;0xa-风险与收益成正比&quot;&gt;0xa 风险与收益成正比&lt;/h4&gt;
 
-&lt;p&gt;经过多次回测与书籍的知识得知:风险与收益成正比
-风险可用最大回撤来表示,假如单笔交易最大回撤为5%,单笔交易最大盈利为20%,同一个买入策略情况下,将止损点调到允许回撤为10%,则单笔交易会比20%高,如30%.如下数据示例:&lt;/p&gt;
+&lt;p&gt;经过多次回测与书籍的知识得知:风险与收益成正比.风险可用最大回撤来表示,假如单笔交易最大回撤为5%,单笔交易最大盈利为20%,同一个买入策略情况下,将止损点调到允许回撤为10%,则单笔交易会比20%高,如30%.如下数据示例:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SH.600270 单笔最大回撤13%,单笔最大盈利35%
 good buy point:
@@ -123,7 +122,7 @@ bad buy point:
 &lt;h4 id=&quot;0xc-总结方案&quot;&gt;0xc 总结方案&lt;/h4&gt;
 
 &lt;p&gt;在上面的回测数据中,如果为了降低风险而把单笔交易的最大回撤调小,这样一般情况下(策略总期望收益为正的系统)总收益也会减小,但是更安全,但还是收益少.为了既满足收益多又减小风险可通过调整头寸资金量实现:
-例如,将前面的原来的风险资金为资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:&lt;/p&gt;
+例如,将前面的原来的风险资金为总资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;总资金*0.3%=单笔交易的6个ATR亏损
 100000*0.3%/(6*2)=25股,头寸资金=25*30=750
 &lt;/code&gt;&lt;/pre&gt;
