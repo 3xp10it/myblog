@@ -5,13 +5,13 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 05 Dec 2018 23:31:49 +0800</pubDate>
-    <lastBuildDate>Wed, 05 Dec 2018 23:31:49 +0800</lastBuildDate>
+    <pubDate>Wed, 05 Dec 2018 23:34:03 +0800</pubDate>
+    <lastBuildDate>Wed, 05 Dec 2018 23:34:03 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>确立头寸规模和设置止损</title>
-        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h3&gt;
 
 &lt;p&gt;书中指出一个交易系统重要性排序为:&lt;/p&gt;
 
@@ -19,7 +19,7 @@
 
 &lt;p&gt;本文介绍头寸规模和止损点的关系,这里的止损指卖出点,包括盈利时的卖出和亏损时的卖出&lt;/p&gt;
 
-&lt;h3 id=&quot;atr&quot;&gt;ATR&lt;/h3&gt;
+&lt;h3 id=&quot;0x2-atr&quot;&gt;0x2 ATR&lt;/h3&gt;
 
 &lt;p&gt;ATR基础知识可参考&lt;a href=&quot;https://www.ricequant.com/community/topic/1422//21&quot;&gt;这里&lt;/a&gt;和&lt;a href=&quot;http://www.360doc.com/content/14/1202/00/628324_429724154.shtml&quot;&gt;这里&lt;/a&gt;,通过前面链接中ATR指标的认识可知:&lt;/p&gt;
 
@@ -30,9 +30,9 @@
 
 &lt;p&gt;实际回测ATR跟踪止损时,笔者也发现ATR有较好的风险控制能力,只回测波动性强(不规则)的股票也能保持总的收益为正,这点与百分比跟踪止损相比显露出了明显的优势(使用百分比跟踪止损时只回测波动性强的股票时总的收益为负)&lt;/p&gt;
 
-&lt;h3 id=&quot;确立头寸规模和设置止损&quot;&gt;确立头寸规模和设置止损&lt;/h3&gt;
+&lt;h3 id=&quot;0x3-确立头寸规模和设置止损&quot;&gt;0x3 确立头寸规模和设置止损&lt;/h3&gt;
 
-&lt;h4 id=&quot;风险与收益成正比&quot;&gt;风险与收益成正比&lt;/h4&gt;
+&lt;h4 id=&quot;0xa-风险与收益成正比&quot;&gt;0xa 风险与收益成正比&lt;/h4&gt;
 
 &lt;p&gt;经过多次回测与书籍的知识得知:风险与收益成正比
 风险可用最大回撤来表示,假如单笔交易最大回撤为5%,单笔交易最大盈利为20%,同一个买入策略情况下,将止损点调到允许回撤为10%,则单笔交易会比20%高,如30%.如下数据示例:&lt;/p&gt;
@@ -100,7 +100,7 @@ bad buy point:
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;一般情况下,单笔最大回撤越大则总收益越大&lt;/code&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;头寸规模与止损的关系&quot;&gt;头寸规模与止损的关系&lt;/h4&gt;
+&lt;h4 id=&quot;0xb-头寸规模与止损的关系&quot;&gt;0xb 头寸规模与止损的关系&lt;/h4&gt;
 
 &lt;p&gt;止损点(允许的最大回撤)控制着每笔交易的风险,而头寸规模的大小控制着全部资金的风险.&lt;/p&gt;
 
@@ -120,7 +120,7 @@ bad buy point:
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;100000*1%/(3*2)=167股,头寸资金=167*30=5010&lt;/code&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;总结方案&quot;&gt;总结方案&lt;/h4&gt;
+&lt;h4 id=&quot;0xc-总结方案&quot;&gt;0xc 总结方案&lt;/h4&gt;
 
 &lt;p&gt;在上面的回测数据中,如果为了降低风险而把单笔交易的最大回撤调小,这样一般情况下(策略总期望收益为正的系统)总收益也会减小,但是更安全,但还是收益少.为了既满足收益多又减小风险可通过调整头寸资金量实现:
 例如,将前面的原来的风险资金为资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:&lt;/p&gt;
