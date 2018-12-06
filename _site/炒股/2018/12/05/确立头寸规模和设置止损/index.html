@@ -117,7 +117,9 @@
 
 <p>书中指出一个交易系统重要性排序为:</p>
 
-<p>`头寸规模&gt;卖点&gt;买点</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>头寸规模&gt;卖点&gt;买点
+</code></pre>
+</div>
 
 <p>本文介绍头寸规模和止损点的关系,这里的止损指卖出点,包括盈利时的卖出和亏损时的卖出</p>
 
@@ -168,11 +170,9 @@ bad buy point:
 2015-08-14    0.3%    -9.6%
 2017-10-27    -0.2%    -3.8%
 盈利11次,亏损15次,总收益36926
-</code></pre>
-</div>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-SH.600270 单笔最大回撤26%,单笔最大盈利58%
 
+
+SH.600270 单笔最大回撤26%,单笔最大盈利58%
 good buy point:
 2007-08-10    -5.1%    16.4%
 2009-07-10    0.7%    0.5%
@@ -199,7 +199,9 @@ bad buy point:
 
 <p>从上面数据看出,相同买入策略下,最大回撤越小则单笔最大盈利越小,一般也对应着总收益越小,体现出”风险与收益成正比”,也即:</p>
 
-<p><code class="highlighter-rouge">一般情况下,单笔最大回撤越大则总收益越大</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>一般情况下,单笔最大回撤越大则总收益越大
+</code></pre>
+</div>
 
 <h4 id="0xb-头寸规模与止损的关系">0xb 头寸规模与止损的关系</h4>
 
@@ -207,31 +209,43 @@ bad buy point:
 
 <p>如果使用百分比止损,并允许单笔交易最大亏损为10%,则头寸大小的计算如下(一般考虑以总资金的1%为风险资金):</p>
 
-<p><code class="highlighter-rouge">总资金*1%=单笔交易的10%亏损</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>总资金*1%=单笔交易的10%亏损
+</code></pre>
+</div>
 
 <p>例如某个股的价格是30元/股,总资金为10w,允许单笔最大亏损为10%,则头寸规模计算结果如下:</p>
 
-<p><code class="highlighter-rouge">100000*1%/0.1/30=333股,也即买入这支股票时,总共应该买入333股,头寸资金=333*30=9990</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>100000*1%/0.1/30=333股,也即买入这支股票时,总共应该买入333股,头寸资金=333*30=9990
+</code></pre>
+</div>
 
 <p>ATR止损比百分比止损更好,ATR止损一般采用距买入后最高收盘价3个ATR的的价格跟踪止损卖出,可以想象到,这种情况下最大的回撤为距买入价格3个ATR的价位处,因为最坏的情况是买入点是最高点(买在了最高点),从买入点第2天开始后股价一路下跌并到达距离买入点3个ATR止损处被止损退出,这种情况下头寸规模计算如下:</p>
 
-<p><code class="highlighter-rouge">总资金*1%=单笔交易的3个ATR亏损</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>总资金*1%=单笔交易的3个ATR亏损
+</code></pre>
+</div>
 
 <p>例如某个股的当前价格是30元/股,且满足买点要求,且买在了最高点,买点的ATR的值为2,也即到了28元就要止损,则头寸规模计算结果如下:</p>
 
-<p><code class="highlighter-rouge">100000*1%/(3*2)=167股,头寸资金=167*30=5010</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>100000*1%/(3*2)=167股,头寸资金=167*30=5010
+</code></pre>
+</div>
 
 <h4 id="0xc-总结方案">0xc 总结方案</h4>
 
 <p>在上面的回测数据中,如果为了降低风险而把单笔交易的最大回撤调小,这样一般情况下(策略总期望收益为正的系统)总收益也会减小,但是更安全,但还是收益少.为了既满足收益多又减小风险可通过调整头寸资金量实现:
 例如,将前面的原来的风险资金为总资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:</p>
+
 <div class="highlighter-rouge"><pre class="highlight"><code>总资金*0.3%=单笔交易的6个ATR亏损
 100000*0.3%/(6*2)=25股,头寸资金=25*30=750
 </code></pre>
 </div>
+
 <p>也即,可通过减小单笔头寸资金量来弥补最大回撤的风险,通过减小单笔头寸资金来增大单笔最大回撤,从而达到”风险和收益成正比”来实现”更大风险”下的更多收益,并如下计算头寸规模(根据个人不同情况自由设置x)来建仓:</p>
 
-<p><code class="highlighter-rouge">总资金*x=单笔交易的y个ATR亏损</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>总资金*x=单笔交易的y个ATR亏损
+</code></pre>
+</div>
 
 </span>
 
