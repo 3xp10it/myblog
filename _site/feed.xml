@@ -5,13 +5,13 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 08 Dec 2018 22:05:07 +0800</pubDate>
-    <lastBuildDate>Sat, 08 Dec 2018 22:05:07 +0800</lastBuildDate>
+    <pubDate>Sun, 09 Dec 2018 19:57:50 +0800</pubDate>
+    <lastBuildDate>Sun, 09 Dec 2018 19:57:50 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>确立头寸规模和设置止损</title>
-        <description>&lt;h3 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0x01-about&quot;&gt;0x01 About&lt;/h3&gt;
 
 &lt;p&gt;书中指出一个交易系统重要性排序为:&lt;/p&gt;
 
@@ -21,7 +21,7 @@
 
 &lt;p&gt;本文介绍头寸规模和止损点的关系,这里的止损指卖出点,包括盈利时的卖出和亏损时的卖出&lt;/p&gt;
 
-&lt;h3 id=&quot;0x2-atr&quot;&gt;0x2 ATR&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-atr&quot;&gt;0x02 ATR&lt;/h3&gt;
 
 &lt;p&gt;ATR基础知识可参考&lt;a href=&quot;https://www.ricequant.com/community/topic/1422//21&quot;&gt;这里&lt;/a&gt;和&lt;a href=&quot;http://www.360doc.com/content/14/1202/00/628324_429724154.shtml&quot;&gt;这里&lt;/a&gt;,通过前面链接中ATR指标的认识可知:&lt;/p&gt;
 
@@ -32,7 +32,7 @@
 
 &lt;p&gt;实际回测ATR跟踪止损时,笔者也发现ATR有较好的风险控制能力,只回测波动性强(不规则)的股票也能保持总的收益为正,这点与百分比跟踪止损相比显露出了明显的优势(使用百分比跟踪止损时只回测波动性强的股票时总的收益为负)&lt;/p&gt;
 
-&lt;h3 id=&quot;0x3-确立头寸规模和设置止损&quot;&gt;0x3 确立头寸规模和设置止损&lt;/h3&gt;
+&lt;h3 id=&quot;0x03-确立头寸规模和设置止损&quot;&gt;0x03 确立头寸规模和设置止损&lt;/h3&gt;
 
 &lt;h4 id=&quot;0xa-风险与收益成正比&quot;&gt;0xa 风险与收益成正比&lt;/h4&gt;
 
@@ -131,8 +131,11 @@ bad buy point:
 
 &lt;h4 id=&quot;0xc-总结方案&quot;&gt;0xc 总结方案&lt;/h4&gt;
 
-&lt;p&gt;在上面的回测数据中,如果为了降低风险而把单笔交易的最大回撤调小,这样一般情况下(策略总期望收益为正的系统)总收益也会减小,但是更安全,但还是收益少.为了既满足收益多又减小风险可通过调整头寸资金量实现:
-例如,将前面的原来的风险资金为总资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:&lt;/p&gt;
+&lt;p&gt;在上面的回测数据中,如果为了降低风险而把单笔交易的最大回撤调小,这样一般情况下(策略总期望收益为正的系统)总收益也会减小,但是更安全,但还是收益少.为了既满足收益多又减小风险可通过以下几种方法实现:&lt;/p&gt;
+
+&lt;h5 id=&quot;1调整头寸资金量实现&quot;&gt;1.调整头寸资金量实现&lt;/h5&gt;
+
+&lt;p&gt;例如,将前面的原来的风险资金为总资金的1%调整成总资金的0.3%并设置单笔最大回撤为6个ATR来进行跟踪止损,在相同条件下,ATR止损的头寸规模计算如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;总资金*0.3%=单笔交易的6个ATR亏损
 100000*0.3%/(6*2)=25股,头寸资金=25*30=750
@@ -144,6 +147,19 @@ bad buy point:
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;总资金*x=单笔交易的y个ATR亏损
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h5 id=&quot;2要求买入点的atr止损处的风险小&quot;&gt;2.要求买入点的atr止损处的风险小&lt;/h5&gt;
+
+&lt;p&gt;例如,使用atr跟踪最大收盘价3个atr止损时,要求买入点的close_pirce-3*atr处的价格小于10%或8%(实际回测时8%比10%效果更好,但机会变少,如果8%没有买入机会则使用10%)的风险,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;((close_price-3*atr)-close_price)/close_price&amp;gt;-0.08 或 ((close_price-3*atr)-close_price)/close_price&amp;gt;-0.1
+也即:atr&amp;lt;2/75*close_price 或 atr&amp;lt;1/30*close_price
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;3只在在关键支撑线上做多一旦价格跌破支撑线则止损&quot;&gt;3.只在在关键支撑线上做多,一旦价格跌破支撑线则止损&lt;/h5&gt;
+
+&lt;p&gt;例如,在周k是上升趋势时,在日k价格跌到支撑线或支撑线之下时买进(如ema20线或ema30线),如果买入后价格跌破买点的最低点则止损卖出,这样可保证每次买入后止损时损失最小&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 05 Dec 2018 00:00:00 +0800</pubDate>
