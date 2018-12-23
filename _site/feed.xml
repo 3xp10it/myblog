@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 23 Dec 2018 20:06:16 +0800</pubDate>
-    <lastBuildDate>Sun, 23 Dec 2018 20:06:16 +0800</lastBuildDate>
+    <pubDate>Sun, 23 Dec 2018 20:09:56 +0800</pubDate>
+    <lastBuildDate>Sun, 23 Dec 2018 20:09:56 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -29,7 +29,21 @@
 
 &lt;h3 id=&quot;0x3-代码&quot;&gt;0x3 代码&lt;/h3&gt;
 
-&lt;p&gt;to continue&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# coding=utf8
+#!/usr/bin/python
+classes=ida_kernwin.ask_text(0, &quot;&quot;, &quot;请输入想要trace的类,以空格分开&quot;)
+class_list=classes.split(&quot; &quot;)
+for func_addr in Functions():    
+    func_name=GetFunctionName(func_addr)
+    for class_name in class_list:
+        if class_name+&quot; &quot; in func_name:
+            if add_bpt(func_addr):
+                set_bpt_attr(func_addr,BPTATTR_FLAGS,BPT_TRACE)
+                print &quot;%s:添加断点成功&quot; % func_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or you can download &lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/ida_objc_class_bps.py&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 21 Dec 2018 00:00:00 +0800</pubDate>
