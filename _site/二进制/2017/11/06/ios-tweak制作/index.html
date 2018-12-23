@@ -147,11 +147,10 @@ nic.pl
 设置MobileSubstrate Bundle filter的值为output.ipa的bundleid的值,可从output.ipa的info.plist中得到
 logify.pl ~/output_header/PARSPedometerInfo.h &gt; ~/xupload/Tweak.xm[这一步是为了hook可疑函数,查看调用及参数]
 cd xupload
+export THEOS_DEVICE_IP=ios_device_ip
 make
 make package
-scp package/xxxx.deb root@iphone.ip:
-ssh root@iphone.ip
-dpkg -i xxxx.deb
+make install
 手机连接mac,打开xcode,在windows|device and simulators|点击查看log按钮(小三角形状)
     这里查看app的日志还有以下2种方法:
     a)在ios的cydia中安装syslog,日志将记录到/var/log/syslog文件中
@@ -232,7 +231,6 @@ integratedSteps函数是获取本地的步数值,而setIntegratedSteps函数是�
 <p>或者用cycript更快地调用这个函数:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>ssh root@iphone_ip
-cycript
 ps aux | grep PALife*
 cycript -p process_id
 choose(PARSPedometerInfo)
@@ -241,6 +239,7 @@ choose(PARSPedometerInfo)
     这里的0x147a0d450是cycript找到的一个PARSPedometerInfo类的对象的地址,如果没有找到PARSPedometerInfo的对象可手动创建一个对象,
     创建方法:myobj=[PARSPedometerInfo alloc]
     然后再[myobj setIntegratedSteps:99998]
+    ps:*#0x147a0d450可查看当前对象的所有属性,获取对象属性和对象的方法的更多用法可参考这里:https://www.jianshu.com/p/7c41b03c9eb3
 然后在手机上点击上传步数即可
 </code></pre>
 </div>

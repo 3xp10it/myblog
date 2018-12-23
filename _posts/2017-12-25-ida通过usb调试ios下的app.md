@@ -47,7 +47,7 @@ tags:
 
 ### 0x2 Detail
 
-ida调试ios app有两种方法
+ida调试ios app有两种方法(推荐使用方法一,方法二是通过wifi调试的)
 
 + 方法一:ida设置使用remote gdb debug server
     + 可通过wifi或usb调试,使用usb更快
