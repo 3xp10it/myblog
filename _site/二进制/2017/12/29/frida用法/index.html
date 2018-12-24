@@ -597,7 +597,7 @@ hrida:通过http服务开rpc
 
 rpc.exports = {
     encrypt: function (plain) {
-        var result=ObjC.classes.PARSCryptDataUtils.encryptWithServerTimestamp_(plain)
+        var result_obj=ObjC.chooseSync(ObjC.classes.PARSCryptDataUtils)[0].encryptWithServerTimestamp_type_date_(a1,a2,a3)
         return result.toString()
     },
     add: function (a, b) {
