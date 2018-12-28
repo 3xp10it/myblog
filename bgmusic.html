@@ -41,15 +41,7 @@ var currentFile=list[parseInt(Math.random()*35)];
 /*document.write("<html><br>"+'<audio src=' + '"' + list[a] + '"' + ' controls="controls" autoplay="autoplay"' + '>'+'</audio><br></html>');*/
 
 var audio= document.getElementById('myaudio');
-audio.src=currentFile;
-audio.load()
-let playPromise = audio.play()
-if (playPromise !== undefined) {
-    playPromise.then(() => {
-        audio.play()
-    }).catch(()=> {
-       
-    })
-}
+var audio = new Audio(currentFile);
+audio.play();
 </script>
 </html>
