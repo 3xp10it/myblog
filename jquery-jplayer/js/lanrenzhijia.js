@@ -46,7 +46,7 @@ $(document).ready(function(){
     },{
       title:"风度",
       artist:"汪苏泷",
-      mp3:"https://res.cloudinary.com/dlyqz736p/video/upload/v1545983070/%E9%A3%8E%E5%BA%A6.mp",
+      mp3:"https://res.cloudinary.com/dlyqz736p/video/upload/v1545983070/%E9%A3%8E%E5%BA%A6.mp3",
       poster: "https://33.media.tumblr.com/bf9dc125a47dcca91ce5b3575bc3ba92/tumblr_nbmb3j8nU51sq3g2zo1_500.png"
     },{
       title:"攻心",
