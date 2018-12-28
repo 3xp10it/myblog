@@ -42,6 +42,7 @@ var currentFile=list[parseInt(Math.random()*35)];
 
 // Show loading animation.
 var oAudio = document.getElementById('myaudio');
+oAudio.src=currentFile;
 var playPromise = oAudio.play();
 
 if (playPromise !== undefined) {
