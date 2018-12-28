@@ -41,10 +41,9 @@ var currentFile=list[parseInt(Math.random()*35)];
 /*document.write("<html><br>"+'<audio src=' + '"' + list[a] + '"' + ' controls="controls" autoplay="autoplay"' + '>'+'</audio><br></html>');*/
 var oAudio = document.getElementById('myaudio');
 oAudio.src = currentFile;
-oAudio.play();
-oAudio.onended = function() {
-oAudio.src = currentFile;
-oAudio.play();
-}
+oAudio.load();
+setTimeout(function() {
+    oAudio.play();
+}, 0);
 </script>
 </html>
