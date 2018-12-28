@@ -40,21 +40,16 @@ list[34]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983695/%E7%81%8
 var currentFile=list[parseInt(Math.random()*35)];
 /*document.write("<html><br>"+'<audio src=' + '"' + list[a] + '"' + ' controls="controls" autoplay="autoplay"' + '>'+'</audio><br></html>');*/
 
-// Show loading animation.
-var oAudio = document.getElementById('myaudio');
-oAudio.src=currentFile;
-var playPromise = oAudio.play();
-
+var audio= document.getElementById('myaudio');
+audio.src=currentFile;
+audio.load()
+let playPromise = audio.play()
 if (playPromise !== undefined) {
-playPromise.then(_ => {
-  // Automatic playback started!
-  // Show playing UI.
-})
-.catch(error => {
-  // Auto-play was prevented
-  // Show paused UI.
-});
+    playPromise.then(() => {
+        audio.play()
+    }).catch(()=> {
+       
+    })
 }
-
 </script>
 </html>
