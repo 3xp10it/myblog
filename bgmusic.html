@@ -37,11 +37,15 @@ list[31]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983149/%E7%81%8
 list[32]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983261/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E5%8F%AA%E5%87%9D%E8%A7%86%E7%9D%80%E4%BD%A0.mp3";
 list[33]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983117/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E6%8D%95%E6%8D%89%E9%97%AA%E8%80%80%E7%9A%84%E7%9E%AC%E9%97%B4.mp3";
 list[34]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983695/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E7%9B%B4%E5%88%B0%E4%B8%96%E7%95%8C%E7%9A%84%E5%B0%BD%E5%A4%B4.mp3";
-var currentFile=list[parseInt(Math.random()*35)];
-/*document.write("<html><br>"+'<audio src=' + '"' + list[a] + '"' + ' controls="controls" autoplay="autoplay"' + '>'+'</audio><br></html>');*/
 
-var audio= document.getElementById('myaudio');
-var audio = new Audio(currentFile);
-audio.play();
+var currentFile=list[parseInt(Math.random()*35)];
+var oAudio = document.getElementById('myaudio');
+oAudio.src = currentFile;
+oAudio.play();
+oAudio.onended = function() {
+currentFile=list[parseInt(Math.random()*35)];
+oAudio.src = currentFile;
+oAudio.play();
+}
 </script>
 </html>
