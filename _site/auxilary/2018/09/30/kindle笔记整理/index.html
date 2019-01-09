@@ -115,13 +115,22 @@
 
         <span itemprop="articleBody"><h3 id="about">About</h3>
 
-<p>kindle的笔记在导出时有重复内容,本文解决去重问题</p>
+<p>kindle电子书笔记导出有两个问题:</p>
+
+<ul>
+  <li>amazon上购买的正版电子书有DRM保护,只能导出约全书10%的笔记</li>
+  <li>kindle的笔记在导出时有重复内容</li>
+</ul>
 
 <h3 id="detail">Detail</h3>
 
-<p>1.在macOS上下载klib用于提取和初步整理kindle设备上的笔记,usb连接kindle和macOS后打开klib并将kindle中的笔记导入klib</p>
+<p>1.在kindle的商店购买正版电子书,然后从amazon官网上将购买的电子书下载到电脑本地,然后通过calibre转换成mobi格式导出到kindle中(或者直接从互联网上下载盗版的mobi格式的电子书)</p>
 
-<p>2.由于kindle中的笔记不能自动识别重复的内容,通过<a href="https://github.com/3xp10it/mytools/blob/master/tidy_kindle_note.py">tidy_kindle_note.py</a>来进一步整理去重,用法为<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,详细步骤如下:</p>
+<p>2.使用kindle正常阅读并对重点内容做笔记,在上面一步中由于已经通过calibre转换得到mobi格式,这是已经去除DRM保护的文件</p>
+
+<p>3.导出kindle中的笔记:在macOS上下载klib用于提取和初步整理kindle设备上的笔记,usb连接kindle和macOS后打开klib并将kindle中的笔记导入klib</p>
+
+<p>4.由于kindle中的笔记不能自动识别重复的内容,通过<a href="https://github.com/3xp10it/mytools/blob/master/tidy_kindle_note.py">tidy_kindle_note.py</a>来进一步整理去重,用法为<code class="highlighter-rouge">python3 tidy_kindle_note.py</code>,详细步骤如下:</p>
 
 <ul>
   <li>
