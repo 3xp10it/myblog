@@ -139,6 +139,34 @@
 								
 
 
+								<li><a href="/%E7%82%92%E8%82%A1/2019/01/19/%E8%B5%B0%E5%87%BA%E5%B9%BB%E8%A7%89%E8%B5%B0%E5%90%91%E6%88%90%E7%86%9F%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2019-01-19</small></font>
+												<font color=#C04040>走出幻觉走向成熟笔记</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
+								<li><a href="/%E7%82%92%E8%82%A1/2019/01/19/%E5%8D%8E%E5%B0%94%E8%A1%97%E5%B9%BD%E7%81%B5%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2019-01-19</small></font>
+												<font color=#C04040>华尔街幽灵笔记</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/%E7%82%92%E8%82%A1/2019/01/09/%E8%B5%B0%E8%BF%9B%E6%88%91%E7%9A%84%E4%BA%A4%E6%98%93%E5%AE%A4%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2019-01-09</small></font>
 												<font color=#C04040>走进我的交易室笔记</font></a></li>
 								
@@ -150,12 +178,12 @@
 						
 
 						<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "1";
+document.getElementById("my_month_article_num_Span1").innerHTML = "3";
 						</script>
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "1";
+document.getElementById("my_year_article_num_Span1").innerHTML = "3";
 						</script>
 
 
@@ -173,7 +201,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "1";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2018 <span
-									   id="my_year_article_num_Span2">1</span>
+									   id="my_year_article_num_Span2">3</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
@@ -191,7 +219,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "1";
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "1";
+document.getElementById("my_month_article_num_Span1").innerHTML = "3";
 								</script>
 								
 
