@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 13 Mar 2019 21:12:51 +0800</pubDate>
-    <lastBuildDate>Wed, 13 Mar 2019 21:12:51 +0800</lastBuildDate>
+    <pubDate>Sat, 16 Mar 2019 21:34:36 +0800</pubDate>
+    <lastBuildDate>Sat, 16 Mar 2019 21:34:36 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -29,6 +29,10 @@
   &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/1wZYQF96D9eEO_lG44UeKRg&quot;&gt;土匪版缠论(提取码qbmm)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/1Poqaklva109rLKQYyWPRPA&quot;&gt;阿娇版缠论(提取码jfcj)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;对缠论的看法&quot;&gt;对缠论的看法&lt;/h3&gt;
+
+&lt;p&gt;目前认为缠论只是把股票的已经走完的所有走势情况进行了分类之后提出了123买卖点的位置，缠论用到了未来函数，也即123买卖都是行情已经走出来之后才能确定的，对当下的操作的指导意义是缠论里提到的背驰(背离)，买卖点的胜率取决于背离的胜率，而背离这个技术指标的胜率和macd金叉买死叉卖的胜率应该差不多(macd金叉死叉也是背离的一种表现形式)，因为不知道背离之后会反转多少，有可能只反转了1根k线(对应macd金叉之后马上死叉)，然后继续原来的走势方向导致被套。 如果只靠缠论的背离引发的反转的概率来买入和卖出，则缠论的实战指导意义基本为0（macd金叉死叉买卖必亏）。如果有一套胜率比较高(如大于80%)的操作模式(用于保证行情会大概率相当于是已经走完的走势)，倒可以根据缠论中的123买卖点来提高买卖点的精度。也即相当于缠论是比较精细的马后炮理论,可用于辅助高胜率的操作策略。&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 10 Mar 2019 00:00:00 +0800</pubDate>
