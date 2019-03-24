@@ -3,7 +3,7 @@ layout:     post
 title:      backup files
 date:       2016-04-15
 summary:    backup some setup files:firebug bookmark,vimrc file,sublime text setup file
-categories: backup
+categories: auxilary
 tags:
  - firefox
  - backup

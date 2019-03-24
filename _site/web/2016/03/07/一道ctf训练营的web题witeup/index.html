@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>一道ctf训练营的web题writeup</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+      <div class="thumb">
+        <i class="fa fa-cogs fa-4x"></i>
+      </div>
+      
+
+      <h1 class="header" itemprop="name">一道ctf训练营的web题writeup</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">March 7, 2016</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          10 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h2 id="0x01-uri">0x01 uri</h2>
+<p>https://ctf.idf.cn/index.php?g=game&amp;m=article&amp;a=index&amp;id=28</p>
+
+<p><img src="../../../../../pic/ctf-js/图片1.png" /></p>
+
+<h2 id="0x02-求flag过程">0x02 求flag过程</h2>
+
+<p>1&gt;打开firebug中script:
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%872.png" alt="2" /></p>
+
+<p>2&gt;具体内容:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/md5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="nb">eval</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span><span class="nx">a</span><span class="p">,</span><span class="nx">c</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">d</span><span class="p">){</span><span class="nx">e</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">c</span><span class="p">){</span><span class="k">return</span><span class="p">(</span><span class="nx">c</span><span class="o">&lt;</span><span class="nx">a</span><span class="p">?</span><span class="s2">""</span><span class="p">:</span><span class="nx">e</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">c</span><span class="o">/</span><span class="nx">a</span><span class="p">)))</span><span class="o">+</span><span class="p">((</span><span class="nx">c</span><span class="o">=</span><span class="nx">c</span><span class="o">%</span><span class="nx">a</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">35</span><span class="p">?</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">c</span><span class="o">+</span><span class="mi">29</span><span class="p">):</span><span class="nx">c</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">36</span><span class="p">))};</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="s1">''</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^/</span><span class="p">,</span><span class="nb">String</span><span class="p">)){</span><span class="k">while</span><span class="p">(</span><span class="nx">c</span><span class="o">--</span><span class="p">)</span><span class="nx">d</span><span class="p">[</span><span class="nx">e</span><span class="p">(</span><span class="nx">c</span><span class="p">)]</span><span class="o">=</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span><span class="o">||</span><span class="nx">e</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span><span class="nx">k</span><span class="o">=</span><span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">[</span><span class="nx">e</span><span class="p">]}];</span><span class="nx">e</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span><span class="s1">'\\w+'</span><span class="p">};</span><span class="nx">c</span><span class="o">=</span><span class="mi">1</span><span class="p">;};</span><span class="k">while</span><span class="p">(</span><span class="nx">c</span><span class="o">--</span><span class="p">)</span><span class="k">if</span><span class="p">(</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">])</span><span class="nx">p</span><span class="o">=</span><span class="nx">p</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">'\\b'</span><span class="o">+</span><span class="nx">e</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="o">+</span><span class="s1">'\\b'</span><span class="p">,</span><span class="s1">'g'</span><span class="p">),</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">]);</span><span class="k">return</span> <span class="nx">p</span><span class="p">;}(</span><span class="s1">'4 a=1d("\\T\\Q\\Z\\10\\5\\Y\\n\\S\\X\\L\\W\\V\\x","");4 b="\\5\\j\\j\\0\\j\\h\\j\\k\\11\\k\\0\\0\\0\\3\\2\\0\\0\\C\\5\\3\\p\\2\\i\\5\\5\\0\\q\\q\\3\\u\\j\\h";4 c=/.+w.+w.+/P;4 d=t;4 e=a.1(O,y);9($.A(e)==b.B(/7/D,++d).B(/8/D,d*z)){4 f=a.1(t/d,R);9(f.1(y,z)=="\\1b\\M"&amp;&amp;$.A(f.1(t/d,d+E))=="\\p\\2\\6\\3\\i\\p\\3\\2\\i\\q\\u\\3\\n\\3\\h\\u\\6\\2\\h\\5\\6\\k\\i\\k\\i\\2\\2\\0\\6\\C\\5\\6"){r=a.1(15);9(r.m(d)-o==r.m(++d)-o&amp;&amp;r.m(--d)-o==r.m(--d)){4 g=l.H(1e);g=g.v()+g.v();9(r.1((++d)*E,1c)==g.19("\\h\\n\\M\\18")&amp;&amp;c.16(a)){d=l(s)+l(a.17)}}}};9(a.1(F,s)!=l.H(d)||a.1(F,s)=="\\12"){K("\\13\\L\\14\\1a\\N\\N\\J\\J")}U{K("\\I\\G\\I\\G\\x")}'</span><span class="p">,</span><span class="mi">62</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="s1">'x37|substr|x30|x35|var|x66|x31|||if||||||||x65|x34|x33|x36|String|charCodeAt|x61|0x19|x64|x38||0x1|0x0|x62|toLowerCase|_|uff01|0x5|0x2|md5|replace|x39|ig|0x3|0x4|u559c|fromCharCode|u606d|u3002|alert|uff0c|x73|u60f3|0x8|gi|u5165|0x7|x67|u8f93|else|u5e74|u5c11|u5427|x6c|u4f60|u7684|x63|x7a|u989d|u518d|0xd|test|length|x79|concat|u53bb|x6a|0x6|prompt|0x4f'</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">'|'</span><span class="p">),</span><span class="mi">0</span><span class="p">,{}))</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>&gt;)}})
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>3&gt;本地新建一个html页面</p>
+
+<h4 id="内容为上述内容其中由于存在">内容为上述内容,其中由于存在:</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script src="/tpl/wctf/Public/js/lib/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="/tpl/wctf/Public/js/lib/md5.js"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+
+<h4 id="需要本地建立相应文件夹并将两个js文件下载到目录">需要本地建立相应文件夹并将两个js文件下载到目录:</h4>
+<p><img src="../../../../../pic/ctf-js/图片3.png" width="1000" height="400" border="5" /><br />
+4&gt;2中js代码转换成易看代码:<br />
+<small>用sublime text打开,安装JsFormat插件,可通过快捷键ctrl+alt+f,实现javascript代码自动对齐,js代码转换后变成:</small></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">"\\u8f93\\u5165\\u4f60\\u7684\\x66\\x6c\\x61\\x67\\u5427\\uff0c\\u5c11\\u5e74\\uff01"</span><span class="p">,</span> <span class="s2">""</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">"\\x66\\x33\\x33\\x37\\x33\\x65\\x33\\x36\\x63\\x36\\x37\\x37\\x37\\x35\\x30\\x37\\x37\\x39\\x66\\x35\\x64\\x30\\x34\\x66\\x66\\x37\\x38\\x38\\x35\\x62\\x33\\x65"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="sr">/.+_.+_.+/gi</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x8</span><span class="p">,</span> <span class="mh">0x5</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">==</span> <span class="nx">b</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/7/ig</span><span class="p">,</span> <span class="o">++</span><span class="nx">d</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/8/ig</span><span class="p">,</span> <span class="nx">d</span> <span class="o">*</span> <span class="mh">0x2</span><span class="p">))</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="mh">0x7</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x5</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"\\x6a\\x73"</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">d</span> <span class="o">+</span> <span class="mh">0x3</span><span class="p">))</span> <span class="o">==</span> <span class="s2">"\\x64\\x30\\x31\\x35\\x34\\x64\\x35\\x30\\x34\\x38\\x62\\x35\\x61\\x35\\x65\\x62\\x31\\x30\\x65\\x66\\x31\\x36\\x34\\x36\\x34\\x30\\x30\\x37\\x31\\x39\\x66\\x31"</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">r</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0xd</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">==</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">&amp;&amp;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">--</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">==</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">--</span><span class="nx">d</span><span class="p">))</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mh">0x4f</span><span class="p">);</span>
+<span class="nx">g</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">g</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">substr</span><span class="p">((</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x6</span><span class="p">)</span> <span class="o">==</span> <span class="nx">g</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">"\\x65\\x61\\x73\\x79"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="p">{</span>
+<span class="nx">d</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="mh">0x1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">if</span> <span class="p">(.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"\\x7a"</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">"\\u989d\\uff0c\\u518d\\u53bb\\u60f3\\u60f3\\u3002\\u3002"</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">"\\u606d\\u559c\\u606d\\u559c\\uff01"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><small>后将该js放进本地新建的html中,其中html内嵌js格式为:</small></p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/md5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;Script</span> <span class="na">Language=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span>
+Put　your script code here ...
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<h4 id="加入转换后js效果">加入转换后js效果:</h4>
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;Script</span> <span class="na">Language=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span>
+var a = prompt("\u8f93\u5165\u4f60\u7684\x66\x6c\x61\x67\u5427\uff0c\u5c11\u5e74\uff01", "");
+var b = "\x66\x33\x33\x37\x33\x65\x33\x36\x63\x36\x37\x37\x37\x35\x30\x37\x37\x39\x66\x35\x64\x30\x34\x66\x66\x37\x38\x38\x35\x62\x33\x65";
+var c = /.+_.+_.+/gi;
+var d = 0x0;
+var e = a.substr(0x8, 0x5);
+if ($.md5(e) == b.replace(/7/ig, ++d).replace(/8/ig, d * 0x2)) {
+var f = a.substr(0x0 / d, 0x7);
+if (f.substr(0x5, 0x2) == "\x6a\x73" <span class="err">&amp;&amp;</span> $.md5(f.substr(0x0 / d, d + 0x3)) == "\x64\x30\x31\x35\x34\x64\x35\x30\x34\x38\x62\x35\x61\x35\x65\x62\x31\x30\x65\x66\x31\x36\x34\x36\x34\x30\x30\x37\x31\x39\x66\x31") {
+r = a.substr(0xd);
+if (r.charCodeAt(d) - 0x19 == r.charCodeAt(++d) - 0x19 <span class="err">&amp;&amp;</span> r.charCodeAt(--d) - 0x19 == r.charCodeAt(--d)) {
+var g = String.fromCharCode(0x4f);
+g = g.toLowerCase() + g.toLowerCase();
+if (r.substr((++d) * 0x3, 0x6) == g.concat("\x65\x61\x73\x79") <span class="err">&amp;&amp;</span> c.test(a)) {
+d = String(0x1) + String(a.length)
+}
+}
+}
+};
+if (a.substr(0x4, 0x1) != String.fromCharCode(d) || a.substr(0x4, 0x1) == "\x7a") {
+alert("\u989d\uff0c\u518d\u53bb\u60f3\u60f3\u3002\u3002")
+} else {
+alert("\u606d\u559c\u606d\u559c\uff01")
+}
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+<p>5&gt;chrome访问本地html,并用开发者工具调试js:
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%874.png" alt="skd" /></p>
+
+<h4 id="调试过程中发现４中被转换后的js中的字符表示形式">调试过程中发现,４中被转换后的js中的字符表示形式:</h4>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">"\x66\x33\x33\x37\x33\x65\x33\x36\x63\x36\x37\x37\x37\x35\x30\x37\x37\x39\x66\x35\x64\x30\x34\x66\x66\x37\x38\x38\x35\x62\x33\x65"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x5</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"\x6a\x73"</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">d</span> <span class="o">+</span> <span class="mh">0x3</span><span class="p">))</span> <span class="o">==</span> <span class="s2">"\x64\x30\x31\x35\x34\x64\x35\x30\x34\x38\x62\x35\x61\x35\x65\x62\x31\x30\x65\x66\x31\x36\x34\x36\x34\x30\x30\x37\x31\x39\x66\x31"</span><span class="p">)</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">substr</span><span class="p">((</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x6</span><span class="p">)</span> <span class="o">==</span> <span class="nx">g</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">"\x65\x61\x73\x79"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"\x7a"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h4 id="以上４处无法满足调试成立关系这有可能是js转换插件jsformat引起的将上面的十六进制形式转换成正常字符形式用js代码实现">以上４处无法满足调试成立关系,这有可能是js转换插件JsFormat引起的,将上面的十六进制形式转换成正常字符形式,用js代码实现:</h4>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x65"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x36"</span><span class="p">,</span><span class="s2">"0x63"</span><span class="p">,</span><span class="s2">"0x36"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x30"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x39"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x64"</span><span class="p">,</span><span class="s2">"0x30"</span><span class="p">,</span><span class="s2">"0x34"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x38"</span><span class="p">,</span><span class="s2">"0x38"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x62"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x65"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">B</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nx">B</span><span class="o">+=</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">b</span><span class="o">=</span><span class="nx">B</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x5</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"js"</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">d</span> <span class="o">+</span> <span class="mh">0x3</span><span class="p">))</span> <span class="o">==</span> <span class="s2">"d0154d5048b5a5eb10ef1646400719f1"</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">substr</span><span class="p">((</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x6</span><span class="p">)</span> <span class="o">==</span> <span class="nx">g</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">"easy"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"z"</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>6&gt;最后html内嵌js的完整可调试代码为:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/tpl/wctf/Public/js/lib/md5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x65"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x36"</span><span class="p">,</span><span class="s2">"0x63"</span><span class="p">,</span><span class="s2">"0x36"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x30"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x39"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x64"</span><span class="p">,</span><span class="s2">"0x30"</span><span class="p">,</span><span class="s2">"0x34"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x66"</span><span class="p">,</span><span class="s2">"0x37"</span><span class="p">,</span><span class="s2">"0x38"</span><span class="p">,</span><span class="s2">"0x38"</span><span class="p">,</span><span class="s2">"0x35"</span><span class="p">,</span><span class="s2">"0x62"</span><span class="p">,</span><span class="s2">"0x33"</span><span class="p">,</span><span class="s2">"0x65"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">B</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">b</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nx">B</span><span class="o">+=</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">b</span><span class="o">=</span><span class="nx">B</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">"\\u8f93\\u5165\\u4f60\\u7684\\x66\\x6c\\x61\\x67\\u5427\\uff0c\\u5c11\\u5e74\\uff01"</span><span class="p">,</span> <span class="s2">""</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="sr">/.+_.+_.+/gi</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x8</span><span class="p">,</span> <span class="mh">0x5</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">==</span> <span class="nx">b</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/7/ig</span><span class="p">,</span> <span class="o">++</span><span class="nx">d</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/8/ig</span><span class="p">,</span> <span class="nx">d</span> <span class="o">*</span> <span class="mh">0x2</span><span class="p">))</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="mh">0x7</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x5</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"js"</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x0</span> <span class="o">/</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">d</span> <span class="o">+</span> <span class="mh">0x3</span><span class="p">))</span> <span class="o">==</span> <span class="s2">"d0154d5048b5a5eb10ef1646400719f1"</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">r</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0xd</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">==</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">&amp;&amp;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">--</span><span class="nx">d</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x19</span> <span class="o">==</span> <span class="nx">r</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="o">--</span><span class="nx">d</span><span class="p">))</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mh">0x4f</span><span class="p">);</span>
+<span class="nx">g</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">g</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">substr</span><span class="p">((</span><span class="o">++</span><span class="nx">d</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x6</span><span class="p">)</span> <span class="o">==</span> <span class="nx">g</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">"easy"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="p">{</span>
+<span class="nx">d</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="mh">0x1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"z"</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">"\\u989d\\uff0c\\u518d\\u53bb\\u60f3\\u60f3\\u3002\\u3002"</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">"congratuations!"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+<p>7&gt;本地调试</p>
+
+<h4 id="在watch这里可以加各种表达式用来实时查看变量的值">在watch这里可以加各种表达式用来实时查看变量的值:</h4>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%875.png" alt="s" /></p>
+
+<h4 id="其中要注意的是由于开始的时候一直监控了">其中要注意的是,由于开始的时候一直监控了:</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>b.replace(/7/ig, ++d).replace(/8/ig, d * 0x2)
+r.charCodeAt(++d) - 0x19 &amp;&amp; r.charCodeAt(--d) - 0x19 == r.charCodeAt(--d)
+</code></pre>
+</div>
+
+<h4 id="导致一直算不出正确的答案后来发现监控中加了d--d等的值会随着调试过程动态改变d的值而这将改变d在调试代码中的本来应有的值从而无法正确调试到答案解决方法去掉这两个表达式的监控在调试过程中计算d的值可将这两个监控表达式改成">导致一直算不出正确的答案,后来发现监控中加了++d,--d等的值会随着调试过程动态改变d的值,而这将改变d在调试代码中的本来应有的值,从而无法正确调试到答案,解决方法,去掉这两个表达式的监控,在调试过程中计算d的值,可将这两个监控表达式改成:</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>b.replace(/7/ig,1).replace(/8/ig,1 \* 0x2):  
+r.charCodeAt(1) - 0x19: 95  
+r.charCodeAt(2) - 0x19: 95  
+r.charCodeAt(1) - 0x19: 95  
+r.charCodeAt(0): 95  
+</code></pre>
+</div>
+
+<h4 id="然后动态调试其中有两个md5解密分别为">然后动态调试,其中有两个md5解密分别为:</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>wctf
+jiami
+</code></pre>
+</div>
+
+<h4 id="算出最后的答案应该是">算出最后的答案应该是:</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>wctf{js_jiami_xxooeasy
+</code></pre>
+</div>
+
+<h4 id="但是提交显示不正确尝试在最后加了个符号答案正确">但是提交显示不正确,尝试在最后加了个}符号,答案正确.</h4>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            js, ctf
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

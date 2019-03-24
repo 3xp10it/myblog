@@ -3,7 +3,7 @@ layout:     post
 title:      一道ctf训练营的web题writeup
 date:       2016-03-07
 summary:    一道ctf训练营的web题writeup---不难不易的js加密
-categories: js
+categories: web
 thumbnail: cogs
 tags:
  - js

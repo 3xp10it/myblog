@@ -3,7 +3,7 @@ layout:     post
 title:      Use github and jekyll start github pages
 date:       2016-04-09
 summary:    how to use github and jekyll to start github pages in my blog
-categories: jekyll
+categories: auxilary
 thumbnail: jekyll
 tags:
  - html

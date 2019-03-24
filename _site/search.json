@@ -636,7 +636,7 @@
     "title"    : "四种环视匹配",
     "category" : "",
     "tags"     : "环视匹配, 正则表达式",
-    "url"      : "/regexp/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/",
+    "url"      : "/auxilary/2017/09/28/%E5%9B%9B%E7%A7%8D%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D/",
     "date"     : "2017-09-28 00:00:00 +0800"
     } ,
     
@@ -932,7 +932,7 @@
     "title"    : "多重转发渗透隐藏内网",
     "category" : "",
     "tags"     : "pivoting, pentest, msf, ssh",
-    "url"      : "/msf/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/",
+    "url"      : "/web/2017/02/23/%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91%E6%B8%97%E9%80%8F%E9%9A%90%E8%97%8F%E5%86%85%E7%BD%91/",
     "date"     : "2017-02-23 00:00:00 +0800"
     } ,
     
@@ -1004,7 +1004,7 @@
     "title"    : "od命令",
     "category" : "",
     "tags"     : "od",
-    "url"      : "/crack/2016/12/25/od%E5%91%BD%E4%BB%A4/",
+    "url"      : "/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/12/25/od%E5%91%BD%E4%BB%A4/",
     "date"     : "2016-12-25 00:00:00 +0800"
     } ,
     
@@ -1108,7 +1108,7 @@
     "title"    : "正则表达式",
     "category" : "",
     "tags"     : "regexp, python",
-    "url"      : "/regexp/2016/11/08/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/",
+    "url"      : "/auxilary/2016/11/08/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/",
     "date"     : "2016-11-08 00:00:00 +0800"
     } ,
     
@@ -1276,7 +1276,7 @@
     "title"    : "自动上传截图至github并获取uri",
     "category" : "",
     "tags"     : "github, python, 文件遍历",
-    "url"      : "/jekyll/2016/07/30/%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE%E8%87%B3github/",
+    "url"      : "/auxilary/2016/07/30/%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE%E8%87%B3github/",
     "date"     : "2016-07-30 00:00:00 +0800"
     } ,
     
@@ -1284,7 +1284,7 @@
     "title"    : "修正博客更新脚本",
     "category" : "",
     "tags"     : "jekyll, github, shell",
-    "url"      : "/jekyll/2016/07/30/update-blog-update-script/",
+    "url"      : "/auxilary/2016/07/30/update-blog-update-script/",
     "date"     : "2016-07-30 00:00:00 +0800"
     } ,
     
@@ -1316,7 +1316,7 @@
     "title"    : "小生我怕怕笔记",
     "category" : "",
     "tags"     : "破解, 逆向",
-    "url"      : "/crack/2016/07/27/%E5%B0%8F%E7%94%9F%E6%88%91%E6%80%95%E6%80%95%E7%A0%B4%E8%A7%A3%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/",
+    "url"      : "/%E4%BA%8C%E8%BF%9B%E5%88%B6/2016/07/27/%E5%B0%8F%E7%94%9F%E6%88%91%E6%80%95%E6%80%95%E7%A0%B4%E8%A7%A3%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/",
     "date"     : "2016-07-27 00:00:00 +0800"
     } ,
     
@@ -1348,7 +1348,7 @@
     "title"    : "hashcat&amp;john",
     "category" : "",
     "tags"     : "hashcat",
-    "url"      : "/crack/2016/06/22/hashcat/",
+    "url"      : "/web/2016/06/22/hashcat/",
     "date"     : "2016-06-22 00:00:00 +0800"
     } ,
     
@@ -1420,7 +1420,7 @@
     "title"    : "backup files",
     "category" : "",
     "tags"     : "firefox, backup, vim, sublime",
-    "url"      : "/backup/2016/04/15/something-backup/",
+    "url"      : "/auxilary/2016/04/15/something-backup/",
     "date"     : "2016-04-15 00:00:00 +0800"
     } ,
     
@@ -1428,7 +1428,7 @@
     "title"    : "msf的两种内网间连接方式及多重转发",
     "category" : "",
     "tags"     : "web, msf, lcx",
-    "url"      : "/msf/2016/04/15/msf%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%86%85%E7%BD%91%E9%97%B4%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F%E5%8F%8A%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91/",
+    "url"      : "/web/2016/04/15/msf%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%86%85%E7%BD%91%E9%97%B4%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F%E5%8F%8A%E5%A4%9A%E9%87%8D%E8%BD%AC%E5%8F%91/",
     "date"     : "2016-04-15 00:00:00 +0800"
     } ,
     
@@ -1476,7 +1476,7 @@
     "title"    : "Use github and jekyll start github pages",
     "category" : "",
     "tags"     : "html",
-    "url"      : "/jekyll/2016/04/09/github-jekyll-blog/",
+    "url"      : "/auxilary/2016/04/09/github-jekyll-blog/",
     "date"     : "2016-04-09 00:00:00 +0800"
     } ,
     
@@ -1492,7 +1492,7 @@
     "title"    : "一道ctf训练营的web题writeup",
     "category" : "",
     "tags"     : "js, ctf",
-    "url"      : "/js/2016/03/07/%E4%B8%80%E9%81%93ctf%E8%AE%AD%E7%BB%83%E8%90%A5%E7%9A%84web%E9%A2%98witeup/",
+    "url"      : "/web/2016/03/07/%E4%B8%80%E9%81%93ctf%E8%AE%AD%E7%BB%83%E8%90%A5%E7%9A%84web%E9%A2%98witeup/",
     "date"     : "2016-03-07 00:00:00 +0800"
     } ,
     
@@ -1500,7 +1500,7 @@
     "title"    : "Welcome to Carte Noire",
     "category" : "",
     "tags"     : "welcome, to, carte, noire",
-    "url"      : "/jekyll/2015/03/23/welcome-to-carte-noir/",
+    "url"      : "/auxilary/2015/03/23/welcome-to-carte-noir/",
     "date"     : "2015-03-23 15:31:19 +0000"
     } ,
     
@@ -1508,7 +1508,7 @@
     "title"    : "Carte Noire in Action",
     "category" : "",
     "tags"     : "demo, action, carte, noire",
-    "url"      : "/jekyll/2014/06/10/carte-noire-in-action/",
+    "url"      : "/auxilary/2014/06/10/carte-noire-in-action/",
     "date"     : "2014-06-10 12:31:19 +0000"
     } ,
     
@@ -1516,7 +1516,7 @@
     "title"    : "So, What is Jekyll?",
     "category" : "",
     "tags"     : "about, jekyll",
-    "url"      : "/jekyll/2014/06/09/so-what-is-jekyll/",
+    "url"      : "/auxilary/2014/06/09/so-what-is-jekyll/",
     "date"     : "2014-06-09 12:32:18 +0000"
     } ,
     
@@ -1524,7 +1524,7 @@
     "title"    : "Using thumbnails",
     "category" : "",
     "tags"     : "thumbnails, carte noire",
-    "url"      : "/jekyll/2014/06/08/using-thumbnails/",
+    "url"      : "/auxilary/2014/06/08/using-thumbnails/",
     "date"     : "2014-06-08 12:32:18 +0000"
     } 
     

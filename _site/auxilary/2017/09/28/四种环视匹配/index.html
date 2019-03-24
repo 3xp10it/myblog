@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>四种环视匹配</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">四种环视匹配</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 28, 2017</span>
+           under auxilary
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-refer">0x00 refer</h3>
+
+<p><a href="http://www.jb51.net/article/52491.htm">匹配不出现字符串</a></p>
+
+<h3 id="0x01-detail">0x01 detail</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>肯定顺序环视(?=...)     positive lookahead  (中文也有翻译成:后向界定)
+否定顺序环视(?!...)     negtive lookahead   (中文也有翻译成:后向非界定)
+肯定逆序环视(?&lt;=...)    positive lookbehind (中文也有翻译成:前向界定)
+否定逆序环视(?&lt;!...)    negtive lookbehind  (中文也有翻译成:前向非界定)
+</code></pre>
+</div>
+
+<p>从上看出:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>是      =
+不是    !
+</code></pre>
+</div>
+
+<p>在用正则表达式匹配时将待匹配的字符串变量看作是有隐藏位置的字符串,也即将abcd看作|a|b|c|d|,其中|表示一个隐藏位置.
+如果正则表达式中没有上面4种用法则不考虑隐藏的位置,如果有4种任意一种则要考虑隐藏位置,以上4种在匹配时匹配的结果为
+这些隐藏的位置(只匹配位置,不匹配字符).</p>
+
+<h3 id="0x02-example">0x02 example</h3>
+
+<h4 id="a前面没有form后面有action">a.前面没有form后面有action</h4>
+
+<p>使用(?:\n)不捕获匹配\n
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg1.png" /></p>
+
+<p>替换(?:\n),使用(?&lt;=\n)前向界定和(?=\n)后向界定匹配\n</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg2.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?!=)</code>,<code class="highlighter-rouge">(?=)</code>,没有用到<code class="highlighter-rouge">(?&lt;!)</code></p>
+
+<p>为了用到<code class="highlighter-rouge">(?&lt;!)</code>,具体如下图
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg3.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?&lt;!)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code></p>
+
+<h4 id="b前面有form后面没有action">b.前面有form后面没有action</h4>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg4.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code>,没有用到<code class="highlighter-rouge">(?&lt;!)</code></p>
+
+<p>为了用到<code class="highlighter-rouge">(?&lt;!)</code>,具体如下图
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/reg5.png" />
+上图共使用了<code class="highlighter-rouge">(?&lt;=)</code>,<code class="highlighter-rouge">(?&lt;!)</code>,<code class="highlighter-rouge">(?!)</code>,<code class="highlighter-rouge">(?=)</code></p>
+
+<h3 id="0x03-vim中的环视匹配">0x03 vim中的环视匹配</h3>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/vim%E7%8E%AF%E8%A7%86%E5%8C%B9%E9%85%8D.png" />
+注意</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.其中上图的倒数第2个应该是:`...\@&lt;!`
+2.匹配时是正常匹配,不是\v(very magic)模式匹配
+</code></pre>
+</div>
+
+<h3 id="0x04-attention">0x04 attention</h3>
+
+<p>1.为了匹配到一个字符串变量中没有form,可以有4种方法:</p>
+
+<p>a)<code class="highlighter-rouge">.(?&lt;!form)</code>对应的<code class="highlighter-rouge">(.(?&lt;!form))*</code><br />
+b)<code class="highlighter-rouge">(?&lt;!form).</code>对应的<code class="highlighter-rouge">((?&lt;!form).)*</code><br />
+c)<code class="highlighter-rouge">.(?!form)</code>对应的<code class="highlighter-rouge">(.(?!form))*</code><br />
+d)<code class="highlighter-rouge">(?!form).</code>对应的<code class="highlighter-rouge">((?!form).)*</code></p>
+
+<p>其中.在()前[<code class="highlighter-rouge">.()</code>]或.在()后[<code class="highlighter-rouge">().</code>]最终的效果一样,但是对于正则引擎来说,匹配的顺序不同,<code class="highlighter-rouge">.()</code>是先匹配字符再匹配隐藏
+的位置,<code class="highlighter-rouge">().</code>是先匹配隐藏的位置再匹配字符</p>
+
+<p>2.四种环视匹配<code class="highlighter-rouge">(...)</code>匹配的结果是一个隐藏的位置,是一个位置,不是多个位置,也不是字符</p>
+
+<p>3.<code class="highlighter-rouge">"ifconfig | ack '(?&lt;=inet )(.*)(?= netmask)' -o"</code>可得到ip地址<br />
+<code class="highlighter-rouge">echo lllnihaolllnihaoxxxnihao666 | ack -o '(?&lt;=x)(?=n)nihao.*'</code>其中的<code class="highlighter-rouge">(?&lt;=x)(?=n)</code>两个紧挨的环视匹配得到的是一个
+隐藏的位置,因为环视匹配不会匹配到字符(不捕获),于是第1个环视匹配得到1个位置后由于无法前进字符串,所以第2个环视匹配
+得到的依然是相同的位置处,同理,多个紧挨的环视匹配得到的是相同的位置,说明多个环视匹配紧挨时,匹配结果与各个环视匹配
+表达式的先后顺序无关</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            环视匹配, 正则表达式
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

@@ -3,7 +3,7 @@ layout:     post
 title:      修正博客更新脚本
 date:       2016-07-30
 summary:    修正博客更新脚本
-categories: jekyll
+categories: auxilary
 tags:
  - jekyll
  - github
