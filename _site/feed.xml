@@ -5,9 +5,24 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 23 Mar 2019 18:11:48 +0800</pubDate>
-    <lastBuildDate>Sat, 23 Mar 2019 18:11:48 +0800</lastBuildDate>
+    <pubDate>Sun, 24 Mar 2019 08:45:26 +0800</pubDate>
+    <lastBuildDate>Sun, 24 Mar 2019 08:45:26 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>连续飙升的背后笔记</title>
+        <description>&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E8%BF%9E%E7%BB%AD%E9%A3%99%E5%8D%87%E7%9A%84%E8%83%8C%E5%90%8E%20%E7%82%92%E8%82%A1%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Mar 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/03/24/%E8%BF%9E%E7%BB%AD%E9%A3%99%E5%8D%87%E7%9A%84%E8%83%8C%E5%90%8E%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/03/24/%E8%BF%9E%E7%BB%AD%E9%A3%99%E5%8D%87%E7%9A%84%E8%83%8C%E5%90%8E%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>炒股</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>散户别跑:庄家洗盘模式笔记</title>
@@ -2568,60 +2583,6 @@
         
         
         <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>ida批量下断点追踪函数调用</title>
-        <description>&lt;h3 id=&quot;0x01-about&quot;&gt;0x01 About&lt;/h3&gt;
-
-&lt;p&gt;ida在调试ios时,即使用了usb连接,调试的时候也经常会卡(如遇到多线程),无法通过ida强大的trace功能快速定位到关键操作对应的函数及代码,为解决这个问题,可通过先分析出关键操作涉及到的类(一般不多,3-5个),然后在这些类的所有函数上下trace断点(类似于frida-trace的功能),以此模糊分析出关键操作对应的代码执行流程,一般在正常的ipa中这些函数的个数大概在500-1000个左右,手动下断点无法解决,本文通过idapython插件解决这个问题.&lt;/p&gt;
-
-&lt;h3 id=&quot;0x02-idapython常见用法&quot;&gt;0x02 idapython常见用法&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.hex-rays.com/products/ida/support/idapython_docs/&quot;&gt;idapython api&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://unit42.paloaltonetworks.com/using-idapython-to-make-your-life-easier-part-1/&quot;&gt;Using IDAPython to Make Your Life Easier (1-6)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.anquanke.com/post/id/151898&quot;&gt;如何使用 IDAPython 寻找漏洞&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1097793&quot;&gt;IDAPython精彩编程&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cartermgj.github.io/2017/10/10/ida-python/&quot;&gt;IDA-python学习小结&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/u011337769/article/details/77428914&quot;&gt;IDAPython 手册&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/3xp10it/mynav/blob/master/mynav.py&quot;&gt;mynav代码样例&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x3-代码&quot;&gt;0x3 代码&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# coding=utf8
-#!/usr/bin/python
-classes=ida_kernwin.ask_text(0, &quot;&quot;, &quot;请输入想要trace的类,以空格分开&quot;)
-class_list=classes.split(&quot; &quot;)
-for func_addr in Functions():    
-    func_name=GetFunctionName(func_addr)
-    for class_name in class_list:
-        if class_name+&quot; &quot; in func_name:
-            if add_bpt(func_addr):
-                set_bpt_attr(func_addr,BPTATTR_FLAGS,BPT_TRACE)
-                print &quot;%s:添加断点成功&quot; % func_name
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;or you can download &lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/mytools/master/ida_objc_class_bps.py&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 21 Dec 2018 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/12/21/ida%E6%89%B9%E9%87%8F%E4%B8%8B%E6%96%AD%E7%82%B9%E8%BF%BD%E8%B8%AA%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2018/12/21/ida%E6%89%B9%E9%87%8F%E4%B8%8B%E6%96%AD%E7%82%B9%E8%BF%BD%E8%B8%AA%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8/</guid>
-        
-        <category>ida</category>
-        
-        <category>idapython</category>
-        
-        <category>ios</category>
-        
-        <category>objc</category>
-        
-        
-        <category>二进制</category>
         
       </item>
     
