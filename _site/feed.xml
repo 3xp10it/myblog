@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 05 Apr 2019 15:30:52 +0800</pubDate>
-    <lastBuildDate>Fri, 05 Apr 2019 15:30:52 +0800</lastBuildDate>
+    <pubDate>Fri, 05 Apr 2019 23:08:01 +0800</pubDate>
+    <lastBuildDate>Fri, 05 Apr 2019 23:08:01 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -299,6 +299,21 @@
         <pubDate>Fri, 05 Apr 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E7%9C%8B%E9%80%8F%E5%A4%A7%E7%9B%98-%E8%B7%9F%E6%93%8D%E7%9B%98%E9%AB%98%E6%89%8B%E5%AD%A6%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E7%9C%8B%E9%80%8F%E5%A4%A7%E7%9B%98-%E8%B7%9F%E6%93%8D%E7%9B%98%E9%AB%98%E6%89%8B%E5%AD%A6%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>大盘</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
+    
+      <item>
+        <title>大盘趋势一看就懂笔记</title>
+        <description>&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 05 Apr 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%AC%94%E8%AE%B0/</guid>
         
         <category>大盘</category>
         
@@ -1977,45 +1992,6 @@
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/03/23/%E6%88%98%E8%83%9C%E5%BA%84%E5%AE%B6%E7%AC%94%E8%AE%B0/</guid>
         
         <category>庄家</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>教你炒股票108课笔记</title>
-        <description>&lt;h3 id=&quot;0x0-学习路线&quot;&gt;0x0 学习路线&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1.&lt;a href=&quot;https://pan.baidu.com/s/1e8ODfmbVeTo9m4bKEHFPfw&quot;&gt;都业华缠论讲解(提取码y9bx)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;2.市场哲学的数学原理
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/165nvaBdJtZEAf2oDX19kQA&quot;&gt;视频(提取码zhb7)&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/1q5UQgb1PAj7ZCs0XPnOI0g&quot;&gt;配书(提取码n4ib)&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x1-其他资料&quot;&gt;0x1 其他资料&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/1wZYQF96D9eEO_lG44UeKRg&quot;&gt;土匪版缠论(提取码qbmm)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pan.baidu.com/s/1Poqaklva109rLKQYyWPRPA&quot;&gt;阿娇版缠论(提取码jfcj)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x2-对缠论的看法&quot;&gt;0x2 对缠论的看法&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;[2019-03-16] 目前认为缠论只是把股票的已经走完的所有走势情况进行了分类之后提出了123买卖点的位置,缠论用到了未来函数,也即123买卖都是行情已经走出来之后才能确定的,对当下的操作的指导意义是缠论里提到的背驰(背离),买卖点的胜率取决于背离的胜率,而背离这个技术指标的胜率和macd金叉买死叉卖的胜率应该差不多(macd金叉死叉也是背离的一种表现形式),因为不知道背离之后会反转多少,有可能只反转了1根k线(对应macd金叉之后马上死叉),然后继续原来的走势方向导致被套. 如果只靠缠论的背离引发的反转的概率来买入和卖出,则缠论的实战指导意义基本为0(macd金叉死叉买卖必亏).如果有一套胜率比较高(如大于80%)的操作模式(用于保证未来的行情会大概率相当于是已经走完的走势),倒可以根据缠论中的123买卖点来提高买卖点的精度.也即相当于缠论是比较精细的马后炮理论,可用于辅助高胜率的操作策略.&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sun, 10 Mar 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/03/10/%E6%95%99%E4%BD%A0%E7%82%92%E8%82%A1%E7%A5%A8108%E8%AF%BE%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/03/10/%E6%95%99%E4%BD%A0%E7%82%92%E8%82%A1%E7%A5%A8108%E8%AF%BE%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>缠论</category>
         
         
         <category>炒股</category>
