@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Apr 2019 18:15:11 +0800</pubDate>
-    <lastBuildDate>Mon, 29 Apr 2019 18:15:11 +0800</lastBuildDate>
+    <pubDate>Mon, 29 Apr 2019 18:19:59 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Apr 2019 18:19:59 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -32,7 +32,7 @@ open_port_dict={}
 for port in port_list:
     if port not in open_port_dict:
         open_port_dict[port]=[]
-    all=re.findall(r&quot;Nmap scan report for (\S+)\nHost is up.+\n(.+\n)*%s/tcp\s+open.+\n(.+\n)*\n&quot; % port,nmap_result)
+    all=re.findall(r&quot;Nmap scan report for (\S+)\nHost is up.+\n+(.+\n)*%s/tcp\s+open.+\n(.+\n)*\n&quot; % port,nmap_result)
     for item in all:
         ip=item[0]
         if ip not in open_port_dict[port]:
@@ -46,19 +46,21 @@ with open(&quot;open_port_dict.txt&quot;,&quot;a+&quot;) as f:
   &lt;li&gt;高危端口漏洞检测&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script ftp-brute.nse -p 21 -iL 21.txt -oN ftp-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script ssh-brute.nse --script-args userdb=users.lst,passdb=pass.lst -p 22 -iL 22.txt -oN ssh-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script telnet-brute.nse --script-args userdb=users.lst,passdb=pass.lst -p 23 -iL 23.txt -oN telnet-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script smtp-brute.nse -p 25 -iL 25.txt -oN smtp-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script smb-vuln-ms10-054.nse -p 445 -iL 445.txt -oN 10054.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script smb-vuln-ms10-061.nse -p 445 -iL 445.txt -oN 10061.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script smb-vuln-ms17-010.nse -p 445 -iL 445.txt -oN 17010.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script ms-sql-brute.nse -p 1433 -iL 1433.txt -oN ms-sql-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script mysql-brute.nse -p 3306 -iL 3306.txt -oN mysql-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script rdp-vuln-ms12-020.nse -p 3389 -iL 3389.txt -oN 12020.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script svn-brute.nse -p 3690 -iL 3690.txt -oN svn-brute.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script realvnc-auth-bypass.nse -p 5900 -iL 5900.txt -oN realvnc-auth-bypass.txt -v&lt;/code&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T insane --script vnc-brute.nse -p 5900 -iL 5900.txt -oN vnc-bute.txt -v&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nmap -T insane --script ftp-brute.nse -p 21 -iL 21.txt -oN ftp-brute.txt -v
+nmap -T insane --script ssh-brute.nse --script-args userdb=users.lst,passdb=pass.lst -p 22 -iL 22.txt -oN ssh-brute.txt -v
+nmap -T insane --script telnet-brute.nse --script-args userdb=users.lst,passdb=pass.lst -p 23 -iL 23.txt -oN telnet-brute.txt -v
+nmap -T insane --script smtp-brute.nse -p 25 -iL 25.txt -oN smtp-brute.txt -v
+nmap -T insane --script smb-vuln-ms10-054.nse -p 445 -iL 445.txt -oN 10054.txt -v
+nmap -T insane --script smb-vuln-ms10-061.nse -p 445 -iL 445.txt -oN 10061.txt -v
+nmap -T insane --script smb-vuln-ms17-010.nse -p 445 -iL 445.txt -oN 17010.txt -v
+nmap -T insane --script ms-sql-brute.nse -p 1433 -iL 1433.txt -oN ms-sql-brute.txt -v
+nmap -T insane --script mysql-brute.nse -p 3306 -iL 3306.txt -oN mysql-brute.txt -v
+nmap -T insane --script rdp-vuln-ms12-020.nse -p 3389 -iL 3389.txt -oN 12020.txt -v
+nmap -T insane --script svn-brute.nse -p 3690 -iL 3690.txt -oN svn-brute.txt -v
+nmap -T insane --script realvnc-auth-bypass.nse -p 5900 -iL 5900.txt -oN realvnc-auth-bypass.txt -v
+nmap -T insane --script vnc-brute.nse -p 5900 -iL 5900.txt -oN vnc-bute.txt -v
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;ALL in one&lt;/li&gt;
@@ -81,7 +83,7 @@ open_port_dict={}
 for port in port_list:
     if port not in open_port_dict:
         open_port_dict[port]=[]
-    all=re.findall(r&quot;Nmap scan report for (\S+)\nHost is up.+\n(.+\n)*%s/tcp\s+open.+\n(.+\n)*\n&quot; % port,nmap_result)
+    all=re.findall(r&quot;Nmap scan report for (\S+)\nHost is up.+\n+(.+\n)*%s/tcp\s+open.+\n(.+\n)*\n&quot; % port,nmap_result)
     for item in all:
         ip=item[0]
         if ip not in open_port_dict[port]:
