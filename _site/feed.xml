@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 07 May 2019 10:06:25 +0800</pubDate>
-    <lastBuildDate>Tue, 07 May 2019 10:06:25 +0800</lastBuildDate>
+    <pubDate>Tue, 07 May 2019 10:16:38 +0800</pubDate>
+    <lastBuildDate>Tue, 07 May 2019 10:16:38 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -521,7 +521,7 @@
   &lt;li&gt;初步扫描端口信息&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T4 -A -v -Pn 192.168.1.1/24 -p 21,22,23,25,80,443,445,1433,3306,3389,3690,5900,8080 -oN nmap_result.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nmap -T4 -A -v -Pn 192.168.1.1/24 -p 21,22,23,25,80,81,82,83,88,110,143,443,445,512,513,514,1433,1521,2082,2083,2181,2601,2604,3128,3306,3389,3690,4848,5432,5900,5984,6379,7001,7002,8069,8080,8081,8086,8088,9200,9300,11211,10000,27017,27018,50000,50030,50070 -oN nmap_result.txt&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;扫描结果整理&lt;/li&gt;
