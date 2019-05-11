@@ -5,9 +5,24 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 09 May 2019 07:03:50 +0800</pubDate>
-    <lastBuildDate>Thu, 09 May 2019 07:03:50 +0800</lastBuildDate>
+    <pubDate>Sat, 11 May 2019 21:16:59 +0800</pubDate>
+    <lastBuildDate>Sat, 11 May 2019 21:16:59 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>千炼成妖笔记</title>
+        <description>&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E5%8D%83%E7%82%BC%E6%88%90%E5%A6%96.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 11 May 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/11/%E5%8D%83%E7%82%BC%E6%88%90%E5%A6%96%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/11/%E5%8D%83%E7%82%BC%E6%88%90%E5%A6%96%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>花荣</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>招财狐狸笔记</title>
@@ -1177,21 +1192,6 @@ print(&quot;finished.&quot;)
         <pubDate>Fri, 05 Apr 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E7%9C%8B%E9%80%8F%E5%A4%A7%E7%9B%98-%E8%B7%9F%E6%93%8D%E7%9B%98%E9%AB%98%E6%89%8B%E5%AD%A6%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E7%9C%8B%E9%80%8F%E5%A4%A7%E7%9B%98-%E8%B7%9F%E6%93%8D%E7%9B%98%E9%AB%98%E6%89%8B%E5%AD%A6%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>大盘</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>大盘趋势一看就懂笔记</title>
-        <description>&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 05 Apr 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/04/05/%E5%A4%A7%E7%9B%98%E8%B6%8B%E5%8A%BF%E4%B8%80%E7%9C%8B%E5%B0%B1%E6%87%82%E7%AC%94%E8%AE%B0/</guid>
         
         <category>大盘</category>
         
