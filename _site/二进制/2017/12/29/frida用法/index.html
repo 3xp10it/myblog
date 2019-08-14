@@ -430,7 +430,7 @@ sys.stdin.read()
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
-<p><code class="highlighter-rouge">+</code>号开头的函数要<a href="https://www.frida.re/docs/javascript-api/#objc">这样</a>:</p>
+<p><code class="highlighter-rouge">+</code>号开头的函数(类函数,可直接通过类调用)要<a href="https://www.frida.re/docs/javascript-api/#objc">这样</a>:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
 {
@@ -442,12 +442,15 @@ sys.stdin.read()
 
 
 [NSString stringWithString:@"Hello World"] 
+
 becomes 
-var NSString = ObjC.classes.NSString; NSString.stringWithString_("Hello World");
+
+var NSString = ObjC.classes.NSString; 
+NSString.stringWithString_("Hello World");
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">-</code>号开头的函数要这样:</p>
+<p><code class="highlighter-rouge">-</code>号开头的函数(实例函数,需要通过类的实例对象调用)要这样:</p>
 
 <p>如下代码中调用了PARSHealthPedometer10thHomeViewController类中的requestUploadWithSure函数,这里的requestUploadWithSure函数是<code class="highlighter-rouge">-</code>号开头的函数,其中函数的参数为1,如果requestUploadWithSure函数没有参数,则写法为<code class="highlighter-rouge">my_obj["- requestUploadWithSure"]()</code>,如果要调用一个<code class="highlighter-rouge">-</code>号开头的类的函数,有2种情况:</p>
 

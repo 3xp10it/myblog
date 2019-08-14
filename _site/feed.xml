@@ -5,9 +5,460 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 09 Aug 2019 07:31:59 +0800</pubDate>
-    <lastBuildDate>Fri, 09 Aug 2019 07:31:59 +0800</lastBuildDate>
+    <pubDate>Wed, 14 Aug 2019 11:05:24 +0800</pubDate>
+    <lastBuildDate>Wed, 14 Aug 2019 11:05:24 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>frida开启ios app签名服务</title>
+        <description>&lt;h3 id=&quot;0x0-about&quot;&gt;0x0 About&lt;/h3&gt;
+
+&lt;p&gt;一般情况下,app因为安全性会有签名机制,大多数服务器上重要的接口都需要签名算法验证通过后才可访问,一般情况下,服务器上的验证算法是通过校验客户端请求时间戳达到防重放的目的(签名机制也可用于提升攻击难度),校验算法示例可参考&lt;a href=&quot;https://blog.csdn.net/koastal/article/details/53456696&quot;&gt;这里&lt;/a&gt;,简单的校验伪代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;客户端请求如下:
+
+POST /jiekou HTTP/1.1
+Host: www.baidu.com
+content: text/html; charset=UTF-8
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Accept-Encoding: gzip, deflate
+Accept: */*
+User-Agent: iGoldSunMain/5.4.7 (iPhone; iOS 11.1.1; Scale/2.00)
+Accept-Language: zh-Hans-CN;q=1
+Content-Length: 376
+Connection: close
+
+a=1&amp;amp;b=2&amp;amp;reqTime=20190813160148620&amp;amp;sign_value=Q980XOWEJ7658799ZX90876876O
+
+其中reqTime是客户端请求携带的请求时间戳,sign_value是客户端签名算法的签名结果
+
+
+服务端校验如下:
+
+if request_value.reqTime+60s &amp;lt; serverTime:
+    deny
+if get_sign_value(request_value)!=request_value.sign_value:
+    deny
+normal_response()
+
+其中request_value是客户端提交的请求包数据,request_value.reqTime是请求包中的reqTime参数的值,serverTime是服务器接收到请求的时间戳,request_value.sign_value是请求包中的sign_value参数的值
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;本文记录通过frida开启ios app客户端的签名算法的rpc调用服务&lt;/p&gt;
+
+&lt;h3 id=&quot;0x1-分析签名函数&quot;&gt;0x1 分析签名函数&lt;/h3&gt;
+
+&lt;p&gt;ios app通过Cluth脱壳后通过ida反编译,正常测试时抓包发现大多请求都带有&lt;code class=&quot;highlighter-rouge&quot;&gt;openapi_sign=xxxxxxxxxxxxx&lt;/code&gt;,推断app的签名结果会赋值到openapi_sign参数中,在ida中搜索openapi_sign,结果如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png&quot; alt=&quot;goldsun1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在汇编区中按f5得到object-c风格的代码,显示是&lt;code class=&quot;highlighter-rouge&quot;&gt;signRequestUrlWithParameters:secret:signMethod:&lt;/code&gt;函数实现的签名,在ida的函数窗口区搜索这个函数,如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png&quot; alt=&quot;goldsun2&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png&quot; alt=&quot;goldsun3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中&lt;code class=&quot;highlighter-rouge&quot;&gt;signRequestUrlWithParameters:secret:signMethod:&lt;/code&gt;代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id __cdecl +[GSNetworkUtils signRequestUrlWithParameters:secret:signMethod:](GSNetworkUtils_meta *self, SEL a2, id a3, id a4, id a5)
+{
+  id v5; // x20
+  id v6; // x21
+  void *v7; // x19
+  __int64 v8; // x1
+  void *v9; // x22
+  __int64 v10; // x1
+  __int64 v11; // x1
+  void *v12; // x26
+  void *v13; // x21
+  void *v14; // x24
+  void *v15; // x21
+  __int64 v16; // x20
+  void *v17; // x0
+  __int64 v18; // x21
+  int v19; // w25
+  __int64 v20; // x1
+  void *v21; // x27
+  __int64 v22; // x24
+  unsigned __int64 v23; // x22
+  void *v24; // x26
+  __int64 v25; // x19
+  void *v26; // x25
+  void *v27; // x19
+  const __CFString *v28; // x20
+  id result; // x0
+  void *v30; // [xsp+10h] [xbp-150h]
+  void *v31; // [xsp+18h] [xbp-148h]
+  struct objc_object *v32; // [xsp+28h] [xbp-138h]
+  void *v33; // [xsp+30h] [xbp-130h]
+  GSNetworkUtils_meta *v34; // [xsp+38h] [xbp-128h]
+  void *v35; // [xsp+40h] [xbp-120h]
+  __int128 v36; // [xsp+48h] [xbp-118h]
+  __int128 v37; // [xsp+58h] [xbp-108h]
+  __int128 v38; // [xsp+68h] [xbp-F8h]
+  __int128 v39; // [xsp+78h] [xbp-E8h]
+  char v40; // [xsp+88h] [xbp-D8h]
+  __int64 v41; // [xsp+108h] [xbp-58h]
+
+  v5 = a5;
+  v6 = a4;
+  v34 = self;
+  v7 = (void *)objc_retain(a3, a2);
+  v9 = (void *)objc_retain(v6, v8);
+  v12 = (void *)objc_retain(v5, v10);
+  v35 = v7;
+  if ( !v7 )
+    goto LABEL_19;
+  objc_msgSend(v7, &quot;allKeys&quot;);
+  v13 = (void *)objc_retainAutoreleasedReturnValue();
+  if ( !objc_msgSend(v13, &quot;count&quot;) )
+  {
+    objc_release(v13);
+    goto LABEL_19;
+  }
+  v14 = objc_msgSend(v9, &quot;length&quot;);
+  objc_release(v13);
+  if ( !v14 )
+  {
+LABEL_19:
+    v28 = &amp;amp;stru_1020C2DD0;
+    objc_retain(&amp;amp;stru_1020C2DD0, v11);
+    goto LABEL_20;
+  }
+  objc_msgSend(v7, &quot;allKeys&quot;);
+  v15 = (void *)objc_retainAutoreleasedReturnValue();
+  objc_msgSend(v15, &quot;sortedArrayUsingSelector:&quot;, &quot;compare:&quot;);
+  v16 = objc_retainAutoreleasedReturnValue();
+  objc_release(v15);
+  v17 = objc_msgSend(&amp;amp;OBJC_CLASS___NSMutableString, &quot;alloc&quot;);
+  v32 = (struct objc_object *)objc_msgSend(v17, &quot;init&quot;);
+  if ( !objc_msgSend(v12, &quot;length&quot;)
+    || (objc_msgSend(v12, &quot;lowercaseString&quot;),
+        v18 = objc_retainAutoreleasedReturnValue(),
+        v19 = (unsigned __int64)objc_msgSend(CFSTR(&quot;md5&quot;), &quot;isEqualToString:&quot;, v18),
+        objc_release(v18),
+        v19) )
+  {
+    objc_msgSend(v32, &quot;appendString:&quot;, v9);
+  }
+  v30 = v12;
+  v31 = v9;
+  v39 = 0u;
+  v38 = 0u;
+  v37 = 0u;
+  v36 = 0u;
+  v33 = (void *)objc_retain(v16, v20);
+  v21 = objc_msgSend(v33, &quot;countByEnumeratingWithState:objects:count:&quot;, &amp;amp;v36, &amp;amp;v40, 16LL);
+  if ( v21 )
+  {
+    v22 = *(_QWORD *)v37;
+    do
+    {
+      v23 = 0LL;
+      do
+      {
+        if ( *(_QWORD *)v37 != v22 )
+          objc_enumerationMutation(v33);
+        v24 = *(void **)(*((_QWORD *)&amp;amp;v36 + 1) + 8 * v23);
+        objc_msgSend(v35, &quot;objectForKey:&quot;, *(_QWORD *)(*((_QWORD *)&amp;amp;v36 + 1) + 8 * v23));
+        v25 = objc_retainAutoreleasedReturnValue();
+        objc_msgSend(v34, &quot;urlDecodedString:&quot;, v25);
+        v26 = (void *)objc_retainAutoreleasedReturnValue();
+        objc_release(v25);
+        if ( objc_msgSend(v24, &quot;length&quot;) &amp;amp;&amp;amp; objc_msgSend(v26, &quot;length&quot;) )
+        {
+          objc_msgSend(v32, &quot;appendString:&quot;, v24);
+          objc_msgSend(v32, &quot;appendString:&quot;, v26);
+        }
+        objc_release(v26);
+        ++v23;
+      }
+      while ( v23 &amp;lt; (unsigned __int64)v21 );
+      v21 = objc_msgSend(v33, &quot;countByEnumeratingWithState:objects:count:&quot;, &amp;amp;v36, &amp;amp;v40, 16LL);
+    }
+    while ( v21 );
+  }
+  objc_release(v33);
+  v9 = v31;
+  objc_msgSend(v32, &quot;appendString:&quot;, v31);
+  ((void (__cdecl *)(GSNetworkUtils_meta *, SEL, id))objc_msgSend)(
+    (GSNetworkUtils_meta *)&amp;amp;OBJC_CLASS___GSNetworkUtils,
+    &quot;md5:&quot;,
+    v32);
+  v27 = (void *)objc_retainAutoreleasedReturnValue();
+  objc_msgSend(v27, &quot;uppercaseString&quot;);
+  v28 = (const __CFString *)objc_retainAutoreleasedReturnValue();
+  objc_release(v27);
+  objc_release(v32);
+  objc_release(v33);
+  v12 = v30;
+LABEL_20:
+  objc_release(v12);
+  objc_release(v9);
+  result = (id)objc_release(v35);
+  if ( __stack_chk_guard == v41 )
+    result = (id)objc_autoreleaseReturnValue(v28);
+  return result;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;暂不确定这个函数的参数是怎么用的,从上面objec-c代码中可以看出这个函数总共有3个参数,最后一个参数是字符串”md5”,前两个参数还不确定分别是什么,于是通过frida hook这个函数的调用,注入代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;GSNetworkUtils&quot;;
+        var funcName = &quot;+ signRequestUrlWithParameters:secret:signMethod:&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        console.log(&quot;[*] Class Name: &quot; + className);
+        console.log(&quot;[*] Method Name: &quot; + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            console.log(&quot;param:&quot;+args[2]+&quot; type:&quot;+typeof args[2]);
+			console.log(&quot;param:&quot;+ObjC.classes.NSString.stringWithString_(args[3])+&quot; type:&quot;+typeof args[3]);
+			console.log(&quot;param:&quot;+ObjC.classes.NSString.stringWithString_(args[4])+&quot; type:&quot;+typeof args[4]);
+          },
+          onLeave: function(retval) {
+            console.log(&quot;Return value-&amp;gt; (type:&quot;+typeof retval+&quot;,value:&quot;+retval+&quot;)&quot;);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;结果如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[*] Class Name: GSNetworkUtils
+[*] Method Name: + signRequestUrlWithParameters:secret:signMethod:
+param:0x1c462af00 type:object
+param:83AA27467E8F46FFA7196D109C2768AF type:object
+param:md5 type:object
+Return value-&amp;gt; (type:object,value:0x1c0845970)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;通过frida hook这个函数的调用和上面的object-c代码分析得出这个函数的第1个参数应该是与请求包参数相关的变量,猜测是字典形式,第2个参数应该是加密算法里的一个固定密钥值,尝试以字典形式打印第1个参数,注入代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if (ObjC.available)
+{
+    try
+    {
+        var className = &quot;GSNetworkUtils&quot;;
+        var funcName = &quot;+ signRequestUrlWithParameters:secret:signMethod:&quot;;
+        var hook = eval('ObjC.classes.' + className + '[&quot;' + funcName + '&quot;]');
+        console.log(&quot;[*] Class Name: &quot; + className);
+        console.log(&quot;[*] Method Name: &quot; + funcName);
+        Interceptor.attach(hook.implementation, {
+          onEnter: function(args) {
+            //console.log(&quot;param:&quot;+args[2]+&quot; type:&quot;+typeof args[2]);
+			var arg2 = new ObjC.Object(args[2]);
+			console.log(arg2.allKeys());
+			console.log(arg2.allValues());
+			console.log(&quot;param:&quot;+ObjC.classes.NSString.stringWithString_(args[3])+&quot; type:&quot;+typeof args[3]);
+			console.log(&quot;param:&quot;+ObjC.classes.NSString.stringWithString_(args[4])+&quot; type:&quot;+typeof args[4]);
+          },
+          onLeave: function(retval) {
+            console.log(&quot;Return value-&amp;gt; (type:&quot;+typeof retval+&quot;,value:&quot;+retval+&quot;)&quot;);
+          }
+        });
+    }
+    catch(err)
+    {
+        console.log(&quot;[!] Exception2: &quot; + err.message);
+    }
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;结果如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(
+    &quot;conn_style&quot;,
+    imsi,
+    pkg,
+    netAddr,
+    stkcodes,
+    reqDate,
+    deviceVers,
+    session,
+    hwID,
+    reqTime,
+    cursors,
+    softName,
+    sysVer,
+    userCode,
+    mip,
+    op,
+    &quot;device_model&quot;
+)
+(
+    &quot;1.460.01..&quot;,
+    46001,
+    &quot;N_123944&quot;,
+    13333333333,
+    &quot;000001.2,399001.1,399006.1,002736.1,931052.2&quot;,
+    20190814,
+    &quot;11.1.1&quot;,
+    014824eda9a8def1a8356af6656cd25f1025be8683abfdb4a73faf15,
+    5CABE360ACDC4E30B06DB987F2F03BE4,
+    101526302,
+    &quot;ads:1409,licais:0,YW:1563436800,JX:1562774400&quot;,
+    &quot;goldsun_ios&quot;,
+    &quot;5.4.7&quot;,
+    1578347475369984,
+    &quot;10.146.156.113&quot;,
+    0,
+    &quot;iPhone7,2&quot;
+)
+param:83AA27467E8F46FFA7196D109C2768AF type:object
+param:md5 type:object
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;说明第1个参数args&lt;a href=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png&quot;&gt;2&lt;/a&gt;的确是字典的形式,且字典的内容就是http请求包里的参数值(frida js里面的args[0]和args&lt;a href=&quot;https://blog.csdn.net/koastal/article/details/53456696&quot;&gt;1&lt;/a&gt;分别对应object-c代码里面的&lt;code class=&quot;highlighter-rouge&quot;&gt;GSNetworkUtils_meta *self, SEL a2&lt;/code&gt;,它们不是这个函数的调用参数,相当于self指针),也即这个函数的三个参数分别是:请求包参数构成的字典,签名算法密钥,字符串”md5”.&lt;/p&gt;
+
+&lt;h3 id=&quot;0x2-开启rpc签名服务&quot;&gt;0x2 开启rpc签名服务&lt;/h3&gt;
+
+&lt;p&gt;经过上面对这个函数的分析,可通过frida js构造rpc函数提供签名算法服务给python调用,代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import frida
+import sys
+import urllib.parse
+import re
+import pdb
+
+session = frida.get_usb_device().attach(1403)
+script_string = &quot;&quot;&quot;
+if (ObjC.available)
+{
+    rpc.exports = {
+        signrequesturlwithparameters: function (param_string,secret,signMethod) {			
+/*
+		尝试python中的dict类型传入js代码的rpc函数中(string-&amp;gt;dict),没成功
+		var param_dict_nsstring=ObjC.classes.NSString.stringWithString_(param_dict)
+		var jsonData=param_dict_nsstring.dataUsingEncoding_(4)
+		var err=ptr(ObjC.classes.NSError.alloc())
+		//下面这个函数最终没调用成功
+		var dic=ObjC.classes.NSJSONSerialization.JSONObjectWithData_options_error_(jsonData,0,err)
+		console.log(dic)
+		console.log(err.localizedDescription())
+*/
+		
+		//console.log(param_string)
+		var param_dict = ObjC.classes.NSMutableDictionary.alloc().init(); 
+		var param_list=param_string.split(&quot;&amp;amp;&quot;)
+		for (var i = 0; i &amp;lt; param_list.length; i++) { 
+			var param=param_list[i].split(&quot;=&quot;)[0]
+			var param_value=param_list[i].substr(param.length+1,param_list[i].length)
+			if (param!=&quot;openapi_sign&quot;) {
+				param_dict.setObject_forKey_(param_value,param);
+				} 				
+		}
+		var result=ObjC.classes.GSNetworkUtils.signRequestUrlWithParameters_secret_signMethod_(param_dict,secret,signMethod);
+		return String(ObjC.classes.NSString.stringWithString_(result));
+        }
+    };
+
+	
+}
+else
+{
+    console.log(&quot;Objective-C Runtime is not available!&quot;);
+}
+&quot;&quot;&quot;
+
+
+script = session.create_script(script_string)
+
+
+def on_message(message, data):
+    if message['type'] == 'error':
+        print(&quot;[!] &quot; + message['stack'])
+    elif message['type'] == 'send':
+        print(&quot;[!] &quot; + message['payload'])
+    else:
+        print(message)
+
+
+
+script.on('message', on_message)
+script.load()
+signrequesturlwithparameters= getattr(script.exports, 'signrequesturlwithparameters')
+#param_string=&quot;conn_style=2....&amp;amp;imsi=46001&amp;amp;pkg=N_123682&amp;amp;netAddr=13333333333&amp;amp;reqDate=20190812&amp;amp;session=013f6c1d47f08768e5497e6434d1e2195922e7830500ec06412e9ceb&amp;amp;deviceVers=11.1.1&amp;amp;hwID=5CABE360ACDC4E30B06DB987F2F03BE4&amp;amp;reqTime=105048620&amp;amp;daydiff=0&amp;amp;softName=goldsun_ios&amp;amp;sysVer=5.4.7&amp;amp;userCode=1578347475369984&amp;amp;mip=172.24.248.138&amp;amp;device_model=iPhone7%2C2&amp;amp;openapi_sign=1E4B8CA301B10C82AA91FB2C5E7A7040&quot;
+secret=&quot;83AA27467E8F46FFA7196D109C2768AF&quot;; 
+signMethod=&quot;md5&quot;;
+
+
+def start_transfer_server():
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+
+    class S(BaseHTTPRequestHandler):
+        def _set_headers(self):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+        def do_GET(self):
+            try:
+                param_string=re.search(r&quot;param_string=([\s\S]*)&quot;,self.path).group(1)
+                param_string=urllib.parse.unquote(param_string)
+                return_value=signrequesturlwithparameters(param_string,secret,signMethod)
+                self._set_headers()
+                self.wfile.write(bytes(return_value, &quot;utf-8&quot;))
+            except:
+                pass
+
+    def run(server_class=HTTPServer, handler_class=S, port=8888):
+        server_address = ('', port)
+        httpd = server_class(server_address, handler_class)
+        print('Starting httpd...')
+        httpd.serve_forever()
+
+    run()
+
+
+start_transfer_server()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;0x3-后记&quot;&gt;0x3 后记&lt;/h3&gt;
+
+&lt;p&gt;通过上面的分析,容易联想到ios app里的签名函数大多用的是同一个类的同一个函数(因为开发都习惯直接用市面上已有的代码),变量在于不同app在使用这个签名函数时会有不同的第2个参数和第3个参数,也即密钥值和加密算法(对应上面的83AA27467E8F46FFA7196D109C2768AF和”md5”),分析其他ios app时估计可同样直接分析出密钥值(可通过hook内存)和第3个参数值(本例是”md5”,ida静态分析可得到),然后直接构造rpc函数就可以用了.此外,也可通过把这个签名函数封装成其他语言(如python,php)来得到更稳定的rpc服务,也即不用hook app即可提供rpc签名服务.&lt;/p&gt;
+
+&lt;h3 id=&quot;0x4-参考&quot;&gt;0x4 参考&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/frida/frida-core/issues/7&quot;&gt;frida js打印字典内容&lt;/a&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/57458375/how-to-pass-a-dict-parameter-from-python-to-frida-rpc-javascript-function&quot;&gt;在rpc调用时怎样将python函数的字典传递到frida js的函数中&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 13 Aug 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2019/08/13/frida%E5%BC%80%E5%90%AFios-app%E7%AD%BE%E5%90%8D%E6%9C%8D%E5%8A%A1/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2019/08/13/frida%E5%BC%80%E5%90%AFios-app%E7%AD%BE%E5%90%8D%E6%9C%8D%E5%8A%A1/</guid>
+        
+        <category>frida</category>
+        
+        <category>ios</category>
+        
+        <category>rpc</category>
+        
+        <category>sign</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
     
       <item>
         <title>盘口</title>
@@ -645,24 +1096,6 @@
         <category>淘股吧</category>
         
         <category>熊市</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>题材投机--追逐暴利的热点操作法笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/题材投机.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E9%A2%98%E6%9D%90%E6%8A%95%E6%9C%BA%20%20%E8%BF%BD%E9%80%90%E6%9A%B4%E5%88%A9%E7%9A%84%E7%83%AD%E7%82%B9%E6%93%8D%E4%BD%9C%E6%B3%95.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 24 May 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/24/%E9%A2%98%E6%9D%90%E6%8A%95%E6%9C%BA-%E8%BF%BD%E9%80%90%E6%9A%B4%E5%88%A9%E7%9A%84%E7%83%AD%E7%82%B9%E6%93%8D%E4%BD%9C%E6%B3%95%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/24/%E9%A2%98%E6%9D%90%E6%8A%95%E6%9C%BA-%E8%BF%BD%E9%80%90%E6%9A%B4%E5%88%A9%E7%9A%84%E7%83%AD%E7%82%B9%E6%93%8D%E4%BD%9C%E6%B3%95%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>题材</category>
         
         
         <category>炒股</category>
