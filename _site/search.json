@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "盘面细节分析笔记",
+    "category" : "",
+    "tags"     : "盘口, 细节",
+    "url"      : "/%E7%82%92%E8%82%A1/2019/08/15/%E7%9B%98%E9%9D%A2%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/",
+    "date"     : "2019-08-15 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "frida开启ios app签名服务",
     "category" : "",
     "tags"     : "frida, ios, rpc, sign",
