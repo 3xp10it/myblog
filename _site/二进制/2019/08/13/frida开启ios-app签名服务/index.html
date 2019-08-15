@@ -105,7 +105,7 @@
 
       <div class="read-time">
         <small>
-          5 minute read
+          6 minute read
         </small>
       </div>
 
@@ -413,7 +413,7 @@ import urllib.parse
 import re
 import pdb
 
-session = frida.get_usb_device().attach(1403)
+session = frida.get_usb_device().attach("应用名")
 script_string = """
 if (ObjC.available)
 {
@@ -503,6 +503,52 @@ def start_transfer_server():
 
 
 start_transfer_server()
+</code></pre>
+</div>
+
+<p>其中<code class="highlighter-rouge">session = frida.get_usb_device().attach("应用名")</code>这里的应用名需要在连接手机的电脑上运行<code class="highlighter-rouge">frida-ps -U</code>得到,在windows上运行时如果手机运行的进程名中有中文字符则会有个编码的bug,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[C:\~]$ frida-ps -U
+ PID  Name
+----  -----------------------------------------------
+ 446  InCallService
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "c:\python37\lib\threading.py", line 917, in _bootstrap_inner
+    self.run()
+  File "c:\python37\lib\threading.py", line 865, in run
+    self._target(*self._args, **self._kwargs)
+  File "c:\python37\lib\site-packages\frida_tools\application.py", line 428, in _run
+    work()
+  File "c:\python37\lib\site-packages\frida_tools\application.py", line 277, in _try_start
+    self._start()
+  File "c:\python37\lib\site-packages\frida_tools\ps.py", line 69, in _start
+    self._print(line_format % (process.pid, process.name))
+  File "c:\python37\lib\site-packages\frida_tools\application.py", line 343, in _print
+    print(*encoded_args, **kwargs)
+  File "c:\python37\lib\site-packages\colorama\ansitowin32.py", line 41, in write
+    self.__convertor.write(text)
+  File "c:\python37\lib\site-packages\colorama\ansitowin32.py", line 162, in write
+    self.write_and_convert(text)
+  File "c:\python37\lib\site-packages\colorama\ansitowin32.py", line 190, in write_and_convert
+    self.write_plain_text(text, cursor, len(text))
+  File "c:\python37\lib\site-packages\colorama\ansitowin32.py", line 195, in write_plain_text
+    self.wrapped.write(text[start:end])
+UnicodeEncodeError: 'gbk' codec can't encode character '\xd0' in position 6: illegal multibyte sequence
+</code></pre>
+</div>
+
+<p>根据报错信息可以看出是由于ps.py的<code class="highlighter-rouge">self._print</code>出了问题:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  File "c:\python37\lib\site-packages\frida_tools\ps.py", line 69, in _start
+    self._print(line_format % (process.pid, process.name))
+</code></pre>
+</div>
+
+<p>将这行代码修改下可正常运行<code class="highlighter-rouge">frida-ps -U</code>来得到进程名</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#self._print(line_format % (process.pid, process.name))
+print(line_format % (process.pid, process.name))
 </code></pre>
 </div>
 

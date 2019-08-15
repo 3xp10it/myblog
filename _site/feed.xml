@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 15 Aug 2019 07:05:41 +0800</pubDate>
-    <lastBuildDate>Thu, 15 Aug 2019 07:05:41 +0800</lastBuildDate>
+    <pubDate>Thu, 15 Aug 2019 10:17:35 +0800</pubDate>
+    <lastBuildDate>Thu, 15 Aug 2019 10:17:35 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -329,7 +329,7 @@ import urllib.parse
 import re
 import pdb
 
-session = frida.get_usb_device().attach(1403)
+session = frida.get_usb_device().attach(&quot;应用名&quot;)
 script_string = &quot;&quot;&quot;
 if (ObjC.available)
 {
@@ -419,6 +419,52 @@ def start_transfer_server():
 
 
 start_transfer_server()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;其中&lt;code class=&quot;highlighter-rouge&quot;&gt;session = frida.get_usb_device().attach(&quot;应用名&quot;)&lt;/code&gt;这里的应用名需要在连接手机的电脑上运行&lt;code class=&quot;highlighter-rouge&quot;&gt;frida-ps -U&lt;/code&gt;得到,在windows上运行时如果手机运行的进程名中有中文字符则会有个编码的bug,如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[C:\~]$ frida-ps -U
+ PID  Name
+----  -----------------------------------------------
+ 446  InCallService
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File &quot;c:\python37\lib\threading.py&quot;, line 917, in _bootstrap_inner
+    self.run()
+  File &quot;c:\python37\lib\threading.py&quot;, line 865, in run
+    self._target(*self._args, **self._kwargs)
+  File &quot;c:\python37\lib\site-packages\frida_tools\application.py&quot;, line 428, in _run
+    work()
+  File &quot;c:\python37\lib\site-packages\frida_tools\application.py&quot;, line 277, in _try_start
+    self._start()
+  File &quot;c:\python37\lib\site-packages\frida_tools\ps.py&quot;, line 69, in _start
+    self._print(line_format % (process.pid, process.name))
+  File &quot;c:\python37\lib\site-packages\frida_tools\application.py&quot;, line 343, in _print
+    print(*encoded_args, **kwargs)
+  File &quot;c:\python37\lib\site-packages\colorama\ansitowin32.py&quot;, line 41, in write
+    self.__convertor.write(text)
+  File &quot;c:\python37\lib\site-packages\colorama\ansitowin32.py&quot;, line 162, in write
+    self.write_and_convert(text)
+  File &quot;c:\python37\lib\site-packages\colorama\ansitowin32.py&quot;, line 190, in write_and_convert
+    self.write_plain_text(text, cursor, len(text))
+  File &quot;c:\python37\lib\site-packages\colorama\ansitowin32.py&quot;, line 195, in write_plain_text
+    self.wrapped.write(text[start:end])
+UnicodeEncodeError: 'gbk' codec can't encode character '\xd0' in position 6: illegal multibyte sequence
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;根据报错信息可以看出是由于ps.py的&lt;code class=&quot;highlighter-rouge&quot;&gt;self._print&lt;/code&gt;出了问题:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  File &quot;c:\python37\lib\site-packages\frida_tools\ps.py&quot;, line 69, in _start
+    self._print(line_format % (process.pid, process.name))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;将这行代码修改下可正常运行&lt;code class=&quot;highlighter-rouge&quot;&gt;frida-ps -U&lt;/code&gt;来得到进程名&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#self._print(line_format % (process.pid, process.name))
+print(line_format % (process.pid, process.name))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
