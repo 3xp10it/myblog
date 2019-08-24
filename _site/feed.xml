@@ -5,9 +5,41 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 17 Aug 2019 17:19:47 +0800</pubDate>
-    <lastBuildDate>Sat, 17 Aug 2019 17:19:47 +0800</lastBuildDate>
+    <pubDate>Sat, 24 Aug 2019 09:04:11 +0800</pubDate>
+    <lastBuildDate>Sat, 24 Aug 2019 09:04:11 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>庄股拉升前的迹象</title>
+        <description>&lt;h3 id=&quot;about&quot;&gt;About&lt;/h3&gt;
+
+&lt;p&gt;本文对一些庄股拉升前的特点进行分析,找出庄股拉升前的共同点,涉及个股如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;002506
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;历史数据&quot;&gt;历史数据&lt;/h3&gt;
+
+&lt;h4 id=&quot;002506&quot;&gt;002506&lt;/h4&gt;
+
+&lt;p&gt;天狼50&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/002506_1.jpg&quot; alt=&quot;天狼50&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 24 Aug 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/24/%E5%BA%84%E8%82%A1%E6%8B%89%E5%8D%87%E5%89%8D%E7%9A%84%E8%BF%B9%E8%B1%A1/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/24/%E5%BA%84%E8%82%A1%E6%8B%89%E5%8D%87%E5%89%8D%E7%9A%84%E8%BF%B9%E8%B1%A1/</guid>
+        
+        <category>拉升</category>
+        
+        <category>迹象</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>看盘细节笔记</title>
@@ -629,26 +661,6 @@ print(line_format % (process.pid, process.name))
         <category>龙头股</category>
         
         <category>题材</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>民间股神-顶尖高手熊市翻倍笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/顶尖高手熊市翻倍.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E5-%E9%A1%B6%E5%B0%96%E9%AB%98%E6%89%8B%E7%86%8A%E5%B8%82%E7%BF%BB%E5%80%8D.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 29 May 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/29/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E-%E9%A1%B6%E5%B0%96%E9%AB%98%E6%89%8B%E7%86%8A%E5%B8%82%E7%BF%BB%E5%80%8D%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/05/29/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E-%E9%A1%B6%E5%B0%96%E9%AB%98%E6%89%8B%E7%86%8A%E5%B8%82%E7%BF%BB%E5%80%8D%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>熊市</category>
-        
-        <category>股神</category>
         
         
         <category>炒股</category>
