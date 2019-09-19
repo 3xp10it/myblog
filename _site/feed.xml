@@ -5,9 +5,42 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 19 Sep 2019 12:41:03 +0800</pubDate>
-    <lastBuildDate>Thu, 19 Sep 2019 12:41:03 +0800</lastBuildDate>
+    <pubDate>Thu, 19 Sep 2019 16:12:47 +0800</pubDate>
+    <lastBuildDate>Thu, 19 Sep 2019 16:12:47 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>主力出货套路汇编</title>
+        <description>&lt;h4 id=&quot;0x1-k线牛短熊长&quot;&gt;0x1 k线牛短熊长&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x2-分时图牛短熊长&quot;&gt;0x2 分时图牛短熊长&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x3-早盘冲高尾盘回落&quot;&gt;0x3 早盘冲高尾盘回落&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x4-拉午盘拉尾盘&quot;&gt;0x4 拉午盘拉尾盘&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x5-夹单一字过马路出货&quot;&gt;0x5 夹单一字过马路出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x6-跌停板出货&quot;&gt;0x6 跌停板出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x7-锯齿形出货&quot;&gt;0x7 锯齿形出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x8-k线拉升出货&quot;&gt;0x8 k线拉升出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x9-拆单小草出货&quot;&gt;0x9 拆单小草出货&lt;/h4&gt;
+</description>
+        <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E5%A5%97%E8%B7%AF%E6%B1%87%E7%BC%96/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E5%A5%97%E8%B7%AF%E6%B1%87%E7%BC%96/</guid>
+        
+        <category>出货</category>
+        
+        <category>套路</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>主力怎样在保持收盘大阳线的情况下出货</title>
@@ -26,6 +59,8 @@
 &lt;p&gt;从中可以看出当时主力拉升的成本很低,而要通过小单就可以成功拉升,背后需要对应着较小的抛压,较小的抛压意味着个股有利好或大盘情况良好,如下示例,000876在无穷成本均线上方横盘,且有逆势对抗(大盘下跌而个股上涨 ),博弈k线无量长阳的表现,初看主力应该没出货且依旧保持高控盘状态:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/3xp10it/pic/raw/master/xxw.png&quot; alt=&quot;新希望&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/3xp10it/pic/raw/master/xxw.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;新希望这波主升浪维持到现在,期间对应的板块利好是猪瘟行情,查看这期间股东人数变化,如下:&lt;/p&gt;
 
@@ -667,26 +702,6 @@ print(line_format % (process.pid, process.name))
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/06/07/%E4%B8%80%E6%9C%AC%E4%B9%A6%E6%90%9E%E6%87%82%E9%BE%99%E5%A4%B4%E8%82%A1%E6%88%98%E6%B3%95%E7%AC%94%E8%AE%B0/</guid>
         
         <category>龙头股</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>股市极客思考录:十年磨一剑之龙头股战法揭秘笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/十年磨一剑之龙头股战法揭秘.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E8%82%A1%E5%B8%82%E6%9E%81%E5%AE%A2%E6%80%9D%E8%80%83%E5%BD%95%E4%B9%8B%E5%8D%81%E5%B9%B4%E7%A3%A8%E4%B8%80%E5%89%91%E4%B9%8B%E9%BE%99%E5%A4%B4%E8%82%A1%E6%88%98%E6%B3%95%E6%8F%AD%E7%A7%98%E5%8D%87%E7%BA%A7%E7%89%88.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 04 Jun 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/06/04/%E8%82%A1%E5%B8%82%E6%9E%81%E5%AE%A2%E6%80%9D%E8%80%83%E5%BD%95-%E5%8D%81%E5%B9%B4%E7%A3%A8%E4%B8%80%E5%89%91%E4%B9%8B%E9%BE%99%E5%A4%B4%E8%82%A1%E6%88%98%E6%B3%95%E6%8F%AD%E7%A7%98%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/06/04/%E8%82%A1%E5%B8%82%E6%9E%81%E5%AE%A2%E6%80%9D%E8%80%83%E5%BD%95-%E5%8D%81%E5%B9%B4%E7%A3%A8%E4%B8%80%E5%89%91%E4%B9%8B%E9%BE%99%E5%A4%B4%E8%82%A1%E6%88%98%E6%B3%95%E6%8F%AD%E7%A7%98%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>龙头股</category>
-        
-        <category>题材</category>
         
         
         <category>炒股</category>
