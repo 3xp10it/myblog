@@ -124,7 +124,7 @@
 
 <p>本文记录破解一个cydia中收费deb软件过程,如下为一个截图,其中<code class="highlighter-rouge">权限</code>所在UI显示<code class="highlighter-rouge">未授权</code></p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/crack_deb.png" alt="权限截图" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/crack_deb.png" data-action="zoom" /></p>
 
 <h3 id="0x1-通过ui找函数的2种方法">0x1 通过UI找函数的2种方法</h3>
 
@@ -329,17 +329,17 @@ v46 = objc_msgSend(v45, "localizedStringForKey:value:table:", CFSTR("valid till 
 
 <p>以及一些其他的在截图中被打码部分的对应字符串,到这里,想到应该把手机的系统语言设置成<code class="highlighter-rouge">English</code>,这样破解起来更清晰,将手机系统语言设置成英文后,app截图如下</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/crack_deb2.png" alt="English" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/crack_deb2.png" data-action="zoom" /></p>
 
 <h4 id="step3-暴破">step3 暴破</h4>
 
 <p>上图可看到对应的<code class="highlighter-rouge">License</code>和<code class="highlighter-rouge">Unauthorized</code>,由于这里的函数大多被混淆了,现在尝试通过关键字进行破解,在<code class="highlighter-rouge">ida</code>的<code class="highlighter-rouge">strings</code>窗口中搜索Unauthorized,找到后双击,在<code class="highlighter-rouge">IDA view</code>窗口中右键查看调用了此处的代码,没有找到什么有用的信息.后来通过在app中点击使用正常功能的对应按钮,弹出警告窗口如下</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alert.png" alt="alert" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/alert.png" data-action="zoom" /></p>
 
 <p>图中显示”License not activated,please purchase”,在strings窗口中搜索这串字符,找到调用这串字符相关的代码,如下图</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/purchase_ref.png" alt="purchase_ref" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/purchase_ref.png" data-action="zoom" /></p>
 
 <p>涉及3个函数,分别是<code class="highlighter-rouge">+[UrsUiQqCjhigLsxP bYYENZFgIdldmiUx]</code>,<code class="highlighter-rouge">sub_ACB60</code>,<code class="highlighter-rouge">-[UrsUiQqCjhigLsxP tableView:didSelectRowAtIndexPath:]</code>,将这3处分别patch(if xxx jump xxx,改成if not xxx jump xxx),将patch后的文件替换手机中的对应文件(<code class="highlighter-rouge">find / -name "appname"</code>),重新在手机中运行app,验证成功破解</p>
 
@@ -389,7 +389,7 @@ v46 = objc_msgSend(v45, "localizedStringForKey:value:table:", CFSTR("valid till 
 
 <p><strong>3.cydia中的deb有些是32位的,要根据具体情况选择用32位的ida还是用64位的ida,如果app的位数与ida的位数不一致会导致<code class="highlighter-rouge">hex-rays decompiler</code>插件会不起作用</strong>,或者在rebase program时出问题.如果发现ida使用remote ios debugger+usb调试时ida还经常是”卡”的状态,很有可能是因为app的位数与ida位数不一致造成(如64位的app用到了32位的ida调试)</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/anti_anti_debug.png" alt="反调试要勾选" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/anti_anti_debug.png" data-action="zoom" /></p>
 
 </span>
 

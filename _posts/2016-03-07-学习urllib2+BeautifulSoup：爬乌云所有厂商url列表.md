@@ -17,10 +17,10 @@ tags:
 `https://www.wooyun.org/corps/page/1`  
 
 #### (in vpn)
-![1][1]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/1.png" data-action="zoom">
 
 #### (not in vpn)
-![2][2]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/2.png" data-action="zoom">
 
 #### 2>chrome的代理设置问题
     系统安装了google的chrome浏览器,需要burp截chrome的包时会在里面设置代理,而chrome设置的代理即是系统的代理,而firefox设置的代理只是firefox浏览器的代理,并不影响系统的网络访问是否要经过firefox设置的代理,如果设置了chrome的代理如127.0.0.1:8080,事后忘记关闭,则会影响到系统中所有需要联网的程序.
@@ -37,9 +37,9 @@ tags:
 
 #### 这样就不会出现urllib2　error 101　refused的错误了,也可以将系统的127.0.0.1:8080的代理关掉.(linux中set命令可以看到https_proxy的值,https_proxy并不是vpn的ip)
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/4.png" width='2200'>
-![5][5]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/5.png" data-action="zoom">
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/6.png" width='2200'>
-![7][7]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/7.png" data-action="zoom">
 
 #### 4>sublimeREPL插件
     在sublime text中有个sublimeREPL插件,f5快捷键可编译运行python脚本,然而就算系统设置了代理127.0.0.1:8080等,f5依然可以将使用了urllib2且没有加上面３行代码的python脚本成功执行,也许是sublimeREPL中默认的运行代码设置了自己的代理为空,且不影响系统代理https_proxy的值.
@@ -115,10 +115,6 @@ f.close()
 #### 本文代码链接:`https://github.com/3xp10it/spider_wooyun`
 
 
-[1]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/1.png
-[2]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/2.png
 [3]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/3.png
 [4]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/4.png
-[5]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/5.png
 [6]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/6.png
-[7]:https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/7.png

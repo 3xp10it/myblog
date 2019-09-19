@@ -137,7 +137,7 @@
 
 <p>编码的实质是一张人与计算机之间信息的对照表,如下ascii这种编码,部分内容如下图</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/ascii码表.png" alt="ascii码表" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/ascii码表.png" data-action="zoom" /></p>
 
 <ul>
   <li>为什么需要编码<br />
@@ -152,7 +152,7 @@
   </li>
 </ul>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/人机交流.png" alt="人机交流" /></p>
+<p>&lt;img src=”“hello”.encode(“ascii”)” data-action=”zoom”&gt;</p>
 
 <h3 id="理解编码">理解编码</h3>
 
@@ -164,8 +164,7 @@
 
 <p>ascii编码只懂得英文字符(键盘上的符号)与0101串之间的翻译,其他的编码都”具备”ascii编码这个翻译员的知识,如果英国人将英文编码成0101串后中国人通过gbk编码来翻译是可以翻译成功的,因为gbk编码这个翻译员具备ascii编码这个翻译员的知识,如下:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: "hello".encode("ascii")
-Out[2]: b'hello'
+<div class="highlighter-rouge"><pre class="highlight"><code>In Out[2]: b'hello'
 
 In [3]: "hello".encode("ascii").decode("gbk")
 Out[3]: 'hello'

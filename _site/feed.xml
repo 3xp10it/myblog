@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 19 Sep 2019 17:58:30 +0800</pubDate>
-    <lastBuildDate>Thu, 19 Sep 2019 17:58:30 +0800</lastBuildDate>
+    <pubDate>Thu, 19 Sep 2019 18:05:09 +0800</pubDate>
+    <lastBuildDate>Thu, 19 Sep 2019 18:05:09 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -117,7 +117,7 @@
     
       <item>
         <title>盘面细节分析笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘面细节分析.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘面细节分析.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 15 Aug 2019 00:00:00 +0800</pubDate>
@@ -135,7 +135,7 @@
     
       <item>
         <title>主力行为盘口解密1,2,3,4,5,6笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;http://to_add&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;http://to_add&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;1-3电子版在&lt;a href=&quot;https://pan.baidu.com/s/1j7kqp8SleY6DFxW1AfEfNQ&quot;&gt;这里&lt;/a&gt;,密码&lt;code class=&quot;highlighter-rouge&quot;&gt;b4p9&lt;/code&gt;,4-6册需要购买实体书&lt;/p&gt;
 
@@ -193,12 +193,12 @@ normal_response()
 
 &lt;p&gt;ios app通过Cluth脱壳后通过ida反编译,正常测试时抓包发现大多请求都带有&lt;code class=&quot;highlighter-rouge&quot;&gt;openapi_sign=xxxxxxxxxxxxx&lt;/code&gt;,推断app的签名结果会赋值到openapi_sign参数中,在ida中搜索openapi_sign,结果如下&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png&quot; alt=&quot;goldsun1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在汇编区中按f5得到object-c风格的代码,显示是&lt;code class=&quot;highlighter-rouge&quot;&gt;signRequestUrlWithParameters:secret:signMethod:&lt;/code&gt;函数实现的签名,在ida的函数窗口区搜索这个函数,如下&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png&quot; alt=&quot;goldsun2&quot; /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png&quot; alt=&quot;goldsun3&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png&quot; data-action=&quot;zoom&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;其中&lt;code class=&quot;highlighter-rouge&quot;&gt;signRequestUrlWithParameters:secret:signMethod:&lt;/code&gt;代码如下:&lt;/p&gt;
 
@@ -621,7 +621,7 @@ print(line_format % (process.pid, process.name))
     
       <item>
         <title>盘口</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘口.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘口.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;参考&quot;&gt;参考&lt;/h4&gt;
 
@@ -644,7 +644,7 @@ print(line_format % (process.pid, process.name))
     
       <item>
         <title>资金流书笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/狂龙十八段.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/狂龙十八段.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E8%B5%84%E9%87%91%E6%B5%81%E4%B9%A6.pdf&quot;&gt;资金流书&lt;/a&gt;&lt;/p&gt;
 
@@ -666,7 +666,7 @@ print(line_format % (process.pid, process.name))
     
       <item>
         <title>民间股神1,2,3,4,6,7笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/民间股神.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/民间股神.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E1-15%E4%BD%8D%E8%82%A1%E6%9E%97%E9%AB%98%E7%89%A9%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神1&lt;/a&gt;
 &lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E2-%E5%8D%81%E5%A4%A7%E8%82%A1%E6%9E%97%E9%AB%98%E6%89%8B%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神2&lt;/a&gt;
@@ -689,7 +689,7 @@ print(line_format % (process.pid, process.name))
     
       <item>
         <title>一本书搞懂龙头股战法笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/一本书搞懂龙头股战法.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/一本书搞懂龙头股战法.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E4%B8%80%E6%9C%AC%E4%B9%A6%E6%90%9E%E6%87%82%E9%BE%99%E5%A4%B4%E8%82%A1%E6%88%98%E6%B3%95.pdf&quot;&gt;read more…&lt;/a&gt;&lt;/p&gt;
 

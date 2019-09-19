@@ -127,10 +127,10 @@
 <p><code class="highlighter-rouge">https://www.wooyun.org/corps/page/1</code></p>
 
 <h4 id="in-vpn">(in vpn)</h4>
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/1.png" alt="1" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/1.png" data-action="zoom" /></p>
 
 <h4 id="not-in-vpn">(not in vpn)</h4>
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/2.png" alt="2" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/2.png" data-action="zoom" /></p>
 
 <h4 id="2chrome的代理设置问题">2&gt;chrome的代理设置问题</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>系统安装了google的chrome浏览器,需要burp截chrome的包时会在里面设置代理,而chrome设置的代理即是系统的代理,而firefox设置的代理只是firefox浏览器的代理,并不影响系统的网络访问是否要经过firefox设置的代理,如果设置了chrome的代理如127.0.0.1:8080,事后忘记关闭,则会影响到系统中所有需要联网的程序.
@@ -151,9 +151,9 @@ urllib2.install_opener(opener)
 
 <h4 id="这样就不会出现urllib2error-101refused的错误了也可以将系统的1270018080的代理关掉linux中set命令可以看到https_proxy的值https_proxy并不是vpn的ip">这样就不会出现urllib2　error 101　refused的错误了,也可以将系统的127.0.0.1:8080的代理关掉.(linux中set命令可以看到https_proxy的值,https_proxy并不是vpn的ip)</h4>
 <p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/4.png" width="2200" />
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/5.png" alt="5" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/5.png" data-action="zoom" />
 <img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/6.png" width="2200" />
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/7.png" alt="7" /></p>
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/spider_wooyun/7.png" data-action="zoom" /></p>
 
 <h4 id="4sublimerepl插件">4&gt;sublimeREPL插件</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>在sublime text中有个sublimeREPL插件,f5快捷键可编译运行python脚本,然而就算系统设置了代理127.0.0.1:8080等,f5依然可以将使用了urllib2且没有加上面３行代码的python脚本成功执行,也许是sublimeREPL中默认的运行代码设置了自己的代理为空,且不影响系统代理https_proxy的值.

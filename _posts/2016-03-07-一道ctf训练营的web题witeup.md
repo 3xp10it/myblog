@@ -17,7 +17,7 @@ https://ctf.idf.cn/index.php?g=game&m=article&a=index&id=28
 ## 0x02 求flag过程
 
 1>打开firebug中script:
-![2][2]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%872.png" data-action="zoom">
 
 2>具体内容:
 
@@ -127,7 +127,7 @@ alert("\u606d\u559c\u606d\u559c\uff01")
 </html>
 ```
 5>chrome访问本地html,并用开发者工具调试js:
-![skd][4]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%874.png" data-action="zoom">
 
 #### 调试过程中发现,４中被转换后的js中的字符表示形式:
 ```js
@@ -196,7 +196,7 @@ alert("congratuations!")
 7>本地调试
 
 #### 在watch这里可以加各种表达式用来实时查看变量的值:
-![s][5]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%875.png" data-action="zoom">
 
 #### 其中要注意的是,由于开始的时候一直监控了:
     b.replace(/7/ig, ++d).replace(/8/ig, d * 0x2)
@@ -225,8 +225,5 @@ wctf{js_jiami_xxooeasy
 #### 但是提交显示不正确,尝试在最后加了个}符号,答案正确.
 
 [1]: https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%871.png
-[2]: https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%872.png
 [3]: https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%873.png
-[4]: https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%874.png
-[5]: https://raw.githubusercontent.com/3xp10it/pic/master/ctf-js/%E5%9B%BE%E7%89%875.png
 

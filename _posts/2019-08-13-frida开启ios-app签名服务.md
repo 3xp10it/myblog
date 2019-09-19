@@ -51,12 +51,12 @@ normal_response()
 
 ios app通过Cluth脱壳后通过ida反编译,正常测试时抓包发现大多请求都带有`openapi_sign=xxxxxxxxxxxxx`,推断app的签名结果会赋值到openapi_sign参数中,在ida中搜索openapi_sign,结果如下
 
-![goldsun1][2]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png" data-action="zoom">
 
 在汇编区中按f5得到object-c风格的代码,显示是`signRequestUrlWithParameters:secret:signMethod:`函数实现的签名,在ida的函数窗口区搜索这个函数,如下
 
-![goldsun2][3]
-![goldsun3][4]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png" data-action="zoom">
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png" data-action="zoom">
 
 其中`signRequestUrlWithParameters:secret:signMethod:`代码如下:
 
@@ -461,8 +461,5 @@ print(line_format % (process.pid, process.name))
 [在rpc调用时怎样将python函数的字典传递到frida js的函数中][6]
 
 [1]: https://blog.csdn.net/koastal/article/details/53456696
-[2]: https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png
-[3]: https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png
-[4]: https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png
 [5]: https://github.com/frida/frida-core/issues/7
 [6]: https://stackoverflow.com/questions/57458375/how-to-pass-a-dict-parameter-from-python-to-frida-rpc-javascript-function

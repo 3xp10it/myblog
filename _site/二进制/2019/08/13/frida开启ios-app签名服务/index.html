@@ -160,12 +160,12 @@ normal_response()
 
 <p>ios app通过Cluth脱壳后通过ida反编译,正常测试时抓包发现大多请求都带有<code class="highlighter-rouge">openapi_sign=xxxxxxxxxxxxx</code>,推断app的签名结果会赋值到openapi_sign参数中,在ida中搜索openapi_sign,结果如下</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png" alt="goldsun1" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun1.png" data-action="zoom" /></p>
 
 <p>在汇编区中按f5得到object-c风格的代码,显示是<code class="highlighter-rouge">signRequestUrlWithParameters:secret:signMethod:</code>函数实现的签名,在ida的函数窗口区搜索这个函数,如下</p>
 
-<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png" alt="goldsun2" />
-<img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png" alt="goldsun3" /></p>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun2.png" data-action="zoom" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/goldsun3.png" data-action="zoom" /></p>
 
 <p>其中<code class="highlighter-rouge">signRequestUrlWithParameters:secret:signMethod:</code>代码如下:</p>
 

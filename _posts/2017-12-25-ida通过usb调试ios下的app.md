@@ -91,9 +91,9 @@ debugserver *:2008 -a PALxxx
 ida设置远程gdb server(对应ios中的debugserver)调试,参数如下图
 ```
 
-![远程gdb server设置][7]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb1.png" data-action="zoom">
 
-![远程gdb server设置][8]
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb2.png" data-action="zoom">
 
 ```
 开始在ida中调试
@@ -612,8 +612,6 @@ cycript -p PALxxx
 [4]: http://blog.csdn.net/proteas/article/details/78083512
 [5]: http://blog.csdn.net/u011661836/article/details/61921308
 [6]: https://github.com/3xp10it/mytools/vmmap
-[7]: https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb1.png
-[8]: https://raw.githubusercontent.com/3xp10it/pic/master/remote_gdb2.png
 [9]: https://github.com/deresz/funcap
 [10]: http://blakespot.com/ios_device_specifications_grid.html
 [11]: https://raw.githubusercontent.com/3xp10it/pic/master/ida_usb_flex1.jpg
