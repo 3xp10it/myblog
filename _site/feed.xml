@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 19 Sep 2019 16:29:53 +0800</pubDate>
-    <lastBuildDate>Thu, 19 Sep 2019 16:29:53 +0800</lastBuildDate>
+    <pubDate>Thu, 19 Sep 2019 17:58:30 +0800</pubDate>
+    <lastBuildDate>Thu, 19 Sep 2019 17:58:30 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -102,8 +102,7 @@
     
       <item>
         <title>看盘细节笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/看盘细节.png&quot; alt=&quot;视觉卡片&quot; /&gt;&lt;/p&gt;
-
+        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/看盘细节.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Aug 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/17/%E7%9C%8B%E7%9B%98%E7%BB%86%E8%8A%82%E7%AC%94%E8%AE%B0/</link>
