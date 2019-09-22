@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>https劫持理解</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">https劫持理解</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">March 16, 2017</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-link">0x00 Link</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1.https://www.zhihu.com/question/22795329
+2.http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html
+</code></pre>
+</div>
+
+<h3 id="0x01-https与ssl">0x01 https与ssl</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssl:secure socket layer安全套接层,https,ftps等都是建立在ssl基础上
+https协议:建立在ssl协议之上的http协议[http over ssl](http协议建立在tcp协议之上)
+</code></pre>
+</div>
+
+<h3 id="0x02-ssltls协议握手过程">0x02 ssl/tls协议握手过程</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1)公钥私钥证书
+
+一般来讲:
+证书文件后缀:.crt,.pem
+私钥文件后缀:.key
+(这篇文章里说的"嘗試對 SSL Private Key 下手"应该是错的,那应该是SSL Public Key,
+http://devco.re/blog/2016/04/21/how-I-hacked-facebook-and-found-someones-backdoor-script/)
+证书请求文件:.csr
+公钥加密的数据只有私钥能解开,同样,私钥加密的数据用公钥可以解开
+
+公钥存放在证书文件中,证书相当于锁开着的箱子,私钥相当于箱子的锁的钥匙,ssl通信中的一方A利用证书中的公钥和某种协商
+好的加密算法将要发送到另一方B的数据加密,这个动作相当于把东西放进箱子并将锁关闭,B收到被锁的箱子后用私钥打开锁就看
+到明文了,实现了加密通信.
+
+更详细情况可见:
+http://www.fzb.me/2015-1-15-openssl-rsa.html
+https://www.zhihu.com/question/29620953
+
+2)ssl/tls协议握手过程
+</code></pre>
+</div>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/dot/ssl/sslfinal.png" /></p>
+
+<h3 id="0x03-几种https会话劫持工具">0x03 几种https会话劫持工具</h3>
+
+<h4 id="0xa-sslstrip">0xa sslstrip</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>详情:https://software.intel.com/zh-cn/blogs/2011/10/11/ssl
+
+用户输入www.baidu.com,通过arp欺骗使得browser不会访问到真正的http://www.baidu.com,而http://www.baidu.com的内容是
+跳转到https://www.baidu.com,也即通过arp欺骗将browser的会话由https劫持成http,并由中间人与www.baidu.com服务器正常
+https通信
+
+缺点:使用有局限,要求用户输入url的时候没有输入https[一般用户不输入http或https,而是直接输入www.baidu.com]
+优点:受害用户在访问www.baidu.com的时候browser不会提示证书不可信
+</code></pre>
+</div>
+
+<h4 id="0xb-sslsplit">0xb sslsplit</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sslsplit与cain几乎相同,只是sslsplit的证书是攻击者通过如下命令手动创建的
+openssl genrsa -out ca.key 4096
+openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
+
+而cain的证书是中间人向真实服务器主动获取并修改的
+</code></pre>
+</div>
+
+<h4 id="0xc-cain">0xc cain</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>中间人与browser和www.baidu.com服务器都进行正常ssl握手,中间人通过arp欺骗将自己伪装成www.baidu.com服务器,劫持受害
+机器的browser的https://www.baidu.com/login.php的请求,中间人向www.baidu.com服务器请求证书,获取证书后将证书中的公
+钥修改成中间人自己设置的公钥(中间人一般无法得到www.baidu.com服务器的私钥,私钥保存在www.baidu.com服务器上),并将
+修改后的证书发给browser,browser看到证书可疑,提示用户证书可疑,用户不懂,选择将目标https://www.baidu.com添加到可信
+任列表,之后browser正常请求https://www.baidu.com/login.php,与中间人进行ssl握手,此时的browser发给中间人的加密的数
+据是用中间人修改过的公钥加密的,中间人有这个公钥的私钥[因为这个这个公钥私钥对是中间人伪造生成的],于是中间人用私
+钥解密browser发过来的数据,再与www.baidu.com服务器走正常的ssl流程,也即将这解密后的数据重新加密发给www.baidu.com
+服务器.而中间人在得到www.baidu.com返回的数据后将它解密后再加密发给browser,browser再正常地用与中间人ssl握手要用
+的密钥来解密这个加密后的数据.
+
+也即整个过程中,www.baidu.com服务器并不知道有中间人的存在,一直把中间人当作正常的browser,而中间人能和
+www.baidu.com服务器进行正常的ssl握手(https通信)是因为中间人从browser那里得到解密后的数据,知道自己要访问什么内容
+,于是正常走https协议访问.而browser与中间人的通信也一直是正常的ssl握手,只是对browser来讲,对方"服务器"(中间人)的
+证书有问题,因为对方的公钥好像被修改过,无法被受害机器的browser验证为可信证书.
+
+缺点:欺骗过程中browser会提示受害用户证书不可信
+优点:一般用户会选择将要访问的网站加入到可信任列表,使得https劫持成功
+</code></pre>
+</div>
+
+<h3 id="0x04-私钥文件的用途">0x04 私钥文件的用途</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>私钥的用途1:
+如果中间人通过web等手段进入了www.baidu.com服务器,取出www.baidu.com的私钥,然后再进行https劫持,这样brower在访问
+www.baidu.com的时候就不会发现证书有问题了,这样中间人也不用伪造证书,直接用www.baidu.com的证书,将证书发给
+browser,再与browser进行正常ssl握手即可,所有加密的数据都可以由中间人解密,因为中间人有www.baidu.com的公钥和私钥.
+其中,公钥在证书中,公钥用来加密发出的数据,私钥在中间人机器上,私钥用来解密browser发过来的数据.
+
+私钥的用途2:结合wireshark利用得到的私钥解密ssl/tls流量
+https://support.citrix.com/article/CTX135121
+</code></pre>
+</div>
+
+<h3 id="0x05-其他">0x05 其他</h3>
+
+<p>数字签名和数字证书与公钥的关系理解 <a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html">1</a>,<a href="http://cjting.me/web2.0/build-a-https-site-from-scratch/">2</a>
+数字证书由权威机构(CA, Certificate Authority)颁发,里面包含有服务器的公钥.<br />
+服务器公钥要保证可信度,需要通过CA 认证,CA将服务器公钥用CA 的私钥加密生成数字证书,然后客户用CA的公钥解开数字证书
+得到服务器的公钥,该服务器公钥是可信的.</p>
+
+<p>获取指定服务器公钥命令:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>openssl s_client -connect the.host.name:443 | openssl x509 -pubkey -noout
+</code></pre>
+</div>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            https, ssl, mitm
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

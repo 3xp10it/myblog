@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>流畅的python第3章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">流畅的python第3章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">February 26, 2018</span>
+           under python
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          2 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="字典和集合">字典和集合</h3>
+
+<p>1.散列表是字典类型性能出众的根本原因</p>
+
+<p>2.字典推导</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [2]: dial_codes=[(86,'china'),(91,'india'),(1,'US')]
+
+In [3]: country_code={country: code for code,country in dial_codes}
+
+In [4]: country_code
+Out[4]: {'US': 1, 'china': 86, 'india': 91}
+
+In [5]: country_code={country.upper(): code for code,country in dial_codes}
+
+In [6]: country_code
+Out[6]: {'CHINA': 86, 'INDIA': 91, 'US': 1}
+</code></pre>
+</div>
+
+<p>3.大多数映射类型都提供了两个很强大的方法:<code class="highlighter-rouge">setdefault</code>和<code class="highlighter-rouge">update</code>.setdefault方法可以用来更新字典里存放的可变值(比如列表),从而避免了重复的键搜索.<code class="highlighter-rouge">update</code>方法则让批量更新成为可能,它可以用来插入新值或者更新已有键值对,它的参数可以是包含(key,value)这种键值对的可迭代对象,或者关键字参数.</p>
+
+<ul>
+  <li>dict的setdefault用法</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [18]: a = {'runoob': '菜鸟教程', 'google': 'Google 搜索'}
+
+In [19]: a.setdefault('test','lalala')
+Out[19]: 'lalala'
+
+In [20]: a
+Out[20]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+
+In [21]: a.setdefault('runoob','lalala')
+Out[21]: '菜鸟教程'
+
+In [22]: a
+Out[22]: {'google': 'Google 搜索', 'runoob': '菜鸟教程', 'test': 'lalala'}
+</code></pre>
+</div>
+
+<ul>
+  <li>dict的update用法</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [37]: a
+Out[37]: {'dajiahao': 'shide', 'nihao': 'wohao'}
+
+In [38]: b={'nihao':'lala'}
+
+In [39]: a.update(b)
+
+In [40]: a
+Out[40]: {'dajiahao': 'shide', 'nihao': 'lala'}
+
+In [41]: b={'sho':'lll'}
+
+In [42]: a.update(b)
+
+In [43]: a
+Out[43]: {'dajiahao': 'shide', 'nihao': 'lala', 'sho': 'lll'}
+</code></pre>
+</div>
+
+<p>4.有时候为了方便起见,就算某个键在映射里不存在,我们也希望在通过这个键读取值的时候能得到一个默认值.有两个途径能帮我们达到这个目的.</p>
+<ul>
+  <li>a.通过<code class="highlighter-rouge">collections.defaultdict</code>这个类型而不是普通的dict</li>
+  <li>b.给自己定义一个dict的子类,然后在子类中实现<code class="highlighter-rouge">__missing__</code>方法,如:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class StrKeyDict0(dict):
+
+    def __missing__(self,key):
+        if isinstance(key,str):
+            raise KeyError(key)
+        return self[str(key)]
+</code></pre>
+</div>
+
+<p>所有的映射类型在处理找不到的键的时候,都会牵扯到<code class="highlighter-rouge">__missing__</code>方法.虽然基类dict并没有定义这个方法,但是dict是知道有这么个东西存在的.<code class="highlighter-rouge">__missing__</code>方法只会被<code class="highlighter-rouge">__getitem__</code>调用(比如在表达式<code class="highlighter-rouge">d[k]</code>中)</p>
+
+<p>5.字典的变种</p>
+
+<ul>
+  <li><code class="highlighter-rouge">collections.OrderdDict</code>:这个类型在添加键的时候会保持顺序,因此键的迭代次序问题一致的.</li>
+  <li><code class="highlighter-rouge">collections.ChainMap</code>:该类型可以容纳数个不同的映射对象,然后在进行键查找操作的时候,这些对象会被当作一个整体被逐个查找,直到键被找到为止.这个功能在给有嵌套作用域的语言做解释器的时候很有用,可以用一个映射对象来代表一个作用域的上下文</li>
+  <li><code class="highlighter-rouge">collections.Counter</code>:这个映射类型会给键准备一个整数计数器.每次更新一个键的时候都会增加这个计数器</li>
+  <li><code class="highlighter-rouge">collections.UserDict</code>:这个类其实就是把标准dict用纯python又实现了一遍.就创造自定义映射类型来说,以UserDict为基类,总比普通的dict为基类要来得方便,更倾向于从UserDict而不是从dict继承的主要原因是,后者有时会在某些方法的实现上走一些捷径,导致我们不得不在它的子类中重写这些方法,但是UserDict就不会带来这些问题</li>
+</ul>
+
+<p>6.不可变的字典类型</p>
+
+<p>标准库里所有的映射类型都是可变的,但有时候你会有这样的需求,比如不能让用户错误地修改某个映射.从python3.3开始,types模块中引入了一个封装类名叫<code class="highlighter-rouge">MappingProxyType</code>,如果给这个类一个映射,它会返回一个只读的映射视图.虽然是个只读视图,但是它是动态的.如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [44]: from types import MappingProxyType
+
+In [45]: d={1:'A'}
+
+In [46]: d_proxy=MappingProxyType(d)
+
+In [47]: d_proxy
+Out[47]: mappingproxy({1: 'A'})
+
+In [48]: d_proxy[1]
+Out[48]: 'A'
+
+In [49]: d_proxy[2]='x'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-49-cb84dba8e1f4&gt; in &lt;module&gt;()
+----&gt; 1 d_proxy[2]='x'
+
+TypeError: 'mappingproxy' object does not support item assignment
+
+In [50]: d[2]='B'
+
+In [51]: d_proxy
+Out[51]: mappingproxy({1: 'A', 2: 'B'})
+
+In [52]: d_proxy[2]
+Out[52]: 'B'
+</code></pre>
+</div>
+
+<p>7.集合</p>
+
+<ul>
+  <li>a.<code class="highlighter-rouge">set</code>是可变集合,<code class="highlighter-rouge">frozenset</code>是不可变集合,区别在<a href="http://blog.csdn.net/monkeyduck/article/details/18036381">这里</a></li>
+  <li>b.集合的本质是许多唯一对象的聚集.因此,集合可以用于去重:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [58]: a=[1,2,3,2]
+
+In [59]: set(a)
+Out[59]: {1, 2, 3}
+
+In [60]: list(set(a))
+Out[60]: [1, 2, 3]
+</code></pre>
+</div>
+
+<ul>
+  <li>c.给定两个集合a和b,<code class="highlighter-rouge">a|b</code>返回的是它们的合集,<code class="highlighter-rouge">a&amp;b</code>得到的交集,而<code class="highlighter-rouge">a-b</code>得到的是差集.合理地利用这些操作,不仅能够让代码的行数变少,不能减少python程序的运行时间.这样做同时也是为了让代码更易读,从而更容易判断程序的正确性,因为利用这些运算符可以省去不必要的循环和逻辑操作</li>
+  <li>d.如果要创建一个空集,必须用不带任何参数的构造方法<code class="highlighter-rouge">set()</code>.如果写成<code class="highlighter-rouge"><span class="p">{}</span></code>的形式,跟以前一样,你创建的其实是个空字典.</li>
+  <li>e.像<code class="highlighter-rouge"><span class="p">{</span><span class="err">1,2,3</span><span class="p">}</span></code>这种字面量句法相比于构造方法<code class="highlighter-rouge">set([1,2,3])</code>要更快且更易读,原因如下:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [61]: from dis import dis
+
+In [62]: dis('{1,2,3}')
+  1           0 LOAD_CONST               0 (1)
+              2 LOAD_CONST               1 (2)
+              4 LOAD_CONST               2 (3)
+              6 BUILD_SET                3
+              8 RETURN_VALUE
+
+In [63]: dis('set([1,2,3])')
+  1           0 LOAD_NAME                0 (set)
+              2 LOAD_CONST               0 (1)
+              4 LOAD_CONST               1 (2)
+              6 LOAD_CONST               2 (3)
+              8 BUILD_LIST               3
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
+</code></pre>
+</div>
+
+<ul>
+  <li>f.python里没有针对frozenset的特殊字面量句法,只能采用构造方法,如下:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [64]: frozenset([1,2,3])
+Out[64]: frozenset({1, 2, 3})
+
+In [69]: frozenset(range(10))
+Out[69]: frozenset({0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
+
+In [67]: list(range(10))
+Out[67]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [68]: set(range(10))
+Out[68]: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+</code></pre>
+</div>
+
+<ul>
+  <li>集合推导用法,如下:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [70]: {i.upper() for i in 'abc'}
+Out[70]: {'A', 'B', 'C'}
+
+In [71]: {i.upper() for i in ['a','b','c']}
+Out[71]: {'A', 'B', 'C'}
+</code></pre>
+</div>
+
+<p>8.dict和set的速度很快,如果在你的程序里有任何的磁盘输入/输出,那么不管查询有多少个元素的字典或集合,所耗费的时间都能忽略不计(前提是字典或集合不超过内存大小)</p>
+
+<p>9.相比之下,列表慢,列表的背后没有散列表来支持in运算符,每次搜索都需要扫描一次完整的列表,所以慢</p>
+
+<p>10.字典中的散列表
+ python用散列表实现dict类型.散列表其实是一个稀疏数组(总是有空白元素的数组猜测为稀疏数组).在一般的数据结构教材中,散列表里的单元通常叫作表元.在dict的散列表中,每个键值对都占用一个表元,每个表元都有两个部分,一个是对键的引用,另一个是值的引用.因为所有表元的大小一致,所以可以通过偏移量来读取某个表元.如果要把一个对象放入散列表,那么首先要计算这个元素键的散列值.在插入新值时,python可能会按照散列表的拥挤程度来决定是不要重新分配内存为它扩容,如果增加了散列表的大小,那散列值所占的位数和用作索引的位数都会随之增加,这样做的目的是为了减少发生散列冲突的概率</p>
+
+<p>11.dict的实现及其导致的结果</p>
+<ul>
+  <li>1) 键必须是可散列的.一个或散列的对象必须满足以下要求:
+    <ul>
+      <li>a) 支持hash()函数,并且通过__hash__()方法所得到的散列值是不变的</li>
+      <li>b) 支持通过__eq__()方法来检测相等性</li>
+      <li>c) 若a==b为真,则hash(a)==hash(b)也为真
+  所有由用户自定义的对象默认都是可散列的,因为它们的散列值由id()来获取,而且它们都是不相等的</li>
+    </ul>
+  </li>
+  <li>2) 字典在内存上的开销巨大
+  由于字典使用了散列表,而散列表又必须是稀疏的,这导致它在空间上的效率低下.举例而言,如果你需要存放数量巨大的记录,那么放在由元组或具名元组构成的列表中会是比较好的选择;最好不要根据json风格,用由字典组成的列表来存放这些记录.用元组取代字典就能节省空间的原因有两个:其一是避免了散列表所耗费的空间,其二是无需把记录中字段的名字在每个元素里都存一遍.不过,如果机器的内存足够用,还是用字典吧.</li>
+  <li>3) 键查询很快.dict的实现是典型的空间换时间(内存换查询速度),字典类型有关巨大的内存开销,但它们提供了无视数据量大小的快速访问–只要字典能被装在内存里</li>
+  <li>4) 键的次序取决于添加顺序.由dict([key1,value1],[key2,value2])和dict([key2,value2],[key1,value1])得到的两个字典,在进行比较的时候,它们是相等的</li>
+  <li>5) 往字典里添加关机键可能会改变已有键的顺序.无论何时往字典里添加新的键,python解释器都可能做出为字典扩容的决定.扩容导致的结果就是要新建一个更大的散列表,并把字典里已有的元素添加到新表里.这个过程可能会发生新的散列冲突,导致新散列表中键的次序变化.如果你在迭代一个字典的所有键的过程中同时对字典进行修改,那么这个循环很有可能会跳过一些键–甚至是跳过那些字典中已经有的键.由此可知,不要对字典同时进行迭代和修改,如果想扫描并修改一个字典,最好分成不同步来进行:首先对字典迭代,以得出需要添加的内容,把这些内容放在一个新字典里;迭代结束之后再对原有字典进行更新.</li>
+</ul>
+
+<p>12.set和frozenset的实现也依赖散列表,但在它们的散列表里存放的只有元素的引用(就像在字典里只存放键而没有相应的值).字典和散列表的特点对集合来说几乎都是适用的,如下:</p>
+<ul>
+  <li>集合里的元素必须是可散列的</li>
+  <li>集合很消耗内存</li>
+  <li>可以很高效地判断元素是不存在于某个集合</li>
+  <li>元素的次序取决于被添加到集合里的次序</li>
+  <li>往集合里添加元素,可能会改变集合里已有元素的次序</li>
+</ul>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            python
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

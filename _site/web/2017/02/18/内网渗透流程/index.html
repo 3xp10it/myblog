@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>内网渗透流程</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">内网渗透流程</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">February 18, 2017</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><p>假设已有webshell,无本地管理员权限</p>
+
+<h3 id="step0-获取本地管理员权限">Step0 获取本地管理员权限</h3>
+
+<ul>
+  <li>各种exp尝试,如果失败免杀再试</li>
+  <li>本机配置文件,敏感文件查找
+    <ul>
+      <li>win下:
+        <ul>
+          <li>数据库等配置文件,脚本在<a href="https://github.com/3xp10it/bat/tree/master/get_web_config_bat">这里</a></li>
+          <li>psexec.exe[找文本内容为-u xx\xxx -p xxx的文件]</li>
+          <li>cain.exe[找pop3.lst,http.lst,smtp.lst,ftp.lst文件]</li>
+          <li>mimikatz.exe[找mimikatz.txt]</li>
+          <li>win下找文件可参考<a href="http://3xp10it.cc/web/2016/05/20/%E6%96%87%E4%BB%B6%E4%B8%80%E9%94%AE%E6%89%93%E5%8C%85/">这里</a></li>
+        </ul>
+      </li>
+      <li>linux下:</li>
+    </ul>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  for suffix in  *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do locate $suffix|xargs grep -r -E "(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)" &gt;&gt; /tmp/log.log;done
+
+  无locate时:
+  for suffix in *history *record *.csv *.sql *.bak *.py *.txt *.pl *.xml *.md *.json *.config *.php *.asp *.jsp *.aspx *.ini *.inc *.reg *.doc *.docx *.xls *.xlsx *.pdf;do find / -name $suffix|xargs grep -r -E "(password=)|(password:)|(password =)|(password :)|(passwd=)|(passwd:)|(passwd =)|(passwd :)" &gt;&gt; /tmp/log.log;done
+
+  (grep中有-r是因为find也会找出符合条件的文件夹名,-r表示递归查找文件夹中文件,用于在find找到文件夹名时的情况)
+</code></pre>
+    </div>
+  </li>
+  <li>内网机器扫描开放端口情况,弱口令爆破
+  (webshell下或reGeorg代理后用扫描器扫,如果失败则用msf生成马上传后用扫描模块,或者用hydra for win,或者用hscan,
+  或者用scanline,或者用superscan命令行,优选scanline)
+  eg.扫到一台1433 sa空口令,可用:
+    <ul>
+      <li>菜刀中配置数据库连接并在菜刀中通过数据库执行命令,有时这个会失败,可能是菜刀的问题,如果失败可用下面3种</li>
+      <li>sqltools在proxyfier+reGeorg下执行命令,参考<a href="http://www.moonsec.com/post-322.html">这里</a>,(用前要谨慎,或许有毒)</li>
+      <li>navicat在proxyfier+reGeorg下执行菜刀中的数据库查询命令</li>
+      <li>ssh反向代理[需要有一台公网ip机器开ssh服务,可在目标机器不能使用reGeorg等socket转发脚本时使用],参考<a href="https://github.com/louchaooo/louchaooo.github.io/issues/44">这里</a>
+  (win开ssh服务参考<a href="http://www.cnblogs.com/xred/archive/2012/04/21/2461627.html">这里</a>)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="step-1-获取域控管理员权限">Step 1 获取域控管理员权限</h3>
+
+<ul>
+  <li>1.找域控</li>
+  <li>2.找域控登录过的机器</li>
+  <li>3.抓密码</li>
+  <li>4.嗅探口令</li>
+  <li>5.dns+arp欺骗布置网马</li>
+</ul>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            域渗透, 内网渗透
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

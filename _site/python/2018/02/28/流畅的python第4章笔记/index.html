@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>流畅的python第4章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">流畅的python第4章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">February 28, 2018</span>
+           under python
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="文本和字节序列">文本和字节序列</h3>
+
+<p>1.unicode与utf-8的<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">关系</a>
+UTF-8就是在互联网上使用最广的一种unicode的实现方式(80%的网站已经使用UTF8),这是为传输而设计的编码,并使编码无国界,这样就可以显示全世界上所有文化的字符了.UTF-8最大的一个特点,就是它是一种变长的编码方式.它可以使用1~4个字节表示一个符号,根据不同的符号而变化字节长度,当字符在ASCII码的范围时,就用一个字节表示,保留了ASCII字符一个字节的编码做为它的一部分,注意的是unicode一个中文字符占2个字节,而UTF-8一个中文字符占3个字节)</p>
+
+<p>2.struct模块提供了一些函数,把字节序列转换成不同类型字段组成的元组(<code class="highlighter-rouge">struct.unpack</code>),还有一些函数用于执行反向转换,把元组转换成字节序列(<code class="highlighter-rouge">struct.pack</code>).struct模块能处理bytes,bytearray和memoryview对象</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [62]: struct.unpack('ii',b'\x0c\x00\x00\x00\r\x00\x00\x00')
+Out[62]: (12, 13)
+
+In [63]: struct.pack('ii',12,13)
+Out[63]: b'\x0c\x00\x00\x00\r\x00\x00\x00'
+
+
+In [70]: import struct
+
+In [71]: with open('/Users/3xp10it/Downloads/1.gif','rb') as fp:
+    ...:     img=memoryview(fp.read())
+
+In [72]: img
+Out[72]: &lt;memory at 0x109972e88&gt;
+
+In [73]: header=img[:10]
+
+In [74]: header
+Out[74]: &lt;memory at 0x109c13048&gt;
+
+In [75]: bytes(header)
+Out[75]: b'GIF89a\x90\x01\x90\x01'
+
+In [76]: fmt='&lt;3s3sHH'
+
+In [77]: struct.unpack(fmt,header)
+Out[77]: (b'GIF', b'89a', 400, 400)
+
+In [78]: del header
+
+In [79]: del img
+</code></pre>
+</div>
+
+<p>3.python自带了超过100种编解码器,用于在文本和字节之间相互转换.每个编解码器都有一个名称,如’utf_8’,而且经常有几个别名,如’utf8’,’utf-8’,’U8’.</p>
+
+<p>4.python3允许在源码中使用非ascii标识符.有些人不喜欢这么做.支持始终使用ascii标识符的人认为,这样便于所有人阅读和编辑代码.这些人没切中要害:源码应该便于目标群体阅读和编辑,而不是”所有人”.如果代码属于跨国公司,或者是开源的,想让来自世界各地的人作贡献,那么标识符应该使用英语,也就是说只能使用ascii字符.但是,如果你是巴西的一位老师,那么使用葡萄牙语正确拼写变量和函数名更便于学生阅读代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [81]: 笔='钢笔'
+
+In [82]: print(笔)
+钢笔
+</code></pre>
+</div>
+
+<p>5.utf8的一在优势是,不管设备使用哪种字节序(大端或小端),生成的字节序列始终一致,因此不需要BOM(在文件头部的字节序标记,一些编辑器会给文件加BOM,如notepad).尽管如此,某些windows应用(如notepad)还是会在utf8编码的文件中添加BOM;而且,EXCEL会根据有没有BOM确定文件是不是UTF8编码</p>
+
+<p>6.需要在多台设备中或多种场合下运行的代码,一定不能依赖默认编码.打开文件时始终应该明确传入encoding参数,因为不同的设备使用的默认编码可能不同,有时隔一天也会发生变化</p>
+
+<p>7.<code class="highlighter-rouge">eval</code>会把string表达的内容当作代码执行</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>In [89]: eval('print(111)')
+111
+
+In [90]: a='[1,2]'
+In [91]: eval(a)
+Out[91]: [1, 2]
+</code></pre>
+</div>
+
+<p>8.windows中,<code class="highlighter-rouge">locale.getpreferredencoding()</code>返回的编码是最重要的:这是打开文件的默认编码,也是重定向到文件的sys.stdout/stdin/stderr的默认编码.关于编码默认值的最佳建议是:别依赖默认值</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            python
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

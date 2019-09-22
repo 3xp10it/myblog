@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>理解重定位</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">理解重定位</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 5, 2017</span>
+           under 二进制
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          11 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-必读link">0x00 必读link</h3>
+
+<p>1.书籍<code class="highlighter-rouge">程序员的自我修养</code>中第4.2和7.3和7.4和7.5章节</p>
+
+<p>2.<a href="https://www.zhihu.com/question/21249496">Linux动态链接为什么要用PLT和GOT表</a></p>
+
+<p>3.<a href="https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries/">共享库加载时重定位</a></p>
+
+<p>4.<a href="https://zhuanlan.zhihu.com/p/24231428">pie/pic/aslr的理解</a></p>
+
+<p>5.<a href="https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/">共享库中的PIC</a></p>
+
+<h3 id="0x01-预备知识">0x01 预备知识</h3>
+
+<p>1.硬件对变量和函数的寻址方式不同,寻找变量要求绝对地址,寻找函数要求相对地址.</p>
+
+<p>call指令的偏移量计算方法:偏移量=跳转到的地址-call指令后一条指令的起始地址</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>00413766    e8 7a da ff ff      call 00411e5
+0041376b    ...                 ...
+
+e8代表call,7a da ff ff代表偏移量0xffffda7a,对应负数-0x2586,0x0041376b+(-0x2586)=0x00411e5
+</code></pre>
+</div>
+
+<p>3.程序由编译(成汇编代码),链接(组合.o文件)得到可执行文件,重定位有链接时重定位+装载时重定位(上面必读link中叫load time
+relocate),装载时重定位完成后得到的地址是虚拟存储器的虚拟地址,实际与内存交互时,需要由内核再完成虚拟存储器的虚拟
+地址到真实物理内存地址的转换.</p>
+
+<p>4.编译阶段,.o文件的全局变量位置不确定,因为这时无法确定还有其它哪些.o文件,以及链接器将来会按什么顺序”排列”这些.o文
+件,所以编译阶段没有重定位,链接阶段,如果elf没有调用so中的符号,则可以在链接时重定位所有符号的地址(因为这时所有的.o
+文件的数据段代码段都组合完成了,所有符号的偏移都是确定的),如果elf调用了so中的符号,则由于so文件的符号位置不确定,因为
+这时不知道.so文件将来被加载到进程空间的什么位置,所以与so中符号有关的地址需要装载时重定位.</p>
+
+<p>5.在没有开启pie的情况下:elf如果没有调用so则不用装载时重定位.elf如果没有调用so则没有plt表(有got表).so(elf)通过
+plt+got来实现pic(pie).plt表中的内容是代码,got表中的内容是数据(各种符号的地址)</p>
+
+<p>6.一般情况下,exe的期望加载基址为0x400000(4M),dll为0x1000000(16M),elf为0x8048000(约128M),so为0x40000000(1G),期望加
+载基址由编译器指定,在可执行文件中有一个位置存放这个值</p>
+
+<p>7.查看elf有没有开pie可简单通过readelf -l elffile看出,对应如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Elf 文件类型为 DYN (共享目标文件)       ===&gt;对应开启了pie
+Elf 文件类型为 EXEC (可执行文件)        ===&gt;对应未开启pie
+</code></pre>
+</div>
+
+<p>8.实际情况中,对有PIE保护的elf,ida静态分析时会以加载基址=0加载,angr在加载这样的elf时会以加载基址=0x400000加载到虚
+拟内存中进行符号执行,也即angr会强制将有pie保护的elf加载到0x400000处去,这样就相当于去掉了pie的每次加载基址不同
+(aslr)的特性</p>
+
+<p>9.plt和got示例(linux下这样叫,macOS下有其他名字)</p>
+
+<p>如下图中printf函数是外部so文件中的函数,于是需要有plt和got,从左边的printf,puts,atoi等函数看出,一般只有外部so文件中
+的函数调用才会用到plt,在下图ida中,发现plt段在.init段之后,.text段之前</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc1.png" /></p>
+
+<p>printf函数的plt表中内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:080483C0
+.plt:080483C0 ; =============== S U B R O U T I N E =======================================
+.plt:080483C0
+.plt:080483C0 ; Attributes: thunk
+.plt:080483C0
+.plt:080483C0 ; int printf(const char *format, ...)
+.plt:080483C0 _printf         proc near               ; CODE XREF: main+2C↓p
+.plt:080483C0
+.plt:080483C0 format          = dword ptr  4
+.plt:080483C0
+.plt:080483C0                 jmp     ds:off_804A000
+.plt:080483C0 _printf         endp
+.plt:080483C0
+</code></pre>
+</div>
+
+<p>printf函数对应的got表中内容如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc2.png" /></p>
+
+<p>上图中的got表被ida解析了,ida指出0x804A000处的内容是printf函数的偏移,实际在16进制模式下的内容如下图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc3.png" /></p>
+
+<p>也即在0x804A000这个地址中的值为0x804A030,也即got表中对应内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0x804A000:0x804A030
+</code></pre>
+</div>
+
+<p>这个0x804A030在运行后会被因为重定位被修改成其他值,因为实际运行时printf函数的地址应该会变成不再是0x404A030了</p>
+
+<h3 id="0x02-链接时重定位">0x02 链接时重定位</h3>
+
+<p>如果没涉及so函数调用,则只通过链接时重定位即可完成重定位,不需要装载时重定位,由链接器单独完成重定位,下面进入操作</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>works in x86 kali linux
+
+vi a.c
+
+    /* a.c */
+    extern int shared;
+
+    int main()
+    {
+        int a = 100;
+        swap(&amp;a,&amp;shared);
+    }
+
+vi b.c
+
+    /* b.c */
+    int shared = 1;
+
+    void swap(int* a,int* b)
+    {
+        *a ^= *b ^= *a ^= *b;
+    }
+
+gcc -c a.c b.c 
+    编译得到a.o和b.o目标文件
+
+ld a.o b.o -e main -o ab
+    链接a.o和b.o,设置输出文件为ab,设置main函数为入口
+
+objdump -h a.o
+    a.o:     文件格式 elf32-i386
+
+    节:
+    Idx Name          Size      VMA       LMA       File off  Algn
+      0 .group        00000008  00000000  00000000  00000034  2**2
+                      CONTENTS, READONLY, EXCLUDE, GROUP, LINK_ONCE_DISCARD
+      1 .text         0000004a  00000000  00000000  0000003c  2**0
+                      CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+      2 .data         00000000  00000000  00000000  00000086  2**0
+                      CONTENTS, ALLOC, LOAD, DATA
+      3 .bss          00000000  00000000  00000000  00000086  2**0
+
+objdump -h b.o
+    b.o:     文件格式 elf32-i386
+
+    节:
+    Idx Name          Size      VMA       LMA       File off  Algn
+      0 .group        00000008  00000000  00000000  00000034  2**2
+                      CONTENTS, READONLY, EXCLUDE, GROUP, LINK_ONCE_DISCARD
+      1 .text         00000043  00000000  00000000  0000003c  2**0
+                      CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+      2 .data         00000004  00000000  00000000  00000080  2**2
+                      CONTENTS, ALLOC, LOAD, DATA
+      3 .bss          00000000  00000000  00000000  00000084  2**0
+
+objdump -h ab
+    ab:     文件格式 elf32-i386
+
+    节:
+    Idx Name          Size      VMA       LMA       File off  Algn
+      0 .text         00000091  08048094  08048094  00000094  2**0
+                      CONTENTS, ALLOC, LOAD, READONLY, CODE
+      1 .eh_frame     00000080  08048128  08048128  00000128  2**2
+                      CONTENTS, ALLOC, LOAD, READONLY, DATA
+      2 .got.plt      0000000c  0804a000  0804a000  00001000  2**2
+                      CONTENTS, ALLOC, LOAD, DATA
+      3 .data         00000004  0804a00c  0804a00c  0000100c  2**2
+                      CONTENTS, ALLOC, LOAD, DATA
+      4 .comment      00000026  00000000  00000000  00001010  2**0
+
+      VMA表示虚拟存储器的虚拟地址,由上可以看出,在链接之前,所有段的VMA都是0,在链接后出现了got表.且got表中的内容全
+      为0,如下:
+            .got.plt:0804A000 ; ===========================================================================
+            .got.plt:0804A000
+            .got.plt:0804A000 ; Segment type: Pure data
+            .got.plt:0804A000 ; Segment permissions: Read/Write
+            .got.plt:0804A000 _got_plt        segment dword public 'DATA' use32
+            .got.plt:0804A000                 assume cs:_got_plt
+            .got.plt:0804A000                 ;org 804A000h
+            .got.plt:0804A000 _GLOBAL_OFFSET_TABLE_ dd 0              ; DATA XREF: LOAD:0804805C↑o
+            .got.plt:0804A000                                         ; swap+10↑r ...
+            .got.plt:0804A004                 db    0
+            .got.plt:0804A005                 db    0
+            .got.plt:0804A006                 db    0
+            .got.plt:0804A007                 db    0
+            .got.plt:0804A008                 db    0
+            .got.plt:0804A009                 db    0
+            .got.plt:0804A00A                 db    0
+            .got.plt:0804A00B                 db    0
+            .got.plt:0804A00B _got_plt        ends
+            .got.plt:0804A00B
+            .data:0804A00C ; ===========================================================================
+      如果在链接前就产生了got表的话,可以通过在编译时直接在需要重定位的地方写上got表项的地址中的指针指向的值来达到
+      plt表的功能,如:
+      mov var,[[0x0804A000]]   
+      其中0x0804A000是一个got表项的地址.这样的话(在链接前就产生了got表)就可以省去plt表了,因为plt表的作用就是找到
+      got表中的地址.当然这里的elf文件ab没有plt表,因为不涉及so文件中符号的使用.
+
+objdump -d a.o
+    a.o:     文件格式 elf32-i386
+    Disassembly of section .text:
+    00000000 &lt;main&gt;:
+       0:	8d 4c 24 04          	lea    0x4(%esp),%ecx
+       4:	83 e4 f0             	and    $0xfffffff0,%esp
+       7:	ff 71 fc             	pushl  -0x4(%ecx)
+       a:	55                   	push   %ebp
+       b:	89 e5                	mov    %esp,%ebp
+       d:	53                   	push   %ebx
+       e:	51                   	push   %ecx
+       f:	83 ec 10             	sub    $0x10,%esp
+      12:	e8 fc ff ff ff       	call   13 &lt;main+0x13&gt;
+      17:	05 01 00 00 00       	add    $0x1,%eax
+      1c:	c7 45 f4 64 00 00 00 	movl   $0x64,-0xc(%ebp)
+      23:	83 ec 08             	sub    $0x8,%esp
+      26:	8b 90 00 00 00 00    	mov    0x0(%eax),%edx   ===&gt;shared变量
+      2c:	52                   	push   %edx
+      2d:	8d 55 f4             	lea    -0xc(%ebp),%edx
+      30:	52                   	push   %edx
+      31:	89 c3                	mov    %eax,%ebx
+      33:	e8 fc ff ff ff       	call   34 &lt;main+0x34&gt;   ===&gt;swap函数
+      38:	83 c4 10             	add    $0x10,%esp
+      3b:	b8 00 00 00 00       	mov    $0x0,%eax
+      40:	8d 65 f8             	lea    -0x8(%ebp),%esp
+      43:	59                   	pop    %ecx
+      44:	5b                   	pop    %ebx
+      45:	5d                   	pop    %ebp
+      46:	8d 61 fc             	lea    -0x4(%ecx),%esp
+      49:	c3                   	ret    
+
+      如上反汇编代码中,在a.c编译成a.o时,编译器不知道shared变量和swap函数的地址,因为它们定义在其他目标文件中
+      (b.o),所以编译器就暂时把地址0看作是shared的地址,同样将call指令的目标地址的位置当作call的目标地址
+      (0xfffffffc=-4,0x38-0x4=0x34,相当于call自己),也即在编译阶段,编译器把这两个待重定位的值分别写成0x00000000和
+      0xfffffffc,把真正的地址计算工作留给了链接器,链接器在完成地址和空间分配之后就已经可以确定所有符号的虚拟地址
+      了(因为这里未涉及so的调用),那么链接器就可以根据符号的地址对每个需要重定位的指令进行地址修正.
+
+objdump -d ab
+    ab:     文件格式 elf32-i386
+    Disassembly of section .text:
+
+    08048094 &lt;main&gt;:
+     8048094:	8d 4c 24 04          	lea    0x4(%esp),%ecx
+     8048098:	83 e4 f0             	and    $0xfffffff0,%esp
+     804809b:	ff 71 fc             	pushl  -0x4(%ecx)
+     804809e:	55                   	push   %ebp
+     804809f:	89 e5                	mov    %esp,%ebp
+     80480a1:	53                   	push   %ebx
+     80480a2:	51                   	push   %ecx
+     80480a3:	83 ec 10             	sub    $0x10,%esp
+     80480a6:	e8 33 00 00 00       	call   80480de &lt;__x86.get_pc_thunk.ax&gt;
+     80480ab:	05 55 1f 00 00       	add    $0x1f55,%eax
+     80480b0:	c7 45 f4 64 00 00 00 	movl   $0x64,-0xc(%ebp)
+     80480b7:	83 ec 08             	sub    $0x8,%esp
+     80480ba:	c7 c2 0c a0 04 08    	mov    $0x804a00c,%edx      ===&gt;shared变量
+     80480c0:	52                   	push   %edx
+     80480c1:	8d 55 f4             	lea    -0xc(%ebp),%edx
+     80480c4:	52                   	push   %edx
+     80480c5:	89 c3                	mov    %eax,%ebx
+     80480c7:	e8 16 00 00 00       	call   80480e2 &lt;swap&gt;       ===&gt;swap函数
+     80480cc:	83 c4 10             	add    $0x10,%esp
+     80480cf:	b8 00 00 00 00       	mov    $0x0,%eax
+     80480d4:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     80480d7:	59                   	pop    %ecx
+     80480d8:	5b                   	pop    %ebx
+     80480d9:	5d                   	pop    %ebp
+     80480da:	8d 61 fc             	lea    -0x4(%ecx),%esp
+     80480dd:	c3                   	ret    
+
+     由ab文件的反汇编代码可以看出,经过链接阶段的修正后,shared变量和swap函数的地址分别为0x804a00c和0x00000016.
+     链接器通过重定位表来对shared和swap的地址重定位,对于每个要重定位的elf段都有一个对应的重定位段(重定位表),比如
+     代码段.text如有要重定位的地方,那么会有一个相应叫.rel.text的段保存了代码段的重定位表,如果代码段.data有要重定
+     位的地方,那么会有一个相应叫.rel.data的段保存了数据段的重定位表,可以通过objdump -r或readelf -r查看目标文件的
+     重定位表,objdump -r可查看.o文件的重定位位,无法查看elf文件的重定位表,如果要查看elf文件的重定位表要使用readelf
+     -r elffile,在.o文件中重定位段分别为.rel.text和.rel.data的段在elf(so)文件中的名称为.rel.plt和.rel.dyn,其中
+     .rel.plt是对函数的引用的修正,它所修正的位置位于.got.plt;其中.rel.dyn是对数据引用的修正,它所修正的位置位于
+     .got以及数据段.
+
+     .o文件:(查看方法:objdump|readelf -r xxx.o)
+     .rel.text&lt;===&gt;代码段重定位表
+     .rel.data&lt;===&gt;数据段重定位表
+
+     elf(so)文件:(查看方法:readelf -r elffile)
+    .rel.plt&lt;===&gt;代码段重定位表,对函数引用的修正,修正的位置位于.got.plt
+    .rel.dyn&lt;===&gt;数据段重定位表,对数据引用的修正,修正的位置位于.got以及数据段
+
+objdump -r a.o
+    a.o:     文件格式 elf32-i386
+    RELOCATION RECORDS FOR [.text]:
+    OFFSET   TYPE              VALUE 
+    00000013 R_386_PC32        __x86.get_pc_thunk.ax
+    00000018 R_386_GOTPC       _GLOBAL_OFFSET_TABLE_
+    00000028 R_386_GOT32X      shared
+    00000034 R_386_PLT32       swap
+
+    由上看出shared和swap是不同的重定位类型,下面是不同重定位类型的不同计算重定位值的方法.
+    容易想到,变量和函数的计算重定位值的算法是不同的,因为函数一般用相对地址,变量用绝对地址.
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc4.png" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ab文件不涉及so的调用,所以链接时重定位就可以完成重定位的工作了,证明如下,在gdb加载ab文件后,分别查看main的地址
+,main+0x28,main+0x34中的内容发现与运行前(链接后)链接器认为的地址一致,具体如下:
+
+gdb ab
+p main
+    $1 = {&lt;text variable, no debug info&gt;} 0x8048094 &lt;main&gt;
+x main+0x28
+    (gdb) x main+0x28
+    0x80480bc &lt;main+40&gt;:	0x0804a00c
+x main+0x34
+    (gdb) x main+0x34
+    0x80480c8 &lt;main+52&gt;:	0x00000016
+</code></pre>
+</div>
+
+<h3 id="0x03-装载时重定位">0x03 装载时重定位</h3>
+
+<p>1.场景</p>
+
+<p>以上链接时重定位可以完成没有调用so文件的代码的重定位工作,如果涉及到so中符号的调用,则需要装载时重定位来完成与调用
+so符号相关代码的重定位工作,因为在可执行文件加载so前是不知道so的加载基址的,重定位与so符号相关的值这项工作需要装载
+时重定位完成.</p>
+
+<p>实例:(works in kali x64)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/* test.c */
+#include &lt;stdio.h&gt;
+
+void print_banner()
+{
+    printf("Welcome to World of PLT and GOT\n");
+}
+
+int main(void)
+{
+    print_banner();
+
+    return 0;
+}
+
+由于实验在x64的kali系统下进行,要编译32位的elf需要先安装依赖,上面的链接时重定位的内容是在x86的kali上做的实验,而这
+里是在x64上做的实验,原因是做这个实验时旁边没有x86的机器.
+    apt-get install gcc-multilib
+    apt-get install g++-multilib
+
+编译:gcc -Wall -g -o test.o -c test.c -m32
+链接:gcc -o test test.o -m32
+</code></pre>
+</div>
+
+<p>2.普通的装载时重定位</p>
+
+<p>为了能够使so可以在任意地址装载,可以通过在链接时对所有绝对地址的引用不作重定位,而把这一步推迟到装载时再完成.一旦
+模块装载地址确定,即目标地址确定,那么系统就对程序中所有的绝对地址引用进行重定位.假设函数foobar相对于代码段的起始地
+址是0x100,当模块被装载到0x10000000时,假设代码段位于模块的最开始,那么可以确定foobar的地址为0x10000100,这时候,系统
+遍历模块中的重定位表,把所有对foobar的地址引用都重定位到0x10000100.但是由于这种普通的装载时重定位存在一些问题,现在
+的操作系统一般使用pie|pic技术</p>
+
+<p>3.PIC(特殊的装载时重定位)</p>
+
+<p>PIC:程序模块中共享的指令部分在装载时不需要因为装载地址的改变而改变,通过把指令中的那些需要修改的部分分离出来,跟数据
+部分放在一起,这样指令部分就可以保持不变,而数据部分可以在每个进程中拥有一个副本,这种方案就是目前被称为
+<code class="highlighter-rouge">地址无关代码</code>技术,PIC是对动态链接库(so)而言的,可执行文件(elf)对应的技术叫PIE.</p>
+
+<p>在test.c得到的test文件,查看test文件有没有使用到pie(现在gcc一般默认开启了pie选项):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./checksec -f test
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FORTIFY Fortified Fortifiable  FILE
+Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RUNPATH   No      0       0test
+
+说明开启了pie
+</code></pre>
+</div>
+
+<p>用ida打开test,双击print_banner函数,可以看到对应的反汇编代码如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc5.png" /></p>
+
+<p>双击其中的so中的put函数(也即对应test.c中的printf函数),可以看到ida中的注释<code class="highlighter-rouge">PIC mode</code>,说明printf对应的so库采用了PIC
+技术:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc6.png" /></p>
+
+<p>4.怎样实现PIC?</p>
+
+<p>a)模块内部的函数调用,跳转</p>
+
+<p>这种情况下是最简单的,直接使用相对地址调用或者基于寄存器的相对调用即可,所以对于这种指令是不需要重定位的</p>
+
+<p>b)模块内部数据访问</p>
+
+<p>指令中不能直接包含数据的绝对地址,于是只能用相对寻址.<code class="highlighter-rouge">__i686.get_pc_thunk.cx</code>函数可以获取当前汇编指令的下一条指令
+的地址,会将这个地址放到ecx寄存器,即把<code class="highlighter-rouge">call __i686.get_pc_thunk.cx</code>下一条指令的地址放到ecx中.由于任何一条指令与它
+需要访问的模块内部的数据之间的距离是确定的,结合这个函数,可实现模块内部数据访问的相对寻址.如下在test文件中的
+<code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>函数,作用是将下一条指令的地址放到ax中.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>push    ebp
+mov     ebp, esp
+push    ebx
+sub     esp, 4
+call    __x86_get_pc_thunk_ax
+add     eax, 1AD7h
+sub     esp, 0Ch
+lea     edx, (aWelcomeToWorld - 2000h)[eax] ; "Welcome to World of PLT and GOT"
+push    edx             ; s
+mov     ebx, eax
+call    _puts
+add     esp, 10h
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">__x86_get_pc_thunk_ax</code>的实现很简单,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public __x86_get_pc_thunk_ax
+__x86_get_pc_thunk_ax proc near
+; __unwind {
+mov     eax, [esp+0]
+retn
+; } // starts at 576
+__x86_get_pc_thunk_ax endp
+</code></pre>
+</div>
+
+<p>c)模块间数据访问</p>
+
+<p>由于模块间的数据访问目标地址要等到装载时才知道,只好通过got表来实现.elf的做法是数据段里面建立一个指向这些变量的指
+针数组,也被称为全局偏移表(GOT),当代码需要引用模块间的数据时,可以通过GOT中相对应的项间接引用.(任何一条指令与GOT表
+的距离是确定的,于是可通过上面b中相同方法找到GOT的地址,再根据GOT中变量对应的项找到变量的目标地址)</p>
+
+<p>d)模块间调用,跳转</p>
+
+<p>与上面c相同,只不过GOT中对应的内容由变量地址变成函数地址</p>
+
+<p>5.延迟绑定PLT</p>
+
+<p>在一个程序运行过程中,可能很多函数在程序执行完成时都不会被用到,比如一些错误处理函数或者是一些用户很少用到的功能模
+块等,如果一开始就把所有函数都链接好实际上是一种浪费,所以elf采用了一种叫做<code class="highlighter-rouge">延迟绑定</code>的做法,基本思想就是当函数第一
+次被用到时才进行绑定(符号查找,重定位),如果没有用到则不进行绑定,所以程序开始执行时,模块间的函数调用都没有进行绑定,
+而是需要用到时才由动态链接器来钢表绑定,一般PLT是针对可执行文件(elf)而言的.</p>
+
+<p>在运行test前,test文件的put函数的plt内容很简单,直接jmp,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:000003B0                 jmp     ds:off_200C     ; PIC mode
+.plt:000003B0 _puts           endp
+</code></pre>
+</div>
+
+<p>实际运行test时,put函数的plt内容会发生变化,变成下面的样子:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565843B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565843B0 _puts endp
+.plt:565843B0
+.plt:565843B6
+.plt:565843B6 ; =============== S U B R O U T I N E =======================================
+.plt:565843B6
+.plt:565843B6
+.plt:565843B6 sub_565843B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565843B6                                         ; DATA XREF: .got.plt:5658600C↓o
+.plt:565843B6 push    0
+.plt:565843BB jmp     sub_565843A0
+
+.plt:565843A0 push    dword ptr [ebx+4]
+.plt:565843A6 jmp     dword ptr [ebx+8]
+</code></pre>
+</div>
+
+<p>也即由jmp ds:off_200c变成jmp dword ptr [ebx+0ch],对应的机器码的变化是:
+由ff 25 0c 20 00 00变成ff a3 0c 00 00 00
+现在感到迷惑了,怎么会这样,plt表中的内容按道理不会变才对(plt表中的内容是代码),按理只有got表中的内容才会改变,使用
+objdump查看下,发现与ida不同</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>objdump -D test
+    其中puts函数反汇编内容如下:
+    000003b0 &lt;puts@plt&gt;:                                 
+     3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
+     3b6:   68 00 00 00 00          push   $0x0
+     3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;     
+
+</code></pre>
+</div>
+
+<p>说明puts函数的plt表项内容没变,而ida中却在test运行前解析成其他内容了,这应该是ida的bug吧(实验中用的是macOS下的ida加
+载的test文件,动态调试时用的是ida远程调试kali x64下的test),但是ida怎么会将[ebx+0ch]解析成ds:off_200c呢?用readelf查
+看下test文件的重定位表如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>readelf -r test
+
+重定位节 '.rel.dyn' 位于偏移量 0x328 含有 8 个条目:
+ 偏移量     信息    类型              符号值      符号名称
+00001ef4  00000008 R_386_RELATIVE   
+00001ef8  00000008 R_386_RELATIVE   
+00001ff8  00000008 R_386_RELATIVE   
+00002018  00000008 R_386_RELATIVE   
+00001fec  00000106 R_386_GLOB_DAT    00000000   _ITM_deregisterTMClone
+00001ff0  00000206 R_386_GLOB_DAT    00000000   __cxa_finalize@GLIBC_2.1.3
+00001ff4  00000406 R_386_GLOB_DAT    00000000   __gmon_start__
+00001ffc  00000606 R_386_GLOB_DAT    00000000   _ITM_registerTMCloneTa
+
+重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
+ 偏移量     信息    类型              符号值      符号名称
+0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
+00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
+</code></pre>
+</div>
+
+<p>可以看出,其中puts函数的重定位项的偏移量是200c,猜测由于这个elf文件(test文件)有pie属性,而ida加载有pie属性的elf时是以
+<code class="highlighter-rouge">加载基址=0</code>加载的,于是ida解析出这个具有pie属性文件test的代码jmp [ebx+0ch]实际在运行时是jmp到与文件头初始处偏移
+200c中存放的地址,从而ida将这里解析成jmp ds:200c了,并将机器码变成了ff 25 0c 20 00 00,实际上这里的机器码在运行前是
+ff a3 0c 00 00 00.实际上从后面的分析可以知道,test在运行时会有第一次调用puts函数时的对puts函数的重定位,在重定位时
+jmp [ebx+0ch]实际上是跳到下一条汇编指令的地址,而重定位后,jmp [ebx+0ch]指令不变,跳转到的位置会变成不再是下一条指
+令的位置,而是完成重定位后的puts函数的地址,也即test文件偏移200c处(这个地方在.got.plt段中)的puts函数的.got.plt表项中
+存放的内容,ida在test运行前就这样解析,可能是为了给用户忽略掉puts函数的<code class="highlighter-rouge">PLT延迟绑定</code>的过程,让用户看起来程序在运行时
+“更简洁”</p>
+
+<p>动态调试时ida的内容没问题.上面的plt中内容由于是在test未运行时在ida中加载看出的,这种情况”有误”,需要重新查看真实的
+plt表中内容,直接查看运行后的ida中的test文件的plt表的内容:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 ; ===========================================================================
+.plt:565CC3A0
+.plt:565CC3A0 ; Segment type: Pure code
+.plt:565CC3A0 ; Segment permissions: Read/Execute
+.plt:565CC3A0 _plt segment para public 'CODE' use32
+.plt:565CC3A0 assume cs:_plt
+.plt:565CC3A0 ;org 565CC3A0h
+.plt:565CC3A0 assume es:nothing, ss:nothing, ds:_data, fs:nothing, gs:nothing
+.plt:565CC3A0
+.plt:565CC3A0 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3A0
+.plt:565CC3A0
+.plt:565CC3A0 sub_565CC3A0 proc near                  ; CODE XREF: sub_565CC3B6+5↓j
+.plt:565CC3A0                                         ; .plt:565CC3CB↓j
+.plt:565CC3A0 push    dword ptr [ebx+4]
+.plt:565CC3A6 jmp     dword ptr [ebx+8]
+.plt:565CC3A6 sub_565CC3A0 endp
+.plt:565CC3A6
+.plt:565CC3A6 ; ---------------------------------------------------------------------------
+.plt:565CC3AC align 10h
+.plt:565CC3B0
+.plt:565CC3B0 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B0
+.plt:565CC3B0 ; Attributes: thunk
+.plt:565CC3B0
+.plt:565CC3B0 ; int puts(const char *s)
+.plt:565CC3B0 _puts proc near                         ; CODE XREF: print_banner+1D↓p
+.plt:565CC3B0
+.plt:565CC3B0 s= dword ptr  4
+.plt:565CC3B0
+.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+.plt:565CC3B0
+.plt:565CC3B6
+.plt:565CC3B6 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B6
+.plt:565CC3B6
+.plt:565CC3B6 sub_565CC3B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565CC3B6                                         ; DATA XREF: .got.plt:565CE00C↓o
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+.plt:565CC3BB sub_565CC3B6 endp
+.plt:565CC3BB
+.plt:565CC3C0 ; [00000006 BYTES: COLLAPSED FUNCTION ___libc_start_main. PRESS CTRL-NUMPAD+ TO EXPAND]
+.plt:565CC3C6 ; ---------------------------------------------------------------------------
+.plt:565CC3C6 push    8
+.plt:565CC3CB jmp     sub_565CC3A0
+.plt:565CC3CB _plt ends
+</code></pre>
+</div>
+
+<p>objdump -D test中查看更简洁,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Disassembly of section .plt:               
+                                                
+000003a0 &lt;.plt&gt;:                                                  
+ 3a0:   ff b3 04 00 00 00       pushl  0x4(%ebx)   
+ 3a6:   ff a3 08 00 00 00       jmp    *0x8(%ebx)
+ 3ac:   00 00                   add    %al,(%eax)        
+        ...                                
+                                                
+000003b0 &lt;puts@plt&gt;:                                 
+ 3b0:   ff a3 0c 00 00 00       jmp    *0xc(%ebx)
+ 3b6:   68 00 00 00 00          push   $0x0
+ 3bb:   e9 e0 ff ff ff          jmp    3a0 &lt;.plt&gt;     
+                                     
+000003c0 &lt;__libc_start_main@plt&gt;:  
+ 3c0:   ff a3 10 00 00 00       jmp    *0x10(%ebx)
+ 3c6:   68 08 00 00 00          push   $0x8
+ 3cb:   e9 d0 ff ff ff          jmp    3a0 &lt;.plt&gt;    
+</code></pre>
+</div>
+
+<p>在PLT(延迟绑定)中,so中的函数只有在调用时才做重定位,运行时调用so中的函数时一般plt表项内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bar@plt:
+jmp *(bar@GOT)
+push n
+push moduleID
+jmp _dl_runtime_resolve
+</code></pre>
+</div>
+
+<p>bar@plt的第一条指令是一条通过GOT间接跳转的指令.bar@GOT表示GOT中保存bar()这个函数相应的项.为了实现延迟绑定,链接器
+在初始化阶段没有将bar()的地址走入到该项,而是将上面代码中第二条指令push n的地址地址填入到bar@GOT中,这个步骤不需要
+查找任何符号,所以代价很低.也即,第一条指令的效果是跳转到第二条指令,相当于没有进行任何操作.然后将n和moudleID两个参
+数压入栈中作为<code class="highlighter-rouge">_dl_runtime_resolve</code>的参数,其中n是bar这个符号引用在重定位表.rel.plt中的下标,<code class="highlighter-rouge">_dl_runtime_resolve</code>
+函数在进行一系列工作年以后将bar()的真正地址填入到bar@GOT中.一旦bar()这个函数被解析完毕,当我们再次调用bar@plt时,
+第一条jmp指令就能够跳转到真正的bar()函数中</p>
+
+<p>plt重定位过程图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc7.jpeg" /></p>
+
+<p>重定位之后的调用图:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/reloc8.jpeg" /></p>
+
+<p>现在动态跟踪puts函数的重定位过程:</p>
+
+<p>a)跳转到plt表之前内容如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.text:565CC53A call    _puts
+</code></pre>
+</div>
+
+<p>b)上面的<code class="highlighter-rouge">call _puts</code>在ida中f7之后跳转到.plt表,内容如下(eip=0x565cc3b0),对应指令为jmp dword ptr [ebx+0ch]</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>===&gt;EIP=0x565cc3b0
+
+.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+.plt:565CC3B0
+.plt:565CC3B6
+.plt:565CC3B6 ; =============== S U B R O U T I N E =======================================
+.plt:565CC3B6
+.plt:565CC3B6
+.plt:565CC3B6 sub_565CC3B6 proc near                  ; CODE XREF: _puts↑j
+.plt:565CC3B6                                         ; DATA XREF: .got.plt:565CE00C↓o
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+.plt:565CC3BB sub_565CC3B6 endp
+.plt:565CC3BB
+.plt:565CC3C0 ; [00000006 BYTES: COLLAPSED FUNCTION ___libc_start_main. PRESS CTRL-NUMPAD+ TO EXPAND]
+.plt:565CC3C6 ; ---------------------------------------------------------------------------
+.plt:565CC3C6 push    8
+.plt:565CC3CB jmp     sub_565CC3A0
+.plt:565CC3CB _plt ends
+</code></pre>
+</div>
+
+<p>c)上一步动态调试发现jmp dword ptr [ebx+0xch]实际上就是跳到下一条指令处,也即跳到0x565cc3b6处的push 0,执行完
+0x565cc3b6处的push 0之后会jmp到0x565cc3a0,而这个地址是plt表的起始地址,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3A0 push    dword ptr [ebx+4]
+.plt:565CC3A6 jmp     dword ptr [ebx+8]
+.plt:565CC3A6 sub_565CC3A0 endp
+</code></pre>
+</div>
+
+<p>d)在上面c中0x565cc3a6处的ebx+8在ida中的值为0x565ce008,0x565ce008处的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset sub_565CC3B6
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>这里是got表项,重定位将修改got表项中的值,目前0x565ce008这个got表项的内容是0xf7f5b700,也即0x565cc3a6处的jmp将跳转到
+0xf7f5b700,0xf7f5b700处的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ld_2.24.so:F7F5B700 push    eax
+ld_2.24.so:F7F5B701 push    ecx
+ld_2.24.so:F7F5B702 push    edx
+ld_2.24.so:F7F5B703 mov     edx, [esp+10h]
+ld_2.24.so:F7F5B707 mov     eax, [esp+0Ch]
+ld_2.24.so:F7F5B70B call    near ptr unk_F7F55000
+ld_2.24.so:F7F5B710 pop     edx
+ld_2.24.so:F7F5B711 mov     ecx, [esp]
+ld_2.24.so:F7F5B714 mov     [esp], eax
+ld_2.24.so:F7F5B717 mov     eax, [esp+4]
+ld_2.24.so:F7F5B71B retn    0Ch
+</code></pre>
+</div>
+
+<p>这应该就是<code class="highlighter-rouge">_dl_runtime_resolve</code>函数了,联合<code class="highlighter-rouge">plt重定位过程图</code>和<code class="highlighter-rouge">重定位之后调用图</code>可知,现在由于是puts函数第一次被调用,
+正在进行puts函数(符号)的重定位,重定位之后会把got表项0x565ce008中的内容由原来的0xf7f5b700修改成puts函数的地址(这是
+错误的想法,由于.got.plt结构特殊,实际并不会将0x565ce008处的内容修改,后面将看出),继续跟踪</p>
+
+<p>e)执行到上面0xf7f5b71b处的retn 0ch后,查看0x565ce008这个got表项内容有没有改变,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset _IO_puts
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>发现0x565ce008处的值不变,只是下0x565ce008+4=0x565ce00c处的函数名由原来的ida解析成的sub_565cc3b6变成ida解析成的
+<code class="highlighter-rouge">IOputs</code>,回忆下puts函数的重定位表:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>重定位节 '.rel.plt' 位于偏移量 0x368 含有 2 个条目:
+ 偏移量     信息    类型              符号值      符号名称
+0000200c  00000307 R_386_JUMP_SLOT   00000000   puts@GLIBC_2.0
+00002010  00000507 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0
+</code></pre>
+</div>
+
+<p>0x565ce00c实际是test在运行后的200c偏移(test在这次运行中实际加载基址为0x565ce00c-0x200c=0x565cc000),这
+里的sub_565cc3b6实际上是上面c)中的plt表项中的jmp [ebx+0xc]的下一条指令的地址,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B6 push    0
+.plt:565CC3BB jmp     sub_565CC3A0
+</code></pre>
+</div>
+
+<p>在上面<code class="highlighter-rouge">_dl_runtime_resolve</code>函数中0xf7f5b71b处的retn 0ch后进入到_<code class="highlighter-rouge">IO_puts</code>函数,内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>libc_2.24.so:F7DB8890 _IO_puts:
+libc_2.24.so:F7DB8890 push    ebp
+libc_2.24.so:F7DB8891 mov     ebp, esp
+libc_2.24.so:F7DB8893 push    edi
+libc_2.24.so:F7DB8894 push    esi
+libc_2.24.so:F7DB8895 push    ebx
+libc_2.24.so:F7DB8896 call    near ptr unk_F7E79A25
+libc_2.24.so:F7DB889B add     edi, 153765h
+libc_2.24.so:F7DB88A1 sub     esp, 28h
+libc_2.24.so:F7DB88A4 push    dword ptr [ebp+8]
+libc_2.24.so:F7DB88A7 call    near ptr unk_F7DCECB0
+libc_2.24.so:F7DB88AC mov     edx, [edi+0DFCh]
+libc_2.24.so:F7DB88B2 mov     esi, eax
+</code></pre>
+</div>
+
+<p>也即<code class="highlighter-rouge">_IO_puts</code>函数的地址为0xf7db8890,也即got表项中0x565ce008+4处的内容由0x565cc3b6变成了0xf7db8890,至此,完成了
+puts函数的重定位,而此时查看plt表项中的代码,没有发生变化,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.plt:565CC3B0 jmp     dword ptr [ebx+0Ch]             ; PIC mode
+.plt:565CC3B0 _puts endp
+</code></pre>
+</div>
+
+<p>只是此时,ebx+0xch的值为0x565ce00c,而0x565ce00c中的内容已经由原来的0x565cc3b6变成了<code class="highlighter-rouge">_IO_puts</code>函数的地址0xf7db8890,
+也就是第一次调用puts函数后,以后从plt表项中的代码jmp到的地方不再会经过<code class="highlighter-rouge">_dl_runtime_resolve</code>函数,而是直接的
+<code class="highlighter-rouge">_IO_puts</code>函数了.也即证明重定位过程中plt中的代码是不会变的,只是在重定位后,plt中代码不变的情况下实际会取到got表项中
+的其他值,这样也体现了PIC的原理(利用相对偏移跳转到函数).</p>
+
+<p>6.GOT表结构</p>
+
+<p>elf将GOT拆分成了两个表分别为.got和.got.plt,其中.got用来保存全局变量引用的地址,.got.plt用来保存函数引用的地址,也就
+是说,所有对于外部函数的引用全部被分离出来放到了.got.plt中,另外,.got.plt还有一个特殊的地方是它的前三项是有特殊意义
+的:</p>
+
+<p>第一项保存的是.dynamic段的地址
+第二项保存的是本模块的ID
+第三项保存的是<code class="highlighter-rouge">_dl_runtime_resolve()</code>的地址</p>
+
+<p>查看上面4中跟踪完puts函数的重定位后的.got.plt的内容如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.got.plt:565CE000 assume cs:_got_plt
+.got.plt:565CE000 ;org 565CE000h
+.got.plt:565CE000 _GLOBAL_OFFSET_TABLE_ dd 1EFCh
+.got.plt:565CE004 db  20h
+.got.plt:565CE005 db 0A9h
+.got.plt:565CE006 db 0F6h
+.got.plt:565CE007 db 0F7h
+.got.plt:565CE008 db    0
+.got.plt:565CE009 db 0B7h
+.got.plt:565CE00A db 0F5h
+.got.plt:565CE00B db 0F7h
+.got.plt:565CE00C dd offset _IO_puts
+.got.plt:565CE010 dd offset __libc_start_main
+.got.plt:565CE010 _got_plt ends
+</code></pre>
+</div>
+
+<p>第一项的值为0x565ce000,第二项的值为0xf7f6a920,第三项的值为0xf7f5b700(前3项为公共项),第四项开始为第一个函数项
+(puts函数的地址)</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            重定位
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>深入理解计算机系统第6章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">深入理解计算机系统第6章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 5, 2017</span>
+           under auxilary
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="存储器层次结构">存储器层次结构</h3>
+
+<p>1.高速缓存介于cpu和主存(内存)之间,它们对于应用程序性能的影响最大</p>
+
+<p>2.在简单模型中,存储器系统是一个线性的字节数组,而cpu能够在一个常数时间内访问每个存储器位置,虽然迄今为止这都是一个
+有效的模型,但是它没有反映现代系统实际工作的方式</p>
+
+<p>3.cpu是中央处理器(central processing unit),主要由运算器,控制器,寄存器三部分组成</p>
+
+<p>4.sram(static random-access memory):静态随机访问存储器主要用于作高速缓存存储器;dram(dynamic random-access
+memory):动态随机访问存储器主要用于作主存(内存);rom(read-only memory):只读存储器;sram和dram断电后内容消失</p>
+
+<p>5.总线分为:系统总线,存储器总线,I/O总线.虽然I/O总线比系统总线和存储器总线慢,但是它可以容纳种类繁多的第三方I/O设备</p>
+
+<p>6.dma(direct memory access):直接存储器访问.在磁盘控制器收到来自cpu的读命令后,它将逻辑块号翻译成一个扇区地址,读该
+扇区的内容,然后将这些内容直接传送到主存,不需要cpu的干涉.设备可自己执行读或写总线事务,这个过程称为dma(发生在将硬盘
+中的数据读到内存中,这个命令是cpu发出的)</p>
+
+<p>7.局部性原理:一个编写良好的程序倾向于引用邻近于其他最近引用过的数据项,或者最近引用过的数据项本身,这是一个持久的概
+念,对硬件和软件系统的设计和性能都有着极大的影响.局部性有两种不同的形式:时间局部性和空间局部性.在一个具有良好时间
+局部性的程序中,被引用过一次的存储器位置很可能在不远的将来再被多次引用;在一个具有良好空间局部性的程序中,如果一个存
+储器位置被引用了一次,那么程序很可能在不远的将来引用附近的一个存储器位置</p>
+
+<p>8.局部性小结</p>
+
+<p>a)重复引用同一个变量的程序有良好的时间局部性<br />
+b)对于具有步长为k的引用模式的程序,步长越小,空间局部性越好<br />
+c)对于取指令来说,循环有好的时间和空间局部性,循环体越小,循环迭代次数越多,局部性越好<br />
+d)二维C数组在存储器中是按照行顺序来存放的,对a[i][j]表示每个元素中:<code class="highlighter-rouge">for(i=0;j&lt;n;i++)-&gt;for(j=0;j&lt;n;j++)</code>的空间局部性
+比<code class="highlighter-rouge">for(j=0;j&lt;n;j++)-&gt;for(i=0;i&lt;n;i++)</code></p>
+
+<p>9.缓存命中:当程序需要第k+1层的某个数据对象d时,它首先在当前存储在第k层的一个块中查找d,如果d刚好缓存在第k层中,那么
+这就是缓存命中</p>
+
+<p>10.存储器层次结构的本质是,每一层存储设备都是较低一层的缓存.基于缓存的存储器层次结构行之有效,是因为较慢的存储设备
+比较快的存储设备更便宜,还因为程序往往展示局部性:<br />
+a)利用时间局部性:由于时间局部性,同一数据对象可能会被多次使用.一旦一个数据对象在第一次不命中时被拷贝到缓存中,我们
+就会期望后面对该目标有一系列的访问命中<br />
+b)利用空间局部性:块通常包含有多个数据对象,由于空间局部性,我们会期望后面对该块中其他对象的访问能够补偿不命中的拷贝
+该块的花费</p>
+
+<p>11.高速缓存读写过程</p>
+
+<p>a)读:首先,在高速缓存中查找所需字w的拷贝.如果命中,立即返回字w给cpu,如果不命中,从存储器层次结构中较低层中取出包含字
+w的块,将这个块存储到某个高速缓存行中(可能会驱逐一个有效的行),然后返回字w</p>
+
+<p>b)写:写的情况复杂一些,假设要写一个已经缓存了的字w,有2种方法:一种是直写,就是立即将w的高速缓存块写回到紧接着的低一
+层中,虽然简单,但是直写的缺点是每次写都会引起总线流量.另一种方法称为写回,尽可能地推迟存储器更新,只有当替换算法要驱
+逐更新过的块时,才把它写到紧接着的低一层中.</p>
+
+<p>12.确保代码高速缓存友好的基本方法</p>
+
+<p>a)让最常见的情况运行得快,也即要把注意力集中在核心函数中的循环上而忽略其他部分</p>
+
+<p>b)在每个循环内部缓存不命中数量最小,也即保证有好的时间局部性(对局部变量的反复引用)和空间局部性(步长为1的引用模式)</p>
+
+<p>13.关于存储器山</p>
+
+<p>a)一个程序从存储系统中读数据的速率称为读吞吐量(或读带宽)<br />
+b)读带宽的时间和空间局部性的二维函数称为存储器山<br />
+c)即使是当程序的时间局部性很差时,空间局部性仍然能补救,并且是非常重要的
+d)存储器系统的性能不是一个数字就能描述的,相反,它是一座时间和空间局部性的山,这座山的上升调试差别可以超过一个数量级<br />
+e)要使程序运行在存储器的山峰,就是要利用时间局部性,使得频繁使用的字从L1(最快的高速缓存)中取出,还要利用空间局部性,
+使得尽可能多的字从一个L1高速缓存行中访问到</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>
