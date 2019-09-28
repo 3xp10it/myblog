@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 26 Sep 2019 21:34:03 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Sep 2019 21:34:03 +0800</lastBuildDate>
+    <pubDate>Sat, 28 Sep 2019 09:29:21 +0800</pubDate>
+    <lastBuildDate>Sat, 28 Sep 2019 09:29:21 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -18,21 +18,38 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;对倒必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;因&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单的出现&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单被成交&lt;/code&gt;.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.如果只有”果”而没有”因”则是对应着大单跳价吃货/出货,大单跳价成交如果 在跳价范围内存在大单与大单的成交则依然是对倒,如果跳价范围内全是小单与小单的成交则认为不是对倒而是真实的扫货.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
+&lt;p&gt;对倒必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;因&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单的出现&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单被成交&lt;/code&gt;.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户造成的非对倒现象.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-找出对倒&quot;&gt;0x2 找出对倒&lt;/h3&gt;
 
-&lt;p&gt;可根据对倒的”因”和”果”的特点来找出对倒,必须在超级盘口下分析对倒,因为分时图很容易漏掉(对倒有可能只出现在1s内,而分时图是1分钟级别的图).&lt;code class=&quot;highlighter-rouge&quot;&gt;开盘啦&lt;/code&gt;的压单托单夹单可辅助找出对倒的”因”,由于开盘啦的压单/托单/夹单是固定的指标,要求在一定的金额以上的挂单才会被识别,导致可能会漏掉一些真实的压单/托单/夹单.超级盘口中短时间异常的放量可辅助找出对倒的果,包含2种情况:一是超级盘口中单根大量,二是超级盘口中短时间范围内的密集小量,如下图所示,这2种都情况都需分析.&lt;/p&gt;
+&lt;p&gt;可根据对倒的”因”和”果”的特点来找出对倒.&lt;/p&gt;
+
+&lt;h4 id=&quot;找因&quot;&gt;找”因”&lt;/h4&gt;
+
+&lt;p&gt;“因”可通过&lt;code class=&quot;highlighter-rouge&quot;&gt;开盘啦&lt;/code&gt;的压单托单夹单辅助找出.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kpltyjd.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于开盘啦的压单/托单/夹单是固定的指标,要求在一定的金额以上的挂单才会被识别,导致可能会漏掉一些真实的压单/托单/夹单.这种被漏掉的可通过同花顺分时图的委买委卖相关的”买卖力道”指标找出,通过它找出委买和委卖突变的点,再通过超级盘口进行分析.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mmld.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于分时图是1分钟级别的图,而对倒有可能只出现在1s内,所以分时图中的”买卖力道”指标会漏掉1分钟内部的对倒对应的大挂单.&lt;/p&gt;
+
+&lt;h4 id=&quot;找果&quot;&gt;找”果”&lt;/h4&gt;
+
+&lt;p&gt;超级盘口中短时间异常的放量可辅助找出对倒的果,包含2种情况:一是超级盘口中单根大量,二是超级盘口中短时间范围内的密集小量,如下图所示,这2种都情况都需分析.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/yccjl.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;另外,异常的分时图如&lt;code class=&quot;highlighter-rouge&quot;&gt;一字过马路&lt;/code&gt;(价格基本不变而成交量却较活跃)和&lt;code class=&quot;highlighter-rouge&quot;&gt;锯齿心电图&lt;/code&gt;(疑似在不断地进行对倒+出货)等也可用于辅助发现对倒.小结分析盘口对倒的步骤如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.开盘啦压单/托单/夹单情况分析
-2.超级盘口短时间异常放量情况分析
-3.异常分时图情况分析
+2.分时图买卖力道指标委买/委卖突变分析
+3.超级盘口短时间异常放量情况分析
+4.异常分时图情况分析
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
@@ -110,6 +127,8 @@
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxhp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;股价处于高位时个股在无穷成本均线下方横盘,或围绕着无穷成本均线振荡且横盘期间多数时间处于无穷成本均线下方,是主力出货迹象&lt;/p&gt;
+
+&lt;h4 id=&quot;0x13-下跌放量上涨缩量&quot;&gt;0x13 下跌放量上涨缩量&lt;/h4&gt;
 </description>
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>
