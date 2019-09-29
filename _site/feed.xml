@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 28 Sep 2019 09:29:21 +0800</pubDate>
-    <lastBuildDate>Sat, 28 Sep 2019 09:29:21 +0800</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2019 15:53:53 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 15:53:53 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -18,15 +18,17 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;对倒必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;因&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即必须有&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单的出现&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;大挂单被成交&lt;/code&gt;.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
+&lt;p&gt;对倒的本质是&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即某价位大挂单被成交,在对倒的”果”出现之前必然会先出现”因”,也即某价位大挂单的出现.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddyg.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-找出对倒&quot;&gt;0x2 找出对倒&lt;/h3&gt;
 
 &lt;p&gt;可根据对倒的”因”和”果”的特点来找出对倒.&lt;/p&gt;
 
-&lt;h4 id=&quot;找因&quot;&gt;找”因”&lt;/h4&gt;
+&lt;h4 id=&quot;0xa-找因&quot;&gt;0xa 找”因”&lt;/h4&gt;
 
 &lt;p&gt;“因”可通过&lt;code class=&quot;highlighter-rouge&quot;&gt;开盘啦&lt;/code&gt;的压单托单夹单辅助找出.&lt;/p&gt;
 
@@ -38,13 +40,17 @@
 
 &lt;p&gt;由于分时图是1分钟级别的图,而对倒有可能只出现在1s内,所以分时图中的”买卖力道”指标会漏掉1分钟内部的对倒对应的大挂单.&lt;/p&gt;
 
-&lt;h4 id=&quot;找果&quot;&gt;找”果”&lt;/h4&gt;
+&lt;h4 id=&quot;0xb-找果&quot;&gt;0xb 找”果”&lt;/h4&gt;
 
 &lt;p&gt;超级盘口中短时间异常的放量可辅助找出对倒的果,包含2种情况:一是超级盘口中单根大量,二是超级盘口中短时间范围内的密集小量,如下图所示,这2种都情况都需分析.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/yccjl.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;另外,异常的分时图如&lt;code class=&quot;highlighter-rouge&quot;&gt;一字过马路&lt;/code&gt;(价格基本不变而成交量却较活跃)和&lt;code class=&quot;highlighter-rouge&quot;&gt;锯齿心电图&lt;/code&gt;(疑似在不断地进行对倒+出货)等也可用于辅助发现对倒.小结分析盘口对倒的步骤如下:&lt;/p&gt;
+&lt;p&gt;另外,异常的分时图如&lt;code class=&quot;highlighter-rouge&quot;&gt;一字过马路&lt;/code&gt;(价格基本不变而成交量却较活跃)和&lt;code class=&quot;highlighter-rouge&quot;&gt;锯齿心电图&lt;/code&gt;(疑似在不断地进行对倒+出货[要求超级盘口看到较多”小草”])等也可用于辅助发现对倒.&lt;/p&gt;
+
+&lt;h4 id=&quot;0xc-小结&quot;&gt;0xc 小结&lt;/h4&gt;
+
+&lt;p&gt;小结分析盘口对倒的步骤如下:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.开盘啦压单/托单/夹单情况分析
 2.分时图买卖力道指标委买/委卖突变分析
@@ -66,69 +72,80 @@
     
       <item>
         <title>主力出货迹象汇编</title>
-        <description>&lt;h4 id=&quot;0x1-k线牛短熊长&quot;&gt;0x1 k线牛短熊长&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/rkndxc.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+        <description>&lt;h4 id=&quot;0x1-牛短熊长&quot;&gt;0x1 牛短熊长&lt;/h4&gt;
 
 &lt;p&gt;日k线牛短熊长,涨少跌多,主力利用更长的(跌)时间来进行出货,利用较小的代价来维持股价&lt;/p&gt;
 
-&lt;h4 id=&quot;0x2-逆势下跌&quot;&gt;0x2 逆势下跌&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/rkndxc.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/nsxd.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;大盘涨时个股跌&lt;/p&gt;
-
-&lt;h4 id=&quot;0x3-分时图牛短熊长&quot;&gt;0x3 分时图牛短熊长&lt;/h4&gt;
+&lt;p&gt;分时图牛短熊长,分时图中短时间对倒拉升(或吃货),利用更长的时间进行出货&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/fsndxc.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;分时图短时间对倒拉升(或吃货),利用更长的时间进行出货&lt;/p&gt;
+&lt;p&gt;下面的例子中603218当天拉阳线,且大单统计显示大单流入,而实际主力在出货:&lt;/p&gt;
 
-&lt;h4 id=&quot;0x4-早盘冲高尾盘回落&quot;&gt;0x4 早盘冲高尾盘回落&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddlrch1.png&quot; data-action=&quot;zoom&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddlrch2.png&quot; data-action=&quot;zoom&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddlrch3.png&quot; data-action=&quot;zoom&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddlrch4.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/cghl.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;0x2-逆势下跌&quot;&gt;0x2 逆势下跌&lt;/h4&gt;
+
+&lt;p&gt;大盘涨时个股跌&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/nsxd.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0x3-早盘冲高尾盘回落&quot;&gt;0x3 早盘冲高尾盘回落&lt;/h4&gt;
 
 &lt;p&gt;早盘冲高后一天剩下大部分时间用来慢慢出货,如果到了尾盘才出货则当天出不了多少货&lt;/p&gt;
 
-&lt;h4 id=&quot;0x5-拉午盘拉尾盘&quot;&gt;0x5 拉午盘拉尾盘&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/cghl.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0x4-拉午盘拉尾盘&quot;&gt;0x4 拉午盘拉尾盘&lt;/h4&gt;
+
+&lt;p&gt;拉尾盘一般对应第二天冲高回落出货,或低位没实力的拉升&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/lwp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/klwp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;拉尾盘一般对应第二天冲高回落出货,或低位没实力的拉升&lt;/p&gt;
-
-&lt;h4 id=&quot;0x6-夹单一字过马路出货&quot;&gt;0x6 夹单一字过马路出货&lt;/h4&gt;
-
-&lt;video width=&quot;100%&quot; height=&quot;100%&quot; controls=&quot;controls&quot; src=&quot;https://github.com/3xp10it/pic/raw/master/%E5%A4%B9%E5%8D%95%E5%87%BA%E8%B4%A7.mp4&quot;&gt;&lt;/video&gt;
+&lt;h4 id=&quot;0x5-夹单一字过马路出货&quot;&gt;0x5 夹单一字过马路出货&lt;/h4&gt;
 
 &lt;p&gt;夹单并通过小单不断啃食压单,目的是诱多出货.如果是夹单并通过小单不断打到托单上那就是诱空吃货.&lt;/p&gt;
 
-&lt;h4 id=&quot;0x7-跌停板出货&quot;&gt;0x7 跌停板出货&lt;/h4&gt;
+&lt;video width=&quot;100%&quot; height=&quot;100%&quot; controls=&quot;controls&quot; src=&quot;https://github.com/3xp10it/pic/raw/master/%E5%A4%B9%E5%8D%95%E5%87%BA%E8%B4%A7.mp4&quot;&gt;&lt;/video&gt;
 
-&lt;h4 id=&quot;0x8-锯齿形出货&quot;&gt;0x8 锯齿形出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x6-跌停板出货&quot;&gt;0x6 跌停板出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x7-锯齿形出货&quot;&gt;0x7 锯齿形出货&lt;/h4&gt;
+
+&lt;p&gt;不断”对倒+出货”,在维护股价的基础上一直出货.注:锯齿形态需要对应有成交量,如果有锯齿但基本没有成交量则是由于成交不活跃导致的,这种不能简单判断为在出货.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/jcch.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;不断”对倒+出货”,在维护股价的基础上一直出货&lt;/p&gt;
+&lt;h4 id=&quot;0x10-k线拉升出货&quot;&gt;0x10 k线拉升出货&lt;/h4&gt;
 
-&lt;h4 id=&quot;0x9-k线拉升出货&quot;&gt;0x9 k线拉升出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x11-拆单小草出货&quot;&gt;0x11 拆单小草出货&lt;/h4&gt;
 
-&lt;h4 id=&quot;0x10-拆单小草出货&quot;&gt;0x10 拆单小草出货&lt;/h4&gt;
-
-&lt;h4 id=&quot;0x11-分时图拉升规律突变&quot;&gt;0x11 分时图拉升规律突变&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/lstb.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;0x12-分时图拉升规律突变&quot;&gt;0x12 分时图拉升规律突变&lt;/h4&gt;
 
 &lt;p&gt;拉升规律突然变化,意味着主力不想再拉了&lt;/p&gt;
 
-&lt;h4 id=&quot;0x12-无穷成本均线下横盘&quot;&gt;0x12 无穷成本均线下横盘&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/lstb.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxhp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;0x13-无穷成本均线下横盘&quot;&gt;0x13 无穷成本均线下横盘&lt;/h4&gt;
 
 &lt;p&gt;股价处于高位时个股在无穷成本均线下方横盘,或围绕着无穷成本均线振荡且横盘期间多数时间处于无穷成本均线下方,是主力出货迹象&lt;/p&gt;
 
-&lt;h4 id=&quot;0x13-下跌放量上涨缩量&quot;&gt;0x13 下跌放量上涨缩量&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxhp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0x14-下跌放量上涨缩量&quot;&gt;0x14 下跌放量上涨缩量&lt;/h4&gt;
+
+&lt;p&gt;日k线下跌放量上涨缩量&lt;/p&gt;
+
+&lt;p&gt;分时图下跌放量上涨缩量&lt;/p&gt;
+
+&lt;h4 id=&quot;0x15-大单拉升小单出货&quot;&gt;0x15 大单拉升小单出货&lt;/h4&gt;
 </description>
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>
@@ -167,7 +184,7 @@
 
 &lt;p&gt;于是得出以下结论:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ 主力最好的出货方式是边拉升边出货
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ 主力最好的出货方式是边拉升边出货,利用拉升缩量下跌放量达到拉升出货的目的
 + 主力最好的出货时机是个股有利好或大盘情况良好
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
