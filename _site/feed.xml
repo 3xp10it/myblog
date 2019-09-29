@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 29 Sep 2019 15:53:53 +0800</pubDate>
-    <lastBuildDate>Sun, 29 Sep 2019 15:53:53 +0800</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2019 18:15:13 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 18:15:13 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -117,35 +117,37 @@
 
 &lt;h4 id=&quot;0x6-跌停板出货&quot;&gt;0x6 跌停板出货&lt;/h4&gt;
 
+&lt;p&gt;主力在跌停板出货,出货特征是跌停时委卖队列中的的大单一直被成交,说明主力是有效的卖出,且结合委卖队列和卖一的总卖量看大单没有明显撤单行为.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/dtbch.mp4&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
 &lt;h4 id=&quot;0x7-锯齿形出货&quot;&gt;0x7 锯齿形出货&lt;/h4&gt;
 
 &lt;p&gt;不断”对倒+出货”,在维护股价的基础上一直出货.注:锯齿形态需要对应有成交量,如果有锯齿但基本没有成交量则是由于成交不活跃导致的,这种不能简单判断为在出货.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/jcch.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x10-k线拉升出货&quot;&gt;0x10 k线拉升出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x8-拆单小草出货&quot;&gt;0x8 拆单小草出货&lt;/h4&gt;
 
-&lt;h4 id=&quot;0x11-拆单小草出货&quot;&gt;0x11 拆单小草出货&lt;/h4&gt;
-
-&lt;h4 id=&quot;0x12-分时图拉升规律突变&quot;&gt;0x12 分时图拉升规律突变&lt;/h4&gt;
+&lt;h4 id=&quot;0x9-分时图拉升规律突变&quot;&gt;0x9 分时图拉升规律突变&lt;/h4&gt;
 
 &lt;p&gt;拉升规律突然变化,意味着主力不想再拉了&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/lstb.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x13-无穷成本均线下横盘&quot;&gt;0x13 无穷成本均线下横盘&lt;/h4&gt;
+&lt;h4 id=&quot;0x10-无穷成本均线下横盘&quot;&gt;0x10 无穷成本均线下横盘&lt;/h4&gt;
 
 &lt;p&gt;股价处于高位时个股在无穷成本均线下方横盘,或围绕着无穷成本均线振荡且横盘期间多数时间处于无穷成本均线下方,是主力出货迹象&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxhp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x14-下跌放量上涨缩量&quot;&gt;0x14 下跌放量上涨缩量&lt;/h4&gt;
+&lt;h4 id=&quot;0x11-下跌放量上涨缩量&quot;&gt;0x11 下跌放量上涨缩量&lt;/h4&gt;
 
 &lt;p&gt;日k线下跌放量上涨缩量&lt;/p&gt;
 
 &lt;p&gt;分时图下跌放量上涨缩量&lt;/p&gt;
 
-&lt;h4 id=&quot;0x15-大单拉升小单出货&quot;&gt;0x15 大单拉升小单出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x12-大单拉升小单出货&quot;&gt;0x12 大单拉升小单出货&lt;/h4&gt;
 </description>
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>
