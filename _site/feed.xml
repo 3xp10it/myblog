@@ -5,9 +5,34 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 08 Oct 2019 22:03:41 +0800</pubDate>
-    <lastBuildDate>Tue, 08 Oct 2019 22:03:41 +0800</lastBuildDate>
+    <pubDate>Thu, 10 Oct 2019 18:43:31 +0800</pubDate>
+    <lastBuildDate>Thu, 10 Oct 2019 18:43:31 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>诱多</title>
+        <description>&lt;h3 id=&quot;0x1-诱多的目的&quot;&gt;0x1 诱多的目的&lt;/h3&gt;
+
+&lt;p&gt;主力一般通过诱多与诱空来达到操盘的目的,如通过诱多来出货,通过诱空来吃货.诱空的目的是吃货或洗盘,是好事,证明主力将要做多股票;而诱多的目的有拉升/护盘/出货,以出货为目的的诱多是坏事,而以拉升/护盘为目的的诱多不是坏事.&lt;/p&gt;
+
+&lt;h3 id=&quot;0x2-诱多的方法&quot;&gt;0x2 诱多的方法&lt;/h3&gt;
+
+&lt;h3 id=&quot;0x3-诱多实例&quot;&gt;0x3 诱多实例&lt;/h3&gt;
+
+&lt;h3 id=&quot;0x4-小结&quot;&gt;0x4 小结&lt;/h3&gt;
+</description>
+        <pubDate>Thu, 10 Oct 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/10/10/%E8%AF%B1%E5%A4%9A/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/10/10/%E8%AF%B1%E5%A4%9A/</guid>
+        
+        <category>对倒</category>
+        
+        <category>主力</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>怎样找出对倒</title>
@@ -123,37 +148,37 @@
 
 &lt;h4 id=&quot;0x7-涨停板出货&quot;&gt;0x7 涨停板出货&lt;/h4&gt;
 
-&lt;p&gt;主力封板时不在买一封,而是在买一之后(如买二/买三)价位处挂大托单,目的是吸引散户在买一处封板,然后大单砸给散户,砸盘时只会砸到买一(散户的挂单),因为如果把主力自己的挂单也砸掉了则容易引起恐慌,而留下主力自己的大托单则会吸引散户往买一价位挂单.&lt;/p&gt;
+&lt;p&gt;主力封板时不在买一封,而是在买一之后(如买二/买三)价位处挂大托单,目的是吸引散户在买一处封板,然后大单砸给散户,砸盘时只会砸到买一(散户的挂单),因为如果把主力自己的挂单也砸掉了则容易引起恐慌,而留下主力自己的大托单则会吸引散户往买一价位挂单.一般情况下,如果散户不在买一挂单则主力会带头在买一挂大单,吸引散户在买一挂单后主力会撤单.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ztbch.gif&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x7-锯齿形出货&quot;&gt;0x7 锯齿形出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x8-锯齿形出货&quot;&gt;0x8 锯齿形出货&lt;/h4&gt;
 
 &lt;p&gt;不断”对倒+出货”,在维护股价的基础上一直出货.注:锯齿形态需要对应有成交量,如果有锯齿但基本没有成交量则是由于成交不活跃导致的,这种不能简单判断为在出货.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/jcch.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x8-拆单小草出货&quot;&gt;0x8 拆单小草出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x9-拆单小草出货&quot;&gt;0x9 拆单小草出货&lt;/h4&gt;
 
-&lt;h4 id=&quot;0x9-分时图拉升规律突变&quot;&gt;0x9 分时图拉升规律突变&lt;/h4&gt;
+&lt;h4 id=&quot;0x10-分时图拉升规律突变&quot;&gt;0x10 分时图拉升规律突变&lt;/h4&gt;
 
 &lt;p&gt;拉升规律突然变化,意味着主力不想再拉了&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/lstb.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x10-无穷成本均线下横盘&quot;&gt;0x10 无穷成本均线下横盘&lt;/h4&gt;
+&lt;h4 id=&quot;0x11-无穷成本均线下横盘&quot;&gt;0x11 无穷成本均线下横盘&lt;/h4&gt;
 
 &lt;p&gt;股价处于高位时个股在无穷成本均线下方横盘,或围绕着无穷成本均线振荡且横盘期间多数时间处于无穷成本均线下方,是主力出货迹象&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxhp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x11-下跌放量上涨缩量&quot;&gt;0x11 下跌放量上涨缩量&lt;/h4&gt;
+&lt;h4 id=&quot;0x12-下跌放量上涨缩量&quot;&gt;0x12 下跌放量上涨缩量&lt;/h4&gt;
 
 &lt;p&gt;日k线下跌放量上涨缩量&lt;/p&gt;
 
 &lt;p&gt;分时图下跌放量上涨缩量&lt;/p&gt;
 
-&lt;h4 id=&quot;0x12-大单拉升小单出货&quot;&gt;0x12 大单拉升小单出货&lt;/h4&gt;
+&lt;h4 id=&quot;0x13-大单拉升小单出货&quot;&gt;0x13 大单拉升小单出货&lt;/h4&gt;
 </description>
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>
@@ -782,29 +807,6 @@ print(line_format % (process.pid, process.name))
         <category>盘口</category>
         
         <category>龙虎榜</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>民间股神1,2,3,4,6,7笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/民间股神.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E1-15%E4%BD%8D%E8%82%A1%E6%9E%97%E9%AB%98%E7%89%A9%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神1&lt;/a&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E2-%E5%8D%81%E5%A4%A7%E8%82%A1%E6%9E%97%E9%AB%98%E6%89%8B%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神2&lt;/a&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E3-%E5%85%AB%E5%A4%A7%E8%82%A1%E6%9E%97%E9%AB%98%E6%89%8B%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神3&lt;/a&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E4-%E4%B9%9D%E5%A4%A7%E8%82%A1%E6%9E%97%E9%AB%98%E6%89%8B%E8%B5%A2%E9%92%B1%E7%A7%98%E6%8B%9B%E5%A4%A7%E7%89%B9%E5%86%99.pdf&quot;&gt;民间股神4&lt;/a&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E6-%E8%82%A1%E5%B8%82%E5%A5%87%E4%BA%BA%E9%89%B4%E8%82%A1%E5%AF%86%E7%A0%81.pdf&quot;&gt;民间股神6&lt;/a&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E7-%E8%8D%89%E6%A0%B9%E8%8B%B1%E6%9D%B0%E6%83%8A%E4%B8%96%E5%A5%87%E8%BF%B9.pdf&quot;&gt;民间股神7&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 29 Jun 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/06/29/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E1,2,3,4,6,7%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/06/29/%E6%B0%91%E9%97%B4%E8%82%A1%E7%A5%9E1,2,3,4,6,7%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>民间股神</category>
         
         
         <category>炒股</category>
