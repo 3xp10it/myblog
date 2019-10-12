@@ -5,17 +5,80 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 10 Oct 2019 18:43:31 +0800</pubDate>
-    <lastBuildDate>Thu, 10 Oct 2019 18:43:31 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Oct 2019 08:42:58 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Oct 2019 08:42:58 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>macOS中英文输入法自动切换方案</title>
+        <description>&lt;h3 id=&quot;0x1-vim中英文自动切换&quot;&gt;0x1 vim中英文自动切换&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;vim使用&lt;a href=&quot;https://github.com/CodeFalling/fcitx-vim-osx&quot;&gt;fcitx-vim-osx&lt;/a&gt;插件,添加&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+shift+z&lt;/code&gt;为切换英文&lt;/td&gt;
+      &lt;td&gt;百度五笔输入法快捷键&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mRzx6z.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x2-系统输入法设置&quot;&gt;0x2 系统输入法设置&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用百度五笔输入法并设置百度五笔输入法中只能使用中文输入,在将百度五笔切换成中文输入后如下设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/gS9K8I.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;keyboard maestro设置英文&lt;/td&gt;
+          &lt;td&gt;百度五笔输入法的切换快捷键为&lt;code class=&quot;highlighter-rouge&quot;&gt;command_left&lt;/code&gt;,如下:&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/z76Tjb.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2019/10/12/macOS%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2019/10/12/macOS%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/</guid>
+        
+        <category>输入法</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>诱多</title>
         <description>&lt;h3 id=&quot;0x1-诱多的目的&quot;&gt;0x1 诱多的目的&lt;/h3&gt;
 
-&lt;p&gt;主力一般通过诱多与诱空来达到操盘的目的,如通过诱多来出货,通过诱空来吃货.诱空的目的是吃货或洗盘,是好事,证明主力将要做多股票;而诱多的目的有拉升/护盘/出货,以出货为目的的诱多是坏事,而以拉升/护盘为目的的诱多不是坏事.&lt;/p&gt;
+&lt;p&gt;主力一般通过诱多与诱空来达到操控股价的目的,如通过诱多来出货,通过诱空来吃货.&lt;code class=&quot;highlighter-rouge&quot;&gt;诱空的目的是:吃货或洗盘&lt;/code&gt;,是好事,证明主力将要做多股票;而&lt;code class=&quot;highlighter-rouge&quot;&gt;诱多的目的有:护盘/活跃股性/减轻拉升压力/出货&lt;/code&gt;,以出货为目的的诱多是坏事,而以护盘/活跃股性/减轻拉升压力为目的的诱多不是坏事.诱多有可能出现在拉升的不同阶段:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;拉升前期的诱多是为了提高股票活跃度便于后续出货&lt;/li&gt;
+  &lt;li&gt;拉升中期的诱多是为了减轻拉升压力,这时主力和散户一起推升股价&lt;/li&gt;
+  &lt;li&gt;拉升后期的诱多是为了出货,主力拉升后马上出货&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;0x2-诱多的方法&quot;&gt;0x2 诱多的方法&lt;/h3&gt;
+
+&lt;p&gt;诱多的方法有2种:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;向上对倒&lt;/li&gt;
+  &lt;li&gt;托单推升股价&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;0x3-诱多实例&quot;&gt;0x3 诱多实例&lt;/h3&gt;
 
@@ -785,28 +848,6 @@ print(line_format % (process.pid, process.name))
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/09/%E7%9B%98%E5%8F%A3/</guid>
         
         <category>盘口</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>资金流书笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/狂龙十八段.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/3xp10it/books/blob/master/%E8%B5%84%E9%87%91%E6%B5%81%E4%B9%A6.pdf&quot;&gt;资金流书&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 14 Jul 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/07/14/%E8%B5%84%E9%87%91%E6%B5%81%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/07/14/%E8%B5%84%E9%87%91%E6%B5%81%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>狂龙十八段</category>
-        
-        <category>盘口</category>
-        
-        <category>龙虎榜</category>
         
         
         <category>炒股</category>

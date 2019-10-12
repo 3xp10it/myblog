@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>macOS中英文输入法自动切换方案</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -92,51 +92,123 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">macOS中英文输入法自动切换方案</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">October 12, 2019</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x1-vim中英文自动切换">0x1 vim中英文自动切换</h3>
+
+<p>vim使用<a href="https://github.com/CodeFalling/fcitx-vim-osx">fcitx-vim-osx</a>插件,使用中<code class="highlighter-rouge">fcitx-vim-osx</code>要求添加<code class="highlighter-rouge">ctrl+shift+z</code>为切换<code class="highlighter-rouge">英文|百度五笔输入法</code>快捷键</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/mRzx6z.png" data-action="zoom" /></p>
+
+<h3 id="0x2-系统输入法设置">0x2 系统输入法设置</h3>
+
+<ul>
+  <li>使用百度五笔输入法并设置百度五笔输入法中只能使用中文输入,在将百度五笔切换成中文输入后如下设置</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/NJF1tI.png" data-action="zoom" /></p>
+
+<ul>
+  <li>keyboard maestro设置<code class="highlighter-rouge">英文|百度五笔输入法</code>的切换快捷键为<code class="highlighter-rouge">command_left</code>,可实现按一下左command键实现中英文之间的切换,如下:</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/z76Tjb.png" data-action="zoom" /></p>
+
+<ul>
+  <li>GhostSKB设置常用APP的初始输入法,如下:</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/APlu00.png" data-action="zoom" /></p>
+
+<ul>
+  <li>keyboard maestro设置常用APP被切换回到使用状态时的输入法,如下:</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/jLt7Y1.png" data-action="zoom" /></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/rGc5XT.png" data-action="zoom" /></p>
+
+<ul>
+  <li>由于上面将chrome的默认输入法设置为英文输入,导致在经常使用的google搜索中文关键字时需要切换一次,可用keyboard maestro如下解决:</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/Rwfy3l.png" data-action="zoom" /></p>
+
+<h3 id="0x3-效果">0x3 效果</h3>
+
+<ul>
+  <li>“删除”百度五笔的英文输入方式后,可在系统中cmd一键切换中英文输入法</li>
+  <li>常用应用启动和切换到使用中时都会使用默认输入法</li>
+</ul>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            输入法
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2019/10/12/macOS%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2019/10/12/macOS%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">macOS中英文输入法自动切换方案</a>
-      </div>
-      <div class="excerpt">
-         
-          macOS中英文输入法自动切换方案
-         
-        <a href="/auxilary/2019/10/12/macOS%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E6%96%B9%E6%A1%88/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>
