@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Oct 2019 12:21:35 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Oct 2019 12:21:35 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Oct 2019 13:52:51 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Oct 2019 13:52:51 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -230,7 +230,8 @@
 
 &lt;p&gt;对倒的本质是&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即某价位大挂单被成交,在对倒的”果”出现之前必然会先出现”因”,也即某价位大挂单的出现.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象:
+一般在基金股中较容易 出现大单与大单之间的交易,很有可能就是基金A将一笔大单卖给基金B的行为,另外在庄股中也有可能出现大单与大单之间的交易不是对倒的情况,如庄家与非庄家大户之间的交易 ,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddyg.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
@@ -244,7 +245,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/kpltyjd.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;由于开盘啦的压单/托单/夹单是固定的指标,要求在一定的金额以上的挂单才会被识别,导致可能会漏掉一些真实的压单/托单/夹单.这种被漏掉的可通过同花顺分时图的委买委卖相关的”买卖力道”指标找出,通过它找出委买和委卖突然大幅增加/减少的点(突然增加很有可能是为对倒做准备,突然减少则有可能是刚发生完对倒),再通过超级盘口进行分析.&lt;/p&gt;
+&lt;p&gt;由于开盘啦的压单/托单/夹单是固定的指标,要求在一定的金额以上的挂单及一定真实流通市值以内的个股(要求真实流通市值小于50e)才会被识别,导致可能会漏掉一些真实的压单/托单/夹单.这种被漏掉的可通过同花顺分时图的委买委卖相关的”买卖力道”指标找出,通过它找出委买和委卖突然大幅增加/减少的点(突然增加很有可能是为对倒做准备,突然减少则有可能是刚发生完对倒),再通过超级盘口进行分析.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mmld.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
