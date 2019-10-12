@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Oct 2019 10:20:19 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Oct 2019 10:20:19 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Oct 2019 12:05:13 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Oct 2019 12:05:13 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -23,24 +23,86 @@
   &lt;li&gt;设置hyper功能键支持快速打开较常用应用&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/eHGYbv.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/DYBwI7.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意:上面的keyboard maestro中的hyper组里面的macros的名称必须设置为”xxx:”开头,触发快捷键为输入hyper键(也即command_right)后再输入对应的”xxx”,如上面截图中打开appstore的快捷键为按下&lt;code class=&quot;highlighter-rouge&quot;&gt;command_right&lt;/code&gt;后再输入&lt;code class=&quot;highlighter-rouge&quot;&gt;ap&lt;/code&gt;.&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;0x2-常用应用内部快捷键&quot;&gt;0x2 常用应用内部快捷键&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;tmux快速切换面板&lt;/li&gt;
-  &lt;li&gt;vim caps转esc和ctrl&lt;/li&gt;
+  &lt;li&gt;tmux快速切换面板,在iTerm中通过&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+1&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+2&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+3&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+4&lt;/code&gt;快速切换面板&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/4GhgJg.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/BSkcvA.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为便于vim的使用,设置按一下caps为esc,按住为ctrl&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/FUXJFg.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;uPic快速上传截图&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;karabiner-elements设置caps按一下为esc,按住为ctrl&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/JCP7oR.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Qd03dn.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x3-全系统快速跳转&quot;&gt;0x3 全系统快速跳转&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;安装shortcat在大多数应用中快速跳转&lt;/li&gt;
-  &lt;li&gt;使用keymo快速跳转到屏幕任一位置&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/LfIKIj.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用keymou使鼠标快速跳转到屏幕任一位置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;设置不在以下APP中使用,且keymou组里面的macros的生效触发键为&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+opton+j&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ZqWr8l.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设置keymou内部快捷键如下,keymou的重点功能是区域移动&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Division&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/we3ImK.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;qwer&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;asdf&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;uiop&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;jkl;&lt;/code&gt;分别为当前屏幕面板的左上,左下,右上,右下区域,如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/keymou_setup.gif&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+j&lt;/code&gt;快速激活keyboard maestro中keymou组的macros并打开keymou的&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Division&lt;/code&gt;功能,再次按下&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+j&lt;/code&gt;后会自动退出keymou的macros和&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Division&lt;/code&gt;,设置如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Hsbd2I.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/PoJCMq.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Divison&lt;/code&gt;结合上面设置的左上,左下,右上,右下区域的快速跳转可实现鼠标快速跳转到屏幕任一位置,如下图跳转到目标位置只要5次按键:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/keymou_target.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下面演示的鼠标快速跳转到目标位置对应的按键依次是&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+j&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;p&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;l&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+j&lt;/code&gt;,共5次按键,最后再加一次微调&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+shift+h&lt;/code&gt;向左微调,实际不微调一般也可达到目的&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/keymou_move_eg.gif&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注:大多数APP用shortcat就可以实现快速移动了,只有少数无法通过shortcat快速移动的时候才用keymou,如在虚拟机里面需要用到keymou&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;0x4-全系统快速编辑&quot;&gt;0x4 全系统快速编辑&lt;/h3&gt;
+
+&lt;p&gt;实现全系统文本框可使用vim编辑,定位到文本框后触发快捷键为&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+i&lt;/code&gt;,设置如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/system_input_vim.gif&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x5-参考&quot;&gt;0x5 参考&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/27158546&quot;&gt;Mac 下有哪些能极大地提高工作效率的软件&lt;/a&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/</link>
