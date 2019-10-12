@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Oct 2019 12:05:13 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Oct 2019 12:05:13 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Oct 2019 12:20:07 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Oct 2019 12:20:07 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -102,6 +102,8 @@
 &lt;h3 id=&quot;0x5-参考&quot;&gt;0x5 参考&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/27158546&quot;&gt;Mac 下有哪些能极大地提高工作效率的软件&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注:本文涉及keyboard maestro的macros已上传到&lt;a href=&quot;https://github.com/3xp10it/config/blob/master/keyboard%20maestro/keyboard%20maestro%20macros%20backup.kmmacros&quot;&gt;这里&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
