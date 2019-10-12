@@ -5,47 +5,105 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Oct 2019 08:42:58 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Oct 2019 08:42:58 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Oct 2019 10:20:19 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Oct 2019 10:20:19 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>macOS全键盘操作方案</title>
+        <description>&lt;h3 id=&quot;0x1-快速打开应用&quot;&gt;0x1 快速打开应用&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置快捷键快速打开最常用应用,如下:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/pGRsY1.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置hyper功能键支持快速打开较常用应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x2-常用应用内部快捷键&quot;&gt;0x2 常用应用内部快捷键&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;tmux快速切换面板&lt;/li&gt;
+  &lt;li&gt;vim caps转esc和ctrl&lt;/li&gt;
+  &lt;li&gt;uPic快速上传截图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;karabiner-elements设置caps按一下为esc,按住为ctrl&lt;/p&gt;
+
+&lt;h3 id=&quot;0x3-全系统快速跳转&quot;&gt;0x3 全系统快速跳转&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装shortcat在大多数应用中快速跳转&lt;/li&gt;
+  &lt;li&gt;使用keymo快速跳转到屏幕任一位置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x4-全系统快速编辑&quot;&gt;0x4 全系统快速编辑&lt;/h3&gt;
+</description>
+        <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/</guid>
+        
+        <category>macOS</category>
+        
+        <category>全键盘</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>macOS中英文输入法自动切换方案</title>
         <description>&lt;h3 id=&quot;0x1-vim中英文自动切换&quot;&gt;0x1 vim中英文自动切换&lt;/h3&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;vim使用&lt;a href=&quot;https://github.com/CodeFalling/fcitx-vim-osx&quot;&gt;fcitx-vim-osx&lt;/a&gt;插件,添加&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+shift+z&lt;/code&gt;为切换英文&lt;/td&gt;
-      &lt;td&gt;百度五笔输入法快捷键&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;vim使用&lt;a href=&quot;https://github.com/CodeFalling/fcitx-vim-osx&quot;&gt;fcitx-vim-osx&lt;/a&gt;插件,使用中&lt;code class=&quot;highlighter-rouge&quot;&gt;fcitx-vim-osx&lt;/code&gt;要求添加&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+shift+z&lt;/code&gt;为切换&lt;code class=&quot;highlighter-rouge&quot;&gt;英文|百度五笔输入法&lt;/code&gt;快捷键&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/mRzx6z.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-系统输入法设置&quot;&gt;0x2 系统输入法设置&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;使用百度五笔输入法并设置百度五笔输入法中只能使用中文输入,在将百度五笔切换成中文输入后如下设置&lt;/li&gt;
+  &lt;li&gt;使用百度五笔输入法并设置百度五笔输入法中只能使用中文输入(“删除”百度五笔的英文输入方式),在将百度五笔切换成中文输入后如下设置&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/gS9K8I.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/NJF1tI.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;keyboard maestro设置英文&lt;/td&gt;
-          &lt;td&gt;百度五笔输入法的切换快捷键为&lt;code class=&quot;highlighter-rouge&quot;&gt;command_left&lt;/code&gt;,如下:&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;keyboard maestro设置&lt;code class=&quot;highlighter-rouge&quot;&gt;英文|百度五笔输入法&lt;/code&gt;的切换快捷键为&lt;code class=&quot;highlighter-rouge&quot;&gt;command_left&lt;/code&gt;,可实现按一下左command键实现中英文之间的切换,如下:&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/z76Tjb.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;GhostSKB设置常用APP的初始输入法,如下:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/APlu00.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;keyboard maestro设置常用APP被切换回到使用状态时的输入法,如下:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/jLt7Y1.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/rGc5XT.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;由于上面将chrome的默认输入法设置为英文输入,导致在经常使用的google搜索中文关键字时需要切换一次,可用keyboard maestro如下解决:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Rwfy3l.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0x3-效果&quot;&gt;0x3 效果&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;系统只保留两种输入法:系统自带英文输入法/百度五笔的中文输入方式&lt;/li&gt;
+  &lt;li&gt;“删除”百度五笔的英文输入方式后,可在系统中cmd一键切换中英文输入法&lt;/li&gt;
+  &lt;li&gt;常用应用启动和切换到使用中时都会使用默认输入法&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
@@ -828,29 +886,6 @@ print(line_format % (process.pid, process.name))
         
         
         <category>二进制</category>
-        
-      </item>
-    
-      <item>
-        <title>盘口</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘口.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;参考&quot;&gt;参考&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.5xcg.com/&quot;&gt;宋磊盘口&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://book.douban.com/subject_search?search_text=%E4%B8%BB%E5%8A%9B%E8%A1%8C%E4%B8%BA%E7%9B%98%E5%8F%A3%E8%A7%A3%E5%AF%86&amp;amp;cat=1001&quot;&gt;翁富主力行为盘口解密1-6&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Fri, 09 Aug 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/09/%E7%9B%98%E5%8F%A3/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/09/%E7%9B%98%E5%8F%A3/</guid>
-        
-        <category>盘口</category>
-        
-        
-        <category>炒股</category>
         
       </item>
     

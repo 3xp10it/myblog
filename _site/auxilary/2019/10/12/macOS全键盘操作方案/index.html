@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>macOS全键盘操作方案</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -92,51 +92,163 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">macOS全键盘操作方案</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">October 12, 2019</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h3 id="0x1-快速打开应用">0x1 快速打开应用</h3>
+
+<ul>
+  <li>设置快捷键快速打开最常用应用,如下:</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/pGRsY1.png" data-action="zoom" /></p>
+
+<ul>
+  <li>设置hyper功能键支持快速打开较常用应用</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/eHGYbv.png" data-action="zoom" /></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/DYBwI7.png" data-action="zoom" /></p>
+
+<p><strong>注意:上面的keyboard maestro中的hyper组里面的macros的名称必须设置为”xxx:”开头,触发快捷键为输入hyper键(也即command_right)后再输入对应的”xxx”,如上面截图中打开appstore的快捷键为按下<code class="highlighter-rouge">command_right</code>后再输入<code class="highlighter-rouge">ap</code>.</strong></p>
+
+<h3 id="0x2-常用应用内部快捷键">0x2 常用应用内部快捷键</h3>
+
+<ul>
+  <li>tmux快速切换面板,在iTerm中通过<code class="highlighter-rouge">ctrl+1</code>,<code class="highlighter-rouge">ctrl+2</code>,<code class="highlighter-rouge">ctrl+3</code>,<code class="highlighter-rouge">ctrl+4</code>快速切换面板</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/4GhgJg.png" data-action="zoom" /></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/BSkcvA.png" data-action="zoom" /></p>
+
+<ul>
+  <li>为便于vim的使用,设置按一下caps为esc,按住为ctrl</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/FUXJFg.png" data-action="zoom" /></p>
+
+<ul>
+  <li>uPic快速上传截图</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/JCP7oR.png" data-action="zoom" /></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/Qd03dn.png" data-action="zoom" /></p>
+
+<h3 id="0x3-全系统快速跳转">0x3 全系统快速跳转</h3>
+
+<ul>
+  <li>安装shortcat在大多数应用中快速跳转</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/LfIKIj.png" data-action="zoom" /></p>
+
+<ul>
+  <li>使用keymou使鼠标快速跳转到屏幕任一位置</li>
+</ul>
+
+<p>设置不在以下APP中使用,且keymou组里面的macros的生效触发键为<code class="highlighter-rouge">cmd+opton+j</code></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/ZqWr8l.png" data-action="zoom" /></p>
+
+<p>设置keymou内部快捷键如下,keymou的重点功能是区域移动<code class="highlighter-rouge">Move by Division</code>:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/we3ImK.png" data-action="zoom" /></p>
+
+<p>设置<code class="highlighter-rouge">qwer</code>,<code class="highlighter-rouge">asdf</code>,<code class="highlighter-rouge">uiop</code>,<code class="highlighter-rouge">jkl;</code>分别为当前屏幕面板的左上,左下,右上,右下区域,如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/keymou_setup.gif" data-action="zoom" /></p>
+
+<p>设置<code class="highlighter-rouge">cmd+j</code>快速激活keyboard maestro中keymou组的macros并打开keymou的<code class="highlighter-rouge">Move by Division</code>功能,再次按下<code class="highlighter-rouge">cmd+j</code>后会自动退出keymou的macros和<code class="highlighter-rouge">Move by Division</code>,设置如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/Hsbd2I.png" data-action="zoom" /></p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/PoJCMq.png" data-action="zoom" /></p>
+
+<p><code class="highlighter-rouge">Move by Divison</code>结合上面设置的左上,左下,右上,右下区域的快速跳转可实现鼠标快速跳转到屏幕任一位置,如下图跳转到目标位置只要5次按键:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/keymou_target.jpg" data-action="zoom" /></p>
+
+<p>下面演示的鼠标快速跳转到目标位置对应的按键依次是<code class="highlighter-rouge">cmd+j</code>,<code class="highlighter-rouge">p</code>,<code class="highlighter-rouge">a</code>,<code class="highlighter-rouge">l</code>,<code class="highlighter-rouge">cmd+j</code>,共5次按键,最后再加一次微调<code class="highlighter-rouge">cmd+shift+h</code>向左微调,实际不微调一般也可达到目的</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/keymou_move_eg.gif" data-action="zoom" /></p>
+
+<p><strong>注:大多数APP用shortcat就可以实现快速移动了,只有少数无法通过shortcat快速移动的时候才用keymou,如在虚拟机里面需要用到keymou</strong></p>
+
+<h3 id="0x4-全系统快速编辑">0x4 全系统快速编辑</h3>
+
+<p>实现全系统文本框可使用vim编辑,定位到文本框后触发快捷键为<code class="highlighter-rouge">cmd+i</code>,设置如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/system_input_vim.gif" data-action="zoom" /></p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            macOS, 全键盘
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/">macOS全键盘操作方案</a>
-      </div>
-      <div class="excerpt">
-         
-          macOS全键盘操作方案
-         
-        <a href="/auxilary/2019/10/12/macOS%E5%85%A8%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C%E6%96%B9%E6%A1%88/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>
