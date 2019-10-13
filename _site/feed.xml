@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 13 Oct 2019 12:44:53 +0800</pubDate>
-    <lastBuildDate>Sun, 13 Oct 2019 12:44:53 +0800</lastBuildDate>
+    <pubDate>Sun, 13 Oct 2019 12:58:43 +0800</pubDate>
+    <lastBuildDate>Sun, 13 Oct 2019 12:58:43 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -83,7 +83,7 @@
 
 &lt;p&gt;设置keymou内部快捷键如下,keymou的重点功能是区域移动&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Division&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xsToaT.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/eUNWVP.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;qwer&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;asdf&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;uiop&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;jkl;&lt;/code&gt;分别为当前屏幕面板的左上,左下,右上,右下区域,如下:&lt;/p&gt;
 
@@ -93,7 +93,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Hsbd2I.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/FAxRnp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/W1tWzA.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Divison&lt;/code&gt;结合上面设置的左上,左下,右上,右下区域的快速跳转可实现鼠标快速跳转到屏幕任一位置,如下图跳转到目标位置只要5次按键:&lt;/p&gt;
 
