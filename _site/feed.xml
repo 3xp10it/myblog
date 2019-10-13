@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Oct 2019 13:52:51 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Oct 2019 13:52:51 +0800</lastBuildDate>
+    <pubDate>Sun, 13 Oct 2019 12:44:53 +0800</pubDate>
+    <lastBuildDate>Sun, 13 Oct 2019 12:44:53 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -32,6 +32,12 @@
 &lt;h3 id=&quot;0x2-常用应用内部快捷键&quot;&gt;0x2 常用应用内部快捷键&lt;/h3&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;chrome使用vimium插件,设置如下:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Uotjws.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;tmux快速切换面板,在iTerm中通过&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+1&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+2&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+3&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+4&lt;/code&gt;快速切换面板&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -53,6 +59,12 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Qd03dn.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;使用magnet移动窗口,设置如下:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/d2BkwZ.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;0x3-全系统快速跳转&quot;&gt;0x3 全系统快速跳转&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -71,7 +83,7 @@
 
 &lt;p&gt;设置keymou内部快捷键如下,keymou的重点功能是区域移动&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Division&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/we3ImK.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xsToaT.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;qwer&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;asdf&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;uiop&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;jkl;&lt;/code&gt;分别为当前屏幕面板的左上,左下,右上,右下区域,如下:&lt;/p&gt;
 
@@ -81,7 +93,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/Hsbd2I.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/PoJCMq.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/FAxRnp.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Move by Divison&lt;/code&gt;结合上面设置的左上,左下,右上,右下区域的快速跳转可实现鼠标快速跳转到屏幕任一位置,如下图跳转到目标位置只要5次按键:&lt;/p&gt;
 
@@ -230,10 +242,16 @@
 
 &lt;p&gt;对倒的本质是&lt;code class=&quot;highlighter-rouge&quot;&gt;果&lt;/code&gt;,也即某价位大挂单被成交,在对倒的”果”出现之前必然会先出现”因”,也即某价位大挂单的出现.如果只有”因”而没有”果”则是对应着&lt;code class=&quot;highlighter-rouge&quot;&gt;压单/托单/夹单&lt;/code&gt;,压单/托单/夹单得到成交就变成了对倒.&lt;code class=&quot;highlighter-rouge&quot;&gt;空中成交&lt;/code&gt;形式的对倒算是一种特殊的”出现大挂单和大挂单被成交”,只是速度快到交易软件来不及在委托栏显示.另外还有一种特殊的大挂单不容易被发现,也即在买卖十档以上的委托位置出现的大挂单,例如在卖二十位置突然出现一手价值100W的大挂单,这种情况人眼无法看到,可以通过同花顺&lt;code class=&quot;highlighter-rouge&quot;&gt;超级盘口&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;总买量&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;总卖量&lt;/code&gt;数值的突变来感知,或通过稍后的大单成交来发现(如果是有效的对倒,那么卖二十处的大单后面肯定会被成交).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;注:大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能产生这两个现象:
-一般在基金股中较容易 出现大单与大单之间的交易,很有可能就是基金A将一笔大单卖给基金B的行为,另外在庄股中也有可能出现大单与大单之间的交易不是对倒的情况,如庄家与非庄家大户之间的交易 ,如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意:&lt;/strong&gt;&lt;br /&gt;
+大挂单的出现和大挂单被成交是对倒的必要不充分条件,也即非庄家大户的动作也可能出现这种现象,如下2种场景:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;基金股(混庄,非小盘股,无绝对庄家)中基金A将一笔大单卖给基金B的行为,例如基金B在买盘托单护盘而基金A直接甩货给基金B&lt;/li&gt;
+  &lt;li&gt;庄股(单庄,小盘股,有绝对庄家)中庄家与非庄家大户之间的交易,例如庄家在卖盘压单洗盘而非庄家大户直接向上啃出一笔大单&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ddyg.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;如果一个疑似对倒的现象不具备庄家对倒的意义,则应判断为该现象是非庄家大户的正常买入或卖出行为.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/2e9Fo0.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;0x2-找出对倒&quot;&gt;0x2 找出对倒&lt;/h3&gt;
 
