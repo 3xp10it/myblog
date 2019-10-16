@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 16 Oct 2019 08:58:11 +0800</pubDate>
-    <lastBuildDate>Wed, 16 Oct 2019 08:58:11 +0800</lastBuildDate>
+    <pubDate>Wed, 16 Oct 2019 21:45:53 +0800</pubDate>
+    <lastBuildDate>Wed, 16 Oct 2019 21:45:53 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -77,6 +77,10 @@
   &lt;li&gt;使用keymou使鼠标快速跳转到屏幕任一位置&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;strong&gt;注意:一定不能将keymou设置为standard程序运行(如下图),否则keymou在全屏的APP中将无法使用,如全屏的finder或全屏的虚拟机,可设置为menu bar程序运行&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/MUPJEM.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;设置不在以下APP中使用,且keymou组里面的macros的生效触发键为&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd+opton+j&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/DjzFWa.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
@@ -115,7 +119,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/27158546&quot;&gt;Mac 下有哪些能极大地提高工作效率的软件&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;注:本文涉及的keyboard maestro macros已上传到&lt;a href=&quot;https://github.com/3xp10it/config/blob/master/keyboard%20maestro/keyboard%20maestro%20macros%20backup.kmmacros&quot;&gt;这里&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注:本文涉及的keyboard maestro macros已上传到&lt;a href=&quot;https://github.com/3xp10it/config/tree/master/keyboard%20maestro&quot;&gt;这里&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
@@ -352,7 +356,7 @@
 
 &lt;h4 id=&quot;0x7-涨停板出货&quot;&gt;0x7 涨停板出货&lt;/h4&gt;
 
-&lt;p&gt;主力封板时不在买一封,而是在买一之后(如买二/买三)价位处挂大托单,目的是吸引散户在买一处封板,然后大单砸给散户,砸盘时只会砸到买一(散户的挂单),因为如果把主力自己的挂单也砸掉了则容易引起恐慌,而留下主力自己的大托单则会吸引散户往买一价位挂单.一般情况下,如果散户不在买一挂单则主力会带头在买一挂大单,吸引散户在买一挂单后主力会撤单.&lt;/p&gt;
+&lt;p&gt;主力封板时不在买一封,而是在买一之后(如买二/买三)价位处挂大托单,目的是吸引散户在买一处封板,然后大单砸给散户,砸盘时只会砸到买一(散户的挂单),因为如果把主力自己的挂单也砸掉了则容易引起恐慌,而留下主力自己的大托单则会吸引散户往买一价位挂单.一般情况下,如果散户不在买一挂单则主力会带头在买一挂大单,吸引散户在买一挂单后主力会撤单使得散户的单可优先被砸.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/ztbch.gif&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
