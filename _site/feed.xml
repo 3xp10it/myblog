@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 16 Oct 2019 21:45:53 +0800</pubDate>
-    <lastBuildDate>Wed, 16 Oct 2019 21:45:53 +0800</lastBuildDate>
+    <pubDate>Wed, 16 Oct 2019 21:52:25 +0800</pubDate>
+    <lastBuildDate>Wed, 16 Oct 2019 21:52:25 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -154,6 +154,8 @@
 &lt;ul&gt;
   &lt;li&gt;keyboard maestro设置&lt;code class=&quot;highlighter-rouge&quot;&gt;英文|百度五笔输入法&lt;/code&gt;的切换快捷键为&lt;code class=&quot;highlighter-rouge&quot;&gt;command_left&lt;/code&gt;,可实现按一下左command键实现中英文之间的切换,如下:&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;注意:下图这里一定要设置为tapped,否则容易和系统其他快捷键冲突,如command+c/command+v等常用快捷键&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/z76Tjb.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
