@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 13 Oct 2019 13:14:50 +0800</pubDate>
-    <lastBuildDate>Sun, 13 Oct 2019 13:14:50 +0800</lastBuildDate>
+    <pubDate>Wed, 16 Oct 2019 08:58:11 +0800</pubDate>
+    <lastBuildDate>Wed, 16 Oct 2019 08:58:11 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -197,12 +197,12 @@
         <title>诱多</title>
         <description>&lt;h3 id=&quot;0x1-诱多的目的&quot;&gt;0x1 诱多的目的&lt;/h3&gt;
 
-&lt;p&gt;主力一般通过诱多与诱空来达到操控股价的目的,如通过诱多来出货,通过诱空来吃货.&lt;code class=&quot;highlighter-rouge&quot;&gt;诱空的目的是:吃货或洗盘&lt;/code&gt;,是好事,证明主力将要做多股票;而&lt;code class=&quot;highlighter-rouge&quot;&gt;诱多的目的有:护盘/活跃股性/减轻拉升压力/出货&lt;/code&gt;,以出货为目的的诱多是坏事,而以护盘/活跃股性/减轻拉升压力为目的的诱多不是坏事.诱多有可能出现在拉升的不同阶段:&lt;/p&gt;
+&lt;p&gt;主力一般通过诱多与诱空来达到操控股价的目的,如通过诱多来出货,通过诱空来吃货.&lt;code class=&quot;highlighter-rouge&quot;&gt;诱空的目的是:吃货或洗盘&lt;/code&gt;,是好事,证明主力将要做多股票;而&lt;code class=&quot;highlighter-rouge&quot;&gt;诱多的目的有:护盘/活跃股性/吸引散户一起推升/出货&lt;/code&gt;,以出货为目的的诱多是坏事,而以护盘/活跃股性/吸引散户一起推升为目的的诱多不是坏事.诱多有可能出现在拉升的不同阶段:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;拉升前期的诱多是为了提高股票活跃度便于后续出货&lt;/li&gt;
-  &lt;li&gt;拉升中期的诱多是为了减轻拉升压力,这时主力和散户一起推升股价&lt;/li&gt;
-  &lt;li&gt;拉升后期的诱多是为了出货,主力拉升后马上出货&lt;/li&gt;
+  &lt;li&gt;拉升中期的诱多是为了和散户一起推升股价,能够减轻主力拉升压力&lt;/li&gt;
+  &lt;li&gt;拉升后期的诱多是为了出货,主力诱多拉升后马上出货&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;0x2-诱多的方法&quot;&gt;0x2 诱多的方法&lt;/h3&gt;
@@ -330,7 +330,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/cghl.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;0x4-拉午盘拉尾盘&quot;&gt;0x4 拉午盘拉尾盘&lt;/h4&gt;
+&lt;h4 id=&quot;0x4-拉尾盘&quot;&gt;0x4 拉尾盘&lt;/h4&gt;
 
 &lt;p&gt;拉尾盘一般对应第二天冲高回落出货,或低位没实力的拉升&lt;/p&gt;
 
@@ -383,6 +383,8 @@
 &lt;p&gt;分时图下跌放量上涨缩量&lt;/p&gt;
 
 &lt;h4 id=&quot;0x13-大单拉升小单出货&quot;&gt;0x13 大单拉升小单出货&lt;/h4&gt;
+
+&lt;h4 id=&quot;0x14-砸盘并吃回未成交部分&quot;&gt;0x14 砸盘并吃回未成交部分&lt;/h4&gt;
 </description>
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>

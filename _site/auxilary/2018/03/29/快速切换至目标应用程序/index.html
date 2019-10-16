@@ -152,7 +152,7 @@
 
 <h4 id="0xb-windows">0xb windows</h4>
 
-<p>autohotkey是一个win下的效率神器,可通过autohotkey来实现macOS下的相同功能,本文只涉及<code class="highlighter-rouge">firefox|explorer</code>的快速切换,其他应用程序对应的autohotkey脚本的写法可能不同</p>
+<p>autohotkey是一个win下的效率神器,可通过autohotkey来实现macOS下的相同功能,本文只涉及<code class="highlighter-rouge">chrome|firefox|explorer</code>的快速切换,其他应用程序对应的autohotkey脚本的写法可能不同</p>
 
 <h5 id="detail-1">Detail</h5>
 
@@ -174,6 +174,18 @@ else
 	}
 }
 
+#g::switchToChrome()
+switchToChrome()
+{
+IfWinNotExist, ahk_exe chrome.exe
+	Run, chrome.exe --ignore-certificate-errors
+
+if WinActive("ahk_exe chrome.exe")
+	Sendinput ^{tab}
+else
+	WinActivate ahk_exe chrome.exe
+}
+
 #e::switchToExplorer()
 switchToExplorer(){
 IfWinNotExist, ahk_class CabinetWClass
@@ -187,7 +199,7 @@ else
 </code></pre>
 </div>
 
-<p>ahk脚本代码地址在<a href="https://github.com/3xp10it/ahk">这里</a></p>
+<p>ahk脚本代码地址在<a href="https://github.com/3xp10it/config/tree/master/ahk">这里</a></p>
 
 </span>
 
