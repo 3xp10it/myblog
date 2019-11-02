@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 02 Nov 2019 02:15:47 +0800</pubDate>
-    <lastBuildDate>Sat, 02 Nov 2019 02:15:47 +0800</lastBuildDate>
+    <pubDate>Sat, 02 Nov 2019 09:51:06 +0800</pubDate>
+    <lastBuildDate>Sat, 02 Nov 2019 09:51:06 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -403,7 +403,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;2不确定是不是庄股的小盘股&quot;&gt;2.不确定是不是庄股的小盘股&lt;/h4&gt;
+&lt;h5 id=&quot;2不确定是不是庄股的小盘股&quot;&gt;2.不确定是不是庄股的小盘股&lt;/h5&gt;
 
 &lt;ul&gt;
   &lt;li&gt;个股已有背景:不确定是不是庄股的小盘股(真实流通市值小于50e)&lt;/li&gt;
@@ -414,6 +414,12 @@
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
 1.出现2次以上
 2.挂单与成交在10分钟内
+
+或者
+
+大单与大单成交金额大于50w,要求同时满足:
+1.出现1次以上
+2.挂单与成交在5s内
 
 或者
 
