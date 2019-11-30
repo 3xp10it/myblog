@@ -5,9 +5,43 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 30 Nov 2019 12:54:17 +0800</pubDate>
-    <lastBuildDate>Sat, 30 Nov 2019 12:54:17 +0800</lastBuildDate>
+    <pubDate>Sat, 30 Nov 2019 17:00:35 +0800</pubDate>
+    <lastBuildDate>Sat, 30 Nov 2019 17:00:35 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>庄股的胜率</title>
+        <description>&lt;p&gt;庄股听上去很强,像是股市的收割机,事实并不是这样.以下统计大盘在平衡市中(非单边下跌,非单边上涨)庄股的惨状:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zurozs.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;统计时间:2019-11-30&lt;/li&gt;
+  &lt;li&gt;统计对象:明显庄股&lt;/li&gt;
+  &lt;li&gt;条件:要求有明显庄家操纵行为,非基金股,非游资股&lt;/li&gt;
+  &lt;li&gt;个数:共213支(沪深市场共3669支个股,213/3669=5.8%)&lt;/li&gt;
+  &lt;li&gt;以基础浮动盈利大于0为”胜”的胜率:61/213=28%&lt;/li&gt;
+  &lt;li&gt;以浮动盈利大于0为”胜”的胜率:56/213=26%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;结论:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1.当前股市中庄股个数大约是213个,庄股占所有股票比例大约是6%&lt;/li&gt;
+  &lt;li&gt;2.庄股的胜率大约在27%,73%的庄股被套牢&lt;/li&gt;
+  &lt;li&gt;3.平衡市跟庄的胜率是27%&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 30 Nov 2019 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/11/30/%E5%BA%84%E8%82%A1%E7%9A%84%E8%83%9C%E7%8E%87/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/11/30/%E5%BA%84%E8%82%A1%E7%9A%84%E8%83%9C%E7%8E%87/</guid>
+        
+        <category>庄股</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
     
       <item>
         <title>为什么不能追高</title>
@@ -674,24 +708,6 @@
         <pubDate>Sat, 17 Aug 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/17/%E7%9C%8B%E7%9B%98%E7%BB%86%E8%8A%82%E7%AC%94%E8%AE%B0/</link>
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/17/%E7%9C%8B%E7%9B%98%E7%BB%86%E8%8A%82%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>细节</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>盘面细节分析笔记</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/盘面细节分析.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 15 Aug 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/15/%E7%9B%98%E9%9D%A2%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/08/15/%E7%9B%98%E9%9D%A2%E7%BB%86%E8%8A%82%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>盘口</category>
         
         <category>细节</category>
         

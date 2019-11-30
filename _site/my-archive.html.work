@@ -146,6 +146,20 @@
 								
 
 
+								<li><a href="/%E7%82%92%E8%82%A1/2019/11/30/%E5%BA%84%E8%82%A1%E7%9A%84%E8%83%9C%E7%8E%87/" ><font color=#C08040><small>2019-11-30</small></font>
+												<font color=#C04040>庄股的胜率</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/%E7%82%92%E8%82%A1/2019/11/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E8%BF%BD%E9%AB%98/" ><font color=#C08040><small>2019-11-08</small></font>
 												<font color=#C04040>为什么不能追高</font></a></li>
 								
@@ -164,7 +178,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "1";
+document.getElementById("my_month_article_num_Span1").innerHTML = "2";
 								</script>
 								
 
@@ -960,7 +974,7 @@ document.getElementById("my_month_article_num_Span10").innerHTML = "5";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "49";
+document.getElementById("my_year_article_num_Span1").innerHTML = "50";
 						</script>
 
 
@@ -978,7 +992,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "49";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2018 <span
-									   id="my_year_article_num_Span2">49</span>
+									   id="my_year_article_num_Span2">50</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
