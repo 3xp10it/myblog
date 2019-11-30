@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 30 Nov 2019 17:00:35 +0800</pubDate>
-    <lastBuildDate>Sat, 30 Nov 2019 17:00:35 +0800</lastBuildDate>
+    <pubDate>Sat, 30 Nov 2019 17:26:25 +0800</pubDate>
+    <lastBuildDate>Sat, 30 Nov 2019 17:26:25 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -21,14 +21,16 @@
   &lt;li&gt;条件:要求有明显庄家操纵行为,非基金股,非游资股&lt;/li&gt;
   &lt;li&gt;个数:共213支(沪深市场共3669支个股,213/3669=5.8%)&lt;/li&gt;
   &lt;li&gt;以基础浮动盈利大于0为”胜”的胜率:61/213=28%&lt;/li&gt;
-  &lt;li&gt;以浮动盈利大于0为”胜”的胜率:56/213=26%&lt;/li&gt;
+  &lt;li&gt;以浮动盈利(无穷)大于0为”胜”的胜率:56/213=26%&lt;/li&gt;
+  &lt;li&gt;以浮动盈利(8)大于0为”胜”的胜率:54/213=25%&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;结论:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;1.当前股市中庄股个数大约是213个,庄股占所有股票比例大约是6%&lt;/li&gt;
-  &lt;li&gt;2.庄股的胜率大约在27%,73%的庄股被套牢&lt;/li&gt;
-  &lt;li&gt;3.平衡市跟庄的胜率是27%&lt;/li&gt;
+  &lt;li&gt;当前股市中庄股个数大约是213个,庄股占所有股票比例大约是6%&lt;/li&gt;
+  &lt;li&gt;庄股的胜率大约在27%,73%的庄股被套牢&lt;/li&gt;
+  &lt;li&gt;平衡市跟庄的胜率是27%&lt;/li&gt;
+  &lt;li&gt;73%的庄股不值得的跟&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
