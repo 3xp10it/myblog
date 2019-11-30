@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 10 Nov 2019 15:23:11 +0800</pubDate>
-    <lastBuildDate>Sun, 10 Nov 2019 15:23:11 +0800</lastBuildDate>
+    <pubDate>Sat, 30 Nov 2019 12:54:17 +0800</pubDate>
+    <lastBuildDate>Sat, 30 Nov 2019 12:54:17 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -415,7 +415,7 @@
 
 &lt;h4 id=&quot;0xd-个人对倒判断标准&quot;&gt;0xd 个人对倒判断标准&lt;/h4&gt;
 
-&lt;p&gt;对不同种类的个股判断标准不同,分两种类型个股(游资一般没有对倒):&lt;/p&gt;
+&lt;p&gt;判断为对倒,尤其是判断向下对倒要求要严格,不严格的看上去可能是对倒的现象的确有可能是对倒,但’可能性’在股市是毒药,只有确定性才能让人活下来,要避免一切可能性的机会,因为每一个不确定都在增加被股市消灭的机会.对不同种类的个股判断标准不同,分两种类型个股(游资一般没有对倒):&lt;/p&gt;
 
 &lt;h5 id=&quot;1确定的庄股&quot;&gt;1.确定的庄股&lt;/h5&gt;
 
@@ -427,7 +427,7 @@
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
 1.出现1次以上
-2.挂单与成交在10分钟内
+2.挂单与成交在1分钟内
 
 或者
 
@@ -452,7 +452,7 @@
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
 1.出现2次以上
-2.挂单与成交在10分钟内
+2.挂单与成交在1分钟内
 
 或者
 
