@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 07 Dec 2019 10:46:07 +0800</pubDate>
-    <lastBuildDate>Sat, 07 Dec 2019 10:46:07 +0800</lastBuildDate>
+    <pubDate>Sat, 07 Dec 2019 10:48:57 +0800</pubDate>
+    <lastBuildDate>Sat, 07 Dec 2019 10:48:57 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -453,7 +453,7 @@
 
 &lt;h5 id=&quot;1向下对倒&quot;&gt;1.向下对倒&lt;/h5&gt;
 
-&lt;p&gt;判断为对倒,尤其是判断向下对倒要求要严格(如下图中的”向下对倒”不应判定为向下对倒,因为图中的”向下对倒”有可能是密集的成交导致的”巧合”),不严格的看上去可能是对倒的现象的确有可能是对倒,但’可能性’是股市的慢性毒药,只有确定性才能让人活下来,要避免一切可能性的机会,因为每一个不确定都在增加被股市消灭的机会.&lt;/p&gt;
+&lt;p&gt;判断为对倒,尤其是判断向下对倒要求要严格(如下图中的”向下对倒”不应判定为向下对倒,因为图中的”向下对倒”有可能是密集的成交导致的”巧合”),不严格的看上去可能是对倒的现象的确有可能是对倒,但’可能性’是股市的慢性毒药,只有确定性才能让人活下来,要避免一切可能性的机会,因为每一个不确定都在增加被股市消灭的机会.如下标准下的”向下对倒”认为是较明显的向下对倒,其他不够明显的”向下对倒”的机会全部放弃,因为最明显的向下对倒也不一定是机会.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单的对倒:
 1.大单与大单成交金额大于50w
