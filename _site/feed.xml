@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 07 Dec 2019 09:04:10 +0800</pubDate>
-    <lastBuildDate>Sat, 07 Dec 2019 09:04:10 +0800</lastBuildDate>
+    <pubDate>Sat, 07 Dec 2019 10:46:07 +0800</pubDate>
+    <lastBuildDate>Sat, 07 Dec 2019 10:46:07 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -451,90 +451,29 @@
 
 &lt;h4 id=&quot;0xd-个人对倒判断标准&quot;&gt;0xd 个人对倒判断标准&lt;/h4&gt;
 
-&lt;p&gt;判断为对倒,尤其是判断向下对倒要求要严格(如下图中的”向下对倒”不应判定为向下对倒,因为图中的”向下对倒”有可能是密集的成交导致的”巧合”),不严格的看上去可能是对倒的现象的确有可能是对倒,但’可能性’是股市的慢性毒药,只有确定性才能让人活下来,要避免一切可能性的机会,因为每一个不确定都在增加被股市消灭的机会.对不同种类的个股判断标准不同,分两种类型个股(游资一般没有对倒):&lt;/p&gt;
+&lt;h5 id=&quot;1向下对倒&quot;&gt;1.向下对倒&lt;/h5&gt;
+
+&lt;p&gt;判断为对倒,尤其是判断向下对倒要求要严格(如下图中的”向下对倒”不应判定为向下对倒,因为图中的”向下对倒”有可能是密集的成交导致的”巧合”),不严格的看上去可能是对倒的现象的确有可能是对倒,但’可能性’是股市的慢性毒药,只有确定性才能让人活下来,要避免一切可能性的机会,因为每一个不确定都在增加被股市消灭的机会.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单的对倒:
+1.大单与大单成交金额大于50w
+2.挂单与成交在1分钟内
+3.对倒发生前不应有较密集的抛单
+4.对倒量柱必须孤立而明显
+
+大单与小单的对倒:
+1.大委托单被小单密集成交
+2.大委托单是明显的与其他挂单相比&quot;显眼&quot;的大挂单
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/MCxRlL.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/eo0s06.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;1确定的庄股&quot;&gt;1.确定的庄股&lt;/h5&gt;
+&lt;h5 id=&quot;2向上对倒&quot;&gt;2.向上对倒&lt;/h5&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;个股已有背景:基本确定是庄股(一般通过多日特殊盘口/成本均线/对抗大盘等确定)&lt;/li&gt;
-  &lt;li&gt;一般对应:真实流通市值小于50e且十大流通股东个人帐户数大于等于3且同花顺F10-&amp;gt;主力持仓-&amp;gt;机构家数小于10&lt;/li&gt;
-  &lt;li&gt;对倒判断标准如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
-1.出现1次以上
-2.挂单与成交在1分钟内
-
-或者
-
-大单与大单成交金额小于50w,要求同时满足:
-1.出现2次以上
-2.挂单与成交在5s内
-
-或者
-
-大委托单被小单密集成交,要求满足:
-1.大委托单是明显的与其他挂单相比&quot;显眼&quot;的大挂单
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h5 id=&quot;2不确定是不是庄股的小盘股&quot;&gt;2.不确定是不是庄股的小盘股&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;个股已有背景:不确定是不是庄股的小盘股(真实流通市值小于50e)&lt;/li&gt;
-  &lt;li&gt;一般对应:有部分庄股特征但庄股特征不明显,如十大流通股东只有3个个人帐户,其他地方没有庄股特征&lt;/li&gt;
-  &lt;li&gt;对倒判断标准如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
-1.出现2次以上
-2.挂单与成交在1分钟内
-
-或者
-
-大单与大单成交金额大于50w,要求同时满足:
-1.出现1次以上
-2.挂单与成交在5s内
-
-或者
-
-大单与大单成交金额小于50w,要求同时满足:
-1.出现2次以上
-2.挂单与成交在5s内
-
-或者
-
-大委托单被小单密集成交,要求满足:
-1.大委托单是明显的与其他挂单相比&quot;显眼&quot;的大挂单
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h5 id=&quot;3可能有庄的基金股&quot;&gt;3.可能有庄的基金股&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;个股已有背景:是基金股,不确定有没有庄&lt;/li&gt;
-  &lt;li&gt;一般对应:真实流通市值大于50e或十大流通股东基金帐户数大于等于7或同花顺F10-&amp;gt;主力持仓-&amp;gt;机构家数大于10&lt;/li&gt;
-  &lt;li&gt;对倒判断标准如下:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;大单与大单成交金额大于50w,要求同时满足:
-1.出现2次以上
-2.挂单与成交在5s内
-
-或者
-
-大单与大单成交金额小于50w,统一判定为非对倒(放弃)
-
-或者
-
-大委托单被小单密集成交,要求满足:
-1.大委托单是明显的与其他挂单相比&quot;显眼&quot;的大挂单
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;p&gt;向上对倒判断为对倒的条件可相对适度放宽.&lt;/p&gt;
 </description>
         <pubDate>Sun, 22 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/22/%E6%80%8E%E6%A0%B7%E6%89%BE%E5%87%BA%E5%AF%B9%E5%80%92/</link>
