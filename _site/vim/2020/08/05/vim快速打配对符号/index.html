@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>vim快速打配对符号</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -92,51 +92,107 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">vim快速打配对符号</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 5, 2020</span>
+           under vim
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h4 id="先打配对符号再打正常文字">先打配对符号再打正常文字</h4>
+
+<p>Plugin ‘<a href="https://github.com/jiangmiao/auto-pairs">jiangmiao/auto-pairs</a>’</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>示例用法:
+输入int(会得到int(),然后再打正常文字t2-t1会得到:
+int(t2-t1)
+</code></pre>
+</div>
+
+<h4 id="先打正常文字再打配对符号">先打正常文字再打配对符号</h4>
+
+<p>Plugin ‘<a href="https://github.com/tpope/vim-surround">tpope/vim-surround</a>’</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>示例用法:
+假设已有下面一行代码:
+t2-t1
+在这行代码上的normal模式下输入yss)则会得到:
+(t2-t1)
+再输入cs)]会得到:
+[t2-t1]
+再输入ds]会得到:
+t2-t1
+
+小结:
+yss)是在一行代码上添加配对符号(),ysiw)则是在当前所在word中添加配对符号()
+cs)]是在一行代码上将配对符号()替换成[]
+ds)是在一行代码上将配对符号()删除
+</code></pre>
+</div>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            vim, vim-surround
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/vim/2020/08/05/vim%E5%BF%AB%E9%80%9F%E6%89%93%E9%85%8D%E5%AF%B9%E7%AC%A6%E5%8F%B7/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/vim/2020/08/05/vim%E5%BF%AB%E9%80%9F%E6%89%93%E9%85%8D%E5%AF%B9%E7%AC%A6%E5%8F%B7/">vim快速打配对符号</a>
-      </div>
-      <div class="excerpt">
-         
-          vim快速打配对符号
-         
-        <a href="/vim/2020/08/05/vim%E5%BF%AB%E9%80%9F%E6%89%93%E9%85%8D%E5%AF%B9%E7%AC%A6%E5%8F%B7/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>

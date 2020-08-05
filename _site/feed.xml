@@ -5,9 +5,56 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 25 Jul 2020 11:15:35 +0800</pubDate>
-    <lastBuildDate>Sat, 25 Jul 2020 11:15:35 +0800</lastBuildDate>
+    <pubDate>Wed, 05 Aug 2020 17:33:04 +0800</pubDate>
+    <lastBuildDate>Wed, 05 Aug 2020 17:33:04 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>vim快速打配对符号</title>
+        <description>&lt;h4 id=&quot;先打配对符号再打正常文字&quot;&gt;先打配对符号再打正常文字&lt;/h4&gt;
+
+&lt;p&gt;Plugin ‘&lt;a href=&quot;https://github.com/jiangmiao/auto-pairs&quot;&gt;jiangmiao/auto-pairs&lt;/a&gt;’&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;示例用法:
+输入int(会得到int(),然后再打正常文字t2-t1会得到:
+int(t2-t1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;先打正常文字再打配对符号&quot;&gt;先打正常文字再打配对符号&lt;/h4&gt;
+
+&lt;p&gt;Plugin ‘&lt;a href=&quot;https://github.com/tpope/vim-surround&quot;&gt;tpope/vim-surround&lt;/a&gt;’&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;示例用法:
+假设已有下面一行代码:
+t2-t1
+在这行代码上的normal模式下输入yss)则会得到:
+(t2-t1)
+再输入cs)]会得到:
+[t2-t1]
+再输入ds]会得到:
+t2-t1
+
+小结:
+yss)是在一行代码上添加配对符号(),ysiw)则是在当前所在word中添加配对符号()
+cs)]是在一行代码上将配对符号()替换成[]
+ds)是在一行代码上将配对符号()删除
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Wed, 05 Aug 2020 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/vim/2020/08/05/vim%E5%BF%AB%E9%80%9F%E6%89%93%E9%85%8D%E5%AF%B9%E7%AC%A6%E5%8F%B7/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/vim/2020/08/05/vim%E5%BF%AB%E9%80%9F%E6%89%93%E9%85%8D%E5%AF%B9%E7%AC%A6%E5%8F%B7/</guid>
+        
+        <category>vim</category>
+        
+        <category>vim-surround</category>
+        
+        
+        <category>vim</category>
+        
+      </item>
     
       <item>
         <title>龙头信仰笔记</title>
@@ -603,64 +650,6 @@
         <pubDate>Thu, 19 Sep 2019 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</link>
         <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/19/%E4%B8%BB%E5%8A%9B%E5%87%BA%E8%B4%A7%E8%BF%B9%E8%B1%A1%E6%B1%87%E7%BC%96/</guid>
-        
-        <category>出货</category>
-        
-        
-        <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>主力怎样在保持收盘大阳线的情况下出货</title>
-        <description>&lt;h3 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h3&gt;
-
-&lt;p&gt;对狂龙十八段一篇«怎样识别拉升出货法»的思考&lt;/p&gt;
-
-&lt;h3 id=&quot;0x2-拉升出货实例&quot;&gt;0x2 拉升出货实例&lt;/h3&gt;
-
-&lt;embed src=&quot;https://drive.google.com/viewerng/viewer?embedded=true&amp;amp;url=https://raw.githubusercontent.com/3xp10it/pic/master/怎样识别拉升出货法.pdf&quot; width=&quot;100%&quot; height=&quot;1100&quot; /&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“上涨未明显放量,上涨最快速的阶段,也基本上,全由小单拉升构成”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;从中可以看出当时主力拉升的成本很低,而要通过小单就可以成功拉升,背后需要对应着较小的抛压,较小的抛压意味着个股有利好或大盘情况良好,如下示例,000876在无穷成本均线上方横盘,且有逆势对抗(大盘下跌而个股上涨 ),博弈k线无量长阳的表现,初看主力应该没出货且依旧保持高控盘状态:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/3xp10it/pic/raw/master/xxw.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;新希望这波主升浪维持到现在,期间对应的板块利好是猪瘟行情,查看这期间股东人数变化,如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/xxwgdrs.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;从股东人数上看主力是在出货的,且没有换庄,因为如果换庄,股东人数应该对应着变化不大而不会导致股东人数上升(老庄到新庄股东人数大概不变),说明该股是利用利好出货,且出货相当具备迷惑性(因为利好足够大,散户疯抢接盘人数多),这样的出货是很成功的出货.&lt;/p&gt;
-
-&lt;p&gt;于是得出以下结论:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ 主力最好的出货方式是边拉升边出货,利用拉升缩量下跌放量达到拉升出货的目的
-+ 主力最好的出货时机是个股有利好或大盘情况良好
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;0x3-主力操盘推演&quot;&gt;0x3 主力操盘推演&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/dapanjieduan.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;大盘不好的时候(上图E,F段)主力一般都会被套,如果主力不在大盘良好的情况下就开始拉升,而是等到大盘到了E/F段才开始拉升,这种主力太傻了,不值得跟随.主力最佳的操盘策略应该是:C段之前完成吸货,B段末判断大盘要开始转成上升走势,于是C段开始拉升,D段开始出货(或E段借利好也能出货).&lt;/p&gt;
-
-&lt;p&gt;到了D/E段还因洗盘而没有开始拉升的主力是笨庄,因为&lt;code class=&quot;highlighter-rouge&quot;&gt;1.A股是牛短熊长&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;2.现在市场逐渐由单庄变成混庄&lt;/code&gt;,主力对个股走势操纵的话语权在逐渐下降,主力越来越需要看大盘吃饭了,大盘的好时机难得,不在难得的时机下拉升,而一再拖延到大盘开始走坏才想拉升,这时候已经不是主力想拉就能拉的动了,大量聪明的主力在这时(D/E段)已经在出货而导致大盘加快走坏,散户也在恐慌性抛盘,笨庄只能”满仓”被套,跟了这样的庄是很难盈利的.&lt;/p&gt;
-
-&lt;p&gt;想赚钱必须充分利用大盘环境良好的时间(B/C段),如果个股在大盘处于B/C/D段还没有表现必须放弃,大盘好而个股不拉的庄股要放弃,得出以下结论:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ 选股的最佳时机是大盘处于B段的时候
-+ 选股的最佳标的是大盘走好时个股一定会启动拉升的个股,例如处于缠论买3的庄股
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Wed, 18 Sep 2019 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/18/%E4%B8%BB%E5%8A%9B%E6%80%8E%E6%A0%B7%E5%9C%A8%E4%BF%9D%E6%8C%81%E6%94%B6%E7%9B%98%E5%A4%A7%E9%98%B3%E7%BA%BF%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%87%BA%E8%B4%A7/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2019/09/18/%E4%B8%BB%E5%8A%9B%E6%80%8E%E6%A0%B7%E5%9C%A8%E4%BF%9D%E6%8C%81%E6%94%B6%E7%9B%98%E5%A4%A7%E9%98%B3%E7%BA%BF%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%87%BA%E8%B4%A7/</guid>
         
         <category>出货</category>
         
