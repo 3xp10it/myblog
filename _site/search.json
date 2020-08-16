@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "七宗罪",
+    "category" : "",
+    "tags"     : "七宗罪",
+    "url"      : "/auxilary/2020/08/16/%E4%B8%83%E5%AE%97%E7%BD%AA/",
+    "date"     : "2020-08-16 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "vim快速打配对符号",
     "category" : "",
     "tags"     : "vim, vim-surround",
