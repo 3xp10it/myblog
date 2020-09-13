@@ -49,9 +49,7 @@ document.writeln("</script></div>");
 //document.writeln('     data-ad-client="ca-pub-0107013120141921"');
 //document.writeln('     data-ad-slot="4422996926"></ins>');
 //document.writeln('<script>');
-//document.writeln('(adsbygoogle = window.adsbygoogle || []).push({
-
-});');
+//document.writeln('(adsbygoogle = window.adsbygoogle || []).push({ });');
 //document.writeln('</script>');
 //document.writeln("</div>");
 
