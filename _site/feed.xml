@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 27 Sep 2020 14:27:55 +0800</pubDate>
-    <lastBuildDate>Sun, 27 Sep 2020 14:27:55 +0800</lastBuildDate>
+    <pubDate>Sun, 27 Sep 2020 15:58:45 +0800</pubDate>
+    <lastBuildDate>Sun, 27 Sep 2020 15:58:45 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -22,6 +22,9 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;每天至少一次眼保健操&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;系统使用夜间模式并开启自动调节亮度&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;iterm2使用solarized主题&lt;/p&gt;
