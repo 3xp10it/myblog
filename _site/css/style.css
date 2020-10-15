@@ -25,7 +25,7 @@ body {
   font-family: arial,sans-serif;
   font-weight: normal;
   background-color: #1E1E1E;
-  color: #CCCCCC;
+  color: #A3A3A3;
   font-size: 16px;
   height: 100%;
   width: 100%; }
@@ -509,7 +509,7 @@ ul {
         margin-left: -15px;
         padding-right: 10px;
         background-color: #303030;
-        color: #CCCCCC;
+        color: #A3A3A3;
         box-sizing: content-box;
         border: none;
         font-size: 16px; }
