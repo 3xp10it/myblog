@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Nov 2020 13:29:38 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Nov 2020 13:29:38 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Nov 2020 12:53:05 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Nov 2020 12:53:05 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -28,8 +28,25 @@
 &lt;p&gt;怎样能保证大脑能一直想这件很简单很无聊的事呢?怎样确保大脑在想这件很简单很无聊的事的时候不会走神去想其他可能导致大脑活跃的事呢?可以通过最确定性的事物来实现,这个世界上最确定性的事物是什么?是太阳吗?不是,是空气和水吗?不是,是呼吸.可以通过借助自己的呼吸来实现最强大的&lt;code class=&quot;highlighter-rouge&quot;&gt;毅力&lt;/code&gt;.具体操作可以如下:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;在吸气的时候脑子里问自己在做什么,并自己在脑子里回答:在吸气&lt;/li&gt;
-  &lt;li&gt;在呼气的时候脑子里问自己在做什么,并自己在脑子里回答:在呼气&lt;/li&gt;
+  &lt;li&gt;在吸气的时候脑子里问自己在做什么,并自己在脑子里回答:在吸气.然后进行下一步&lt;/li&gt;
+  &lt;li&gt;在呼气的时候脑子里问自己在做什么,并自己在脑子里回答:在呼气.然后进行上一步&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;或者如下操作:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;保持脑子里不想事情正常吸气呼气,然后进行下一步&lt;/li&gt;
+  &lt;li&gt;在脑子里问自己有没有分神想事情,如果分神了则要求马上回神,否则不允许吸气呼气,回神后再继续上一步&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;或者如下操作:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;呼完气后脑子里想下一步要干什么?&lt;/li&gt;
+  &lt;li&gt;吸气的时候脑子里回答”是吸气”&lt;/li&gt;
+  &lt;li&gt;吸完气后脑子里想下一步要干什么?&lt;/li&gt;
+  &lt;li&gt;呼气的时候脑子里回答”是吐气”&lt;/li&gt;
+  &lt;li&gt;循环进行上面的步骤&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;3.原理&lt;/p&gt;
@@ -141,6 +158,7 @@
   &lt;li&gt;6.七宗罪这个病的药是:七美德(谦卑、宽容、忍耐、勤勉、慷慨、节制、贞洁.向本杰明弗兰克林学习),道德经,论语,孙子兵法.&lt;/li&gt;
   &lt;li&gt;7.七宗罪之间也可互相克制,例如可用贪婪来击败懒惰.&lt;/li&gt;
   &lt;li&gt;8.每个人天生体内都有罪,都是未激活的罪犯,如果没有克制战胜击败体内的罪,就会导致被体内的罪吞噬而成为法律上的罪犯(就像鸣人暴走),杀人犯犯的罪不是杀人,而是犯了”没有战胜他体内的罪”的罪,普通人要向杀人犯的例子学习,坚强努力地战胜体内的罪.&lt;/li&gt;
+  &lt;li&gt;9.七宗罪应该是有2个层次的:合理层次和”非份之想”.合理层次是人的重要的动力来源,人如果没有了七宗罪可能也无法存活了,例如人如果没有了贪婪就会失去生活的动力(理想,目标),如果没有了懒惰科学就无法进步(计算机,洗衣机).在七宗罪上的”非份之想”会将人吞噬,会将人毁灭.道德和法律能帮助人类克制在七宗罪上的”非份之想”,孔子的吾日三省吾身中最应该反思的是今天自己有没有在七宗罪有”非份之想”.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/tongku.png&quot; data-action=&quot;zoom&quot; /&gt;
