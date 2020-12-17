@@ -435,34 +435,33 @@ sys.stdin.read()
 </code></pre>
 </div>
 
-<p>**关于记录函数调用有2个要注意的:</p>
+<p><strong>关于记录函数调用有2个要注意的:</strong></p>
 
-<p>1.批量记录多个类里面所有函数的调用:
-<code class="highlighter-rouge">frida-trace -U pid_value -m "-[regStr *:]"</code>
+<div class="highlighter-rouge"><pre class="highlight"><code>1.批量记录多个类里面所有函数的调用:
+`frida-trace -U pid_value -m "-[regStr *:]"`
 例如下面这条命令将记录所有的类中包含value(区分大小写)字符的所有函数的调用:
-<code class="highlighter-rouge">frida-trace -U pid_value -m "-[* *value*:]"</code></p>
+`frida-trace -U pid_value -m "-[* *value*:]"`
 
-<p>2.打印函数参数或返回值的内容
+2.打印函数参数或返回值的内容
 在打印时经常遇到的情况是object object,可以先判断要打印的数据是什么数据类型:
-console.log(‘Type of args<a href="http://www.voidcn.com/article/p-cuytgsnz-w.html">2</a> -&gt; ‘ + new ObjC.Object(args<a href="http://www.voidcn.com/article/p-cuytgsnz-w.html">2</a>).$className)
+console.log('Type of args[2] -&gt; ' + new ObjC.Object(args[2]).$className)
 得到类型后再根据不同的类型的打印方法来打印,例如如果是NSArray就这样打印:
-var array = new ObjC.Object(args<a href="http://www.voidcn.com/article/p-cuytgsnz-w.html">2</a>);
-/*</p>
-<ul>
-  <li>Be sure to use valueOf() as NSUInteger is a Number in</li>
-  <li>32-bit processes, and UInt64 in 64-bit processes. This</li>
-  <li>coerces it into a Number in the latter case.
+var array = new ObjC.Object(args[2]);
+/*
+ * Be sure to use valueOf() as NSUInteger is a Number in
+ * 32-bit processes, and UInt64 in 64-bit processes. This
+ * coerces it into a Number in the latter case.
  */
 var count = array.count().valueOf();
 for (var i = 0; i !== count; i++) {
   var element = array.objectAtIndex_(i);
 }
-更多的用法可参考官网,很全:https://frida.re/docs/examples/ios/
-如果是特殊的数据类型(非常规的列表,字典,字符串),比如第三方构造的类对象结构,可能要参与这里:
+更多的打印不同类型数据的用法可参考官网,很全:https://frida.re/docs/examples/ios/
+如果是特殊的数据类型(非常规的列表,字典,字符串),比如第三方构造的类对象结构,可能要参考这里用的cast:
 https://bbs.pediy.com/thread-253994.htm
 https://github.com/frida/frida-core/issues/7
-**</li>
-</ul>
+</code></pre>
+</div>
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
