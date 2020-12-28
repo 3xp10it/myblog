@@ -443,7 +443,11 @@ sys.stdin.read()
 `frida-trace -U pid_value -m "-[* *value*:]"`
 
 2.打印函数参数或返回值的内容
-在打印时经常遇到的情况是object object,可以先判断要打印的数据是什么数据类型:
+打印参数的时候可以直接这样打印:
+var args2=ObjC.Object(args[2])
+console.log(args2)
+
+如果无法打印成功,可以先判断要打印的数据是什么数据类型:
 console.log('Type of args[2] -&gt; ' + new ObjC.Object(args[2]).$className)
 得到类型后再根据不同的类型的打印方法来打印,例如如果是NSArray就这样打印:
 var array = new ObjC.Object(args[2]);
