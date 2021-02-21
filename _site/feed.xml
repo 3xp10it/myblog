@@ -5,13 +5,15 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 21 Feb 2021 14:57:14 +0800</pubDate>
-    <lastBuildDate>Sun, 21 Feb 2021 14:57:14 +0800</lastBuildDate>
+    <pubDate>Sun, 21 Feb 2021 14:59:32 +0800</pubDate>
+    <lastBuildDate>Sun, 21 Feb 2021 14:59:32 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>人生的真谛</title>
-        <description>&lt;p&gt;人生的真谛是想办法让自己感到真正的快乐.&lt;/p&gt;
+        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;人生的真谛是想办法让自己感到真正的快乐.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;这个结论是笔者在看完«心灵奇旅»及豆瓣影评后得到的灵感,再联想到: «阳明心学»,«美丽人生»,«时光恋旅人»这些作品后觉得这个想法被这些作品验证了.&lt;/p&gt;
 
