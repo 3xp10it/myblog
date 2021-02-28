@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Feb 2021 18:18:38 +0800</pubDate>
-    <lastBuildDate>Thu, 25 Feb 2021 18:18:38 +0800</lastBuildDate>
+    <pubDate>Sun, 28 Feb 2021 11:33:04 +0800</pubDate>
+    <lastBuildDate>Sun, 28 Feb 2021 11:33:04 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -286,7 +286,12 @@ int(t2-t1)
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;示例用法:
 假设已有下面一行代码:
 t2-t1
-在这行代码上的normal模式下输入yss)则会得到:
+在t2-t1这行代码上将光标停在-号上并处于normal模式下输入ys$)则会得到:
+t2(-t1)
+在t2-t1这行代码上将光标停在第2个t上并处于normal模式下输入ysiw)则会得到:
+t2-(t1)
+
+在t2-t1这行代码上的normal模式下输入yss)则会得到:
 (t2-t1)
 再输入cs)]会得到:
 [t2-t1]
@@ -294,7 +299,7 @@ t2-t1
 t2-t1
 
 小结:
-yss)是在一行代码上添加配对符号(),ysiw)则是在当前所在word中添加配对符号()
+yss)是在一行代码上添加配对符号(),ysiw)则是在当前所在word中添加配对符号(),ys$)则是在当前光标到当前行最后之间添加配对符号()
 cs)]是在一行代码上将配对符号()替换成[]
 ds)是在一行代码上将配对符号()删除
 &lt;/code&gt;&lt;/pre&gt;
