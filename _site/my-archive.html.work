@@ -146,6 +146,20 @@
 								
 
 
+								<li><a href="/auxilary/2021/03/21/%E4%B9%8C%E5%90%88%E4%B9%8B%E4%BC%97%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2021-03-21</small></font>
+												<font color=#C04040>乌合之众笔记</font></a></li>
+								
+								
+
+
+								 
+						
+
+
+								
+								
+
+
 								<li><a href="/auxilary/2021/03/18/%E5%BD%B1%E5%93%8D%E5%8A%9B%E7%AC%94%E8%AE%B0/" ><font color=#C08040><small>2021-03-18</small></font>
 												<font color=#C04040>影响力笔记</font></a></li>
 								
@@ -178,7 +192,7 @@
 
 								
 								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span1").innerHTML = "2";
+document.getElementById("my_month_article_num_Span1").innerHTML = "3";
 								</script>
 								
 
@@ -218,7 +232,7 @@ document.getElementById("my_month_article_num_Span2").innerHTML = "2";
 
 
 						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span1").innerHTML = "4";
+document.getElementById("my_year_article_num_Span1").innerHTML = "5";
 						</script>
 
 
@@ -236,7 +250,7 @@ document.getElementById("my_year_article_num_Span1").innerHTML = "4";
 
 
 				<a class="accordion-section-title" href="#accordion-2">2020 <span
-									   id="my_year_article_num_Span2">4</span>
+									   id="my_year_article_num_Span2">5</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-2" class="accordion-section-content" style="display: none;">
 						<ul id="linklist">
