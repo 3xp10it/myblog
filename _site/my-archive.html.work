@@ -4494,82 +4494,6 @@ document.getElementById("my_month_article_num_Span51").innerHTML = "8";
 								
 
 
-								 
-						
-						
-
-						<script type="text/javascript">
-document.getElementById("my_month_article_num_Span52").innerHTML = "2";
-						</script>
-
-
-						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span6").innerHTML = "65";
-						</script>
-
-
-
-						</ul>
-				</div>
-		</div>
-
-		
-
-		
-		
-		<div class="accordion-section">
-				
-
-
-				<a class="accordion-section-title" href="#accordion-7">2014 <span
-									   id="my_year_article_num_Span7">65</span>
-						<div class="clearfix"></div></a>
-				<div id="accordion-7" class="accordion-section-content" style="display: none;">
-						<ul id="linklist">
-
-								
-
-								
-
-
-								
-								
-
-								
-								
-
-								
-								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span52").innerHTML = "2";
-								</script>
-								
-
-								
-
-								<li>06 <span id="my_month_article_num_Span53">0</span></li>
-								
-
-
-								<li><a href="/auxilary/2014/06/09/so-what-is-jekyll/" ><font color=#C08040><small>2014-06-09</small></font>
-												<font color=#C04040>So, What is Jekyll?</font></a></li>
-								
-								
-
-
-								 
-						
-
-
-								
-								
-
-
-								<li><a href="/auxilary/2014/06/08/using-thumbnails/" ><font color=#C08040><small>2014-06-08</small></font>
-												<font color=#C04040>Using thumbnails</font></a></li>
-								
-								
-
-
 								
 						</ul>
 				</div>
@@ -4579,13 +4503,13 @@ document.getElementById("my_month_article_num_Span52").innerHTML = "2";
 
 
 		<script type="text/javascript">
-document.getElementById("my_month_article_num_Span53").innerHTML = "2";
+document.getElementById("my_month_article_num_Span52").innerHTML = "2";
 		</script>
 
 
 
 		<script type="text/javascript">
-document.getElementById("my_year_article_num_Span7").innerHTML = "2";
+document.getElementById("my_year_article_num_Span6").innerHTML = "65";
 		</script>
 
 
