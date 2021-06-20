@@ -4521,7 +4521,7 @@ document.getElementById("my_year_article_num_Span6").innerHTML = "65";
 				
 
 
-				<a class="accordion-section-title" href="#accordion-7">2015 <span
+				<a class="accordion-section-title" href="#accordion-7">2014 <span
 									   id="my_year_article_num_Span7">65</span>
 						<div class="clearfix"></div></a>
 				<div id="accordion-7" class="accordion-section-content" style="display: none;">
@@ -4546,83 +4546,7 @@ document.getElementById("my_month_article_num_Span52").innerHTML = "2";
 
 								
 
-								<li>03 <span id="my_month_article_num_Span53">0</span></li>
-								
-
-
-								<li><a href="/auxilary/2015/03/23/welcome-to-carte-noir/" ><font color=#C08040><small>2015-03-23</small></font>
-												<font color=#C04040>Welcome to Carte Noire</font></a></li>
-								
-								
-
-
-								 
-						
-						
-
-						<script type="text/javascript">
-document.getElementById("my_month_article_num_Span53").innerHTML = "1";
-						</script>
-
-
-						<script type="text/javascript">
-document.getElementById("my_year_article_num_Span7").innerHTML = "1";
-						</script>
-
-
-
-						</ul>
-				</div>
-		</div>
-
-		
-
-		
-		
-		<div class="accordion-section">
-				
-
-
-				<a class="accordion-section-title" href="#accordion-8">2014 <span
-									   id="my_year_article_num_Span8">1</span>
-						<div class="clearfix"></div></a>
-				<div id="accordion-8" class="accordion-section-content" style="display: none;">
-						<ul id="linklist">
-
-								
-
-								
-
-
-								
-								
-
-								
-								
-
-								
-								<script type="text/javascript">
-document.getElementById("my_month_article_num_Span53").innerHTML = "1";
-								</script>
-								
-
-								
-
-								<li>06 <span id="my_month_article_num_Span54">0</span></li>
-								
-
-
-								<li><a href="/auxilary/2014/06/10/carte-noire-in-action/" ><font color=#C08040><small>2014-06-10</small></font>
-												<font color=#C04040>Carte Noire in Action</font></a></li>
-								
-								
-
-
-								 
-						
-
-
-								
+								<li>06 <span id="my_month_article_num_Span53">0</span></li>
 								
 
 
@@ -4655,13 +4579,13 @@ document.getElementById("my_month_article_num_Span53").innerHTML = "1";
 
 
 		<script type="text/javascript">
-document.getElementById("my_month_article_num_Span54").innerHTML = "3";
+document.getElementById("my_month_article_num_Span53").innerHTML = "2";
 		</script>
 
 
 
 		<script type="text/javascript">
-document.getElementById("my_year_article_num_Span8").innerHTML = "3";
+document.getElementById("my_year_article_num_Span7").innerHTML = "2";
 		</script>
 
 

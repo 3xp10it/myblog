@@ -1985,22 +1985,6 @@
     } ,
     
   {
-    "title"    : "Welcome to Carte Noire",
-    "category" : "",
-    "tags"     : "welcome, to, carte, noire",
-    "url"      : "/auxilary/2015/03/23/welcome-to-carte-noir/",
-    "date"     : "2015-03-23 15:31:19 +0000"
-    } ,
-    
-  {
-    "title"    : "Carte Noire in Action",
-    "category" : "",
-    "tags"     : "demo, action, carte, noire",
-    "url"      : "/auxilary/2014/06/10/carte-noire-in-action/",
-    "date"     : "2014-06-10 12:31:19 +0000"
-    } ,
-    
-  {
     "title"    : "So, What is Jekyll?",
     "category" : "",
     "tags"     : "about, jekyll",
