@@ -112,7 +112,7 @@
 
       <div class="read-time">
         <small>
-          5 minute read
+          6 minute read
         </small>
       </div>
 
@@ -163,6 +163,7 @@
   <li>0xb 记录函数执行日志(ios中theos具备的功能)</li>
   <li>0xc 调用函数(ios中<a href="http://www.cycript.org/">cycript</a>具备的功能)</li>
   <li>0xd 读写内存(类似于调试器的功能)</li>
+  <li>0xe 查看对象属性</li>
 </ul>
 
 <p>使用frida有两种方法</p>
@@ -449,7 +450,11 @@ console.log(args2)
 
 如果无法打印成功,可以先判断要打印的数据是什么数据类型:
 console.log('Type of args[2] -&gt; ' + new ObjC.Object(args[2]).$className)
-得到类型后再根据不同的类型的打印方法来打印,例如如果是NSArray就这样打印:
+得到类型后再根据不同的类型的打印方法来打印
+
+常见类型的打印:
+
+a)NSArray
 var array = new ObjC.Object(args[2]);
 /*
  * Be sure to use valueOf() as NSUInteger is a Number in
@@ -459,7 +464,13 @@ var array = new ObjC.Object(args[2]);
 var count = array.count().valueOf();
 for (var i = 0; i !== count; i++) {
   var element = array.objectAtIndex_(i);
+  console.log(element)
 }
+
+b)NSArrayM
+console.log(ObjC.classes.NSMutableArray.arrayWithObject_(args[2]));
+
+
 更多的打印不同类型数据的用法可参考官网,很全:https://frida.re/docs/examples/ios/
 如果是特殊的数据类型(非常规的列表,字典,字符串),比如第三方构造的类对象结构,可能要参考这里用的cast:
 https://bbs.pediy.com/thread-253994.htm
@@ -594,6 +605,23 @@ print('0x%x' % base_addr)
 <code class="highlighter-rouge">s.write_bytes(4468416512, "frida")</code>:在0x10a56a000上写入”frida”</p>
 
 <p>一个读内存应用实例<a href="http://www.freebuf.com/sectool/142928.html">利用Frida从TeamViewer内存中提取密码</a></p>
+
+<h4 id="0xe-查看对象属性">0xe 查看对象属性</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$kind: string specifying either instance, class or meta-class
+$super: an ObjC.Object instance used for chaining up to super-class method implementations
+$superClass: super-class as an ObjC.Object instance
+$class: class of this object as an ObjC.Object instance
+$className: string containing the class name of this object
+$moduleName: string containing the module path of this object
+$protocols: object mapping protocol name to ObjC.Protocol instance for each of the protocols that this object conforms to
+$methods: array containing native method names exposed by this object’s class and parent classes
+$ownMethods: array containing native method names exposed by this object’s class, not including parent classes
+$ivars: object mapping each instance variable name to its current value, allowing you to read and write each through access and assignment
+
+一个对象(instance)可以通过.$methods查看它有哪些可调用的函数,可以通过.$ivars查看它有哪些属性和属性的值
+</code></pre>
+</div>
 
 <h3 id="0x4-实战">0x4 实战</h3>
 
