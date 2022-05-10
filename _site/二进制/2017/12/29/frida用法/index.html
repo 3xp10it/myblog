@@ -623,6 +623,25 @@ $ivars: object mapping each instance variable name to its current value, allowin
 </code></pre>
 </div>
 
+<h4 id="0xf-对象操作">0xf 对象操作</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1)指针转对象
+var obj=Objc.Object(ptr("0x600156041b0"))
+
+2)对象获取
+var obj=ObjC.classes.类名.alloc()
+或者
+var obj=ObjC.chooseSync(ObjC.classes.类名)[0]
+
+3)对象函数调用
+obj["- requestSomething:args1:args2:args3:"](args1v,args2v,args3v)
+或者
+obj.requestSomething_args1_args2_args3_(a1,a2,a3)
+或者
+obj.funcNameWithoutArg()
+</code></pre>
+</div>
+
 <h3 id="0x4-实战">0x4 实战</h3>
 
 <h4 id="0xa-理解brida">0xa 理解brida</h4>
