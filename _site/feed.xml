@@ -5,13 +5,13 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 05 Nov 2022 16:54:59 +0800</pubDate>
-    <lastBuildDate>Sat, 05 Nov 2022 16:54:59 +0800</lastBuildDate>
+    <pubDate>Sat, 05 Nov 2022 18:01:26 +0800</pubDate>
+    <lastBuildDate>Sat, 05 Nov 2022 18:01:26 +0800</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>止损</title>
-        <description>&lt;h4 id=&quot;不止损的后果&quot;&gt;不止损的后果&lt;/h4&gt;
+        <description>&lt;h4 id=&quot;0x1-不止损的后果&quot;&gt;0x1 不止损的后果&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun1.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
@@ -23,7 +23,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun5.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;止损后&quot;&gt;止损后&lt;/h4&gt;
+&lt;h4 id=&quot;0x2-止损后&quot;&gt;0x2 止损后&lt;/h4&gt;
 
 &lt;p&gt;止损后如果再次出现看好的买点可再次买入,例如止损后再涨回支撑位上方,例如止损后出现超跌买点,只需注意,每笔买入都需要设置止损.&lt;/p&gt;
 </description>
