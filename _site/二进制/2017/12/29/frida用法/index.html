@@ -107,7 +107,7 @@
 
       <div class="read-time">
         <small>
-          6 minute read
+          7 minute read
         </small>
       </div>
 
@@ -304,6 +304,8 @@ else
 
 <h4 id="0xa-hook函数">0xa hook函数</h4>
 
+<h5 id="0x1-正常hook函数">0x1 正常hook函数</h5>
+
 <p>frida的hook函数功能在ios逆向中相当于theos的hook函数时修改函数的功能(theos相当于打补丁),但是比theos更方便,不用打包成deb安装,缺点是hook函数的语法没有theos简单.hook函数可通过命令行实现(可通过js热切换功能),也可通过其他语言调用frida的api来实现,通过其他语言(如python)调用api来实现时可做到更加”自动化”.在hook函数前要先找到要hook的函数名,可以通过frida枚举类中所有方法来查找或是通过ida反汇编后查看<code class="highlighter-rouge">functions窗口</code>得到,其中<strong>通过frida得到的类中的函数名比通过ida得到的类中的函数名更全</strong>,因为frida会得到父类的函数,而ida的functions窗口看不到父类的函数名,如果只看ida中类的函数则会错失很多从父类继承的函数名.为了hook一个类中的函数,首先要找到这个类名和函数名,一般找类名是通过ida来分析得出,找到类名后再找未知的函数名时建议通过frida查找(这里是指静态分析时根据函数名猜测实现的对应功能,如果是动态调试则不用根据函数名来猜测对应功能).</p>
 
 <ul>
@@ -381,6 +383,29 @@ def on_message(message, data):
 script.on('message', on_message)
 script.load()
 sys.stdin.read()
+</code></pre>
+</div>
+
+<h5 id="0x2-在函数内部hook">0x2 在函数内部hook</h5>
+
+<p>以上是正常的在函数刚进入或刚结束的时候进行hook,但有时候需要在函数的某一行代码上hook,这种也称为内联hook,例如要在某个函数内部的某个地址(以下为hookAddr变量)处打印eax和ebx的值,则不需要涉及这个函数的地址,直接hook这个函数内部的目标地址即可,相当于在该地址上下断点,如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 基础函数地址
+var baseAddr = ptr('0x12345678');
+
+// 要 hook 的具体地址（基址 + 28 字节偏移）
+var hookAddr = baseAddr.add(28);
+
+Interceptor.attach(hookAddr, {
+    onEnter: function(args) {
+        // 获取当前的 context
+        var context = this.context;
+
+        // 打印 eax 和 ebx 的值
+        console.log('EAX: ' + context.eax.toString(16));
+        console.log('EBX: ' + context.ebx.toString(16));
+    }
+});
 </code></pre>
 </div>
 
@@ -475,6 +500,8 @@ https://github.com/frida/frida-core/issues/7
 
 <h4 id="0xc-调用函数">0xc 调用函数</h4>
 
+<h5 id="0x1-iosmacos">0x1 ios/macOS</h5>
+
 <p><code class="highlighter-rouge">+</code>号开头的函数(类函数,可直接通过类调用)要<a href="https://www.frida.re/docs/javascript-api/#objc">这样</a>:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
@@ -559,6 +586,42 @@ script = session.create_script(script_string)
 
 script.load()
 sys.stdin.read()
+</code></pre>
+</div>
+
+<h5 id="0x2-windows">0x2 windows</h5>
+
+<p>windows中不能直接调用内存中的地址,要先创建一个NativeFunction对象再通过js来调用,例如通过ida pro反编译得到一个函数如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>int __thiscall sub_????????(int this, int a2, int a3)
+{
+  int v3; // edx
+  int result; // eax
+
+  v3 = *(_DWORD *)(this + 30);
+  result = sub_2302450(a2,a3,v3);
+  return result;
+}
+</code></pre>
+</div>
+<p>用frida js来调用这个函数应该如下操作(下面假设在hook一个函数的时候调用另外一个函数,且这两个函数的this指针相同):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>session = frida.attach(target_process_pid)
+script = session.create_script("""
+var baseAddr = Module.findBaseAddress('xx.exe');
+var hook_func_addr=baseAddr.add(0x????????)
+var target_func_address=baseAddr.add(0x12345678)
+var target_func=new NativeFunction(target_func_address,'int',['pointer','int','int'],'thiscall')
+
+Interceptor.attach(hook_func_addr, {
+    onEnter: function (args) {
+        //this指针保存在ecx中
+        var result=ptr(target_func(this.context.ecx,0,0)).readCString()
+    }
+});
+""")
+
+script.on('message', on_message)
+script.load()
 </code></pre>
 </div>
 
