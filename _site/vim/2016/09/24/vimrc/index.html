@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>vimrc</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">vimrc</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">September 24, 2016</span>
+           under vim
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          5 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h4 id="1弃用spf13-vim">1&gt;弃用spf13-vim</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)插件过多
+b)不利于掌握vim
+</code></pre></div></div>
+
+<h4 id="2vimrc">2&gt;.vimrc</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+"下面这段是vundle要求的,加到vimrc的开头
+""""""""""""""for vundle""""""""""""""""
+set nocompatible              " be iMproved, required 
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins "call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+"下面用vundle安装incsearch插件
+Plugin 'haya14busa/incsearch.vim'
+"下面用vundle安装incsearch-fuzzy插件
+Plugin 'haya14busa/incsearch-fuzzy.vim'
+"下面用vundle安装easymotion插件
+Plugin 'easymotion/vim-easymotion'
+"下面用vundle安装incsearch-easymotion&lt;space+/&gt;,&lt;z+/&gt;
+Plugin 'haya14busa/incsearch-easymotion.vim'
+"下面用vundle安装autoformat代码自动对齐插件&lt;f3&gt;
+Plugin 'Chiel92/vim-autoformat'
+"下面用vundle安装auto-pairs括号自动配对插件
+Plugin 'jiangmiao/auto-pairs'
+"下面用vundle安装Valloric/YouCompleteMe插件
+Plugin 'Valloric/YouCompleteMe'
+"下面用vundle安装indentLine代码对齐线插件
+Plugin 'Yggdroot/indentLine'
+"下面用vundle安装vim中文文档
+Plugin 'vimcn/vimcdoc'
+"下面用vundle安装ctrlp快速打开文件插件,&lt;c-p&gt;
+Plugin 'ctrlpvim/ctrlp.vim'
+"下面用vundle安装配色插件
+Plugin 'flazz/vim-colorschemes'
+"下面这个插件用来快速切换配色&lt;f8&gt;
+Plugin 'felixhummel/setcolors.vim'
+"下面这个插件用来强制改变jjjjjjjjjjkkkkkkkkkkkllllllll的坏习惯
+Plugin 'takac/vim-hardtime'
+"下面这个插件利用vim8的时钟特性自动保存文件,默认第5分钟保存,后来发现这个插件是备份文件,不保存正在编辑的文件,于
+"是弃用 
+"Plugin 'chrisbra/vim-autosave'
+"下面这个插件用来安装一个css配色方案插件,后来觉得没有什么作用,不如直接用evening配色方案
+"Plugin 'ap/vim-css-color'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+Plugin 'ascenator/L9', {'name': 'newL9'}
+"下面这个插件用来markdown实时预览
+Plugin 'iamcco/markdown-preview.vim'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+"下面这行要注意,有可能以后要改
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+""""""""""""for vundle end""""""""""""
+
+
+
+
+"set ruler|noruler"默认开启ruler
+"设置leader键为,
+let mapleader=","
+set number"显示行号
+syntax on"自动语法高亮,语法检验
+set autoindent"自动缩进
+set tabstop=4"tab键占4个字符
+
+
+"方便操作
+map ; :
+map mm ZZ
+map sy "+y
+map sp "+p
+
+"在光标处换行,不用再切换到insert模式再enter
+nnoremap &lt;enter&gt; i&lt;enter&gt;&lt;esc&gt;
+
+
+
+"md文件中文符号换成英文
+au BufRead *.md call Biaodian()
+map &lt;F2&gt; :call Biaodian() &lt;CR&gt;
+function Biaodian()
+    silent! %s/“/"/g
+    silent! %s/”/"/g
+    silent! %s/，/,/g
+    silent! %s/。/./g
+    silent! %s/？/?/g
+    silent! %s/〈/&lt;/g
+    silent! %s/〉/&gt;/g
+    silent! %s/（/(/g
+    silent! %s/）/)/g
+    silent! %s/：/:/g
+    silent! %s/；/;/g
+    silent! %s/‘/'/g
+    silent! %s/‘/'/g
+    silent! %s/！/!/g
+    endfunction
+
+"设置缩进的空格数
+set shiftwidth=4
+
+"设置tab键为4个空格
+set ts=4
+set expandtab 
+
+"111字符长度换行用来适配博客md编写
+set textwidth=111
+
+"textwidth用于中文换行
+set formatoptions+=mM
+
+
+"设置,w为保存
+"nmap &lt;leader&gt;w :w&lt;CR&gt;
+
+
+"下面4个插件最后浓缩成的两个典型使用方法:
+"space+/:fuzz search+easymotion功能
+"z/:fuzz search功能
+"
+"四个easymotion插件incsearch incsearch-fuzzy vim-easymotion incsearch-easymotion相关设置
+"目前只能用incsearch和easymotion,并用如下配置
+
+"111111incsearch插件设置
+""""""""""start of incsearch"""""""""
+map /  &lt;Plug&gt;(incsearch-forward)
+map ?  &lt;Plug&gt;(incsearch-backward)
+map g/ &lt;Plug&gt;(incsearch-stay)
+
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  &lt;Plug&gt;(incsearch-nohl-n)
+map N  &lt;Plug&gt;(incsearch-nohl-N)
+map *  &lt;Plug&gt;(incsearch-nohl-*)
+map #  &lt;Plug&gt;(incsearch-nohl-#)
+map g* &lt;Plug&gt;(incsearch-nohl-g*)
+map g# &lt;Plug&gt;(incsearch-nohl-g#)
+
+function! s:noregexp(pattern) abort
+	return '\V' . escape(a:pattern, '\')
+endfunction
+
+function! s:config() abort
+	return {'converters': [function('s:noregexp')]}
+endfunction
+
+noremap &lt;silent&gt;&lt;expr&gt; z/ incsearch#go(&lt;SID&gt;config())
+"""""""""end of incsearch""""""""""
+
+
+
+"222222incsearch-fuzzy插件设置
+"https://github.com/haya14busa/incsearch-fuzzy.vim
+"暂时因为看上去没有什么效果而没用它,暂时认为222222和333333这两个插件无法正常工作是由于222222插件无法正常工作
+"而222222不工作是由于没有找到incsearch#config#fuzzy#converter()函数(报这个错),于是vim--&gt;:h
+"incsearch-config-fuzzy,发现没有incsearch-config-fuzzy的说明,猜想有一点可能是incsearch-fuzzy插件没有装好,于是
+":BundleInstall,居然可以安装,说明之前这个incsearch-fuzzy插件的确没有装好,然后发现安装完incsearch-fuzzy后就不会
+"报没有找到incsearch#config#fuzzy#converter()函数的错误了,然后一切都好了,333333插件也可以用了
+"""""""""start of incsearch-fuzzy"""""""""
+"fuzzy
+map z/ &lt;Plug&gt;(incsearch-fuzzy-/)
+map z? &lt;Plug&gt;(incsearch-fuzzy-?)
+map zg/ &lt;Plug&gt;(incsearch-fuzzy-stay)
+"fuzzyspell
+map z/ &lt;Plug&gt;(incsearch-fuzzyspell-/)
+map z? &lt;Plug&gt;(incsearch-fuzzyspell-?)
+map zg/ &lt;Plug&gt;(incsearch-fuzzyspell-stay)
+"Use both fuzzy &amp; fuzzyspell feature
+function! s:config_fuzzyall(...) abort
+		  return extend(copy({
+		    \   'converters': [
+		    \     incsearch#config#fuzzy#converter(),
+		    \     incsearch#config#fuzzyspell#converter()
+		    \   ],
+		    \ }), get(a:, 1, {}))
+endfunction
+
+noremap &lt;silent&gt;&lt;expr&gt; z/ incsearch#go(&lt;SID&gt;config_fuzzyall())
+noremap &lt;silent&gt;&lt;expr&gt; z? incsearch#go(&lt;SID&gt;config_fuzzyall({'command': '?'}))
+noremap &lt;silent&gt;&lt;expr&gt; zg? incsearch#go(&lt;SID&gt;config_fuzzyall({'is_stay': 1}))
+"""""""""end of incsearch-fuzzy"""""""""
+
+
+"333333incsearch-easymotion插件的设置
+""""""""""start of incsearch-easymotion""""""""""
+"https://github.com/haya14busa/incsearch-easymotion.vim
+"暂时因为没有什么效果而没用它,可能是与什么插件不兼容或与系统不兼容
+"后来可以用了,因为上面的incsearch-fuzzy插件第一次没有装好
+"map z/ &lt;Plug&gt;(incsearch-easymotion-/)
+"map z? &lt;Plug&gt;(incsearch-easymotion-?)
+"map zg/ &lt;Plug&gt;(incsearch-easymotion-stay)
+"上面这三行不能加,加了则不能通过z/来fuzz search了,如果加了上面这三行,没有什么特殊效果
+"无论有没有加上面这三行,都可以通过space+/实现[fuzz search并easymotion的效果]
+
+"""incsearch.vim x fuzzy x vim-easymotion
+function! s:config_easyfuzzymotion(...) abort
+		  return extend(copy({
+		    \   'converters': [incsearch#config#fuzzy#converter()],
+		    \   'modules': [incsearch#config#easymotion#module()],
+		    \   'keymap': {"\&lt;CR&gt;": '&lt;Over&gt;(easymotion)'},
+		    \   'is_expr': 0,
+		    \   'is_stay': 1
+		    \ }), get(a:, 1, {}))
+endfunction
+noremap &lt;silent&gt;&lt;expr&gt; &lt;Space&gt;/ incsearch#go(&lt;SID&gt;config_easyfuzzymotion())
+""""""""""end of incsearch-easymotion""""""""""
+
+
+"444444下面是easymotion插件的相关设置
+""""""""""""""""""start of easymotion""""""""""""""""""
+"下面这句暂时不确定用意
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+ 
+"三键到任意地方
+nmap s &lt;Plug&gt;(easymotion-overwin-f)
+"四键到任意地方
+"nmap s &lt;Plug&gt;(easymotion-overwin-f2)
+"设置大小写不敏感
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+map &lt;Leader&gt;j &lt;Plug&gt;(easymotion-j)
+map &lt;Leader&gt;k &lt;Plug&gt;(easymotion-k)
+"move to line 
+map &lt;Leader&gt;l &lt;Plug&gt;(easymotion-bd-jk)
+nmap &lt;Leader&gt;l &lt;Plug&gt;(easymotion-overwin-line)
+
+"下面设置fuzzsearch,这个有点叼,结合incsearch,incsearch-fuzzy,easymotion,incsearch-easymotion四个插件
+"但是目前并没有让4个插件都起作用
+"目前只有incsearch+easymotion
+"后来这四个插件完美运行了,因为incsearch-fuzzy插件之前没有装好
+"incsearch-fuzzy和incsearch-easymotion这两个插件暂时没有用
+" You can use other keymappings like &lt;C-l&gt; instead of &lt;CR&gt; if you want to
+" use these mappings as default search and somtimes want to move cursor with
+" EasyMotion.
+
+function! s:incsearch_config(...) abort
+		  return incsearch#util#deepextend(deepcopy({
+		    \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+		    \   'keymap': {
+		    \     "\&lt;CR&gt;": '&lt;Over&gt;(easymotion)'
+		    \   },
+		    \   'is_expr': 0
+		    \ }), get(a:, 1, {}))
+endfunction
+
+noremap &lt;silent&gt;&lt;expr&gt; /  incsearch#go(&lt;SID&gt;incsearch_config())
+noremap &lt;silent&gt;&lt;expr&gt; ?  incsearch#go(&lt;SID&gt;incsearch_config({'command': '?'}))
+noremap &lt;silent&gt;&lt;expr&gt; g/ incsearch#go(&lt;SID&gt;incsearch_config({'is_stay': 1}))
+""""""""""""""""""end of easymotion""""""""""""""""""
+
+"代码对齐插件相关设置
+noremap &lt;F3&gt; :Autoformat&lt;CR&gt;
+
+
+"""""""""start of YCM""""""""""
+"YouCompleteMe相关设置
+set runtimepath+=~/.vim/bundle/YouCompleteMe
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif	"离开插入模式后自动关闭预览窗口"
+let g:ycm_collect_identifiers_from_tags_files = 1           " 开启 YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释与字符串中的内容也用于补全
+let g:syntastic_ignore_files=[".*\.py$"]
+let g:ycm_seed_identifiers_with_syntax = 1                  " 语法关键字补全
+let g:ycm_complete_in_comments = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_key_list_select_completion = ['&lt;c-n&gt;', '&lt;Down&gt;']  " 映射按键, 没有这个会拦截掉tab, 导致其他插件的tab不能用.
+let g:ycm_key_list_previous_completion = ['&lt;c-p&gt;', '&lt;Up&gt;']
+let g:ycm_complete_in_comments = 1                          " 在注释输入中也能补全
+let g:ycm_complete_in_strings = 1                           " 在字符串输入中也能补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释和字符串中的文字也会被收入补全
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0                           " 禁用语法检查
+inoremap &lt;expr&gt; &lt;CR&gt; pumvisible() ? "\&lt;C-y&gt;" : "\&lt;CR&gt;" |            " 回车即选中当前项
+nnoremap &lt;c-j&gt; :YcmCompleter GoToDefinitionElseDeclaration&lt;CR&gt;|     " 跳转到定义处
+"let g:ycm_min_num_of_chars_for_completion=2                 " 从第2个键入字符就开始罗列匹配项
+"""""""""end of YCM""""""""""
+"vim-colorschemes插件配色
+colorscheme evening 
+"setcolors插件设置自动换配色,vim-colorschemes插件相当于配色库,setcolor插件用于变换其他配色,如果不安装
+"vim-colorschemes插件只安装setcolor插件则没有好的效果
+"考虑到对眼睛不好,暂时关闭下面的自动换色
+"autocmd CursorHold * call NextColor(1)
+"在setcolors.vim中将最开始的设置改成如下值
+"let s:mycolors = ['Benokai','molokai','evening', 'feral', 'flatlandia', 'flattown', 'murphy', 'flatui', 'freya', 'fu','genericdc','1989','256-grayvim','256-jungle','CandyPaper','Chasing_Logic','ChocolateLiquor','ChocolatePapaya','openbsd','BlackSea','black_angus','0x7A69-dark']  " colorscheme names that we use to set color
+
+"下面开启打开文件时自动跳转到上次编辑的地方,vim在/etc/vim/vimrc文件中默认设置关闭
+if has("autocmd")
+  au BufReadPost * if line("'\"") &gt; 1 &amp;&amp; line("'\"") &lt;= line("$") | exe "normal! g'\"" | endif
+endif
+
+"vim-hardtime插件的设置
+let g:hardtime_default_on = 1
+let g:hardtime_maxcount = 3
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_insert_keys = []
+
+"下面是插入模式的3个字符内移动的快捷键,结合vim-hardtime在vim-hardtime中设置去除Left,Down,Up,Right的禁用
+"超过当前光标所在位置的移动用f+j+s+字符+hint,或者f+j+w|b的方法移动(f+j为esc的map)
+inoremap &lt;A-h&gt; &lt;Left&gt;
+inoremap &lt;A-j&gt; &lt;Down&gt;
+inoremap &lt;A-k&gt; &lt;Up&gt;
+inoremap &lt;A-l&gt; &lt;Right&gt;
+
+"每行超过111字符长度后用不同颜色显示
+augroup vimrc_autocmds
+  autocmd CursorHold * highlight OverLength ctermbg=darkgrey guibg=#592929
+  autocmd CursorHold * match OverLength /\%112v.*/
+augroup END
+
+"vim-autosave插件的设置
+":let g:autosave_timer= 1
+"弃用上面的插件,用下面的自动保存命令
+set updatetime=200
+au CursorHold * silent! update
+
+"下面是markdown预览插件的相关设置
+"如果f5失效则先按f6再按f5
+nmap &lt;silent&gt; &lt;F5&gt; &lt;Plug&gt;MarkdownPreview        " 普通模式
+imap &lt;silent&gt; &lt;F5&gt; &lt;Plug&gt;MarkdownPreview        " 插入模式
+nmap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 普通模式
+imap &lt;silent&gt; &lt;F6&gt; &lt;Plug&gt;StopMarkdownPreview    " 插入模式
+
+</code></pre></div></div>
+
+<h4 id="install">Install</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/3xp10it/.vimrc
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            vimrc
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>hashcat&john</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">hashcat&john</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">June 22, 2016</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          3 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><p>knowledge from klion</p>
+
+<h3 id="0x01-hashcat">0x01 hashcat</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在线hash解密网站(基本上常用的一些hash类型它都支持):
+	https://verifier.insidepro.com
+	https://cmd5.com
+	
+一款帮我们大概识别hash类型的小脚本:
+	hash-identifier  执行执行,而后把要识别的hash粘进去回车即可
+	
+	
+注意,必须提前安装好对应的显卡驱动(AMD/英伟达根据自己实际选择),然后下载oclhashcat:
+	https://hashcat.net/files/oclHashcat-2.01.7z
+	https://hashcat.net/files/cudaHashcat-2.01.7z
+
+hashcat简介(这里暂以hashcat为例,实战中推荐买块好显卡,用oclhashcat,两者选项稍稍有些不同,实际用的时候记得看下帮助):
+	hashcat 	基于CPU破解
+	oclhashcat  基于GPU破解
+	
+hashcat常用选项(如果提示要升级到新版本,修改下系统时间到2010年之前即可):
+	-a  指定要使用的破解模式
+	-m  指定要破解的hash的类型,基本是支持市面上流行的所有散列类型
+	-o  指定破解成功后的hash及对应明文密码的存放位置
+	--username  忽略hash文件中的用户名
+	--remove    移除已经破解成功的hash
+	-r			支持自定义破解规则
+	
+hashcat支持的几种破解模式:
+
+	0 = Straight    	普通字典模式,后面可以连续跟多个字典文件
+    1 = Combination
+    2 = Toggle-Case
+    3 = Brute-force		基于自定义掩码的破解
+    4 = Permutation
+    5 = Table-Lookup
+    8 = Prince
+	
+hashcat掩码字符所代表的含义及掩码具体的使用方法:
+  
+   ?l = abcdefghijklmnopqrstuvwxyz
+   ?u = ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ?d = 0123456789
+   ?s =  !"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~
+   ?a = ?l?u?d?s
+   ?b = 0x00 - 0xff
+
+   -1,  --custom-charset1=CS     User-defined charsets
+   -2,  --custom-charset2=CS     Example:
+   -3,  --custom-charset3=CS     --custom-charset1=?dabcdef : sets charset ?1 to 0123456789abcdef
+   -4,  --custom-charset4=CS     -2 mycharset.hcchr : sets charset ?2 to chars contained in file
+
+
+基于普通的基于字典的爆破(普通md5的hash):
+	# hashcat -a 0 -m 0  /root/Desktop/md5.txt /usr/share/wordlists/weakpass.txt
+	
+基于掩码的爆破(先先逐个位进行尝试破解,一般都是字母数字这种形式的,如果hash比较多的情况下,直接从9位开始即可):
+	前三位数字,后三位小写字母
+	# hashcat -a 3 -m 0 /root/Desktop/md5numword.txt  ?d?d?d?l?l?l
+	
+	6位的纯字母
+	# hashcat -a 3 -m 0 /root/Desktop/md5word.txt  -1 ?l ?1?1?1?1?1?1
+	
+	6位纯数字
+	# hashcat -a 3 -m 0 /root/Desktop/md5num.txt  -1 ?d ?1?1?1?1?1?1
+
+	6位的小写字母和数字的随机组合
+	# hashcat -a 3 -m 0 /root/Desktop/md5.txt  -1 ?l?d ?1?1?1?1?1?1
+	
+破解普通md5系列(filezilla为例):
+	# hashcat -a 3 -m 0 /root/Desktop/md5.txt -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/md5res.txt
+	
+破解sha系列(rhel6.5 shadow为例[实际hash类型为SHA512]):
+	# hashcat -a 3 -m 1800 /root/Desktop/linux.txt -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/linuxres.txt
+	
+破解mysql 4/5 用户hash(记得把开头的*,去掉 [User]):
+	# hashcat -a 3 -m 300  /root/Desktop/mysql.txt -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/mysqlres.txt
+	
+破解mssql系列([2000,2005,2008] / [2012,2014] (sys.sql_logins)):
+	2005
+	# hashcat -a 3 -m 132  /root/Desktop/mssql2005.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/2005.txt
+	
+	2008 测试过程中,2008的hash用的是2005的hash类型,也一样可以成功
+	# hashcat -a 3 -m 132  /root/Desktop/mssql2008.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/2008.txt
+	
+破解ntlm(注意这里只取出ntlm的值即可,也就是把hash里面的lm的值去掉):
+	# hashcat -a 3 -m 1000  /root/Desktop/ntlm.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/ntlmres.txt
+	
+破解wpa/wpa2:
+    破解wifi时由于aircrac-ng得到的包是.cap文件,要转成.hccap文件才可以给hashcat使用,转换工具如下:
+    1)https://hashcat.net/cap2hccap/
+    2)https://github.com/hashcat/hashcat-utils/releases    这个里面的cap2hccapx.bin(macOS下运行不成功,可放到
+    kali64[vm]下运行可成功)或cap2hccapx.exe(win32下不能运行,可能是64位的exe)
+    3)https://github.com/wpatoolkit/Cap-Converter.git
+    4)上面几个都不好用下直接进kali,用kali下的aircrack-ng input.cap -J output.hccap(macOS下的aircrack-ng无此功能)
+      或者如果数据量太大(eg,macOS下由于不能aireplay主动攻击需要sniff较长时间会导致数据量较大):
+          这时可直接指定bssid可快速转成hccap文件,命令如下:
+          eg.aircrack-ng input.cap -J output.hccap -b 50:bd:5f:6e:3f:44
+
+    最后破解命令:
+    hashcat -a 3 -m 2500 output.hccap ?d?d?d?d?d?d?d?d
+        但是新版本的hastcat会说这个hccap文件是老版本的,现在只支持新版本的hccapx文件,所以最好的由cap转换成hccap文
+        件的方法是:
+        
+    最后命令版本:
+    a.将https://github.com/hashcat/hashcat-utils/releases里面的cap2hccapx.bin放到kali64下运行得到hccapx文件,然后再运行:
+    b.hashcat -a 3 -m 2500 output.hccapx ?d?d?d?d?d?d?d?d
+
+	
+破解wordpress:
+	# hashcat -a 3 -m 400  /root/Desktop/wordpress4.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/wordpressres.txt
+	
+破解joomla25:
+	# hashcat -a 3 -m 400  /root/Desktop/joomla25.txt  -1 ?l?d ?1?1?1?1?1?1 -o /root/Desktop/joomla25res.txt
+	
+破解discuz(oclhashcat才有此hash类型):
+
+破解oracle 11g 用户hash:
+
+破解skeype密码hash:
+
+破解postgresql用户hash[pg_shadow]:
+
+破解ser-U:
+
+关于普通加盐的爆破:
+	看加盐的位置,再选择相应的类型即可
+
+my experience:
+1&gt;opencart:
+hashcat64.exe -a 3 -m 13900 mi.hash ?a?a?a?a?a?a?a?a 
+其中mi.hash内容为待破解的hash,格式为sha1_value:salt_value
+
+2&gt;hashcat有4种自定义字符规则集:-1,-2,-3,-4
+eg.要破解8位的任意小写字母和数字组合的md5的密码的命令为:
+hashcat -a 3 -m 0 hashfiletocrack -2(也可以是-1,-3,-4) ?l?d ?2?2?2?2?2?2?2?2 -o outfile
+这条命令的意思是自定义-2字符集为?l?d(小写与数据组合),一共8位的密码来暴力破解 
+
+3&gt;破解的密码长度未知,如密码长度为6位到8位:
+http://wps2015.org/drops/drops/GPU%E7%A0%B4%E8%A7%A3%E7%A5%9E%E5%99%A8Hashcat%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html
+--increment --increment-min 6 --increment-max 8
+
+4&gt;hashcat高级用法
+http://www.freebuf.com/articles/database/125051.html
+
+5&gt;上面4中的工具combinator.bin可在hashcat的github的release中下载:
+https://github.com/hashcat/hashcat-utils/releases
+
+
+建议用hashcat破解的一般流程总结(快速破解常规口令,速度快):
+	例如: 破解6到10位的大小写字母数字组成的密码,可以遵循以下顺序
+	
+	对于纯数字或者字母的hash破解:
+	6位纯数字   
+	6位纯小写字母
+	6位纯大写字母
+	7位纯数字
+	7位纯小写字母
+	7位纯大写字母
+	8位纯数字
+	8位纯小写字母
+	8位纯大写字母
+	9位纯数字
+	9位纯小写字母
+	9位纯大写字母
+	10位纯数字
+	10位纯小写字母
+	10位纯大写字母
+	11位纯数字
+	11位纯小写字母
+	11位纯大写字母
+	用以上规则没有跑出来的hash,可以继续下面的规则……
+	
+	对于6位数字字母混合密码的简单拆分:
+	前1位字母后5位数字
+	前2位字母后4位数字
+	前3位字母后3位数字
+	前4位字母后2位数字
+	前5位字母后1位数字
+	
+	对于7位数字字母混合密码的简单拆分:
+	前1位字母后6位数字
+	前2位字母后5位数字
+	前3位字母后4位数字
+	前4位字母后3位数字
+	前5位字母后2位数字
+	前6位字母后1位数字
+	
+	对于8位数字字母混合密码的简单拆分:
+	前1位字母后7位数字
+	前2位字母后6位数字
+	前3位字母后5位数字
+	前4位字母后4位数字
+	前5位字母后3位数字
+	前6位字母后2位数字
+	前7位字母后1位数字
+	
+	对于9,10,11,12位数字字母混合密码的拆分也是一样……
+	这里,我只是假设密码都是纯数字字母的,在实际的hash破解过程中,你还可以把特殊字符加入在内,再重新组合破解规则……
+	
+	
+小结:
+	当然,你也可以不用我建议的这种规则,因为在hashcat中有自定义破解规则的选项
+
+	比如:我们就知道这个密码是9位的,里面可能有大小写字母,数字,特殊字符
+		 但具体哪一位上是数字,字母,特殊字符我并不知道,自定义规则就发挥了他的作用……
+		 但,我想说的是,这样无疑是非常耗时的,如果你像我前面已经规定好了哪一位是数字
+		 哪一位是字母的话,它的破解速度就会成倍的提升,除非你真的在试完前面所有的规则之后都没跑出来,这时候再尝试自定义规则也未尝不可……
+		 
+</code></pre></div></div>
+
+<h3 id="0x02-john">0x02 john</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在kali 2016.1 上的安装john:
+
+# sudo apt-get install libssl-dev
+# cd john-1.8.0-jumbo-1/src/
+# ./configure
+# make &amp;&amp; make -s
+# cd ../run
+# ./john --test     测试当前机器的解密速度
+# 最后看到全部通过,证明安装已经基本成功
+
+john 破解规则设置文件(每种模式下的具体的破解规则,请仔细查看该文件,C语言格式的):
+	# vi john/run/john.conf
+	
+john运行以后会在当前目录产生一个john.pot文件,用来缓存数据,如果想重新破解,直接把这个文件删除即可
+	# rm -fr john.pot
+	
+常用选项:
+	--wordlist		指定用来破解hash的字典,即字典模式
+	--single  		简单破解模式,也是默认的运行模式,根据用户名进行一些简单的变形猜解
+	--incremental 	逐个遍历模式
+	--external		自定义破解规则模式
+	--restore		依照上次的破解进度接着执行破解
+	--show 			显示已经破解出来的hash及对应的明文密码
+	--users			只破解指定用户的hash
+	--groups		只破解指定用户组的hash
+	--shells		只破解指定shell的hash
+	--format		指定要破解的hash的类型
+	--stdout		从别处重定向到指定的hash
+	
+合并linux系统中的用户/组和密码hash配置文件(在不知道具体类型的情况下,直接john跟上hash文件即可,当识别类型以后,简单模式破不出来,再incremental):
+	# unshadow /etc/passwd /etc/shadow &gt; /root/Desktop/johnuser.txt
+	# unshadow /etc/group /etc/gshadow &gt; /root/Desktop/jonhgroup.txt
+	
+破解linux系统用户hash:
+	一般简单模式破解(如果不手工指定hash类型,john也会帮你自动识别,并提示你):
+		# ./john   /root/Desktop/linux.txt --format=sha512crypt --incremental
+		# ./john /root/Desktop/group.txt   --format=sha512crypt --incremental
+		
+	指定用户名破解:
+		# ./john /root/Desktop/johnuser.txt  --users=alex --format=sha512crypt --incremental
+		# ./john /root/Desktop/johnuser.txt --users=jack,alex --format=sha512crypt --incremental
+		
+	指定shell破解:
+		# ./john /root/Desktop/johnuser.txt  --shells=/bin/rbash --format=sha512crypt --incremental
+	
+	显示已经破解的hash:
+		# ./john  /root/Desktop/tmp.txt  --show
+		
+破解ntlm(2008):
+	# ./john /root/Desktop/ntlm.txt --format=NT2 --incremental
+
+破解mssql系列数据库用户hash:
+	2005:
+		# ./john /root/Desktop/2005.txt  --format=mssql05  --incremental
+		
+	2008:
+		# ./john /root/Desktop/2008.txt  --format=mssql05  --incremental
+		
+	2012:
+		# ./john /root/Desktop/2012.txt  --format=mssql12  --incremental
+	
+破解mysql系列数据库用户hash:
+	# ./john /root/Desktop/mysql.txt  --format=mysql-sha1  --incremental
+	
+破解office系列密码(2010):
+	# ./office2john.py /root/Desktop/test.docx &gt; /root/Desktop/officehash.txt
+	# ./john /root/Desktop/officehash.txt --format=office --incremental
+
+破解drupal7用户密码hash:
+	# ./john /root/Desktop/drupal7.txt --format=Drupal7  --incremental
+	
+破解rar系列密码hash(rar,rar5):
+	# ./rar2john /root/Desktop/rar.rar &gt; /root/Desktop/rarhash.txt
+	# ./john /root/Desktop/rarhash.txt --format=rar --incremental
+	# ./john /root/Desktop/rar5hash.txt --format=rar5 --incremental
+
+    hashcat破解rar(需要先参考这里https://hashcat.net/forum/thread-4619.html)
+        rar3-hp     hashcat --force -m 12500 hash.txt -a 3 ?d?d?d?d?d?d
+        rar5        hashcat --force -m 13000 hash.txt -a 3 ?d?d?d?d?d?d
+	
+破解zip密码hash:
+	# ./zip2john /root/Desktop/zip.zip &gt; /root/Desktop/ziphash.txt
+	# ./john /root/Desktop/ziphash.txt --incremental --format=PKZIP
+
+破解pdf密码hash:
+	# ./pdf2john.py /root/Desktop/CMD.pdf &gt; /root/Desktop/pdfhash.txt
+	# ./john /root/Desktop/pdfhash.txt
+
+破解filezilla(md5)用户密码hash:
+	# ./john /root/Desktop/MD5.txt --format=Raw-MD5 --incremental
+	# ./john /root/Desktop/MD5.txt --format=Raw-MD5 --wordlist=/usr/share/wordlists/weakpass.txt
+	
+破解wpa/wpa2hash:
+	# ./john --stdout --incremental:all | aircrack-ng -b apmac -w - wpa2*.cap
+
+破解grub hash:
+	
+破解radmin用户hash:
+
+破解oracle 11g 以下数据库用户hash:
+	
+破解ssh key hash: 
+	
+破解7z密码hash:
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            hashcat
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

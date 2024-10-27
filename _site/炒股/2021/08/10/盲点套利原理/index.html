@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>盲点套利原理</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">盲点套利原理</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 10, 2021</span>
+           under 炒股
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><p>本文全文转自花荣著作«万修成魔».</p>
+
+<h3 id="一双轨价格特权">一.双轨价格,特权</h3>
+
+<p>1.双轨价格</p>
+
+<p>双轨价格是指你的买进价格明显比卖出价格要低,而且利润很容易兑现,最为常见的事物是新股,你认购中签的原始新股,上市后在二级市场上的价格明显有利可图.其他常见的类似品种还有远低于二级市场价格的定向增发的股票,有利可图的原始转债,原始可交换债,价格远低于面值但到期可兑现的垃圾企业债,新上市的有利可图的纪念钞,等等.</p>
+
+<p>2.特权力</p>
+
+<p>特权力是指大多数人不具备的权力,双轨价格虽然很诱惑人,但实现起来也不是那么容易 ,常常有壁垒 ,有门槛,有盲点,有心理障碍,职业投机者必须有培养资源让自己有特权越过壁垒,门槛,也必须有分析能力看见盲点克服心理障碍,拥有双轨价格意识,拥有双轨价格信息,拥有双轨价格的特权,拥有双轨 价格的分析能力,是职业投机者必须要做的.</p>
+
+<h3 id="二新品种与制度创新">二.新品种与制度创新</h3>
+
+<p>1.新鲜事物</p>
+
+<p>沪深股市有炒新的传统,每当有新出现的品种,新制度出现,必会有主力机构利用进行炒作,有时是正向的,有时也可能是负向的.例如,当权证,中小板,创业板等新品种出现时都成为市场正向炒作热点.当股指期货,熔断制度出现时,市场都出现了负向的大波动炒作.所以每当新鲜事物出现的时候,一定要尽快地熟悉了解其原理,了解其中的机会,也要分析其对市场波动的作用.最好是利用发现的机会,不清楚时,对系统风险要防范,保持短时间的观望,以规避盲点风险.</p>
+
+<p>2.双向性</p>
+
+<p>再次强调,新鲜事物出现时极可能带来正向的炒作机会,也存在着给市场带来系统风险的可能,最为典型的是股指期货,熔断制度实施的初期,给市场带来的阵痛是惨烈的.</p>
+
+<h3 id="三含除权及非股票交易品种">三.含除权及非股票交易品种</h3>
+
+<p>1.非股票交易品种</p>
+
+<p>衍生产品是一种金融工具,一般表现为两个主体之间的一个协议,其价格由其他基础产品的价格决定.并且有相应的现货资产作为标的物,成交时不需要立即交割,而可在未来时点交割.典型的衍生品包括远期,期货,期权和互换等.衍生品种属于典型的非股票品种,其中的交易规则不为普通大众投资者熟悉,所以盲点机会众多,应为职业投机者研究分析的重点之一,特别是在股票市场处于弱势阶段的时间.非股票交易品种还有基金,转债,企业债,权证等品种.</p>
+
+<p>2.一个分析要点</p>
+
+<p>在分析非股票交易品种的时候,要注意时间,价格,含除权,契约和确定性这五个概念,如果把目标品种的这五个概念弄清楚了,就容易发现盲点利润,规避盲点风险.</p>
+
+<h3 id="四再融资和现金选择权">四.再融资和现金选择权</h3>
+
+<p>1.再融资</p>
+
+<p>再融资是指上市公司通过配股,增发和发行可转换债券等方式在证券市场上进行的直接融资.从某个角度上来看,再融资的实现可以视作上市公司及其大股东能够获得更大的社会资源和利益,因此上市公司有再融资的动力.分析上市公司再融资带来的市场机会,要熟悉再融资定价的制度规则,当再融资的价格低于或者接近再融资的价格时,上市公司(投行或者大股东)有吃小亏占大便宜的心理,股价在某些时刻会有波段机会.当然这种努力是适度的,如果股票市价远低于再融资的价格,再融资失败的可能性大.</p>
+
+<p>2.现金选择权</p>
+
+<p>在投资市场中,现金选择权的含义是:交易过程结束后,需要支付交易标的物的一方可以选择实际支付交易标的物,也可以选择以现金方式履行交割手续.在商品期货业也称此为”现金交割”.在证券市场也有类似的操作,这类允许以现金支付替代实物支付的方式就称为现金选择权.说的通俗一些,现金选择权就是你不管用什么价格买的股票,可以在未来某一个特定的时间(通常一年内),以一个固定的价格(比如10元)卖给别人(上市公司的大股东或者公告中说明的某个公司机构).这样,当市价低于现金选择权价格时,就存在着无风险的盲点利润.完全要约收购类似于现金选择权,部分要约收购则需考虑市场自动除权的因素.</p>
+
+<h3 id="五上市公司大股东的承诺">五.上市公司大股东的承诺</h3>
+
+<p>上市公司的大股东承诺方式主要有:</p>
+
+<p>1.股票的增持或者减持<br />
+要注意数量,时间,价格在特定时间对股价的影响,上市公司的回购有类似影响.</p>
+
+<p>2.大股东转换时的承诺<br />
+主要是资产重组的有无与时间</p>
+
+<p>3.资产重组失败后的承诺<br />
+要分析公司是否再度重组的动力和愿望.</p>
+
+<p>4.大股东其他资产以及同业竞争解决的承诺<br />
+要分析整体上市的可能性以及其他资产的盈利状况.</p>
+
+<p>5.资产重组中大股东的承诺<br />
+资产重组中大股东因未达成业绩承诺而采取的股票补偿方式有两种:定向回购补偿和股票赠送补偿.</p>
+
+<p>6.机会分析<br />
+对这些因素的关注追踪,常常能获利盲点利润.</p>
+
+<h3 id="六主力机构无形之手优势盘面试探">六.主力机构,无形之手,优势,盘面试探</h3>
+
+<p>1.主力机构</p>
+
+<p>主力机构也是有风格的,你应该熟悉其风格,顺着其风格来,主力重仓股被套时或者市场强势时外盘大容易涨,主力重仓股在盈利巨大时或者大盘清淡的熊市中遇买盘容易跌.</p>
+
+<p>2.无形之手</p>
+
+<p>极端时刻,无形之手都会发力,要注意国家级机构的动向以及指标股的动向,及时发现其对市场的影响力.</p>
+
+<p>3.你的优势</p>
+
+<p>你清楚自己的资源优势,资金优势,扬长避短.大资金的优势与小资金的优势是不一样的,小资金相对更灵活,更容易在强市场中获得高收益.自己的资金与客户的资金优势也是不一样的,各有各的长处.</p>
+
+<p>4.盘面试探</p>
+
+<p>对于敏感的股票,盘面试探也是一个好的博弈手段,如某个股票准备资产重组,突然的大量买盘进入,公司担心消息泄露而快速停牌.盘面试探主要针对消息敏感股和主力重仓股,试探手段要符合博弈思维,符合”双赢”,而不能违反博弈思维,否则会导致最后的结果双输.</p>
+
+<h3 id="七其他">七.其他</h3>
+
+<p><a href="https://wenku.baidu.com/view/f3b404e1524de518964b7d74.html">参考1</a>
+<a href="https://www.zhihu.com/question/27020755">参考2</a></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            盲点套利
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

