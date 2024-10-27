@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>深入理解计算机系统第5章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">深入理解计算机系统第5章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 31, 2017</span>
+           under auxilary
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="优化程序性能">优化程序性能</h3>
+
+<p>1.编写高效程序特点:</p>
+
+<p>a)必须选择一组合适的算法和数据结构<br />
+要特别警觉,避免使用那些会渐进地产生糟糕性能的算法或编码技术</p>
+
+<p>b)必须编写出编译器能够有效优化以转换成高效可执行代码的源代码<br />
+如,用好的风格重写条件操作,使得编译采用条件数据传送</p>
+
+<p>c)利用多核和多处理器并行计算<br />
+通过使用例如多个累积变量和重新结合等技术,找到方法提高指令级并行</p>
+
+<p>d)消除循环的低效率<br />
+展开循环,降低开销,并且使得进一步的优化成为可能</p>
+
+<p>e)减少过程调用<br />
+消除连续的函数调用,在可能时,将计算移到循环外,考虑有选择地妥协程序的模块性以获得更大的效率</p>
+
+<p>f)消除不必要的存储器引用<br />
+引入临时变量来保存中间结果,只有在最后的值计算出来时,才将结果存放到数组或全局变量中</p>
+
+<p>2.现代微处理器取得的了不起的功绩之一是:它们采用复杂而奇异的微处理器结构,其中,多条指令可以并行地执行,同时又呈现一
+种简单地顺序执行的表象</p>
+
+<p>3.现代微处理器可以在每个时钟周期执行多个操作,而且是乱序的,意思就是指令执行的顺序不一定要与它们在机器程序中的顺序
+一致,与第4章研究过的流水线相比,乱序处理器需要更大更复杂的硬件,但是它们能更好地达到更高的指令级并行度</p>
+
+<p>4.通常指令控制单元(ICU)会在当前正在执行的指令很早之前取指,这样它才有足够的时间对指令译码,并把操作发送到执行单元
+(EU).不过,当程序遇到分支(jnz/retn等)时,程序有两个可能的前进方向,现代处理器采用了一种称为分支预测的技术,处理器会猜
+测是否会选择分支并取指和译码,如果后来发现选错了,会将状态重新设置到分支点的状态,并取指和译码</p>
+
+<p>5.循环展开是一种程序变换,通过增加每次迭代计算的元素的数量,减少循环的迭代次数.编译器可以很容易地执行循环展开,只要
+优化级别设置得足够高,许多编译器都能例行公事地做到这一点.用命令行选项”-funroll-loops”调用GCC,会执行循环展开.</p>
+
+<p>循环展开能够从两个方面改程序的性能,下图中psum2函数是一个循环展开的示例.</p>
+
+<p>a)减少了不利操作的数量,如:循环索引计算和条件分支<br />
+b)提供了一些方法,可以进一步变化代码,减少整个计算中关键路径上的操作数量<br />
+c)编译器可以很容易地执行循环展开,只要优化级别设置得足够高,许多编译器都能例行公事地做到这一点</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/csapp5-1.png" /></p>
+
+<p>6.每个运算都是由两个周期计数值来刻画的:一个是延迟,它表示完成运算所需要的总时间;另一个是发射时间,它表示两个连续的
+同类型运算之间需要的最小时钟周期数.</p>
+
+<p>7.提高并行性</p>
+
+<p>a)多个累积变量<br />
+对于一个可结合和可交换的合并运算来说,比如说整数加法或乘法,我们可以通过将一组合并运算分割成两个或更多的部分,并在
+最后合并结果来提高性能(利用功能单元的流水线能力来提高性能)</p>
+
+<p>b)重新结合变换<br />
+重新结合变换能够减少计算中关键路径上操作的数量,通过更好地利用功能单元的流水线能力得到更好的性能</p>
+
+<p>8.unix系统提供了一个剖析程序GPROF,它会计算每个函数花费的时间和函数被调用的次数</p>
+
+<p>9.为什么函数调用和递归效率低?</p>
+
+<p>系统每次函数调用都要分配存储空间,并将调用点压栈记录,在函数调用结束后还要释放空间,恢复栈空间,所以函数调用浪费时间
+和空间,而递归正是函数自己调用自己,于是效率低</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            csapp
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

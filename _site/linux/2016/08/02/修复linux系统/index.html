@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>修复linux系统</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">修复linux系统</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">August 2, 2016</span>
+           under linux
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          3 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x00-good-knowledge">0x00 good knowledge:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.xitongzhijia.net/xtjc/20141208/32106.html
+https://www.linuxidc.com/Linux/2015-05/117031.htm
+</code></pre></div></div>
+
+<h3 id="0x01-etcfstab-wrong">0x01 /etc/fstab wrong</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;安装linux系统到u盘
+eg.ubuntu: use yumi
+eg.kali linux2: use win32diskimager
+
+2&gt;start os from usb
+fdisk -l
+    output:/dev/sda1 is the boot linux location
+    设备       启动     Start    末尾    扇区   Size Id 类型
+    /dev/sda1  *         2048  39178239  39176192  18.7G 83 Linux
+    /dev/sda2        39180286 488396799 449216514 214.2G  5 扩展
+    /dev/sda5        39180288 101679103  62498816  29.8G 82 Linux 交换 / Solaris
+    /dev/sda6       101681152 488396799 386715648 184.4G 83 Linux
+    
+    Disk /dev/sdb: 1.8 TiB, 2000398934016 bytes, 3907029168 sectors
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 4096 bytes
+    I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+    Disklabel type: dos
+    Disk identifier: 0x0585b847
+
+    设备       启动 Start     末尾     扇区  Size Id 类型
+    /dev/sdb1        2048 3907028991 3907026944  1.8T  5 扩展
+    /dev/sdb5        4096 3907028991 3907024896  1.8T 83 Linux
+
+vi /etc/fstab
+    # /etc/fstab: static file system information.
+    #
+    # Use 'blkid' to print the universally unique identifier for a
+    # device; this may be used with UUID= as a more robust way to name devices
+    # that works even if disks are added and removed. See fstab(5).
+    #
+    # &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+    # / was on /dev/sda6 during installation
+    UUID=404e86ae-84e2-4e70-8317-f6731637b4b1 /               ext4    errors=remount-ro 0       1
+    # /boot was on /dev/sda1 during installation
+    UUID=ff639af0-1f08-4fb3-9dc1-734fea98cdfc /boot           ext4    defaults        0       2
+    # swap was on /dev/sda5 during installation
+    UUID=662e8f85-fea5-4e66-939a-de769a05c326 none            swap    sw              0       0
+
+modify as this:
+
+UUID=404e86ae-84e2-4e70-8317-f6731637b4b1 /
+to
+/dev/sda6 /
+
+UUID=ff639af0-1f08-4fb3-9dc1-734fea98cdfc /boot
+to
+/dev/sda1 /boot
+
+UUID=662e8f85-fea5-4e66-939a-de769a05c326 none
+to
+/dev/sda5
+
+shutdown -r 0
+
+或者用df -h,blkid /dev/sda1,blkid /dev/sda6,blkid /dev/sda5分别查看uuid后修改
+</code></pre></div></div>
+
+<h3 id="0x02-boot-wrong">0x02 boot wrong</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;start os from usb with linux system
+2&gt;fdisk -l
+    output is the same as upon fdisk -l
+3&gt;mkdir /mnt/tmp
+4&gt;mkdir /mnt/tmp/boot
+5&gt;mount /dev/sda6 /mnt/tmp(这一步是多余的，因为下面的5执行后，/mnt/tmp中自然会有boot文件夹)
+6&gt;mount /dev/sda1 /mnt/tmp/boot
+7&gt;mount --bind /dev /mnt/tmp/dev
+8&gt;mount --bind /proc /mnt/tmp/proc
+9&gt;mount --bind /sys /mnt/tmp/sys
+10&gt;chroot /mnt/tmp
+11&gt;grub-install /dev/sda
+12&gt;grub-mkconfig -o /boot/grub/grub.cfg
+13&gt;vi /etc/fstab
+    if /etc/fstab is not ok,change the uuid=xxxxx to /dev/sd? as upon 0x01 does
+14&gt;exit
+15&gt;umount /mnt/tmp/dev &amp;&amp; umout /mnt/tmp/proc &amp;&amp; umount /mnt/tmp/sys &amp;&amp; umount /mnt/tmp/boot &amp;&amp;  umount /mnt/tmp(this step15 is not a must step)
+16&gt;shutdow -r 0
+</code></pre></div></div>
+
+<h3 id="0x03-system-backup-automatically">0x03 system backup automatically</h3>
+
+<p>1&gt;condition
+first mount another disk(for bakup store) to /media/root/files</p>
+
+<p>2&gt;ubuntubak.sh</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ ! -d /media/root/files ]; then
+    echo "bak folder not exist,the bakup device is not ready,check it"
+elif [ -d /media/root/files/ -a -d /media/root/files/ubuntubak/ ]; then
+    tar cvpzf /media/root/files/ubuntubak/ubuntubak.tgz --exclude=/proc --exclude=/lost+found --exclude=/ubuntubak.tgz --exclude=/mnt --exclude=/sys --exclude=/media --exclude=/root/.cache /
+elif [ -d /media/root/files/ -a ! -d /media/root/files/ubuntubak ]; then
+    mkdir /media/root/files/ubuntubak
+    tar cvpzf /media/root/files/ubuntubak/ubuntubak.tgz --exclude=/proc --exclude=/lost+found --exclude=/ubuntubak.tgz --exclude=/mnt --exclude=/sys --exclude=/media --exclude=/root/.cache /
+fi
+</code></pre></div></div>
+
+<p>3&gt;alias</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ubuntubak.sh /usr/share
+vi .zshrc
++alias ubuntubak="bash /usr/share/ubuntubak.sh"
+</code></pre></div></div>
+
+<p>4&gt;auto backup every month</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>in ubuntu 16.04:
+如果cron没有开机自启动:
+    vi /etc/rc.local
+    service cron start
+    exit 0
+crontab -e
+add one line:
+# m h  dom mon dow   command
+0  0    9 * *   root    rm /media/root/files/ubuntubak/ubuntubak.tgz;bash ~/mytools/ubuntubak.sh
+:wq
+实现每个月9号备份系统
+</code></pre></div></div>
+
+<h3 id="0x04-system-restore">0x04 system restore</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>实验环境:
+    ubuntu 16.04 live-usb
+
+1&gt;用live-cd或live-usb安装一个同样的新的操作系统
+    必须用live-cd(live-usb)重装系统才能进行下面正常的还原步骤
+    因为用live-cd(live-usb)重装系统的过程有两个关键的地方:
+        新建分区表
+        重构mbr
+        mbr与grub:
+            mbr是硬盘的一个引导区,而grub是一个引导程序!在mbr中有一段空间需要编写引导程序!grub只是引导程序的一种!
+            如果grub够小的话,直接写在mbr中,就可以引导操作系统了!如果grub太大,在只能写一部分在mbr了
+            http://www.linuxidc.com/Linux/2013-07/87923.htm
+    尝试过不重装系统,自己用live-usb中的gparted分区再直接进行下面的还原过程,
+    结果发现gparted分区时,会把mbr删除了,这样在下面的grub-install /dev/sda这一步会失败,显示没有找到mbr相关的信息,
+    这样只能重新用live-usb自带的安装系统工具选择"清除整个磁盘后安装",这种安装方式会自动将系统默认安装到一个分区(/,/boot都安装到/dev/sda1)
+
+    实验中在live-usb中用自带的安装系统工具重新安装live-usb中的系统(为了新建分区表和重构mbr),支持改变分区,分区如下:
+    /dev/sda1 对应分配给/boot(主分区) 20G
+    /dev/sda5 对应分配给交换空间(逻辑分区) 32G=16(内存)x2
+    /dev/sda6 对应分配给/(逻辑分区) 剩余空间
+
+2&gt;进live-cd
+    sudo su -
+    mkdir /mnt/tmp
+    mount /dev/sda6 /mnt/tmp
+    mount /dev/sda1 /mnt/tmp/boot
+    rm -r /mnt/tmp/*
+        这句执行后新安装系统的两个分区/dev/sda1,/dev/sda6依然存在,只是分区中的内容全部清空了,/mnt/tmp/boot中的内容会被清空,
+        但是boot文件夹不会被rm删除掉,因为boot文件夹是被挂载的分区设备,
+        blkid /dev/sda1和blkid /dev/sda6这两个命令查询分区的uuid发现rm -r /mnt/tmp/*后的结果与新系统安装后的结果一致,
+        说明"linux中,一切皆文件"的说法不适用于分区表,也即分区表并不属于这里说的"文件",mbr应该也不属于,
+        也即rm -r /mnt/tmp/*命令不会把上面1中的重新安装系统新建的分区表和mbr删除
+        之所以要rm -r * /mnt/tmp,是因为备份好的系统中安装了新的驱动,而用live-usb新安装的系统中的驱动如果不rm掉,
+        会与备份好的系统中的驱动在一起导致还原后的系统出错
+    tar xvpzf /media/ubuntu/files/ubuntubak.tgz -C /mnt/tmp
+    cd /mnt/tmp
+    mkdir proc lost+found mnt sys media root/.cache
+    mount --bind /proc /mnt/tmp/proc
+    mount --bind /sys /mnt/tmp/sys
+    mount --bind /dev /mnt/tmp/dev
+    chroot /mnt/tmp
+    grub-install /dev/sda
+    grub-mkconfig -o /boot/grub/grub.cfg
+    vi /etc/fstab
+        do as 0x01 does
+    sync
+    sync
+    exit
+    sync
+    sync
+    (这四个sync是为了保险起见,最好这样,实验中有一次没有sync导致还原后没有图形界面,只有命令行会话)
+    umount /proc
+    umount /sys
+    umount /dev
+    umount /mnt/tmp/boot
+    umount /mnt/tmp
+    (这五个umount可以不执行)
+    shutdown -r 0
+
+
+3&gt;attention:
+    /dev/sda6 为/目录对应的分区,安装完系统后/目录下的boot文件夹是空的,但是/dev/sda6中boot文件夹是存在的,
+    由于新安装的系统在启动时会自动将/dev/sda1挂载到/目录下的boot上,所以新安装的系统开机后/boot里面是有文件的,
+    但是/dev/sda6中的boot文件夹一直是空的,只不过由于新安装的系统启动后(相当于mount /dev/sda1 /boot),
+    /boot被/dev/sda1占据了,这时/dev/sda6中的boot文件夹是被屏蔽的,无法访问的
+
+
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            linux, 修复系统
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

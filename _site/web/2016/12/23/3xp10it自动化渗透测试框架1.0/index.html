@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>3xp10it自动化渗透测试框架1.0</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">3xp10it自动化渗透测试框架1.0</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 23, 2016</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          2 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="disclaimer">Disclaimer</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] legal disclaimer: Usage of 3xp10it.py and web.py for attacking targets without prior mutual consent is 
+illegal.It is the end user's responsibility to obey all applicable local, state and federal laws.Developers
+assume no liability and are not responsible for any misuse or damage caused by this program.
+</code></pre></div></div>
+
+<h3 id="install">Install</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/3xp10it/3xp10it.git
+</code></pre></div></div>
+
+<h3 id="usage">Usage</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash beforeWork.sh[这一步安装相关依赖,第一次使用本工具时需要运行,以后不用再运行]
+python3 3xp10it.py[主程序,工作时运行,第一次运行时需要先运行上面的beforeWork.sh]
+python3 web.py[可选,如果运行则要新开一个终端运行以便于查看相关输出信息,该工具为web后台]
+</code></pre></div></div>
+
+<h3 id="requirement">Requirement</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>need python3
+need pip3
+mysql
+works on linux(test on ubuntu and kali2.0,others not test)
+
+python3安装可参考如下步骤:
+	apt-get install python3
+	或:
+	wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz
+	tar xJf Python-3.5.2.tar.xz
+	cd Python-3.5.2
+	./configure --prefix=/opt/python3
+	make &amp;&amp; make install
+	ln -s /opt/python3/bin/python3.5 /usr/local/bin/python3
+	
+pip3安装:
+apt-get install -y python3-pip
+
+kali linux2安装pip3可参考如下步骤:
+	echo "deb-src http://http.kali.org/kali kali main non-free contrib" &gt;&gt; /etc/apt/sources.list
+	echo "deb-src http://security.kali.org/kali-security kali/updates main contrib non-free" &gt;&gt;
+/etc/apt/sources.list
+	apt-get update
+	apt-get install python3-pip
+</code></pre></div></div>
+
+<h3 id="about">About</h3>
+
+<p>a)3xp10it是一个自动化渗透测试框架,目前没有做到完全自动化[自动上传漏洞利用框架和自动fuzz框架暂时没有加入]</p>
+
+<p>b)支持功能列表</p>
+
+<ul>
+  <li>cdn真实ip查找模块</li>
+  <li>旁站获取[如果在cdn模块中发现有cdn但是没有获取到真实ip则不进行旁站获取]</li>
+  <li>子站获取</li>
+  <li>高危漏洞扫描模块</li>
+  <li>爬虫模块</li>
+  <li>目标网站脚本类型检测</li>
+  <li>目录扫描模块</li>
+  <li>sqli扫描模块</li>
+  <li>robots/sitemap自动收集</li>
+  <li>cms识别与cms漏洞扫描模块</li>
+  <li>自动识别管理员页面并爆破[支持自动识别简单验证码]</li>
+  <li>webshell自动查找与爆破,支持asp,php,aspx,jsp,支持chopper一句话webshell和大马类型webshell</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a)apache,iis,nginx,lighttpd在phpstudy中测试默认可接收1000个post参数  
+b)一句话类型webshell根据上面的特点可以正常情况下(单线程)的1000倍速度来爆破,可用大字典爆破,但是不能用多线程,
+  可能是因为用多线程会太快而让web server觉得每次的参数不止1000个  
+c)其他类型web server未测试,暂用多线程1倍速爆破,用最常用的webshell较小字典,17659个左右  
+d)大马类型webshell由于表单名是一定的,所以不能以1000倍速爆破,于是也用和c)中一样的小字典多线程1倍速爆破  
+</code></pre></div></div>
+
+<ul>
+  <li>资源文件收集</li>
+  <li>端口扫描模块</li>
+  <li>whois信息收集</li>
+</ul>
+
+<p>c)可选工作模式</p>
+
+<p>模式一:扫描目标和目标的所有旁站<br />
+模式二:扫描目标和目标的所有子站<br />
+模式三:扫描目标和目标的所有旁站和所有子站<br />
+模式四:只扫描目标</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>默认使用模式一扫描[在运行3xp10it后可自选],上面四种模式中的[扫描目标]里的目标支持批量导入多个目标和手工录入多个
+目标.四种工作模式中与旁站和子站相关的由程序自动完成[eg.选择模式三工作时,将自动获取导入的目标的所有旁站和所有子
+站,并对这些旁站和子站依次遍历上面的各个扫描模块]
+</code></pre></div></div>
+
+<p>d)特点</p>
+
+<ul>
+  <li>可在中断后重新运行时从断点附近接着上次的过程扫描,不用重新扫描</li>
+  <li>运行3xp10it后自动从数据库中取出待完成的扫描任务进行扫描</li>
+  <li>支持正常扫描和优先扫描两个扫描组,如果优先扫描组里有任务则先扫描优先扫描组里的目标,在添加任务时可选择将目标是
+正常扫描还是优先扫描</li>
+  <li>上述支持功能列表中的功能默认全部遍历扫描,如果要使用单个模块可在web界面使用</li>
+  <li>3xp10it配备一个web后台,web页面可查询当前扫描结果与使用单个模块功能</li>
+  <li>3xp10it独立于web运行,也即没有目录下的pannel文件夹也可运行</li>
+  <li>目录下的pannel文件夹是Django为3xp10it写的一些相关界面,web界面使用在下面介绍</li>
+  <li>支持找到高危漏洞邮件通知[eg.sqli,webshell爆破成功等]</li>
+</ul>
+
+<p>e)web后台说明</p>
+
+<ul>
+  <li>
+    <p>web后台如下图,需要管理员身份登录才可进后台
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/login.png" />
+<img src="https://raw.githubusercontent.com/3xp10it/pic/master/web.png" /></p>
+  </li>
+  <li>web后台相当于3xp10it的部分界面+分割的模块化工具+exp10it中没有的功能的附加工具的集合</li>
+  <li>web后台由Django==1.10.3开发</li>
+  <li>web后台中支持工具列表
+    <ul>
+      <li>targets:查看扫描目标,新增/删除扫描目标</li>
+      <li>获取旁[子]站:获取旁站或子站模块</li>
+      <li>xcdn:尝试识别cdn背后的真实ip</li>
+      <li>高危漏扫:高危漏洞扫描模块</li>
+      <li>sqli:sql注入模块</li>
+      <li>扫目录:目录扫描模块</li>
+      <li>cms漏扫:cms漏洞扫描模块</li>
+      <li>webshell爆破:webshell爆破模块</li>
+      <li>管理员登录爆破:管理员登录爆破模块</li>
+      <li>waf爆破:waf自动爆破模块[3xp10it中没有这个功能]</li>
+      <li>dbquery:数据库语句执行接口</li>
+      <li>扫描结果:查看当前扫描结果</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="detail">Detail</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.3xp10it需要用到bingapi,需要先申请好bingapi
+2.上面的web.py不一定要运行,核心功能在3xp10it.py文件中
+3.如果要后台功能需运行python3 web.py
+4.如果要使用web.py,重新开机后需要重新运行web.py
+5.运行web.py常见错误:端口被占用.解决方法:
+a)netstat -ntlp | grep 8000
+b)在a)中找到pid后kill -9 pid
+c)重新运行python3 web.py
+6.3xp10it中调用的是关键模块exp10it中的exp10itScanner,exp10it模块由pip3 install exp10it安装,安装路径一般如下:
+/usr/local/lib/python3.5/dist-packages
+7.文件分布结构如下:
+
+当前目录
+.
+├── 3xp10it.py
+├── pannel
+│   ├── ghostdriver.log
+│   ├── manage.py
+│   ├── models.py[web后台没有用django的模型]
+│   ├── pages[web页面的html文件,相当于django的template]
+│   └── pannel[django相关文件]
+│       ├── __init__.py
+│       ├── settings.py
+│       ├── urls.py[django配置的访问与响应规则]
+│       ├── views.py[django配置的关键函数]
+│       └── wsgi.py
+├── readme.md
+├── uninstall.py
+└── web.py
+
+
+/usr/local/lib/python3.5/dist-packages路径下相关文件
+
+├── cms_identify[cms识别模块相关文件]
+├── cms_scan[cms漏洞扫描模块相关文件]
+├── config.ini[配置文件]
+├── dicts[字典文件]
+├── dirsearch[目录扫描模块相关文件]
+├── exp10it.py[关键模块文件]
+├── exps[exp模块相关文件]
+├── log[日志文件夹]
+├── tools[web后台中的各个工具]
+
+</code></pre></div></div>
+
+<h3 id="faq">FAQ</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Q0:config.ini 这个文件怎么没有找到?
+A0:config.ini在python3 3xp10it.py初次运行后会自动生成,用于设置bing API key,发邮件的帐号,数据库连接配置,扫描模式
+   等信息,一般会在/usr/local/lib/python3.5/dist-packages/config.ini这里,与python3的安装路径有关
+</code></pre></div></div>
+
+<h3 id="todo">Todo</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+<h3 id="changelog">Changelog</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[+] 修改exp10it.py中create table %s为create table `%s`[包括其他关于表名处的%s全部换成`%s`],如果没有``将会在表名
+    为abc-def格式(中间有-符号)情况下建表失败
+[+] 在与获取旁站有关的功能上自动尝试获取cdn后真实ip再获取旁站,如果确定有cdn但是没有获取到真实ip则不再获取假的旁
+    站
+[+] webshell爆破速度提升1000倍(接地气思路,适用于一句话类型webshell)
+[+] 2017-01-06 添加支持如http://127.0.0.1/administrator页面的爆破,实际上http://127.0.0.1/administrator并不是
+    直接的管理员页面,在浏览器中输入http://127.0.0.1/administrator后会跳转到"http://127.0.0.1/administrator/",
+    这才是有效的待爆破的管理员页面
+[+] 2017-01-08 whois信息收集模块完善
+[+] 2017-01-08 添加端口扫描模块
+[+] 2017-01-08 cdn模块调整
+</code></pre></div></div>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            web, scan, framework
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

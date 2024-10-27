@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>自动测试上传功能是否可上传webshell</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">自动测试上传功能是否可上传webshell</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">April 25, 2018</span>
+           under web
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h2 id="about">About</h2>
+
+<p><a href="https://github.com/3xp10it/xupload">xupload</a>是一个用于自动测试上传功能是否可上传webshell的工具</p>
+
+<h2 id="disclaimer">Disclaimer</h2>
+
+<p>[!] legal disclaimer: Usage of xupload.py for attacking targets without prior mutual consent is illegal.It is the end user’s responsibility to obey all applicable local, state and federal laws.Developers assume no liability and are not responsible for any misuse or damage caused by this program.</p>
+
+<h2 id="usage">Usage</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 xupload.py -h
+
+usage: xupload.py [-h] [-u URL] [--cookie COOKIE] --suffix SUFFIX [--batch]
+                  [--delay DELAY] [--force-ssl] [-r R]
+
+xupload.py is a program that automates the testing of uploading functionality.
+If xupload.py does not successfully upload webshell, try more tips at:
+1.http://3xp10it.cc/web/2016/08/12/fckeditor各版本绕过/
+2.https://paper.seebug.org/219/
+3.http://www.owasp.org.cn/OWASP_Training/Upload_Attack_Framework.pdf
+4.https://thief.one/2016/09/22/上传木马姿势汇总-欢迎补充/
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -u URL, --url URL  The target url which has upload function
+  --cookie COOKIE    HTTP Cookie header value
+  --suffix SUFFIX    The web server's script type: 'php','asp','aspx','jsp'
+  --batch            Never ask for user input, use the default behavior
+  --delay DELAY      Delay in seconds between each HTTP request
+  --force-ssl        Force usage of SSL/HTTPS
+  -r R               Load HTTP request from a file
+</code></pre></div></div>
+
+<p>eg.</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -u http://192.168.8.190/vulnerabilities/upload/ --cookie "PHPSESSID=v7rebkn2dn8ln1ebuqfhjf00s4;security=low" --batch</code></p>
+
+<h2 id="attention">Attention</h2>
+
+<p><code class="language-plaintext highlighter-rouge">-r</code>参数是在xupload.py无法自动识别url对应的html中上传表单时要用到的参数(一般通过插件实现上传功能的url无法通过xupload.py自动获取上传表单),用于指定一个http上传文件时拦截到的请求包,如果url是https开头则需要指定<code class="language-plaintext highlighter-rouge">--force-ssl</code>.</p>
+
+<p><a target="_blank" href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov">视频示例</a></p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            upload, python, webshell
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>

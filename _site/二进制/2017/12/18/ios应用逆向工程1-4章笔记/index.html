@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>ios应用逆向工程1-4章笔记</title>
+<meta name="description" content="A blog about programming and network security">
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" href="/css/my_code.css">
+<!-- below font-awesome.css can not be replaced by local file,error will occur -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/css/highlightjs.piperita.css">
+
+<!-- Favicons generated at https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 下面这句是添加在线中文字体:文泉驿等宽正黑 -->
+<!-- <script type="text/javascript" src="//cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+
+
+
+
+
+
+<!-- add zoom.js --> 
+<link href="/css/zoom.css" rel="stylesheet">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/zoom.js"></script>
+<script src="/js/transition.js"></script>
+
+</head>
+
+
+    <body>
+
+    <nav id="my-menu">
+  <div>
+    <p style="font-family: 'Great Vibes', cursive;">quanyechavshuo</p>
+
+
+    
+    <center style="margin-top:180%">
+    <br>
+    <br>
+    <font color="red" align="center"><i class="fa fa-music" aria-hidden="true"></i><a href="../../../../../jquery-jplayer/index.html" target="_top"><font color="red"> music</font></a></font>
+    <br>
+    <br>
+    </center>
+    <p class="links">
+  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
+  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
+  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
+</p>
+
+  </div>
+</nav>
+<div class="menu-button" href="#menu"><i class="fa fa-bars"></i></div>
+
+
+
+    <div class="page-content">
+      <div class="wrap">
+      
+
+<div class="container-fluid single">
+  <div class="row">
+
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
+
+      <h1 class="header" itemprop="name">ios应用逆向工程1-4章笔记</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">December 18, 2017</span>
+           under 二进制
+        </i></small>
+      </div>
+
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
+      </div>
+
+      <div class="content-panel content">
+
+        
+
+        <span itemprop="articleBody"><h3 id="概念篇工具篇">概念篇+工具篇</h3>
+
+<p>1.bundle的概念来源于NeXTSTEP,它不是一个文件,而是一个按某种标准结构来组织的目录,其中包含了二进制文件及运行所需的资源.正向开发中常见的App和framework都是以bundle的形式存在的;framework也是bundle,但framework的bundle中存放的是一个dylib,而不是可执行文件.相对来说,framework的地位比App更高,因为一个App的绝大多数功能都是通过调用framework提供的接口来实现的.将某个bundle确立为逆向目标后,绝大多数逆向线索都可以在bundle内找到,这大大降低了逆向工程的复杂度</p>
+
+<p>2.Xcode自带的plutil工具可查看plist文件,命令为<code class="language-plaintext highlighter-rouge">plutil -p xxx.plist</code></p>
+
+<p>3.ios的app目录中的lproj目录下存放的是各种本地化的字符串(.strings),是ios逆向工程的重要线索,也可以用plutil查看</p>
+
+<p>4.storeapp的数据目录在<code class="language-plaintext highlighter-rouge">/var/mobile/Containers/Data</code>下,以mobile权限运行的系统app的数据目录在<code class="language-plaintext highlighter-rouge">/var/mobile/</code>下,而以root权限运行的系统app的数据目录在<code class="language-plaintext highlighter-rouge">/var/root/</code>下</p>
+
+<p>5.cydia app的安装包格式一般是deb,storeapp的安装包格式一般是ipa,其中deb的属主属组是root:admin,能够以root权限运行,而ipa是苹果为ios推出的专属app安装包格式,属主用户和属组都是mobile,只能以mobile权限运行</p>
+
+<p>6.通俗地说,ios中的沙盒就是一种访问限制机制,我们可以把它看作是权限的一种表现形式,授权文件也是沙盒的一部分.总的来说,沙盒会将app的文件访问范围限制在这个app内部,一个app一般不知道其他app的存在,更别说访问它们了,沙盒还会限制app的功能,例如对icloud接口的调用就必须经过沙盒的允许.越狱本身已经破除了ios的绝大多数安全限制,并对沙盒进行了一定程度的扩充,因此我们往往很容易忽略sandbox的存在,从而碰到一些看似很奇怪的问题.比如某个tweak不能写文件,调用了某个函数却没有出现应有的效果,在确保自己的代码没有问题的前提下,就要回过头来检查这些问题是不是因为权限不够,或者沙盒限制造成的</p>
+
+<p>7.cydia里的各种tweak无一不是以dylib的形式工作的</p>
+
+<p>8.ios实际上存在真正的后台多任务,如接听电话时ios会第一时间将接听电话界面呈现在我们面前.不过,对于storeapp来说,当用户按下home键时,进程就进入后台了,大多数功能都会被暂停</p>
+
+<p>9.在theos新建的工程目录文件夹中,可以创建一个名为<code class="language-plaintext highlighter-rouge">layout</code>的文件夹,然后把工程打包成deb并安装到ios中,此时<code class="language-plaintext highlighter-rouge">layout</code>中的所有文件会被解包到ios文件系统的相同位置(这里的<code class="language-plaintext highlighter-rouge">layout</code>相当于ios中的根目录<code class="language-plaintext highlighter-rouge">/</code>),这极大扩充了deb包的什么用范围</p>
+
+<p>10.命令行安装theos生成的deb到手机的方法:在makefile的最上一行加上本机ip地址<code class="language-plaintext highlighter-rouge">THEOS_DEVICE_IP=...</code>,然后调用<code class="language-plaintext highlighter-rouge">make package install</code>命令完成编译打包安装一条龙服务</p>
+
+<p>11.免ssh输密码</p>
+<ul>
+  <li>删除本机~/.ssh/known_hosts中目标ip对应条目</li>
+  <li>在本机生成ida_rsa.pub文件:<code class="language-plaintext highlighter-rouge">ssh-keygen -t rsa</code>,生成的文件为<code class="language-plaintext highlighter-rouge">~/.ssh/id_rsa.pub</code></li>
+  <li>在目标机器终端中<code class="language-plaintext highlighter-rouge">ssh-keygen</code></li>
+  <li>在本机中执行<code class="language-plaintext highlighter-rouge">scp ~/.ssh/id_rsa.pub user@目标ip:~/.ssh/authorized_keys</code></li>
+  <li>如果希望多台机器ssh到同一目标机器免密码可将多台机器<code class="language-plaintext highlighter-rouge">ssh-keygen -t rsa</code>生成的id_rsa.pub内容追加到目标机器的authorized_keys文件中</li>
+</ul>
+
+<p>12.reveal的使用</p>
+<ul>
+  <li>cydia中搜索安装reveal loader</li>
+  <li>在手机的设置中打开要分析的app的enabled applications开关</li>
+  <li>在macOS中中打开reveal,确保macOS和ios在同一网段内,重启ios中的目标app</li>
+</ul>
+
+<p>13.ida中main windows有两种显示模式,分别是graph view和text view,它们之间可以通过空格键切换.grahp view把被分析的程序逻辑用方块的形式表现出来,当执行遇到分支时,满足判断条件分支的线是绿色的,否则是红色的;当执行没有分支时,线是蓝色的</p>
+
+<p>14.ida中”jump to xref to operand”(快捷键x),点击后出现的窗口罗列了这个文件中显式引用这个符号的所有信息.”xref from”则显示这个符号引用的所有符号</p>
+
+<p>15.越狱ios必须安装”apple file conduit2”,简称afc2,这样才可以浏览ios全系统文件</p>
+
+<p>16.dyld_decache</p>
+<ul>
+  <li>从ios3.1开始,包括frameworks在内的许多库文件被存进了一个大cache里,这个cache文件位于”/System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”(名为dyld_shared_cache_arm7,dyld_shared_cache_armv7s或dyld_shared_cache_arm64),可以使用KennyTM开发的dyld_decache将其中的二进制文件提取出来.这样做的好处是确保分析的文件来自本机</li>
+  <li>使用dyld_decache之前,要将”System/Library/Caches/com.apple.dyld/dyld_shared_cache_armx”从ios拷贝到macOS,然后再用<a href="https://github.com/kennytm/Miscellaneous/releases">这个工具</a>提取二进制文件.arm64如果出错可google:<code class="language-plaintext highlighter-rouge">site:iosre.com dsc_extractor</code>来解决</li>
+  <li>可用ios_deploy来从dyld_shared_cache提取ida的符号文件,ida很依赖这些符号文件(有了它们才能快速和准确的反编译),命令如下
+    <ul>
+      <li>ios_deploy symbols</li>
+      <li>详细命令在<a href="https://www.hex-rays.com/products/ida/support/tutorials/ios_debugger_tutorial.pdf">这里</a></li>
+      <li>中文文档在<a href="https://bbs.pediy.com/thread-223172-1.htm">这里</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>17.CydiaSubstrate是绝大部分tweak正常工作的基础,它由MobileHooker,MobileLoader和Safe mode组成</p>
+<ul>
+  <li>MobileHooker的作用是替换系统函数,也就是所谓的hook,它主要包含以下两个函数
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">void MSHookMessageEx(Class class,SEL selector,IMP replacement,IMP *result);</code>
+        <blockquote>
+          <p>其中MSHookMessageEx作用于Objective-C函数,通过调用method_setImplementation函数将[class selector]的实现改为replacement,达到hook的目的.Logos语法主要是对此函数作了一层封装,让编写针对Object-C函数的hook代码变得更简单直观了,但其底层实现仍完全基于MSHookMessageEx</p>
+        </blockquote>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">void MSHookFunction(void* function,void* replacement,void** p_original);</code>
+        <blockquote>
+          <p>MSHookFunction作用于C和C++函数,通过编写汇编指令,在进程执行到function时转而执行replacement,同时保存function的指令及其返回地址,使得用户可以选择性地执行function,并保证进程能够在执行完replacement后继续正常运行.MSHookFunction的有一个参数的什么用分别是:替换的原函数,替换函数,以及被MobileHooker保存的原函数.单独的一个MSHookFunction函数是没有意义的,需要有一套固定的体系来承载它,这个体系写法如下.由于Theos仅提供了MSHookMessageEx的封装,掌握这套体系的用法就显得尤为重要了</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;substrate.h&gt;
+
+returnType (*old_symbol)(args);
+
+returnType new_symbol(args)
+{
+//Whatever
+}
+
+void InitializeMSHookFunction(void) // This function is ofter called in %ctor i.e.constructor
+{
+    MSImageRef image=MSGetImageByName("/path/to/binary/who/contains/the/implementation/of/symbol");
+    //MSFindSymbol的作用是查找待钩住(hook)的symbol
+    void *symbol=MSFindSymbol(image,"symbol");
+    if (symbol)MSHookFunction((void *)symbol,(void *)&amp;new_symbol,(void **)&amp;old_symbol);
+    else NSLog(@"Symbol not found!");
+}
+</code></pre></div></div>
+
+<ul>
+  <li>MobileLoader
+    <blockquote>
+      <p>MobileLoader的作用是加载第三方dylib.在ios启动时,会由launchd将MobileLoader载入内存,然后MobileLoader会根据dylib的同名plist文件指定的作用范围,有选择地在不同进程里通过dlopen函数打开目录/Library/MobileSubstrate/SynamicLibraries/下的所有dylib.</p>
+    </blockquote>
+  </li>
+  <li>Safe mode
+    <blockquote>
+      <p>因为tweak的本质是dylib,寄生在别的进程里,一旦出错,可能会导致整个进程崩溃,而一旦崩溃的是SpringBoard等系统进程,则会造成iOS瘫痪,所以CydiaSubstrate引入了Safe mode,它会的捕获SIGTRAP,SIGABRT,SIGILL,SIGBUS,SIGSEGV,SIGSYS这6种信号,然后进入安全模式.在安全模式里,所有基于CydiaSubstrate的第三方dylib均会禁用,便于查错与修复</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>19.Cycript是由saurik推出的一款脚本语言,可以看作是Objective-JavaScript.cycript通过cydia在iphone中安装.笔者认为,cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果,效果十分显著,比通过theos生成deb来log记录方便很多.一般来说,选择注入哪个进程,要依测试的具体函数而定,这个函数所属的类存在于哪些进程,则注入这些进程,从而保证这个类是存在的.因为需要用cycript测试的一般都是私有函数,所以一个总的准则是从哪个进程逆向出的函数,就注入这个进程来测试;从哪个库逆向出的函数,就注入链接这个库的进程来测试.与Objective-c相比,cycript不需要声明对象类型,也不需要结尾的分号,常见用法如下</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#注入SpringBoard进程
+cycript -p SpringBoard或cycript -p pid
+
+#在内存中找一个PARSPedometerInfo类的实例对象
+choose(PARSPedometerInfo)
+
+#调用0x166b4fb0处的对象的show函数
+[#0x166b4fb0 show]
+
+#对show函数传入参数为3344
+[#0x166b4fb0 show:3344]
+
+#新建一个PARSPedometerInfo类的对象实例,并调用它的setIntergratedSteps函数,传入参数99998
+myobj=[PARSPedometerInfo alloc]
+[myobj setIntegratedSteps:99998]
+</code></pre></div></div>
+
+<p>20.<code class="language-plaintext highlighter-rouge">LLDB</code>全称为”low level debugger”.是由苹果出口,内置于Xcode中的动态调试工具,不但能吃C,C++,Objective-C,还全盘支持OSX,iOS,以及iOS模拟器,lldb是运行在OSX中的,要想测试iOS,还需要debugserver的配合</p>
+
+<p>21.<code class="language-plaintext highlighter-rouge">debugserver</code>最常用的2种场景</p>
+<ul>
+  <li>启动进程
+<code class="language-plaintext highlighter-rouge">debugserver -x backboard IP:port /path/to/excuteable</code></li>
+  <li>附加进程
+<code class="language-plaintext highlighter-rouge">debugserver IP:port -a "ProcessName"</code></li>
+</ul>
+
+<p>22.<code class="language-plaintext highlighter-rouge">lldb</code>中的<code class="language-plaintext highlighter-rouge">image list -o -f</code>命令可查看加载基址
+<code class="language-plaintext highlighter-rouge">0x.....a    /path/to/excuteable(0x....b)</code>,其中后面的括号里的地址是加载基址,前面的地址是aslr偏移,根据函数地址下断点时需要通过ida中查看相对偏移+这里的括号里的加载基址,或者通过可执行文件的期望加载基址+aslr偏移+ida中相对偏移.(这里的括号里的加载基址-这里的前面的aslr偏移=可执行文件的期望加载基址)</p>
+
+<p>23.lldb相对于gdb的一个重大改进是可以在进程运行的过程中输入lldb命令.需要注意的是,部分进程(如SpringBoard)在停止一段时间后会因响应超时而自动重启,对于这类进程,要尽量让它维持在运行状态,避免因自动重启而导致调试信息丢失的悲剧发生</p>
+
+<p>24.lldb在某个断点得到触发的时候执行预先设置的指令的用法如下:
+<code class="language-plaintext highlighter-rouge">br com add 1</code>(假设1号断点)
+执行这条命令后,lldb会要求我们设置一系列指令,以<code class="language-plaintext highlighter-rouge">DONE</code>结束</p>
+
+<p>25.在Objective-C中,[someObject someMethod]的底层实现,实际是objc_msgSend(someObject,someMethod),其中,前者是一个Objective-C对象,后者则可以强制转换成一个字符串</p>
+
+<p>26.有时lldb的解析后的注释的符号不对,这种情况下,需以IDA为准</p>
+
+<p>27.使用dumpdecrypted.dylib脱壳过程:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp dumpdecrypted.dylib /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
+cd /var/mobile/Containers/Data/Application/xxxxx-xxx-xxx-xxx/Documents/
+DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/xxx-xxx-xxx-xxx../TargetApp.app/TargetApp
+</code></pre></div></div>
+<p>这里把dumpdecrypted.dylib拷贝到Documents目录下操作的原因是:
+StoreAPP对沙盒以外的绝大数目录没有写权限,dumpdecrypted.dylib要写一个decrypted文件,但它是运行在StoreApp中的,与StoreApp的权限相同,于是它的写操作就必须发生在StoreApp拥有写权限的路径下才能成功</p>
+
+<p>28.iOS越狱社区的知名人士Nikias Bassen(@pimskeks)开发了一款可以把本地OSX/Windows端口转发到远程iOS端口的工具usbmuxd,使我们能够通过USB连接线ssh到iOS中,大大增加了ssh连接的速度,也方便了没有wifi的情况,用法为<code class="language-plaintext highlighter-rouge">brew install usbmuxd &amp;&amp; iproxy local_port remote_port</code></p>
+
+<p>29.syslogd是iOS中记录系统日志的守护进程,cydia中的<code class="language-plaintext highlighter-rouge">syslogd to /var/log/syslog</code>的作用是把日志写入”/var/log/syslog”文件中,在iOS运行的全过程中这个文件会变得越来越大,可以通过<code class="language-plaintext highlighter-rouge">cat /dev/null &gt; /var/log/syslog</code>来将它清空</p>
+
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            ios, reverse
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div class="footer clearfix">
+  <div class="col-md-12">
+		  <!--for better experience please install font 文泉驿等宽正黑-->
+Since March 2016 the 3xp10it.cc has been running  <span id="times" style="align: center no:1px solid black"></span><br />
+	<SCRIPT language=javascript> 
+	<!-- 
+	function show_date_time(){ 
+		window.setTimeout("show_date_time()", 1000); 
+		BirthDay=new Date("3/7/2016 20:00:00");
+		today=new Date(); 
+		timeold=(today.getTime() - BirthDay.getTime()); 
+		sectimeold=timeold/1000 
+		secondsold=Math.floor(sectimeold); 
+		msPerDay=24*60*60*1000 
+		e_daysold=timeold/msPerDay 
+		daysold=Math.floor(e_daysold); 
+		e_hrsold=(e_daysold-daysold)*24; 
+		hrsold=Math.floor(e_hrsold); 
+		e_minsold=(e_hrsold-hrsold)*60; 
+		minsold=Math.floor((e_hrsold-hrsold)*60); 
+		seconds=Math.floor((e_minsold-minsold)*60); 
+		//times = document.getElementById("times");
+		times.innerHTML="<span>"+daysold+ "days " +hrsold+"hours "+minsold+"minutes"+seconds+"seconds"+"</span>" ; 
+	} 
+	show_date_time(); 
+	//--> 
+	</SCRIPT>
+  </div>
+</div>
+
+<div class="my-home"><i class="fa fa-home" aria-hidden="true"></i><a href="/index2.html"> <font color="white">home</font></a></div>
+<div class="my-papers"><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/3xp10it" target="_top"> <font color="white">github</font></a></div>
+<div class="my-search"><i class="fa fa-search" aria-hidden="true"></i><a href="/search/"> <font color="white">search</font></a></div>
+<div class="my-archive"><i class="fa fa-folder" aria-hidden="true"></i><a href="/my-archive/"> <font color="white">archive</font></a></div>
+<div class="my-categories"><i class="fa fa-apple" aria-hidden="true"></i><a href="/my-categories/"> <font color="white">category</font></a></div>
+
+
+<script src="/js/jquery-1.11.0.min.js"></script>
+<!--
+<script src="/js/bootstrap.min.js"></script>
+-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#my-menu").mmenu().on( "closed.mm", function() {
+            $(".menu-button").show();
+         });
+      $(".menu-button").click(function() {
+        $(".menu-button").hide();
+        $("#my-menu").trigger("open.mm");
+      });
+   });
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript"> 
+$youziku.load("h1,h2,h3,h4,h5,h6,code,.content,.content-panel,.gravatar,pre,body", "354f6990dc1b43608d3eb96d50273504", "WenQuanYi_Zen_Hei_Mono");
+$youziku.draw(); 
+</script>
+-->
+
+
+    </body>
+</html>
