@@ -1,12 +1,16 @@
-if [ -d /root/myblog ] && [ -d /root/3xp10it.github.io ]
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+if [ -d ~/myblog ] && [ -d ~/3xp10it.github.io ]
 then
-    cd /root/myblog && pkill jekyll;sleep 3 && cp index.html tmp.html && cp index_bak.html index.html && sh -c "rm -r _site/ & jekyll serve --watch & sleep 3 && exit" && cp _site/index.html index2.html && cp tmp.html index.html && echo congratulations! commands execute ok to here!
-    cd /root/3xp10it.github.io && cp -r ../myblog/_site/* . && cp ../myblog/index2.html . && cp ../myblog/index.html . && git status && git add . && git status && git commit -a -m "update" && git push -u origin master && echo congratulations! commands execute ok to here!
-    cd /root/myblog && git status && git add . && git status && git commit -a -m "update backup" && git push -u origin master && echo all is well,and all is done!
+    cd ~/myblog && cp index.html tmp.html && cp index_bak.html index.html && (rm -r _site/ || true) && jekyll serve --incremental --watch && cp _site/index.html index2.html && cp tmp.html index.html && echo -e "\033[31m congratulations! generate new _site content finished. \033[0m"
+    cd ~/3xp10it.github.io && (rm -r * || true) && cp -r ../myblog/_site/* . && cp ../myblog/index2.html . && cp ../myblog/index.html . && git status && git add . && git commit -a -m "update" && git push -u origin master && echo -e "\033[31m congratulations! upload 3xp10it.github.io finished. \033[0m"
+    cd ~/myblog && git status && git add . && git commit -a -m "update backup" && git push -u origin master && echo -e "\033[31m upload myblog finished. \033[0m"
 else
     echo "this is the first time you use me,I will download myblog from https://github.com/3xp10it/myblog.git"
-    mkdir /root/myblog && cd /root/myblog && git init && git pull https://github.com/3xp10it/myblog.git && git remote add origin https://github.com/3xp10it/myblog.git
+    mkdir ~/myblog && cd ~/myblog && git init && git pull https://github.com/3xp10it/myblog.git && git remote add origin https://github.com/3xp10it/myblog.git
     echo "this is the first time you use me,I will download 3xp10it.github.io from https://github.com/3xp10it/3xp10it.github.io.git"
-    mkdir /root/3xp10it.github.io && cd /root/3xp10it.github.io && git init && git pull https://github.com/3xp10it/3xp10it.github.io.git && git remote add origin https://github.com/3xp10it/3xp10it.github.io.git
+    mkdir ~/3xp10it.github.io && cd ~/3xp10it.github.io && git init && git pull https://github.com/3xp10it/3xp10it.github.io.git && git remote add origin https://github.com/3xp10it/3xp10it.github.io.git
 fi
 
