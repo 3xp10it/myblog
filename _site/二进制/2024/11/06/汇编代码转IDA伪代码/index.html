@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>汇编代码转IDA伪代码</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -87,51 +87,112 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">汇编代码转IDA伪代码</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">November 6, 2024</span>
+           under 二进制
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h4 id="0x1-获取hex值后转为二进制文件">0x1 获取hex值后转为二进制文件</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 定义十六进制字符串
+hex_data = ("""
+55 8B EC 83 EC 20 A1 E48C5602 33 C5 89 45 FC 8B 45 0C 53 8B 5D 08 89 45 E4 8B 01 
+56 8B 75 10 57 89 4D E8 89 5D E0 FF 50 04 F7 45 14 00040000 8B F8 57 8D 45 EC 8B 
+CE 50 0F84 C5000000 E8 5B8485FF 8B 55 E8 8D 5D EC FF 75 14 53 8B 4A 08 8B 55 E4 
+8B 02 8B 11 FF 70 F4 50 FF 52 68 66 0F6E 45 EC 8B C8 F2 0F10 15 D0DC1902 F3 0FE6 
+C0 83 FF 60 75 05 0F28 CA EB 1E 66 0F6E CF 8B C7 F3 0FE6 C9 C1 E8 1F F2 0F59 C2 
+F2 0F58 0C C5 F0DC1902 F2 0F5E C1 F2 0F11 06 66 0F6E 45 F0 F3 0FE6 C0 83 FF 60 74 
+08 F2 0F59 C2 F2 0F5E C1 F2 0F11 46 08 66 0F6E 45 F4 F3 0FE6 C0 74 08 F2 0F59 C2 
+F2 0F5E C1 F2 0F11 46 10 66 0F6E 45 F8 F3 0FE6 C0 74 08 F2 0F59 C2 F2 0F5E C1 F2 
+0F11 46 18 66 0F6E C1 F3 0FE6 C0 74 08 F2 0F59 C2 F2 0F5E C1 8B 5D E0 F2 0F11 03 
+EB 4E E8 968385FF 8B 55 E8 FF 75 14 50 8B 4A 08 8B 55 E4 8B 31 8B 12 FF 72 F4 52 
+FF 56 68 66 0F6E C8 F3 0FE6 C9 83 FF 60 74 20 F2 0F59 0D D0DC1902 66 0F6E C7 F3 
+0FE6 C0 C1 EF 1F F2 0F58 04 FD F0DC1902 F2 0F5E C8 F2 0F11 0B 8B 4D FC 8B C3 5F 5E 
+33 CD 5B E8 2F8E8C00 8B E5 5D C2 1000"""
+)
+hex_data=hex_data.replace(" ", "").replace("\n","")
+
+# 去除空格并将十六进制字符串转换为字节
+byte_data = bytes.fromhex(hex_data)
+
+
+# 将字节写入二进制文件
+with open("output.bin", "wb") as bin_file:
+    bin_file.write(byte_data)
+</code></pre></div></div>
+
+<h4 id="0x2-ida加载二进制文件">0x2 ida加载二进制文件</h4>
+
+<ul>
+  <li>ida加载第1步生成的二进制文件</li>
+  <li>在ida中创建函数</li>
+  <li>在创建的函数上F5</li>
+</ul>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            二进制
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2024/11/06/%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BD%ACIDA%E4%BC%AA%E4%BB%A3%E7%A0%81/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2024/11/06/%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BD%ACIDA%E4%BC%AA%E4%BB%A3%E7%A0%81/">汇编代码转IDA伪代码</a>
-      </div>
-      <div class="excerpt">
-         
-          汇编代码转IDA伪代码
-         
-        <a href="/%E4%BA%8C%E8%BF%9B%E5%88%B6/2024/11/06/%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BD%ACIDA%E4%BC%AA%E4%BB%A3%E7%A0%81/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>
