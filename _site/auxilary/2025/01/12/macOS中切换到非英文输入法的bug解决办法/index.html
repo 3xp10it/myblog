@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>macOS中切换到非英文输入法的bug解决办法</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -87,51 +87,103 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">macOS中切换到非英文输入法的bug解决办法</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">January 12, 2025</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h4 id="0x1-about">0x1 About</h4>
+
+<p>macOS中在切换到非英文输入法时存在bug,导致的结果是:在状态栏显示已经切换到非英文输入法,但实际上敲键盘的时候输出的还是英文,因为非英文输入法只是”切换”了,但没有”激活”.一般需要通过人工切换到其他APP再切换回原来的APP才能”激活”非英文输入法.</p>
+
+<h4 id="0x2-solution">0x2 Solution</h4>
+
+<p>解决办法的关键在于切换到非英文输入法的时候要让系统知道我激活了其他APP,例如通过open命令来实现切换输入法</p>
+
+<h4 id="0x3-detail">0x3 Detail</h4>
+
+<p>笔者系统中只有英文输入法和百度五笔输入法,对应的keyboard layout的值分别是:com.apple.keylayout.US和com.baidu.inputmethod.BaiduIM.wubi,可以在keyboard maestro中新建一个宏专门用于切换到百度五笔输入法,如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/o79pg7.png" data-action="zoom" /></p>
+
+<p>取消系统的切换输入法快捷键(如果快捷键不冲突的话这一步骤可以省略),如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/q9CTdm.png" data-action="zoom" /></p>
+
+<p>在keyboard maestro的Preferences中新一个变量PreviousAppleScriptResult,如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/rai93G.png" data-action="zoom" /></p>
+
+<p>然后新建一个宏专门用于切换系统的输入法,如下:</p>
+
+<p><img src="https://raw.githubusercontent.com/3xp10it/pic/master/qkJLNG.png" data-action="zoom" /></p>
+
+<p>这个专门用于切换系统的输入法的快捷键可以自由设定</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            macOS
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">macOS中切换到非英文输入法的bug解决办法</a>
-      </div>
-      <div class="excerpt">
-         
-          macOS中切换到非英文输入法的bug解决办法
-         
-        <a href="/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>

@@ -1,6 +1,14 @@
 [
   
   {
+    "title"    : "macOS中切换到非英文输入法的bug解决办法",
+    "category" : "",
+    "tags"     : "macOS",
+    "url"      : "/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/",
+    "date"     : "2025-01-12 00:00:00 +0800"
+    } ,
+    
+  {
     "title"    : "汇编代码转IDA伪代码",
     "category" : "",
     "tags"     : "二进制",
