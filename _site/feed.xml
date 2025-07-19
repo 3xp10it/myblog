@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 04 Jul 2025 14:19:45 +0800</pubDate>
-    <lastBuildDate>Fri, 04 Jul 2025 14:19:45 +0800</lastBuildDate>
+    <pubDate>Sat, 19 Jul 2025 15:20:40 +0800</pubDate>
+    <lastBuildDate>Sat, 19 Jul 2025 15:20:40 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
@@ -179,6 +179,7 @@ with open(&quot;output.bin&quot;, &quot;wb&quot;) as bin_file:
   &lt;li&gt;掌控谈话&lt;/li&gt;
   &lt;li&gt;考试脑科学&lt;/li&gt;
   &lt;li&gt;掌控&lt;/li&gt;
+  &lt;li&gt;天才的学习方法&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Tue, 03 Oct 2023 00:00:00 +0800</pubDate>
