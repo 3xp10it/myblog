@@ -5,9 +5,84 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 24 Jan 2026 10:32:43 +0800</pubDate>
-    <lastBuildDate>Sat, 24 Jan 2026 10:32:43 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Jan 2026 16:52:47 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Jan 2026 16:52:47 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
+    
+      <item>
+        <title>js调试:找到修改目标元素内容的代码</title>
+        <description>&lt;h4 id=&quot;about&quot;&gt;About&lt;/h4&gt;
+
+&lt;p&gt;有时为了找出修改某个html页面中的某个元素的内容的代码,可通过在console中执行如下代码&lt;/p&gt;
+
+&lt;h4 id=&quot;执行代码&quot;&gt;执行代码&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 步骤 1：先验证并获取目标元素（强制确保元素有效）
+const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
+if (!target) {
+  console.error(&apos;❌ 错误：未获取到目标元素！请先通过 Elements 面板选中目标元素再注入代码。&apos;);
+} else {
+  console.log(&apos;✅ 成功获取目标元素：&apos;, target);
+  
+  // 步骤 2：保存初始文本（改用 textContent，兼容更多场景）
+  let lastText = target.textContent; // 替换 innerText 为 textContent，覆盖更广
+  console.log(&apos;✅ 初始文本：&apos;, lastText);
+  
+  // 步骤 3：创建 MutationObserver 实例（优化回调和配置）
+  const observer = new MutationObserver((mutationsList, observer) =&amp;gt; {
+    // 强制刷新当前元素文本（避免缓存）
+    const currentText = target.textContent;
+    
+    // 优化：即使文本相同，也打印日志（方便验证是否捕获到变化）
+    console.log(&apos;� 检测到 DOM 变化，当前文本：&apos;, currentText);
+    
+    // 步骤 4：文本真的变化时，触发中断（保留原有逻辑，增加容错）
+    if (currentText !== lastText) {
+      console.log(&apos;� 检测到文本实际改变！&apos;);
+      console.log(&apos;� 旧值：&apos;, lastText);
+      console.log(&apos;� 新值：&apos;, currentText);
+      
+      // 更新最后一次文本
+      lastText = currentText;
+      
+      // 触发调试中断（如果想跳过重复中断，可保留这个 if 判断；想每次变化都中断，可移到 if 外面）
+      debugger;
+    }
+  });
+  
+  // 步骤 5：优化监听配置（更全面，捕获所有可能的文本变化场景）
+  const observerConfig = {
+    characterData: true,        // 监听文本节点内容变化
+    childList: true,             // 监听子节点（添加/删除/修改）
+    subtree: true,               // 监听所有后代节点（解决嵌套元素文本变化）
+    characterDataOldValue: true, // 保留旧的文本值（方便调试）
+    attributes: false            // 关闭属性监听（减少无关触发，如需监听可改为 true）
+  };
+  
+  // 步骤 6：启动监听，并打印提示
+  observer.observe(target, observerConfig);
+  console.log(&apos;✅ 监听已启动！操作页面触发文本变化，会自动中断。&apos;);
+  console.log(&apos;ℹ️  如需停止监听，执行：observer.disconnect()&apos;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;注意事项&quot;&gt;注意事项&lt;/h4&gt;
+
+&lt;p&gt;在上面的代码中:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这里设置的target如果直接用目标元素的情况下不会触发中断,则需要使用它的父元素,如果它的父元素还不行,则继续使用父元素的父元素,以此类推,直到可行&lt;/p&gt;
+</description>
+        <pubDate>Tue, 27 Jan 2026 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/</guid>
+        
+        <category>js</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
     
       <item>
         <title>巴菲特与索罗斯的投资习惯笔记</title>
@@ -375,56 +450,6 @@ with open(&quot;output.bin&quot;, &quot;wb&quot;) as bin_file:
         <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/28/%E5%8E%BB%E9%99%A4%E5%9D%8F%E4%B9%A0%E6%83%AF%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
         
         <category>习惯</category>
-        
-        
-        <category>auxilary</category>
-        
-      </item>
-    
-      <item>
-        <title>金刚经说什么笔记</title>
-        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;金刚经:能断一切法,能破一切烦恼,能成就佛道的大智慧,脱离苦海而登彼岸成就的一部经典&lt;/li&gt;
-  &lt;li&gt;般若不是普通的聪明,是道体上根本的智慧,是身心投入求证得到的智慧,五种般若的内涵就是金刚般若&lt;/li&gt;
-  &lt;li&gt;实相般若:是形而上的道体,是宇宙万有的本源,也就是悟道所悟的那个道体,是属于般若中最根本的&lt;/li&gt;
-  &lt;li&gt;境界般若:人修持到某一境界,人生的境界就开朗到某一程度,古人说学佛乃大丈夫事,非帝王将相所能为,因为他的境界气派胸襟与众不同&lt;/li&gt;
-  &lt;li&gt;文字般若:我们大家都读过书都认得字,可是很少有人变成文学家,因为优美的句子出不来,没有文字般若&lt;/li&gt;
-  &lt;li&gt;方便般若:譬如看佛经,他能够用特殊的一种方法把难懂的立刻就懂进去,最难表达的东西他用一种方式表达出来别人一听就懂&lt;/li&gt;
-  &lt;li&gt;眷属般若:佛学讲的六度是指:布施/持戒/忍辱/精进/禅定/般若,般若前面的五个眷属就是眷属般若&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;罗汉菩萨如来&quot;&gt;罗汉菩萨如来&lt;/h4&gt;
-
-&lt;p&gt;离开人世间的一切,专心于自己的修行,其他一切不管的境界是罗汉境界,罗汉境界住空,不敢入世,一切不敢碰,眼不见心不烦,只管自己.自己没有悟道但是有宗教热忱,愿意先来救别人,帮助别人,教化别人做善事,这是菩萨境界.菩萨是如来的前因,成了佛是菩萨的果位,成就的果位.&lt;/p&gt;
-
-&lt;h4 id=&quot;善护念&quot;&gt;善护念&lt;/h4&gt;
-
-&lt;p&gt;不管儒家/佛家/道家,以及其他一切的宗教,人类一切的修养方法,都是这三个字:善护念.好好照应你的心念,起心动念,我们打坐,照顾自己不要胡思乱想,也是善护念,金刚经的重点就是善护念.&lt;/p&gt;
-
-&lt;h4 id=&quot;凡有所相皆是虚妄若见诸相非相即见如来&quot;&gt;凡有所相,皆是虚妄,若见诸相非相,即见如来&lt;/h4&gt;
-
-&lt;p&gt;佛是不可以以形相来相见的,把庙里的佛相当成是佛就是着相了,即使是佛在世的时候都不能看他肉身为师,那也是着相.真是有大成就的人,绝对的谦和,谦和到非常平实,什么都没有,真正的佛不认为自己是佛,真正的圣人,不认为自己是圣人,所以真正的佛法即非佛法.如果你有一个佛法的观念存在,你已经着相了.一个真正了不起的人,他认为度一切众生,教化一切众生,都是做人应该做的事情而已,做完了就过去了,心中不留.&lt;/p&gt;
-
-&lt;h4 id=&quot;应无所住而生其心&quot;&gt;应无所住而生其心&lt;/h4&gt;
-
-&lt;p&gt;无所住:物来则应,过去不留,如行云流水,流水在流,永远不停留地过去了,但是又有来的,而一切是无所住.做了一件好事,做完了就没有了,不要想着要别人的回报.同样,如果有人骂你也要放下,不要住在被骂这件事情上.禅宗六祖初步悟道,就是听到这一句话”应无所住而生其心”就开悟了.&lt;/p&gt;
-
-&lt;h4 id=&quot;一切有为法如梦幻泡影如露亦如电应作如是观&quot;&gt;一切有为法,如梦幻泡影,如露亦如电,应作如是观&lt;/h4&gt;
-
-&lt;p&gt;谁会记得b语言这种古老的编程技术?诺基亚火爆的时候霸占了手机的大半壁江山,现在诺基亚在哪里?闪电一闪之后就消失了,叶子上的露水在太阳出来后就了无踪迹.所有有为法,转瞬即逝,不应执着.&lt;/p&gt;
-
-&lt;h4 id=&quot;白话文&quot;&gt;白话文&lt;/h4&gt;
-
-&lt;p&gt;参考&lt;a href=&quot;https://www.zhihu.com/question/20742809/answer/93149427&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 27 Aug 2022 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</guid>
-        
-        <category>金刚经</category>
         
         
         <category>auxilary</category>

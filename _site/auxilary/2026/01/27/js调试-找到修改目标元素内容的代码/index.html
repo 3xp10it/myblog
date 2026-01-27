@@ -5,7 +5,7 @@
     <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>404</title>
+<title>js调试:找到修改目标元素内容的代码</title>
 <meta name="description" content="A blog about programming and network security">
 
 <link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -86,51 +86,137 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="container-fluid index error">
+      
+
+<div class="container-fluid single">
   <div class="row">
 
-    <div class="col-md-12 content-panel articles">
-      <h1 class="header author-header">404</h1>
+    <div itemscope itemtype="https://schema.org/Article" class="col-md-12 article">
+      
 
-      <div class="error-text">
-        Sorry but this page doesn't seem to exist.
+      <h1 class="header" itemprop="name">js调试:找到修改目标元素内容的代码</h1>
+
+      <div class="author">
+        <small><i>
+          
+          on <span itemprop="datePublished" content="2014-08-28">January 27, 2026</span>
+           under auxilary
+        </i></small>
       </div>
 
-      <div class="error-text">
-        <a href="/">Home</a> |
-        <a href="/posts/">All Posts</a> |
-        <a href="/search/">Search</a>
+      <div class="read-time">
+        <small>
+          1 minute read
+        </small>
       </div>
 
-      <p class="links">
-  <a href="https://www.twitter.com/quanyechavshuo" target="_new"><i class="fa fa-twitter"></i></a>
-  <a href="https://github.com/3xp10it" target="_new"><i class="fa fa-github-alt"></i></a>
-  <a href="/feed.xml" target="_new"><i class="fa fa-rss"></i></a>
-</p>
+      <div class="content-panel content">
 
+        
+
+        <span itemprop="articleBody"><h4 id="about">About</h4>
+
+<p>有时为了找出修改某个html页面中的某个元素的内容的代码,可通过在console中执行如下代码</p>
+
+<h4 id="执行代码">执行代码</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 步骤 1：先验证并获取目标元素（强制确保元素有效）
+const target = document.querySelector("body &gt; main &gt; div.album.py-4.bg-light &gt; div &gt; div &gt; div.col-xs-12.col-sm-9.right-col &gt; div &gt; div.content_block &gt; div.table-responsive.table_normal")
+if (!target) {
+  console.error('❌ 错误：未获取到目标元素！请先通过 Elements 面板选中目标元素再注入代码。');
+} else {
+  console.log('✅ 成功获取目标元素：', target);
+  
+  // 步骤 2：保存初始文本（改用 textContent，兼容更多场景）
+  let lastText = target.textContent; // 替换 innerText 为 textContent，覆盖更广
+  console.log('✅ 初始文本：', lastText);
+  
+  // 步骤 3：创建 MutationObserver 实例（优化回调和配置）
+  const observer = new MutationObserver((mutationsList, observer) =&gt; {
+    // 强制刷新当前元素文本（避免缓存）
+    const currentText = target.textContent;
+    
+    // 优化：即使文本相同，也打印日志（方便验证是否捕获到变化）
+    console.log('� 检测到 DOM 变化，当前文本：', currentText);
+    
+    // 步骤 4：文本真的变化时，触发中断（保留原有逻辑，增加容错）
+    if (currentText !== lastText) {
+      console.log('� 检测到文本实际改变！');
+      console.log('� 旧值：', lastText);
+      console.log('� 新值：', currentText);
+      
+      // 更新最后一次文本
+      lastText = currentText;
+      
+      // 触发调试中断（如果想跳过重复中断，可保留这个 if 判断；想每次变化都中断，可移到 if 外面）
+      debugger;
+    }
+  });
+  
+  // 步骤 5：优化监听配置（更全面，捕获所有可能的文本变化场景）
+  const observerConfig = {
+    characterData: true,        // 监听文本节点内容变化
+    childList: true,             // 监听子节点（添加/删除/修改）
+    subtree: true,               // 监听所有后代节点（解决嵌套元素文本变化）
+    characterDataOldValue: true, // 保留旧的文本值（方便调试）
+    attributes: false            // 关闭属性监听（减少无关触发，如需监听可改为 true）
+  };
+  
+  // 步骤 6：启动监听，并打印提示
+  observer.observe(target, observerConfig);
+  console.log('✅ 监听已启动！操作页面触发文本变化，会自动中断。');
+  console.log('ℹ️  如需停止监听，执行：observer.disconnect()');
+}
+</code></pre></div></div>
+
+<h4 id="注意事项">注意事项</h4>
+
+<p>在上面的代码中:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const target = document.querySelector("body &gt; main &gt; div.album.py-4.bg-light &gt; div &gt; div &gt; div.col-xs-12.col-sm-9.right-col &gt; div &gt; div.content_block &gt; div.table-responsive.table_normal")
+</code></pre></div></div>
+<p>这里设置的target如果直接用目标元素的情况下不会触发中断,则需要使用它的父元素,如果它的父元素还不行,则继续使用父元素的父元素,以此类推,直到可行</p>
+</span>
+
+        
+
+
+        
+        <div class="tags">
+          <small>
+          <i class="fa fa-tags"></i>
+            js
+          </small>
+        </div>
+        
+
+      </div>
+
+      
+
+
+<!-- 个人增加织网背景效果 -->
+<!--
+<script type="text/javascript" color="255,255,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+-->
+
+
+      
+
+
+
+      
+
+
+      
 
     </div>
 
   </div>
 
-  <div class="content-panel related">
-    
-      <div class="related-header">
-        <a href="/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/">Suggested Article</a>
-      </div>
-      <div class="title">
-        <a href="/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/">js调试:找到修改目标元素内容的代码</a>
-      </div>
-      <div class="excerpt">
-         
-          js调试:找到修改目标元素内容的代码
-         
-        <a href="/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/">Continue Reading</a>
-      </div>
-    
-  </div>
-
 </div>
+
+
+
 
       </div>
     </div>
