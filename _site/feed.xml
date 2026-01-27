@@ -5,68 +5,68 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Jan 2026 16:52:47 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Jan 2026 16:52:47 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Jan 2026 16:55:23 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Jan 2026 16:55:23 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
         <title>js调试:找到修改目标元素内容的代码</title>
-        <description>&lt;h4 id=&quot;about&quot;&gt;About&lt;/h4&gt;
+        <description>&lt;h4 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h4&gt;
 
-&lt;p&gt;有时为了找出修改某个html页面中的某个元素的内容的代码,可通过在console中执行如下代码&lt;/p&gt;
+&lt;p&gt;有时为了找出修改html页面中的某个元素的内容的js代码,可通过在console中执行如下代码&lt;/p&gt;
 
-&lt;h4 id=&quot;执行代码&quot;&gt;执行代码&lt;/h4&gt;
+&lt;h4 id=&quot;0x2-执行代码&quot;&gt;0x2 执行代码&lt;/h4&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 步骤 1：先验证并获取目标元素（强制确保元素有效）
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 步骤 1:先验证并获取目标元素(强制确保元素有效)
 const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
 if (!target) {
-  console.error(&apos;❌ 错误：未获取到目标元素！请先通过 Elements 面板选中目标元素再注入代码。&apos;);
+  console.error(&apos;❌ 错误:未获取到目标元素!请先通过 Elements 面板选中目标元素再注入代码.&apos;);
 } else {
-  console.log(&apos;✅ 成功获取目标元素：&apos;, target);
+  console.log(&apos;✅ 成功获取目标元素:&apos;, target);
   
-  // 步骤 2：保存初始文本（改用 textContent，兼容更多场景）
-  let lastText = target.textContent; // 替换 innerText 为 textContent，覆盖更广
-  console.log(&apos;✅ 初始文本：&apos;, lastText);
+  // 步骤 2:保存初始文本(改用 textContent,兼容更多场景)
+  let lastText = target.textContent; // 替换 innerText 为 textContent,覆盖更广
+  console.log(&apos;✅ 初始文本:&apos;, lastText);
   
-  // 步骤 3：创建 MutationObserver 实例（优化回调和配置）
+  // 步骤 3:创建 MutationObserver 实例(优化回调和配置)
   const observer = new MutationObserver((mutationsList, observer) =&amp;gt; {
-    // 强制刷新当前元素文本（避免缓存）
+    // 强制刷新当前元素文本(避免缓存)
     const currentText = target.textContent;
     
-    // 优化：即使文本相同，也打印日志（方便验证是否捕获到变化）
-    console.log(&apos;� 检测到 DOM 变化，当前文本：&apos;, currentText);
+    // 优化:即使文本相同,也打印日志(方便验证是否捕获到变化)
+    console.log(&apos;� 检测到 DOM 变化,当前文本:&apos;, currentText);
     
-    // 步骤 4：文本真的变化时，触发中断（保留原有逻辑，增加容错）
+    // 步骤 4:文本真的变化时,触发中断(保留原有逻辑,增加容错)
     if (currentText !== lastText) {
-      console.log(&apos;� 检测到文本实际改变！&apos;);
-      console.log(&apos;� 旧值：&apos;, lastText);
-      console.log(&apos;� 新值：&apos;, currentText);
+      console.log(&apos;� 检测到文本实际改变!&apos;);
+      console.log(&apos;� 旧值:&apos;, lastText);
+      console.log(&apos;� 新值:&apos;, currentText);
       
       // 更新最后一次文本
       lastText = currentText;
       
-      // 触发调试中断（如果想跳过重复中断，可保留这个 if 判断；想每次变化都中断，可移到 if 外面）
+      // 触发调试中断(如果想跳过重复中断,可保留这个 if 判断;想每次变化都中断,可移到 if 外面)
       debugger;
     }
   });
   
-  // 步骤 5：优化监听配置（更全面，捕获所有可能的文本变化场景）
+  // 步骤 5:优化监听配置(更全面,捕获所有可能的文本变化场景)
   const observerConfig = {
     characterData: true,        // 监听文本节点内容变化
-    childList: true,             // 监听子节点（添加/删除/修改）
-    subtree: true,               // 监听所有后代节点（解决嵌套元素文本变化）
-    characterDataOldValue: true, // 保留旧的文本值（方便调试）
-    attributes: false            // 关闭属性监听（减少无关触发，如需监听可改为 true）
+    childList: true,             // 监听子节点(添加/删除/修改)
+    subtree: true,               // 监听所有后代节点(解决嵌套元素文本变化)
+    characterDataOldValue: true, // 保留旧的文本值(方便调试)
+    attributes: false            // 关闭属性监听(减少无关触发,如需监听可改为 true)
   };
   
-  // 步骤 6：启动监听，并打印提示
+  // 步骤 6:启动监听,并打印提示
   observer.observe(target, observerConfig);
-  console.log(&apos;✅ 监听已启动！操作页面触发文本变化，会自动中断。&apos;);
-  console.log(&apos;ℹ️  如需停止监听，执行：observer.disconnect()&apos;);
+  console.log(&apos;✅ 监听已启动!操作页面触发文本变化,会自动中断.&apos;);
+  console.log(&apos;ℹ️  如需停止监听,执行:observer.disconnect()&apos;);
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;注意事项&quot;&gt;注意事项&lt;/h4&gt;
+&lt;h4 id=&quot;0x3-注意事项&quot;&gt;0x3 注意事项&lt;/h4&gt;
 
 &lt;p&gt;在上面的代码中:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
