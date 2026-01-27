@@ -5,15 +5,15 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Jan 2026 16:55:23 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Jan 2026 16:55:23 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Jan 2026 17:02:03 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Jan 2026 17:02:03 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
         <title>js调试:找到修改目标元素内容的代码</title>
         <description>&lt;h4 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h4&gt;
 
-&lt;p&gt;有时为了找出修改html页面中的某个元素的内容的js代码,可通过在console中执行如下代码&lt;/p&gt;
+&lt;p&gt;有时为了找出修改html页面中的某个元素的内容的js代码,可通过在console中执行如下代码,执行了如下代码后可触发中断,触发中断后可在调用堆栈中的前几个函数中逐一查找,可找到目标函数&lt;/p&gt;
 
 &lt;h4 id=&quot;0x2-执行代码&quot;&gt;0x2 执行代码&lt;/h4&gt;
 
