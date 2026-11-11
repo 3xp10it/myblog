@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 10 Nov 2026 20:59:50 +0800</pubDate>
-    <lastBuildDate>Tue, 10 Nov 2026 20:59:50 +0800</lastBuildDate>
+    <pubDate>Wed, 11 Nov 2026 08:47:42 +0800</pubDate>
+    <lastBuildDate>Wed, 11 Nov 2026 08:47:42 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
@@ -169,6 +169,12 @@ if (!target) {
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/qkJLNG.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这个专门用于切换系统的输入法的快捷键可以自由设定&lt;/p&gt;
+
+&lt;h4 id=&quot;0x4-后记&quot;&gt;0x4 后记&lt;/h4&gt;
+
+&lt;p&gt;后来发现这个方法有效,但切换输入法的时候有点慢,不够快,后来发现有个系统自带的功能可以有效解决且反应很快,也就是使用系统自带的”选择上一个输入法”的功能,并设置快捷键为ctrl+shift+z,同时取消原来keyboard maestro中的”切换输入法”的那个macro,如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/system_last_ime.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Jan 2025 00:00:00 +0800</pubDate>
         <link>http://3xp10it.cc/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
