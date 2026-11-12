@@ -5,8 +5,8 @@
     <description>A blog about programming and network security</description>
     <link>http://3xp10it.cc/</link>
     <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 11 Nov 2026 12:29:00 +0800</pubDate>
-    <lastBuildDate>Wed, 11 Nov 2026 12:29:00 +0800</lastBuildDate>
+    <pubDate>Thu, 12 Nov 2026 14:34:07 +0800</pubDate>
+    <lastBuildDate>Thu, 12 Nov 2026 14:34:07 +0800</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
@@ -137,53 +137,6 @@ if (!target) {
         
         
         <category>炒股</category>
-        
-      </item>
-    
-      <item>
-        <title>macOS中切换到非英文输入法的bug解决办法</title>
-        <description>&lt;h4 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h4&gt;
-
-&lt;p&gt;macOS中在切换到非英文输入法时存在bug,导致的结果是:在状态栏显示已经切换到非英文输入法,但实际上敲键盘的时候输出的还是英文,因为非英文输入法只是”切换”了,但没有”激活”.一般需要通过人工切换到其他APP再切换回原来的APP才能”激活”非英文输入法.&lt;/p&gt;
-
-&lt;h4 id=&quot;0x2-solution&quot;&gt;0x2 Solution&lt;/h4&gt;
-
-&lt;p&gt;解决办法的关键在于切换到非英文输入法的时候要让系统知道我激活了其他APP,例如通过open命令来实现切换输入法&lt;/p&gt;
-
-&lt;h4 id=&quot;0x3-detail&quot;&gt;0x3 Detail&lt;/h4&gt;
-
-&lt;p&gt;笔者系统中只有英文输入法和百度五笔输入法,对应的keyboard layout的值分别是:com.apple.keylayout.US和com.baidu.inputmethod.BaiduIM.wubi,可以在keyboard maestro中新建一个宏专门用于切换到百度五笔输入法,如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/o79pg7.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;取消系统的切换输入法快捷键(如果快捷键不冲突的话这一步骤可以省略),如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/q9CTdm.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在keyboard maestro的Preferences中新一个变量PreviousAppleScriptResult,如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/rai93G.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;然后新建一个宏专门用于切换系统的输入法,如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/qkJLNG.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这个专门用于切换系统的输入法的快捷键可以自由设定&lt;/p&gt;
-
-&lt;h4 id=&quot;0x4-后记&quot;&gt;0x4 后记&lt;/h4&gt;
-
-&lt;p&gt;后来发现这个方法有效,但切换输入法的时候有点慢,不够快,后来发现有个系统自带的功能可以有效解决且反应很快,也就是使用系统自带的”选择上一个输入法”的功能,并设置快捷键为ctrl+shift+z,同时取消原来keyboard maestro中的”切换输入法”的那个macro,如下:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/system_last_ime.png&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 12 Jan 2025 00:00:00 +0800</pubDate>
-        <link>http://3xp10it.cc/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
-        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2025/01/12/macOS%E4%B8%AD%E5%88%87%E6%8D%A2%E5%88%B0%E9%9D%9E%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84bug%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-        
-        <category>macOS</category>
-        
-        
-        <category>auxilary</category>
         
       </item>
     
@@ -456,6 +409,56 @@ with open(&quot;output.bin&quot;, &quot;wb&quot;) as bin_file:
         <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/28/%E5%8E%BB%E9%99%A4%E5%9D%8F%E4%B9%A0%E6%83%AF%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
         
         <category>习惯</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>金刚经说什么笔记</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;金刚经:能断一切法,能破一切烦恼,能成就佛道的大智慧,脱离苦海而登彼岸成就的一部经典&lt;/li&gt;
+  &lt;li&gt;般若不是普通的聪明,是道体上根本的智慧,是身心投入求证得到的智慧,五种般若的内涵就是金刚般若&lt;/li&gt;
+  &lt;li&gt;实相般若:是形而上的道体,是宇宙万有的本源,也就是悟道所悟的那个道体,是属于般若中最根本的&lt;/li&gt;
+  &lt;li&gt;境界般若:人修持到某一境界,人生的境界就开朗到某一程度,古人说学佛乃大丈夫事,非帝王将相所能为,因为他的境界气派胸襟与众不同&lt;/li&gt;
+  &lt;li&gt;文字般若:我们大家都读过书都认得字,可是很少有人变成文学家,因为优美的句子出不来,没有文字般若&lt;/li&gt;
+  &lt;li&gt;方便般若:譬如看佛经,他能够用特殊的一种方法把难懂的立刻就懂进去,最难表达的东西他用一种方式表达出来别人一听就懂&lt;/li&gt;
+  &lt;li&gt;眷属般若:佛学讲的六度是指:布施/持戒/忍辱/精进/禅定/般若,般若前面的五个眷属就是眷属般若&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;罗汉菩萨如来&quot;&gt;罗汉菩萨如来&lt;/h4&gt;
+
+&lt;p&gt;离开人世间的一切,专心于自己的修行,其他一切不管的境界是罗汉境界,罗汉境界住空,不敢入世,一切不敢碰,眼不见心不烦,只管自己.自己没有悟道但是有宗教热忱,愿意先来救别人,帮助别人,教化别人做善事,这是菩萨境界.菩萨是如来的前因,成了佛是菩萨的果位,成就的果位.&lt;/p&gt;
+
+&lt;h4 id=&quot;善护念&quot;&gt;善护念&lt;/h4&gt;
+
+&lt;p&gt;不管儒家/佛家/道家,以及其他一切的宗教,人类一切的修养方法,都是这三个字:善护念.好好照应你的心念,起心动念,我们打坐,照顾自己不要胡思乱想,也是善护念,金刚经的重点就是善护念.&lt;/p&gt;
+
+&lt;h4 id=&quot;凡有所相皆是虚妄若见诸相非相即见如来&quot;&gt;凡有所相,皆是虚妄,若见诸相非相,即见如来&lt;/h4&gt;
+
+&lt;p&gt;佛是不可以以形相来相见的,把庙里的佛相当成是佛就是着相了,即使是佛在世的时候都不能看他肉身为师,那也是着相.真是有大成就的人,绝对的谦和,谦和到非常平实,什么都没有,真正的佛不认为自己是佛,真正的圣人,不认为自己是圣人,所以真正的佛法即非佛法.如果你有一个佛法的观念存在,你已经着相了.一个真正了不起的人,他认为度一切众生,教化一切众生,都是做人应该做的事情而已,做完了就过去了,心中不留.&lt;/p&gt;
+
+&lt;h4 id=&quot;应无所住而生其心&quot;&gt;应无所住而生其心&lt;/h4&gt;
+
+&lt;p&gt;无所住:物来则应,过去不留,如行云流水,流水在流,永远不停留地过去了,但是又有来的,而一切是无所住.做了一件好事,做完了就没有了,不要想着要别人的回报.同样,如果有人骂你也要放下,不要住在被骂这件事情上.禅宗六祖初步悟道,就是听到这一句话”应无所住而生其心”就开悟了.&lt;/p&gt;
+
+&lt;h4 id=&quot;一切有为法如梦幻泡影如露亦如电应作如是观&quot;&gt;一切有为法,如梦幻泡影,如露亦如电,应作如是观&lt;/h4&gt;
+
+&lt;p&gt;谁会记得b语言这种古老的编程技术?诺基亚火爆的时候霸占了手机的大半壁江山,现在诺基亚在哪里?闪电一闪之后就消失了,叶子上的露水在太阳出来后就了无踪迹.所有有为法,转瞬即逝,不应执着.&lt;/p&gt;
+
+&lt;h4 id=&quot;白话文&quot;&gt;白话文&lt;/h4&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;https://www.zhihu.com/question/20742809/answer/93149427&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 27 Aug 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>金刚经</category>
         
         
         <category>auxilary</category>
