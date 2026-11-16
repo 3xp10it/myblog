@@ -1,0 +1,51 @@
+<html>
+<audio id="myaudio" volume="40%"></audio>
+<script language="javascript">
+var list=new Array()
+list[0]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983116/my_love.mp3";
+list[1]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982852/my_will.mp3";
+list[2]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982796/%E5%B7%B4%E8%B5%AB%E6%97%A7%E7%BA%A6.mp3";
+list[3]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983131/with_you.mp3";
+list[4]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983414/%E4%B8%89%E5%9B%BD%E6%9D%80.mp3";
+list[5]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982520/every_heart.mp3";
+list[6]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982936/%E4%B8%8D%E5%88%86%E6%89%8B%E7%9A%84%E6%81%8B%E7%88%B1.mp3";
+list[7]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983579/%E6%A1%83%E8%8A%B1%E6%89%87.mp3";
+list[8]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983070/%E9%A3%8E%E5%BA%A6.mp3";
+list[9]="https://raw.githubusercontent.com/3xp10it/mv/master/gongxin.mp4";
+list[10]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983739/%E7%BE%8E%E4%B8%BD%E7%9A%84%E7%A5%9E%E8%AF%9D-%E6%88%90%E9%BE%99%E9%87%91%E5%96%9C%E5%96%84.mp3";
+list[11]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983875/%E6%B0%B8%E8%BF%9C%E6%B0%B8%E8%BF%9C.mp3";
+list[12]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983405/%E7%A5%9E%E9%9B%95%E4%BE%A0%E4%BE%A3_%E5%BD%92%E5%8E%BB%E6%9D%A5%E5%85%AE.mp3";
+list[13]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983746/%E6%9C%88%E5%85%89_-_%E6%97%A5%E6%9C%AC.mp3";
+list[14]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983278/%E5%81%87%E5%A6%82%E7%88%B1%E6%9C%89%E5%A4%A9%E6%84%8F.mp3";
+list[15]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983748/%E6%98%9F%E6%9C%88%E7%A5%9E%E8%AF%9D.mp3";
+list[16]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982817/%E7%88%B1%E6%AD%BB%E4%BA%86%E6%98%A8%E5%A4%A9.mp3";
+list[17]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983668/%E6%88%91%E6%AC%B2%E6%88%90%E4%BB%99.mp3";
+list[18]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983662/%E7%9B%B8%E6%80%9D.mp3";
+list[19]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982994/%E6%AD%A4%E7%94%9F%E4%B8%8D%E6%8D%A2.mp3";
+list[20]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983850/%E8%BD%AC%E5%BC%AF.mp3";
+list[21]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983532/%E7%94%9F%E7%94%9F%E4%B8%96%E4%B8%96%E7%88%B1.mp3";
+list[22]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983822/%E6%9C%88%E5%85%89.mp3";
+list[23]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983474/%E7%BB%9D%E4%B8%96.mp3";
+list[24]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983343/%E7%BE%8E%E4%B8%BD%E7%9A%84%E7%A5%9E%E8%AF%9D-%E5%AD%99%E6%A5%A0%E9%9F%A9%E7%BA%A2.mp3";
+list[25]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983106/%E7%88%B1%E7%9A%84%E7%81%B5%E9%AD%82.mp3";
+list[26]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983540/%E5%81%B7%E5%8A%9F.mp3";
+list[27]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983475/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E3D.mp3";
+list[28]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982920/%E7%84%9A%E6%83%85.mp3";
+list[29]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983613/%E9%93%81%E8%A1%80%E4%B8%B9%E5%BF%83.mp3";
+list[30]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545982319/Dan_Dan%E5%BF%83%E9%AD%85%E3%81%8B%E3%82%8C%E3%81%A6%E3%81%8F.mp3";
+list[31]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983149/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E5%A5%BD%E6%83%B3%E5%A4%A7%E5%A3%B0%E8%AF%B4%E5%96%9C%E6%AC%A2%E4%BD%A0.mp3";
+list[32]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983261/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E5%8F%AA%E5%87%9D%E8%A7%86%E7%9D%80%E4%BD%A0.mp3";
+list[33]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983117/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E6%8D%95%E6%8D%89%E9%97%AA%E8%80%80%E7%9A%84%E7%9E%AC%E9%97%B4.mp3";
+list[34]="https://res.cloudinary.com/dlyqz736p/video/upload/v1545983695/%E7%81%8C%E7%AF%AE%E9%AB%98%E6%89%8B--%E7%9B%B4%E5%88%B0%E4%B8%96%E7%95%8C%E7%9A%84%E5%B0%BD%E5%A4%B4.mp3";
+
+var currentFile=list[parseInt(Math.random()*35)];
+var oAudio = document.getElementById('myaudio');
+oAudio.src = currentFile;
+oAudio.play();
+oAudio.onended = function() {
+currentFile=list[parseInt(Math.random()*35)];
+oAudio.src = currentFile;
+oAudio.play();
+}
+</script>
+</html>

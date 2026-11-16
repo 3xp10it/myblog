@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
+  <channel>
+    <title>quanyechavshuo</title>
+    <description>A blog about programming and network security</description>
+    <link>http://3xp10it.cc/</link>
+    <atom:link href="http://3xp10it.cc/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 16 Nov 2026 21:59:06 +0800</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2026 21:59:06 +0800</lastBuildDate>
+    <generator>Jekyll v4.3.4</generator>
+    
+      <item>
+        <title>js调试:找到修改目标元素内容的代码</title>
+        <description>&lt;h4 id=&quot;0x1-about&quot;&gt;0x1 About&lt;/h4&gt;
+
+&lt;p&gt;有时为了找出修改html页面中的某个元素的内容的js代码,可通过在console中执行如下代码,执行了如下代码后可触发中断,触发中断后可在调用堆栈中的前几个函数中逐一查找,可找到目标函数&lt;/p&gt;
+
+&lt;h4 id=&quot;0x2-执行代码&quot;&gt;0x2 执行代码&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 步骤 1:先验证并获取目标元素(强制确保元素有效)
+const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
+if (!target) {
+  console.error(&apos;❌ 错误:未获取到目标元素!请先通过 Elements 面板选中目标元素再注入代码.&apos;);
+} else {
+  console.log(&apos;✅ 成功获取目标元素:&apos;, target);
+  
+  // 步骤 2:保存初始文本(改用 textContent,兼容更多场景)
+  let lastText = target.textContent; // 替换 innerText 为 textContent,覆盖更广
+  console.log(&apos;✅ 初始文本:&apos;, lastText);
+  
+  // 步骤 3:创建 MutationObserver 实例(优化回调和配置)
+  const observer = new MutationObserver((mutationsList, observer) =&amp;gt; {
+    // 强制刷新当前元素文本(避免缓存)
+    const currentText = target.textContent;
+    
+    // 优化:即使文本相同,也打印日志(方便验证是否捕获到变化)
+    console.log(&apos;� 检测到 DOM 变化,当前文本:&apos;, currentText);
+    
+    // 步骤 4:文本真的变化时,触发中断(保留原有逻辑,增加容错)
+    if (currentText !== lastText) {
+      console.log(&apos;� 检测到文本实际改变!&apos;);
+      console.log(&apos;� 旧值:&apos;, lastText);
+      console.log(&apos;� 新值:&apos;, currentText);
+      
+      // 更新最后一次文本
+      lastText = currentText;
+      
+      // 触发调试中断(如果想跳过重复中断,可保留这个 if 判断;想每次变化都中断,可移到 if 外面)
+      debugger;
+    }
+  });
+  
+  // 步骤 5:优化监听配置(更全面,捕获所有可能的文本变化场景)
+  const observerConfig = {
+    characterData: true,        // 监听文本节点内容变化
+    childList: true,             // 监听子节点(添加/删除/修改)
+    subtree: true,               // 监听所有后代节点(解决嵌套元素文本变化)
+    characterDataOldValue: true, // 保留旧的文本值(方便调试)
+    attributes: false            // 关闭属性监听(减少无关触发,如需监听可改为 true)
+  };
+  
+  // 步骤 6:启动监听,并打印提示
+  observer.observe(target, observerConfig);
+  console.log(&apos;✅ 监听已启动!操作页面触发文本变化,会自动中断.&apos;);
+  console.log(&apos;ℹ️  如需停止监听,执行:observer.disconnect()&apos;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;0x3-注意事项&quot;&gt;0x3 注意事项&lt;/h4&gt;
+
+&lt;p&gt;在上面的代码中:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const target = document.querySelector(&quot;body &amp;gt; main &amp;gt; div.album.py-4.bg-light &amp;gt; div &amp;gt; div &amp;gt; div.col-xs-12.col-sm-9.right-col &amp;gt; div &amp;gt; div.content_block &amp;gt; div.table-responsive.table_normal&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这里设置的target如果直接用目标元素的情况下不会触发中断,则需要使用它的父元素,如果它的父元素还不行,则继续使用父元素的父元素,以此类推,直到可行&lt;/p&gt;
+</description>
+        <pubDate>Tue, 27 Jan 2026 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2026/01/27/js%E8%B0%83%E8%AF%95-%E6%89%BE%E5%88%B0%E4%BF%AE%E6%94%B9%E7%9B%AE%E6%A0%87%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9%E7%9A%84%E4%BB%A3%E7%A0%81/</guid>
+        
+        <category>js</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>巴菲特与索罗斯的投资习惯笔记</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;巴菲特与索罗斯的投资习惯&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“市场先生”每天都会出现,提出一个价格,在这个价格上,他要么会把你的股份买去,要么会把他的股份卖给你. 尽管你们俩所拥有的那家企业可能会有一些稳定的经济特征,但”市场先生”的报价却绝不稳定.很遗憾,这是因为这个家伙有一些不可救药的精神问题.有时候,他欣快症发作,只看到影响企业的积极因素.在这种情绪下,他会报出很高的买价,因为他担心你会把他的股份买走,夺取他的巨大收益.而在他沮丧的时候,他眼中除了企业和整个世界所碰到的麻烦以外什么也没有.在这种情况下,他提出来的价格非常低,因为他很害怕你把你的股份甩给他.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;市场先生的情绪越低落,对你就越有利.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;1963年,巴菲特购买了第一只格雷厄姆绝对不会买的股票:美国运通.照例,他重拳出击,将合伙公司25%的资产投入了这家企业. 那时候,巴菲特像现在一样笃信格雷厄姆的基本原则:当市价能给你非常大的安全余地时,你会看到一种价值,你只能在这种时候买入.在美国运通身上,巴菲特既看到了价值也看到了安全余地.但他的关注对象和价值计算方法正在改变. 美国运通公司的某个分支经营着一个储存蔬菜油的仓库.菜油入库后,它要给它的客户开立收据.不幸的是,它的客户之一—联合菜油加工公司的老板是个骗子.这家企业的信用评级是0,但它发现可以把菜油转化成可以找银行贴现的美国运通收据. 在联合菜油加工公司破产后,它的债主们开始敲美国运通的大门,不是要他们的菜油就是要他们的钱.直到此时,大骗局才被揭开:联合菜油公司放在仓库中的那些罐子里装的主要是海水,只是掺了一点菜油.美国运通面临着6 000万美元的损失,用首席执行官霍华德·克拉克(Howard Clark)的话说,”我们已经资不抵债”. 在1963年11月,也就是”菜油丑闻”爆发之前,美国运通的股价是60美元,但到1964年年初就跌到了35美元. 美国运通能生存下去吗?华尔街的建议是”卖”,也就是说,它的回答是”不能”. 巴菲特却认为这个丑闻只是偶然事件,不会影响美国运通的主要生意:运通卡和旅行支票. 如何评估这家公司的价值呢? 对格雷厄姆来说,即使在每股价格仅为35美元的情况下,这家公司也是绝对不可考虑的.它的市值仍然远高于它的有形资产—也就是账面价值. 美国运通的优势在于无形资产:客户基础,世界上最好的信用卡(在VISA卡和万事达卡称雄世界之前),以及它自己发行但尚未付现的旅行支票的数亿美元”融资”. 巴菲特看到了一家正在成长的企业,它所拥有的价值连城、不可取代的行业地位能创造稳定的收益—而以低廉的价格就可以将这些收益据为己有. 于是,巴菲特的问题变成了:”美国运通的行业地位有没有受到影响?”但在公司的年报中找不到这个问题的答案. 他变成了一个侦探.他在他最喜欢的一家奥马哈牛排餐厅的收银机后面站了整整一个晚上,发现人们仍在使用美国运通卡—这部分业务一如往昔.在银行、旅行社、超市和杂货店,他发现美国运通的旅行支票和汇票的销量并没有下降的迹象.在调查了美国运通的竞争者们之后,他发现运通卡的优势仍然像过去一样明显. 他的结论是美国运通能够生存下去.在得出这个结论后,他立刻购入了大量美国运通的股票.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;每一个成功的人都有一片明确的领域.比如,我敢打赌你能立刻说出约翰·麦肯罗(John McEnroe)、迈克尔·乔丹、贝比·鲁思(Babe Ruth)和”老虎”伍兹以什么闻名,即便你像我一样对任何体育运动都不感兴趣. 而且直觉告诉你,篮球场上的麦肯罗和温布尔登网球赛中的贝比·鲁思会像离开水的鱼一样狼狈. 同样,每一个成功投资者都有他自己的领地.如果你已经在投资圈中待了哪怕很短的一段时间,你也可以将下面的每一个名字同某种特定的投资特长或投资风格联系在一起. 本杰明·格雷厄姆、沃伦·巴菲特、乔治·索罗斯、彼得·林奇、约翰·坦普尔顿、吉姆·罗杰斯、杰西·利弗莫尔&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不同种类的鲸鱼都生活在自己的特殊环境中,很少彼此越界.类似的,巴菲特和索罗斯也在投资世界中占据了自己的生态领地.而且,就像鲸鱼的生态领地与它能吃的食物有关一样,投资者的市场领域也是由他懂什么类型的投资决定的.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;每一个成功的投资者都把注意力集中在一小部分投资对象上,他们擅长这些,也只擅长这些.这并不是偶然的. 投资大师发展自己的投资哲学的过程决定了他懂什么类型的投资.这划定了他的能力范围,只要不超出这个范围,他就拥有了一种能让他的表现超出市场总体表现的竞争优势.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;像巴菲特和索罗斯这样的投资大师不会受到这样的桎梏.当他们的投资系统告诉他们没有值得一做的事情时,不会有制度命令强迫他们去行动.同典型的基金经理不一样的是,如果持资观望是更明智的做法,他们不会去购买”防御性”股票(比如那些在行情不景气时损失低于市场整体损失水平的股票). 在无事可做的时候,他们也不一定会去办公室.巴菲特从格雷厄姆那里学到了一个道理:”总会周期性地出现你找不到好投资机会的时候,在这些时候,去海滩是个好主意.” 或者像索罗斯的前合伙人吉姆·罗杰斯所说:”任何人都可以学到的最佳投资法则之一是不做任何事,绝对不做任何事,除非有事可做.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;虽说你得成为像爱迪生那样的天才才能发明电灯泡,要打开一盏灯却不需要成为天才.在天才已经为我们铺好道路的情况下,要制作一个灯泡也不需要成为天才.对投资者们来说,这条道路已经铺好了,那就是巴菲特、索罗斯和其他投资大师均虔诚奉行的思考习惯和思考方法.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;一天,我正上网球课时,我的教练指着旁边的场地问我:”你觉得他们的球龄有多长?” 在旁边的场地上,两对五六十岁的夫妇正在打混双.我观察了一会儿,发现他们没有一个是按教练教我的那些方式打球的.实际上,他们的打法跟我还没上过一堂网球课的时候一样. 于是我说,”我猜大概几年吧”. “我想是15~20年,”我的教练说,”他们从没上过网球课.他们的水平从没提高过,以后也不会提高.虽然你只是个初学者,但是你用刚学到的那些技能就可以打败像他们这样的对手”. 虽然你知道你永远也不会参加温布尔登网球赛,永远也不会得到在高尔夫大师赛中与”老虎”伍兹一决高下的机会,但你知道你可以通过学习职业选手的技巧,大大提高你的竞技水平. 同样,虽然你并不指望成为下一个沃伦·巴菲特或乔治·索罗斯,但学习世界上最伟大的两位投资者的投资习惯,无疑会提高你的投资绩效.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;沃伦·巴菲特所说:”对大多数投资者来说,重要的不是他们知道多少,而是他们能在多大程度上认识到自己不知道什么.” 划定你的能力范围是必不可少的一步,但光划定能力范围是不够的.真正的投资大师从不会在诱惑下走出他的投资领地(习惯八). 对投资新手来说,向诱惑说”不”可能是很难遵守的纪律之一.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;巴菲特回忆说,”在大师身边的几小时比10年的所谓独立思考更有价值”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;掌握一项技能的最快方法就是向拥有这种技能的大师学习. 如果一个人已经完善了一种对你很有吸引力的投资方法,你何必另起炉灶呢?去找他.如果有必要,申请无偿为他工作(就像巴菲特申请无偿为格雷厄姆工作一样). 即使这不可能,你也可以远距离学习你的导师.尽可能地阅读和研究一切有关他和他的方法的资料,在考虑一项投资时问自己:”他会怎么做?”&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 05 Apr 2025 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2025/04/05/%E5%B7%B4%E8%8F%B2%E7%89%B9%E4%B8%8E%E7%B4%A2%E7%BD%97%E6%96%AF%E7%9A%84%E6%8A%95%E8%B5%84%E4%B9%A0%E6%83%AF%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2025/04/05/%E5%B7%B4%E8%8F%B2%E7%89%B9%E4%B8%8E%E7%B4%A2%E7%BD%97%E6%96%AF%E7%9A%84%E6%8A%95%E8%B5%84%E4%B9%A0%E6%83%AF%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>炒股</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
+    
+      <item>
+        <title>汇编代码转IDA伪代码</title>
+        <description>&lt;h4 id=&quot;0x1-获取hex值后转为二进制文件&quot;&gt;0x1 获取hex值后转为二进制文件&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 定义十六进制字符串
+hex_data = (&quot;&quot;&quot;
+55 8B EC 83 EC 20 A1 E48C5602 33 C5 89 45 FC 8B 45 0C 53 8B 5D 08 89 45 E4 8B 01 
+56 8B 75 10 57 89 4D E8 89 5D E0 FF 50 04 F7 45 14 00040000 8B F8 57 8D 45 EC 8B 
+CE 50 0F84 C5000000 E8 5B8485FF 8B 55 E8 8D 5D EC FF 75 14 53 8B 4A 08 8B 55 E4 
+8B 02 8B 11 FF 70 F4 50 FF 52 68 66 0F6E 45 EC 8B C8 F2 0F10 15 D0DC1902 F3 0FE6 
+C0 83 FF 60 75 05 0F28 CA EB 1E 66 0F6E CF 8B C7 F3 0FE6 C9 C1 E8 1F F2 0F59 C2 
+F2 0F58 0C C5 F0DC1902 F2 0F5E C1 F2 0F11 06 66 0F6E 45 F0 F3 0FE6 C0 83 FF 60 74 
+08 F2 0F59 C2 F2 0F5E C1 F2 0F11 46 08 66 0F6E 45 F4 F3 0FE6 C0 74 08 F2 0F59 C2 
+F2 0F5E C1 F2 0F11 46 10 66 0F6E 45 F8 F3 0FE6 C0 74 08 F2 0F59 C2 F2 0F5E C1 F2 
+0F11 46 18 66 0F6E C1 F3 0FE6 C0 74 08 F2 0F59 C2 F2 0F5E C1 8B 5D E0 F2 0F11 03 
+EB 4E E8 968385FF 8B 55 E8 FF 75 14 50 8B 4A 08 8B 55 E4 8B 31 8B 12 FF 72 F4 52 
+FF 56 68 66 0F6E C8 F3 0FE6 C9 83 FF 60 74 20 F2 0F59 0D D0DC1902 66 0F6E C7 F3 
+0FE6 C0 C1 EF 1F F2 0F58 04 FD F0DC1902 F2 0F5E C8 F2 0F11 0B 8B 4D FC 8B C3 5F 5E 
+33 CD 5B E8 2F8E8C00 8B E5 5D C2 1000&quot;&quot;&quot;
+)
+hex_data=hex_data.replace(&quot; &quot;, &quot;&quot;).replace(&quot;\n&quot;,&quot;&quot;)
+
+# 去除空格并将十六进制字符串转换为字节
+byte_data = bytes.fromhex(hex_data)
+
+
+# 将字节写入二进制文件
+with open(&quot;output.bin&quot;, &quot;wb&quot;) as bin_file:
+    bin_file.write(byte_data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;0x2-ida加载二进制文件&quot;&gt;0x2 ida加载二进制文件&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ida加载第1步生成的二进制文件&lt;/li&gt;
+  &lt;li&gt;在ida中创建函数&lt;/li&gt;
+  &lt;li&gt;在创建的函数上F5&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 06 Nov 2024 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2024/11/06/%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BD%ACIDA%E4%BC%AA%E4%BB%A3%E7%A0%81/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E4%BA%8C%E8%BF%9B%E5%88%B6/2024/11/06/%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BD%ACIDA%E4%BC%AA%E4%BB%A3%E7%A0%81/</guid>
+        
+        <category>二进制</category>
+        
+        
+        <category>二进制</category>
+        
+      </item>
+    
+      <item>
+        <title>好书</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;孙子兵法&lt;/li&gt;
+  &lt;li&gt;道德经&lt;/li&gt;
+  &lt;li&gt;毛选&lt;/li&gt;
+  &lt;li&gt;穷查理宝典&lt;/li&gt;
+  &lt;li&gt;传习录&lt;/li&gt;
+  &lt;li&gt;六祖坛经&lt;/li&gt;
+  &lt;li&gt;第二曲线创新&lt;/li&gt;
+  &lt;li&gt;终身成长&lt;/li&gt;
+  &lt;li&gt;刻意练习&lt;/li&gt;
+  &lt;li&gt;认知天性&lt;/li&gt;
+  &lt;li&gt;反脆弱&lt;/li&gt;
+  &lt;li&gt;思考,快与慢&lt;/li&gt;
+  &lt;li&gt;弹性&lt;/li&gt;
+  &lt;li&gt;跃迁:成为高手的技术&lt;/li&gt;
+  &lt;li&gt;拆掉思维里的墙&lt;/li&gt;
+  &lt;li&gt;你就是孩子最好的玩具&lt;/li&gt;
+  &lt;li&gt;陪孩子终身成长&lt;/li&gt;
+  &lt;li&gt;掌控谈话&lt;/li&gt;
+  &lt;li&gt;考试脑科学&lt;/li&gt;
+  &lt;li&gt;掌控&lt;/li&gt;
+  &lt;li&gt;天才的学习方法&lt;/li&gt;
+  &lt;li&gt;人性实验&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 03 Oct 2023 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2023/10/03/%E5%A5%BD%E4%B9%A6/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2023/10/03/%E5%A5%BD%E4%B9%A6/</guid>
+        
+        <category>好书</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>学习和思考</title>
+        <description>&lt;p&gt;不断地学习和思考恐怕是每个人安身立命的根本所在.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 12 Nov 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/11/12/%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%80%9D%E8%80%83/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/11/12/%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%80%9D%E8%80%83/</guid>
+        
+        <category>学习</category>
+        
+        <category>思考</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>名人名言摘录</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;君子生非异也,善假于物也.(孔子)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;工欲善其事,必先利其器.(孔子)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;多则惑,少则得.(老子)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在投资方面我们之所以做得非常成功,是因为我们全神贯注于寻找我们可以轻松跨越的1英尺栏杆,而避开那些我们没有能力跨越的7英尺栏杆.(巴菲特)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;我这辈子遇到的聪明人没有不每天阅读的,一个都没有.(查理芒格)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;现在我提出四个问题,叫做”每天四问”;第一问:我的身体有没有进步?第二问:我的学问有没有进步?第三问:我的工作有没有进步?第四问:我的道德有没有进步?(陶行知)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果说我看的远,那是因为我站在巨人们的肩上.(牛顿)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;学习的敌人是自己的满足,要认真学习一点东西,必须从不自满开始,对自己,”学而不厌”,对人家”诲人不倦”,我们就取这种态度.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;学而不思则罔,思而不学则殆.(孔子)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;什么是路?路就是从没路的地方践踏出来的,从只有荆棘的地方开辟出来的.(鲁迅)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;谁在平日节衣缩食,在穷困时就能渡过难关;谁在富足时豪华奢侈,在穷困时就会死于饥寒.(萨迪)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 07 Nov 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/11/07/%E5%90%8D%E4%BA%BA%E5%90%8D%E8%A8%80%E6%91%98%E5%BD%95/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/11/07/%E5%90%8D%E4%BA%BA%E5%90%8D%E8%A8%80%E6%91%98%E5%BD%95/</guid>
+        
+        <category>名人名言</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>止损</title>
+        <description>&lt;h4 id=&quot;0x1-不止损的后果&quot;&gt;0x1 不止损的后果&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun1.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun2.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun3.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun4.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/3xp10it/pic/master/zhishun5.jpg&quot; data-action=&quot;zoom&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;0x2-止损后&quot;&gt;0x2 止损后&lt;/h4&gt;
+
+&lt;p&gt;止损后如果再次出现看好的买点可再次买入,例如止损后再涨回支撑位上方,例如止损后出现超跌买点,只需注意,每笔买入都需要设置止损.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Nov 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/%E7%82%92%E8%82%A1/2022/11/05/%E6%AD%A2%E6%8D%9F/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/%E7%82%92%E8%82%A1/2022/11/05/%E6%AD%A2%E6%8D%9F/</guid>
+        
+        <category>风控</category>
+        
+        
+        <category>炒股</category>
+        
+      </item>
+    
+      <item>
+        <title>六祖坛经笔记</title>
+        <description>&lt;h4 id=&quot;菩提自性本来清净但用此心直了成佛&quot;&gt;菩提自性,本来清净,但用此心,直了成佛&lt;/h4&gt;
+
+&lt;p&gt;自性就是自我本性,我们被厚厚的我执包裹在习气里面,和自性隔开了,很难体会自性究竟是个什么东西.自性是众生本具的,本自具足,本自清净,本不生灭,本无动摇,能生万法.众生迷而不觉,为贪嗔痴业力所障,不能明自本心,见自本性.人心先天具有成佛的觉悟本性,本来清净没有污染,只要用这个清净的本心,就可以直接开悟成佛.&lt;/p&gt;
+
+&lt;h4 id=&quot;菩提本无树明镜亦非台本来无一物何处惹尘埃&quot;&gt;菩提本无树,明镜亦非台,本来无一物,何处惹尘埃&lt;/h4&gt;
+
+&lt;p&gt;五祖的大弟子神秀作偈:”身是菩提树,心如明镜台,时时勤拂拭,勿使惹尘埃”,这个偈颂是有相的,着了心上的尘埃的相,于是六祖惠能提出”本来无一物,何处惹尘埃”.&lt;/p&gt;
+
+&lt;h4 id=&quot;我此法门从上以来先立无念为宗无相为体无住为本&quot;&gt;我此法门,从上以来,先立无念为宗,无相为体,无住为本&lt;/h4&gt;
+
+&lt;p&gt;我所宣讲的法门,从佛祖以来,一直是首先立无念为宗旨,以无相为本体,以无住为本根.所谓无相,基于一切相状而超离一切相状;所谓无念,生起心念而不执着于心念(在世间万事万物中不被浸染,在自我心念上,时常超离一切事物现象,不在所遇到的事物现象上生执着心,叫作无念);所谓无住,对于世间一切善恶好丑,甚至冤家对头,亲朋好友,在言语上发生攻击/刺伤/欺谎/论争的时候,一并将这些看成空幻,不去思索报复,时时刻刻,不追思拘泥于以前,这就是以无住为本.如果对于过去/现在/将来的心念,念念相续,思量不断,这叫作自我系缚.相反,对于一切法相,念念之间毫不执着,就是没有系缚,这就是以无住为本.自我真如本性生起心念,六种感觉器官虽然能看见/听到/觉察/了解,但不被外在一切事物现象所浸染,真如本性就是永恒自在的.&lt;/p&gt;
+
+&lt;h4 id=&quot;外于一切善恶境界心念不起名为坐内见自性不动名为禅&quot;&gt;外于一切善恶境界,心念不起,名为坐;内见自性不动,名为禅&lt;/h4&gt;
+
+&lt;p&gt;对于一切外在的善恶境界,不起心动念,这叫作坐;能识见内在自我本性寂然不动,这叫作禅.&lt;/p&gt;
+
+&lt;h4 id=&quot;本性自净自定只为见境思境即乱若见诸境心不乱者是真定也&quot;&gt;本性自净自定,只为见境思境即乱,若见诸境心不乱者,是真定也&lt;/h4&gt;
+
+&lt;p&gt;人的本性原是本自清净,本自安定的,只是因为遇见外境因而思虑执着于外境,所以内心就散乱了.如果能见到一切外境而内心不散乱的,这才是真正的定.&lt;/p&gt;
+
+&lt;h4 id=&quot;自性五分法身香&quot;&gt;自性五分法身香&lt;/h4&gt;
+
+&lt;p&gt;第一是戒香,就是自我本心中没有是非,没有善恶,没有嫉妒心,没有贪欲嗔怒,没有劫心毒害,这叫做戒香.第二是定香,就是看到一切善恶的外境外相,自心不散乱,这叫做定香.第三是慧香,自心通过没有障碍,时常用智慧观照自性,不造作一切恶业.虽然修行修行一切善业,自心却不生执着,敬重长辈,体念晚辈,怜悯抚恤孤苦贫困,这叫做慧香.第四香是解脱香,就是自心没有对外物生追求攀依之心,不思量善,不思量恶,自由自在,无所挂碍,这叫做解脱香.第五是解脱知见香,自心既没有对善恶生攀缘之心,也不能陷入虚空,固守枯寂,就是说需要广泛学习,多多听取教诲,识见自我本心,通达一切佛教真理,待人接物和光同尘,没有人我之执,直接达到无上觉悟,真我本性没有改变,这叫做解脱知见香.&lt;/p&gt;
+
+&lt;h4 id=&quot;无相忏悔&quot;&gt;无相忏悔&lt;/h4&gt;
+
+&lt;p&gt;弟子们以前/现在/将来的每一个念头,都不被愚昧迷惑沾染,以前所有造作的恶业/愚昧/迷惑等罪过,全部都忏悔,希望立即销毁灭断,永远不再重新生起.&lt;/p&gt;
+
+&lt;p&gt;弟子们以前/现在/将来的每一个念头,都不被骄狂傲妄沾染,以前所有造作的恶业/骄狂傲妄等罪过,全部都忏悔,希望立即销毁灭断,永远不再重新生起.&lt;/p&gt;
+
+&lt;p&gt;弟子们以前/现在/将来的每一个念头,都不被嫉妒沾染,以前所有造作的恶业/嫉妒等罪过,全部都忏悔,希望立即销毁灭断,永远不再重新生起.&lt;/p&gt;
+
+&lt;h4 id=&quot;发四弘誓愿&quot;&gt;发四弘誓愿&lt;/h4&gt;
+
+&lt;p&gt;自心众生无边誓愿度:心中的众生,就是我们所说的邪迷之心,诳妄之心,不善之心,嫉妒之心,恶毒之心等等,像这样的心,都是众生,大家必须各自运用本性自我度脱,这就叫真度.什么叫自性自度?就是自我本心中邪迷妄见/烦恼愚痴等众生,都用正确的知见将它们度脱,以正见度脱邪见生起,以觉悟度脱迷妄疑惑,以智慧度脱愚迷障碍,以善良心念度脱邪恶心念.这样的度,叫做真度.&lt;/p&gt;
+
+&lt;p&gt;自心烦恼无边誓愿断:运用自性般若智慧除去虚妄思想之心.&lt;/p&gt;
+
+&lt;p&gt;自性法门无尽誓愿学:自我识见本性,时常心行正确的教法,这叫做真正的佛法修行.&lt;/p&gt;
+
+&lt;p&gt;自性无上佛道誓愿成:要经常深入到心中,在心中按真正的佛法修心,不执着于愚迷也不执着于觉悟,常常生起般若智慧,不落于真实也不落于虚妄,就可识见佛性,就是立刻成就佛道.&lt;/p&gt;
+
+&lt;p&gt;常常心念修行四弘愿,这就是发挥愿力的方法.&lt;/p&gt;
+
+&lt;h4 id=&quot;无相三皈依戒&quot;&gt;无相三皈依戒&lt;/h4&gt;
+
+&lt;p&gt;皈依自我本性中的佛/法/僧三宝,佛就是觉悟,法就是正见,僧就是清净.自我本心皈依正确觉悟,邪见迷障不再生起,减少欲望,能知满足,能超离财富和美色,这叫做两足尊.自我本心皈依正见,时时刻刻没有邪恶愚见,由于没有邪见的原故,就没有人我之执,妄自尊大和贪爱执着,这叫做离欲尊.自我本心皈依清净,一切尘世烦恼,爱憎欲望境界,自我本性都不沾染执着,这叫做众中尊.&lt;/p&gt;
+
+&lt;h4 id=&quot;一体三身自性佛&quot;&gt;一体三身自性佛&lt;/h4&gt;
+
+&lt;p&gt;法身/报身/化身这三身佛都是在自我本性中的,世上的人均都本自具有.只是因为自我本心迷误,不能识见内在本性,向外寻求三身佛,而不能识见自我身中有三身佛.&lt;/p&gt;
+
+&lt;p&gt;清净法身佛:世上的人们自性本来清净,一切万法都从自我本性中生起.思虑一切邪恶之事,就生出邪恶行为,思虑一切善好之事,就会生善好的行为.像这样的一切法都存在于自我本性中,如同天空永远清湛,日月永远光明,而被浮云覆盖后,上面虽明亮,下面世间却顿入黑暗.忽然遇到风起吹动,浮云驱散,则上下全部通明透彻,一切景象全部显现.世上人们的自我本性常呈浮动飘游的状态,就好像在天空中时常盖覆的浮云.智就像太阳,慧就像月亮,智慧就像日月永放光明.执着于外境,就被妄念一般的浮云遮盖罩覆了自我本性,不能得到通明朗照.如果遇到善知识,听闻了真正的佛法,自我除却愚迷痴妄,内外通明透彻,在自我本性中世间万法全部显现.能识见本性的人,就是这样;这叫做清净法身佛.&lt;/p&gt;
+
+&lt;p&gt;圆满报身佛:比如一盏灯除却千年的黑暗,一个智慧灭尽了万年的愚迷.不要总是思虑以前,过往的过错已不能得以重新更正,应该时常思虑今后,时时刻刻保持圆融明彻,自我识见本性,善与恶虽然不同,但它们本性没有差别.没有差别的本性,叫做实性,在实性中,不沾染执着善恶分别,这叫做圆满报身佛.自我本性中生起一恶念,就能断灭万劫所修善因,自我本性中生起一善念,就能使得恒河沙一样多的恶业消失灭尽.直接成就无上菩提,时时刻刻自见本心,不失见性本念,叫做报身.&lt;/p&gt;
+
+&lt;p&gt;自性化身佛:如果不去思虑一切事物现象,本性原来就如同虚空.思虑一个念头,这就是变化.思虑恶的事,自我本性变成地狱,思虑善的事,自我本性变为天堂;起毒害心时变成龙蛇,生慈悲心时变成菩萨;生智慧时达到上界诸天的境界,犯痴愚时沦为下方恶道的境地.自我本性变化是非常多的,愚迷之人不能够内省觉悟,时时生起恶念,常常践行恶道;当一个善念回转,智慧则又立刻生起.这叫做自性化身佛.&lt;/p&gt;
+
+&lt;p&gt;法身佛本来具足在自我本性中,时时自己识见自我本性,就是报身佛,从报身佛去思量变化,就是法身佛;自我觉悟,自我修行自我本性功德,这是真正的皈依.人的皮肉是色身,色身如同房屋宅舍,不能说是皈依色身这个处所.只要能悟到自我本性中存在三身佛,就是识见了自我本性的佛.&lt;/p&gt;
+
+&lt;h4 id=&quot;一相三昧和一行三昧&quot;&gt;一相三昧和一行三昧&lt;/h4&gt;
+
+&lt;p&gt;如果要成就佛的智慧,必须达到一相三昧和一行三昧.如果在一切境相之中而能不执着于一切境相,对于那些相状不生起憎恶爱欲,也没有取得和舍弃,不考虑利益关系/成功失败等事情,安新恬静,虚融淡泊,这叫做一相三昧.如果在一切处所,行住坐卧,直了心性,不需要借助外在道场,当下成就真实净土,这叫做一行三昧.如果人具有这两个三昧,就如同大地中含有种子,经孕含/蓄藏/生长和培养,果实得以成熟.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 03 Sep 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/09/03/%E5%85%AD%E7%A5%96%E5%9D%9B%E7%BB%8F%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/09/03/%E5%85%AD%E7%A5%96%E5%9D%9B%E7%BB%8F%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>六祖坛经</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>去除坏习惯的方法</title>
+        <description>&lt;p&gt;阻止人们做一件不好的事情的最好的办法不是真的完全阻止,因为这件事已经到了需要想办法阻止的程度了就说明阻止它的难度很大.阻止人们做一件不好的事情的最好的办法是对这件事进行严格的管理,让人们去做这件事,但是要让做了这件事的影响最小化到基本等同于没有做,并实现让人们觉得做了和没做没什么区别,做它还挺麻烦甚至难受的想法(或者让人们做这件事,但是做完这件事要付出很大的代价,例如让人们做这件事,但是做完之后要做100个俯卧撑,或者做完之后要跑5公里),这样人们就会懒的去做了.根本原理是利用人性的懒惰来战胜贪婪(懒惰和贪婪可以互相用来战胜对方).例如失眠时阻止大脑想事情的方法可以:不阻止大脑想事情,反而是让大脑想事情,但是要管理它只让它想一件很简单很无聊的事情,这样大脑就自己想着想着觉得挺无聊挺麻烦的,然后大脑就懒得去想事情就睡着了.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Aug 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/08/28/%E5%8E%BB%E9%99%A4%E5%9D%8F%E4%B9%A0%E6%83%AF%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/28/%E5%8E%BB%E9%99%A4%E5%9D%8F%E4%B9%A0%E6%83%AF%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+        
+        <category>习惯</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+      <item>
+        <title>金刚经说什么笔记</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;金刚经:能断一切法,能破一切烦恼,能成就佛道的大智慧,脱离苦海而登彼岸成就的一部经典&lt;/li&gt;
+  &lt;li&gt;般若不是普通的聪明,是道体上根本的智慧,是身心投入求证得到的智慧,五种般若的内涵就是金刚般若&lt;/li&gt;
+  &lt;li&gt;实相般若:是形而上的道体,是宇宙万有的本源,也就是悟道所悟的那个道体,是属于般若中最根本的&lt;/li&gt;
+  &lt;li&gt;境界般若:人修持到某一境界,人生的境界就开朗到某一程度,古人说学佛乃大丈夫事,非帝王将相所能为,因为他的境界气派胸襟与众不同&lt;/li&gt;
+  &lt;li&gt;文字般若:我们大家都读过书都认得字,可是很少有人变成文学家,因为优美的句子出不来,没有文字般若&lt;/li&gt;
+  &lt;li&gt;方便般若:譬如看佛经,他能够用特殊的一种方法把难懂的立刻就懂进去,最难表达的东西他用一种方式表达出来别人一听就懂&lt;/li&gt;
+  &lt;li&gt;眷属般若:佛学讲的六度是指:布施/持戒/忍辱/精进/禅定/般若,般若前面的五个眷属就是眷属般若&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;罗汉菩萨如来&quot;&gt;罗汉菩萨如来&lt;/h4&gt;
+
+&lt;p&gt;离开人世间的一切,专心于自己的修行,其他一切不管的境界是罗汉境界,罗汉境界住空,不敢入世,一切不敢碰,眼不见心不烦,只管自己.自己没有悟道但是有宗教热忱,愿意先来救别人,帮助别人,教化别人做善事,这是菩萨境界.菩萨是如来的前因,成了佛是菩萨的果位,成就的果位.&lt;/p&gt;
+
+&lt;h4 id=&quot;善护念&quot;&gt;善护念&lt;/h4&gt;
+
+&lt;p&gt;不管儒家/佛家/道家,以及其他一切的宗教,人类一切的修养方法,都是这三个字:善护念.好好照应你的心念,起心动念,我们打坐,照顾自己不要胡思乱想,也是善护念,金刚经的重点就是善护念.&lt;/p&gt;
+
+&lt;h4 id=&quot;凡有所相皆是虚妄若见诸相非相即见如来&quot;&gt;凡有所相,皆是虚妄,若见诸相非相,即见如来&lt;/h4&gt;
+
+&lt;p&gt;佛是不可以以形相来相见的,把庙里的佛相当成是佛就是着相了,即使是佛在世的时候都不能看他肉身为师,那也是着相.真是有大成就的人,绝对的谦和,谦和到非常平实,什么都没有,真正的佛不认为自己是佛,真正的圣人,不认为自己是圣人,所以真正的佛法即非佛法.如果你有一个佛法的观念存在,你已经着相了.一个真正了不起的人,他认为度一切众生,教化一切众生,都是做人应该做的事情而已,做完了就过去了,心中不留.&lt;/p&gt;
+
+&lt;h4 id=&quot;应无所住而生其心&quot;&gt;应无所住而生其心&lt;/h4&gt;
+
+&lt;p&gt;无所住:物来则应,过去不留,如行云流水,流水在流,永远不停留地过去了,但是又有来的,而一切是无所住.做了一件好事,做完了就没有了,不要想着要别人的回报.同样,如果有人骂你也要放下,不要住在被骂这件事情上.禅宗六祖初步悟道,就是听到这一句话”应无所住而生其心”就开悟了.&lt;/p&gt;
+
+&lt;h4 id=&quot;一切有为法如梦幻泡影如露亦如电应作如是观&quot;&gt;一切有为法,如梦幻泡影,如露亦如电,应作如是观&lt;/h4&gt;
+
+&lt;p&gt;谁会记得b语言这种古老的编程技术?诺基亚火爆的时候霸占了手机的大半壁江山,现在诺基亚在哪里?闪电一闪之后就消失了,叶子上的露水在太阳出来后就了无踪迹.所有有为法,转瞬即逝,不应执着.&lt;/p&gt;
+
+&lt;h4 id=&quot;白话文&quot;&gt;白话文&lt;/h4&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;https://www.zhihu.com/question/20742809/answer/93149427&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 27 Aug 2022 00:00:00 +0800</pubDate>
+        <link>http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://3xp10it.cc/auxilary/2022/08/27/%E9%87%91%E5%88%9A%E7%BB%8F%E8%AF%B4%E4%BB%80%E4%B9%88%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>金刚经</category>
+        
+        
+        <category>auxilary</category>
+        
+      </item>
+    
+  </channel>
+</rss>
